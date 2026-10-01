@@ -62,3 +62,15 @@ a {
 .colofon {
   margin-top: 3rem;
 }
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --positief: #4fd19a;
+    --negatief: #ff8a75;
+    --oranje: #ff9a4d;
+  }
+}
+
+.pagina {
+  overflow-wrap: break-word;
+}
