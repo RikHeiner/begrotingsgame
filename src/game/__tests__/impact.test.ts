@@ -102,3 +102,23 @@ describe('Wat betekent het voor mij?', () => {
     expect(totaal(r)).toEqual({ nu: 0, straks: 0 });
   });
 });
+
+describe('hondenbelasting', () => {
+  const met = (kaarten: string[]) =>
+    berekenImpact(tarieven(), keuzes({ kaarten }), { ...standaardHuishouden(data), hond: true });
+
+  it('zonder de kaart: geen hondenbelasting', () => {
+    const r = met([]).find((x) => x.naam === 'Hondenbelasting');
+    expect(r).toMatchObject({ nu: 0, straks: 0 });
+  });
+
+  it('met de kaart: € 133 per jaar', () => {
+    const r = met(['k_hond']).find((x) => x.naam === 'Hondenbelasting');
+    expect(r).toMatchObject({ nu: 0, straks: 133 });
+  });
+
+  it('zonder hond: geen regel', () => {
+    const r = berekenImpact(tarieven(), keuzes({ kaarten: ['k_hond'] }), standaardHuishouden(data));
+    expect(r.find((x) => x.naam === 'Hondenbelasting')).toBeUndefined();
+  });
+});

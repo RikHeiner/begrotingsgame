@@ -90,6 +90,15 @@ describe('gekoppelde baten', () => {
     expect(perJaarMln(r, direct('w8'), data.jaren)).toEqual([0, 0, 0, 0]);
   });
 
+  it('hondenbelasting weer invoeren: € 1,015 mln vanaf het tweede jaar, als aanname', () => {
+    const r = bereken(data, keuzes({ kaarten: ['k_hond'] }));
+    expect(perJaarMln(r, direct('k_hond'), data.jaren)).toEqual([0, 1.015, 1.015, 1.015]);
+    expect(
+      r.effecten.filter((e) => e.bron === 'k_hond').every((e) => e.zekerheid === 'aanname'),
+    ).toBe(true);
+    expect(magWijzigen(data, GEEN_KEUZES, keuzes({ kaarten: ['k_hond'] })).ok).toBe(true);
+  });
+
   it('energiesubsidies −100% levert maar 0,3 mln op', () => {
     const r = bereken(data, keuzes({ onderdelen: { w6: -100 } }));
     expect(perJaarMln(r, direct('w6'), data.jaren)).toEqual([0.3, 0.3, 0.3, 0.3]);

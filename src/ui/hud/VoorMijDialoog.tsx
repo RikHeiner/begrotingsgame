@@ -154,6 +154,16 @@ export function VoorMijDialoog({
             Ik heb een bezoekersvergunning
           </label>
         )}
+        {t.hondenbelasting && (
+          <label className="keuze">
+            <input
+              type="checkbox"
+              checked={h.hond}
+              onChange={(e) => zet({ hond: e.target.checked })}
+            />
+            Ik heb een hond
+          </label>
+        )}
         <label className="keuze">
           <input
             type="checkbox"

@@ -123,6 +123,11 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
     - *Vraag:* hoeveel extra woningen per jaar levert € 1 mln per jaar extra voor RO-ambtenaren op? En welke beleidskeuzes moeten er nog bij?
 54. **WOZ-waarde van nieuwbouw.** Een nieuwe woning betaalt nu OZB over de WOZ-waarde van nieuwbouw: de gemiddelde WOZ-waarde (€ 340.000, kerngegevens) × 1,32 = ongeveer € 447.000, dus € 661 OZB per jaar (was € 501). De factor 1,32 komt uit CBS Kerncijfers wijken en buurten 2025 (86165NED): in 115 buurten van Groningen hangt de gemiddelde WOZ-waarde samen met het aandeel woningen uit de afgelopen tien jaar; een buurt met alleen nieuwbouw komt uit op € 412.000 tegen € 313.000 gemiddeld. Buurten met minstens de helft nieuwbouw (onder andere Reitdiep, Meeroevers, Tersluis, De Zeilen) geven € 407.000. CBS heeft geen tabel met de WOZ-waarde naar bouwjaar, dus de factor is een aanname met ⚠︎.
 
+55. **Hondenbelasting weer invoeren.** Nieuwe actiekaart `k_hond` in het Veilinghuis: € 1,015 mln per jaar vanaf 2027 (eerst een nieuwe verordening), en in "Wat betekent het voor mij?" het vinkje "Ik heb een hond" (€ 133 per jaar met de kaart). Groningen schafte de hondenbelasting af per 1 januari 2022 en verhoogde daarvoor de OZB (€ 3,50 bij een WOZ-waarde van € 200.000). Bronnen: [RTV Noord, 6 juli 2021](https://www.rtvnoord.nl/nieuws/832820/groningen-schaft-hondenbelasting-af-ozb-gaat-omhoog) (€ 133 per hond), [OOG](https://www.oogtv.nl/2021/07/hondenbelasting-in-gemeente-groningen-wordt-afgeschaft/) (ongeveer € 1 mln) en de raadsbrief "Reactie op drie moties m.b.t. hondenbelasting" (€ 1,015 mln voor 2021; dat document was niet te openen, het bedrag komt uit een zoekresultaat). Ter vergelijking (COELO 2026): 100 van de 342 gemeenten heffen hondenbelasting, mediaan € 77,52; bij de grote steden die het heffen is de mediaan € 103,85.
+    - Het bedrag is van 2021 en niet geïndexeerd, en het aantal honden kan veranderd zijn: daarom ⚠︎ aanname.
+    - Niet meegerekend: de kosten van heffen en controleren, en kwijtschelding.
+    - *Vraag:* met welk tarief wil de fractie rekenen: het oude Groningse tarief (€ 133), de mediaan van de grote steden (€ 103,85) of een ander bedrag?
+
 ## Besluiten (1 oktober 2026)
 
 | Punt | Besluit | Verwerkt |

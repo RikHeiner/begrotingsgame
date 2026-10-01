@@ -161,6 +161,9 @@ export function maakData(ruw: RuweData): Data {
     throw new DataFout(ruw.tarieven.bestand, [
       `dit zijn de tarieven van ${tarieven.begrotingsjaar}, maar config.json verwacht ${config.actiefJaar}`,
     ]);
+  const hondKaart = tarieven?.hondenbelasting?.kaart;
+  if (ruw.tarieven && hondKaart && !begroting.actiekaarten.some((k) => k.id === hondKaart))
+    throw new DataFout(ruw.tarieven.bestand, [`actiekaart "${hondKaart}" bestaat niet`]);
   const parkeren = ruw.parkeren
     ? valideer(parkerenSchema, ruw.parkeren.inhoud, ruw.parkeren.bestand)
     : undefined;

@@ -198,6 +198,7 @@ Lasten en meebewegende baten per post. ✓ = gecontroleerd tegen het boekwerk (i
 | ☐ | k_smr | Onderzoek kleine kerncentrale (SMR) | − 0,500 | I | VVD-tegenbegroting 2026 'Het kan en moet anders' |
 | ☐ | k_bouw | Sneller-bouwenfonds | − 5,000 | S | VVD-tegenbegroting 2026 'Het kan en moet anders' |
 | ☐ | k_ai | Investeren in AI | − 2,000 | S | VVD-tegenbegroting 2026 'Het kan en moet anders' |
+| ☐ | k_hond | Hondenbelasting weer invoeren | + 1,015 | S | Opbrengst 2021 (€ 1,015 mln) en tarief (€ 133 per hond): RTV Noord, 6 juli 2021, en de raadsbrief over de afschaffing. Bedrag van 2021, niet geïndexeerd; het aantal honden kan veranderd zijn. |
 
 ## 7. Aannames in de kettingeffecten
 

@@ -2265,6 +2265,21 @@
    "uitleg": "Slimmere gemeentelijke dienstverlening.",
    "meter_effect_punten": {},
    "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_hond",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": 1.015,
+   "naam": "Hondenbelasting weer invoeren",
+   "uitleg": "Groningen schafte de hondenbelasting per 2022 af. Weer invoeren levert ongeveer € 1 mln per jaar op (€ 133 per hond), vanaf 2027: eerst moet er een nieuwe verordening komen.",
+   "meter_effect_punten": {},
+   "bron": "Opbrengst 2021 (€ 1,015 mln) en tarief (€ 133 per hond): RTV Noord, 6 juli 2021, en de raadsbrief over de afschaffing. Bedrag van 2021, niet geïndexeerd; het aantal honden kan veranderd zijn.",
+   "ingroeipad": [
+    0,
+    1
+   ],
+   "zekerheid": "aanname"
   }
  ],
  "opmerkingen": [

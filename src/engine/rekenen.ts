@@ -157,6 +157,7 @@ function directeEffecten(data: Data, keuzes: Keuzes): Effect[] {
       continue;
     }
     const structureel = k.structureel_of_incidenteel === 'S';
+    const voor = effecten.length;
     voegToe(
       {
         bron: id,
@@ -169,6 +170,7 @@ function directeEffecten(data: Data, keuzes: Keuzes): Effect[] {
         structureel ? bedrag * ingroei(k.ingroeipad, j) : j === 0 ? bedrag : 0,
       ),
     );
+    if (k.zekerheid) for (const e of effecten.slice(voor)) e.zekerheid = k.zekerheid;
   }
   return effecten;
 }

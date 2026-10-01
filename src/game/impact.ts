@@ -18,6 +18,8 @@ export type Huishouden = {
   bezoekers: boolean;
   /** inkomen rond of onder het sociaal minimum */
   minimum: boolean;
+  /** heeft een hond (alleen van belang als de hondenbelasting weer wordt ingevoerd) */
+  hond: boolean;
 };
 
 export type ImpactRij = {
@@ -38,6 +40,7 @@ export function standaardHuishouden(data: Data): Huishouden {
     vergunningen: 1,
     bezoekers: false,
     minimum: false,
+    hond: false,
   };
 }
 
@@ -129,6 +132,20 @@ export function berekenImpact(
             uitleg: 'Betalen eigenaren. Ook een doelbelasting: in de game blijft hij gelijk.',
           },
     );
+
+  // Hondenbelasting: Groningen heft die niet; met de actiekaart komt hij terug.
+  const hond = tarieven.hondenbelasting;
+  if (h.hond && hond) {
+    const ingevoerd = keuzes.kaarten.includes(hond.kaart);
+    rijen.push({
+      naam: 'Hondenbelasting',
+      nu: 0,
+      straks: ingevoerd ? hond.tarief : 0,
+      uitleg: ingevoerd
+        ? `Je voert de hondenbelasting weer in: € ${hond.tarief} per hond per jaar (het tarief van ${hond.jaar}).`
+        : 'Groningen heeft geen hondenbelasting. Die kun je in het Veilinghuis weer invoeren.',
+    });
+  }
 
   // Parkeren: het tarief per tariefgebied en de keuze per post (zie engine/parkeren.ts).
   const post = (vergunning: string, gebied?: string) =>

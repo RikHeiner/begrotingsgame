@@ -18,5 +18,11 @@
       "ozb"
     ],
     "toelichting": "Met een inkomen rond het sociaal minimum kun je kwijtschelding aanvragen. Vanaf 2026 kan dat bij de gemeente Groningen ook voor de rioolheffing en de OZB van je woning. Of je het krijgt, hangt ook af van je vermogen."
+  },
+  "hondenbelasting": {
+    "kaart": "k_hond",
+    "tarief": 133,
+    "jaar": 2021,
+    "bron": "Laatste tarief van de gemeente Groningen (2021), RTV Noord 6 juli 2021. Afgeschaft per 2022."
   }
 }

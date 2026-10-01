@@ -108,6 +108,8 @@ export const actiekaartSchema = z
     investering: investeringSchema.optional(),
     ingroeipad: ingroeipad.optional(),
     gebouw: z.string().optional(),
+    /** zekerheid van het bedrag (standaard feit) */
+    zekerheid: z.enum(['feit', 'aanname', 'te onderzoeken']).optional(),
   })
   .strict()
   .refine((k) => (k.soort === 'opbrengst' ? k.bedrag_mln >= 0 : k.bedrag_mln <= 0), {
@@ -511,6 +513,11 @@ export const tarievenSchema = z
       .object({ een_persoon: euro, twee_personen: euro, drie_of_meer: euro })
       .strict(),
     rioolheffing_eigenaar: euro,
+    /** tarief als de hondenbelasting (weer) wordt ingevoerd met de actiekaart */
+    hondenbelasting: z
+      .object({ kaart: z.string(), tarief: euro, jaar: z.number().int(), bron: z.string() })
+      .strict()
+      .optional(),
     kwijtschelding: z
       .object({
         belastingen: z.array(z.enum(['afvalstoffenheffing', 'rioolheffing', 'ozb'])),
