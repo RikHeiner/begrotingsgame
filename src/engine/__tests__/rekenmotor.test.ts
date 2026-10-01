@@ -79,11 +79,15 @@ describe('gekoppelde baten', () => {
     expect(perJaarMln(r, direct('m2'), data.jaren)).toEqual([-1, -1, -1, -1]);
   });
 
-  it('omgevingsvergunningen −50% kost netto geld', () => {
+  it('omgevingsvergunningen zitten vast: de bouwleges zijn 100% kostendekkend', () => {
+    const w8 = data.index.onderdelen.get('w8');
+    expect(w8?.vergrendeld).toBe(true);
+    expect(w8?.doorgeefluik_heffing).toBe(true);
+    const m = magWijzigen(data, GEEN_KEUZES, keuzes({ onderdelen: { w8: -50 } }));
+    expect(m.ok).toBe(false);
+    expect(m.reden).toMatch(/kostendekkend/);
     const r = bereken(data, keuzes({ onderdelen: { w8: -50 } }));
-    // −(−0,5) × (10,5 − 17,9) = −3,7
-    expect(perJaarMln(r, direct('w8'), data.jaren)).toEqual([-3.7, -3.7, -3.7, -3.7]);
-    expect(r.perJaar[data.jaren[0] ?? 0]?.structureel).toBeLessThan(0);
+    expect(perJaarMln(r, direct('w8'), data.jaren)).toEqual([0, 0, 0, 0]);
   });
 
   it('energiesubsidies −100% levert maar 0,3 mln op', () => {

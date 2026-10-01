@@ -104,7 +104,7 @@ Lasten en meebewegende baten per post. ✓ = gecontroleerd tegen het boekwerk (i
 | ☐ | w4 | Ambtenaren wonen | 1.3 | 4,600 | – | -50% tot +25% | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe') |
 | ☐ | w6 | Energiesubsidies | 1.3 | 12,000 | 11,700 | -100% tot +25% | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe') |
 | ☐ | w7 | Extra geld energietransitie | 1.3 | 2,275 | – | -100% tot +25% | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | w8 | Omgevingsvergunningen | 1.3 | 10,500 | 17,900 | -50% tot +50% | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe') |
+| ☐ | w8 | Omgevingsvergunningen | 1.3 | 10,500 | 17,900 | 🔒 vast | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe') |
 | ☐ | w10 | Toezicht op bouwen | 1.3 | 2,100 | – | -100% tot +25% | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe') |
 | ☐ | w11 | Verduurzamen gemeentegebouwen | 1.3 | 1,300 | – | -100% tot +25% | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe') |
 | ☐ | o1 | Onderhoud straten, groen en speeltuinen | 2.1 | 66,400 | 1,900 | -50% tot +25% | Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe') |
@@ -207,7 +207,6 @@ Parameters met status "aanname" of "te onderzoeken". Deze bedragen staan in de g
 | --- | --- | --- | --- | --- |
 | kd_afval | aandeel_toegerekende_overhead | 0.1 | te onderzoeken | Deel van de overhead dat via de heffing wordt gedekt. Minder afvaldienst betekent minder overhead die de heffing draagt, wat de algemene middelen belast. Opvragen bij de gemeente. |
 | kd_riool | factor_groen_riool | 0.1 | aanname | Zeer onzeker; alleen als verhalend effect tonen of na onderzoek met een getal. |
-| kd_leges_omgeving | elasticiteit_capaciteit | 1 | aanname | Aanname: leges dalen evenredig met capaciteit. |
 | kd_leges_omgeving | drempel_pct | 20 | aanname | Toegevoegd uit de formule (bij pct < -20): vanaf deze bezuiniging loopt de woningbouw vertraging op. |
 | kd_bedrijfsafval | aandeel_vaste_kosten | 0.2 | te onderzoeken | Welk deel van de kosten doorloopt als de gemeente stopt. |
 | kd_werkplaats | aandeel_overheadvrijval | 0.1 | te onderzoeken |  |

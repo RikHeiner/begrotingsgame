@@ -70,9 +70,9 @@ const GEVALLEN: Record<string, Geval> = {
     status: 'alleen uitleg',
     bedragen: [0, 0, 0, 0],
   },
-  // Midden: elasticiteit 1, dus geen extra effect; wel minder bouwtempo: (50 − 20)/100 = 0,3
+  // w8 zit vast (bouwleges kostendekkend); e10 −50% geeft minder bouwtempo: (50 − 20)/100 = 0,3
   kd_leges_omgeving: {
-    keuzes: { onderdelen: { w8: -50 } },
+    keuzes: { onderdelen: { e10: -50 } },
     status: 'doorgerekend',
     bedragen: [0, 0, 0, 0],
     controle: (r) => expect(r.grootheden.bouw_tempo?.[0]).toBeCloseTo(0.7, 10),
@@ -384,21 +384,18 @@ describe('dwarsverbanden', () => {
   });
 
   it('voorzichtig kiest de minst gunstige kant, optimistisch de meest gunstige', () => {
-    // kd_leges_omgeving, w8 −50%: extra = −0,5 × 17,9 × (e − 1), e = 0,5 of 1,5
-    const voorzichtig = bereken(data, keuzes({ onderdelen: { w8: -50 }, scenario: 'voorzichtig' }));
-    const optimistisch = bereken(
-      data,
-      keuzes({ onderdelen: { w8: -50 }, scenario: 'optimistisch' }),
-    );
+    // ec_parkeren_elasticiteit, t5 +20%: 35,1 × e × 0,2 × 1,2, e = −0,6 (hoog) of −0,1 (laag)
+    const t5 = (scenario: 'voorzichtig' | 'optimistisch') =>
+      bereken(data, keuzes({ belastingen: { t5: 20 }, scenario }));
+    const voorzichtig = t5('voorzichtig');
+    const optimistisch = t5('optimistisch');
     const jaren = data.jaren;
-    expect(perJaarMln(voorzichtig, (e) => e.verband === 'kd_leges_omgeving', jaren)).toEqual([
-      -4.475, -4.475, -4.475, -4.475,
-    ]);
-    expect(perJaarMln(optimistisch, (e) => e.verband === 'kd_leges_omgeving', jaren)).toEqual([
-      4.475, 4.475, 4.475, 4.475,
-    ]);
-    expect(voorzichtig.verbanden.kd_leges_omgeving?.eind).toBe('hoog');
-    expect(optimistisch.verbanden.kd_leges_omgeving?.eind).toBe('laag');
+    const som = (r: Resultaat) =>
+      perJaarMln(r, (e) => e.verband === 'ec_parkeren_elasticiteit', jaren);
+    expect(som(voorzichtig)).toEqual([-5.0544, -5.0544, -5.0544, -5.0544]);
+    expect(som(optimistisch)).toEqual([-0.8424, -0.8424, -0.8424, -0.8424]);
+    expect(voorzichtig.verbanden.ec_parkeren_elasticiteit?.eind).toBe('hoog');
+    expect(optimistisch.verbanden.ec_parkeren_elasticiteit?.eind).toBe('laag');
   });
 
   it('de volgorde respecteert de graaf, ook bij grootheden', () => {

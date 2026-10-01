@@ -185,20 +185,10 @@ export const IMPLEMENTATIES: Record<string, Implementatie> = {
   kd_leges_omgeving: {
     schrijft: ['bouw_tempo'],
     reken(c) {
-      const p = c.p('w8');
-      const laagste = Math.min(c.p('w8'), c.p('e10'), c.p('w4'));
-      if (!p && laagste >= 0) return;
-      if (p) {
-        const e = c.param('elasticiteit_capaciteit');
-        // De gekoppelde baten bewegen in het directe effect al 1-op-1 mee; hier alleen de afwijking.
-        c.effect({
-          doel: 'baten:w8',
-          kant: 'baten',
-          bedragen: perJaar(c.n, () => p * c.baten('w8') * (e - 1)),
-          params: ['elasticiteit_capaciteit'],
-          uitleg: `De leges bewegen mee met de capaciteit van de vergunningverleners (elasticiteit ${e}). In het directe effect bewegen ze 1-op-1 mee; dit is het verschil.`,
-        });
-      }
+      // De omgevingsvergunningen (w8) zitten vast: de bouwleges zijn 100% kostendekkend. Minder
+      // ambtenaren voor wonen en gebiedsontwikkeling vertraagt wel de woningbouw.
+      const laagste = Math.min(c.p('e10'), c.p('w4'));
+      if (laagste >= 0) return;
       const drempel = c.param('drempel_pct');
       const pct = laagste * 100;
       if (pct < -drempel) {

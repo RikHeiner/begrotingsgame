@@ -73,25 +73,17 @@
   {
    "id": "kd_leges_omgeving",
    "categorie": "Kostendekkende heffingen",
-   "naam": "Vergunningverleners en leges",
+   "naam": "Ambtenaren wonen en gebiedsontwikkeling, en het bouwtempo",
    "van": [
-    "w8",
     "e10",
     "w4"
    ],
    "naar": [
-    "baten:w8",
     "grootheid:bouw_tempo"
    ],
-   "mechanisme": "Minder vergunningverleners betekent minder afgehandelde aanvragen, dus minder leges. Omdat de leges hoger zijn dan de directe lasten (17,9 tegenover 10,5 mln), kost bezuinigen hier netto geld. Bovendien vertraagt woningbouw.",
-   "formule": "delta_baten = pct * baten_leges * elasticiteit_capaciteit; bij pct < -20: bouw_tempo -= (|pct|-20)/100",
+   "mechanisme": "De bouwleges (omgevingsvergunningen, w8) moeten 100% kostendekkend zijn en zitten daarom vast, net als de doelbelastingen. Minder ambtenaren voor wonen (w4) en gebiedsontwikkeling (e10) vertraagt wel de woningbouw.",
+   "formule": "bij pct < -drempel_pct: bouw_tempo -= (|pct| - drempel_pct)/100",
    "parameters": {
-    "elasticiteit_capaciteit": {
-     "waarde": 1.0,
-     "eenheid": "fractie",
-     "status": "aanname",
-     "toelichting": "Aanname: leges dalen evenredig met capaciteit."
-    },
     "drempel_pct": {
      "waarde": 20,
      "eenheid": "procent",
@@ -105,7 +97,7 @@
     "werk": "-",
     "wonen": "-"
    },
-   "melding": "Minder vergunningverleners: je mist leges, dus dit kost netto geld. Woningbouw loopt vertraging op.",
+   "melding": "Minder ambtenaren voor wonen en gebiedsontwikkeling: de woningbouw loopt vertraging op.",
    "bron": "Begroting 2026 deelprogramma 1.3"
   },
   {
@@ -1427,23 +1419,21 @@
   {
    "id": "wg_woningbouw",
    "categorie": "Wonen, groei en grond",
-   "naam": "Sneller bouwen: meer OZB, leges en gemeentefonds",
+   "naam": "Sneller bouwen: meer OZB en gemeentefonds",
    "van": [
     "k_bouw",
     "w1",
     "w2",
-    "w4",
-    "w8"
+    "w4"
    ],
    "naar": [
     "t1",
-    "baten:w8",
     "grootheid:gemeentefonds",
     "verband:or_areaal",
     "d1",
     "z3"
    ],
-   "mechanisme": "Meer woningen leveren meer OZB, meer leges en meer gemeentefonds op. Maar nieuwe inwoners gebruiken ook scholen, sport, zorg en openbare ruimte. Het netto-effect is positief, maar pas na enkele jaren.",
+   "mechanisme": "Meer woningen leveren meer OZB en meer gemeentefonds op. De bouwleges zijn kostendekkend en leveren netto niets op. Maar nieuwe inwoners gebruiken ook scholen, sport, zorg en openbare ruimte. Het netto-effect is positief, maar pas na enkele jaren.",
    "formule": "per_extra_woning: +ozb_per_woning +gemeentefonds_per_woning -onderhoud_per_woning -voorzieningen_per_woning",
    "parameters": {
     "ozb_per_woning": {

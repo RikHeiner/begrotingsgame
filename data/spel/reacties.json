@@ -874,14 +874,6 @@
       "toon": "positief"
     },
     {
-      "id": "w8_minder",
-      "voorwaarde": "pct.w8 <= -20",
-      "tekst": "Ik wacht lang op mijn vergunning voor de dakkapel 📝",
-      "personas": ["gezin", "kees"],
-      "gewicht": 3,
-      "toon": "negatief"
-    },
-    {
       "id": "w6_minder",
       "voorwaarde": "pct.w6 <= -50",
       "tekst": "Geen subsidie meer voor mijn zonnepanelen ☀️",
