@@ -1,0 +1,64 @@
+:root {
+  --blauw: #1233c4;
+  --oranje: #ff6a00;
+  --inkt: #15193a;
+  --achtergrond: #f6f7fc;
+  --positief: #15875a;
+  --negatief: #c4321e;
+  color-scheme: light dark;
+  font-family:
+    Asap,
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
+  color: var(--inkt);
+  background: var(--achtergrond);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --inkt: #eef0fb;
+    --achtergrond: #11142b;
+    --blauw: #8fa2ff;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--achtergrond);
+}
+
+.pagina {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+h1,
+h2 {
+  font-family: 'Baloo 2', system-ui, sans-serif;
+  color: var(--blauw);
+  line-height: 1.15;
+}
+
+a {
+  color: var(--blauw);
+}
+
+.fout {
+  color: var(--negatief);
+}
+
+.bron,
+.colofon {
+  font-size: 0.875rem;
+}
+
+.colofon {
+  margin-top: 3rem;
+}

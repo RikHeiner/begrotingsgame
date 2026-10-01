@@ -1,0 +1,11 @@
+node_modules
+dist
+coverage
+test-results
+playwright-report
+package-lock.json
+prototype
+# Bronbestanden en opdrachttekst niet herformatteren
+data
+PROMPT-claude-code.md
+UPDATE-BEGROTING.md
