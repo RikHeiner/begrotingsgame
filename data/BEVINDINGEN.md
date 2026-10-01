@@ -128,6 +128,11 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
     - Niet meegerekend: de kosten van heffen en controleren, en kwijtschelding.
     - *Vraag:* met welk tarief wil de fractie rekenen: het oude Groningse tarief (€ 133), de mediaan van de grote steden (€ 103,85) of een ander bedrag?
 
+56. **Geen plafond meer op meer uitgeven.** Posten konden niet meer dan +25% omhoog. Dat was een spelregel zonder reden. Nu hebben 79 posten geen maximum (`max_pct: null`): de schuif loopt tot +100% en daarboven kun je zelf een bedrag typen. Je hebt wel dekking nodig (het slot op de pot). Alleen waar een echte grens is, staat een maximum met de reden erbij (`max_reden`):
+    - College van B en W (`g1`): maximaal +12,5%. De Gemeentewet (art. 36) staat maximaal 20% van het aantal raadsleden als wethouder toe; bij 45 raadsleden zijn dat er 9, en Groningen heeft er nu 8 ([gemeente Groningen](https://gemeente.groningen.nl/samenstelling-college-van-bw-taken-en-contact)).
+    - De ondergrenzen (wettelijke taken, bijvoorbeeld jeugdzorg −10%) en de vaste posten zijn niet veranderd. De belastingen en parkeertarieven hebben nog hun oude maximum (bijvoorbeeld OZB +20%).
+    - *Vraag:* moeten de belastingen ook zonder maximum? Er is geen wettelijk maximum voor de OZB; wel stijgt de woonlastenvergelijking dan mee.
+
 ## Besluiten (1 oktober 2026)
 
 | Punt | Besluit | Verwerkt |
@@ -155,6 +160,7 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
 | 50. Inwoners per woning | 1,93 (het gemiddelde). | Zo gebleven. |
 | 23. Water | Echte waterlijnen uit PDOK. | Gedaan. |
 | Netlify | Eerst hier verbeteren, daarna met de hand uploaden. | Open. |
+| Maximum op uitgaven | Geen plafond, tenzij het echt niet kan (zoals het maximum aantal wethouders). | Punt 56. |
 | Blije inwoners | Eerst weglaten; later misschien anders. | Punt 46. |
 | Bedragen | Naast het percentage ook een bedrag kunnen invullen. | Punt 48. |
 | Fase 7. Video | Geen persoonlijke video; de tegenbegroting blijft als Word, pdf en afbeelding. | `docs/VIDEO-ONTWERP.md` bewaard, niet gebouwd. |

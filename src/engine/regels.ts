@@ -13,14 +13,19 @@ import type { Keuzes } from './types';
 export type Grens = { min: number; max: number; reden?: string };
 
 export function grensOnderdeel(o: Onderdeel): Grens {
-  if (o.vergrendeld || o.min_pct === null || o.max_pct === null) {
+  if (o.vergrendeld || o.min_pct === null) {
     return {
       min: 0,
       max: 0,
       reden: `🔒 ${o.reden_vergrendeld ?? 'Deze post kun je in de game niet aanpassen.'}`,
     };
   }
-  return { min: o.min_pct, max: o.max_pct };
+  // Zonder max_pct is er geen maximum: meer uitgeven mag, als er dekking is.
+  return {
+    min: o.min_pct,
+    max: o.max_pct ?? Infinity,
+    ...(o.max_reden ? { reden: o.max_reden } : {}),
+  };
 }
 
 export function grensBelasting(b: Belasting): Grens {
@@ -40,7 +45,8 @@ export function buitenGrens(
       ? `🔒 ${naam} is een wettelijke taak. De gemeente moet dit blijven doen. Verder dan ${formatPct(grens.min)} kan niet.`
       : `Bij ${naam} kan het niet verder omlaag dan ${formatPct(grens.min)}.`;
   }
-  if (pct > grens.max) return `Bij ${naam} kan het niet verder omhoog dan ${formatPct(grens.max)}.`;
+  if (pct > grens.max)
+    return `Bij ${naam} kan het niet verder omhoog dan ${formatPct(grens.max)}.${grens.reden ? ` ${grens.reden}` : ''}`;
   return undefined;
 }
 

@@ -24,6 +24,9 @@ export type SchuifProps = {
   onChange: (waarde: number) => void;
 };
 
+/** Bovenkant van de schuif als een post geen maximum heeft. */
+export const SCHUIF_MAX = 100;
+
 const toon = (x: number, eenheid: SchuifBedrag['eenheid']) =>
   x.toLocaleString('nl-NL', {
     minimumFractionDigits: 2,
@@ -95,6 +98,8 @@ export function Schuif({
   onChange,
 }: SchuifProps) {
   const uitleg = beschrijving ? `${id}-uitleg` : undefined;
+  // Zonder maximum loopt de schuif tot +100%; meer kun je als bedrag typen.
+  const schuifMax = Number.isFinite(max) ? max : Math.max(SCHUIF_MAX, waarde);
   return (
     <div className="schuif">
       <label htmlFor={id}>{label}</label>
@@ -102,7 +107,7 @@ export function Schuif({
         id={id}
         type="range"
         min={min}
-        max={max}
+        max={schuifMax}
         step={stap}
         value={waarde}
         disabled={vergrendeld}

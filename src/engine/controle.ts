@@ -109,8 +109,8 @@ export function controleer({ data, buurtcodes, mappings = [] }: ControleInvoer):
   for (const o of b.onderdelen) {
     if (!codes.has(o.deelprogramma))
       fout('onderdelen', `${o.id}: deelprogramma ${o.deelprogramma} bestaat niet.`);
-    if (!o.vergrendeld && (o.min_pct === null || o.max_pct === null)) {
-      fout('onderdelen', `${o.id}: niet vergrendeld, maar min_pct of max_pct ontbreekt.`);
+    if (!o.vergrendeld && o.min_pct === null) {
+      fout('onderdelen', `${o.id}: niet vergrendeld, maar min_pct ontbreekt.`);
     }
     if (o.vergrendeld && !o.reden_vergrendeld) {
       waarschuw('onderdelen', `${o.id}: vergrendeld zonder reden voor de speler.`);

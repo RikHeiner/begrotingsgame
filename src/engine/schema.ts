@@ -51,7 +51,10 @@ export const onderdeelSchema = z
     lasten_mln: z.number().nonnegative(),
     gekoppelde_baten_mln: z.number().nonnegative(),
     min_pct: z.number().min(-100).max(0).nullable(),
-    max_pct: z.number().min(0).max(100).nullable(),
+    /** null = geen maximum (alleen bij een echte grens een getal, met max_reden) */
+    max_pct: z.number().min(0).nullable(),
+    /** waarom er een maximum is (bijvoorbeeld een wettelijke grens) */
+    max_reden: z.string().optional(),
     vergrendeld: z.boolean(),
     reden_vergrendeld: z.string().nullable(),
     doorgeefluik_heffing: z.boolean(),

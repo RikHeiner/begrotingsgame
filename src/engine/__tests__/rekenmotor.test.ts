@@ -124,12 +124,32 @@ describe('wettelijke grenzen', () => {
 });
 
 describe('het slot op de pot', () => {
+  it('meer uitgeven heeft geen maximum, behalve waar een echte grens is', () => {
+    // Met genoeg dekking (OZB +20%) mag onderhoud +50%: geen plafond van 25% meer.
+    const dekking = keuzes({ belastingen: { t1: 20 } });
+    expect(
+      magWijzigen(data, dekking, keuzes({ belastingen: { t1: 20 }, onderdelen: { o6: 200 } })).ok,
+    ).toBe(true);
+    // Wethouders: maximaal 9 (Gemeentewet art. 36), nu 8.
+    const m = magWijzigen(
+      data,
+      dekking,
+      keuzes({ belastingen: { t1: 20 }, onderdelen: { g1: 20 } }),
+    );
+    expect(m.ok).toBe(false);
+    expect(m.reden).toMatch(/Gemeentewet/);
+    expect(
+      magWijzigen(data, dekking, keuzes({ belastingen: { t1: 20 }, onderdelen: { g1: 10 } })).ok,
+    ).toBe(true);
+  });
+
   it('zonder vrijgemaakt geld kan geen enkele uitgave omhoog', () => {
     let getest = 0;
     for (const o of data.begroting.onderdelen) {
-      if (o.vergrendeld || !o.max_pct) continue;
+      if (o.vergrendeld || o.max_pct === 0) continue;
       const kostGeld = o.lasten_mln > o.gekoppelde_baten_mln;
-      const m = magWijzigen(data, GEEN_KEUZES, keuzes({ onderdelen: { [o.id]: o.max_pct } }));
+      const omhoog = o.max_pct ?? 25;
+      const m = magWijzigen(data, GEEN_KEUZES, keuzes({ onderdelen: { [o.id]: omhoog } }));
       if (kostGeld) {
         expect(m, o.id).toMatchObject({ ok: false });
         expect(m.reden).toMatch(/^Hiervoor heb je nog € [\d.,]+ mln structurele dekking nodig/);

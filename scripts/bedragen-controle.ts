@@ -182,7 +182,9 @@ tabel(
     o.deelprogramma,
     mln(o.lasten_mln),
     o.gekoppelde_baten_mln ? mln(o.gekoppelde_baten_mln) : '–',
-    o.vergrendeld ? '🔒 vast' : `${o.min_pct}% tot +${o.max_pct}%`,
+    o.vergrendeld
+      ? '🔒 vast'
+      : `${o.min_pct}% tot ${o.max_pct === null ? 'geen maximum' : `+${o.max_pct}%`}`,
     o.bron ?? '**geen bron**',
   ]),
 );
