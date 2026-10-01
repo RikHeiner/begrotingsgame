@@ -14,7 +14,9 @@
       "positie": {
         "lon": 6.5683,
         "lat": 53.2192
-      }
+      },
+      "kleur": "#E9D8B4",
+      "dak": "#1233C4"
     },
     {
       "id": "winkel",
@@ -29,7 +31,9 @@
       "positie": {
         "lon": 6.5484,
         "lat": 53.2215
-      }
+      },
+      "kleur": "#FFD7B8",
+      "dak": "#FF6A00"
     },
     {
       "id": "parkeer",
@@ -44,7 +48,9 @@
       "positie": {
         "lon": 6.5615,
         "lat": 53.2359
-      }
+      },
+      "kleur": "#C9D3F5",
+      "dak": "#1233C4"
     },
     {
       "id": "werk",
@@ -59,7 +65,9 @@
       "positie": {
         "lon": 6.5248,
         "lat": 53.23
-      }
+      },
+      "kleur": "#FFE9A8",
+      "dak": "#C98A00"
     },
     {
       "id": "zwembad",
@@ -74,7 +82,9 @@
       "positie": {
         "lon": 6.6016,
         "lat": 53.2411
-      }
+      },
+      "kleur": "#CDEBFA",
+      "dak": "#1D86C8"
     },
     {
       "id": "buurt",
@@ -89,7 +99,9 @@
       "positie": {
         "lon": 6.5883,
         "lat": 53.2478
-      }
+      },
+      "kleur": "#E0F2D6",
+      "dak": "#3E8E41"
     },
     {
       "id": "zorg",
@@ -104,7 +116,9 @@
       "positie": {
         "lon": 6.5819,
         "lat": 53.2294
-      }
+      },
+      "kleur": "#FFDDE3",
+      "dak": "#D2465E"
     },
     {
       "id": "politie",
@@ -119,7 +133,9 @@
       "positie": {
         "lon": 6.5898,
         "lat": 53.2066
-      }
+      },
+      "kleur": "#D6DEFF",
+      "dak": "#15193A"
     },
     {
       "id": "theater",
@@ -134,7 +150,9 @@
       "positie": {
         "lon": 6.5772,
         "lat": 53.2115
-      }
+      },
+      "kleur": "#EBDDFB",
+      "dak": "#7A3DC8"
     },
     {
       "id": "school",
@@ -149,7 +167,9 @@
       "positie": {
         "lon": 6.5801,
         "lat": 53.198
-      }
+      },
+      "kleur": "#FFE3C7",
+      "dak": "#B5542B"
     },
     {
       "id": "park",
@@ -164,7 +184,9 @@
       "positie": {
         "lon": 6.5428,
         "lat": 53.2028
-      }
+      },
+      "kleur": "#6DBB55",
+      "dak": "#2F8A42"
     },
     {
       "id": "bouw",
@@ -179,7 +201,9 @@
       "positie": {
         "lon": 6.6526,
         "lat": 53.2245
-      }
+      },
+      "kleur": "#F3F0E6",
+      "dak": "#8A6D3B"
     },
     {
       "id": "veiling",
@@ -194,7 +218,9 @@
       "positie": {
         "lon": 6.695,
         "lat": 53.2767
-      }
+      },
+      "kleur": "#FFF4CC",
+      "dak": "#FF6A00"
     },
     {
       "id": "loket",
@@ -209,7 +235,9 @@
       "positie": {
         "lon": 6.6039,
         "lat": 53.1723
-      }
+      },
+      "kleur": "#DFF5EA",
+      "dak": "#15875A"
     }
   ]
 }

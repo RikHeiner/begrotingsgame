@@ -330,6 +330,14 @@ export const gebouwSchema = z
     omschrijving: z.string(),
     onderdelen: z.array(z.string()),
     positie: z.object({ lon: z.number(), lat: z.number() }).strict().optional(),
+    kleur: z
+      .string()
+      .regex(/^#[0-9A-Fa-f]{6}$/)
+      .optional(),
+    dak: z
+      .string()
+      .regex(/^#[0-9A-Fa-f]{6}$/)
+      .optional(),
   })
   .strict();
 export type Gebouw = z.infer<typeof gebouwSchema>;

@@ -5,6 +5,8 @@
   --achtergrond: #f6f7fc;
   --positief: #15875a;
   --negatief: #c4321e;
+  --paneel: #ffffff;
+  --water-kleur: #4a9fd8;
   color-scheme: light dark;
   font-family:
     Asap,
@@ -21,6 +23,7 @@
     --inkt: #eef0fb;
     --achtergrond: #11142b;
     --blauw: #8fa2ff;
+    --paneel: #1b1f3d;
   }
 }
 

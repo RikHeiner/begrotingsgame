@@ -44,6 +44,12 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
 
 19. **Wijken bij de gebouwen en persona's.** Volgens de CBS-codes ligt Vinkhuizen in Nieuw-West (WK001409), Selwerd in Noordwest (WK001410), Beijum in Noordoost (WK001411), en Lewenborg en Kardinge in Noorddijk (WK001412). De opdracht noemt "Werkplein in Noordwest (Vinkhuizen)", "Zwembad in Noordoost (Kardinge)" en "Buurthuis in Noorddijk (Beijum/Lewenborg)". In `gebouwen.json` staat nu de genoemde wijk (Noordwest, Noordoost, Noorddijk). De persona's staan in de wijk van hun buurt. Het prototype noemt Noorddijk "Beijum, Lewenborg"; dat klopt voor Beijum niet. *Vraag:* wijk of buurt aanhouden?
 
+## E2. Kaart (fase 2)
+
+23. **Water is een schets.** Vanuit de bouwomgeving is PDOK en OpenStreetMap niet bereikbaar. Eemskanaal, Van Starkenborghkanaal en Hoornseplas zijn daarom met de hand getekend (`schets: true` in `spel/kaart.json`). Paterswoldsemeer en Zuidlaardermeer gebruiken de vorm van de CBS-buurt met die naam. *Voorstel:* bij de lancering echte waterlijnen uit PDOK (TOP10NL) toevoegen.
+24. **Gebouwen staan niet exact op hun buurt.** Om overlap te voorkomen schuift de game gebouwen in het drukke centrum een stukje uit elkaar. Het Stadhuis blijft op de Grote Markt.
+25. **60 fps.** In de testomgeving rendert de browser zonder GPU (SwiftShader). Daar haalt de kaart ongeveer 50 tot 60 fps op telefoonformaat en 30 fps op 1440×900. De eis (60 fps op een middenklasse telefoon) moet op een echt toestel worden gemeten (fase 8).
+
 ## F. VVD-tegenbegroting (zie ook `npm run vvd:check`)
 
 20. 13 posten hebben geen schuif of kaart in de game, onder andere 5% minder ambtenaren (16,4) en cultuur 20% (15,2). Die moeten een kaart of schuif worden.

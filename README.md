@@ -4,7 +4,7 @@ Een game waarin inwoners hun eigen tegenbegroting maken voor de gemeente Groning
 Een initiatief van de VVD-fractie Groningen-Haren. De volledige opdracht staat in
 [`PROMPT-claude-code.md`](PROMPT-claude-code.md).
 
-Stand: **fase 1 (data en rekenmotor)**. De rekenmotor werkt en is getest. De pagina is nog een debugpagina met schuiven en tabellen; de echte game volgt in fase 2 en 3.
+Stand: **fase 2 (gemeentekaart)**. De rekenmotor werkt en is getest. De gemeentekaart (PixiJS) met gebouwen, inwoners, tekstballonnen en de lijstweergave is speelbaar; HUD, missies, eindscherm en export volgen in fase 3 en 4. De debugpagina van de rekenmotor staat op `/#debug`.
 
 ## Starten
 
@@ -68,10 +68,24 @@ vragen over de data staan in [`data/BEVINDINGEN.md`](data/BEVINDINGEN.md).
 data/            begrotingsdata, dwarsverbanden, tegenbegroting, kaart, config.json
 prototype/       het oorspronkelijke prototype (alleen ter referentie)
 src/engine/      pure rekenmotor (geen React, geen DOM; afgedwongen met ESLint)
-src/app/         de React-app
+src/game/        kaart (PixiJS), toestand van gebouwen, tekstballonnen, Zustand-store
+src/ui/          kaartweergave, gebouwpaneel, lijstweergave
+src/app/         de React-app (spel en debugpagina)
 tests/e2e/       Playwright-tests
 scripts/         data-check, data-diff, vvd-check
 ```
+
+## De kaart
+
+- `data/spel/kaart.json`: middelpunt (Grote Markt), vergroting, toestandsdrempels, water en labels.
+- `data/spel/gebieden.json`: de zeven gebieden van de gemeente met hun CBS-buurten.
+- `data/spel/gebouwen.json`: de 14 gebouwen met buurt, gebied, positie en kleuren.
+- `data/spel/reacties.json`: de tekstballonnen; de voorwaarden gebruiken een eigen, veilige expressietaal
+  (`src/engine/expressie.ts`).
+- PixiJS wordt pas geladen als de kaart in beeld komt. De vaste lagen worden naar een textuur gerenderd;
+  per beeld worden alleen die textuur en de inwoners getekend.
+- Op de kaart liggen onzichtbare knoppen op de gebouwen, zodat je met Tab en Enter een gebouw kiest.
+  De lijstweergave (knop "Lijst") heeft dezelfde functies en werkt met een schermlezer.
 
 ## Een nieuwe begroting inladen
 

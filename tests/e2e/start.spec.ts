@@ -1,13 +1,9 @@
 import { expect, test } from '@playwright/test';
 
-test('de pagina laadt het actieve begrotingsjaar uit de data', async ({ page }, testInfo) => {
-  await page.goto('/');
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Maak de begroting van de gemeente Groningen',
-  );
+test('de debugpagina laadt het actieve begrotingsjaar uit de data', async ({ page }) => {
+  await page.goto('/#debug');
   await expect(page.getByTestId('actief-jaar')).toContainText('Begroting 2026');
   await expect(page.getByTestId('actief-jaar')).toContainText('2026 t/m 2029');
-  await page.screenshot({ path: testInfo.outputPath('start.png'), fullPage: false });
 });
 
 test('het databestand wordt los van de code geserveerd', async ({ request }) => {
