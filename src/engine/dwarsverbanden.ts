@@ -784,35 +784,51 @@ export const IMPLEMENTATIES: Record<string, Implementatie> = {
   wg_woningbouw: {
     schrijft: ['extra_woningen'],
     reken(c) {
-      if (!c.kaart('k_bouw')) return;
-      const fondsMln = Math.abs(c.kaartBedrag('k_bouw')) / vanMln(1);
-      const perJaarExtra = fondsMln * c.param('extra_woningen_per_mln_fonds');
+      // Meer RO-ambtenaren (wonen, gebiedsontwikkeling) moet ook meer woningen opleveren, maar
+      // daarvoor staat nog geen getal in de data. Bezuinigen remt het bouwen: zie kd_leges_omgeving.
+      const roMln =
+        (['w4', 'e10'] as const).reduce((som, id) => som + Math.max(0, c.p(id)) * c.lasten(id), 0) /
+        vanMln(1);
+      const roPerMln = c.verband.parameters.extra_woningen_per_mln_ro?.waarde;
+      const roTekst =
+        'Meer ambtenaren voor wonen en gebiedsontwikkeling levert ook extra woningen op, maar hoeveel per miljoen staat nog niet in de data.';
+      const fonds = c.kaart('k_bouw');
+      if (!fonds && roMln <= 0) return;
+      if (!fonds && typeof roPerMln !== 'number') c.nogNiet(roTekst);
+      const fondsMln = fonds ? Math.abs(c.kaartBedrag('k_bouw')) / vanMln(1) : 0;
+      const ro = typeof roPerMln === 'number' ? roMln * roPerMln : 0;
+      const perJaarExtra = (fonds ? fondsMln * c.param('extra_woningen_per_mln_fonds') : 0) + ro;
       const v = c.verband.vertraging_jaren;
       const voorraad = perJaar(c.n, (j) => perJaarExtra * Math.max(0, j - v + 1));
       c.zetGrootheid(
         'extra_woningen',
         c.grootheid('extra_woningen').map((x, j) => x + (voorraad[j] ?? 0)),
       );
-      // OZB per nieuwe woning: het tarief × de gemiddelde WOZ-waarde, met de OZB-keuze van de
-      // speler. Zonder tarievenbestand de parameter ozb_per_woning.
+      // OZB per nieuwe woning: het tarief × de WOZ-waarde van nieuwbouw (gemiddelde WOZ × factor),
+      // met de OZB-keuze van de speler. Zonder tarievenbestand de parameter ozb_per_woning.
       const t = c.data.tarieven;
       const woz = c.data.kengetallen.gemiddelde_woz;
-      const uitTarief = t && woz ? (t.ozb_woning_eigenaar_pct / 100) * woz : undefined;
+      const factor = c.param('woz_factor_nieuwbouw');
+      const uitTarief = t && woz ? (t.ozb_woning_eigenaar_pct / 100) * woz * factor : undefined;
       const perWoning =
         (uitTarief ?? vanMln(c.param('ozb_per_woning'))) * Math.max(0, 1 + c.t('t1'));
       const euro = Math.round(perWoning).toLocaleString('nl-NL');
+      const nieuwWoz = Math.round((woz * factor) / 1000).toLocaleString('nl-NL');
+      const params = [
+        ...(fonds ? ['extra_woningen_per_mln_fonds'] : []),
+        ...(ro ? ['extra_woningen_per_mln_ro'] : []),
+        ...(uitTarief ? ['woz_factor_nieuwbouw'] : ['ozb_per_woning']),
+      ];
       c.effect({
         doel: 'baten:t1',
         kant: 'baten',
         bedragen: voorraad.map((w) => w * perWoning),
-        params: uitTarief
-          ? ['extra_woningen_per_mln_fonds']
-          : ['extra_woningen_per_mln_fonds', 'ozb_per_woning'],
-        uitleg: `Het fonds levert ongeveer ${Math.round(perJaarExtra)} extra woningen per jaar op, vanaf ${c.data.jaren[v] ?? 'na de meerjarenraming'}. Elke nieuwe woning betaalt ongeveer € ${euro} OZB per jaar${uitTarief ? ` (${t?.ozb_woning_eigenaar_pct.toLocaleString('nl-NL')}% van de gemiddelde WOZ-waarde${c.t('t1') ? ', met jouw OZB-keuze' : ''})` : ''}.`,
+        params,
+        uitleg: `${fonds ? 'Het fonds levert' : 'Dit levert'} ongeveer ${Math.round(perJaarExtra)} extra woningen per jaar op, vanaf ${c.data.jaren[v] ?? 'na de meerjarenraming'}. Elke nieuwe woning betaalt ongeveer € ${euro} OZB per jaar${uitTarief ? ` (${t?.ozb_woning_eigenaar_pct.toLocaleString('nl-NL')}% van een WOZ-waarde van ongeveer € ${nieuwWoz} duizend voor nieuwbouw${c.t('t1') ? ', met jouw OZB-keuze' : ''})` : ''}.`,
       });
       c.meter('wonen', 1);
       c.deelsNiet(
-        'De kosten van voorzieningen (scholen, zorg) voor nieuwe inwoners zijn nog niet doorgerekend. Het extra gemeentefonds staat bij het kettingeffect van het verdeelmodel.',
+        `${roMln > 0 && !ro ? `${roTekst} ` : ''}De kosten van voorzieningen (scholen, zorg) voor nieuwe inwoners zijn nog niet doorgerekend. Het extra gemeentefonds staat bij het kettingeffect van het verdeelmodel.`,
       );
     },
   },

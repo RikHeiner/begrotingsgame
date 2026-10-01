@@ -45,7 +45,7 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
 
 ## E2. Kaart (fase 2)
 
-23. **Water is een schets.** Vanuit de bouwomgeving is PDOK en OpenStreetMap niet bereikbaar. Eemskanaal, Van Starkenborghkanaal en Hoornseplas zijn daarom met de hand getekend (`schets: true` in `spel/kaart.json`). Paterswoldsemeer en Zuidlaardermeer gebruiken de vorm van de CBS-buurt met die naam. *Voorstel:* bij de lancering echte waterlijnen uit PDOK (TOP10NL) toevoegen.
+23. ~~**Water is een schets.**~~ *Opgelost (1 oktober 2026):* het Eemskanaal, het Van Starkenborghkanaal en de Hoornse Plas komen nu uit PDOK (BRT TOP10NL, `waterdeel_vlak`). Van de kanalen staat de middenlijn binnen de gemeente in `spel/kaart.json`, van de Hoornse Plas de vereenvoudigde omtrek. De schets lag op sommige plekken ruim 3 km naast het echte kanaal. Paterswoldsemeer en Zuidlaardermeer gebruiken nog de vorm van de CBS-buurt.
 24. **Gebouwen staan niet exact op hun buurt.** Om overlap te voorkomen schuift de game gebouwen in het drukke centrum een stukje uit elkaar. Het Stadhuis blijft op de Grote Markt.
 25. **60 fps.** In de testomgeving rendert de browser zonder GPU (SwiftShader). Daar haalt de kaart ongeveer 50 tot 60 fps op telefoonformaat en 30 fps op 1440×900. De eis (60 fps op een middenklasse telefoon) moet op een echt toestel worden gemeten (fase 8).
 
@@ -117,7 +117,11 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
     - het kettingeffect `kd_leges_omgeving` rekent niet meer met de leges, alleen nog met het bouwtempo bij minder ambtenaren voor wonen (`w4`) en gebiedsontwikkeling (`e10`);
     - "Sneller bouwen" (`wg_woningbouw`) noemt geen extra leges meer: meer vergunningen kosten evenveel als ze opbrengen;
     - de reactie "Ik wacht lang op mijn vergunning" is weg, omdat die alleen bij bezuinigen op `w8` kwam.
-    - *Vraag:* in de begroting staan bij `w8` 10,5 mln lasten en 17,9 mln leges. Als de leges kostendekkend zijn, dekken ze ook overhead en andere kosten die elders in de begroting staan. Klopt dat, of moeten de lasten van `w8` hoger (inclusief overhead)? Voor de game maakt het nu niet uit, omdat de post vastzit.
+    - *Open:* in de begroting staan bij `w8` 10,5 mln lasten en 17,9 mln leges. Als de leges kostendekkend zijn, dekken ze ook overhead en andere kosten die elders in de begroting staan. Het antwoord staat in het boekwerk, paragraaf lokale heffingen (tabel kostendekkendheid van de leges). Het boekwerk was vanuit de bouwomgeving niet op te halen: de raadssite weigert verzoeken uit een datacenter. Voor de game maakt het niet uit, omdat de post vastzit.
+
+53. **Extra woningen door meer RO-ambtenaren.** Meer geld voor "Ambtenaren wonen" (`w4`) en "Ambtenaren gebiedsontwikkeling" (`e10`) levert in "Sneller bouwen" nu ook extra woningen op. Hoeveel per miljoen staat nog niet in de data (`extra_woningen_per_mln_ro` = leeg). Tot dan zegt de game "nog niet doorgerekend", of bij het fonds: "deels doorgerekend". Bezuinigen op deze ambtenaren remt het bouwen, zoals al in `kd_leges_omgeving`. Beleidskeuzes die woningen opleveren volgen later.
+    - *Vraag:* hoeveel extra woningen per jaar levert € 1 mln per jaar extra voor RO-ambtenaren op? En welke beleidskeuzes moeten er nog bij?
+54. **WOZ-waarde van nieuwbouw.** Een nieuwe woning betaalt nu OZB over de WOZ-waarde van nieuwbouw: de gemiddelde WOZ-waarde (€ 340.000, kerngegevens) × 1,32 = ongeveer € 447.000, dus € 661 OZB per jaar (was € 501). De factor 1,32 komt uit CBS Kerncijfers wijken en buurten 2025 (86165NED): in 115 buurten van Groningen hangt de gemiddelde WOZ-waarde samen met het aandeel woningen uit de afgelopen tien jaar; een buurt met alleen nieuwbouw komt uit op € 412.000 tegen € 313.000 gemiddeld. Buurten met minstens de helft nieuwbouw (onder andere Reitdiep, Meeroevers, Tersluis, De Zeilen) geven € 407.000. CBS heeft geen tabel met de WOZ-waarde naar bouwjaar, dus de factor is een aanname met ⚠︎.
 
 ## Besluiten (1 oktober 2026)
 
@@ -138,6 +142,14 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
 | Missies | Vervallen: iedereen maakt een eigen begroting. | Punt 47. |
 | Campagne | Vervallen: de knop "Speel vier jaar" is eruit (1 oktober 2026). | Punt 51. |
 | Bouwleges | 100% kostendekkend, dus vast, net als de doelbelastingen. | Punt 52: `w8` vergrendeld. |
+| Gebeurteniskaarten | Helemaal weghalen. | Punt 51. |
+| 30. Tarieven | Pas op "feit" als iemand de bedragen in het raadsvoorstel *Belastingtarieven 2026* heeft gezien; COELO is niet genoeg. | Blijft "te controleren". |
+| 37. Inwoners op de kaart | 30 seconden lopen na een actie, daarna stil: goed zo. | Zo gebleven. |
+| 50. Extra woningen | Ook meer RO-ambtenaren moet woningen opleveren; beleidskeuzes volgen. Getal nog onbekend. | Punt 53. |
+| 50. WOZ nieuwe woning | Rekenen met de WOZ-waarde van nieuwbouw. | Punt 54: factor 1,32. |
+| 50. Inwoners per woning | 1,93 (het gemiddelde). | Zo gebleven. |
+| 23. Water | Echte waterlijnen uit PDOK. | Gedaan. |
+| Netlify | Eerst hier verbeteren, daarna met de hand uploaden. | Open. |
 | Blije inwoners | Eerst weglaten; later misschien anders. | Punt 46. |
 | Bedragen | Naast het percentage ook een bedrag kunnen invullen. | Punt 48. |
 | Fase 7. Video | Geen persoonlijke video; de tegenbegroting blijft als Word, pdf en afbeelding. | `docs/VIDEO-ONTWERP.md` bewaard, niet gebouwd. |

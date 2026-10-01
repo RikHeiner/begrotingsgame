@@ -248,8 +248,10 @@ Parameters met status "aanname" of "te onderzoeken". Deze bedragen staan in de g
 | ec_toerisme_cultuur | factor | 0.2 | aanname |  |
 | ec_ozb_nietwoningen | verdeling | null | te onderzoeken | Uit de paragraaf lokale heffingen van de begroting halen. |
 | ec_strategisch_bezit | boekwaarde | null | te onderzoeken | Per pand opvragen. |
-| wg_woningbouw | ozb_per_woning | null | te onderzoeken | Niet nodig zolang tarieven-JJJJ.json er is: de game rekent dan met het OZB-tarief voor woningen x de gemiddelde WOZ-waarde uit de kerngegevens (2026: 0,1473% x 340.000 = 501 euro), met de OZB-keuze van de speler. Eerder stond hier 0,0003 (300 euro) als aanname. |
-| wg_woningbouw | extra_woningen_per_mln_fonds | 20 | aanname |  |
+| wg_woningbouw | ozb_per_woning | null | te onderzoeken | Niet nodig zolang tarieven-JJJJ.json er is: de game rekent dan met het OZB-tarief voor woningen x de gemiddelde WOZ-waarde uit de kerngegevens x woz_factor_nieuwbouw (2026: 0,1473% x 340.000 x 1,32 = 661 euro), met de OZB-keuze van de speler. Eerder stond hier 0,0003 (300 euro) als aanname. |
+| wg_woningbouw | extra_woningen_per_mln_fonds | 20 | aanname | Aanname: elk miljoen per jaar in het Sneller-bouwenfonds levert 20 extra woningen per jaar op, vanaf 2 jaar na de start. |
+| wg_woningbouw | woz_factor_nieuwbouw | 1.32 | aanname | Afgeleid uit CBS Kerncijfers wijken en buurten 2025 (86165NED), 115 buurten van de gemeente Groningen: gemiddelde WOZ-waarde tegen het aandeel woningen met bouwjaar in de afgelopen tien jaar, gewogen naar het aantal woningen. Een buurt met alleen nieuwbouw komt uit op 412 duizend euro, tegen 313 duizend gemiddeld (factor 1,32). Buurten met minstens 50% nieuwbouw geven 407 duizend. Er is geen CBS-tabel met de WOZ-waarde naar bouwjaar; daarom een aanname. |
+| wg_woningbouw | extra_woningen_per_mln_ro | null | te onderzoeken | Hoeveel extra woningen per jaar levert elk extra miljoen per jaar voor ambtenaren wonen (w4) of gebiedsontwikkeling (e10) op? Nog geen bron; tot dan rekent dit deel niet mee. |
 | wg_verduurzaming | rendement | 0.08 | aanname |  |
 | en_opwek | gemiste_opbrengst | null | te onderzoeken | Uit de businesscase halen. |
 | org_frictie | verloop_pct | 0.05 | aanname | Natuurlijk verloop bij gemeenten: 4 tot 7%. |
