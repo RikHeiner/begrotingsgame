@@ -4,7 +4,7 @@ Een game waarin inwoners hun eigen tegenbegroting maken voor de gemeente Groning
 Een initiatief van de VVD-fractie Groningen-Haren. De volledige opdracht staat in
 [`PROMPT-claude-code.md`](PROMPT-claude-code.md).
 
-Stand: **fase 5 (inzendingen en dashboard)**. De game is speelbaar (kaart, HUD, panelen, tutorial, missies, eindscherm, deellink, geluid, offline). De tegenbegroting gaat naar Word, PDF en een afbeelding. Spelers kunnen hun begroting met toestemming insturen naar de fractie; de fractie ziet alles in een afgeschermd dashboard (`/dashboard.html`). Daarvoor is een Supabase-project nodig: zie [docs/SUPABASE-INSTELLEN.md](docs/SUPABASE-INSTELLEN.md). De debugpagina van de rekenmotor staat op `/#debug`.
+Stand: **fase 6 (campagne en persoonlijke impact)**. De game is speelbaar (kaart, HUD, panelen, tutorial, missies, eindscherm, deellink, geluid, offline). Er is een campagnemodus van vier jaar met gebeurteniskaarten, een overzicht van de inwoners en het paneel "Wat betekent het voor mij?". De tegenbegroting gaat naar Word, PDF en een afbeelding. Spelers kunnen hun begroting met toestemming insturen naar de fractie; de fractie ziet alles in een afgeschermd dashboard (`/dashboard.html`). Daarvoor is een Supabase-project nodig: zie [docs/SUPABASE-INSTELLEN.md](docs/SUPABASE-INSTELLEN.md). De debugpagina van de rekenmotor staat op `/#debug`.
 
 ## Starten
 
@@ -105,6 +105,21 @@ scripts/         data-check, data-diff, vvd-check, vvd-word, db-test
 - Controle: de VVD-testcase in Word geeft dezelfde totalen als het origineel (op de bekende afwijkingen
   na, zie `data/BEVINDINGEN.md`). Test: `src/game/__tests__/tegenbegroting.test.ts`.
 
+## Campagne en persoonlijke impact
+
+- **Campagne** (`src/game/campagne.ts`, `src/engine/campagne.ts`): te starten in de missiekiezer.
+  Vier rondes, één per jaar. Elke ronde trekt de speler één of twee kaarten uit
+  `data/spel/gebeurtenissen.json` en stuurt bij. Een keuze geldt vanaf het jaar van de ronde, met
+  de ingroei vanaf dat jaar; eerdere keuzes werken door. De rekenmotor telt de rondes op met
+  `berekenCampagne`. Het eindscherm toont per jaar wat er gebeurde en of de begroting sloot.
+- **Gebeurteniskaarten**: een percentage van een bedrag uit de begroting (lasten van posten, de
+  opbrengst van een belasting of het gemeentefonds), met een lage en hoge waarde voor de scenario's.
+- **Inwoners**: in de dialoog onder het gezichtje in de HUD. Per inwoner de situatie, de
+  tevredenheid en de drie keuzes die hij of zij het meest merkt.
+- **Wat betekent het voor mij?**: in diezelfde dialoog en op het eindscherm. Koop of huur,
+  WOZ-waarde, gezin, parkeervergunning en inkomen. Rekent met de tarieven uit
+  `data/tarieven-JJJJ.json` (in `config.json` onder `tarieven`). Er wordt niets opgeslagen.
+
 ## Inzendingen en dashboard
 
 - **Insturen** (`src/inzending/`, `src/ui/eindscherm/InstuurDialoog.tsx`): alleen na toestemming.
@@ -144,7 +159,9 @@ npm run data:diff 2026 2027                   # verschillen in Markdown (gebruik
 npm test                                      # alle tests
 ```
 
-Daarna in `data/config.json` het actieve jaar, het bestand en de horizon aanpassen.
+Daarna in `data/config.json` het actieve jaar, het bestand, de horizon en het tarievenbestand
+(`tarieven-JJJJ.json`) aanpassen. De gebeurteniskaarten in `spel/gebeurtenissen.json` verwijzen naar
+posten; als een post niet meer bestaat, meldt het laden dat.
 
 ## CI
 

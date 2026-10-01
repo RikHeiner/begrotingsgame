@@ -58,6 +58,16 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
 21. Buiten de grenzen van de game: precario −111% (2,0 mln tegenover 1,8 mln opbrengst), armoederegelingen +34% (max +25%), en de autowerkplaats (geen netto lasten, dus niet als percentage te vertalen).
 22. Overhead 5% is in de tegenbegroting 7,0 mln (bruto, heel deelprogramma 4.4). Op de schuif h1 is dat −5,7%. Dat past binnen de grenzen.
 
+## G. Campagne en persoonlijke impact (fase 6)
+
+27. **Gebeurteniskaarten zijn scenario's.** `spel/gebeurtenissen.json` heeft 15 kaarten. Elk bedrag is een percentage van een bedrag uit de begroting (bijvoorbeeld 4% van de lasten jeugdzorg, 1% van het gemeentefonds). Het bedrag uit de begroting is een feit; het percentage is een aanname, met een lage en een hoge waarde voor de scenario's. *Vraag:* wil de fractie de percentages controleren?
+28. **Geen kaart voor een extra dividend.** De opdracht noemt een extra dividend, maar er staat geen post voor dividenden (BNG, Enexis) in de data. Zonder bedrag uit de begroting zou ik een getal moeten verzinnen. De kaart komt erbij zodra het dividend in de data staat (begroting 2027).
+29. **Benaderingen in de kaarten.** De cao werkt op de overhead plus de posten "ambtenaren" (de loonsom staat niet in de data). Aardbevingsversterking werkt op de schoolgebouwen, energieprijzen op zwembaden en sporthallen, Nij Begun op de wijkvernieuwing. *Voorstel:* bij de begroting 2027 de loonsom en de energiekosten als kengetal toevoegen.
+30. **Tarieven nog te controleren.** `tarieven-2026.json` (OZB 0,1473% van de WOZ-waarde, afvalstoffenheffing € 283,08 / € 331,20 / € 402,12, rioolheffing € 178,69, bewonersvergunningen per zone) komt uit zoekresultaten die verwijzen naar het raadsvoorstel *Belastingtarieven 2026*. Dat document en lokaleregelgeving.overheid.nl waren vanuit de bouwomgeving niet bereikbaar. *Vraag:* wil iemand de bedragen naast het raadsvoorstel leggen en daarna de status op "feit" zetten?
+31. **Tweede parkeervergunning.** Alleen voor zone 2 is het tarief van een tweede vergunning bekend (€ 408,80). Voor de binnenstad en zone 3 tot en met 5 zegt het paneel "niet in de data" in plaats van een bedrag te verzinnen.
+32. **Parkeertarieven en vergunningen.** De schuif "Parkeertarieven" (t5) verandert in het paneel ook de prijs van de vergunning met hetzelfde percentage. Zo staat het in de uitleg van de schuif ("Parkeergeld en vergunningen"). *Vraag:* klopt dat met de bedoeling?
+33. **Rioolheffing alleen voor eigenaren.** Volgens de bronnen betalen huurders alleen de afvalstoffenheffing. Het paneel volgt dat.
+
 ## Besluiten (1 oktober 2026)
 
 | Punt | Besluit | Verwerkt |
