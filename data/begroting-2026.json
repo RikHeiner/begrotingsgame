@@ -2228,11 +2228,11 @@
    "id": "k_res",
    "soort": "uitgave",
    "structureel_of_incidenteel": "I",
-   "bedrag_mln": -7,
+   "bedrag_mln": -6.971,
    "naam": "Reserves aanvullen",
    "uitleg": "Een grotere buffer, zodat een tegenvaller niet meteen tot bezuinigingen leidt.",
    "meter_effect_punten": {},
-   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders', post 'Verbeteren financiële positie van de gemeente' (6,971 mln I)"
   },
   {
    "id": "k_smr",

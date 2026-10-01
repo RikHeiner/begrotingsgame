@@ -238,15 +238,44 @@ describe('meerjarig', () => {
     expect(r.regels.overtredingen[0]).toMatch(/vaste lasten met eenmalig geld/);
   });
 
-  it('het weerstandsvermogen groeit met een structureel overschot', () => {
+  it('een overschot is vrije ruimte: het gaat niet vanzelf naar de reserve', () => {
     const r = bereken(data, keuzes({ onderdelen: { h1: -10 } }));
-    const { reserve, benodigd } = weerstandBasis(data);
-    const laatste = data.jaren.at(-1) ?? 0;
-    expect(r.weerstandsvermogen).toBeCloseTo(
-      (reserve + data.jaren.length * 12_323_600) / benodigd,
-      9,
+    expect(r.weerstandsvermogen).toBeCloseTo(1.61, 10);
+  });
+
+  it('de speler kan een overschot in de reserve storten', () => {
+    // h1 −10% levert 12,3236 per jaar op; daarvan 10 elk jaar en 2 eenmalig in de reserve
+    const r = bereken(
+      data,
+      keuzes({ onderdelen: { h1: -10 }, reserve: { structureel: 10e6, eenmalig: 2e6 } }),
     );
+    const { reserve, benodigd } = weerstandBasis(data);
+    const [eerste] = data.jaren as [number];
+    const laatste = data.jaren.at(-1) ?? 0;
+    expect(r.perJaar[eerste]?.weerstandsvermogen).toBeCloseTo((reserve + 12e6) / benodigd, 9);
+    expect(r.weerstandsvermogen).toBeCloseTo((reserve + 42e6) / benodigd, 9);
     expect(r.perJaar[laatste]?.weerstandsvermogen).toBe(r.weerstandsvermogen);
+    // Rente: 2,5% over wat er aan het begin van het jaar in de reserve zit (12, 22, 32)
+    expect(perJaarMln(r, (e) => e.verband === 'fin_rente', data.jaren)).toEqual([
+      0, 0.3, 0.55, 0.8,
+    ]);
+    expect(r.regels.sluitend).toBe(true);
+  });
+
+  it('storten zonder dekking kan niet: het slot houdt het tegen', () => {
+    const m = magWijzigen(
+      data,
+      GEEN_KEUZES,
+      keuzes({ reserve: { structureel: 0, eenmalig: 5e6 } }),
+    );
+    expect(m.ok).toBe(false);
+    expect(m.reden).toMatch(/dekking nodig/);
+  });
+
+  it('een tekort gaat van de reserve af', () => {
+    const r = bereken(data, keuzes({ belastingen: { t1: -10 } }));
+    const { reserve, benodigd } = weerstandBasis(data);
+    expect(r.weerstandsvermogen).toBeCloseTo((reserve - 4 * 12.53e6) / benodigd, 6);
   });
 });
 

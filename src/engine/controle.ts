@@ -11,8 +11,8 @@ export type Bevinding = { niveau: Niveau; onderwerp: string; tekst: string };
 
 export type ControleInvoer = {
   data: Data;
-  /** wijkcodes uit gemeente-groningen-wijken.geojson */
-  wijkcodes: string[];
+  /** buurtcodes uit gemeente-groningen-buurten.geojson */
+  buurtcodes: string[];
   /** mappings waarin dit jaar het "naar"-jaar is (voor vervallen ids) */
   mappings?: IdMapping[];
 };
@@ -29,7 +29,7 @@ const VASTE_VOORVOEGSELS = new Set([
 const SALDO = new Set(['saldo:structureel', 'saldo:incidenteel', 'saldo:meerjarig']);
 const HEFFING = new Set(['heffing:afval', 'heffing:riool']);
 
-export function controleer({ data, wijkcodes, mappings = [] }: ControleInvoer): Bevinding[] {
+export function controleer({ data, buurtcodes, mappings = [] }: ControleInvoer): Bevinding[] {
   const uit: Bevinding[] = [];
   const fout = (onderwerp: string, tekst: string) => uit.push({ niveau: 'fout', onderwerp, tekst });
   const waarschuw = (onderwerp: string, tekst: string) =>
@@ -170,12 +170,39 @@ export function controleer({ data, wijkcodes, mappings = [] }: ControleInvoer): 
 
   // ---- Gebouwen ----
   const gebouwIds = new Set(data.gebouwen.map((g) => g.id));
-  const wijken = new Set(wijkcodes);
+  const buurten = new Set(buurtcodes);
+  const gebiedVan = new Map<string, string>();
+  for (const g of data.gebieden.gebieden) {
+    for (const c of g.buurten) {
+      if (!buurten.has(c)) fout('gebieden', `${g.id}: buurt ${c} staat niet in de kaart.`);
+      const al = gebiedVan.get(c);
+      if (al) fout('gebieden', `Buurt ${c} staat bij ${al} én bij ${g.id}.`);
+      gebiedVan.set(c, g.id);
+    }
+  }
+  for (const c of buurten) {
+    if (!gebiedVan.has(c)) fout('gebieden', `Buurt ${c} hoort bij geen enkel gebied.`);
+  }
+  for (const c of data.gebieden.controleren) {
+    info(
+      'gebieden',
+      `Buurt ${c} staat voorlopig bij ${gebiedVan.get(c) ?? '?'}: nagaan bij de gemeente.`,
+    );
+  }
+  const plek = (onderwerp: string, wie: string, buurt: string, gebied: string) => {
+    if (!buurten.has(buurt)) fout(onderwerp, `${wie}: buurt ${buurt} staat niet in de kaart.`);
+    else if (gebiedVan.get(buurt) !== gebied) {
+      fout(
+        onderwerp,
+        `${wie}: buurt ${buurt} hoort bij ${gebiedVan.get(buurt)}, niet bij ${gebied}.`,
+      );
+    }
+  };
   for (const o of b.onderdelen) {
     if (!gebouwIds.has(o.gebouw)) fout('gebouwen', `${o.id}: gebouw "${o.gebouw}" bestaat niet.`);
   }
   for (const g of data.gebouwen) {
-    if (!wijken.has(g.wijk)) fout('gebouwen', `${g.id}: wijk ${g.wijk} staat niet in de kaart.`);
+    plek('gebouwen', g.id, g.buurt, g.gebied);
     for (const id of g.onderdelen) {
       const o = data.index.onderdelen.get(id);
       if (!o) bestaatOfVervallen('gebouwen', id, `gebouw ${g.id}`);
@@ -192,7 +219,7 @@ export function controleer({ data, wijkcodes, mappings = [] }: ControleInvoer): 
 
   // ---- Persona's ----
   for (const p of data.personas.personas) {
-    if (!wijken.has(p.wijk)) fout('personas', `${p.id}: wijk ${p.wijk} staat niet in de kaart.`);
+    plek('personas', p.id, p.buurt, p.gebied);
     for (const id of Object.keys(p.posten)) bestaatOfVervallen('personas', id, `persona ${p.id}`);
   }
 

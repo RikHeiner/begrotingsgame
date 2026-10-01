@@ -12,6 +12,11 @@ export type Keuzes = {
   scenario: Scenario;
   /** opgetreden gebeurtenissen (campagnemodus) */
   gebeurtenissen?: string[];
+  /**
+   * Geld dat de speler in de algemene reserve stort, in euro's: elk jaar (structureel) of eenmalig in
+   * het eerste jaar. Een overschot gaat niet vanzelf naar de reserve; de speler kiest dat zelf.
+   */
+  reserve?: { structureel: number; eenmalig: number };
 };
 
 export const GEEN_KEUZES: Keuzes = {

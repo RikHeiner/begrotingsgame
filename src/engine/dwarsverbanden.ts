@@ -13,6 +13,7 @@ import { bijdrageOnderdeel } from './meters';
 import { ingroei, perJaar, som, vanaf } from './meerjarig';
 import { waardeBij, heeftBandbreedte, type Eind } from './scenario';
 import { formatMln, formatPct } from './format';
+import { stortingenInReserve } from './regels';
 import type { Dwarsverband, MeterId, Zekerheid } from './schema';
 import type { Effect, Kant, Keuzes, VerbandStatus, VerbandUitkomst } from './types';
 
@@ -932,9 +933,9 @@ export const IMPLEMENTATIES: Record<string, Implementatie> = {
 
   fin_reserves: {
     reken(c) {
-      if (!c.verband.van.some((id) => c.kaart(id))) return;
+      if (!c.verband.van.some((id) => c.kaart(id)) && !c.keuzes.reserve) return;
       c.uitleg(
-        'Reserves aanvullen vergroot de buffer voor tegenvallers. Het weerstandsvermogen gaat omhoog.',
+        'Reserves aanvullen vergroot de buffer voor tegenvallers. Het weerstandsvermogen gaat omhoog en de risico’s worden kleiner.',
       );
     },
   },
@@ -944,8 +945,27 @@ export const IMPLEMENTATIES: Record<string, Implementatie> = {
       const investeringen = c.keuzes.kaarten.some(
         (id) => c.data.index.kaarten.get(id)?.investering,
       );
-      if (!investeringen) return;
-      c.nogNiet(GEEN_FORMULE);
+      const stortingen = stortingenInReserve(c.data, c.keuzes);
+      const gestort = c.data.jaren.map((jaar) => stortingen[jaar] ?? 0);
+      if (!investeringen && isNul(gestort)) return;
+      if (!isNul(gestort)) {
+        // Wat in de reserve zit, hoeft de gemeente niet te lenen. Dat scheelt rente vanaf het jaar erna.
+        c.effect({
+          doel: 'grootheid:rente',
+          kant: 'lasten',
+          bedragen: perJaar(
+            c.n,
+            (j) => c.param('fin_kapitaallasten.rente') * som(gestort.slice(0, j)),
+          ),
+          params: ['fin_kapitaallasten.rente'],
+          uitleg:
+            'Geld in de reserve hoeft de gemeente niet te lenen. Dat scheelt rente, vanaf het jaar na de storting.',
+        });
+      }
+      if (investeringen) {
+        if (isNul(gestort)) c.nogNiet(GEEN_FORMULE);
+        c.deelsNiet('De extra rente door lenen voor investeringen is nog niet doorgerekend.');
+      }
     },
   },
 

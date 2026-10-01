@@ -1,6 +1,6 @@
 # Bevindingen in de data
 
-Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is geen bedrag aangepast. Elk punt heeft een voorstel; de keuze is aan de fractie.
+Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is geen bedrag aangepast. Elk punt heeft een voorstel; de keuze is aan de fractie. Besluiten van Rik staan onderaan.
 
 ## A. Bedragen en totalen
 
@@ -49,3 +49,19 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
 20. 13 posten hebben geen schuif of kaart in de game, onder andere 5% minder ambtenaren (16,4) en cultuur 20% (15,2). Die moeten een kaart of schuif worden.
 21. Buiten de grenzen van de game: precario −111% (2,0 mln tegenover 1,8 mln opbrengst), armoederegelingen +34% (max +25%), en de autowerkplaats (geen netto lasten, dus niet als percentage te vertalen).
 22. Overhead 5% is in de tegenbegroting 7,0 mln (bruto, heel deelprogramma 4.4). Op de schuif h1 is dat −5,7%. Dat past binnen de grenzen.
+
+## Besluiten (1 oktober 2026)
+
+| Punt | Besluit | Verwerkt |
+|---|---|---|
+| 3. Tekort 2029 | Niet dichten: het saldo telt ten opzichte van de begroting. | Zo gebleven. |
+| 4. Reserves aanvullen | 6,971 mln, met de tegenbegroting als bron. | `k_res` aangepast. |
+| 8. Ingroei | Een ingroeilijst telt vanaf het eerste jaar. | Zo gebleven. |
+| 9. Te onderzoeken met waarde | Rekent mee, met label. | Zo gebleven. |
+| 12. Contracten | Bezuinigen op zorg en onderhoud gaat pas na 1 jaar in. | Zo gebleven. |
+| 13. Ontbrekende gegevens | Invullen bij de begroting 2027. | Open, zie `UPDATE-BEGROTING.md` stap 7. |
+| 15. Afvalheffing | Geen schuif: het is een doelbelasting, het geld mag niet aan andere zaken worden uitgegeven. | Afval en riool blijven vergrendeld. |
+| 16. Woningbouw en missies | De tegenbegroting 2026 is een voorbeeld, geen standaard. De werkbare versie draait op de begroting 2027. Missiedoelen komen in `spel/missies.json` en worden met de data van 2027 afgesteld. | Fase 3. |
+| 17. Overschot | Een overschot is vrije ruimte. De speler kiest: uitgeven, of storten in de reserve (lager risico en minder rente). | Keuze `reserve` in de rekenmotor; overschot gaat niet meer vanzelf naar de reserve. |
+| 18. Persona's | De fractie stemt ze af. | `docs/INWONERS-AFSTEMMEN.md`. |
+| 19. Wijken | De gebiedsindeling van de gemeente aanhouden. | `spel/gebieden.json`: Centrum, Noord, Oost, Zuid, West, Haren, Ten Boer. Negen buurten bij het Eemskanaal en het Winschoterdiep staan niet in de lijst van de gemeente en zijn voorlopig bij Oost gezet (`controleren`). |

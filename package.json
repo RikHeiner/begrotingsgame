@@ -20,7 +20,8 @@
     "test:e2e": "playwright test",
     "data:check": "tsx scripts/data-check.ts",
     "data:diff": "tsx scripts/data-diff.ts",
-    "vvd:check": "tsx scripts/vvd-check.ts"
+    "vvd:check": "tsx scripts/vvd-check.ts",
+    "personas:overzicht": "tsx scripts/personas-overzicht.ts"
   },
   "dependencies": {
     "react": "^18.3.1",

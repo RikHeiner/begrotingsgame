@@ -85,6 +85,26 @@ export function DebugPagina({ data }: { data: Data }) {
         >
           Alles terug naar 0
         </button>
+        {(['structureel', 'eenmalig'] as const).map((soort) => (
+          <label key={soort}>
+            Naar de reserve ({soort === 'structureel' ? 'elk jaar' : 'eenmalig'}, mln){' '}
+            <input
+              type="number"
+              min={0}
+              step={0.5}
+              inputMode="decimal"
+              className="debug-getal"
+              value={(keuzes.reserve?.[soort] ?? 0) / 1e6}
+              onChange={(e) => {
+                const huidig = keuzes.reserve ?? { structureel: 0, eenmalig: 0 };
+                probeer({
+                  ...keuzes,
+                  reserve: { ...huidig, [soort]: Math.max(0, Number(e.target.value) || 0) * 1e6 },
+                });
+              }}
+            />
+          </label>
+        ))}
       </section>
       <p role="status" aria-live="polite" className="debug-melding" data-testid="melding">
         {melding}

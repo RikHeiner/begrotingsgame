@@ -25,6 +25,7 @@ npm test               # unit tests van de rekenmotor (Vitest)
 npm run test:e2e       # end-to-end tests en screenshots (Playwright, 360×800, 390×844, 1440×900)
 npm run data:check     # controleert alle data (zie hieronder)
 npm run vvd:check      # rekent de VVD-tegenbegroting na met de schuiven van de game
+npm run personas:overzicht  # docs/INWONERS-AFSTEMMEN.md voor de fractie
 ```
 
 Screenshots van de Playwright-tests staan daarna in `test-results/`.

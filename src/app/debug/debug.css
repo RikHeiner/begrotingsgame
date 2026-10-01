@@ -174,3 +174,9 @@
     max-width: 64rem;
   }
 }
+
+.debug-getal {
+  width: 5rem;
+  min-height: 44px;
+  font: inherit;
+}

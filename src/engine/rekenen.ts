@@ -17,6 +17,7 @@ import {
   grensBelasting,
   grensOnderdeel,
   normaliseer,
+  stortingenInReserve,
   weerstandBasis,
   weerstandPerJaar,
 } from './regels';
@@ -86,6 +87,23 @@ function directeEffecten(data: Data, keuzes: Keuzes): Effect[] {
       },
       perJaar(jaren.length, () => (pct / 100) * vanMln(b.opbrengst_mln)),
     );
+  }
+
+  if (keuzes.reserve) {
+    const { structureel, eenmalig } = keuzes.reserve;
+    const stort = (bedrag: number, soort: 'S' | 'I') =>
+      voegToe(
+        {
+          bron: 'reserve',
+          doel: 'grootheid:algemene_reserve',
+          soort,
+          kant: 'lasten',
+          uitleg: `Je stort ${soort === 'S' ? 'elk jaar' : 'eenmalig'} ${formatMln(bedrag)} in de algemene reserve. Dat geld kun je niet ook uitgeven, maar de buffer wordt groter.`,
+        },
+        perJaar(jaren.length, (j) => (soort === 'S' || j === 0 ? -bedrag : 0)),
+      );
+    if (structureel > 0) stort(structureel, 'S');
+    if (eenmalig > 0) stort(eenmalig, 'I');
   }
 
   const rente = renteVoorInvesteringen(data);
@@ -274,22 +292,6 @@ export function bereken(data: Data, invoer: Keuzes): Resultaat {
     keuzes,
     correcties,
   };
-}
-
-/** Actiekaarten die in de reserve worden gestort (de `van` van fin_reserves). */
-function stortingenInReserve(data: Data, keuzes: Keuzes): Record<number, number> {
-  const uit: Record<number, number> = {};
-  const van = data.index.verbanden.get('fin_reserves')?.van ?? [];
-  for (const id of keuzes.kaarten) {
-    const k = data.index.kaarten.get(id);
-    if (!k || !van.includes(id) || k.soort !== 'uitgave') continue;
-    data.jaren.forEach((jaar, j) => {
-      if (k.structureel_of_incidenteel === 'S' || j === 0) {
-        uit[jaar] = (uit[jaar] ?? 0) + Math.abs(vanMln(k.bedrag_mln));
-      }
-    });
-  }
-  return uit;
 }
 
 // ---------------------------------------------------------------------------------------------

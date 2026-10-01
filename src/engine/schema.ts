@@ -324,7 +324,8 @@ export const gebouwSchema = z
     naam: z.string(),
     thema: z.string(),
     icoon: z.string(),
-    wijk: z.string().regex(/^WK\d{6}$/),
+    buurt: z.string().regex(/^BU\d{8}$/),
+    gebied: z.string().min(1),
     soort: z.enum(['gebouw', 'park', 'loket', 'veilinghuis', 'landmark']),
     omschrijving: z.string(),
     onderdelen: z.array(z.string()),
@@ -337,6 +338,28 @@ export const gebouwenSchema = z
   .object({ toelichting: z.string(), gebouwen: z.array(gebouwSchema).min(1) })
   .strict();
 
+// ---------- spel/gebieden.json ----------
+
+export const gebiedenSchema = z
+  .object({
+    toelichting: z.string(),
+    bron: z.string().url(),
+    gebieden: z
+      .array(
+        z
+          .object({
+            id: z.string().min(1),
+            naam: z.string(),
+            buurten: z.array(z.string().regex(/^BU\d{8}$/)),
+          })
+          .strict(),
+      )
+      .min(1),
+    controleren: z.array(z.string()),
+  })
+  .strict();
+export type GebiedenData = z.infer<typeof gebiedenSchema>;
+
 // ---------- spel/personas.json ----------
 
 export const personaSchema = z
@@ -344,7 +367,8 @@ export const personaSchema = z
     id: z.string().min(1),
     naam: z.string(),
     leeftijd: z.number().int().nullable(),
-    wijk: z.string().regex(/^WK\d{6}$/),
+    buurt: z.string().regex(/^BU\d{8}$/),
+    gebied: z.string().min(1),
     situatie: z.string(),
     meters: z.partialRecord(meterIdSchema, z.number().nonnegative()),
     posten: z.record(z.string(), z.number()),

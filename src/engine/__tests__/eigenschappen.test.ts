@@ -28,6 +28,10 @@ const keuzesArb = (): fc.Arbitrary<Keuzes> => {
     ),
     kaarten: fc.subarray(kaartIds),
     scenario: fc.constantFrom('voorzichtig', 'midden', 'optimistisch'),
+    reserve: fc.record({
+      structureel: fc.integer({ min: -5e6, max: 30e6 }),
+      eenmalig: fc.integer({ min: -5e6, max: 30e6 }),
+    }),
   });
 };
 

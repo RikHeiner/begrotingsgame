@@ -43,6 +43,7 @@ export function laadDataNode(begrotingBestand?: string): Data {
     dwarsverbanden: leesJson('dwarsverbanden.json'),
     meters: leesJson(SPEL_BESTANDEN.meters),
     gebouwen: leesJson(SPEL_BESTANDEN.gebouwen),
+    gebieden: leesJson(SPEL_BESTANDEN.gebieden),
     personas: leesJson(SPEL_BESTANDEN.personas),
     vergelijking: (config.vergelijking as string[]).map((bestand) => ({
       bestand,
@@ -51,8 +52,8 @@ export function laadDataNode(begrotingBestand?: string): Data {
   });
 }
 
-export function leesWijkcodes(): string[] {
-  const geo = leesJson('gemeente-groningen-wijken.geojson') as {
+export function leesBuurtcodes(): string[] {
+  const geo = leesJson('gemeente-groningen-buurten.geojson') as {
     features: { properties: { code: string } }[];
   };
   return geo.features.map((f) => f.properties.code);

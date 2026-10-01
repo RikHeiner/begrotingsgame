@@ -12,8 +12,9 @@ Alle bedragen, posten, teksten en parameters staan in deze map. De code kent gee
 | `tegenbegroting-*.json` | Een tegenbegroting als testcase en ter vergelijking. |
 | `gemeente-groningen-wijken.geojson`, `-buurten.geojson` | Kaart (CBS 2024 via PDOK). |
 | `spel/meters.json` | De acht meters, hun korte code en de spelregels voor de berekening. |
-| `spel/gebouwen.json` | De 14 gebouwen, hun wijk en hun posten. |
-| `spel/personas.json` | De acht inwoners, hun wijk en waar ze om geven. |
+| `spel/gebieden.json` | De zeven gebieden van de gemeente (Centrum, Noord, Oost, Zuid, West, Haren, Ten Boer) met hun CBS-buurten. |
+| `spel/gebouwen.json` | De 14 gebouwen, hun buurt, hun gebied en hun posten. |
+| `spel/personas.json` | De acht inwoners, hun buurt, hun gebied en waar ze om geven. |
 | `mappings/id-mapping-OUD-NIEUW.json` | Koppeling van ids tussen begrotingsjaren (vanaf de begroting 2027). |
 
 Alleen `.json` en `.geojson` worden online gezet. Deze documentatie niet.
@@ -48,8 +49,9 @@ Er is geen bedrag aangepast.
 ### Nieuwe spelbestanden
 
 - `spel/meters.json`: de korte codes (`v`, `s`, `z`, `w`, `c`) zijn de sleutels die de begroting al gebruikt bij `meters`. Daarbij komen `p` (portemonnee), `h` (wonen) en `d` (dienstverlening). De spelregels (gevoeligheid 120 en 150) komen uit het prototype.
-- `spel/gebouwen.json`: de 14 gebouwen uit het prototype. `onderdelen` moet precies overeenkomen met het veld `gebouw` bij de onderdelen; `data:check` controleert dat. De positie op de kaart volgt in fase 2.
-- `spel/personas.json`: de acht inwoners uit de opdracht. De gewichten zijn een voorstel en moeten met de fractie worden afgestemd.
+- `spel/gebieden.json`: de game gebruikt de gebiedsindeling van de gemeente (wijkwethouders en gebiedsteams), niet de CBS-wijken. Elke CBS-buurt uit de kaart hoort bij precies één gebied; `data:check` controleert dat. Buurten in `controleren` staan niet in de lijst van de gemeente en zijn voorlopig bij Oost gezet.
+- `spel/gebouwen.json`: de 14 gebouwen uit het prototype. `buurt` is een CBS-buurtcode, `gebied` moet daarbij passen. `onderdelen` moet precies overeenkomen met het veld `gebouw` bij de onderdelen; `data:check` controleert dat. De positie op de kaart volgt in fase 2.
+- `spel/personas.json`: de acht inwoners uit de opdracht, met buurt en gebied. De gewichten zijn een voorstel; de fractie stemt ze af via `docs/INWONERS-AFSTEMMEN.md` (`npm run personas:overzicht`).
 
 ## Hoe de rekenmotor de data leest
 
@@ -64,7 +66,7 @@ Dit zijn de afspraken die niet direct uit de JSON volgen. Ze zijn bewust gekozen
 7. **Scenario's.** Bij voorzichtig en optimistisch rekent de motor elk verband met een bandbreedte twee keer door (alle parameters op laag, en op hoog). Voorzichtig neemt de uitkomst die het minst gunstig is voor het saldo over de hele horizon, optimistisch de meest gunstige.
 8. **Geen dubbeltelling.** Waar een formule in de JSON het directe effect herhaalt (`rijk_geoormerkt`, `rijk_ozb_rekentarief`, `vh_parkeerhandhaving`, `kd_schouwburg`, `kd_leges_omgeving`), rekent het verband alleen het extra deel. Het directe deel staat al bij de post.
 9. **Volgorde.** Een graaf van `naar` naar `van`, aangevuld met de grootheden die een implementatie leest en schrijft. Een kring wordt één keer doorgerekend en gemeld in `data:check`.
-10. **Weerstandsvermogen.** Benodigde capaciteit = algemene reserve / ratio (81,1 / 1,61). Elk jaar komt het saldo (structureel + eenmalig) bij de reserve, plus stortingen via de kaarten in `fin_reserves.van`. Een ratio onder `ondergrens_ratio` is een overtreding.
+10. **Weerstandsvermogen en reserve.** Benodigde capaciteit = algemene reserve / ratio (81,1 / 1,61). Een overschot is vrije ruimte: het gaat niet vanzelf naar de reserve. De speler kiest zelf of hij het uitgeeft of stort (keuze `reserve`, elk jaar of eenmalig, of de kaarten in `fin_reserves.van`). Een storting is een uitgave in het saldo, verhoogt de reserve en scheelt vanaf het jaar erna rente (`fin_kapitaallasten.rente` over het gestorte bedrag, aanname). Een tekort gaat van de reserve af. Een ratio onder `ondergrens_ratio` is een overtreding.
 11. **Slot op de pot.** Een wijziging mag als het structurele saldo daarna in elk jaar ≥ 0 is of niet slechter wordt; hetzelfde voor structureel + eenmalig samen.
 12. **Meters.** Per meter 50 + gevoeligheid × (gewogen gemiddelde wijziging van de niet-vergrendelde posten met een gewicht). Portemonnee: 50 − gevoeligheid × (gewogen gemiddelde wijziging van de belastingen, gewogen naar opbrengst × voelbaarheid). Daarbij de punten van kaarten en kettingeffecten (`punten_dwarsverband_per_100pct` per 100% wijziging). Altijd tussen 0 en 100.
 13. **Persona's.** 50 + gewogen gemiddelde afwijking van hun meters + `punten_posten_per_100pct` × gewicht × wijziging van hun posten. Een actieve kaart telt als 100%.

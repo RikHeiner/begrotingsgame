@@ -6,6 +6,7 @@ import {
   begrotingSchema,
   configSchema,
   dwarsverbandenSchema,
+  gebiedenSchema,
   gebouwenSchema,
   leesKengetallen,
   metersSchema,
@@ -19,6 +20,7 @@ import {
   type Dwarsverband,
   type Dwarsverbanden,
   type Gebouw,
+  type GebiedenData,
   type Kengetallen,
   type MeterId,
   type MetersData,
@@ -36,6 +38,7 @@ export type Data = {
   meters: MetersData;
   personas: PersonasData;
   gebouwen: Gebouw[];
+  gebieden: GebiedenData;
   vergelijking: { bestand: string; tegenbegroting: Tegenbegroting }[];
   /** Jaren van de meerjarenraming, bijvoorbeeld [2026, 2027, 2028, 2029]. */
   jaren: number[];
@@ -55,6 +58,7 @@ export type HaalJson = (pad: string) => Promise<unknown>;
 export const SPEL_BESTANDEN = {
   meters: 'spel/meters.json',
   gebouwen: 'spel/gebouwen.json',
+  gebieden: 'spel/gebieden.json',
   personas: 'spel/personas.json',
 } as const;
 
@@ -84,6 +88,7 @@ export type RuweData = {
   dwarsverbanden: unknown;
   meters: unknown;
   gebouwen: unknown;
+  gebieden: unknown;
   personas: unknown;
   vergelijking: { bestand: string; inhoud: unknown }[];
 };
@@ -109,6 +114,7 @@ export function maakData(ruw: RuweData): Data {
   const meters = valideer(metersSchema, ruw.meters, SPEL_BESTANDEN.meters);
   const gebouwen = valideer(gebouwenSchema, ruw.gebouwen, SPEL_BESTANDEN.gebouwen).gebouwen;
   const personas = valideer(personasSchema, ruw.personas, SPEL_BESTANDEN.personas);
+  const gebieden = valideer(gebiedenSchema, ruw.gebieden, SPEL_BESTANDEN.gebieden);
   const vergelijking = ruw.vergelijking.map(({ bestand, inhoud }) => ({
     bestand,
     tegenbegroting: valideer(tegenbegrotingSchema, inhoud, bestand),
@@ -122,6 +128,7 @@ export function maakData(ruw: RuweData): Data {
     meters,
     personas,
     gebouwen,
+    gebieden,
     vergelijking,
     jaren: [...config.meerjarenHorizon],
     index: maakIndex(begroting, dwarsverbanden, meters),
@@ -152,12 +159,13 @@ export function metExtraKaarten(data: Data, kaarten: Actiekaart[]): Data {
 export async function laadData(haal: HaalJson): Promise<Data> {
   const ruweConfig = await haal('config.json');
   const config = valideer(configSchema, ruweConfig, 'config.json');
-  const [begroting, dwarsverbanden, meters, gebouwen, personas, ...vergelijking] =
+  const [begroting, dwarsverbanden, meters, gebouwen, gebieden, personas, ...vergelijking] =
     await Promise.all([
       haal(config.begroting),
       haal('dwarsverbanden.json'),
       haal(SPEL_BESTANDEN.meters),
       haal(SPEL_BESTANDEN.gebouwen),
+      haal(SPEL_BESTANDEN.gebieden),
       haal(SPEL_BESTANDEN.personas),
       ...config.vergelijking.map((b) => haal(b)),
     ]);
@@ -167,6 +175,7 @@ export async function laadData(haal: HaalJson): Promise<Data> {
     dwarsverbanden,
     meters,
     gebouwen,
+    gebieden,
     personas,
     vergelijking: config.vergelijking.map((bestand, i) => ({ bestand, inhoud: vergelijking[i] })),
   });

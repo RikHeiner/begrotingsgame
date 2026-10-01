@@ -6,24 +6,24 @@ import { alsGezamenlijkeKeuzes, narekenen } from '../vvd';
 import { echteData, leesJson, metAangepasteBegroting } from './hulp';
 
 let data: Data;
-let wijkcodes: string[];
+let buurtcodes: string[];
 beforeAll(async () => {
   data = await echteData();
-  const geo = leesJson('gemeente-groningen-wijken.geojson') as {
+  const geo = leesJson('gemeente-groningen-buurten.geojson') as {
     features: { properties: { code: string } }[];
   };
-  wijkcodes = geo.features.map((f) => f.properties.code);
+  buurtcodes = geo.features.map((f) => f.properties.code);
 });
 
 const fouten = (d: Data) =>
-  controleer({ data: d, wijkcodes })
+  controleer({ data: d, buurtcodes })
     .filter((b) => b.niveau === 'fout')
     .map((b) => b.tekst);
 
 describe('data-check', () => {
   it('de echte data heeft geen fouten', () => {
     expect(fouten(data)).toEqual([]);
-    expect(heeftFouten(controleer({ data, wijkcodes }))).toBe(false);
+    expect(heeftFouten(controleer({ data, buurtcodes }))).toBe(false);
   });
 
   it('meldt onderdelen die hoger zijn dan hun deelprogramma', () => {
@@ -80,7 +80,7 @@ describe('data-check', () => {
     };
     const bevindingen = controleer({
       data: kapot,
-      wijkcodes,
+      buurtcodes,
       mappings: [
         { van_jaar: 2025, naar_jaar: 2026, posten: [{ oud: 'x99', nieuw: null, vervallen: true }] },
       ],

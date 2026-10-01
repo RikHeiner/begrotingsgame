@@ -5,7 +5,7 @@
  */
 import { alsTekst, controleer, heeftFouten } from '../src/engine/controle';
 import { DataFout } from '../src/engine/laadData';
-import { laadDataNode, leesMappings, leesWijkcodes } from './lees';
+import { laadDataNode, leesMappings, leesBuurtcodes } from './lees';
 
 const bestand = process.argv.slice(2).find((a) => !a.startsWith('--'));
 try {
@@ -15,7 +15,7 @@ try {
   );
   const bevindingen = controleer({
     data,
-    wijkcodes: leesWijkcodes(),
+    buurtcodes: leesBuurtcodes(),
     mappings: leesMappings(data.begroting.begrotingsjaar),
   });
   const toonInfo = process.argv.includes('--alles');
