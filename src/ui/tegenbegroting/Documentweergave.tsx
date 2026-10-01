@@ -5,7 +5,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { formatMln, type Data, type Resultaat } from '../../engine';
 import { maakLink } from '../../game/deellink';
-import { lezerVoor, sterren } from '../../game/score';
+import { sterren } from '../../game/score';
 import { useSpel } from '../../game/state/store';
 import {
   bestandsnaam,
@@ -98,7 +98,6 @@ function GeldTabel({
 
 export function Documentweergave({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
   const meta = useSpel((s) => s.meta);
-  const missieId = useSpel((s) => s.missie);
   const terug = useSpel((s) => s.indienen);
   const [status, setStatus] = useState<string>();
   const kop = useRef<HTMLHeadingElement>(null);
@@ -129,16 +128,13 @@ export function Documentweergave({ data, resultaat }: { data: Data; resultaat: R
     setStatus('De afbeelding wordt gemaakt…');
     try {
       const { maakAfbeelding, download } = await import('./afbeelding');
-      const lees = lezerVoor(data, resultaat);
-      const missie = data.missies.missies.find((m) => m.id === missieId);
-      const aantal = sterren(data, resultaat, missie, lees).filter((s) => s.gehaald).length;
-      const link = maakLink(
-        window.location.href,
-        resultaat.keuzes,
-        data.config.actiefJaar,
-        missieId,
+      const st = sterren(data, resultaat);
+      const aantal = st.filter((s) => s.gehaald).length;
+      const link = maakLink(window.location.href, resultaat.keuzes, data.config.actiefJaar);
+      download(
+        await maakAfbeelding(tb, { aantal, van: st.length }, link),
+        bestandsnaam(tb.titel, 'png'),
       );
-      download(await maakAfbeelding(tb, aantal, link), bestandsnaam(tb.titel, 'png'));
       setStatus('De afbeelding is gedownload.');
     } catch {
       setStatus('De afbeelding kon niet worden gemaakt.');
@@ -234,25 +230,9 @@ export function Documentweergave({ data, resultaat }: { data: Data; resultaat: R
           <p>Geen eigen ideeën ingevuld.</p>
         )}
 
-        <h2>Gevolgen voor de gemeente</h2>
+        <h2>Wat merken de inwoners?</h2>
         <p className="klein">{tb.gevolgen.uitleg}</p>
         <div className="doc-scroll">
-          <table className="doc-tabel">
-            <thead>
-              <tr>
-                <th scope="col">Meter</th>
-                <th scope="col">Stand (50 = nu)</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tb.gevolgen.meters.map((m) => (
-                <tr key={m.naam}>
-                  <td>{m.naam}</td>
-                  <td>{Math.round(m.waarde)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
           <table className="doc-tabel">
             <thead>
               <tr>
@@ -260,7 +240,6 @@ export function Documentweergave({ data, resultaat }: { data: Data; resultaat: R
                 <th scope="col" className="links">
                   Wat merkt hij of zij?
                 </th>
-                <th scope="col">Tevreden</th>
               </tr>
             </thead>
             <tbody>
@@ -268,7 +247,6 @@ export function Documentweergave({ data, resultaat }: { data: Data; resultaat: R
                 <tr key={x.naam}>
                   <td>{x.naam}</td>
                   <td className="links">{x.zin}</td>
-                  <td>{Math.round(x.tevredenheid)}</td>
                 </tr>
               ))}
             </tbody>

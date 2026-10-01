@@ -17,10 +17,9 @@
   ],
   "slot_dicht": "Het slot zit op de pot. Maak eerst geld vrij door ergens te bezuinigen.",
   "slot_open": "Het slot is eraf: je hebt geld vrijgemaakt.",
-  "meters_uitleg": "De meters zijn een spelregel, geen voorspelling. 50 is de huidige begroting.",
+  "inwoners_uitleg": "Bedachte inwoners, om te laten zien wie wat merkt van jouw keuzes. Het zijn geen echte mensen en het is geen voorspelling.",
   "aanname_uitleg": "⚠︎ betekent: dit bedrag is een aanname of een spelregel, geen getal uit de begroting.",
   "eindscherm": {
-    "geslaagd": "Missie geslaagd!",
     "ingediend": "Je begroting is ingediend",
     "niet_sluitend": "Je begroting sluit nog niet"
   },

@@ -140,6 +140,11 @@ function ParkeerSchuiven({
                       min={p.min}
                       max={p.max}
                       waarde={pct}
+                      bedrag={
+                        p.tarief !== undefined
+                          ? { basis: p.tarief, eenheid: 'euro', soort: 'Tarief' }
+                          : { basis: p.basis / 1e6, eenheid: 'mln', soort: 'Opbrengst' }
+                      }
                       beschrijving={[p.uitleg, nieuw].filter(Boolean).join(' ')}
                       onChange={(v) => zet(p.id, v)}
                     />
@@ -208,6 +213,7 @@ export function GebouwPosten({
                 min={g.min}
                 max={g.max}
                 waarde={k.belastingen[b.id] ?? 0}
+                bedrag={{ basis: b.opbrengst_mln, eenheid: 'mln', soort: 'Opbrengst' }}
                 beschrijving={b.uitleg}
                 onChange={(v) => zetBelasting(b.id, v)}
               />
@@ -275,6 +281,7 @@ export function GebouwPosten({
                 max={g.max}
                 waarde={pct}
                 vergrendeld={vergrendeld}
+                bedrag={{ basis: o.lasten_mln, eenheid: 'mln', soort: 'Budget' }}
                 beschrijving={
                   [
                     tekst,

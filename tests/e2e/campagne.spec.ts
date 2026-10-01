@@ -6,7 +6,7 @@ test('campagne: vier rondes, kaarten per ronde en een eindscore over de hele per
 }, testInfo) => {
   await page.addInitScript(() => localStorage.setItem('begrotingsgame:tutorial', 'klaar'));
   await page.goto('/');
-  await page.getByTestId('missie').click();
+  await page.getByTestId('campagne').click();
   await page.getByTestId('start-campagne').click();
 
   for (const [ronde, jaar] of [

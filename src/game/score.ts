@@ -1,6 +1,6 @@
 /**
- * Missies, badges, sterren en de teksten op het eindscherm. Pure functies over het resultaat van de
- * rekenmotor; geen bedragen in de code, de drempels staan in data/spel/missies.json.
+ * Badges, sterren en de teksten op het eindscherm. Pure functies over het resultaat van de
+ * rekenmotor; geen bedragen in de code, de drempels staan in data/spel/badges.json.
  */
 import {
   bereken,
@@ -13,7 +13,7 @@ import {
   type Resultaat,
 } from '../engine';
 import { evalueer, parseer } from '../engine/expressie';
-import type { Missie, Persona } from '../engine/schema';
+import type { Persona } from '../engine/schema';
 import { alsGezamenlijkeKeuzes } from '../engine/vvd';
 import { maakLezer } from './reacties/context';
 import { gebouwStanden } from './toestand';
@@ -26,25 +26,18 @@ export function lezerVoor(data: Data, r: Resultaat): Lezer {
 
 const waar = (voorwaarde: string, lees: Lezer) => evalueer(parseer(voorwaarde), lees) !== 0;
 
-export type MissieStand = { gehaald: boolean; waarde: number; doel: number; fractie: number };
-
-export function missieStand(missie: Missie, lees: Lezer): MissieStand {
-  const waarde = lees(missie.voortgang.naam);
-  const doel = missie.voortgang.doel;
-  // Bij een negatief doel (OZB −10%) telt omlaag als vooruitgang.
-  const fractie = doel === 0 ? 1 : Math.max(0, Math.min(1, waarde / doel));
-  return { gehaald: waar(missie.voorwaarde, lees), waarde, doel, fractie };
-}
-
 export function behaaldeBadges(data: Data, lees: Lezer) {
-  return data.missies.badges.filter((b) => waar(b.voorwaarde, lees));
+  return data.badges.badges.filter((b) => waar(b.voorwaarde, lees));
 }
 
 export type Ster = { id: string; label: string; gehaald: boolean };
 
-/** Maximaal vijf sterren (opdracht 8.6). Vrij spel: de missie telt als gehaald als de begroting sluit. */
-export function sterren(data: Data, r: Resultaat, missie: Missie | undefined, lees: Lezer): Ster[] {
-  const s = data.missies.score;
+/**
+ * Drie sterren voor een gezonde begroting. Geen missies en geen meters meer (besluit 1 oktober
+ * 2026): iedereen maakt zijn eigen begroting.
+ */
+export function sterren(data: Data, r: Resultaat): Ster[] {
+  const s = data.badges.score;
   const jaren = data.jaren.map((j) => r.perJaar[j]);
   const sluitendTotaal = jaren.every((j) => (j?.structureel ?? 0) + (j?.incidenteel ?? 0) >= -0.5);
   const structureelSluitend = jaren.every((j) => (j?.structureel ?? 0) >= -0.5);
@@ -52,21 +45,11 @@ export function sterren(data: Data, r: Resultaat, missie: Missie | undefined, le
   return [
     { id: 'sluitend', label: 'Je begroting sluit in alle jaren', gehaald: sluitendTotaal },
     {
-      id: 'missie',
-      label: missie ? `Missie gehaald: ${missie.naam}` : 'Vrij spel: je begroting sluit',
-      gehaald: missie ? missieStand(missie, lees).gehaald : r.regels.sluitend,
-    },
-    {
       id: 'gezond',
       label: `Elk jaar minstens ${formatMln(s.gezond_mln * 1e6)} over`,
       gehaald: minimum >= s.gezond_mln * 1e6,
     },
     { id: 'eenmalig', label: 'Geen eenmalig geld voor vaste lasten', gehaald: structureelSluitend },
-    {
-      id: 'meters',
-      label: `Alle meters boven ${s.meters_min}`,
-      gehaald: Object.values(r.meters).every((m) => m > s.meters_min),
-    },
   ];
 }
 
@@ -111,7 +94,7 @@ export function personaInvloeden(data: Data, r: Resultaat, p: Persona): Invloed[
 export function personaZinnen(
   data: Data,
   r: Resultaat,
-): { id: string; naam: string; tevredenheid: number; zin: string }[] {
+): { id: string; naam: string; zin: string }[] {
   return data.personas.personas.map((p) => {
     const beste = personaInvloeden(data, r, p)[0];
     const naam = p.naam;
@@ -121,7 +104,7 @@ export function personaZinnen(
       : beste.waarde > 0
         ? `${naam} ${meervoud ? 'zijn' : 'is'} vooral blij met ${beste.tekst}.`
         : `${naam} ${meervoud ? 'gaan' : 'gaat'} erop achteruit door ${beste.tekst}.`;
-    return { id: p.id, naam, tevredenheid: r.personas[p.id] ?? 50, zin };
+    return { id: p.id, naam, zin };
   });
 }
 

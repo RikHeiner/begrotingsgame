@@ -26,7 +26,6 @@ export function Spel({ data }: { data: Data }) {
   const melding = useSpel((s) => s.melding);
   const wisMelding = useSpel((s) => s.wisMelding);
   const fase = useSpel((s) => s.fase);
-  const missie = useSpel((s) => s.missie);
   const [kaartFout, setKaartFout] = useState<string>();
   const [gelezen] = useState(() => leesUitUrl(window.location.href));
   const zelfdeJaar = gelezen?.jaar === data.config.actiefJaar;
@@ -40,7 +39,7 @@ export function Spel({ data }: { data: Data }) {
 
   // Start, eventueel met de keuzes uit een gedeelde link
   useEffect(() => {
-    if (gelezen && zelfdeJaar) start(data, gelezen.keuzes, gelezen.missie);
+    if (gelezen && zelfdeJaar) start(data, gelezen.keuzes);
     else start(data);
   }, [data, start, gelezen, zelfdeJaar]);
 
@@ -52,16 +51,16 @@ export function Spel({ data }: { data: Data }) {
       const leeg =
         !Object.keys(keuzes.onderdelen).length &&
         !Object.keys(keuzes.belastingen).length &&
+        !Object.keys(keuzes.parkeren ?? {}).length &&
         !keuzes.kaarten.length &&
         !keuzes.reserve &&
-        keuzes.scenario === data.config.scenario &&
-        !missie;
+        keuzes.scenario === data.config.scenario;
       if (leeg) url.searchParams.delete(PARAM);
-      else url.searchParams.set(PARAM, codeer(keuzes, data.config.actiefJaar, missie));
+      else url.searchParams.set(PARAM, codeer(keuzes, data.config.actiefJaar));
       window.history.replaceState(null, '', url);
     }, 300);
     return () => window.clearTimeout(t);
-  }, [keuzes, missie, resultaat, data]);
+  }, [keuzes, resultaat, data]);
 
   useEffect(() => {
     if (!melding) return;

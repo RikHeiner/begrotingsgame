@@ -8,7 +8,6 @@ import {
   gevoeligheid,
   lezerVoor,
   maatregelen,
-  missieStand,
   personaZinnen,
   sterren,
   vergelijkPerThema,
@@ -19,50 +18,14 @@ let data: Data;
 beforeAll(async () => {
   data = await echteData();
 });
-const missie = (id: string) => {
-  const m = data.missies.missies.find((x) => x.id === id);
-  if (!m) throw new Error(id);
-  return m;
-};
-
-describe('missies en score', () => {
-  it('het slot van de pot: € 1 mln vrijmaken en investeren', () => {
-    const niks = bereken(data, keuzes());
-    expect(missieStand(missie('slot'), lezerVoor(data, niks)).gehaald).toBe(false);
-    const r = bereken(data, keuzes({ onderdelen: { h1: -5, k1: 5 } }));
-    const s = missieStand(missie('slot'), lezerVoor(data, r));
-    expect(s.gehaald).toBe(true);
-    expect(s.fractie).toBe(1);
-  });
-
-  it('lagere lasten: OZB −10% met een sluitende begroting', () => {
-    const tekort = bereken(data, keuzes({ belastingen: { t1: -10 } }));
-    expect(missieStand(missie('lasten'), lezerVoor(data, tekort)).gehaald).toBe(false);
-    const ok = bereken(data, keuzes({ belastingen: { t1: -10 }, onderdelen: { h1: -15 } }));
-    const s = missieStand(missie('lasten'), lezerVoor(data, ok));
-    expect(s.gehaald).toBe(true);
-    expect(s.fractie).toBe(1);
-  });
-
-  it('alle missies zijn uit te rekenen zonder fouten', () => {
-    const r = bereken(
-      data,
-      keuzes({ onderdelen: { o1: 25, v2: 50, s3: 50, h1: -20 }, kaarten: ['k_bouw'] }),
-    );
-    const lees = lezerVoor(data, r);
-    for (const m of data.missies.missies) {
-      const s = missieStand(m, lees);
-      expect(Number.isFinite(s.waarde), m.id).toBe(true);
-    }
-  });
-
-  it('vijf sterren met een gezonde, sluitende begroting', () => {
+describe('score', () => {
+  it('drie sterren met een gezonde, sluitende begroting', () => {
     const r = bereken(data, keuzes({ onderdelen: { h1: -10 } }));
-    const st = sterren(data, r, undefined, lezerVoor(data, r));
-    expect(st).toHaveLength(5);
+    const st = sterren(data, r);
+    expect(st.map((s) => s.id)).toEqual(['sluitend', 'gezond', 'eenmalig']);
     expect(st.every((s) => s.gehaald)).toBe(true);
     const slecht = bereken(data, keuzes({ kaarten: ['k_warm'], onderdelen: { k1: 5 } }));
-    const st2 = sterren(data, slecht, undefined, lezerVoor(data, slecht));
+    const st2 = sterren(data, slecht);
     // Eenmalig geld telt alleen in 2026: in 2027 sluit deze begroting niet.
     expect(st2.find((s) => s.id === 'sluitend')?.gehaald).toBe(false);
     expect(st2.find((s) => s.id === 'eenmalig')?.gehaald).toBe(false);
@@ -132,8 +95,8 @@ describe('deellink', () => {
       scenario: 'voorzichtig',
       reserve: { structureel: 2e6, eenmalig: 0 },
     });
-    const g = decodeer(codeer(k, 2026, 'lasten'));
-    expect(g).toEqual({ jaar: 2026, keuzes: k, missie: 'lasten' });
+    const g = decodeer(codeer(k, 2026));
+    expect(g).toEqual({ jaar: 2026, keuzes: k });
   });
 
   it('neemt de parkeerkeuzes mee', () => {

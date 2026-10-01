@@ -32,8 +32,9 @@ export function formatEuro(euro: number, opties: { teken?: boolean } = {}): stri
   return `${voorteken}€ ${getal(afgerond, 0)}`;
 }
 
-/** Percentage met teken, bijvoorbeeld "−20%" of "+10%". */
+/** Percentage met teken, bijvoorbeeld "−20%", "+10%" of (na een ingevuld bedrag) "−3,7%". */
 export function formatPct(pct: number): string {
-  if (pct === 0) return '0%';
-  return `${pct < 0 ? MIN : '+'}${getal(pct, 0)}%`;
+  const afgerond = Math.round(pct * 10) / 10;
+  if (afgerond === 0) return '0%';
+  return `${afgerond < 0 ? MIN : '+'}${getal(afgerond, Number.isInteger(afgerond) ? 0 : 1)}%`;
 }

@@ -19,10 +19,9 @@ type Compact = {
   k?: string[];
   s?: Keuzes['scenario'];
   r?: [number, number];
-  m?: string;
 };
 
-export function codeer(keuzes: Keuzes, jaar: number, missie?: string): string {
+export function codeer(keuzes: Keuzes, jaar: number): string {
   const c: Compact = { v: VERSIE, j: jaar };
   if (Object.keys(keuzes.onderdelen).length) c.o = keuzes.onderdelen;
   if (Object.keys(keuzes.belastingen).length) c.t = keuzes.belastingen;
@@ -34,11 +33,10 @@ export function codeer(keuzes: Keuzes, jaar: number, missie?: string): string {
       Math.round(keuzes.reserve.structureel / 1000),
       Math.round(keuzes.reserve.eenmalig / 1000),
     ];
-  if (missie) c.m = missie;
   return LZString.compressToEncodedURIComponent(JSON.stringify(c));
 }
 
-export type Gelezen = { keuzes: Keuzes; jaar: number; missie?: string };
+export type Gelezen = { keuzes: Keuzes; jaar: number };
 
 const getallen = (x: unknown): Record<string, number> => {
   if (typeof x !== 'object' || x === null || Array.isArray(x)) return {};
@@ -71,7 +69,6 @@ export function decodeer(tekst: string): Gelezen | undefined {
         scenario,
         ...(r ? { reserve: { structureel: r[0] * 1000, eenmalig: r[1] * 1000 } } : {}),
       },
-      ...(typeof c.m === 'string' ? { missie: c.m } : {}),
     };
   } catch {
     return undefined;
@@ -83,9 +80,9 @@ export function leesUitUrl(url: string): Gelezen | undefined {
   return b ? decodeer(b) : undefined;
 }
 
-export function maakLink(basis: string, keuzes: Keuzes, jaar: number, missie?: string): string {
+export function maakLink(basis: string, keuzes: Keuzes, jaar: number): string {
   const url = new URL(basis);
   url.hash = '';
-  url.searchParams.set(PARAM, codeer(keuzes, jaar, missie));
+  url.searchParams.set(PARAM, codeer(keuzes, jaar));
   return url.toString();
 }

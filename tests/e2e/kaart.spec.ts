@@ -28,7 +28,7 @@ test.describe('gemeentekaart', () => {
     await page.mouse.click(vak.x + vak.width / 2, vak.y + vak.height / 2);
     const paneel = page.getByTestId('paneel');
     await expect(paneel.getByRole('heading')).toContainText('Zwembad');
-    const sport = paneel.getByLabel(/Sporthallen, zwembaden/);
+    const sport = paneel.getByRole('slider', { name: /Sporthallen, zwembaden/ });
     await sport.focus();
     for (let i = 0; i < 10; i++) await page.keyboard.press('ArrowLeft');
     await expect(sport).toHaveValue('-50');
@@ -45,7 +45,7 @@ test.describe('gemeentekaart', () => {
     const stadhuis = lijst.locator('summary', { hasText: 'Stadhuis' });
     await stadhuis.focus();
     await page.keyboard.press('Enter');
-    const overhead = lijst.getByLabel(/Overhead/);
+    const overhead = lijst.getByRole('slider', { name: /Overhead/ });
     await overhead.focus();
     await page.keyboard.press('ArrowLeft');
     await page.keyboard.press('ArrowLeft');

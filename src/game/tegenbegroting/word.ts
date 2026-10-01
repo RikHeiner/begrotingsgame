@@ -249,7 +249,7 @@ export function maakWord(tb: Tegenbegroting): Document {
     kop('Mijn eigen ideeën'),
     ...(tb.ideeen ? tb.ideeen.split(/\n+/).map((x) => p(x)) : [p('Geen eigen ideeën ingevuld.')]),
     // 7. Gevolgen
-    kop('Gevolgen voor de gemeente'),
+    kop('Wat merken de inwoners?'),
     p(tb.gevolgen.uitleg, { klein: true }),
     new Table({
       width: { size: 100, type: WidthType.PERCENTAGE },
@@ -257,38 +257,14 @@ export function maakWord(tb: Tegenbegroting): Document {
         new TableRow({
           tableHeader: true,
           children: [
-            cel('Meter', { kop: true, breedte: 70 }),
-            cel('Stand (50 = nu)', { kop: true, rechts: true, breedte: 30 }),
-          ],
-        }),
-        ...tb.gevolgen.meters.map(
-          (m) =>
-            new TableRow({
-              children: [cel(m.naam), cel(String(Math.round(m.waarde)), { rechts: true })],
-            }),
-        ),
-      ],
-    }),
-    p(''),
-    new Table({
-      width: { size: 100, type: WidthType.PERCENTAGE },
-      rows: [
-        new TableRow({
-          tableHeader: true,
-          children: [
             cel('Inwoner', { kop: true, breedte: 25 }),
-            cel('Wat merkt hij of zij?', { kop: true, breedte: 60 }),
-            cel('Tevreden', { kop: true, rechts: true, breedte: 15 }),
+            cel('Wat merkt hij of zij?', { kop: true, breedte: 75 }),
           ],
         }),
         ...tb.gevolgen.inwoners.map(
           (x) =>
             new TableRow({
-              children: [
-                cel(x.naam),
-                cel(x.zin),
-                cel(String(Math.round(x.tevredenheid)), { rechts: true }),
-              ],
+              children: [cel(x.naam), cel(x.zin)],
             }),
         ),
       ],

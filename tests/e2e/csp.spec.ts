@@ -38,12 +38,12 @@ test('de CSP staat in de pagina en blokkeert niets in de game', async ({ page })
     .first()
     .focus();
   await page.keyboard.press('Enter');
-  const schuif = page.getByTestId('paneel').getByLabel(/Overhead/);
+  const schuif = page.getByTestId('paneel').getByRole('slider', { name: /Overhead/ });
   await schuif.focus();
   await page.keyboard.press('ArrowLeft');
   await page.getByTestId('paneel').getByRole('button', { name: 'Paneel sluiten' }).click();
   // Wat betekent het voor mij
-  await page.getByTestId('blij').click();
+  await page.getByTestId('inwoners').click();
   await page.getByTestId('open-voor-mij').click();
   await page.keyboard.press('Escape');
   // Eindscherm, document, Word en afbeelding
@@ -62,7 +62,7 @@ test('de CSP staat in de pagina en blokkeert niets in de game', async ({ page })
   // Campagne
   await page.getByRole('button', { name: '← Terug' }).click();
   await page.getByRole('button', { name: 'Terug naar de gemeente' }).click();
-  await page.getByTestId('missie').click();
+  await page.getByTestId('campagne').click();
   await page.getByTestId('start-campagne').click();
   await expect(page.getByTestId('gebeurtenissen')).toBeVisible();
   expect(await overtredingen(page)).toEqual([]);

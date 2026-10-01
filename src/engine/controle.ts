@@ -340,21 +340,17 @@ export function controleer({ data, buurtcodes, mappings = [] }: ControleInvoer):
     }
   }
 
-  // ---- Missies en badges ----
-  for (const m of [...data.missies.missies, ...data.missies.badges]) {
+  // ---- Badges ----
+  for (const m of data.badges.badges) {
     try {
       for (const naam of namen(parseer(m.voorwaarde))) {
         if (!toegestaan.has(naam))
-          fout('missies', `${m.id}: onbekende naam "${naam}" in de voorwaarde.`);
+          fout('badges', `${m.id}: onbekende naam "${naam}" in de voorwaarde.`);
       }
     } catch (e) {
-      if (e instanceof ExpressieFout) fout('missies', `${m.id}: ${e.message}`);
+      if (e instanceof ExpressieFout) fout('badges', `${m.id}: ${e.message}`);
       else throw e;
     }
-  }
-  for (const m of data.missies.missies) {
-    if (!toegestaan.has(m.voortgang.naam))
-      fout('missies', `${m.id}: onbekende voortgang "${m.voortgang.naam}".`);
   }
 
   // ---- Tegenbegrotingen ----

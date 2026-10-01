@@ -9,7 +9,7 @@ import {
   gebiedenSchema,
   gebouwenSchema,
   kaartSchema,
-  missiesSchema,
+  badgesSchema,
   tekstenSchema,
   reactiesSchema,
   leesKengetallen,
@@ -31,7 +31,7 @@ import {
   type Dwarsverbanden,
   type Gebouw,
   type KaartData,
-  type MissiesData,
+  type BadgesData,
   type Teksten,
   type Reactie,
   type GebiedenData,
@@ -55,7 +55,7 @@ export type Data = {
   gebieden: GebiedenData;
   kaart: KaartData;
   reacties: Reactie[];
-  missies: MissiesData;
+  badges: BadgesData;
   teksten: Teksten;
   /** gebeurteniskaarten voor de campagnemodus */
   gebeurtenissen: Gebeurtenis[];
@@ -86,7 +86,7 @@ export const SPEL_BESTANDEN = {
   gebieden: 'spel/gebieden.json',
   kaart: 'spel/kaart.json',
   reacties: 'spel/reacties.json',
-  missies: 'spel/missies.json',
+  badges: 'spel/badges.json',
   teksten: 'spel/teksten.json',
   personas: 'spel/personas.json',
   gebeurtenissen: 'spel/gebeurtenissen.json',
@@ -121,7 +121,7 @@ export type RuweData = {
   gebieden: unknown;
   kaart: unknown;
   reacties: unknown;
-  missies: unknown;
+  badges: unknown;
   teksten: unknown;
   personas: unknown;
   gebeurtenissen: unknown;
@@ -154,7 +154,7 @@ export function maakData(ruw: RuweData): Data {
   const gebieden = valideer(gebiedenSchema, ruw.gebieden, SPEL_BESTANDEN.gebieden);
   const kaart = valideer(kaartSchema, ruw.kaart, SPEL_BESTANDEN.kaart);
   const reacties = valideer(reactiesSchema, ruw.reacties, SPEL_BESTANDEN.reacties).reacties;
-  const missies = valideer(missiesSchema, ruw.missies, SPEL_BESTANDEN.missies);
+  const badges = valideer(badgesSchema, ruw.badges, SPEL_BESTANDEN.badges);
   const teksten = valideer(tekstenSchema, ruw.teksten, SPEL_BESTANDEN.teksten);
   const gebeurtenissen = valideer(
     gebeurtenissenSchema,
@@ -217,7 +217,7 @@ export function maakData(ruw: RuweData): Data {
     gebieden,
     kaart,
     reacties,
-    missies,
+    badges,
     teksten,
     gebeurtenissen,
     ...(tarieven ? { tarieven } : {}),

@@ -278,6 +278,32 @@
   font-weight: 700;
 }
 
+.schuif-bedrag {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+}
+
+.schuif .schuif-bedrag {
+  font-weight: 400;
+  font-size: 0.85rem;
+}
+
+.schuif .schuif-bedrag input {
+  width: 7.5rem;
+  min-height: 36px;
+  padding: 0.2rem 0.4rem;
+  border: 1px solid color-mix(in srgb, var(--inkt) 35%, transparent);
+  border-radius: 0.4rem;
+  background: var(--paneel);
+  color: var(--inkt);
+  font: inherit;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
 .schuif-uitleg {
   grid-column: 1 / -1;
   margin: 0;
@@ -493,29 +519,9 @@
   cursor: pointer;
 }
 
-.voortgang {
-  display: inline-block;
-  vertical-align: middle;
-  width: 3.5rem;
-  height: 0.5rem;
-  margin-left: 0.4rem;
-  border-radius: 1rem;
-  background: color-mix(in srgb, var(--inkt) 15%, transparent);
-  overflow: hidden;
-}
-
-.voortgang span {
-  display: block;
-  height: 100%;
-  background: var(--oranje);
-}
-
-.voortgang span.klaar {
-  background: var(--positief);
-}
-
 @media (max-width: 420px) {
-  .wissel-tekst {
+  .wissel-tekst,
+  .hud-inwoners-tekst {
     display: none;
   }
 }
@@ -829,8 +835,6 @@
 }
 
 .bronnen,
-.meters,
-.missies,
 .effecten {
   list-style: none;
   margin: 0;
@@ -850,84 +854,9 @@
   padding: 0.25rem 0;
 }
 
-.meters li {
-  display: grid;
-  grid-template-columns: minmax(9rem, 1fr) 1fr 2rem;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.2rem 0;
-}
-
-.meters.compact {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem 1rem;
-}
-
-.meters.compact li {
-  display: block;
-}
-
-.meterbalk {
-  position: relative;
-  height: 0.6rem;
-  border-radius: 1rem;
-  background: color-mix(in srgb, var(--inkt) 12%, transparent);
-  overflow: hidden;
-}
-
-.meterbalk > span:first-child {
-  display: block;
-  height: 100%;
-  background: var(--blauw);
-  border-radius: 1rem;
-}
-
-.meterbalk > span.laag {
-  background: var(--negatief);
-}
-
-.meterbalk > span.hoog {
-  background: var(--positief);
-}
-
-.meterbalk-midden {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: var(--paneel);
-}
-
 .getal {
   text-align: right;
   font-variant-numeric: tabular-nums;
-}
-
-.missies {
-  display: grid;
-  gap: 0.5rem;
-}
-
-.missie-kaart {
-  width: 100%;
-  display: grid;
-  gap: 0.15rem;
-  text-align: left;
-  padding: 0.6rem 0.75rem;
-  border-radius: 0.8rem;
-  border: 2px solid color-mix(in srgb, var(--inkt) 20%, transparent);
-  border-bottom-width: 4px;
-  background: var(--paneel);
-  color: var(--inkt);
-  font: inherit;
-  cursor: pointer;
-}
-
-.missie-kaart.aan {
-  border-color: var(--blauw);
-  background: color-mix(in srgb, var(--blauw) 10%, var(--paneel));
 }
 
 .veldgroep {
@@ -1491,11 +1420,9 @@
 }
 
 .personas summary {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(4rem, 1fr) 2.2rem;
-  align-items: center;
-  gap: 0.5rem;
+  display: list-item;
   min-height: 44px;
+  padding: 0.6rem 0;
   cursor: pointer;
 }
 

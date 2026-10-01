@@ -25,7 +25,7 @@ function regels(ctx: CanvasRenderingContext2D, tekst: string, breedte: number): 
 
 export async function maakAfbeelding(
   tb: Tegenbegroting,
-  sterren: number,
+  sterren: { aantal: number; van: number },
   link: string,
 ): Promise<Blob> {
   await Promise.all([
@@ -60,8 +60,8 @@ export async function maakAfbeelding(
 
   // Sterren en saldo
   ctx.font = '700 72px sans-serif';
-  for (let i = 0; i < 5; i++) {
-    ctx.fillStyle = i < sterren ? '#F2B705' : '#D5D8EA';
+  for (let i = 0; i < sterren.van; i++) {
+    ctx.fillStyle = i < sterren.aantal ? '#F2B705' : '#D5D8EA';
     ctx.fillText('★', 72 + i * 84, 470);
   }
   const s = tb.financieel.totalen.saldoS;

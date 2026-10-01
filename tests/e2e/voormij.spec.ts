@@ -11,8 +11,8 @@ test('Wat betekent het voor mij: een lagere OZB scheelt de eigenaar geld', async
     2026,
   );
   await page.goto(`/?b=${b}`);
-  await page.getByTestId('blij').click();
-  const inwoners = page.getByRole('dialog', { name: /Blije inwoners/ });
+  await page.getByTestId('inwoners').click();
+  const inwoners = page.getByRole('dialog', { name: 'Inwoners' });
   const personas = inwoners.getByTestId('personas');
   await expect(personas.locator(':scope > li')).toHaveCount(9);
   await personas.getByText('Henk', { exact: false }).first().click();

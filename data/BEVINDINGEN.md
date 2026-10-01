@@ -90,6 +90,16 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
 44. **Persona's en parkeren.** Peter en Tineke (Oosterpoort) reageren nu op de bewonersvergunningen in de tweede zone, niet meer op het gemiddelde. In hun beschrijving staat dat ze "maar één parkeervergunning krijgen", terwijl de data voor de tweede zone een tarief voor een tweede vergunning heeft (€ 408,80, 336 vergunningen). Misschien is er een wachtlijst. Fatima woont in Lewenborg; daar is geen betaald parkeren. Zij reageert nog op het gemiddelde. *Vraag:* klopt de beschrijving van beide persona's?
 45. **Melding bij het parkeertarief.** De melding van het kettingeffect zei altijd "Goedkoper parkeren", ook bij een hoger tarief. De tekst is nu neutraal: "Ander parkeertarief: goedkoper geeft meer bezoekers in de binnenstad en meer autoverkeer, duurder het omgekeerde."
 
+## J. Spelen zonder missies en meters
+
+46. **Blije inwoners en meters uit beeld.** De score (0 tot 100) en de meters namen de huidige begroting als nulpunt (50). Dan lijkt het alsof inwoners nu tevreden zijn, terwijl veel mensen dat niet zijn. Ze staan niet meer in de HUD, de dialoog, het eindscherm of het document. De inwoners laten in woorden zien wat ze merken. De rekenmotor houdt de meters nog bij (kettingeffecten, debugpagina). *Mogelijkheden voor later:*
+    - een beginstand uit een echte meting, bijvoorbeeld een enquête van de gemeente onder inwoners per thema (bron nodig);
+    - per inwoner een wens (bijvoorbeeld "lagere OZB", "meer handhaving"): de score is hoe dicht je bij die wens komt, zodat de begroting van het college niet vanzelf "neutraal" is;
+    - geen score, alleen wie wat merkt (zoals nu).
+47. **Badge vervallen.** De badge "Veiligheidsheld" keek naar de meter Veilig; die is weggehaald. Het eindscherm heeft nu drie sterren in plaats van vijf (de sterren voor de missie en de meters vervallen).
+48. **Bedrag invullen.** Naast elke schuif kan de speler het nieuwe bedrag typen (budget, opbrengst of tarief). De game rekent het percentage uit, tot op twee decimalen. Dezelfde grenzen gelden: een bedrag buiten de grens wordt geweigerd met een melding. Het budget is het bedrag van het eerste jaar.
+49. **Woonlasten vergelijken met andere gemeenten.** Nog niet gebouwd: er is een bron nodig met de woonlasten per gemeente (bijvoorbeeld de *Atlas van de lokale lasten* van COELO, of de cijfers op waarstaatjegemeente.nl). Die sites waren vanuit de bouwomgeving niet bereikbaar. *Vraag:* sta `coelo.nl` en `waarstaatjegemeente.nl` toe, of stuur de pdf van de Atlas.
+
 ## Besluiten (1 oktober 2026)
 
 | Punt | Besluit | Verwerkt |
@@ -106,4 +116,7 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
 | 18. Persona's | De fractie stemt ze af. | `docs/INWONERS-AFSTEMMEN.md`. |
 | 19. Wijken | De gebiedsindeling van de gemeente aanhouden. | `spel/gebieden.json`: Centrum, Noord, Oost, Zuid, West, Haren, Ten Boer. Negen buurten bij het Eemskanaal en het Winschoterdiep staan niet in de lijst van de gemeente en zijn voorlopig bij Oost gezet (`controleren`). |
 | 34. Parkeeropbrengst | Het verschil tussen € 35,1 en € 26,3 mln zijn de parkeergarages. Kortparkeren krijgt één schuif voor alle zones. | `parkeren-2026.json`, punt 39. |
+| Missies | Vervallen: iedereen maakt een eigen begroting. De campagne blijft, met een eigen knop. | Punt 47. |
+| Blije inwoners | Eerst weglaten; later misschien anders. | Punt 46. |
+| Bedragen | Naast het percentage ook een bedrag kunnen invullen. | Punt 48. |
 | Fase 7. Video | Geen persoonlijke video; de tegenbegroting blijft als Word, pdf en afbeelding. | `docs/VIDEO-ONTWERP.md` bewaard, niet gebouwd. |

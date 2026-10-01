@@ -34,7 +34,6 @@ export function InstuurDialoog({
   const t = data.teksten.insturen;
   const meta = useSpel((s) => s.meta);
   const zetMeta = useSpel((s) => s.zetMeta);
-  const missie = useSpel((s) => s.missie);
   const markeer = useSpel((s) => s.markeerIngestuurd);
   const [gebied, setGebied] = useState('');
   const [toestemming, setToestemming] = useState(false);
@@ -63,7 +62,6 @@ export function InstuurDialoog({
           scenario: k.scenario,
           ...(k.reserve ? { reserve: k.reserve } : {}),
         },
-        ...(missie ? { missie } : {}),
         ...(gebied ? { gebied } : {}),
         ...(meta.idee.trim() ? { idee: meta.idee.trim() } : {}),
         ...(opDeHoogte && email.trim() ? { email: email.trim(), email_toestemming: true } : {}),

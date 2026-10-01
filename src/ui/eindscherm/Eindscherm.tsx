@@ -1,5 +1,5 @@
 /**
- * Het eindscherm (opdracht 8.9): score, saldo per jaar, badges, meters en inwoners, wat stopt en
+ * Het eindscherm (opdracht 8.9): score, saldo per jaar, badges en inwoners, wat stopt en
  * wat je terugkrijgt, de gevoeligheid voor aannames, de vergelijking met een tegenbegroting, en de
  * velden en knoppen voor de tegenbegroting.
  */
@@ -11,7 +11,6 @@ import {
   gevoeligheid,
   lezerVoor,
   maatregelen,
-  missieStand,
   personaZinnen,
   sterren,
   vergelijkPerThema,
@@ -20,7 +19,6 @@ import {
 import { useSpel } from '../../game/state/store';
 import { insturenMogelijk } from '../../inzending/opslag';
 import { rekenCampagne } from '../../game/campagne';
-import { gezicht } from '../hud/gezicht';
 import { VoorMijDialoog } from '../hud/VoorMijDialoog';
 import { CampagneOverzicht } from './CampagneOverzicht';
 import { InstuurDialoog } from './InstuurDialoog';
@@ -53,7 +51,6 @@ function Lijst({ titel, items, leeg }: { titel: string; items: Maatregel[]; leeg
 }
 
 export function Eindscherm({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
-  const missieId = useSpel((s) => s.missie);
   const terug = useSpel((s) => s.terugNaarGemeente);
   const opnieuw = useSpel((s) => s.opnieuw);
   const meta = useSpel((s) => s.meta);
@@ -73,9 +70,7 @@ export function Eindscherm({ data, resultaat }: { data: Data; resultaat: Resulta
   }, []);
 
   const lees = useMemo(() => lezerVoor(data, resultaat), [data, resultaat]);
-  const missie = data.missies.missies.find((m) => m.id === missieId);
-  const gehaald = missie ? missieStand(missie, lees).gehaald : false;
-  const st = sterren(data, resultaat, missie, lees);
+  const st = sterren(data, resultaat);
   const aantal = st.filter((s) => s.gehaald).length;
   const badges = behaaldeBadges(data, lees);
   const m = maatregelen(data, resultaat);
@@ -102,15 +97,13 @@ export function Eindscherm({ data, resultaat }: { data: Data; resultaat: Resulta
     [data, resultaat, tb],
   );
   const laatste = data.jaren.at(-1) ?? 0;
-  const titel = gehaald
-    ? data.teksten.eindscherm.geslaagd
-    : resultaat.regels.sluitend
-      ? data.teksten.eindscherm.ingediend
-      : data.teksten.eindscherm.niet_sluitend;
+  const titel = resultaat.regels.sluitend
+    ? data.teksten.eindscherm.ingediend
+    : data.teksten.eindscherm.niet_sluitend;
 
   const deel = async () => {
-    const link = maakLink(window.location.href, resultaat.keuzes, data.config.actiefJaar, missieId);
-    const tekst = `Mijn begroting voor de gemeente Groningen: ${aantal} van de 5 sterren.`;
+    const link = maakLink(window.location.href, resultaat.keuzes, data.config.actiefJaar);
+    const tekst = `Mijn begroting voor de gemeente Groningen: ${aantal} van de ${st.length} sterren.`;
     try {
       if (navigator.share) {
         await navigator.share({ title: meta.titel || 'Mijn begroting', text: tekst, url: link });
@@ -130,7 +123,7 @@ export function Eindscherm({ data, resultaat }: { data: Data; resultaat: Resulta
         <h1 ref={kop} tabIndex={-1}>
           {titel}
         </h1>
-        <p className="sterren" role="img" aria-label={`${aantal} van de 5 sterren`}>
+        <p className="sterren" role="img" aria-label={`${aantal} van de ${st.length} sterren`}>
           {st.map((s) => (
             <span key={s.id} aria-hidden="true" className={s.gehaald ? 'ster aan' : 'ster'}>
               ★
@@ -188,20 +181,10 @@ export function Eindscherm({ data, resultaat }: { data: Data; resultaat: Resulta
         )}
         <ul className="inwoners">
           {personaZinnen(data, resultaat).map((p) => (
-            <li key={p.id}>
-              <span aria-hidden="true">{gezicht(p.tevredenheid)}</span> {p.zin}
-            </li>
+            <li key={p.id}>{p.zin}</li>
           ))}
         </ul>
-        <h3>Meters</h3>
-        <ul className="meters compact">
-          {data.meters.meters.map((mt) => (
-            <li key={mt.id}>
-              {mt.icoon} {mt.naam}: <strong>{Math.round(resultaat.meters[mt.id])}</strong>
-            </li>
-          ))}
-        </ul>
-        <p className="klein">{data.teksten.meters_uitleg}</p>
+        <p className="klein">{data.teksten.inwoners_uitleg}</p>
       </section>
 
       <Lijst

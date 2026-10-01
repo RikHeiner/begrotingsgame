@@ -114,7 +114,7 @@ describe('tegenbegroting van een speler', () => {
       'Kettingeffecten',
       'Mijn eigen ideeën',
       'Meer bankjes.',
-      'Gevolgen voor de gemeente',
+      'Wat merken de inwoners?',
       'Financieel overzicht',
       'Meerjarig',
       'Bronnen en uitleg',

@@ -4,7 +4,7 @@ Een game waarin inwoners hun eigen tegenbegroting maken voor de gemeente Groning
 Een initiatief van de VVD-fractie Groningen-Haren. De volledige opdracht staat in
 [`PROMPT-claude-code.md`](PROMPT-claude-code.md).
 
-Stand: **fase 8 (klaar voor de lancering, op een paar in te vullen punten na)**. De game is speelbaar (kaart, HUD, panelen, tutorial, missies, campagne, inwoners, "Wat betekent het voor mij?", eindscherm, deellink, geluid, offline). De tegenbegroting gaat naar Word, PDF en een afbeelding. Spelers kunnen hun begroting met toestemming insturen; de fractie ziet alles in een afgeschermd dashboard (`/dashboard.html`). Wat er nog moet gebeuren voor de lancering, staat in [docs/LANCERING.md](docs/LANCERING.md). De debugpagina van de rekenmotor staat op `/#debug`.
+Stand: **fase 8 (klaar voor de lancering, op een paar in te vullen punten na)**. De game is speelbaar (kaart, HUD, panelen met schuif én bedrag, tutorial, campagne, inwoners, "Wat betekent het voor mij?", eindscherm, deellink, geluid, offline). De tegenbegroting gaat naar Word, PDF en een afbeelding. Spelers kunnen hun begroting met toestemming insturen; de fractie ziet alles in een afgeschermd dashboard (`/dashboard.html`). Wat er nog moet gebeuren voor de lancering, staat in [docs/LANCERING.md](docs/LANCERING.md). De debugpagina van de rekenmotor staat op `/#debug`.
 
 ## Starten
 
@@ -86,8 +86,16 @@ scripts/         data-check, data-diff, vvd-check, vvd-word, db-test
 
 ## Het spel
 
-- `data/spel/missies.json`: missies, badges en de scoreregels (sterren). Voorwaarden gebruiken dezelfde
+- Geen missies: iedereen maakt zijn eigen begroting. Het eindscherm geeft drie sterren voor een
+  gezonde begroting (sluit in alle jaren, elk jaar een buffer, geen eenmalig geld voor vaste lasten).
+- `data/spel/badges.json`: badges en de buffer voor de derde ster. Voorwaarden gebruiken dezelfde
   veilige expressietaal als de tekstballonnen.
+- Elke schuif heeft ook een invoerveld: typ het nieuwe budget, de nieuwe opbrengst of (bij
+  parkeervergunningen) het nieuwe tarief, en de game rekent het percentage uit. De grenzen van de
+  schuif gelden ook voor het bedrag.
+- De score voor blije inwoners en de meters staan niet meer in beeld: ze namen de huidige begroting
+  als nulpunt (50), en dat zegt niets over hoe tevreden mensen nu zijn. De rekenmotor houdt ze nog
+  bij (voor de kettingeffecten en de debugpagina). De inwoners laten in woorden zien wat ze merken.
 - `data/spel/teksten.json`: de tutorial en vaste teksten.
 - `data/config.json`: `vergelijkingTonen` zet de vergelijking met de tegenbegroting op het eindscherm aan of uit.
 - De keuzes staan in de URL (`?b=…`, gecomprimeerd met lz-string): elke begroting is een deelbare link.
@@ -109,7 +117,7 @@ scripts/         data-check, data-diff, vvd-check, vvd-word, db-test
 
 ## Campagne en persoonlijke impact
 
-- **Campagne** (`src/game/campagne.ts`, `src/engine/campagne.ts`): te starten in de missiekiezer.
+- **Campagne** (`src/game/campagne.ts`, `src/engine/campagne.ts`): te starten met de knop Speel vier jaar (campagne) in de HUD.
   Vier rondes, één per jaar. Elke ronde trekt de speler één of twee kaarten uit
   `data/spel/gebeurtenissen.json` en stuurt bij. Een keuze geldt vanaf het jaar van de ronde, met
   de ingroei vanaf dat jaar; eerdere keuzes werken door. De rekenmotor telt de rondes op met

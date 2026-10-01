@@ -1,27 +1,24 @@
 /**
  * De HUD bovenaan, altijd zichtbaar (opdracht 9): geldpotje met slot, saldo elk jaar en eenmalig,
- * blije inwoners, de missiebalk en de knop Indienen. Elk bedrag heeft een "Waarom?".
+ * de inwoners, de campagne en de knop Indienen. Elk bedrag heeft een "Waarom?".
  */
 import { useState } from 'react';
-import { blijeInwoners, formatMln, type Data, type Resultaat } from '../../engine';
+import { formatMln, type Data, type Resultaat } from '../../engine';
 import { huidigJaar, useSpel } from '../../game/state/store';
-import { lezerVoor, missieStand } from '../../game/score';
+import { CampagneDialoog } from './CampagneDialoog';
 import { GebeurtenisDialoog } from './GebeurtenisDialoog';
 import { Geldpotje } from './Geldpotje';
-import { gezicht } from './gezicht';
 import { InstellingenDialoog } from './InstellingenDialoog';
 import { InwonersDialoog } from './InwonersDialoog';
-import { MissieDialoog } from './MissieDialoog';
 import { VoorMijDialoog } from './VoorMijDialoog';
 import { WaaromDialoog } from './WaaromDialoog';
 
-type Open = 'waarom' | 'inwoners' | 'instellingen' | 'missie' | 'voormij' | undefined;
+type Open = 'waarom' | 'inwoners' | 'instellingen' | 'campagne' | 'voormij' | undefined;
 
 export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
   const [open, setOpen] = useState<Open>();
   const weergave = useSpel((s) => s.weergave);
   const zetWeergave = useSpel((s) => s.zetWeergave);
-  const missieId = useSpel((s) => s.missie);
   const indienen = useSpel((s) => s.indienen);
   const campagne = useSpel((s) => s.campagne);
   const volgendeRonde = useSpel((s) => s.volgendeRonde);
@@ -30,9 +27,6 @@ export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
   const laatsteRonde = campagne?.ronde === data.jaren.length;
   const s = resultaat.perJaar[jaar]?.structureel ?? 0;
   const i = resultaat.perJaar[jaar]?.incidenteel ?? 0;
-  const blij = blijeInwoners(resultaat.personas);
-  const missie = data.missies.missies.find((m) => m.id === missieId);
-  const stand = missie ? missieStand(missie, lezerVoor(data, resultaat)) : undefined;
   const klasse = (x: number) => (x < -0.5 ? 'negatief' : x > 0.5 ? 'positief' : '');
   // In de campagne liggen eerdere jaren vast: het slot kijkt naar dit jaar en later.
   const minimum = Math.min(
@@ -66,14 +60,14 @@ export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
         <button
           type="button"
           className="hud-getal hud-blij"
-          data-testid="blij"
+          data-testid="inwoners"
           onClick={() => setOpen('inwoners')}
-          aria-label={`Blije inwoners: ${Math.round(blij)} van 100. Bekijk de inwoners en de meters.`}
+          aria-label="Inwoners: wie merkt wat van jouw keuzes?"
         >
           <span className="hud-gezicht" aria-hidden="true">
-            {gezicht(blij)}
+            👥
           </span>
-          <strong aria-hidden="true">{Math.round(blij)}</strong>
+          <span className="hud-label hud-inwoners-tekst">Inwoners</span>
         </button>
       </div>
       <div className="hud-rij hud-onder">
@@ -90,25 +84,10 @@ export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
         <button
           type="button"
           className="hud-missie"
-          data-testid="missie"
-          onClick={() => setOpen('missie')}
+          data-testid="campagne"
+          onClick={() => setOpen('campagne')}
         >
-          {missie ? (
-            <>
-              <span aria-hidden="true">{missie.icoon}</span> {missie.naam}
-              {stand && (
-                <span className="voortgang" aria-hidden="true">
-                  <span
-                    style={{ width: `${Math.round(stand.fractie * 100)}%` }}
-                    className={stand.gehaald ? 'klaar' : ''}
-                  />
-                </span>
-              )}
-              {stand?.gehaald && <span className="positief"> ✓</span>}
-            </>
-          ) : (
-            <>🎲 Vrij spel · kies een missie</>
-          )}
+          {campagne ? <>🗓️ Campagne</> : <>🗓️ Speel vier jaar (campagne)</>}
         </button>
         <div className="wissel" role="group" aria-label="Weergave">
           <button
@@ -178,12 +157,7 @@ export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
         resultaat={resultaat}
       />
       <GebeurtenisDialoog data={data} resultaat={resultaat} />
-      <MissieDialoog
-        open={open === 'missie'}
-        onSluit={() => setOpen(undefined)}
-        data={data}
-        resultaat={resultaat}
-      />
+      <CampagneDialoog open={open === 'campagne'} onSluit={() => setOpen(undefined)} data={data} />
     </header>
   );
 }

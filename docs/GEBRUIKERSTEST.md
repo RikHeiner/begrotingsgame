@@ -31,7 +31,7 @@ Vraag vooraf toestemming om aantekeningen te maken. Neem geen namen op in het ve
 4. "Waarom kost of levert dit zoveel op?" (Vindt de deelnemer de knop Waarom?)
 5. "Wat merken Peter en Tineke uit de Oosterpoort van jouw keuzes?" (Inwoners.)
 6. "Wat betekent jouw begroting voor jouw eigen belastingen?" (Wat betekent het voor mij?)
-7. "Kies de missie Lagere lasten en probeer die te halen."
+7. "Verander een budget door zelf een bedrag in te typen." (Vindt de deelnemer het invoerveld onder de schuif?)
 8. "Dien je begroting in en maak er een document van." (Download Word of pdf.)
 9. "Stuur je begroting naar de fractie." (Begrijpt de deelnemer de toestemming?)
 10. Optioneel: "Speel een campagne van vier jaar."

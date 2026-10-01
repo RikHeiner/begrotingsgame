@@ -53,7 +53,6 @@ type Spel = {
   ooitGekozen: boolean;
   weergave: Weergave;
   fase: Fase;
-  missie?: string;
   geluid: boolean;
   /** titel, naam en eigen idee voor de tegenbegroting */
   meta: Meta;
@@ -69,7 +68,7 @@ type Spel = {
   ingestuurd?: string;
   markeerIngestuurd(): void;
   zetMeta(m: Partial<Meta>): void;
-  start(data: Data, keuzes?: Keuzes, missie?: string): void;
+  start(data: Data, keuzes?: Keuzes): void;
   probeer(nieuw: Keuzes, gebouw?: string): boolean;
   zetOnderdeel(id: string, pct: number): boolean;
   zetBelasting(id: string, pct: number): boolean;
@@ -78,7 +77,6 @@ type Spel = {
   wisselKaart(id: string): boolean;
   zetReserve(reserve: { structureel: number; eenmalig: number }): boolean;
   zetScenario(s: Scenario): void;
-  kiesMissie(id?: string): void;
   kiesGebouw(id?: string): void;
   zetWeergave(w: Weergave): void;
   zetGeluid(aan: boolean): void;
@@ -224,9 +222,9 @@ export const useSpel = create<Spel>((set, get) => {
       });
     },
     stopCampagne() {
-      const { data, missie } = get();
+      const { data } = get();
       set({ campagne: undefined, kaartenOpen: false });
-      if (data) get().start(data, { ...GEEN_KEUZES, scenario: data.config.scenario }, missie);
+      if (data) get().start(data, { ...GEEN_KEUZES, scenario: data.config.scenario });
     },
     zetKaartenOpen(kaartenOpen) {
       set({ kaartenOpen });
@@ -234,7 +232,7 @@ export const useSpel = create<Spel>((set, get) => {
     zetMeta(m) {
       set({ meta: { ...get().meta, ...m } });
     },
-    start(data, keuzes = { ...GEEN_KEUZES, scenario: data.config.scenario }, missie) {
+    start(data, keuzes = { ...GEEN_KEUZES, scenario: data.config.scenario }) {
       getoond.clear();
       set({
         data,
@@ -244,7 +242,6 @@ export const useSpel = create<Spel>((set, get) => {
         melding: undefined,
         actie: undefined,
         fase: 'spelen',
-        missie,
       });
     },
     probeer(nieuw, gebouw) {
@@ -330,9 +327,6 @@ export const useSpel = create<Spel>((set, get) => {
       // Een ander scenario is geen keuze van de speler: het slot geldt hier niet.
       set({ ...reken(data, { ...keuzes, scenario }) });
     },
-    kiesMissie(missie) {
-      set({ missie });
-    },
     kiesGebouw(id) {
       set({ gekozenGebouw: id, melding: undefined, ...(id ? { ooitGekozen: true } : {}) });
     },
@@ -356,12 +350,12 @@ export const useSpel = create<Spel>((set, get) => {
       set({ fase: 'spelen' });
     },
     opnieuw() {
-      const { data, missie, campagne } = get();
+      const { data, campagne } = get();
       if (campagne) {
         get().startCampagne();
         return;
       }
-      if (data) get().start(data, { ...GEEN_KEUZES, scenario: data.config.scenario }, missie);
+      if (data) get().start(data, { ...GEEN_KEUZES, scenario: data.config.scenario });
     },
     wisMelding() {
       set({ melding: undefined });

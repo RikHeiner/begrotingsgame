@@ -6,7 +6,7 @@
  * Bedragen in euro's; + is gunstig voor de gemeente. In de tabellen staan ze als positieve bedragen
  * in de tabel waar ze horen (ombuigingen en opbrengsten, of uitgaven).
  */
-import { blijeInwoners, formatPct, parkeerPostVan, type Data, type Resultaat } from '../../engine';
+import { formatPct, parkeerPostVan, type Data, type Resultaat } from '../../engine';
 import type { Zekerheid } from '../../engine/schema';
 import { personaZinnen, themaVan } from '../score';
 import type { Meta } from '../state/store';
@@ -44,9 +44,7 @@ export type Tegenbegroting = {
   gebeurtenissen: Regel[];
   ideeen: string;
   gevolgen: {
-    blij: number;
-    meters: { naam: string; waarde: number }[];
-    inwoners: { naam: string; tevredenheid: number; zin: string }[];
+    inwoners: { naam: string; zin: string }[];
     uitleg: string;
   };
   financieel: {
@@ -258,14 +256,8 @@ export function maakTegenbegroting(data: Data, r: Resultaat, meta: Meta): Tegenb
     gebeurtenissen,
     ideeen: meta.idee.trim(),
     gevolgen: {
-      blij: blijeInwoners(r.personas),
-      meters: data.meters.meters.map((m) => ({ naam: m.naam, waarde: r.meters[m.id] })),
-      inwoners: personaZinnen(data, r).map((p) => ({
-        naam: p.naam,
-        tevredenheid: p.tevredenheid,
-        zin: p.zin,
-      })),
-      uitleg: data.teksten.meters_uitleg,
+      inwoners: personaZinnen(data, r).map((p) => ({ naam: p.naam, zin: p.zin })),
+      uitleg: data.teksten.inwoners_uitleg,
     },
     financieel: {
       jaar: eerste,
