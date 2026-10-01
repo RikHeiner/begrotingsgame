@@ -1260,6 +1260,7 @@
 
 .doc-tabel th,
 .doc-tabel td {
+  overflow-wrap: anywhere;
   padding: 5px 8px;
   border: 1px solid var(--doc-lijn);
   text-align: right;

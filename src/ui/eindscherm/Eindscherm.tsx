@@ -130,7 +130,7 @@ export function Eindscherm({ data, resultaat }: { data: Data; resultaat: Resulta
         <h1 ref={kop} tabIndex={-1}>
           {titel}
         </h1>
-        <p className="sterren" aria-label={`${aantal} van de 5 sterren`}>
+        <p className="sterren" role="img" aria-label={`${aantal} van de 5 sterren`}>
           {st.map((s) => (
             <span key={s.id} aria-hidden="true" className={s.gehaald ? 'ster aan' : 'ster'}>
               ★

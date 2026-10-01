@@ -1,6 +1,7 @@
 # Persoonlijke video: technisch ontwerp en kostenraming (fase 7)
 
-Status: **ontwerp, nog niet gebouwd**. Volgens de opdracht bouw ik dit pas na akkoord.
+Status: **niet gebouwd**. Besluit van 1 oktober 2026: geen video; de tegenbegroting blijft als Word, pdf
+en afbeelding. Dit ontwerp blijft bewaard voor als de video later toch komt.
 
 ## 1. Wat het wordt
 

@@ -120,10 +120,10 @@ scripts/         data-check, data-diff, vvd-check, vvd-word, db-test
   WOZ-waarde, gezin, parkeervergunning en inkomen. Rekent met de tarieven uit
   `data/tarieven-JJJJ.json` (in `config.json` onder `tarieven`). Er wordt niets opgeslagen.
 
-## Persoonlijke video (fase 7, nog niet gebouwd)
+## Persoonlijke video (fase 7: vervallen)
 
-Het technisch ontwerp en de kostenraming staan in [docs/VIDEO-ONTWERP.md](docs/VIDEO-ONTWERP.md).
-Gebouwd wordt pas na akkoord van de fractie.
+Besloten is om geen video te maken; de tegenbegroting blijft als Word, pdf en afbeelding. Het
+ontwerp en de kostenraming staan voor later in [docs/VIDEO-ONTWERP.md](docs/VIDEO-ONTWERP.md).
 
 ## Inzendingen en dashboard
 

@@ -236,42 +236,44 @@ export function Documentweergave({ data, resultaat }: { data: Data; resultaat: R
 
         <h2>Gevolgen voor de gemeente</h2>
         <p className="klein">{tb.gevolgen.uitleg}</p>
-        <table className="doc-tabel">
-          <thead>
-            <tr>
-              <th scope="col">Meter</th>
-              <th scope="col">Stand (50 = nu)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tb.gevolgen.meters.map((m) => (
-              <tr key={m.naam}>
-                <td>{m.naam}</td>
-                <td>{Math.round(m.waarde)}</td>
+        <div className="doc-scroll">
+          <table className="doc-tabel">
+            <thead>
+              <tr>
+                <th scope="col">Meter</th>
+                <th scope="col">Stand (50 = nu)</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        <table className="doc-tabel">
-          <thead>
-            <tr>
-              <th scope="col">Inwoner</th>
-              <th scope="col" className="links">
-                Wat merkt hij of zij?
-              </th>
-              <th scope="col">Tevreden</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tb.gevolgen.inwoners.map((x) => (
-              <tr key={x.naam}>
-                <td>{x.naam}</td>
-                <td className="links">{x.zin}</td>
-                <td>{Math.round(x.tevredenheid)}</td>
+            </thead>
+            <tbody>
+              {tb.gevolgen.meters.map((m) => (
+                <tr key={m.naam}>
+                  <td>{m.naam}</td>
+                  <td>{Math.round(m.waarde)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <table className="doc-tabel">
+            <thead>
+              <tr>
+                <th scope="col">Inwoner</th>
+                <th scope="col" className="links">
+                  Wat merkt hij of zij?
+                </th>
+                <th scope="col">Tevreden</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {tb.gevolgen.inwoners.map((x) => (
+                <tr key={x.naam}>
+                  <td>{x.naam}</td>
+                  <td className="links">{x.zin}</td>
+                  <td>{Math.round(x.tevredenheid)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
         <h2>Financieel overzicht</h2>
         <div className="doc-scroll">

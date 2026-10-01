@@ -91,6 +91,11 @@ type Wandelaar = {
   vorigeX: number;
 };
 
+/** Wandelende inwoners hoeven niet vloeiender dan dit. */
+const WANDEL_FPS = 30;
+/** Zo lang lopen de inwoners na de laatste actie van de speler. */
+const ACTIEF_MS = 30_000;
+
 export class GemeenteKaart {
   private app = new Application();
   private wereld = new Container();
@@ -115,6 +120,11 @@ export class GemeenteKaart {
   private vast = new Container();
   private vastResolutie = 0;
   private laatsteCamera = 0;
+  /** is er iets veranderd sinds het laatste beeld (de kaart tekent alleen als dat nodig is) */
+  private vies = true;
+  private laatsteBeeld = 0;
+  /** tot wanneer de inwoners lopen: na een actie van de speler 30 seconden (batterij, opdracht 8.7) */
+  private actiefTot = 0;
 
   private constructor(private o: KaartOpties) {}
 
@@ -137,9 +147,21 @@ export class GemeenteKaart {
     k.maakWandelaars();
     k.koppelInvoer(k.app.canvas);
     k.pasAan(true);
+    // Meteen de vaste textuur maken, zodat het eerste beeld niet alles los hoeft te tekenen.
+    k.werkTextuurBij(true);
+    const wakker = () => {
+      k.actiefTot = performance.now() + ACTIEF_MS;
+    };
+    for (const soort of ['pointerdown', 'keydown', 'wheel'] as const) {
+      window.addEventListener(soort, wakker, { passive: true });
+      k.opgeruimd.push(() => window.removeEventListener(soort, wakker));
+    }
     const opnieuw = () => k.pasAan(false);
     k.app.renderer.on('resize', opnieuw);
     k.opgeruimd.push(() => k.app.renderer.off('resize', opnieuw));
+    // Niet elk frame tekenen: alleen als er iets veranderd is (zie stap). Dat scheelt veel
+    // rekenwerk en batterij, vooral op telefoons zonder snelle GPU.
+    k.app.ticker.remove(k.app.render, k.app);
     k.app.ticker.add((t) => k.stap(t.deltaMS));
     return k;
   }
@@ -297,6 +319,7 @@ export class GemeenteKaart {
     }
     // De gebouwen zitten in de vaste textuur: die opnieuw renderen.
     if (this.vastResolutie) this.vast.updateCacheTexture();
+    this.vies = true;
   }
 
   // ---------------------------------------------------------------------------------------------
@@ -373,6 +396,7 @@ export class GemeenteKaart {
     this.wereld.position.set(this.camera.x, this.camera.y);
     this.wereld.scale.set(this.camera.schaal);
     this.laatsteCamera = performance.now();
+    this.vies = true;
     this.o.onCamera(this.camera);
   }
 
@@ -380,8 +404,9 @@ export class GemeenteKaart {
    * Rendert de vaste lagen opnieuw naar een textuur als de zoom flink is veranderd, zodat het beeld
    * scherp blijft. Tussendoor tekent elk beeld alleen die ene textuur plus gebouwen en inwoners.
    */
-  private werkTextuurBij(): void {
-    if (performance.now() - this.laatsteCamera < 200 || this.animatie || this.wijzers.size) return;
+  private werkTextuurBij(nu = false): void {
+    if (!nu && (performance.now() - this.laatsteCamera < 200 || this.animatie || this.wijzers.size))
+      return;
     const dpr = this.app.renderer.resolution;
     const max = MAX_TEXTUUR / Math.max(this.o.geo.breedte, this.o.geo.hoogte);
     const gewenst = Math.min(max, Math.max(0.5, this.camera.schaal * dpr));
@@ -390,6 +415,7 @@ export class GemeenteKaart {
     this.vastResolutie = resolutie;
     this.vast.cacheAsTexture(false);
     this.vast.cacheAsTexture({ resolution: resolutie, antialias: true });
+    this.vies = true;
   }
 
   private pasAan(opnieuw: boolean): void {
@@ -445,8 +471,15 @@ export class GemeenteKaart {
       });
       if (t >= 1) this.animatie = undefined;
     }
-    if (!this.o.minderBeweging) this.zetWandelaars(Math.min(ms, 100));
+    const nu = performance.now();
+    const wandelen = !this.o.minderBeweging && this.wandelaars.length > 0 && nu < this.actiefTot;
+    if (wandelen) this.zetWandelaars(Math.min(ms, 100));
     this.werkTextuurBij();
+    if (this.vies || (wandelen && nu - this.laatsteBeeld >= 1000 / WANDEL_FPS)) {
+      this.app.render();
+      this.vies = false;
+      this.laatsteBeeld = nu;
+    }
   }
 
   private koppelInvoer(canvas: HTMLCanvasElement): void {
@@ -598,6 +631,7 @@ export class GemeenteKaart {
         const q = opWeg(weg, Math.min(1, (t * 1.6 + i * 0.18) % 1));
         m.position.set(q.x, q.y);
       });
+      this.vies = true;
       const vervaag = t > 0.75 ? 1 - (t - 0.75) / 0.25 : 1;
       lijn.alpha = vervaag;
       munten.alpha = vervaag;

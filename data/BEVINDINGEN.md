@@ -83,3 +83,4 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
 | 17. Overschot | Een overschot is vrije ruimte. De speler kiest: uitgeven, of storten in de reserve (lager risico en minder rente). | Keuze `reserve` in de rekenmotor; overschot gaat niet meer vanzelf naar de reserve. |
 | 18. Persona's | De fractie stemt ze af. | `docs/INWONERS-AFSTEMMEN.md`. |
 | 19. Wijken | De gebiedsindeling van de gemeente aanhouden. | `spel/gebieden.json`: Centrum, Noord, Oost, Zuid, West, Haren, Ten Boer. Negen buurten bij het Eemskanaal en het Winschoterdiep staan niet in de lijst van de gemeente en zijn voorlopig bij Oost gezet (`controleren`). |
+| Fase 7. Video | Geen persoonlijke video; de tegenbegroting blijft als Word, pdf en afbeelding. | `docs/VIDEO-ONTWERP.md` bewaard, niet gebouwd. |
