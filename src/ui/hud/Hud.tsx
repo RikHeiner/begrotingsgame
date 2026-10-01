@@ -95,6 +95,7 @@ export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
           <button
             type="button"
             aria-pressed={weergave === 'kaart'}
+            aria-label="Kaart"
             onClick={() => zetWeergave('kaart')}
           >
             🗺️<span className="wissel-tekst"> Kaart</span>
@@ -102,6 +103,7 @@ export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
           <button
             type="button"
             aria-pressed={weergave === 'lijst'}
+            aria-label="Lijst"
             onClick={() => zetWeergave('lijst')}
           >
             ☰<span className="wissel-tekst"> Lijst</span>
