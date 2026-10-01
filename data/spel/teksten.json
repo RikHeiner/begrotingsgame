@@ -1,6 +1,41 @@
 {
   "toelichting": "Vaste teksten in de game, op B1-niveau. Gebruik 'gemeente', niet 'stad'.",
   "titel": "Maak de begroting van de gemeente Groningen",
+  "start": {
+    "kop": "Jij bent gemeenteraadslid",
+    "intro": "Elk jaar beslist de gemeenteraad over de begroting van de gemeente Groningen: ongeveer {bedrag} per jaar. Waar gaat dat geld naartoe, en waar komt het vandaan? Nu beslis jij.",
+    "vragen": [
+      {
+        "icoon": "💶",
+        "kop": "Wie betaalt meer, wie minder?",
+        "tekst": "Verhoog of verlaag de OZB, het parkeergeld, de toeristenbelasting en andere heffingen. Inwoners en ondernemers merken dat in hun portemonnee."
+      },
+      {
+        "icoon": "🏗️",
+        "kop": "Wat gaat de gemeente doen?",
+        "tekst": "Kies waar meer geld naartoe gaat: veiligheid, onderhoud van straten en groen, woningbouw, sport, zorg of cultuur."
+      },
+      {
+        "icoon": "✂️",
+        "kop": "Wat kan minder, of later?",
+        "tekst": "Bezuinig waar het kan, of stel iets uit. Let op: sommige taken moet de gemeente wettelijk doen, en uitstellen kan later duurder worden."
+      },
+      {
+        "icoon": "⚖️",
+        "kop": "Sluit je begroting?",
+        "tekst": "Je geeft niet meer uit dan er binnenkomt, ook niet in de jaren erna. Eenmalig geld gebruik je niet voor vaste lasten."
+      }
+    ],
+    "hoe_kop": "Zo speel je",
+    "hoe": [
+      "Tik op een gebouw op de kaart, of kies de lijst.",
+      "Schuif naar links om te bezuinigen en naar rechts om meer te doen. Je kunt ook zelf een bedrag typen.",
+      "Eerst bezuinigen, dan uitgeven: het geldpotje zit op slot tot je geld vrijmaakt.",
+      "Klaar? Dien je begroting in en maak er je eigen tegenbegroting van."
+    ],
+    "knop": "Begin met je begroting",
+    "noot": "De bedragen komen uit de ontwerpbegroting {jaar} van de gemeente Groningen. Bedragen met ⚠︎ zijn aannames."
+  },
   "tutorial": [
     {
       "id": "gebouw",

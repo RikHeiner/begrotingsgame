@@ -1505,3 +1505,84 @@
     transparent 4px 7px
   );
 }
+
+/* Startscherm */
+.startscherm {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+.start-boven {
+  margin: 0;
+  color: var(--blauw);
+  font-weight: 700;
+}
+
+.startscherm h1 {
+  margin: 0.2rem 0 0.6rem;
+  font-size: clamp(2rem, 8vw, 3rem);
+  line-height: 1.05;
+  color: var(--blauw);
+}
+
+.startscherm h1:focus {
+  outline: none;
+}
+
+.start-intro {
+  font-size: 1.1rem;
+}
+
+.start-vragen {
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+
+.start-vragen li {
+  padding: 0.9rem 1rem;
+  border-radius: 1rem;
+  background: var(--paneel);
+  border: 2px solid color-mix(in srgb, var(--inkt) 12%, transparent);
+}
+
+.start-icoon {
+  font-size: 1.8rem;
+}
+
+.start-vragen h2 {
+  margin: 0.2rem 0 0.3rem;
+  font-size: 1.15rem;
+}
+
+.start-vragen p {
+  margin: 0;
+}
+
+.start-hoe-kop {
+  font-size: 1.15rem;
+  margin: 1.25rem 0 0.4rem;
+}
+
+.start-hoe {
+  margin: 0 0 1.5rem;
+  padding-left: 1.4rem;
+}
+
+.start-hoe li {
+  margin: 0.3rem 0;
+}
+
+.start-knop {
+  width: 100%;
+  min-height: 52px;
+  font-size: 1.1rem;
+}
+
+.start-noot {
+  margin-top: 0.75rem;
+}

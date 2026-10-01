@@ -475,6 +475,20 @@ export const tekstenSchema = z
   .object({
     toelichting: z.string(),
     titel: z.string(),
+    /** startscherm; {bedrag} en {jaar} worden ingevuld */
+    start: z
+      .object({
+        kop: z.string(),
+        intro: z.string(),
+        vragen: z
+          .array(z.object({ icoon: z.string(), kop: z.string(), tekst: z.string() }).strict())
+          .min(1),
+        hoe_kop: z.string(),
+        hoe: z.array(z.string()).min(1),
+        knop: z.string(),
+        noot: z.string(),
+      })
+      .strict(),
     tutorial: z.array(z.object({ id: z.string(), tekst: z.string() }).strict()).min(1),
     slot_dicht: z.string(),
     slot_open: z.string(),

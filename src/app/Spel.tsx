@@ -12,6 +12,7 @@ import { Hud } from '../ui/hud/Hud';
 import { KaartWeergave } from '../ui/kaart/KaartWeergave';
 import { Lijstweergave } from '../ui/lijstweergave/Lijstweergave';
 import { GebouwPaneel } from '../ui/panelen/GebouwPaneel';
+import { Startscherm } from '../ui/start/Startscherm';
 import { Documentweergave } from '../ui/tegenbegroting/Documentweergave';
 import { Tutorial } from '../ui/tutorial/Tutorial';
 import './spel.css';
@@ -26,6 +27,8 @@ export function Spel({ data }: { data: Data }) {
   const melding = useSpel((s) => s.melding);
   const wisMelding = useSpel((s) => s.wisMelding);
   const fase = useSpel((s) => s.fase);
+  const startscherm = useSpel((s) => s.startscherm);
+  const zetStartscherm = useSpel((s) => s.zetStartscherm);
   const [kaartFout, setKaartFout] = useState<string>();
   const [gelezen] = useState(() => leesUitUrl(window.location.href));
   const zelfdeJaar = gelezen?.jaar === data.config.actiefJaar;
@@ -36,6 +39,11 @@ export function Spel({ data }: { data: Data }) {
         ? 'Je bekijkt een gedeelde begroting. Je kunt hem verder aanpassen.'
         : `Deze link hoort bij de begroting ${gelezen.jaar}. Nu staat de begroting ${data.config.actiefJaar} in de game, dus je begint opnieuw.`,
   );
+
+  // Een gedeelde link opent direct de begroting, zonder startscherm.
+  useEffect(() => {
+    if (gelezen) zetStartscherm(false);
+  }, [gelezen, zetStartscherm]);
 
   // Start, eventueel met de keuzes uit een gedeelde link
   useEffect(() => {
@@ -77,6 +85,14 @@ export function Spel({ data }: { data: Data }) {
   );
 
   if (!resultaat) return null;
+
+  if (startscherm && !gelezen) {
+    return (
+      <div className="spel">
+        <Startscherm data={data} onBegin={() => zetStartscherm(false)} />
+      </div>
+    );
+  }
 
   if (fase === 'document') {
     return (

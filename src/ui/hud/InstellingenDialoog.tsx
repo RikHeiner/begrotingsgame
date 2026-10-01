@@ -21,6 +21,7 @@ export function InstellingenDialoog({
   const zetReserve = useSpel((s) => s.zetReserve);
   const geluid = useSpel((s) => s.geluid);
   const zetGeluid = useSpel((s) => s.zetGeluid);
+  const zetStartscherm = useSpel((s) => s.zetStartscherm);
   const k = resultaat.keuzes;
   const [reserve, setReserve] = useState({
     structureel: (k.reserve?.structureel ?? 0) / 1e6,
@@ -29,6 +30,19 @@ export function InstellingenDialoog({
   const laatste = data.jaren.at(-1) ?? 0;
   return (
     <Dialoog open={open} onSluit={onSluit} titel="Instellingen">
+      <p>
+        <button
+          type="button"
+          className="knop"
+          data-testid="uitleg"
+          onClick={() => {
+            onSluit();
+            zetStartscherm(true);
+          }}
+        >
+          Uitleg van de game
+        </button>
+      </p>
       <fieldset className="veldgroep">
         <legend>Aannames</legend>
         <p className="klein">

@@ -52,6 +52,9 @@ type Spel = {
   ooitGekozen: boolean;
   weergave: Weergave;
   fase: Fase;
+  /** het startscherm met uitleg staat open */
+  startscherm: boolean;
+  zetStartscherm(open: boolean): void;
   geluid: boolean;
   /** titel, naam en eigen idee voor de tegenbegroting */
   meta: Meta;
@@ -94,6 +97,7 @@ function schrijfOpslag(sleutel: string, waarde: string): void {
 }
 
 export const OPSLAG_GELUID = 'begrotingsgame:geluid';
+export const OPSLAG_START = 'begrotingsgame:start';
 
 /** Het gebouw waar een effect landt: het gebouw van de post, of het loket en het veilinghuis. */
 export function gebouwVanDoel(data: Data, doel: string): string | undefined {
@@ -163,6 +167,12 @@ export const useSpel = create<Spel>((set, get) => {
     standen: {},
     weergave: 'kaart',
     fase: 'spelen',
+    // Bij het eerste bezoek de uitleg; een gedeelde link opent direct de begroting (zie Spel).
+    startscherm: leesOpslag(OPSLAG_START) !== 'gezien',
+    zetStartscherm(open) {
+      if (!open) schrijfOpslag(OPSLAG_START, 'gezien');
+      set({ startscherm: open });
+    },
     geluid: leesOpslag(OPSLAG_GELUID) === 'aan',
     meta: { titel: '', naam: '', idee: '' },
     ooitGekozen: false,
