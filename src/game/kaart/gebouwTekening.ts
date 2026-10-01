@@ -3,12 +3,14 @@
  * Vriendelijk en plat, met een zachte schaduw. Speciale gebouwen: park, zwembad, Stadhuis met
  * Martinitoren, nieuwbouw met kraan, veilinghuis met molen.
  */
-import { Graphics } from 'pixi.js';
+import type { Tekenaar } from './canvasTekenaar';
 import type { Gebouw } from '../../engine/schema';
 import type { Toestand } from '../toestand';
 
 export const GEBOUW_B = 50;
 export const GEBOUW_H = 32;
+/** Ruimte om een gebouw heen (toren, kraan, molen, vlag en schaduw), in wereldeenheden. */
+export const GEBOUW_KADER = { links: 45, rechts: 70, boven: 60, onder: 30 };
 
 const GRIJS = 0x9aa0a8;
 
@@ -30,7 +32,7 @@ function meng(kleur: number, met: number, deel: number): number {
 
 export type TekenOpties = { toestand: Toestand; zwembadLeeg?: boolean };
 
-export function tekenGebouw(g: Graphics, gebouw: Gebouw, o: TekenOpties): void {
+export function tekenGebouw(g: Tekenaar, gebouw: Gebouw, o: TekenOpties): void {
   g.clear();
   const w = GEBOUW_B;
   const h = GEBOUW_H;
@@ -102,7 +104,7 @@ export function tekenGebouw(g: Graphics, gebouw: Gebouw, o: TekenOpties): void {
 }
 
 function tekenPark(
-  g: Graphics,
+  g: Tekenaar,
   toestand: Toestand,
   x: number,
   y: number,
@@ -139,7 +141,7 @@ function tekenPark(
   }
 }
 
-function tekenMartinitoren(g: Graphics, x: number, onder: number): void {
+function tekenMartinitoren(g: Tekenaar, x: number, onder: number): void {
   g.rect(x - 5, onder - 46, 10, 46)
     .fill(0xb98b5e)
     .stroke({ width: 1.5, color: 0x6b4a2b });
@@ -154,7 +156,7 @@ function tekenMartinitoren(g: Graphics, x: number, onder: number): void {
     .stroke({ width: 1, color: 0x6b4a2b });
 }
 
-function tekenKraan(g: Graphics, x: number, onder: number, stil: boolean, schaal = 1): void {
+function tekenKraan(g: Tekenaar, x: number, onder: number, stil: boolean, schaal = 1): void {
   const kleur = stil ? 0xb0a27a : 0xf2b705;
   const s = schaal;
   g.rect(x - 1.2 * s, onder - 44 * s, 2.4 * s, 44 * s).fill(kleur);
@@ -163,7 +165,7 @@ function tekenKraan(g: Graphics, x: number, onder: number, stil: boolean, schaal
   g.rect(x + 16 * s, onder - 28 * s, 5 * s, 4 * s).fill(0x6b4a2b);
 }
 
-function tekenMolen(g: Graphics, x: number, onder: number): void {
+function tekenMolen(g: Tekenaar, x: number, onder: number): void {
   g.poly([x - 6, onder, x - 3.5, onder - 22, x + 3.5, onder - 22, x + 6, onder]).fill(0x7a5b3a);
   g.circle(x, onder - 22, 2).fill(0x15193a);
   for (const [dx, dy] of [
@@ -178,7 +180,7 @@ function tekenMolen(g: Graphics, x: number, onder: number): void {
   }
 }
 
-function tekenBad(g: Graphics, x: number, y: number, leeg: boolean): void {
+function tekenBad(g: Tekenaar, x: number, y: number, leeg: boolean): void {
   g.roundRect(x, y, 16, 11, 2)
     .fill(leeg ? 0xd7dde3 : 0x4a9fd8)
     .stroke({ width: 1.5, color: 0xffffff });

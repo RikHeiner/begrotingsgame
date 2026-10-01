@@ -72,7 +72,7 @@ vragen over de data staan in [`data/BEVINDINGEN.md`](data/BEVINDINGEN.md).
 data/            begrotingsdata, dwarsverbanden, tegenbegroting, kaart, config.json
 prototype/       het oorspronkelijke prototype (alleen ter referentie)
 src/engine/      pure rekenmotor (geen React, geen DOM; afgedwongen met ESLint)
-src/game/        kaart (PixiJS), toestand van gebouwen, tekstballonnen, Zustand-store
+src/game/        kaart (Canvas 2D), toestand van gebouwen, tekstballonnen, Zustand-store
 src/ui/          kaartweergave, gebouwpaneel, lijstweergave
 src/app/         de React-app (spel en debugpagina)
 src/inzending/   insturen: opslag (Supabase of lokaal), filter op ideeën
@@ -148,8 +148,10 @@ ontwerp en de kostenraming staan voor later in [docs/VIDEO-ONTWERP.md](docs/VIDE
 - `data/spel/gebouwen.json`: de 14 gebouwen met buurt, gebied, positie en kleuren.
 - `data/spel/reacties.json`: de tekstballonnen; de voorwaarden gebruiken een eigen, veilige expressietaal
   (`src/engine/expressie.ts`).
-- PixiJS wordt pas geladen als de kaart in beeld komt. De vaste lagen worden naar een textuur gerenderd;
-  per beeld worden alleen die textuur en de inwoners getekend.
+- De kaart is een canvas (Canvas 2D), pas geladen als hij in beeld komt. De vaste laag (buurten,
+  water, wegen, namen) en elk gebouw zijn kant-en-klare afbeeldingen; een beeld tekenen is vooral
+  drawImage. De kaart tekent alleen als er iets verandert, en de inwoners lopen na een actie van de
+  speler 30 seconden mee. Lighthouse (mobiel): prestaties 97, toegankelijkheid 100, best practices 100.
 - Op de kaart liggen onzichtbare knoppen op de gebouwen, zodat je met Tab en Enter een gebouw kiest.
   De lijstweergave (knop "Lijst") heeft dezelfde functies en werkt met een schermlezer.
 

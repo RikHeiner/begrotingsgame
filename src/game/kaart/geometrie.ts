@@ -1,5 +1,5 @@
 /**
- * Geometrie van de gemeentekaart in wereldcoördinaten, los van PixiJS (en dus te testen):
+ * Geometrie van de gemeentekaart in wereldcoördinaten, los van het tekenen (en dus te testen):
  * buurten met hun gebied, gebiedsgrenzen, water, wegen van het Stadhuis naar elk gebouw, labels.
  */
 import type { Data } from '../../engine';

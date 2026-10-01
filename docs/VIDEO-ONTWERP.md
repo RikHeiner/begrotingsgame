@@ -51,7 +51,7 @@ flowchart LR
 
 1. **`packages/video`**: een los pakket met Remotion (React). Het gebruikt de rekenmotor
    (`src/engine`) en de kaartgeometrie (`src/game/kaart/geometrie.ts`) van de game. De gebouwen
-   worden opnieuw getekend als SVG, omdat de kaart in de game PixiJS gebruikt. Zo blijven de
+   worden opnieuw getekend als SVG, omdat de kaart in de game op een canvas wordt getekend. Zo blijven de
    bedragen en de kaart hetzelfde als in de game.
 2. **Render op de server.** Twee mogelijkheden:
    - **A. Remotion Lambda** in de AWS-regio Frankfurt (eu-central-1). Geen eigen server. Schaalt

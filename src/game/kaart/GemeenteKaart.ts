@@ -1,11 +1,15 @@
 /**
- * De gemeentekaart in PixiJS: buurten, gebieden, water, wegen, gebouwen en lopende inwoners.
- * Knijpen en slepen om te zoomen en te verschuiven (met grenzen), dubbeltik zoomt in op een gebied.
- * De interface (panelen, knoppen, tekstballonnen) zit in React over de kaart heen.
+ * De gemeentekaart op een canvas (Canvas 2D): buurten, gebieden, water, wegen, gebouwen en lopende
+ * inwoners. Knijpen en slepen om te zoomen en te verschuiven (met grenzen), dubbeltik zoomt in op
+ * een gebied. De interface (panelen, knoppen, tekstballonnen) zit in React over de kaart heen.
+ *
+ * De vaste laag en de gebouwen zijn kant-en-klare afbeeldingen (vasteLaag.ts, gebouwTekening.ts).
+ * Een beeld tekenen is dus vooral een paar keer drawImage. De kaart tekent alleen als er iets
+ * verandert; inwoners lopen na een actie van de speler een halve minuut mee.
  */
-import { Application, Container, Graphics, Text } from 'pixi.js';
 import type { Data } from '../../engine';
 import { formatMln } from '../../engine/format';
+import type { Gebouw } from '../../engine/schema';
 import type { GebouwStand } from '../toestand';
 import {
   klem,
@@ -17,9 +21,11 @@ import {
   type Camera,
   type Maat,
 } from './camera';
+import { CanvasTekenaar } from './canvasTekenaar';
+import { GEBOUW_H, GEBOUW_KADER, tekenGebouw, type TekenOpties } from './gebouwTekening';
 import { buurtOp, gebiedKader, opWeg, type KaartGeometrie, type Weg } from './geometrie';
-import { GEBOUW_H, tekenGebouw } from './gebouwTekening';
 import type { Punt } from './projectie';
+import { RAND, tekenVasteLaag } from './vasteLaag';
 
 export type KaartKleuren = {
   gebieden: number[];
@@ -72,6 +78,13 @@ const TIK_STRAAL = 34;
 const GEBOUW_SCHAAL = 1.8;
 const INWONER_SCHAAL = 1.6;
 const MAX_TEXTUUR = 4096;
+/** Pixels per wereldeenheid in de afbeelding van een gebouw: scherp tot ver ingezoomd. */
+const GEBOUW_RESOLUTIE = 4;
+/** Wandelende inwoners hoeven niet vloeiender dan dit. */
+const WANDEL_FPS = 30;
+/** Zo lang lopen de inwoners na de laatste actie van de speler. */
+const ACTIEF_MS = 30_000;
+const LETTER = 'Asap, system-ui, sans-serif';
 
 export type KaartOpties = {
   data: Data;
@@ -87,22 +100,55 @@ type Wandelaar = {
   weg: Weg;
   t: number;
   v: number;
-  figuur: Container;
-  vorigeX: number;
+  x: number;
+  y: number;
+  richting: 1 | -1;
+  huid: number;
+  kleur: number;
 };
 
-/** Wandelende inwoners hoeven niet vloeiender dan dit. */
-const WANDEL_FPS = 30;
-/** Zo lang lopen de inwoners na de laatste actie van de speler. */
-const ACTIEF_MS = 30_000;
+type GetekendGebouw = {
+  gebouw: Gebouw;
+  plek: Punt;
+  beeld: HTMLCanvasElement;
+  bedrag: string;
+  bedragKleur: number;
+};
+
+type Lijn = { weg: Weg; kleur: number; begin: number };
+
+const css = (kleur: number) => `#${kleur.toString(16).padStart(6, '0')}`;
+
+function gebouwBeeld(g: Gebouw, opties: TekenOpties): HTMLCanvasElement {
+  const k = GEBOUW_KADER;
+  const canvas = document.createElement('canvas');
+  canvas.width = (k.links + k.rechts) * GEBOUW_RESOLUTIE;
+  canvas.height = (k.boven + k.onder) * GEBOUW_RESOLUTIE;
+  const ctx = canvas.getContext('2d');
+  if (ctx) {
+    ctx.setTransform(
+      GEBOUW_RESOLUTIE,
+      0,
+      0,
+      GEBOUW_RESOLUTIE,
+      k.links * GEBOUW_RESOLUTIE,
+      k.boven * GEBOUW_RESOLUTIE,
+    );
+    tekenGebouw(new CanvasTekenaar(ctx), g, opties);
+  }
+  return canvas;
+}
 
 export class GemeenteKaart {
-  private app = new Application();
-  private wereld = new Container();
+  private canvas = document.createElement('canvas');
+  private ctx: CanvasRenderingContext2D;
+  private dpr = Math.min(window.devicePixelRatio || 1, 2);
   private camera: Camera = { x: 0, y: 0, schaal: 1 };
   private scherm: Maat = { breedte: 1, hoogte: 1 };
-  private gebouwen = new Map<string, { teken: Graphics; bedrag: Text }>();
+  /** gebouwen van boven naar beneden, zodat ze netjes overlappen */
+  private gebouwen: GetekendGebouw[] = [];
   private wandelaars: Wandelaar[] = [];
+  private lijnen: Lijn[] = [];
   private wijzers = new Map<number, { x: number; y: number }>();
   private sleep?: {
     x: number;
@@ -116,8 +162,8 @@ export class GemeenteKaart {
   private laatsteTik = 0;
   private animatie?: { van: Camera; naar: Camera; begin: number };
   private opgeruimd: (() => void)[] = [];
-  /** vaste lagen (buurten, water, wegen, labels): één keer naar een textuur gerenderd */
-  private vast = new Container();
+  /** vaste lagen (buurten, water, wegen, namen) als één afbeelding */
+  private vast?: HTMLCanvasElement;
   private vastResolutie = 0;
   private laatsteCamera = 0;
   /** is er iets veranderd sinds het laatste beeld (de kaart tekent alleen als dat nodig is) */
@@ -125,30 +171,35 @@ export class GemeenteKaart {
   private laatsteBeeld = 0;
   /** tot wanneer de inwoners lopen: na een actie van de speler 30 seconden (batterij, opdracht 8.7) */
   private actiefTot = 0;
+  private frame = 0;
+  private vorigeTik = 0;
 
-  private constructor(private o: KaartOpties) {}
+  private constructor(private o: KaartOpties) {
+    const ctx = this.canvas.getContext('2d');
+    if (!ctx) throw new Error('Canvas wordt niet ondersteund.');
+    this.ctx = ctx;
+  }
 
   static async maak(element: HTMLElement, o: KaartOpties): Promise<GemeenteKaart> {
     const k = new GemeenteKaart(o);
-    await k.app.init({
-      resizeTo: element,
-      backgroundAlpha: 0,
-      antialias: false,
-      autoDensity: true,
-      resolution: Math.min(window.devicePixelRatio || 1, 2),
-      preference: 'webgl',
-    });
-    k.app.stage.eventMode = 'none';
-    k.app.canvas.setAttribute('aria-hidden', 'true');
-    k.app.canvas.style.touchAction = 'none';
-    element.appendChild(k.app.canvas);
-    k.app.stage.addChild(k.wereld);
-    k.tekenKaart();
+    // De namen op de kaart gebruiken Asap; wacht kort op de letter, anders tekent canvas een andere.
+    await Promise.race([
+      document.fonts?.load(`700 24px ${LETTER}`).catch(() => undefined),
+      new Promise((r) => setTimeout(r, 1500)),
+    ]);
+    const c = k.canvas;
+    c.setAttribute('aria-hidden', 'true');
+    c.style.touchAction = 'none';
+    c.style.width = '100%';
+    c.style.height = '100%';
+    element.appendChild(c);
+    k.maakGebouwen();
     k.maakWandelaars();
-    k.koppelInvoer(k.app.canvas);
+    k.koppelInvoer(c);
+    k.meet(element);
     k.pasAan(true);
-    // Meteen de vaste textuur maken, zodat het eerste beeld niet alles los hoeft te tekenen.
     k.werkTextuurBij(true);
+
     const wakker = () => {
       k.actiefTot = performance.now() + ACTIEF_MS;
     };
@@ -156,170 +207,169 @@ export class GemeenteKaart {
       window.addEventListener(soort, wakker, { passive: true });
       k.opgeruimd.push(() => window.removeEventListener(soort, wakker));
     }
-    const opnieuw = () => k.pasAan(false);
-    k.app.renderer.on('resize', opnieuw);
-    k.opgeruimd.push(() => k.app.renderer.off('resize', opnieuw));
-    // Niet elk frame tekenen: alleen als er iets veranderd is (zie stap). Dat scheelt veel
-    // rekenwerk en batterij, vooral op telefoons zonder snelle GPU.
-    k.app.ticker.remove(k.app.render, k.app);
-    k.app.ticker.add((t) => k.stap(t.deltaMS));
+    const waarnemer = new ResizeObserver(() => {
+      k.meet(element);
+      k.pasAan(false);
+    });
+    waarnemer.observe(element);
+    k.opgeruimd.push(() => waarnemer.disconnect());
+
+    const lus = (tijd: number) => {
+      const ms = k.vorigeTik ? tijd - k.vorigeTik : 0;
+      k.vorigeTik = tijd;
+      k.stap(ms);
+      k.frame = requestAnimationFrame(lus);
+    };
+    k.frame = requestAnimationFrame(lus);
+    k.opgeruimd.push(() => cancelAnimationFrame(k.frame));
     return k;
+  }
+
+  private meet(element: HTMLElement): void {
+    const b = Math.max(1, element.clientWidth);
+    const h = Math.max(1, element.clientHeight);
+    this.canvas.width = Math.round(b * this.dpr);
+    this.canvas.height = Math.round(h * this.dpr);
+    this.scherm = { breedte: b, hoogte: h };
+    this.vies = true;
   }
 
   // ---------------------------------------------------------------------------------------------
   // Tekenen
   // ---------------------------------------------------------------------------------------------
 
-  private tekenKaart(): void {
-    const { geo, kleuren, data } = this.o;
-    const gebiedIndex = new Map(data.gebieden.gebieden.map((g, i) => [g.id, i]));
-    const plat = (r: Punt[]) => r.flatMap((q) => [q.x, q.y]);
-
-    // Gemeentegrens: eerst een dikke blauwe lijn om alle buurten, daarna de vlakken eroverheen.
-    const rand = new Graphics();
-    for (const b of geo.buurten) {
-      for (const r of b.ringen.slice(0, 1))
-        rand.poly(plat(r)).stroke({ width: 7, color: kleuren.rand, join: 'round' });
-    }
-    const vlakken = new Graphics();
-    for (const b of geo.buurten) {
-      const kleur =
-        kleuren.gebieden[(gebiedIndex.get(b.gebied) ?? 0) % kleuren.gebieden.length] ?? 0x98d077;
-      b.ringen.forEach((r, i) => {
-        vlakken.poly(plat(r));
-        if (i === 0) vlakken.fill(kleur);
-        else vlakken.cut();
+  private maakGebouwen(): void {
+    const { geo, data, kleuren } = this.o;
+    this.gebouwen = [...data.gebouwen]
+      .sort((a, b) => (geo.gebouwen[a.id]?.y ?? 0) - (geo.gebouwen[b.id]?.y ?? 0))
+      .flatMap((g) => {
+        const plek = geo.gebouwen[g.id];
+        return plek
+          ? [
+              {
+                gebouw: g,
+                plek,
+                beeld: gebouwBeeld(g, { toestand: 'normaal' }),
+                bedrag: '',
+                bedragKleur: kleuren.label,
+              },
+            ]
+          : [];
       });
-    }
-    for (const b of geo.buurten) {
-      for (const r of b.ringen)
-        vlakken.poly(plat(r)).stroke({ width: 0.6, color: kleuren.buurtlijn, alpha: 0.45 });
-    }
-    const grenzen = new Graphics();
-    for (const [a, b] of geo.gebiedsgrenzen) grenzen.moveTo(a.x, a.y).lineTo(b.x, b.y);
-    grenzen.stroke({ width: 1.6, color: kleuren.gebiedslijn, alpha: 0.5, cap: 'round' });
-
-    const water = new Graphics();
-    for (const w of geo.water) {
-      if (w.soort === 'vlak') {
-        for (const r of w.ringen) water.poly(plat(r)).fill({ color: kleuren.water, alpha: 0.9 });
-      } else {
-        const [eerste, ...rest] = w.punten;
-        if (!eerste) continue;
-        water.moveTo(eerste.x, eerste.y);
-        for (const q of rest) water.lineTo(q.x, q.y);
-        water.stroke({ width: w.breedte, color: kleuren.water, cap: 'round', join: 'round' });
-      }
-    }
-
-    const wegen = new Graphics();
-    for (const w of geo.wegen) {
-      wegen.moveTo(w.van.x, w.van.y).quadraticCurveTo(w.ctrl.x, w.ctrl.y, w.naar.x, w.naar.y);
-    }
-    wegen.stroke({ width: 7, color: kleuren.weg, cap: 'round' });
-    const strepen = new Graphics();
-    for (const w of geo.wegen) {
-      for (let t = 0.04; t < 0.96; t += 0.06) {
-        const a = opWeg(w, t);
-        const b = opWeg(w, t + 0.025);
-        strepen.moveTo(a.x, a.y).lineTo(b.x, b.y);
-      }
-    }
-    strepen.stroke({ width: 1, color: kleuren.wegstreep });
-
-    const labels = new Container();
-    for (const l of geo.labels) {
-      const t = new Text({
-        text: l.tekst,
-        style: {
-          fontFamily: 'Asap, system-ui, sans-serif',
-          fontSize: l.soort === 'gebied' ? 24 : 16,
-          fontWeight: l.soort === 'gebied' ? '700' : '600',
-          fill: kleuren.label,
-          stroke: { color: kleuren.labelRand, width: 3 },
-          letterSpacing: l.soort === 'gebied' ? 1 : 0,
-        },
-        resolution: 3,
-      });
-      t.alpha = l.soort === 'gebied' ? 0.55 : 0.75;
-      t.anchor.set(0.5);
-      t.position.set(l.punt.x, l.punt.y);
-      labels.addChild(t);
-    }
-
-    this.vast.addChild(rand, vlakken, grenzen, water, wegen, strepen, labels);
-    this.wereld.addChild(this.vast);
-
-    // Gebouwen, van boven naar beneden zodat ze netjes overlappen.
-    const gebouwLaag = new Container();
-    const naamLaag = new Container();
-    const volgorde = [...data.gebouwen].sort(
-      (a, b) => (geo.gebouwen[a.id]?.y ?? 0) - (geo.gebouwen[b.id]?.y ?? 0),
-    );
-    for (const g of volgorde) {
-      const plek = geo.gebouwen[g.id];
-      if (!plek) continue;
-      const c = new Container();
-      c.position.set(plek.x, plek.y);
-      c.scale.set(GEBOUW_SCHAAL);
-      const teken = new Graphics();
-      tekenGebouw(teken, g, { toestand: 'normaal' });
-      const icoon = new Text({ text: g.icoon, style: { fontSize: 13 }, resolution: 3 });
-      icoon.anchor.set(0.5);
-      icoon.position.set(0, -GEBOUW_H / 2 - 3);
-      const naam = new Text({
-        text: g.naam,
-        style: {
-          fontFamily: 'Asap, system-ui, sans-serif',
-          fontSize: 10,
-          fontWeight: '700',
-          fill: kleuren.label,
-          stroke: { color: kleuren.labelRand, width: 3 },
-        },
-        resolution: 3,
-      });
-      naam.anchor.set(0.5, 0);
-      naam.position.set(plek.x, plek.y + (GEBOUW_H / 2 + 6) * GEBOUW_SCHAAL);
-      naam.scale.set(GEBOUW_SCHAAL);
-      const bedrag = new Text({
-        text: '',
-        style: {
-          fontFamily: 'Asap, system-ui, sans-serif',
-          fontSize: 9,
-          fontWeight: '700',
-          fill: kleuren.label,
-          stroke: { color: kleuren.labelRand, width: 3 },
-        },
-        resolution: 3,
-      });
-      bedrag.anchor.set(0.5, 0);
-      bedrag.position.set(plek.x, plek.y + (GEBOUW_H / 2 + 18) * GEBOUW_SCHAAL);
-      bedrag.scale.set(GEBOUW_SCHAAL);
-      c.addChild(teken, icoon);
-      naamLaag.addChild(naam, bedrag);
-      gebouwLaag.addChild(c);
-      this.gebouwen.set(g.id, { teken, bedrag });
-    }
-    this.vast.addChild(gebouwLaag, naamLaag);
   }
 
   /** Werkt de gebouwen bij na een keuze van de speler. */
   zetStanden(standen: Record<string, GebouwStand>, zwembadLeeg: boolean): void {
-    for (const g of this.o.data.gebouwen) {
-      const stand = standen[g.id];
-      const getekend = this.gebouwen.get(g.id);
-      if (!stand || !getekend) continue;
-      tekenGebouw(getekend.teken, g, {
+    for (const t of this.gebouwen) {
+      const stand = standen[t.gebouw.id];
+      if (!stand) continue;
+      t.beeld = gebouwBeeld(t.gebouw, {
         toestand: stand.toestand,
-        zwembadLeeg: g.id === 'zwembad' && zwembadLeeg,
+        zwembadLeeg: t.gebouw.id === 'zwembad' && zwembadLeeg,
       });
-      const bedrag = stand.bedrag;
-      getekend.bedrag.text = Math.abs(bedrag) < 50_000 ? '' : formatMln(bedrag, { teken: true });
-      getekend.bedrag.style.fill = bedrag >= 0 ? this.o.kleuren.positief : this.o.kleuren.negatief;
+      t.bedrag = Math.abs(stand.bedrag) < 50_000 ? '' : formatMln(stand.bedrag, { teken: true });
+      t.bedragKleur = stand.bedrag >= 0 ? this.o.kleuren.positief : this.o.kleuren.negatief;
     }
-    // De gebouwen zitten in de vaste textuur: die opnieuw renderen.
-    if (this.vastResolutie) this.vast.updateCacheTexture();
     this.vies = true;
+  }
+
+  private tekst(tekst: string, x: number, y: number, grootte: number, kleur: number): void {
+    const ctx = this.ctx;
+    ctx.font = `700 ${grootte}px ${LETTER}`;
+    ctx.lineWidth = (3 * grootte) / 10;
+    ctx.strokeStyle = css(this.o.kleuren.labelRand);
+    ctx.strokeText(tekst, x, y);
+    ctx.fillStyle = css(kleur);
+    ctx.fillText(tekst, x, y);
+  }
+
+  /** Tekent één beeld: vaste laag, gebouwen, namen, inwoners en kettinglijnen. */
+  private teken(): void {
+    const { ctx, camera: c, dpr } = this;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    ctx.setTransform(dpr * c.schaal, 0, 0, dpr * c.schaal, dpr * c.x, dpr * c.y);
+    ctx.imageSmoothingEnabled = true;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+
+    if (this.vast) {
+      ctx.drawImage(
+        this.vast,
+        -RAND,
+        -RAND,
+        this.vast.width / this.vastResolutie,
+        this.vast.height / this.vastResolutie,
+      );
+    }
+
+    const k = GEBOUW_KADER;
+    const G = GEBOUW_SCHAAL;
+    for (const t of this.gebouwen) {
+      ctx.drawImage(
+        t.beeld,
+        t.plek.x - k.links * G,
+        t.plek.y - k.boven * G,
+        (k.links + k.rechts) * G,
+        (k.boven + k.onder) * G,
+      );
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.font = `${13 * G}px system-ui, sans-serif`;
+      ctx.fillText(t.gebouw.icoon, t.plek.x, t.plek.y + (-GEBOUW_H / 2 - 3) * G);
+    }
+    ctx.textBaseline = 'top';
+    for (const t of this.gebouwen) {
+      this.tekst(
+        t.gebouw.naam,
+        t.plek.x,
+        t.plek.y + (GEBOUW_H / 2 + 6) * G,
+        10 * G,
+        this.o.kleuren.label,
+      );
+      if (t.bedrag)
+        this.tekst(t.bedrag, t.plek.x, t.plek.y + (GEBOUW_H / 2 + 18) * G, 9 * G, t.bedragKleur);
+    }
+
+    for (const w of this.wandelaars) {
+      ctx.save();
+      ctx.translate(w.x, w.y);
+      ctx.scale(w.richting * INWONER_SCHAAL, INWONER_SCHAAL);
+      new CanvasTekenaar(ctx)
+        .circle(0, -9, 3.2)
+        .fill(w.huid)
+        .roundRect(-3.2, -6, 6.4, 7, 2)
+        .fill(w.kleur)
+        .rect(-2.6, 1, 1.8, 4)
+        .rect(0.8, 1, 1.8, 4)
+        .fill(0x15193a);
+      ctx.restore();
+    }
+
+    const nu = performance.now();
+    for (const l of this.lijnen) {
+      const t = (nu - l.begin) / LIJN_MS;
+      const vervaag = t > 0.75 ? Math.max(0, 1 - (t - 0.75) / 0.25) : 1;
+      const { van: a, ctrl, naar: b } = l.weg;
+      ctx.globalAlpha = 0.85 * vervaag;
+      ctx.strokeStyle = css(l.kleur);
+      ctx.lineWidth = 5;
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.quadraticCurveTo(ctrl.x, ctrl.y, b.x, b.y);
+      ctx.stroke();
+      ctx.globalAlpha = vervaag;
+      if (!this.o.minderBeweging) {
+        for (let i = 0; i < 4; i++) {
+          const q = opWeg(l.weg, Math.min(1, (t * 1.6 + i * 0.18) % 1));
+          new CanvasTekenaar(ctx)
+            .circle(q.x, q.y, 6)
+            .fill(0xffd23f)
+            .stroke({ width: 2, color: l.kleur });
+        }
+      }
+      ctx.globalAlpha = 1;
+    }
   }
 
   // ---------------------------------------------------------------------------------------------
@@ -328,7 +378,6 @@ export class GemeenteKaart {
 
   private maakWandelaars(): void {
     const { geo, data } = this.o;
-    const laag = new Container();
     data.personas.personas.forEach((p, i) => {
       // Elke inwoner loopt over de weg naar het gebouw in de eigen buurt, anders in het eigen gebied.
       const eigen =
@@ -336,26 +385,18 @@ export class GemeenteKaart {
         data.gebouwen.find((g) => g.gebied === p.gebied && g.id !== 'stadhuis');
       const weg = geo.wegen.find((w) => w.gebouw === eigen?.id) ?? geo.wegen[i % geo.wegen.length];
       if (!weg) return;
-      const figuur = new Container();
-      const lijf = new Graphics();
-      lijf.circle(0, -9, 3.2).fill(HUID[i % HUID.length] ?? 0xf2c29b);
-      lijf.roundRect(-3.2, -6, 6.4, 7, 2).fill(KLEUR_INWONER[i % KLEUR_INWONER.length] ?? 0xff6a00);
-      lijf.rect(-2.6, 1, 1.8, 4).fill(0x15193a);
-      lijf.rect(0.8, 1, 1.8, 4).fill(0x15193a);
-      figuur.addChild(lijf);
-      figuur.scale.set(INWONER_SCHAAL);
-      laag.addChild(figuur);
-      const t = 0.15 + ((i * 0.37) % 0.7);
       this.wandelaars.push({
         persona: p.id,
         weg,
-        t,
+        t: 0.15 + ((i * 0.37) % 0.7),
         v: (0.025 + (i % 3) * 0.01) * (i % 2 ? 1 : -1),
-        figuur,
-        vorigeX: 0,
+        x: 0,
+        y: 0,
+        richting: 1,
+        huid: HUID[i % HUID.length] ?? 0xf2c29b,
+        kleur: KLEUR_INWONER[i % KLEUR_INWONER.length] ?? 0xff6a00,
       });
     });
-    this.wereld.addChild(laag);
     this.zetWandelaars(0);
   }
 
@@ -370,9 +411,9 @@ export class GemeenteKaart {
       }
       const q = opWeg(w.weg, w.t);
       const stapje = ms > 0 ? Math.abs(Math.sin(w.t * 120)) * 0.8 : 0;
-      w.figuur.position.set(q.x, q.y - stapje);
-      if (ms > 0) w.figuur.scale.x = (q.x < w.vorigeX ? -1 : 1) * INWONER_SCHAAL;
-      w.vorigeX = q.x;
+      if (ms > 0) w.richting = q.x < w.x ? -1 : 1;
+      w.x = q.x;
+      w.y = q.y - stapje;
     }
   }
 
@@ -380,7 +421,7 @@ export class GemeenteKaart {
   inwonerOpScherm(persona: string): Punt | undefined {
     const w = this.wandelaars.find((x) => x.persona === persona);
     if (!w) return undefined;
-    return naarScherm(this.camera, w.figuur.position.x, w.figuur.position.y - 14 * INWONER_SCHAAL);
+    return naarScherm(this.camera, w.x, w.y - 14 * INWONER_SCHAAL);
   }
 
   // ---------------------------------------------------------------------------------------------
@@ -393,34 +434,31 @@ export class GemeenteKaart {
 
   private zetCamera(c: Camera): void {
     this.camera = klem(c, this.wereldMaat(), this.scherm, this.o.data.kaart.zoom_max);
-    this.wereld.position.set(this.camera.x, this.camera.y);
-    this.wereld.scale.set(this.camera.schaal);
     this.laatsteCamera = performance.now();
     this.vies = true;
     this.o.onCamera(this.camera);
   }
 
   /**
-   * Rendert de vaste lagen opnieuw naar een textuur als de zoom flink is veranderd, zodat het beeld
-   * scherp blijft. Tussendoor tekent elk beeld alleen die ene textuur plus gebouwen en inwoners.
+   * Tekent de vaste laag opnieuw als de zoom flink is veranderd, zodat het beeld scherp blijft.
    */
   private werkTextuurBij(nu = false): void {
     if (!nu && (performance.now() - this.laatsteCamera < 200 || this.animatie || this.wijzers.size))
       return;
-    const dpr = this.app.renderer.resolution;
     const max = MAX_TEXTUUR / Math.max(this.o.geo.breedte, this.o.geo.hoogte);
-    const gewenst = Math.min(max, Math.max(0.5, this.camera.schaal * dpr));
+    const gewenst = Math.min(max, Math.max(0.5, this.camera.schaal * this.dpr));
     const resolutie = Math.min(max, Math.pow(1.5, Math.ceil(Math.log(gewenst) / Math.log(1.5))));
     if (Math.abs(resolutie - this.vastResolutie) < 1e-6) return;
+    const canvas = document.createElement('canvas');
+    tekenVasteLaag(canvas, this.o.geo, this.o.data, this.o.kleuren, resolutie);
+    this.vast = canvas;
     this.vastResolutie = resolutie;
-    this.vast.cacheAsTexture(false);
-    this.vast.cacheAsTexture({ resolution: resolutie, antialias: true });
     this.vies = true;
   }
 
   private pasAan(opnieuw: boolean): void {
-    const vorig = this.scherm;
-    this.scherm = { breedte: this.app.screen.width, hoogte: this.app.screen.height };
+    const vorig = this.laatsteScherm;
+    this.laatsteScherm = this.scherm;
     if (opnieuw || vorig.breedte <= 1) {
       this.zetCamera(pas(this.wereldMaat(), this.scherm));
     } else {
@@ -433,6 +471,7 @@ export class GemeenteKaart {
       });
     }
   }
+  private laatsteScherm: Maat = { breedte: 1, hoogte: 1 };
 
   private vlieg(naar: Camera): void {
     if (this.o.minderBeweging) this.zetCamera(naar);
@@ -474,9 +513,13 @@ export class GemeenteKaart {
     const nu = performance.now();
     const wandelen = !this.o.minderBeweging && this.wandelaars.length > 0 && nu < this.actiefTot;
     if (wandelen) this.zetWandelaars(Math.min(ms, 100));
+    if (this.lijnen.length) {
+      this.lijnen = this.lijnen.filter((l) => nu - l.begin < LIJN_MS);
+      this.vies = true;
+    }
     this.werkTextuurBij();
     if (this.vies || (wandelen && nu - this.laatsteBeeld >= 1000 / WANDEL_FPS)) {
-      this.app.render();
+      this.teken();
       this.vies = false;
       this.laatsteBeeld = nu;
     }
@@ -608,40 +651,13 @@ export class GemeenteKaart {
     const a = this.o.geo.gebouwen[van];
     const b = this.o.geo.gebouwen[naar];
     if (!a || !b) return;
-    const kleur = positief ? this.o.kleuren.positief : this.o.kleuren.negatief;
-    const lijn = new Graphics();
-    const munten = new Container();
     const ctrl = { x: (a.x + b.x) / 2 + (b.y - a.y) * 0.2, y: (a.y + b.y) / 2 - (b.x - a.x) * 0.2 };
-    lijn
-      .moveTo(a.x, a.y)
-      .quadraticCurveTo(ctrl.x, ctrl.y, b.x, b.y)
-      .stroke({ width: 5, color: kleur, alpha: 0.85, cap: 'round' });
-    const weg: Weg = { gebouw: naar, van: a, ctrl, naar: b };
-    const stukken = this.o.minderBeweging ? 0 : 4;
-    for (let i = 0; i < stukken; i++) {
-      const m = new Graphics().circle(0, 0, 6).fill(0xffd23f).stroke({ width: 2, color: kleur });
-      munten.addChild(m);
-    }
-    this.wereld.addChild(lijn, munten);
-    const begin = performance.now();
-    const duur = 2600;
-    const stap = () => {
-      const t = (performance.now() - begin) / duur;
-      munten.children.forEach((m, i) => {
-        const q = opWeg(weg, Math.min(1, (t * 1.6 + i * 0.18) % 1));
-        m.position.set(q.x, q.y);
-      });
-      this.vies = true;
-      const vervaag = t > 0.75 ? 1 - (t - 0.75) / 0.25 : 1;
-      lijn.alpha = vervaag;
-      munten.alpha = vervaag;
-      if (t >= 1) {
-        this.app.ticker.remove(stap);
-        lijn.destroy();
-        munten.destroy({ children: true });
-      }
-    };
-    this.app.ticker.add(stap);
+    this.lijnen.push({
+      weg: { gebouw: naar, van: a, ctrl, naar: b },
+      kleur: positief ? this.o.kleuren.positief : this.o.kleuren.negatief,
+      begin: performance.now(),
+    });
+    this.vies = true;
   }
 
   get huidigeCamera(): Camera {
@@ -650,6 +666,9 @@ export class GemeenteKaart {
 
   vernietig(): void {
     for (const f of this.opgeruimd) f();
-    this.app.destroy(true, { children: true });
+    this.canvas.remove();
   }
 }
+
+/** Zo lang blijft een kettinglijn staan. */
+const LIJN_MS = 2600;

@@ -1,7 +1,7 @@
 /**
- * De gemeentekaart (PixiJS) met daarover: onzichtbare knoppen op de gebouwen (voor toetsenbord en
- * schermlezer), zoomknoppen en de tekstballonnen van de inwoners. PixiJS wordt pas geladen als de
- * kaart in beeld komt.
+ * De gemeentekaart (Canvas 2D) met daarover: onzichtbare knoppen op de gebouwen (voor toetsenbord en
+ * schermlezer), zoomknoppen en de tekstballonnen van de inwoners. De kaartcode wordt pas geladen
+ * als de kaart in beeld komt.
  */
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { formatMln, type Data, type Resultaat } from '../../engine';
