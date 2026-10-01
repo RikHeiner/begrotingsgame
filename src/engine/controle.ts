@@ -4,6 +4,7 @@
  */
 import { bepaalVolgorde, IMPLEMENTATIES } from './dwarsverbanden';
 import type { Data } from './laadData';
+import { bekendeNamen, ExpressieFout, namen, parseer } from './expressie';
 import { METER_IDS, type IdMapping } from './schema';
 
 export type Niveau = 'fout' | 'waarschuwing' | 'info';
@@ -295,6 +296,42 @@ export function controleer({ data, buurtcodes, mappings = [] }: ControleInvoer):
       'kringen',
       `${id} verwijst naar zichzelf (een post staat in "van" én "naar"). Dat heeft geen invloed op de volgorde.`,
     );
+  }
+
+  // ---- Reacties (tekstballonnen) ----
+  const toegestaan = bekendeNamen({ ...data, meterIds: METER_IDS });
+  const personaIds = new Set(data.personas.personas.map((p) => p.id));
+  const reactieIds = new Set<string>();
+  for (const r of data.reacties) {
+    if (reactieIds.has(r.id)) fout('reacties', `Het id "${r.id}" komt vaker voor.`);
+    reactieIds.add(r.id);
+    try {
+      for (const naam of namen(parseer(r.voorwaarde))) {
+        if (!toegestaan.has(naam)) {
+          const [soort, id] = naam.split('.', 2);
+          const postId = soort === 'pct' || soort === 'tax' || soort === 'kaart' ? id : undefined;
+          if (postId && vervallen.has(postId)) {
+            waarschuw('reacties', `${r.id}: "${naam}" is vervallen volgens de mapping.`);
+          } else fout('reacties', `${r.id}: onbekende naam "${naam}" in de voorwaarde.`);
+        }
+      }
+    } catch (e) {
+      if (e instanceof ExpressieFout) fout('reacties', `${r.id}: ${e.message}`);
+      else throw e;
+    }
+    for (const p of r.personas ?? []) {
+      if (!personaIds.has(p)) fout('reacties', `${r.id}: onbekende inwoner "${p}".`);
+    }
+  }
+  for (const p of personaIds) {
+    if (
+      !data.reacties.some((r) => r.voorwaarde === 'true' && (!r.personas || r.personas.includes(p)))
+    ) {
+      waarschuw(
+        'reacties',
+        `${p} heeft geen reactie die altijd kan; zonder keuzes zegt deze inwoner niets.`,
+      );
+    }
   }
 
   // ---- Tegenbegrotingen ----

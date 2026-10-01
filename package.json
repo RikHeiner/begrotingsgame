@@ -24,6 +24,8 @@
     "personas:overzicht": "tsx scripts/personas-overzicht.ts"
   },
   "dependencies": {
+    "d3-geo": "^3.1.1",
+    "pixi.js": "^8.21.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "zod": "^4.6.5"
@@ -31,6 +33,8 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@playwright/test": "1.56.1",
+    "@types/d3-geo": "^3.1.1",
+    "@types/geojson": "^7946.0.16",
     "@types/node": "^22.20.4",
     "@types/react": "^18.3.31",
     "@types/react-dom": "^18.3.7",

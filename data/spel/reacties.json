@@ -1,0 +1,1178 @@
+{
+  "toelichting": "Tekstballonnen van de inwoners. 'voorwaarde' is een kleine expressie over de toestand (zie src/game/reacties/expressie.ts en context.ts): pct.<onderdeel>, tax.<belasting>, kaart.<kaart>, meter.<meter>, persona.<id>, gebouw.<id>, saldo.structureel, saldo.incidenteel, sluitend, reserve. 'personas' beperkt wie het zegt; zonder 'personas' kan iedereen het zeggen. Een reactie met een hoger gewicht komt vaker. Deze teksten moeten met de fractie worden afgestemd.",
+  "reacties": [
+    {
+      "id": "basis_anne1",
+      "voorwaarde": "true",
+      "tekst": "Op de fiets naar college, heerlijk 🚲",
+      "personas": ["anne"],
+      "gewicht": 1,
+      "toon": "neutraal"
+    },
+    {
+      "id": "basis_anne2",
+      "voorwaarde": "true",
+      "tekst": "Zou de gemeente dit jaar geld overhouden? 🤔",
+      "personas": ["anne"],
+      "gewicht": 1,
+      "toon": "neutraal"
+    },
+    {
+      "id": "basis_bakker1",
+      "voorwaarde": "true",
+      "tekst": "Bij ons thuis telt elke euro 💶",
+      "personas": ["bakker"],
+      "gewicht": 1,
+      "toon": "neutraal"
+    },
+    {
+      "id": "basis_bakker2",
+      "voorwaarde": "true",
+      "tekst": "De kinderen spelen buiten in Beijum ⚽",
+      "personas": ["bakker"],
+      "gewicht": 1,
+      "toon": "neutraal"
+    },
+    {
+      "id": "basis_henk1",
+      "voorwaarde": "true",
+      "tekst": "Rustige dag in de winkel vandaag 🛍️",
+      "personas": ["henk"],
+      "gewicht": 1,
+      "toon": "neutraal"
+    },
+    {
+      "id": "basis_henk2",
+      "voorwaarde": "true",
+      "tekst": "Ik houd mijn vaste lasten goed in de gaten 📊",
+      "personas": ["henk"],
+      "gewicht": 1,
+      "toon": "neutraal"
+    },
+    {
+      "id": "basis_fatima1",
+      "voorwaarde": "true",
+      "tekst": "Lange dienst gehad in het ziekenhuis 🏥",
+      "personas": ["fatima"],
+      "gewicht": 1,
+      "toon": "neutraal"
+    },
+    {
+      "id": "basis_fatima2",
+      "voorwaarde": "true",
+      "tekst": "Even boodschappen doen in Lewenborg 🛒",
+      "personas": ["fatima"],
+      "gewicht": 1,
+      "toon": "neutraal"
+    },
+    {
+      "id": "basis_devries1",
+      "voorwaarde": "true",
+      "tekst": "Een kopje koffie in het buurthuis ☕",
+      "personas": ["devries"],
+      "gewicht": 1,
+      "toon": "neutraal"
+    },
+    {
+      "id": "basis_devries2",
+      "voorwaarde": "true",
+      "tekst": "Haren is mooi in deze tijd van het jaar 🍂",
+      "personas": ["devries"],
+      "gewicht": 1,
+      "toon": "neutraal"
+    },
+    {
+      "id": "basis_gezin1",
+      "voorwaarde": "true",
+      "tekst": "Druk met de kinderen en het werk 👨‍👩‍👧",
+      "personas": ["gezin"],
+      "gewicht": 1,
+      "toon": "neutraal"
+    },
+    {
+      "id": "basis_gezin2",
+      "voorwaarde": "true",
+      "tekst": "Meerstad groeit hard 🏗️",
+      "personas": ["gezin"],
+      "gewicht": 1,
+      "toon": "neutraal"
+    },
+    {
+      "id": "basis_kees1",
+      "voorwaarde": "true",
+      "tekst": "De koeien staan weer buiten 🐄",
+      "personas": ["kees"],
+      "gewicht": 1,
+      "toon": "neutraal"
+    },
+    {
+      "id": "basis_kees2",
+      "voorwaarde": "true",
+      "tekst": "Mijn huis wacht nog op versterking 🏚️",
+      "personas": ["kees"],
+      "gewicht": 1,
+      "toon": "neutraal"
+    },
+    {
+      "id": "basis_sem1",
+      "voorwaarde": "true",
+      "tekst": "Vanavond training bij de voetbalclub ⚽",
+      "personas": ["sem"],
+      "gewicht": 1,
+      "toon": "neutraal"
+    },
+    {
+      "id": "basis_sem2",
+      "voorwaarde": "true",
+      "tekst": "Nog even leren voor mijn toets 📚",
+      "personas": ["sem"],
+      "gewicht": 1,
+      "toon": "neutraal"
+    },
+    {
+      "id": "k1_dicht",
+      "voorwaarde": "pct.k1 <= -25",
+      "tekst": "Mijn zwembad is dicht 😢",
+      "personas": ["sem", "gezin", "anne"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "k1_zwemles",
+      "voorwaarde": "pct.k1 <= -25",
+      "tekst": "Waar leren de kinderen nu zwemmen? 🏊",
+      "personas": ["gezin", "bakker"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "k1_beter",
+      "voorwaarde": "pct.k1 >= 10",
+      "tekst": "Het zwembad is opgeknapt, top! 🏊",
+      "personas": ["sem", "gezin"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "k1_club",
+      "voorwaarde": "pct.k1 >= 10",
+      "tekst": "Meer uren in de sporthal voor onze club 🏐",
+      "personas": ["sem"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "k2_minder",
+      "voorwaarde": "pct.k2 <= -50",
+      "tekst": "Geen sportlessen meer na school 😕",
+      "personas": ["sem", "gezin", "bakker"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "k2_meer",
+      "voorwaarde": "pct.k2 >= 20",
+      "tekst": "Gratis sporten in de wijk, wat leuk! 🤸",
+      "personas": ["bakker", "sem"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "k_fc",
+      "voorwaarde": "kaart.k_fc",
+      "tekst": "Meer ruimte op Corpus voor de amateurs ⚽",
+      "personas": ["sem"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "c2_festival",
+      "voorwaarde": "pct.c2 <= -20",
+      "tekst": "Mijn favoriete festival gaat niet meer door 😞",
+      "personas": ["anne"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "c2_minder",
+      "voorwaarde": "pct.c2 <= -20",
+      "tekst": "Er zijn minder voorstellingen in de gemeente 🎭",
+      "personas": ["devries", "anne"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "c2_meer",
+      "voorwaarde": "pct.c2 >= 10",
+      "tekst": "Wat een mooi aanbod aan festivals dit jaar 🎉",
+      "personas": ["anne"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "c1_minder",
+      "voorwaarde": "pct.c1 <= -25",
+      "tekst": "Minder concerten in de Oosterpoort 🎵",
+      "personas": ["anne", "devries"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "c1_meer",
+      "voorwaarde": "pct.c1 >= 10",
+      "tekst": "Mooie voorstelling gezien in de Stadsschouwburg 🎭",
+      "personas": ["devries", "fatima"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "c3_forum",
+      "voorwaarde": "pct.c3 <= -50",
+      "tekst": "Het Forum heeft kortere openingstijden 📚",
+      "personas": ["anne", "sem"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "c3_meer",
+      "voorwaarde": "pct.c3 >= 10",
+      "tekst": "Leuke broedplaats geopend in de buurt 🎨",
+      "personas": ["anne"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "v2_minder",
+      "voorwaarde": "pct.v2 <= -25",
+      "tekst": "Ik zie bijna geen boa's meer op straat 🚓",
+      "personas": ["henk", "fatima", "devries"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "v2_meer",
+      "voorwaarde": "pct.v2 >= 20",
+      "tekst": "Fijn dat er meer boa's rondlopen 👮",
+      "personas": ["henk", "devries", "fatima"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "licht",
+      "voorwaarde": "kaart.k_licht",
+      "tekst": "Met meer licht fiets ik 's avonds veiliger naar huis 💡",
+      "personas": ["anne", "fatima"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "v3_minder",
+      "voorwaarde": "pct.v3 <= -25",
+      "tekst": "Het voelt minder veilig in de binnenstad 😟",
+      "personas": ["henk", "anne"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "v3_meer",
+      "voorwaarde": "pct.v3 >= 20",
+      "tekst": "Er hangen camera's bij de uitgaansplekken 📹",
+      "personas": ["henk"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "v4_minder",
+      "voorwaarde": "pct.v4 <= -50",
+      "tekst": "Criminelen krijgen meer ruimte, dat zie je 😠",
+      "personas": ["henk"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "veilig_laag",
+      "voorwaarde": "meter.veilig < 35",
+      "tekst": "Ik loop 's avonds niet meer graag alleen over straat 😟",
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "veilig_hoog",
+      "voorwaarde": "meter.veilig > 65",
+      "tekst": "Ik voel me veilig in mijn buurt 🛡️",
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "o1_gaten",
+      "voorwaarde": "pct.o1 <= -20",
+      "tekst": "Er zitten gaten in de weg 🕳️",
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "o1_gras",
+      "voorwaarde": "pct.o1 <= -20",
+      "tekst": "Het gras in het park wordt bijna niet gemaaid 🌾",
+      "personas": ["devries", "gezin"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "o1_stoep",
+      "voorwaarde": "pct.o1 >= 10",
+      "tekst": "De stoep is eindelijk gerepareerd 👍",
+      "personas": ["devries"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "o1_park",
+      "voorwaarde": "pct.o1 >= 10",
+      "tekst": "Wat ziet het park er netjes uit 🌷",
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "o6_weg",
+      "voorwaarde": "pct.o6 <= -50",
+      "tekst": "De speeltuin bij ons in de buurt is weg 🛝",
+      "personas": ["gezin", "bakker"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "o6_nieuw",
+      "voorwaarde": "pct.o6 >= 20",
+      "tekst": "Er is een nieuwe speeltuin in de buurt 🛝",
+      "personas": ["gezin", "bakker"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "schoon_laag",
+      "voorwaarde": "meter.schoon < 35",
+      "tekst": "Er ligt veel zwerfafval op straat 🗑️",
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "schoon_hoog",
+      "voorwaarde": "meter.schoon > 65",
+      "tekst": "Wat is het netjes op straat 🌳",
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "s3_coach",
+      "voorwaarde": "pct.s3 >= 20",
+      "tekst": "Dankzij mijn coach heb ik werk! 💼",
+      "personas": ["bakker"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "s3_buurman",
+      "voorwaarde": "pct.s3 >= 20",
+      "tekst": "Mijn buurman heeft eindelijk een baan 👏",
+      "personas": ["bakker", "fatima"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "s3_minder",
+      "voorwaarde": "pct.s3 <= -25",
+      "tekst": "Geen hulp meer bij het zoeken naar werk 😕",
+      "personas": ["bakker"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "s6_minder",
+      "voorwaarde": "pct.s6 <= -50",
+      "tekst": "Mijn buurvrouw raakt haar basisbaan kwijt 😟",
+      "personas": ["bakker", "fatima"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "s2_minder",
+      "voorwaarde": "pct.s2 <= -10",
+      "tekst": "Minder werkplekken bij Iederz 😔",
+      "personas": ["bakker"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "s5_meer",
+      "voorwaarde": "pct.s5 >= 10",
+      "tekst": "Mijn neef heeft via Werk in Zicht een baan 💼",
+      "personas": ["fatima"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "werk_hoog",
+      "voorwaarde": "meter.werk > 65",
+      "tekst": "Er komen veel vacatures bij in de gemeente 📈",
+      "personas": ["henk", "anne"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "werk_laag",
+      "voorwaarde": "meter.werk < 35",
+      "tekst": "Werk vinden is lastig geworden 😕",
+      "personas": ["anne", "bakker", "sem"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "s10_minder",
+      "voorwaarde": "pct.s10 <= -20",
+      "tekst": "Minder hulp voor schoolspullen van de kinderen 🎒",
+      "personas": ["bakker"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "s10_meer",
+      "voorwaarde": "pct.s10 >= 10",
+      "tekst": "Meer steun voor gezinnen met weinig geld 🤝",
+      "personas": ["bakker"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "kwijt",
+      "voorwaarde": "kaart.k_kwijt",
+      "tekst": "Ik moet nu zelf de gemeentelijke belastingen betalen 😰",
+      "personas": ["bakker"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "kwijt_compensatie",
+      "voorwaarde": "kaart.k_kwijt && pct.s10 >= 20",
+      "tekst": "Gelukkig is er meer armoedegeld als compensatie 🤝",
+      "personas": ["bakker"],
+      "gewicht": 4,
+      "toon": "positief"
+    },
+    {
+      "id": "s9_minder",
+      "voorwaarde": "pct.s9 <= -25",
+      "tekst": "Ik wacht maanden op hulp bij mijn schulden 📄",
+      "personas": ["bakker"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "s9_meer",
+      "voorwaarde": "pct.s9 >= 10",
+      "tekst": "De schuldhulp heeft me snel geholpen 🙏",
+      "personas": ["bakker"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "s11_minder",
+      "voorwaarde": "pct.s11 <= -25",
+      "tekst": "De wasmachine is kapot en er is geen hulp meer 😟",
+      "personas": ["bakker"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "s12_minder",
+      "voorwaarde": "pct.s12 <= -25",
+      "tekst": "Mijn toeslag is lager geworden 💸",
+      "personas": ["bakker"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "z3_minder",
+      "voorwaarde": "pct.z3 <= -5",
+      "tekst": "Mijn huishoudelijke hulp komt minder vaak 😟",
+      "personas": ["devries"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "z3_meer",
+      "voorwaarde": "pct.z3 >= 10",
+      "tekst": "Ik kreeg snel een rollator via de Wmo 👍",
+      "personas": ["devries"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "z4_minder",
+      "voorwaarde": "pct.z4 <= -15",
+      "tekst": "Het WIJ-team heeft minder tijd voor ons 😕",
+      "personas": ["bakker", "devries"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "z4_meer",
+      "voorwaarde": "pct.z4 >= 10",
+      "tekst": "Het WIJ-team helpt ons snel en goed 🤝",
+      "personas": ["bakker"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "z1_minder",
+      "voorwaarde": "pct.z1 <= -5",
+      "tekst": "De wachtlijst voor jeugdhulp is langer geworden ⏳",
+      "personas": ["gezin", "bakker", "fatima"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "z1_meer",
+      "voorwaarde": "pct.z1 >= 10",
+      "tekst": "Mijn neefje krijgt snel jeugdhulp 👍",
+      "personas": ["fatima"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "z8_dicht",
+      "voorwaarde": "pct.z8 <= -40",
+      "tekst": "Mijn buurthuis gaat dicht 😢",
+      "personas": ["devries", "bakker"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "z8_meer",
+      "voorwaarde": "pct.z8 >= 10",
+      "tekst": "Meer activiteiten in het buurthuis 🎲",
+      "personas": ["devries"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "z2_minder",
+      "voorwaarde": "pct.z2 <= -5",
+      "tekst": "Er zijn minder plekken in beschermd wonen 😟",
+      "personas": ["fatima"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "z6_minder",
+      "voorwaarde": "pct.z6 <= -5",
+      "tekst": "De GGD heeft minder spreekuren 🩺",
+      "personas": ["fatima"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "z9_minder",
+      "voorwaarde": "pct.z9 <= -50",
+      "tekst": "Minder buurtactiviteiten, ik ken mijn buren niet meer 😐",
+      "personas": ["devries", "fatima"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "zorg_laag",
+      "voorwaarde": "meter.zorg < 35",
+      "tekst": "Ik maak me zorgen over de zorg in de gemeente 😟",
+      "personas": ["fatima", "devries"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "zorg_hoog",
+      "voorwaarde": "meter.zorg > 65",
+      "tekst": "Hulp nodig? Die is er snel 🤝",
+      "personas": ["devries", "bakker"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "d1_meer",
+      "voorwaarde": "pct.d1 >= 10",
+      "tekst": "De school van onze kinderen wordt opgeknapt 🏫",
+      "personas": ["gezin"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "d1_minder",
+      "voorwaarde": "pct.d1 <= -5",
+      "tekst": "Het lekt in het gymlokaal van school 🌧️",
+      "personas": ["gezin", "sem"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "d2_minder",
+      "voorwaarde": "pct.d2 <= -50",
+      "tekst": "Minder bijles voor kinderen die het nodig hebben 📚",
+      "personas": ["bakker", "gezin"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "d2_meer",
+      "voorwaarde": "pct.d2 >= 10",
+      "tekst": "Extra taalles op de basisschool, mooi zo 📖",
+      "personas": ["bakker"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "d4_minder",
+      "voorwaarde": "pct.d4 <= -50",
+      "tekst": "Minder hulp voor jongeren die stoppen met school 😕",
+      "personas": ["sem"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "t5_lager",
+      "voorwaarde": "tax.t5 <= -10",
+      "tekst": "Parkeren in de binnenstad is goedkoper 🅿️",
+      "personas": ["henk", "fatima"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "t5_hoger",
+      "voorwaarde": "tax.t5 >= 10",
+      "tekst": "Parkeren is weer duurder geworden 😤",
+      "personas": ["henk", "fatima", "gezin"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "t5_gratis",
+      "voorwaarde": "tax.t5 <= -100",
+      "tekst": "Overal gratis parkeren! 🚗",
+      "personas": ["henk", "gezin", "kees"],
+      "gewicht": 4,
+      "toon": "positief"
+    },
+    {
+      "id": "t5_vergunning",
+      "voorwaarde": "tax.t5 <= -10",
+      "tekst": "Mijn parkeervergunning is goedkoper 💶",
+      "personas": ["fatima"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "m5_meer",
+      "voorwaarde": "pct.m5 >= 20",
+      "tekst": "De fietsenstalling is nu dag en nacht open 🚲",
+      "personas": ["anne"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "m5_minder",
+      "voorwaarde": "pct.m5 <= -50",
+      "tekst": "Er is geen plek meer in de fietsenstalling 😩",
+      "personas": ["anne"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "m2_minder",
+      "voorwaarde": "pct.m2 <= -50",
+      "tekst": "Ik zie bijna nooit meer een parkeercontrole 🚗",
+      "personas": ["henk"],
+      "gewicht": 3,
+      "toon": "neutraal"
+    },
+    {
+      "id": "m6_minder",
+      "voorwaarde": "pct.m6 <= -50",
+      "tekst": "Minder geld voor een levendige binnenstad 🏙️",
+      "personas": ["henk"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "m3_meer",
+      "voorwaarde": "pct.m3 >= 10",
+      "tekst": "Er komen meer veilige fietspaden 🚲",
+      "personas": ["anne", "sem"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "t1_lager",
+      "voorwaarde": "tax.t1 <= -5",
+      "tekst": "Mijn OZB-aanslag is lager 🎉",
+      "personas": ["henk", "devries", "gezin", "kees"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "t1_hoger",
+      "voorwaarde": "tax.t1 >= 5",
+      "tekst": "Mijn OZB-aanslag is hoger geworden 😬",
+      "personas": ["henk", "devries", "gezin", "kees"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "t1_huur",
+      "voorwaarde": "tax.t1 >= 5",
+      "tekst": "Mijn huur gaat omhoog, de verhuurder betaalt meer OZB 🏠",
+      "personas": ["anne", "fatima"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "t1_huur_lager",
+      "voorwaarde": "tax.t1 <= -10",
+      "tekst": "Misschien gaat mijn huur nu minder hard omhoog 🏠",
+      "personas": ["anne", "fatima"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "t3_weg",
+      "voorwaarde": "tax.t3 <= -50",
+      "tekst": "Geen reclamebelasting meer voor mijn winkel 🎉",
+      "personas": ["henk"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "t3_hoger",
+      "voorwaarde": "tax.t3 >= 20",
+      "tekst": "De reclamebelasting voor mijn gevel is omhoog 😤",
+      "personas": ["henk"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "t4_container",
+      "voorwaarde": "tax.t4 <= -50",
+      "tekst": "Een container voor mijn verbouwing is goedkoper 🧱",
+      "personas": ["gezin", "devries"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "t4_terras",
+      "voorwaarde": "tax.t4 <= -50",
+      "tekst": "Een terras voor de deur kost minder 🍻",
+      "personas": ["henk"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "t4_hoger",
+      "voorwaarde": "tax.t4 >= 20",
+      "tekst": "Een steiger voor de schilder kost me nu meer 🪜",
+      "personas": ["devries", "gezin"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "t2_hoger",
+      "voorwaarde": "tax.t2 >= 50",
+      "tekst": "Toeristen betalen meer voor een hotelnacht 🏨",
+      "personas": ["henk"],
+      "gewicht": 3,
+      "toon": "neutraal"
+    },
+    {
+      "id": "porte_hoog",
+      "voorwaarde": "meter.portemonnee > 65",
+      "tekst": "Ik houd elke maand iets meer over 👛",
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "porte_laag",
+      "voorwaarde": "meter.portemonnee < 35",
+      "tekst": "Mijn vaste lasten bij de gemeente stijgen flink 💸",
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "e3_minder",
+      "voorwaarde": "pct.e3 <= -50",
+      "tekst": "Er komen minder bezoekers naar de binnenstad 😕",
+      "personas": ["henk"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "e3_meer",
+      "voorwaarde": "pct.e3 >= 10",
+      "tekst": "Groningen staat vaker in het nieuws als leuke plek 🌟",
+      "personas": ["henk", "anne"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "e6_minder",
+      "voorwaarde": "pct.e6 <= -50",
+      "tekst": "Het winkelcentrum ziet er rommelig uit 🏬",
+      "personas": ["henk", "fatima"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "e1_minder",
+      "voorwaarde": "pct.e1 <= -50",
+      "tekst": "Minder hulp voor nieuwe ondernemers 😕",
+      "personas": ["henk"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "bouw",
+      "voorwaarde": "kaart.k_bouw",
+      "tekst": "Er worden sneller nieuwe huizen gebouwd 🏗️",
+      "personas": ["gezin", "anne"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "bouw_eigen",
+      "voorwaarde": "kaart.k_bouw",
+      "tekst": "Eindelijk kans op een eigen huis 🏡",
+      "personas": ["anne", "fatima"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "w2_minder",
+      "voorwaarde": "pct.w2 <= -50",
+      "tekst": "Een betaalbare woning vinden is nog moeilijker 😩",
+      "personas": ["anne", "fatima"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "w3_minder",
+      "voorwaarde": "pct.w3 <= -50",
+      "tekst": "Mijn huisbaas doet niets aan de schimmel 😠",
+      "personas": ["anne"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "w3_meer",
+      "voorwaarde": "pct.w3 >= 20",
+      "tekst": "Er wordt beter gelet op slechte verhuurders 👍",
+      "personas": ["anne"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "w8_minder",
+      "voorwaarde": "pct.w8 <= -20",
+      "tekst": "Ik wacht lang op mijn vergunning voor de dakkapel 📝",
+      "personas": ["gezin", "kees"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "w6_minder",
+      "voorwaarde": "pct.w6 <= -50",
+      "tekst": "Geen subsidie meer voor mijn zonnepanelen ☀️",
+      "personas": ["gezin", "kees"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "wonen_hoog",
+      "voorwaarde": "meter.wonen > 60",
+      "tekst": "Er komen veel nieuwe woningen bij 🏠",
+      "personas": ["gezin", "anne"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "b1_minder",
+      "voorwaarde": "pct.b1 <= -10",
+      "tekst": "Ik wacht al weken op mijn paspoort 🛂",
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "b1_meer",
+      "voorwaarde": "pct.b1 >= 10",
+      "tekst": "Mijn rijbewijs was snel klaar 👍",
+      "personas": ["anne", "sem"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "b2_minder",
+      "voorwaarde": "pct.b2 <= -25",
+      "tekst": "De gemeente neemt de telefoon slecht op ☎️",
+      "personas": ["devries", "bakker"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "dienst_laag",
+      "voorwaarde": "meter.dienstverlening < 40",
+      "tekst": "Bij de gemeente moet ik overal lang op wachten ⏳",
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "g4_minder",
+      "voorwaarde": "pct.g4 <= -50",
+      "tekst": "De wijkvernieuwing in onze buurt ligt stil 🚧",
+      "personas": ["bakker", "kees"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "g4_meer",
+      "voorwaarde": "pct.g4 >= 10",
+      "tekst": "Er wordt flink geïnvesteerd in ons dorp 🏘️",
+      "personas": ["kees"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "g3_minder",
+      "voorwaarde": "pct.g3 <= -50",
+      "tekst": "Ons dorpsfeest krijgt geen geld meer 🎪",
+      "personas": ["kees"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "g3_meer",
+      "voorwaarde": "pct.g3 >= 10",
+      "tekst": "Het wijkbudget betaalt een nieuw bankje 🪑",
+      "personas": ["devries", "kees"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "g1_minder",
+      "voorwaarde": "pct.g1 <= -20",
+      "tekst": "Minder wethouders, dat scheelt geld 💼",
+      "personas": ["henk", "kees"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "h1_minder",
+      "voorwaarde": "pct.h1 <= -10",
+      "tekst": "De gemeente bezuinigt op haar eigen organisatie ✂️",
+      "personas": ["henk", "kees"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "h1_traag",
+      "voorwaarde": "pct.h1 <= -15",
+      "tekst": "Mijn aanvraag bij de gemeente duurt langer ⏳",
+      "personas": ["gezin", "fatima"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "warm",
+      "voorwaarde": "kaart.k_warm",
+      "tekst": "De gemeente verkoopt een deel van WarmteStad 🔥",
+      "personas": ["henk", "kees"],
+      "gewicht": 3,
+      "toon": "neutraal"
+    },
+    {
+      "id": "zon",
+      "voorwaarde": "kaart.k_zon",
+      "tekst": "Het zonnepark bij Meerstad komt er niet ☀️",
+      "personas": ["gezin"],
+      "gewicht": 3,
+      "toon": "neutraal"
+    },
+    {
+      "id": "wind",
+      "voorwaarde": "kaart.k_wind",
+      "tekst": "Geen windmolens bij Roodehaan 🌬️",
+      "personas": ["gezin", "kees"],
+      "gewicht": 3,
+      "toon": "neutraal"
+    },
+    {
+      "id": "brug",
+      "voorwaarde": "kaart.k_brug",
+      "tekst": "Fijn dat er een tijdelijke brug komt 🌉",
+      "personas": ["anne", "fatima"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "res",
+      "voorwaarde": "kaart.k_res",
+      "tekst": "Goed dat de gemeente een buffer opbouwt 🏦",
+      "personas": ["henk", "devries"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "ai",
+      "voorwaarde": "kaart.k_ai",
+      "tekst": "Mijn vraag aan de gemeente is nu sneller geregeld 💻",
+      "personas": ["anne", "gezin"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "vast",
+      "voorwaarde": "kaart.k_vast",
+      "tekst": "Het oude pand in de binnenstad wordt verkocht 🏢",
+      "personas": ["henk"],
+      "gewicht": 3,
+      "toon": "neutraal"
+    },
+    {
+      "id": "laad",
+      "voorwaarde": "kaart.k_laad",
+      "tekst": "Laadpalen komen nu van bedrijven 🔌",
+      "personas": ["gezin"],
+      "gewicht": 3,
+      "toon": "neutraal"
+    },
+    {
+      "id": "ongedoc",
+      "voorwaarde": "kaart.k_ongedoc",
+      "tekst": "De nachtopvang in de gemeente stopt 🌙",
+      "personas": ["fatima", "anne"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "smr",
+      "voorwaarde": "kaart.k_smr",
+      "tekst": "Een kleine kerncentrale? Benieuwd naar het onderzoek ⚛️",
+      "personas": ["kees", "henk"],
+      "gewicht": 3,
+      "toon": "neutraal"
+    },
+    {
+      "id": "niet_sluitend",
+      "voorwaarde": "sluitend == 0",
+      "tekst": "Kan de gemeente dit wel betalen? 🤔",
+      "gewicht": 4,
+      "toon": "negatief"
+    },
+    {
+      "id": "overschot",
+      "voorwaarde": "saldo.structureel > 5",
+      "tekst": "De gemeente houdt geld over, slim! 💰",
+      "personas": ["henk", "devries"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "reserve",
+      "voorwaarde": "reserve >= 5",
+      "tekst": "Fijn dat er geld opzij wordt gezet voor later 🏦",
+      "personas": ["devries", "henk"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "cultuur_laag",
+      "voorwaarde": "meter.sport_cultuur < 35",
+      "tekst": "Er is weinig meer te doen in de gemeente 😐",
+      "personas": ["anne", "sem"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "cultuur_hoog",
+      "voorwaarde": "meter.sport_cultuur > 65",
+      "tekst": "Er is zoveel te doen in Groningen! 🎉",
+      "personas": ["anne", "sem"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "bakker_laag",
+      "voorwaarde": "persona.bakker < 35",
+      "tekst": "Het wordt steeds moeilijker om rond te komen 😔",
+      "personas": ["bakker"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "devries_laag",
+      "voorwaarde": "persona.devries < 35",
+      "tekst": "Ik voel me een beetje vergeten 😔",
+      "personas": ["devries"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "henk_hoog",
+      "voorwaarde": "persona.henk > 65",
+      "tekst": "Goed bezig, gemeente! 👍",
+      "personas": ["henk"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "kees_hoog",
+      "voorwaarde": "persona.kees > 65",
+      "tekst": "De dorpen tellen weer mee 👍",
+      "personas": ["kees"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "kees_laag",
+      "voorwaarde": "persona.kees < 35",
+      "tekst": "Ik voel me niet gehoord in de dorpen 😕",
+      "personas": ["kees"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "sem_hoog",
+      "voorwaarde": "persona.sem > 65",
+      "tekst": "Ik heb echt zin in de zomer hier ☀️",
+      "personas": ["sem"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "gezin_laag",
+      "voorwaarde": "persona.gezin < 35",
+      "tekst": "Wonen in Meerstad wordt wel duur zo 😬",
+      "personas": ["gezin"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "fatima_hoog",
+      "voorwaarde": "persona.fatima > 65",
+      "tekst": "Fijn wonen in Lewenborg 😊",
+      "personas": ["fatima"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "anne_laag",
+      "voorwaarde": "persona.anne < 35",
+      "tekst": "Ik denk erover om na mijn studie te verhuizen 😕",
+      "personas": ["anne"],
+      "gewicht": 3,
+      "toon": "negatief"
+    }
+  ]
+}

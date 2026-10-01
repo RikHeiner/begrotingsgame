@@ -44,6 +44,8 @@ export function laadDataNode(begrotingBestand?: string): Data {
     meters: leesJson(SPEL_BESTANDEN.meters),
     gebouwen: leesJson(SPEL_BESTANDEN.gebouwen),
     gebieden: leesJson(SPEL_BESTANDEN.gebieden),
+    kaart: leesJson(SPEL_BESTANDEN.kaart),
+    reacties: leesJson(SPEL_BESTANDEN.reacties),
     personas: leesJson(SPEL_BESTANDEN.personas),
     vergelijking: (config.vergelijking as string[]).map((bestand) => ({
       bestand,

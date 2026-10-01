@@ -360,6 +360,81 @@ export const gebiedenSchema = z
   .strict();
 export type GebiedenData = z.infer<typeof gebiedenSchema>;
 
+// ---------- spel/kaart.json ----------
+
+const lonlat = z.tuple([z.number().min(-180).max(180), z.number().min(-90).max(90)]);
+
+export const kaartSchema = z
+  .object({
+    toelichting: z.string(),
+    centrum: z.object({ lon: z.number(), lat: z.number(), naam: z.string() }).strict(),
+    vergroting: z.object({ exponent: z.number().positive().max(1) }).strict(),
+    wereld_breedte: z.number().positive(),
+    zoom_max: z.number().min(1),
+    toestanden: z
+      .object({
+        gesloten_tot: z.number(),
+        versoberd_tot: z.number(),
+        normaal_tot: z.number(),
+        beter_tot: z.number(),
+      })
+      .strict()
+      .refine(
+        (t) =>
+          t.gesloten_tot < t.versoberd_tot &&
+          t.versoberd_tot < t.normaal_tot &&
+          t.normaal_tot < t.beter_tot,
+        { message: 'de drempels moeten oplopen' },
+      ),
+    water: z.array(
+      z
+        .object({
+          id: z.string(),
+          naam: z.string(),
+          soort: z.enum(['kanaal', 'meer', 'buurt']),
+          lijn: z.array(lonlat).min(2).optional(),
+          vlak: z.array(lonlat).min(3).optional(),
+          buurt: z
+            .string()
+            .regex(/^BU\d{8}$/)
+            .optional(),
+          breedte: z.number().positive().optional(),
+          schets: z.boolean(),
+        })
+        .strict(),
+    ),
+    labels: z.array(
+      z
+        .object({
+          tekst: z.string(),
+          lon: z.number(),
+          lat: z.number(),
+          soort: z.enum(['dorp', 'gebied', 'water']),
+        })
+        .strict(),
+    ),
+  })
+  .strict();
+export type KaartData = z.infer<typeof kaartSchema>;
+
+// ---------- spel/reacties.json ----------
+
+export const reactieSchema = z
+  .object({
+    id: z.string().min(1),
+    voorwaarde: z.string().min(1),
+    tekst: z.string().min(1).max(90),
+    personas: z.array(z.string()).min(1).optional(),
+    gewicht: z.number().positive(),
+    toon: z.enum(['positief', 'negatief', 'neutraal']),
+  })
+  .strict();
+export type Reactie = z.infer<typeof reactieSchema>;
+
+export const reactiesSchema = z
+  .object({ toelichting: z.string(), reacties: z.array(reactieSchema).min(1) })
+  .strict();
+
 // ---------- spel/personas.json ----------
 
 export const personaSchema = z

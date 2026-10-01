@@ -1,5 +1,5 @@
 {
-  "toelichting": "Gebouwen op de gemeentekaart. 'buurt' is de buurtcode in gemeente-groningen-buurten.geojson; 'gebied' is het gebied van de gemeente (spel/gebieden.json). De exacte positie op de kaart volgt in fase 2.",
+  "toelichting": "Gebouwen op de gemeentekaart. 'buurt' is de buurtcode in gemeente-groningen-buurten.geojson; 'gebied' is het gebied van de gemeente (spel/gebieden.json). 'positie' is het midden van de buurt (het Stadhuis staat op de Grote Markt).",
   "gebouwen": [
     {
       "id": "stadhuis",
@@ -10,7 +10,11 @@
       "omschrijving": "Bestuur, loketten en ambtenaren",
       "onderdelen": ["g1", "g2", "g5", "g7", "b1", "b2", "b3", "h1"],
       "buurt": "BU00140001",
-      "gebied": "centrum"
+      "gebied": "centrum",
+      "positie": {
+        "lon": 6.5683,
+        "lat": 53.2192
+      }
     },
     {
       "id": "winkel",
@@ -21,7 +25,11 @@
       "omschrijving": "Economie en ondernemen",
       "onderdelen": ["e1", "e2", "e3", "e4", "e5", "e6", "e7", "e8", "e9", "e10", "e11"],
       "buurt": "BU00140200",
-      "gebied": "noord"
+      "gebied": "noord",
+      "positie": {
+        "lon": 6.5484,
+        "lat": 53.2215
+      }
     },
     {
       "id": "parkeer",
@@ -32,7 +40,11 @@
       "omschrijving": "Verkeer, fietsen en parkeren",
       "onderdelen": ["m2", "m3", "m4", "m5", "m6", "m7", "m9", "m11", "m10"],
       "buurt": "BU00140300",
-      "gebied": "noord"
+      "gebied": "noord",
+      "positie": {
+        "lon": 6.5615,
+        "lat": 53.2359
+      }
     },
     {
       "id": "werk",
@@ -43,7 +55,11 @@
       "omschrijving": "Werk, bijstand en armoede",
       "onderdelen": ["s3", "s1", "s2", "s4", "s5", "s6", "s8", "s9", "s10", "s11", "s12", "s7"],
       "buurt": "BU00140900",
-      "gebied": "west"
+      "gebied": "west",
+      "positie": {
+        "lon": 6.5248,
+        "lat": 53.23
+      }
     },
     {
       "id": "zwembad",
@@ -54,7 +70,11 @@
       "omschrijving": "Sport en bewegen",
       "onderdelen": ["k1", "k2", "k3"],
       "buurt": "BU00141207",
-      "gebied": "oost"
+      "gebied": "oost",
+      "positie": {
+        "lon": 6.6016,
+        "lat": 53.2411
+      }
     },
     {
       "id": "buurt",
@@ -65,7 +85,11 @@
       "omschrijving": "Wijken en welzijn",
       "onderdelen": ["g3", "g4", "z8", "z9"],
       "buurt": "BU00141100",
-      "gebied": "oost"
+      "gebied": "oost",
+      "positie": {
+        "lon": 6.5883,
+        "lat": 53.2478
+      }
     },
     {
       "id": "zorg",
@@ -76,7 +100,11 @@
       "omschrijving": "Jeugdzorg, Wmo en opvang",
       "onderdelen": ["z1", "z2", "z3", "z4", "z5", "z6", "z7", "z10", "z11"],
       "buurt": "BU00140401",
-      "gebied": "noord"
+      "gebied": "noord",
+      "positie": {
+        "lon": 6.5819,
+        "lat": 53.2294
+      }
     },
     {
       "id": "politie",
@@ -87,7 +115,11 @@
       "omschrijving": "Veiligheid en handhaving",
       "onderdelen": ["v2", "v3", "v4", "v5", "v6", "v9", "v1", "v8"],
       "buurt": "BU00140501",
-      "gebied": "zuid"
+      "gebied": "zuid",
+      "positie": {
+        "lon": 6.5898,
+        "lat": 53.2066
+      }
     },
     {
       "id": "theater",
@@ -98,7 +130,11 @@
       "omschrijving": "Cultuur",
       "onderdelen": ["c1", "c2", "c3", "c4"],
       "buurt": "BU00140101",
-      "gebied": "zuid"
+      "gebied": "zuid",
+      "positie": {
+        "lon": 6.5772,
+        "lat": 53.2115
+      }
     },
     {
       "id": "school",
@@ -109,7 +145,11 @@
       "omschrijving": "Onderwijs",
       "onderdelen": ["d1", "d2", "d4", "d5", "d6"],
       "buurt": "BU00140604",
-      "gebied": "zuid"
+      "gebied": "zuid",
+      "positie": {
+        "lon": 6.5801,
+        "lat": 53.198
+      }
     },
     {
       "id": "park",
@@ -120,7 +160,11 @@
       "omschrijving": "Straten, groen, afval en riolering",
       "onderdelen": ["o1", "o3", "o2", "o4", "o5", "o6", "o8"],
       "buurt": "BU00140108",
-      "gebied": "zuid"
+      "gebied": "zuid",
+      "positie": {
+        "lon": 6.5428,
+        "lat": 53.2028
+      }
     },
     {
       "id": "bouw",
@@ -131,7 +175,11 @@
       "omschrijving": "Wonen, bouwen en energie",
       "onderdelen": ["w1", "w2", "w3", "w4", "w6", "w7", "w8", "w10", "w11"],
       "buurt": "BU00141400",
-      "gebied": "oost"
+      "gebied": "oost",
+      "positie": {
+        "lon": 6.6526,
+        "lat": 53.2245
+      }
     },
     {
       "id": "veiling",
@@ -142,7 +190,11 @@
       "omschrijving": "Eenmalige acties: verkopen, stoppen en investeren",
       "onderdelen": [],
       "buurt": "BU00141500",
-      "gebied": "ten_boer"
+      "gebied": "ten_boer",
+      "positie": {
+        "lon": 6.695,
+        "lat": 53.2767
+      }
     },
     {
       "id": "loket",
@@ -153,7 +205,11 @@
       "omschrijving": "OZB, parkeren en andere belastingen",
       "onderdelen": [],
       "buurt": "BU00141700",
-      "gebied": "haren"
+      "gebied": "haren",
+      "positie": {
+        "lon": 6.6039,
+        "lat": 53.1723
+      }
     }
   ]
 }

@@ -1,0 +1,187 @@
+{
+  "toelichting": "Instellingen van de gemeentekaart. 'centrum' is het punt waaruit de kaart wordt vergroot (r' = R × (r/R)^exponent). Toestanden van gebouwen: gesloten bij ≤ gesloten_tot, versoberd onder versoberd_tot, normaal tot en met normaal_tot, beter tot en met beter_tot, daarboven bloeiend (in procenten). Water met 'schets: true' is met de hand getekend en geeft de ligging globaal weer; de meren met 'buurt' gebruiken de vorm van die CBS-buurt. Labels staan op het midden van de buurten.",
+  "centrum": {
+    "lon": 6.5683,
+    "lat": 53.2192,
+    "naam": "Grote Markt (Martinitoren)"
+  },
+  "vergroting": {
+    "exponent": 0.55
+  },
+  "wereld_breedte": 1000,
+  "zoom_max": 6,
+  "toestanden": {
+    "gesloten_tot": -30,
+    "versoberd_tot": -4,
+    "normaal_tot": 3,
+    "beter_tot": 15
+  },
+  "water": [
+    {
+      "id": "eemskanaal",
+      "naam": "Eemskanaal",
+      "soort": "kanaal",
+      "schets": true,
+      "breedte": 7,
+      "lijn": [
+        [6.585, 53.216],
+        [6.61, 53.222],
+        [6.635, 53.236],
+        [6.66, 53.251],
+        [6.69, 53.268],
+        [6.715, 53.287],
+        [6.735, 53.302],
+        [6.76, 53.312]
+      ]
+    },
+    {
+      "id": "van_starkenborghkanaal",
+      "naam": "Van Starkenborghkanaal",
+      "soort": "kanaal",
+      "schets": true,
+      "breedte": 7,
+      "lijn": [
+        [6.463, 53.233],
+        [6.5, 53.236],
+        [6.53, 53.24],
+        [6.555, 53.244],
+        [6.578, 53.246],
+        [6.596, 53.24],
+        [6.608, 53.23],
+        [6.615, 53.223]
+      ]
+    },
+    {
+      "id": "hoornseplas",
+      "naam": "Hoornseplas",
+      "soort": "meer",
+      "schets": true,
+      "vlak": [
+        [6.552, 53.181],
+        [6.5515, 53.1821],
+        [6.55, 53.1829],
+        [6.548, 53.1832],
+        [6.546, 53.1829],
+        [6.5445, 53.1821],
+        [6.544, 53.181],
+        [6.5445, 53.1799],
+        [6.546, 53.1791],
+        [6.548, 53.1788],
+        [6.55, 53.1791],
+        [6.5515, 53.1799]
+      ]
+    },
+    {
+      "id": "paterswoldsemeer",
+      "naam": "Paterswoldsemeer",
+      "soort": "buurt",
+      "schets": false,
+      "buurt": "BU00141707"
+    },
+    {
+      "id": "zuidlaardermeer",
+      "naam": "Zuidlaardermeer",
+      "soort": "buurt",
+      "schets": false,
+      "buurt": "BU00141906"
+    }
+  ],
+  "labels": [
+    {
+      "tekst": "Centrum",
+      "lon": 6.565,
+      "lat": 53.2191,
+      "soort": "gebied"
+    },
+    {
+      "tekst": "Noord",
+      "lon": 6.5711,
+      "lat": 53.2252,
+      "soort": "gebied"
+    },
+    {
+      "tekst": "Zuid",
+      "lon": 6.5648,
+      "lat": 53.2008,
+      "soort": "gebied"
+    },
+    {
+      "tekst": "West",
+      "lon": 6.5193,
+      "lat": 53.2217,
+      "soort": "gebied"
+    },
+    {
+      "tekst": "Oost",
+      "lon": 6.617,
+      "lat": 53.2286,
+      "soort": "gebied"
+    },
+    {
+      "tekst": "Haren",
+      "lon": 6.6039,
+      "lat": 53.1723,
+      "soort": "dorp"
+    },
+    {
+      "tekst": "Ten Boer",
+      "lon": 6.695,
+      "lat": 53.2767,
+      "soort": "dorp"
+    },
+    {
+      "tekst": "Ten Post",
+      "lon": 6.7282,
+      "lat": 53.298,
+      "soort": "dorp"
+    },
+    {
+      "tekst": "Hoogkerk",
+      "lon": 6.5015,
+      "lat": 53.2165,
+      "soort": "dorp"
+    },
+    {
+      "tekst": "Meerstad",
+      "lon": 6.6526,
+      "lat": 53.2245,
+      "soort": "dorp"
+    },
+    {
+      "tekst": "Glimmen",
+      "lon": 6.6286,
+      "lat": 53.1394,
+      "soort": "dorp"
+    },
+    {
+      "tekst": "Noordlaren",
+      "lon": 6.6653,
+      "lat": 53.1207,
+      "soort": "dorp"
+    },
+    {
+      "tekst": "Onnen",
+      "lon": 6.6408,
+      "lat": 53.1574,
+      "soort": "dorp"
+    },
+    {
+      "tekst": "Garmerwolde",
+      "lon": 6.66,
+      "lat": 53.251,
+      "soort": "dorp"
+    },
+    {
+      "tekst": "Thesinge",
+      "lon": 6.6529,
+      "lat": 53.2741,
+      "soort": "dorp"
+    },
+    {
+      "tekst": "Harkstede",
+      "lon": 6.6811,
+      "lat": 53.2196,
+      "soort": "dorp"
+    }
+  ]
+}
