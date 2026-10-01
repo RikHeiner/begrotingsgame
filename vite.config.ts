@@ -3,6 +3,7 @@ import { cpSync, existsSync, readFileSync, statSync } from 'node:fs';
 import { extname, join, normalize, resolve, sep } from 'node:path';
 import react from '@vitejs/plugin-react';
 import { defineConfig, type Plugin } from 'vite';
+import { VitePWA } from 'vite-plugin-pwa';
 
 const DATA_MAP = resolve(import.meta.dirname, 'data');
 const DATA_EXTENSIES = new Set(['.json', '.geojson']);
@@ -46,7 +47,8 @@ function begrotingsData(): Plugin {
     configurePreviewServer(server) {
       server.middlewares.use(middleware);
     },
-    closeBundle() {
+    // writeBundle draait vóór de service worker wordt gemaakt, zodat de data in de offline-cache komt.
+    writeBundle() {
       cpSync(DATA_MAP, join(outDir, 'data'), {
         recursive: true,
         filter: (bron) => statSync(bron).isDirectory() || DATA_EXTENSIES.has(extname(bron)),
@@ -56,7 +58,44 @@ function begrotingsData(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [react(), begrotingsData()],
+  plugins: [
+    react(),
+    begrotingsData(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      injectRegister: 'script-defer',
+      includeAssets: ['icoon.svg', 'geluid/*.wav'],
+      manifest: {
+        name: 'Begrotingsgame gemeente Groningen',
+        short_name: 'Begrotingsgame',
+        description:
+          'Maak de begroting van de gemeente Groningen. Een initiatief van de VVD-fractie Groningen-Haren.',
+        lang: 'nl',
+        start_url: '.',
+        display: 'standalone',
+        background_color: '#F6F7FC',
+        theme_color: '#1233C4',
+        icons: [
+          { src: 'icoon-192.png', sizes: '192x192', type: 'image/png' },
+          { src: 'icoon-512.png', sizes: '512x512', type: 'image/png' },
+          {
+            src: 'icoon-maskable-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable',
+          },
+        ],
+      },
+      workbox: {
+        // De begrotingsdata hoort bij de offline-versie; een nieuwe build ververst haar.
+        globPatterns: ['**/*.{js,css,html,woff2,svg,png,wav}', 'data/**/*.{json,geojson}'],
+        maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
+        clientsClaim: true,
+        skipWaiting: true,
+        navigateFallbackDenylist: [/^\/data\//],
+      },
+    }),
+  ],
   test: {
     include: ['src/**/*.test.ts', 'scripts/**/*.test.ts'],
     environment: 'node',

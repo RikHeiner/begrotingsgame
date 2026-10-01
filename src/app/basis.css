@@ -7,6 +7,12 @@
   --negatief: #c4321e;
   --paneel: #ffffff;
   --water-kleur: #4a9fd8;
+  --pot: #fff4cc;
+  --reeks-jij: #2f55e0;
+  --reeks-vergelijking: #e35f00;
+  --grafiek-plus: #15875a;
+  --grafiek-min: #c4321e;
+  --gedempt: #4b5070;
   color-scheme: light dark;
   font-family:
     Asap,
@@ -24,6 +30,12 @@
     --achtergrond: #11142b;
     --blauw: #8fa2ff;
     --paneel: #1b1f3d;
+    --pot: #3a3410;
+    --reeks-jij: #6680f0;
+    --reeks-vergelijking: #dd6a1f;
+    --grafiek-plus: #2e9e70;
+    --grafiek-min: #db5f48;
+    --gedempt: #b8bcd8;
   }
 }
 

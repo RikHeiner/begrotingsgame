@@ -1,26 +1,67 @@
 /**
- * De game: kaart of lijst, met het gebouwpaneel. De volledige HUD (geldpotje, meters, missies) volgt
- * in fase 3; hier staat alleen het saldo, zodat je ziet wat je keuzes doen.
+ * De game: HUD, kaart of lijst met het gebouwpaneel, feedback, tutorial en het eindscherm.
+ * De keuzes staan in de URL (?b=…), zodat elke begroting als link te delen is.
  */
 import { useCallback, useEffect, useState } from 'react';
-import { formatMln, type Data } from '../engine';
+import type { Data } from '../engine';
+import { codeer, leesUitUrl, PARAM } from '../game/deellink';
 import { useSpel } from '../game/state/store';
+import { Eindscherm } from '../ui/eindscherm/Eindscherm';
+import { Feedback } from '../ui/feedback/Feedback';
+import { Hud } from '../ui/hud/Hud';
 import { KaartWeergave } from '../ui/kaart/KaartWeergave';
 import { Lijstweergave } from '../ui/lijstweergave/Lijstweergave';
 import { GebouwPaneel } from '../ui/panelen/GebouwPaneel';
+import { Tutorial } from '../ui/tutorial/Tutorial';
 import './spel.css';
 
 export function Spel({ data }: { data: Data }) {
   const start = useSpel((s) => s.start);
   const resultaat = useSpel((s) => s.resultaat);
+  const keuzes = useSpel((s) => s.keuzes);
   const standen = useSpel((s) => s.standen);
   const weergave = useSpel((s) => s.weergave);
   const zetWeergave = useSpel((s) => s.zetWeergave);
   const melding = useSpel((s) => s.melding);
   const wisMelding = useSpel((s) => s.wisMelding);
+  const fase = useSpel((s) => s.fase);
+  const missie = useSpel((s) => s.missie);
   const [kaartFout, setKaartFout] = useState<string>();
+  const [gelezen] = useState(() => leesUitUrl(window.location.href));
+  const zelfdeJaar = gelezen?.jaar === data.config.actiefJaar;
+  const [linkMelding, setLinkMelding] = useState<string | undefined>(() =>
+    !gelezen
+      ? undefined
+      : zelfdeJaar
+        ? 'Je bekijkt een gedeelde begroting. Je kunt hem verder aanpassen.'
+        : `Deze link hoort bij de begroting ${gelezen.jaar}. Nu staat de begroting ${data.config.actiefJaar} in de game, dus je begint opnieuw.`,
+  );
 
-  useEffect(() => start(data), [data, start]);
+  // Start, eventueel met de keuzes uit een gedeelde link
+  useEffect(() => {
+    if (gelezen && zelfdeJaar) start(data, gelezen.keuzes, gelezen.missie);
+    else start(data);
+  }, [data, start, gelezen, zelfdeJaar]);
+
+  // Keuzes bijhouden in de URL
+  useEffect(() => {
+    if (!resultaat) return;
+    const t = window.setTimeout(() => {
+      const url = new URL(window.location.href);
+      const leeg =
+        !Object.keys(keuzes.onderdelen).length &&
+        !Object.keys(keuzes.belastingen).length &&
+        !keuzes.kaarten.length &&
+        !keuzes.reserve &&
+        keuzes.scenario === data.config.scenario &&
+        !missie;
+      if (leeg) url.searchParams.delete(PARAM);
+      else url.searchParams.set(PARAM, codeer(keuzes, data.config.actiefJaar, missie));
+      window.history.replaceState(null, '', url);
+    }, 300);
+    return () => window.clearTimeout(t);
+  }, [keuzes, missie, resultaat, data]);
+
   useEffect(() => {
     if (!melding) return;
     const t = window.setTimeout(wisMelding, 5000);
@@ -36,51 +77,30 @@ export function Spel({ data }: { data: Data }) {
   );
 
   if (!resultaat) return null;
-  const jaar = data.jaren[0] ?? 0;
-  const s = resultaat.perJaar[jaar]?.structureel ?? 0;
-  const i = resultaat.perJaar[jaar]?.incidenteel ?? 0;
+
+  if (fase === 'eindscherm') {
+    return (
+      <div className="spel">
+        <Eindscherm data={data} resultaat={resultaat} />
+      </div>
+    );
+  }
 
   return (
     <div className="spel">
-      <header className="spel-kop">
-        <h1>Maak de begroting van de gemeente Groningen</h1>
-        <div className="spel-balk">
-          <p className="saldo" data-testid="saldo" aria-live="polite">
-            <span>
-              Elk jaar{' '}
-              <strong className={s < -0.5 ? 'negatief' : s > 0.5 ? 'positief' : ''}>
-                {formatMln(s, { teken: true })}
-              </strong>
-            </span>
-            <span>
-              Eenmalig{' '}
-              <strong className={i < -0.5 ? 'negatief' : i > 0.5 ? 'positief' : ''}>
-                {formatMln(i, { teken: true })}
-              </strong>
-            </span>
-          </p>
-          <div className="wissel" role="group" aria-label="Weergave">
-            <button
-              type="button"
-              aria-pressed={weergave === 'kaart'}
-              disabled={!!kaartFout}
-              onClick={() => zetWeergave('kaart')}
-            >
-              🗺️ Kaart
-            </button>
-            <button
-              type="button"
-              aria-pressed={weergave === 'lijst'}
-              onClick={() => zetWeergave('lijst')}
-            >
-              ☰ Lijst
-            </button>
-          </div>
-        </div>
-      </header>
+      <h1 className="spel-titel">{data.teksten.titel}</h1>
+      <Hud data={data} resultaat={resultaat} />
       {kaartFout && (
         <p className="melding-blok" role="alert">
           De kaart werkt niet op dit apparaat ({kaartFout}). Je kunt gewoon spelen met de lijst.
+        </p>
+      )}
+      {linkMelding && (
+        <p className="melding-blok" role="status">
+          {linkMelding}{' '}
+          <button type="button" className="link-knop" onClick={() => setLinkMelding(undefined)}>
+            Oké
+          </button>
         </p>
       )}
       <main className="spel-inhoud">
@@ -93,16 +113,11 @@ export function Spel({ data }: { data: Data }) {
           <GebouwPaneel data={data} resultaat={resultaat} standen={standen} />
         )}
       </main>
+      <Feedback data={data} />
       <p className="toast" role="status" aria-live="polite" data-testid="melding">
         {melding && <span>🔒 {melding}</span>}
       </p>
-      <footer className="colofon">
-        Een initiatief van de VVD-fractie Groningen-Haren · Bron:{' '}
-        <a href={data.begroting.bron_url} rel="noopener noreferrer">
-          {data.begroting.document}
-        </a>{' '}
-        · <a href="#debug">Rekenmotor (debug)</a>
-      </footer>
+      <Tutorial data={data} resultaat={resultaat} />
     </div>
   );
 }

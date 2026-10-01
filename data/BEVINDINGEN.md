@@ -50,6 +50,8 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
 24. **Gebouwen staan niet exact op hun buurt.** Om overlap te voorkomen schuift de game gebouwen in het drukke centrum een stukje uit elkaar. Het Stadhuis blijft op de Grote Markt.
 25. **60 fps.** In de testomgeving rendert de browser zonder GPU (SwiftShader). Daar haalt de kaart ongeveer 50 tot 60 fps op telefoonformaat en 30 fps op 1440×900. De eis (60 fps op een middenklasse telefoon) moet op een echt toestel worden gemeten (fase 8).
 
+26. **Missie "Bouwen, bouwen, bouwen"** (1.000 extra woningen) is met de huidige data niet te halen (zie punt 16). Volgens het besluit wordt dit met de begroting 2027 afgesteld.
+
 ## F. VVD-tegenbegroting (zie ook `npm run vvd:check`)
 
 20. 13 posten hebben geen schuif of kaart in de game, onder andere 5% minder ambtenaren (16,4) en cultuur 20% (15,2). Die moeten een kaart of schuif worden.

@@ -14,6 +14,53 @@ function directBedrag(data: Data, r: Resultaat, bron: string): number {
     .reduce((s, e) => s + e.bedrag, 0);
 }
 
+/**
+ * "Dit heeft ook effect op…": de kettingeffecten die bij deze post horen, met het bedrag in het
+ * laatste jaar en ⚠︎ bij aannames. Verbanden die nog niet zijn doorgerekend staan erbij met de reden.
+ */
+function OokEffect({ data, resultaat, id }: { data: Data; resultaat: Resultaat; id: string }) {
+  const laatste = data.jaren.at(-1);
+  const regels = data.dwarsverbanden.dwarsverbanden
+    .filter((v) => v.van.includes(id))
+    .map((v) => ({ v, u: resultaat.verbanden[v.id] }))
+    .filter(({ u }) => u && u.status !== 'niet actief' && u.status !== 'wacht op nieuwe post');
+  if (!regels.length) return null;
+  return (
+    <div className="ook-effect">
+      <p className="ook-kop">Dit heeft ook effect op…</p>
+      <ul>
+        {regels.map(({ v, u }) => {
+          const effecten = resultaat.effecten.filter(
+            (e) => e.verband === v.id && e.jaar === laatste,
+          );
+          const som = effecten.reduce((x, e) => x + e.bedrag, 0);
+          const aanname =
+            effecten.some((e) => e.zekerheid !== 'feit') || u?.status !== 'doorgerekend';
+          return (
+            <li key={v.id}>
+              <span>
+                {aanname && (
+                  <abbr title="Aanname of spelregel, geen getal uit de begroting">⚠︎ </abbr>
+                )}
+                {v.naam}
+              </span>
+              {u?.status === 'doorgerekend' && Math.abs(som) >= 5_000 ? (
+                <span className={som > 0 ? 'positief' : 'negatief'}>
+                  {formatMln(som, { decimalen: 2, teken: true })} in {laatste}
+                </span>
+              ) : u?.status === 'nog niet doorgerekend' ? (
+                <span className="klein">nog niet doorgerekend</span>
+              ) : (
+                <span className="klein">zit al in het bedrag</span>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
 function Bedrag({ euro }: { euro: number }) {
   if (Math.abs(euro) < 50_000) return null;
   return (
@@ -54,6 +101,7 @@ export function GebouwPosten({
                 onChange={(v) => zetBelasting(b.id, v)}
               />
               <Bedrag euro={directBedrag(data, resultaat, b.id)} />
+              <OokEffect data={data} resultaat={resultaat} id={b.id} />
             </li>
           );
         })}
@@ -105,7 +153,7 @@ export function GebouwPosten({
             : pct > 0
               ? o.tekst_investeren
               : null;
-        const label = `${vergrendeld ? '🔒 ' : o.wettelijke_taak ? '⚖️ ' : ''}${o.naam} (${formatMln((o.lasten_mln - o.gekoppelde_baten_mln) * 1e6)} netto)`;
+        const label = `${vergrendeld ? '🔒 ' : o.wettelijke_taak ? '⚖️ ' : ''}${o.naam} (${o.gekoppelde_baten_mln > 0 ? `uitgaven ${formatMln(o.lasten_mln * 1e6)} · inkomsten ${formatMln(o.gekoppelde_baten_mln * 1e6)}` : formatMln(o.lasten_mln * 1e6)})`;
         return (
           <li key={id}>
             <Schuif
@@ -128,6 +176,7 @@ export function GebouwPosten({
               onChange={(v) => zetOnderdeel(id, v)}
             />
             <Bedrag euro={directBedrag(data, resultaat, id)} />
+            <OokEffect data={data} resultaat={resultaat} id={id} />
           </li>
         );
       })}

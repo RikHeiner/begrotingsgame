@@ -1,5 +1,9 @@
 import { expect, test } from '@playwright/test';
 
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('begrotingsgame:tutorial', 'klaar'));
+});
+
 test('debugpagina: bezuinigen vult de pot, daarna kan er geïnvesteerd worden', async ({
   page,
 }, testInfo) => {

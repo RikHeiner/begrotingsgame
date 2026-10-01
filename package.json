@@ -21,7 +21,9 @@
     "data:check": "tsx scripts/data-check.ts",
     "data:diff": "tsx scripts/data-diff.ts",
     "vvd:check": "tsx scripts/vvd-check.ts",
-    "personas:overzicht": "tsx scripts/personas-overzicht.ts"
+    "personas:overzicht": "tsx scripts/personas-overzicht.ts",
+    "geluiden": "node scripts/maak-geluiden.mjs",
+    "iconen": "tsx scripts/maak-iconen.ts"
   },
   "dependencies": {
     "@fontsource/asap": "^5.3.0",

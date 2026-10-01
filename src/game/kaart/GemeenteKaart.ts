@@ -567,6 +567,49 @@ export class GemeenteKaart {
     this.laatsteTik = nu;
   }
 
+  /**
+   * Laat een kettingeffect zien: een lijn tussen twee gebouwen waar muntjes overheen rollen,
+   * groen voor voordeel en rood voor nadeel (opdracht 7.1). Verdwijnt na een paar seconden.
+   */
+  toonLijn(van: string, naar: string, positief: boolean): void {
+    const a = this.o.geo.gebouwen[van];
+    const b = this.o.geo.gebouwen[naar];
+    if (!a || !b) return;
+    const kleur = positief ? this.o.kleuren.positief : this.o.kleuren.negatief;
+    const lijn = new Graphics();
+    const munten = new Container();
+    const ctrl = { x: (a.x + b.x) / 2 + (b.y - a.y) * 0.2, y: (a.y + b.y) / 2 - (b.x - a.x) * 0.2 };
+    lijn
+      .moveTo(a.x, a.y)
+      .quadraticCurveTo(ctrl.x, ctrl.y, b.x, b.y)
+      .stroke({ width: 5, color: kleur, alpha: 0.85, cap: 'round' });
+    const weg: Weg = { gebouw: naar, van: a, ctrl, naar: b };
+    const stukken = this.o.minderBeweging ? 0 : 4;
+    for (let i = 0; i < stukken; i++) {
+      const m = new Graphics().circle(0, 0, 6).fill(0xffd23f).stroke({ width: 2, color: kleur });
+      munten.addChild(m);
+    }
+    this.wereld.addChild(lijn, munten);
+    const begin = performance.now();
+    const duur = 2600;
+    const stap = () => {
+      const t = (performance.now() - begin) / duur;
+      munten.children.forEach((m, i) => {
+        const q = opWeg(weg, Math.min(1, (t * 1.6 + i * 0.18) % 1));
+        m.position.set(q.x, q.y);
+      });
+      const vervaag = t > 0.75 ? 1 - (t - 0.75) / 0.25 : 1;
+      lijn.alpha = vervaag;
+      munten.alpha = vervaag;
+      if (t >= 1) {
+        this.app.ticker.remove(stap);
+        lijn.destroy();
+        munten.destroy({ children: true });
+      }
+    };
+    this.app.ticker.add(stap);
+  }
+
   get huidigeCamera(): Camera {
     return this.camera;
   }

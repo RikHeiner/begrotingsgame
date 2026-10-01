@@ -94,6 +94,13 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
     kaart.current?.zetStanden(standen, (resultaat.keuzes.onderdelen.k1 ?? 0) <= -50);
   }, [standen, resultaat, klaar]);
 
+  // Kettingeffecten: lijn tussen gebouwen
+  const actie = useSpel((s) => s.actie);
+  useEffect(() => {
+    if (!actie || !klaar) return;
+    for (const l of actie.lijnen.slice(0, 3)) kaart.current?.toonLijn(l.van, l.naar, l.positief);
+  }, [actie, klaar]);
+
   // Tekstballonnen: om de 4 seconden een inwoner, nooit twee keer achter elkaar hetzelfde
   const reacties = useMemo(() => compileer(data.reacties), [data]);
   useEffect(() => {

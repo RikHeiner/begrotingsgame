@@ -4,7 +4,7 @@ Een game waarin inwoners hun eigen tegenbegroting maken voor de gemeente Groning
 Een initiatief van de VVD-fractie Groningen-Haren. De volledige opdracht staat in
 [`PROMPT-claude-code.md`](PROMPT-claude-code.md).
 
-Stand: **fase 2 (gemeentekaart)**. De rekenmotor werkt en is getest. De gemeentekaart (PixiJS) met gebouwen, inwoners, tekstballonnen en de lijstweergave is speelbaar; HUD, missies, eindscherm en export volgen in fase 3 en 4. De debugpagina van de rekenmotor staat op `/#debug`.
+Stand: **fase 3 (speelbare game)**. Kaart, HUD met geldpotje en slot, panelen met kettingeffecten, tutorial, missies, eindscherm, deellink, geluid (standaard uit) en offline spelen (PWA) werken. De export naar Word, PDF en afbeelding volgt in fase 4. De debugpagina van de rekenmotor staat op `/#debug`.
 
 ## Starten
 
@@ -26,6 +26,8 @@ npm run test:e2e       # end-to-end tests en screenshots (Playwright, 360×800, 
 npm run data:check     # controleert alle data (zie hieronder)
 npm run vvd:check      # rekent de VVD-tegenbegroting na met de schuiven van de game
 npm run personas:overzicht  # docs/INWONERS-AFSTEMMEN.md voor de fractie
+npm run iconen         # PWA-iconen opnieuw maken uit public/icoon.svg
+npm run geluiden       # geluidjes opnieuw maken (public/geluid/)
 ```
 
 Screenshots van de Playwright-tests staan daarna in `test-results/`.
@@ -74,6 +76,16 @@ src/app/         de React-app (spel en debugpagina)
 tests/e2e/       Playwright-tests
 scripts/         data-check, data-diff, vvd-check
 ```
+
+## Het spel
+
+- `data/spel/missies.json`: missies, badges en de scoreregels (sterren). Voorwaarden gebruiken dezelfde
+  veilige expressietaal als de tekstballonnen.
+- `data/spel/teksten.json`: de tutorial en vaste teksten.
+- `data/config.json`: `vergelijkingTonen` zet de vergelijking met de tegenbegroting op het eindscherm aan of uit.
+- De keuzes staan in de URL (`?b=…`, gecomprimeerd met lz-string): elke begroting is een deelbare link.
+- De game werkt na het eerste bezoek ook offline (service worker met de data erin).
+- Lettertypen (Baloo 2 en Asap) worden zelf gehost; er gaat niets naar Google Fonts.
 
 ## De kaart
 

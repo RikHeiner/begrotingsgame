@@ -1,5 +1,9 @@
 import { expect, test } from '@playwright/test';
 
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('begrotingsgame:tutorial', 'klaar'));
+});
+
 test.describe('gemeentekaart', () => {
   test('de kaart laadt met alle gebouwen en inwoners die praten', async ({ page }, testInfo) => {
     await page.goto('/');
