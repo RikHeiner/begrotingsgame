@@ -7,3 +7,5 @@ playwright-report/
 blob-report/
 .vite/
 .DS_Store
+.env.local
+.env

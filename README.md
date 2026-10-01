@@ -4,7 +4,7 @@ Een game waarin inwoners hun eigen tegenbegroting maken voor de gemeente Groning
 Een initiatief van de VVD-fractie Groningen-Haren. De volledige opdracht staat in
 [`PROMPT-claude-code.md`](PROMPT-claude-code.md).
 
-Stand: **fase 4 (tegenbegroting als document)**. Kaart, HUD met geldpotje en slot, panelen met kettingeffecten, tutorial, missies, eindscherm, deellink, geluid (standaard uit) en offline spelen (PWA) werken. Vanuit het eindscherm maak je de tegenbegroting als document, met export naar Word (.docx), PDF (via printen) en een afbeelding van 1080 × 1350 voor sociale media. De debugpagina van de rekenmotor staat op `/#debug`.
+Stand: **fase 5 (inzendingen en dashboard)**. De game is speelbaar (kaart, HUD, panelen, tutorial, missies, eindscherm, deellink, geluid, offline). De tegenbegroting gaat naar Word, PDF en een afbeelding. Spelers kunnen hun begroting met toestemming insturen naar de fractie; de fractie ziet alles in een afgeschermd dashboard (`/dashboard.html`). Daarvoor is een Supabase-project nodig: zie [docs/SUPABASE-INSTELLEN.md](docs/SUPABASE-INSTELLEN.md). De debugpagina van de rekenmotor staat op `/#debug`.
 
 ## Starten
 
@@ -26,6 +26,7 @@ npm run test:e2e       # end-to-end tests en screenshots (Playwright, 360×800, 
 npm run data:check     # controleert alle data (zie hieronder)
 npm run vvd:check      # rekent de VVD-tegenbegroting na met de schuiven van de game
 npm run vvd:word -- uit.docx  # maakt de VVD-tegenbegroting na in de game en schrijft hem als Word-bestand
+npm run db:test        # test de Supabase-migraties (rechten, insturen, filter) op een tijdelijke Postgres
 npm run personas:overzicht  # docs/INWONERS-AFSTEMMEN.md voor de fractie
 npm run iconen         # PWA-iconen opnieuw maken uit public/icoon.svg
 npm run geluiden       # geluidjes opnieuw maken (public/geluid/)
@@ -74,8 +75,11 @@ src/engine/      pure rekenmotor (geen React, geen DOM; afgedwongen met ESLint)
 src/game/        kaart (PixiJS), toestand van gebouwen, tekstballonnen, Zustand-store
 src/ui/          kaartweergave, gebouwpaneel, lijstweergave
 src/app/         de React-app (spel en debugpagina)
+src/inzending/   insturen: opslag (Supabase of lokaal), filter op ideeën
+src/dashboard/   het dashboard voor de fractie (dashboard.html)
+supabase/        migraties en databasetests
 tests/e2e/       Playwright-tests
-scripts/         data-check, data-diff, vvd-check
+scripts/         data-check, data-diff, vvd-check, vvd-word, db-test
 ```
 
 ## Het spel
@@ -100,6 +104,22 @@ scripts/         data-check, data-diff, vvd-check
   printopmaak (A4).
 - Controle: de VVD-testcase in Word geeft dezelfde totalen als het origineel (op de bekende afwijkingen
   na, zie `data/BEVINDINGEN.md`). Test: `src/game/__tests__/tegenbegroting.test.ts`.
+
+## Inzendingen en dashboard
+
+- **Insturen** (`src/inzending/`, `src/ui/eindscherm/InstuurDialoog.tsx`): alleen na toestemming.
+  Opgeslagen worden de keuzes, het eigen idee en optioneel een gebied (een van de zeven gebieden van
+  de gemeente). Een e-mailadres alleen met een aparte toestemming, los van de inzending. Geen naam
+  en geen IP-adres. De teksten staan in `data/spel/teksten.json` (`insturen`).
+- **Database** (`supabase/migrations/`): row level security, de functie `insturen` met controles,
+  rate limiting en een filter op persoonsgegevens en scheldwoorden, en een bewaartermijn van 2 jaar.
+- **Dashboard** (`dashboard.html`, `src/dashboard/`): inloggen met een magic link, alleen voor
+  genodigden. Kerncijfers, per post hoe vaak en hoeveel, een heatmap per gebied, de populairste
+  combinaties, ideeën met zoeken en moderatie, en een CSV voor Excel (puntkomma, decimale komma).
+  Elke inzending wordt opnieuw doorgerekend met de rekenmotor.
+- **Zonder Supabase** (tijdens `npm run dev`, of met `VITE_OPSLAG=lokaal`) gaan inzendingen naar de
+  browser. Zo werken de demo en de Playwright-tests. In een gewone build zonder Supabase is de knop
+  Insturen verborgen.
 
 ## De kaart
 
