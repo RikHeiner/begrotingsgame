@@ -321,8 +321,49 @@ export const IMPLEMENTATIES: Record<string, Implementatie> = {
       const woningen = c.grootheid('extra_woningen');
       const bijstand = c.grootheid('aantal_bijstand');
       if (isNul(woningen) && isNul(bijstand)) return;
-      c.param('bedrag_per_woonruimte');
-      c.param('bedrag_per_bijstandshuishouden');
+      // De bedragen per eenheid staan "in basis": × de uitkeringsfactor geeft euro's. Het Rijk telt
+      // de maatstaven van het jaar ervoor, vandaar de vertraging.
+      const factor = c.param('uitkeringsfactor');
+      const v = c.verband.vertraging_jaren;
+      const vorig = (rij: number[], j: number) => (j - v >= 0 ? (rij[j - v] ?? 0) : 0);
+      if (!isNul(woningen)) {
+        const perWoning =
+          (c.param('bedrag_per_woonruimte') +
+            c.param('inwoners_per_woning') * c.param('bedrag_per_inwoner')) *
+          factor;
+        const euro = Math.round(perWoning).toLocaleString('nl-NL');
+        c.effect({
+          doel: 'grootheid:gemeentefonds',
+          kant: 'baten',
+          bedragen: perJaar(c.n, (j) => vorig(woningen, j) * perWoning),
+          // Het aantal extra woningen is zelf een schatting (wg_woningbouw).
+          params: [
+            'bedrag_per_woonruimte',
+            'inwoners_per_woning',
+            'bedrag_per_inwoner',
+            'uitkeringsfactor',
+            'wg_woningbouw.extra_woningen_per_mln_fonds',
+          ],
+          uitleg: `Elke nieuwe woning levert ongeveer € ${euro} per jaar gemeentefonds op: voor de woning zelf en voor de inwoners die er komen wonen (meicirculaire 2026). Het Rijk telt de woningen van het jaar ervoor.`,
+        });
+      }
+      if (!isNul(bijstand)) {
+        const perHuishouden = c.param('bedrag_per_bijstandshuishouden') * factor;
+        const euro = Math.round(perHuishouden).toLocaleString('nl-NL');
+        c.effect({
+          doel: 'grootheid:gemeentefonds',
+          kant: 'baten',
+          bedragen: perJaar(c.n, (j) => vorig(bijstand, j) * perHuishouden),
+          // Het aantal huishoudens is zelf een schatting (wia_reintegratie).
+          params: [
+            'bedrag_per_bijstandshuishouden',
+            'uitkeringsfactor',
+            'wia_reintegratie.kosten_per_traject',
+            'wia_reintegratie.slagingskans',
+          ],
+          uitleg: `Het gemeentefonds geeft ongeveer € ${euro} per bijstandshuishouden (meicirculaire 2026). Minder bijstand levert dus iets minder gemeentefonds op; meer bijstand iets meer. Het voordeel van minder uitkeringen is veel groter.`,
+        });
+      }
     },
   },
 
@@ -795,7 +836,7 @@ export const IMPLEMENTATIES: Record<string, Implementatie> = {
       });
       c.meter('wonen', 1);
       c.deelsNiet(
-        'Extra gemeentefonds en de kosten van voorzieningen (scholen, zorg) voor nieuwe inwoners zijn nog niet doorgerekend.',
+        'De kosten van voorzieningen (scholen, zorg) voor nieuwe inwoners zijn nog niet doorgerekend. Het extra gemeentefonds staat bij het kettingeffect van het verdeelmodel.',
       );
     },
   },

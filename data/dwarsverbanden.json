@@ -323,32 +323,44 @@
     "grootheid:gemeentefonds"
    ],
    "mechanisme": "De algemene uitkering (825,8 mln) wordt deels verdeeld op maatstaven zoals inwoners, woonruimten, huishoudens met een laag inkomen en bijstand. Meer woningen levert zo meer gemeentefonds op. Minder bijstandshuishoudens levert via deze maatstaf iets minder op: een klein tegeneffect.",
-   "formule": "delta_gemeentefonds = extra_woningen * bedrag_per_woonruimte + extra_inwoners * bedrag_per_inwoner - minder_bijstand * bedrag_per_bijstandshuishouden",
+   "formule": "delta_gemeentefonds[t] = (extra_woningen[t-1] * bedrag_per_woonruimte + extra_woningen[t-1] * inwoners_per_woning * bedrag_per_inwoner + delta_bijstand[t-1] * bedrag_per_bijstandshuishouden) * uitkeringsfactor",
    "parameters": {
     "bedrag_per_woonruimte": {
-     "waarde": null,
-     "eenheid": "euro",
-     "status": "te onderzoeken",
-     "toelichting": "Uit de meicirculaire gemeentefonds halen."
+     "waarde": 11.55,
+     "eenheid": "euro per woonruimte (in basis, × uitkeringsfactor)",
+     "status": "feit",
+     "toelichting": "Meicirculaire gemeentefonds 2026, bijlage 2.1.1 (p. 54), stand mei 2026: maatstaf woonruimten. Daarin zit al de verrekening van de OZB-capaciteit (−62,09 per woonruimte). De maatstaf 'woonruimten bodemfactor woonkern' (52,99) telt alleen voor woningen op slappe bodem en rekent niet mee."
     },
     "bedrag_per_inwoner": {
-     "waarde": null,
-     "eenheid": "euro",
-     "status": "te onderzoeken",
-     "toelichting": "Idem."
+     "waarde": 374.88,
+     "eenheid": "euro per inwoner (in basis, × uitkeringsfactor)",
+     "status": "feit",
+     "toelichting": "Meicirculaire gemeentefonds 2026, bijlage 2.1.1 (p. 54), stand mei 2026: maatstaf inwoners."
     },
     "bedrag_per_bijstandshuishouden": {
-     "waarde": null,
-     "eenheid": "euro",
-     "status": "te onderzoeken",
-     "toelichting": "Idem."
+     "waarde": 5136.7,
+     "eenheid": "euro per bijstandshuishouden (in basis, × uitkeringsfactor)",
+     "status": "feit",
+     "toelichting": "Meicirculaire gemeentefonds 2026, bijlage 2.1.1 (p. 54), stand mei 2026: maatstaf bijstandsontvangers (huishoudens met een bijstandsuitkering)."
+    },
+    "uitkeringsfactor": {
+     "waarde": 1.491,
+     "eenheid": "factor",
+     "status": "feit",
+     "toelichting": "Meicirculaire gemeentefonds 2026, tabel 2.5.2-1 (p. 25): uitkeringsfactor 2026. Voor latere jaren loopt de factor op (2027: 1,549); het spel rekent met 2026, zoals de rest van de begroting."
+    },
+    "inwoners_per_woning": {
+     "waarde": 1.93,
+     "eenheid": "inwoners per woning",
+     "status": "aanname",
+     "toelichting": "Gemiddelde in de gemeente: 244.427 inwoners (CBS StatLine 70072ned, 1 januari 2026) / 126.796 woningen (begroting 2026, kerngegevens). Of een nieuwe woning evenveel bewoners heeft, is een aanname."
     }
    },
    "vertraging_jaren": 1,
    "richting": "beide",
    "meters": {},
    "melding": "Meer woningen en inwoners leveren ook meer geld uit het gemeentefonds op.",
-   "bron": "Financiële-verhoudingswet; meicirculaire"
+   "bron": "Financiële-verhoudingswet; meicirculaire gemeentefonds 2026 (bijlage 2.1.1, tabel 2.5.2-1); CBS StatLine 70072ned"
   },
   {
    "id": "rijk_ozb_rekentarief",

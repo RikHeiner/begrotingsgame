@@ -216,9 +216,7 @@ Parameters met status "aanname" of "te onderzoeken". Deze bedragen staan in de g
 | kd_schouwburg | factor_bezoekers | 0.05 | aanname | Aandeel hotelovernachtingen dat door cultuur wordt veroorzaakt. |
 | rijk_buig | gem_uitkering | 0.0165 | te onderzoeken | Ca. 16.500 euro per huishouden: nagaan met het aantal bijstandshuishoudens uit de begroting. |
 | rijk_buig | aantal_bijstand | null | te onderzoeken | Uit het beleidsindicatorenoverzicht van de begroting halen. |
-| rijk_verdeelmodel | bedrag_per_woonruimte | null | te onderzoeken | Uit de meicirculaire gemeentefonds halen. |
-| rijk_verdeelmodel | bedrag_per_inwoner | null | te onderzoeken | Idem. |
-| rijk_verdeelmodel | bedrag_per_bijstandshuishouden | null | te onderzoeken | Idem. |
+| rijk_verdeelmodel | inwoners_per_woning | 1.93 | aanname | Gemiddelde in de gemeente: 244.427 inwoners (CBS StatLine 70072ned, 1 januari 2026) / 126.796 woningen (begroting 2026, kerngegevens). Of een nieuwe woning evenveel bewoners heeft, is een aanname. |
 | rijk_accres | scenario_pct | -0.01 | aanname | Scenario, geen voorspelling. |
 | wia_reintegratie | kosten_per_traject | 0.008 | aanname | Ca. 8.000 euro per traject. |
 | wia_reintegratie | slagingskans | 0.3 | aanname | Duurzame uitstroom na traject. |

@@ -113,7 +113,13 @@ const GEVALLEN: Record<string, Geval> = {
       expect(r.verbanden.rijk_geoormerkt?.reden).toMatch(/Energiesubsidies: € 11,70 mln/),
   },
   rijk_buig: { keuzes: { onderdelen: { s3: 10 } }, status: 'alleen uitleg' },
-  rijk_verdeelmodel: { keuzes: { kaarten: ['k_bouw'] }, status: 'nog niet doorgerekend' },
+  // k_bouw 5 mln × 20 = 100 woningen per jaar vanaf jaar 3; het fonds telt ze een jaar later.
+  // Per woning: (11,55 + 1,93 × 374,88) × 1,491 = 1.095,99 euro.
+  rijk_verdeelmodel: {
+    keuzes: { kaarten: ['k_bouw'] },
+    status: 'doorgerekend',
+    bedragen: [0, 0, 0, 0.1095987],
+  },
   rijk_ozb_rekentarief: { keuzes: { belastingen: { t1: -10 } }, status: 'alleen uitleg' },
   // −0,01 × 825,768
   rijk_accres: {
@@ -350,6 +356,16 @@ describe('dwarsverbanden', () => {
       geval.controle?.(r);
     });
   }
+
+  it('minder bijstand levert via het verdeelmodel iets minder gemeentefonds op', () => {
+    // s3 +10%: 77,625 huishoudens minder bij volle ingroei (0,3 / 0,7 / 1 / 1), een jaar later
+    // geteld; per huishouden 5.136,70 × 1,491 = 7.658,82 euro.
+    const r = bereken(data, keuzes({ onderdelen: { s3: 10 } }));
+    expect(r.verbanden.rijk_verdeelmodel?.status).toBe('doorgerekend');
+    const echt = perJaarMln(r, (e) => e.verband === 'rijk_verdeelmodel', data.jaren);
+    const perHh = 5136.7 * 1.491;
+    [0, 0.3, 0.7, 1].forEach((f, j) => expect(echt[j]).toBeCloseTo((-77.625 * f * perHh) / 1e6, 6));
+  });
 
   it('elk kettingeffect met een aanname is herkenbaar als aanname', () => {
     const r = bereken(data, keuzes({ onderdelen: { s3: 10, s9: -20 } }));
