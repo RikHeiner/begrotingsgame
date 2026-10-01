@@ -3,6 +3,7 @@ import { bereken, GEEN_KEUZES, type Data } from '../../engine';
 import { echteData, keuzes } from '../../engine/__tests__/hulp';
 import { codeer, decodeer, leesUitUrl, maakLink } from '../deellink';
 import {
+  kleineLetters,
   behaaldeBadges,
   gevoeligheid,
   lezerVoor,
@@ -145,5 +146,17 @@ describe('deellink', () => {
     expect(leesUitUrl(link)?.keuzes.onderdelen).toEqual({ h1: -10 });
     expect(decodeer('onzin')).toBeUndefined();
     expect(decodeer(codeer(GEEN_KEUZES, 2026))?.keuzes).toEqual(GEEN_KEUZES);
+  });
+});
+
+describe('kleineLetters', () => {
+  it('maakt alleen het eerste woord klein en laat eigennamen en afkortingen staan', () => {
+    expect(kleineLetters('Overhead (staf, ICT, huisvesting, HR)')).toBe(
+      'overhead (staf, ICT, huisvesting, HR)',
+    );
+    expect(kleineLetters('Onroerendezaakbelasting')).toBe('onroerendezaakbelasting');
+    expect(kleineLetters('Groninger Archieven')).toBe('Groninger Archieven');
+    expect(kleineLetters('Stadsschouwburg en Oosterpoort')).toBe('Stadsschouwburg en Oosterpoort');
+    expect(kleineLetters('OZB')).toBe('OZB');
   });
 });

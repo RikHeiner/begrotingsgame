@@ -87,20 +87,33 @@ export function personaZinnen(
       if (!pct) continue;
       const waarde = w * pct;
       const tekst = o
-        ? `${pct < 0 ? 'minder' : 'meer'} geld voor ${o.naam.toLowerCase()} (${formatPct(pct)})`
+        ? `${pct < 0 ? 'minder' : 'meer'} geld voor ${kleineLetters(o.naam)} (${formatPct(pct)})`
         : b
-          ? `een ${pct < 0 ? 'lagere' : 'hogere'} ${b.naam.split(' (')[0]?.toLowerCase()} (${formatPct(pct)})`
+          ? `een ${pct < 0 ? 'lagere' : 'hogere'} ${kleineLetters(b.naam.split(' (')[0] ?? '')} (${formatPct(pct)})`
           : `de keuze "${kaart?.naam ?? id}"`;
       if (!beste || Math.abs(waarde) > Math.abs(beste.waarde)) beste = { waarde, tekst };
     }
     const naam = p.naam;
+    const meervoud = / en /.test(naam);
     const zin = !beste
-      ? `${naam} merkt weinig van jouw begroting.`
+      ? `${naam} ${meervoud ? 'merken' : 'merkt'} weinig van jouw begroting.`
       : beste.waarde > 0
-        ? `${naam} is vooral blij met ${beste.tekst}.`
-        : `${naam} gaat erop achteruit door ${beste.tekst}.`;
+        ? `${naam} ${meervoud ? 'zijn' : 'is'} vooral blij met ${beste.tekst}.`
+        : `${naam} ${meervoud ? 'gaan' : 'gaat'} erop achteruit door ${beste.tekst}.`;
     return { id: p.id, naam, tevredenheid: r.personas[p.id] ?? 50, zin };
   });
+}
+
+/**
+ * Een naam midden in een zin: alleen het eerste woord krijgt een kleine letter. Bevat de naam
+ * (buiten de haakjes) een eigennaam, zoals "Groninger Archieven", dan blijft hij zoals hij is.
+ * Afkortingen als ICT en OZB blijven altijd hoofdletters.
+ */
+export function kleineLetters(tekst: string): string {
+  const [eerste = '', ...rest] = tekst.split(' ');
+  const zonderHaakjes = rest.join(' ').replace(/\([^)]*\)/g, '');
+  if (/[A-Z]{2,}/.test(eerste) || /(^|\s)[A-Z]/.test(zonderHaakjes)) return tekst;
+  return [eerste.toLowerCase(), ...rest].join(' ');
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -196,10 +209,10 @@ export function gevoeligheid(
 // ---------------------------------------------------------------------------------------------
 
 export const THEMA_BELASTINGEN = 'Belastingen';
-export const THEMA_KAARTEN = 'Eenmalige acties';
+export const THEMA_KAARTEN = 'Losse maatregelen';
 export const THEMA_OVERIG = 'Niet in de game';
 
-function themaVan(data: Data, id: string | null): string {
+export function themaVan(data: Data, id: string | null): string {
   if (!id) return THEMA_OVERIG;
   const o = data.index.onderdelen.get(id);
   if (o) return data.gebouwen.find((g) => g.id === o.gebouw)?.thema ?? THEMA_OVERIG;

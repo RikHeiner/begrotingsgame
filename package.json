@@ -21,6 +21,7 @@
     "data:check": "tsx scripts/data-check.ts",
     "data:diff": "tsx scripts/data-diff.ts",
     "vvd:check": "tsx scripts/vvd-check.ts",
+    "vvd:word": "tsx scripts/vvd-word.ts",
     "personas:overzicht": "tsx scripts/personas-overzicht.ts",
     "geluiden": "node scripts/maak-geluiden.mjs",
     "iconen": "tsx scripts/maak-iconen.ts"
@@ -29,6 +30,7 @@
     "@fontsource/asap": "^5.3.0",
     "@fontsource/baloo-2": "^5.3.0",
     "d3-geo": "^3.1.1",
+    "docx": "^9.8.1",
     "howler": "^2.2.4",
     "lz-string": "^1.5.0",
     "pixi.js": "^8.21.0",
@@ -53,6 +55,7 @@
     "eslint-plugin-react-refresh": "^0.5.7",
     "fast-check": "^4.10.2",
     "globals": "^17.13.0",
+    "jszip": "^3.10.2",
     "prettier": "^3.9.9",
     "tsx": "^4.23.15",
     "typescript": "^6.0.3",

@@ -17,7 +17,8 @@ export function alsKaarten(tb: Tegenbegroting, bron = tb.titel): Actiekaart[] {
     structureel_of_incidenteel: post.S_of_I,
     bedrag_mln: soort === 'opbrengst' ? post.bedrag_mln : -post.bedrag_mln,
     naam: post.omschrijving,
-    uitleg: post.opmerking ?? '',
+    // De opmerking in de data is een notitie voor de bouwers (koppeling aan de schuiven), geen uitleg voor spelers.
+    uitleg: '',
     meter_effect_punten: {},
     bron,
   });
