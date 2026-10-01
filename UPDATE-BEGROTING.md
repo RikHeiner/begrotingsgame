@@ -54,6 +54,7 @@ Pas `data/config.json` aan:
   "vergelijking": ["tegenbegroting-vvd-JJJJ.json"],
   "tarieven": "tarieven-JJJJ.json",
   "parkeren": "parkeren-JJJJ.json",
+  "woonlasten": "woonlasten-JJJJ.json",
   "meerjarenHorizon": [JJJJ, JJJJ+1, JJJJ+2, JJJJ+3]
 }
 ```
@@ -87,3 +88,21 @@ npm run bedragen:controle
 
 `data:check` waarschuwt bij een tarief van een ouder jaar zonder indexatie, bij aantallen ouder dan vorig jaar, en als de gebieden niet optellen tot het totaal in de bron. `bedragen:controle` zet alle parkeerposten met tarief, jaar en aantal in `docs/CONTROLE-BEDRAGEN.md`, om naast de bron te leggen.
 
+## Stap 6: woonlasten vergelijken met andere gemeenten
+
+**`woonlasten-JJJJ.json`** (de vergelijking onderaan "Wat betekent het voor mij?"). COELO publiceert elk voorjaar de *Atlas van de lokale lasten*. Staat het databestand van het nieuwe jaar online, voer dan uit:
+
+```
+npm run woonlasten:ophalen -- JJJJ
+```
+
+Het script haalt het databestand *Gemeentelijke belastingen JJJJ* van COELO op (OZB, afval, riool en woonlasten per gemeente) en het aantal inwoners per gemeente bij CBS (tabel 70072ned). Het stopt als de kolommen in het bestand van COELO anders staan dan verwacht, en waarschuwt als de woonlasten niet de som van de heffingen zijn.
+
+Een paar cijfers staan niet in het databestand. Neem die met de hand over in `handmatig`, en werk de bronnen bij (url en datum):
+
+1. De landelijke gemiddelden (koop en huur, een- en meerpersoons): pagina *Gemiddelde gemeentelijke woonlasten JJJJ* van COELO.
+2. De woonlasten van huurders in Groningen en de rangnummers: de tabel *Woonlasten en rangnummers per gemeente*, provincie Groningen (een plaatje).
+
+Draai daarna de tests. Een test controleert dat het rangnummer dat de game uitrekent hetzelfde is als dat van COELO, en dat de tarieven van Groningen bij COELO gelijk zijn aan die in `tarieven-JJJJ.json`.
+
+Werk je in de cloudomgeving van Claude Code? Zet dan `NODE_USE_ENV_PROXY=1` voor het commando, anders komt Node niet langs de proxy.

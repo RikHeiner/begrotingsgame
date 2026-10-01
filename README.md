@@ -28,6 +28,7 @@ npm run vvd:check      # rekent de VVD-tegenbegroting na met de schuiven van de 
 npm run vvd:word -- uit.docx  # maakt de VVD-tegenbegroting na in de game en schrijft hem als Word-bestand
 npm run db:test        # test de Supabase-migraties (rechten, insturen, filter) op een tijdelijke Postgres
 npm run bedragen:controle  # schrijft docs/CONTROLE-BEDRAGEN.md: alle bedragen met bron, en controles
+npm run woonlasten:ophalen  # haalt de woonlasten per gemeente op bij COELO en CBS (data/woonlasten-JJJJ.json)
 npm run og             # maakt public/og-afbeelding.png opnieuw (na npm run build)
 npm run personas:overzicht  # docs/INWONERS-AFSTEMMEN.md voor de fractie
 npm run iconen         # PWA-iconen opnieuw maken uit public/icoon.svg

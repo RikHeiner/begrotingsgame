@@ -19,7 +19,9 @@ import {
   gebeurtenissenSchema,
   tarievenSchema,
   parkerenSchema,
+  woonlastenSchema,
   type ParkerenData,
+  type Woonlasten,
   type Tarieven,
   type Actiekaart,
   type Gebeurtenis,
@@ -63,6 +65,8 @@ export type Data = {
   tarieven?: Tarieven;
   /** parkeren per vergunning en tariefgebied, als config.json het noemt */
   parkeren?: ParkerenData;
+  /** woonlasten per gemeente, als config.json ze noemt */
+  woonlasten?: Woonlasten;
   vergelijking: { bestand: string; tegenbegroting: Tegenbegroting }[];
   /** Jaren van de meerjarenraming, bijvoorbeeld [2026, 2027, 2028, 2029]. */
   jaren: number[];
@@ -127,6 +131,7 @@ export type RuweData = {
   gebeurtenissen: unknown;
   tarieven?: { bestand: string; inhoud: unknown };
   parkeren?: { bestand: string; inhoud: unknown };
+  woonlasten?: { bestand: string; inhoud: unknown };
   vergelijking: { bestand: string; inhoud: unknown }[];
 };
 
@@ -201,6 +206,25 @@ export function maakData(ruw: RuweData): Data {
         fout.push(`${g.naam}: onbekend tariefgebied "${g.tariefgebied}"`);
     if (fout.length) throw new DataFout(ruw.parkeren.bestand, fout);
   }
+  const woonlasten = ruw.woonlasten
+    ? valideer(woonlastenSchema, ruw.woonlasten.inhoud, ruw.woonlasten.bestand)
+    : undefined;
+  if (ruw.woonlasten && woonlasten) {
+    const fout: string[] = [];
+    if (woonlasten.jaar !== config.actiefJaar)
+      fout.push(
+        `dit zijn de woonlasten van ${woonlasten.jaar}, maar config.json verwacht ${config.actiefJaar}`,
+      );
+    const bronnen = new Set(woonlasten.bronnen.map((b) => b.id));
+    const h = woonlasten.handmatig;
+    if (h) {
+      for (const b of [h.landelijk_gemiddelde.bron, h.gemeente.bron])
+        if (!bronnen.has(b)) fout.push(`onbekende bron "${b}"`);
+      if (!woonlasten.gemeenten.some((g) => g.code === h.gemeente.code))
+        fout.push(`gemeente "${h.gemeente.code}" staat niet in de lijst`);
+    }
+    if (fout.length) throw new DataFout(ruw.woonlasten.bestand, fout);
+  }
   const vergelijking = ruw.vergelijking.map(({ bestand, inhoud }) => ({
     bestand,
     tegenbegroting: valideer(tegenbegrotingSchema, inhoud, bestand),
@@ -222,6 +246,7 @@ export function maakData(ruw: RuweData): Data {
     gebeurtenissen,
     ...(tarieven ? { tarieven } : {}),
     ...(parkeren ? { parkeren } : {}),
+    ...(woonlasten ? { woonlasten } : {}),
     vergelijking,
     jaren: [...config.meerjarenHorizon],
     index: maakIndex(begroting, dwarsverbanden, meters, gebeurtenissen),
@@ -263,14 +288,16 @@ export async function laadData(haal: HaalJson): Promise<Data> {
   const ruweConfig = await haal('config.json');
   const config = valideer(configSchema, ruweConfig, 'config.json');
   const spelSleutels = Object.keys(SPEL_BESTANDEN) as (keyof typeof SPEL_BESTANDEN)[];
-  const [begroting, dwarsverbanden, spel, vergelijking, tarieven, parkeren] = await Promise.all([
-    haal(config.begroting),
-    haal('dwarsverbanden.json'),
-    Promise.all(spelSleutels.map((k) => haal(SPEL_BESTANDEN[k]))),
-    Promise.all(config.vergelijking.map((b) => haal(b))),
-    config.tarieven ? haal(config.tarieven) : Promise.resolve(undefined),
-    config.parkeren ? haal(config.parkeren) : Promise.resolve(undefined),
-  ]);
+  const [begroting, dwarsverbanden, spel, vergelijking, tarieven, parkeren, woonlasten] =
+    await Promise.all([
+      haal(config.begroting),
+      haal('dwarsverbanden.json'),
+      Promise.all(spelSleutels.map((k) => haal(SPEL_BESTANDEN[k]))),
+      Promise.all(config.vergelijking.map((b) => haal(b))),
+      config.tarieven ? haal(config.tarieven) : Promise.resolve(undefined),
+      config.parkeren ? haal(config.parkeren) : Promise.resolve(undefined),
+      config.woonlasten ? haal(config.woonlasten) : Promise.resolve(undefined),
+    ]);
   const spelData = Object.fromEntries(spelSleutels.map((k, i) => [k, spel[i]])) as Record<
     keyof typeof SPEL_BESTANDEN,
     unknown
@@ -282,6 +309,9 @@ export async function laadData(haal: HaalJson): Promise<Data> {
     ...spelData,
     ...(config.tarieven ? { tarieven: { bestand: config.tarieven, inhoud: tarieven } } : {}),
     ...(config.parkeren ? { parkeren: { bestand: config.parkeren, inhoud: parkeren } } : {}),
+    ...(config.woonlasten
+      ? { woonlasten: { bestand: config.woonlasten, inhoud: woonlasten } }
+      : {}),
     vergelijking: config.vergelijking.map((bestand, i) => ({ bestand, inhoud: vergelijking[i] })),
   });
 }

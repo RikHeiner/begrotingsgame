@@ -6,5 +6,6 @@
   "scenario": "midden",
   "vergelijkingTonen": true,
   "tarieven": "tarieven-2026.json",
-  "parkeren": "parkeren-2026.json"
+  "parkeren": "parkeren-2026.json",
+  "woonlasten": "woonlasten-2026.json"
 }

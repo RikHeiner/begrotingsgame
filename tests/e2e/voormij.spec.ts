@@ -43,3 +43,34 @@ test('Wat betekent het voor mij: een lagere OZB scheelt de eigenaar geld', async
   const opslag = await page.evaluate(() => Object.keys(localStorage));
   expect(opslag.every((k) => !/woz|huishouden|voormij/i.test(k))).toBe(true);
 });
+
+test('Wat betekent het voor mij: woonlasten vergeleken met andere gemeenten', async ({
+  page,
+}, testInfo) => {
+  await page.addInitScript(() => localStorage.setItem('begrotingsgame:tutorial', 'klaar'));
+  const b = codeer(
+    { onderdelen: {}, belastingen: { t1: -10 }, kaarten: [], scenario: 'midden' },
+    2026,
+  );
+  await page.goto(`/?b=${b}`);
+  await page.getByTestId('inwoners').click();
+  await page.getByRole('dialog', { name: 'Inwoners' }).getByTestId('open-voor-mij').click();
+  const d = page.getByRole('dialog', { name: 'Wat betekent het voor mij?' });
+  const v = d.getByTestId('woonlasten-vergelijking');
+  // COELO 2026: € 1.267,92 voor een meerpersoonshuishouden met een koophuis, plaats 293 van 342.
+  await expect(v).toContainText('€ 1.268');
+  await expect(v).toContainText('plaats 293 van de 342');
+  await expect(v).toContainText('gemiddeld in Nederland: € 1.095');
+  // Met −10% OZB: 1.267,92 − 68,71 = € 1.199
+  await expect(v.getByTestId('woonlasten-straks')).toContainText('€ 1.199');
+  await expect(v.locator('[data-gemeente="Amsterdam"]')).toBeVisible();
+  await v.scrollIntoViewIfNeeded();
+  await page.screenshot({ path: testInfo.outputPath('woonlasten-steden.png') });
+  await v.getByRole('button', { name: 'Provincie Groningen' }).click();
+  await expect(v.locator('[data-gemeente="Westerwolde"]')).toBeVisible();
+  await page.screenshot({ path: testInfo.outputPath('woonlasten-provincie.png') });
+
+  await d.getByLabel('Huurhuis').check();
+  await expect(v).toContainText('€ 402');
+  await expect(v).toContainText('plaats 79 van de 342');
+});

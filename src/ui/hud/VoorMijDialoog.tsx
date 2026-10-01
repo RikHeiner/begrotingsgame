@@ -11,7 +11,9 @@ import {
   totaal,
   type Huishouden,
 } from '../../game/impact';
+import { grootteVan } from '../../game/woonlasten';
 import { Dialoog } from '../algemeen/Dialoog';
+import { WoonlastenVergelijking } from './WoonlastenVergelijking';
 
 const euro = (x: number | undefined) => (x === undefined ? 'onbekend' : formatEuro(x));
 
@@ -197,6 +199,14 @@ export function VoorMijDialoog({
         {data.parkeren &&
           ` Parkeren: ${data.parkeren.bronnen.map((b) => `${b.titel}${b.status !== 'feit' ? ` (⚠︎ ${b.status})` : ''}`).join('; ')}.`}
       </p>
+      {data.woonlasten && (
+        <WoonlastenVergelijking
+          woonlasten={data.woonlasten}
+          keuzes={resultaat.keuzes}
+          soort={h.woning}
+          grootte={grootteVan(h.volwassenen + h.kinderen)}
+        />
+      )}
     </Dialoog>
   );
 }

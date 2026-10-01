@@ -40,6 +40,9 @@ export function laadDataNode(begrotingBestand?: string): Data {
     const parkeren = `parkeren-${b.begrotingsjaar}.json`;
     if (existsSync(resolve(DATA_MAP, parkeren))) config.parkeren = parkeren;
     else delete config.parkeren;
+    const woonlasten = `woonlasten-${b.begrotingsjaar}.json`;
+    if (existsSync(resolve(DATA_MAP, woonlasten))) config.woonlasten = woonlasten;
+    else delete config.woonlasten;
   } else {
     begroting = leesJson(config.begroting as string);
   }
@@ -55,6 +58,9 @@ export function laadDataNode(begrotingBestand?: string): Data {
       : {}),
     ...(typeof config.parkeren === 'string'
       ? { parkeren: { bestand: config.parkeren, inhoud: leesJson(config.parkeren) } }
+      : {}),
+    ...(typeof config.woonlasten === 'string'
+      ? { woonlasten: { bestand: config.woonlasten, inhoud: leesJson(config.woonlasten) } }
       : {}),
     vergelijking: (config.vergelijking as string[]).map((bestand) => ({
       bestand,

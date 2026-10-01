@@ -28,6 +28,8 @@ export const configSchema = z
     tarieven: bestandsnaam.optional(),
     /** parkeren per vergunning en tariefgebied (verdeelt de schuif t5), optioneel */
     parkeren: bestandsnaam.optional(),
+    /** woonlasten per gemeente (vergelijking in "Wat betekent het voor mij?"), optioneel */
+    woonlasten: bestandsnaam.optional(),
   })
   .strict()
   .refine((c) => c.meerjarenHorizon.every((j, i) => j === c.actiefJaar + i), {
@@ -631,6 +633,77 @@ export const parkerenSchema = z
   })
   .strict();
 export type ParkerenData = z.infer<typeof parkerenSchema>;
+
+// ---------- woonlasten-JJJJ.json ----------
+
+const woonlastenBron = z
+  .object({
+    id: z.string(),
+    titel: z.string(),
+    url: z.string().url(),
+    /** de pagina waar het bestand of plaatje op staat */
+    pagina: z.string().url().optional(),
+    opgehaald: z.string(),
+    status: z.enum(['feit', 'aanname', 'te onderzoeken', 'te controleren']),
+  })
+  .strict();
+
+export const woonlastenSchema = z
+  .object({
+    jaar: z.number().int(),
+    toelichting: z.string(),
+    definitie: z.string(),
+    bronnen: z.array(woonlastenBron).min(1),
+    /** cijfers die niet in het databestand staan en met de hand van de site zijn overgenomen */
+    handmatig: z
+      .object({
+        landelijk_gemiddelde: z
+          .object({
+            koop_een: euro,
+            koop_meer: euro,
+            huur_een: euro,
+            huur_meer: euro,
+            bron: z.string(),
+          })
+          .strict(),
+        /** woonlasten van huurders en de rangnummers van COELO voor één gemeente */
+        gemeente: z
+          .object({
+            code: z.string(),
+            huur_een: euro,
+            huur_meer: euro,
+            rang_koop_meer: z.number().int().positive(),
+            rang_huur_meer: z.number().int().positive(),
+            bron: z.string(),
+          })
+          .strict(),
+      })
+      .strict()
+      .nullable(),
+    gemeenten: z
+      .array(
+        z
+          .object({
+            code: z.string().regex(/^\d{4}$/),
+            naam: z.string(),
+            provincie: z.string(),
+            inwoners: z.number().int().positive().nullable(),
+            ozb: euro,
+            afval_een: euro,
+            afval_meer: euro,
+            riool_een: euro,
+            riool_meer: euro,
+            korting_een: euro,
+            korting_meer: euro,
+            koop_een: euro,
+            koop_meer: euro,
+          })
+          .strict(),
+      )
+      .min(1),
+  })
+  .strict();
+export type Woonlasten = z.infer<typeof woonlastenSchema>;
 
 // ---------- spel/gebeurtenissen.json ----------
 

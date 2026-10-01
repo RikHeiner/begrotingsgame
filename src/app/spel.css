@@ -1510,3 +1510,85 @@
 .voormij-totaal {
   font-size: 1.1rem;
 }
+
+/* Woonlasten vergeleken met andere gemeenten ("Wat betekent het voor mij?") */
+.woonlasten {
+  margin-top: 1.25rem;
+  padding-top: 0.75rem;
+  border-top: 2px solid color-mix(in srgb, var(--inkt) 15%, transparent);
+}
+
+.woonlasten-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.woonlasten-tabs button {
+  min-height: 44px;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  border: 2px solid var(--blauw);
+  background: transparent;
+  color: var(--inkt);
+  font: inherit;
+  cursor: pointer;
+}
+
+.woonlasten-tabs button[aria-pressed='true'] {
+  background: var(--blauw);
+  color: var(--achtergrond);
+}
+
+.woonlasten-staven {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0;
+}
+
+.woonlasten-staven li {
+  display: grid;
+  grid-template-columns: minmax(6rem, 10rem) 1fr auto;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.15rem 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.woonlasten-naam {
+  overflow-wrap: anywhere;
+}
+
+.woonlasten-staaf {
+  height: 0.8rem;
+  border-radius: 0.4rem;
+  background: color-mix(in srgb, var(--inkt) 8%, transparent);
+}
+
+.woonlasten-staaf span {
+  display: block;
+  height: 100%;
+  border-radius: 0.4rem;
+  background: color-mix(in srgb, var(--inkt) 35%, transparent);
+}
+
+.woonlasten-staven .eigen {
+  font-weight: 700;
+}
+
+.woonlasten-staven .eigen .woonlasten-staaf span {
+  background: var(--blauw);
+}
+
+.woonlasten-staven .gemiddeld {
+  font-style: italic;
+}
+
+.woonlasten-staven .gemiddeld .woonlasten-staaf span {
+  background: repeating-linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--inkt) 45%, transparent) 0 4px,
+    transparent 4px 7px
+  );
+}
