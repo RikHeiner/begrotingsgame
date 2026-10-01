@@ -4,7 +4,7 @@ Een game waarin inwoners hun eigen tegenbegroting maken voor de gemeente Groning
 Een initiatief van de VVD-fractie Groningen-Haren. De volledige opdracht staat in
 [`PROMPT-claude-code.md`](PROMPT-claude-code.md).
 
-Stand: **fase 6 (campagne en persoonlijke impact)**. De game is speelbaar (kaart, HUD, panelen, tutorial, missies, eindscherm, deellink, geluid, offline). Er is een campagnemodus van vier jaar met gebeurteniskaarten, een overzicht van de inwoners en het paneel "Wat betekent het voor mij?". De tegenbegroting gaat naar Word, PDF en een afbeelding. Spelers kunnen hun begroting met toestemming insturen naar de fractie; de fractie ziet alles in een afgeschermd dashboard (`/dashboard.html`). Daarvoor is een Supabase-project nodig: zie [docs/SUPABASE-INSTELLEN.md](docs/SUPABASE-INSTELLEN.md). De debugpagina van de rekenmotor staat op `/#debug`.
+Stand: **fase 8 (klaar voor de lancering, op een paar in te vullen punten na)**. De game is speelbaar (kaart, HUD, panelen, tutorial, missies, campagne, inwoners, "Wat betekent het voor mij?", eindscherm, deellink, geluid, offline). De tegenbegroting gaat naar Word, PDF en een afbeelding. Spelers kunnen hun begroting met toestemming insturen; de fractie ziet alles in een afgeschermd dashboard (`/dashboard.html`). Wat er nog moet gebeuren voor de lancering, staat in [docs/LANCERING.md](docs/LANCERING.md). De debugpagina van de rekenmotor staat op `/#debug`.
 
 ## Starten
 
@@ -27,6 +27,8 @@ npm run data:check     # controleert alle data (zie hieronder)
 npm run vvd:check      # rekent de VVD-tegenbegroting na met de schuiven van de game
 npm run vvd:word -- uit.docx  # maakt de VVD-tegenbegroting na in de game en schrijft hem als Word-bestand
 npm run db:test        # test de Supabase-migraties (rechten, insturen, filter) op een tijdelijke Postgres
+npm run bedragen:controle  # schrijft docs/CONTROLE-BEDRAGEN.md: alle bedragen met bron, en controles
+npm run og             # maakt public/og-afbeelding.png opnieuw (na npm run build)
 npm run personas:overzicht  # docs/INWONERS-AFSTEMMEN.md voor de fractie
 npm run iconen         # PWA-iconen opnieuw maken uit public/icoon.svg
 npm run geluiden       # geluidjes opnieuw maken (public/geluid/)
@@ -119,6 +121,17 @@ scripts/         data-check, data-diff, vvd-check, vvd-word, db-test
 - **Wat betekent het voor mij?**: in diezelfde dialoog en op het eindscherm. Koop of huur,
   WOZ-waarde, gezin, parkeervergunning en inkomen. Rekent met de tarieven uit
   `data/tarieven-JJJJ.json` (in `config.json` onder `tarieven`). Er wordt niets opgeslagen.
+
+## Lancering, privacy en beveiliging
+
+- Stappenplan: [docs/LANCERING.md](docs/LANCERING.md). Test met inwoners:
+  [docs/GEBRUIKERSTEST.md](docs/GEBRUIKERSTEST.md).
+- `privacy.html` en `toegankelijkheid.html`: de verklaringen op B1-niveau.
+- De build zet een Content Security Policy in elke pagina (geen inline scripts, stijlen of eval) en
+  maakt `dist/_headers` met beveiligingsheaders voor de hosting. `VITE_SITE_URL` is het adres van de
+  site voor de Open Graph-tags.
+- Toegankelijkheid: `tests/e2e/toegankelijkheid.spec.ts` controleert alle schermen met axe
+  (WCAG 2.1 A en AA), licht en donker. `tests/e2e/csp.spec.ts` controleert dat de CSP niets blokkeert.
 
 ## Persoonlijke video (fase 7: vervallen)
 

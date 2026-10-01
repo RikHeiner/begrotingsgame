@@ -26,7 +26,8 @@
     "personas:overzicht": "tsx scripts/personas-overzicht.ts",
     "geluiden": "node scripts/maak-geluiden.mjs",
     "iconen": "tsx scripts/maak-iconen.ts",
-    "og": "tsx scripts/maak-og.ts"
+    "og": "tsx scripts/maak-og.ts",
+    "bedragen:controle": "tsx scripts/bedragen-controle.ts"
   },
   "dependencies": {
     "@fontsource/asap": "^5.3.0",

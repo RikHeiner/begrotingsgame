@@ -68,6 +68,14 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
 32. **Parkeertarieven en vergunningen.** De schuif "Parkeertarieven" (t5) verandert in het paneel ook de prijs van de vergunning met hetzelfde percentage. Zo staat het in de uitleg van de schuif ("Parkeergeld en vergunningen"). *Vraag:* klopt dat met de bedoeling?
 33. **Rioolheffing alleen voor eigenaren.** Volgens de bronnen betalen huurders alleen de afvalstoffenheffing. Het paneel volgt dat.
 
+## H. Lancering (fase 8)
+
+34. **Parkeeropbrengst.** De schuif "Parkeertarieven" (t5) rekent met € 35,1 mln opbrengst. De kerngegevens noemen € 26,3 mln parkeerbelasting (`kengetallen_2026.parkeerbelasting_x1000`). Misschien zitten in 35,1 ook de parkeergarages of vergunningen, maar dat staat niet in de data. Het verschil telt mee: "parkeren gratis" (−100%) kost in de game nu € 35,1 mln. *Vraag:* welk bedrag hoort bij de schuif, en met welke bron (pagina in het boekwerk)?
+35. **Belastingen zonder bron.** De vijf belastingen in `begroting-2026.json` hebben geen veld `bron`. Vier bedragen kloppen met de kerngegevens (p. 4); voor de parkeertarieven zie punt 34. *Voorstel:* bij de begroting 2027 per belasting de pagina noteren.
+36. **Groen als tekstkleur.** Groene tekst (#15875a uit het prototype) had te weinig contrast (4,2:1) op de achtergrond. De tekstkleur is nu #127a51 (5,0:1). De grafieken houden de gecontroleerde kleur.
+37. **De kaart zonder PixiJS.** Om de laadtijd op telefoons (Lighthouse) te halen tekent de kaart nu met Canvas 2D. Hij ziet er hetzelfde uit en is ongeveer 400 kB kleiner. De inwoners lopen na een actie van de speler 30 seconden mee en staan daarna stil (batterij, opdracht 8.7). *Vraag:* is dat goed, of moeten ze altijd lopen?
+38. **Nog in te vullen voor de lancering:** het e-mailadres van de fractie en de naam van de hosting (in `privacy.html` en `toegankelijkheid.html`), het domein (`VITE_SITE_URL`) en het Supabase-project. Zie `docs/LANCERING.md`.
+
 ## Besluiten (1 oktober 2026)
 
 | Punt | Besluit | Verwerkt |

@@ -98,7 +98,13 @@ function beveiligingEnDelen(): Plugin {
     },
     transformIndexHtml(html) {
       const site = (env.VITE_SITE_URL ?? '').replace(/\/$/, '');
-      let uit = html.replaceAll('%SITE_URL%', site);
+      // Zonder adres geen canonical en og:url: een relatieve waarde is daar ongeldig.
+      let uit = site
+        ? html
+        : html
+            .replace(/^\s*<link rel="canonical"[^>]*>\n/m, '')
+            .replace(/^\s*<meta property="og:url"[^>]*>\n/m, '');
+      uit = uit.replaceAll('%SITE_URL%', site);
       if (bouwen)
         uit = uit.replace(
           '<meta charset="UTF-8" />',
