@@ -1435,10 +1435,10 @@
    "formule": "per_extra_woning: +ozb_per_woning +gemeentefonds_per_woning -onderhoud_per_woning -voorzieningen_per_woning",
    "parameters": {
     "ozb_per_woning": {
-     "waarde": 0.0003,
+     "waarde": null,
      "eenheid": "mln per jaar",
-     "status": "aanname",
-     "toelichting": "Uit het OZB-tarief en de gemiddelde WOZ van 340.000 berekenen."
+     "status": "te onderzoeken",
+     "toelichting": "Niet nodig zolang tarieven-JJJJ.json er is: de game rekent dan met het OZB-tarief voor woningen x de gemiddelde WOZ-waarde uit de kerngegevens (2026: 0,1473% x 340.000 = 501 euro), met de OZB-keuze van de speler. Eerder stond hier 0,0003 (300 euro) als aanname."
     },
     "extra_woningen_per_mln_fonds": {
      "waarde": 20,

@@ -235,11 +235,11 @@ const GEVALLEN: Record<string, Geval> = {
   ec_precario_terras: { keuzes: { belastingen: { t4: -50 } }, status: 'alleen uitleg' },
   ec_ozb_nietwoningen: { keuzes: { belastingen: { t1: -10 } }, status: 'nog niet doorgerekend' },
   ec_strategisch_bezit: { keuzes: { kaarten: ['k_vast'] }, status: 'nog niet doorgerekend' },
-  // 5 mln × 20 = 100 woningen per jaar vanaf 2028; × 0,0003 OZB per woning
+  // 5 mln × 20 = 100 woningen per jaar vanaf 2028; × 0,1473% × € 340.000 = € 500,82 OZB per woning
   wg_woningbouw: {
     keuzes: { kaarten: ['k_bouw'] },
     status: 'doorgerekend',
-    bedragen: [0, 0, 0.03, 0.06],
+    bedragen: [0, 0, 0.050082, 0.100164],
     controle: (r) => expect(r.grootheden.extra_woningen).toEqual([0, 0, 100, 200]),
   },
   wg_grondexploitatie: { keuzes: { kaarten: ['k_bouw'] }, status: 'nog niet doorgerekend' },

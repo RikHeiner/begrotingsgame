@@ -253,7 +253,7 @@ Parameters met status "aanname" of "te onderzoeken". Deze bedragen staan in de g
 | ec_toerisme_cultuur | factor | 0.2 | aanname |  |
 | ec_ozb_nietwoningen | verdeling | null | te onderzoeken | Uit de paragraaf lokale heffingen van de begroting halen. |
 | ec_strategisch_bezit | boekwaarde | null | te onderzoeken | Per pand opvragen. |
-| wg_woningbouw | ozb_per_woning | 0.0003 | aanname | Uit het OZB-tarief en de gemiddelde WOZ van 340.000 berekenen. |
+| wg_woningbouw | ozb_per_woning | null | te onderzoeken | Niet nodig zolang tarieven-JJJJ.json er is: de game rekent dan met het OZB-tarief voor woningen x de gemiddelde WOZ-waarde uit de kerngegevens (2026: 0,1473% x 340.000 = 501 euro), met de OZB-keuze van de speler. Eerder stond hier 0,0003 (300 euro) als aanname. |
 | wg_woningbouw | extra_woningen_per_mln_fonds | 20 | aanname |  |
 | wg_verduurzaming | rendement | 0.08 | aanname |  |
 | en_opwek | gemiste_opbrengst | null | te onderzoeken | Uit de businesscase halen. |

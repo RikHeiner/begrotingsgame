@@ -100,6 +100,8 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
 48. **Bedrag invullen.** Naast elke schuif kan de speler het nieuwe bedrag typen (budget, opbrengst of tarief). De game rekent het percentage uit, tot op twee decimalen. Dezelfde grenzen gelden: een bedrag buiten de grens wordt geweigerd met een melding. Het budget is het bedrag van het eerste jaar.
 49. **Woonlasten vergelijken met andere gemeenten.** Nog niet gebouwd: er is een bron nodig met de woonlasten per gemeente (bijvoorbeeld de *Atlas van de lokale lasten* van COELO, of de cijfers op waarstaatjegemeente.nl). Die sites waren vanuit de bouwomgeving niet bereikbaar. *Vraag:* sta `coelo.nl` en `waarstaatjegemeente.nl` toe, of stuur de pdf van de Atlas.
 
+50. **Meer woningen, meer OZB.** Het kettingeffect "Sneller bouwen" rekende met € 300 OZB per nieuwe woning (aanname). Dat bedrag is nu berekend uit de data: OZB-tarief woningen × gemiddelde WOZ-waarde = 0,1473% × € 340.000 = € 501 per jaar. Kiest de speler een andere OZB, dan geldt die ook voor de nieuwe woningen. Het aantal extra woningen (20 per € 1 mln per jaar, vanaf 2 jaar na de start) blijft een aanname, dus het effect houdt ⚠︎. Nu levert alleen de kaart Sneller-bouwenfonds extra woningen op. *Vraag:* moeten ook de schuiven "Extra geld wonen" (w1) en "Meer betaalbare woningen" (w2) extra woningen opleveren, en hoeveel per miljoen (bron: het woningbouwprogramma)? En moet een nieuwe woning met de gemiddelde WOZ-waarde rekenen, of met die van nieuwbouw?
+
 ## Besluiten (1 oktober 2026)
 
 | Punt | Besluit | Verwerkt |

@@ -776,12 +776,22 @@ export const IMPLEMENTATIES: Record<string, Implementatie> = {
         'extra_woningen',
         c.grootheid('extra_woningen').map((x, j) => x + (voorraad[j] ?? 0)),
       );
+      // OZB per nieuwe woning: het tarief × de gemiddelde WOZ-waarde, met de OZB-keuze van de
+      // speler. Zonder tarievenbestand de parameter ozb_per_woning.
+      const t = c.data.tarieven;
+      const woz = c.data.kengetallen.gemiddelde_woz;
+      const uitTarief = t && woz ? (t.ozb_woning_eigenaar_pct / 100) * woz : undefined;
+      const perWoning =
+        (uitTarief ?? vanMln(c.param('ozb_per_woning'))) * Math.max(0, 1 + c.t('t1'));
+      const euro = Math.round(perWoning).toLocaleString('nl-NL');
       c.effect({
         doel: 'baten:t1',
         kant: 'baten',
-        bedragen: voorraad.map((w) => w * vanMln(c.param('ozb_per_woning'))),
-        params: ['extra_woningen_per_mln_fonds', 'ozb_per_woning'],
-        uitleg: `Het fonds levert ongeveer ${Math.round(perJaarExtra)} extra woningen per jaar op, vanaf ${c.data.jaren[v] ?? 'na de meerjarenraming'}. Die betalen OZB.`,
+        bedragen: voorraad.map((w) => w * perWoning),
+        params: uitTarief
+          ? ['extra_woningen_per_mln_fonds']
+          : ['extra_woningen_per_mln_fonds', 'ozb_per_woning'],
+        uitleg: `Het fonds levert ongeveer ${Math.round(perJaarExtra)} extra woningen per jaar op, vanaf ${c.data.jaren[v] ?? 'na de meerjarenraming'}. Elke nieuwe woning betaalt ongeveer € ${euro} OZB per jaar${uitTarief ? ` (${t?.ozb_woning_eigenaar_pct.toLocaleString('nl-NL')}% van de gemiddelde WOZ-waarde${c.t('t1') ? ', met jouw OZB-keuze' : ''})` : ''}.`,
       });
       c.meter('wonen', 1);
       c.deelsNiet(
