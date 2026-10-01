@@ -92,10 +92,21 @@ export default defineConfig({
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
         clientsClaim: true,
         skipWaiting: true,
-        navigateFallbackDenylist: [/^\/data\//],
+        navigateFallbackDenylist: [/^\/data\//, /^\/dashboard/],
+        // Het dashboard hoort niet bij de offline-versie van de game.
+        globIgnores: ['dashboard.html'],
       },
     }),
   ],
+  build: {
+    rollupOptions: {
+      // Het dashboard is een aparte pagina, zodat de game er niet zwaarder van wordt.
+      input: {
+        game: resolve(import.meta.dirname, 'index.html'),
+        dashboard: resolve(import.meta.dirname, 'dashboard.html'),
+      },
+    },
+  },
   test: {
     include: ['src/**/*.test.ts', 'scripts/**/*.test.ts'],
     environment: 'node',
