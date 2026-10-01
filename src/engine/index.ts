@@ -13,3 +13,4 @@ export { formatMln, formatEuro, formatPct } from './format';
 export { waarom, beschrijf, somVan, grootsteBronnen, AANNAME_LABEL } from './uitleg';
 export { grensOnderdeel, grensBelasting } from './regels';
 export { blijeInwoners } from './meters';
+export { berekenCampagne, type CampagneStap } from './campagne';

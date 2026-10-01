@@ -16,7 +16,9 @@ import {
   metersSchema,
   personasSchema,
   tegenbegrotingSchema,
+  gebeurtenissenSchema,
   type Actiekaart,
+  type Gebeurtenis,
   type Begroting,
   type Belasting,
   type Config,
@@ -51,6 +53,8 @@ export type Data = {
   reacties: Reactie[];
   missies: MissiesData;
   teksten: Teksten;
+  /** gebeurteniskaarten voor de campagnemodus */
+  gebeurtenissen: Gebeurtenis[];
   vergelijking: { bestand: string; tegenbegroting: Tegenbegroting }[];
   /** Jaren van de meerjarenraming, bijvoorbeeld [2026, 2027, 2028, 2029]. */
   jaren: number[];
@@ -61,6 +65,7 @@ export type Data = {
     deelprogrammas: Map<string, Deelprogramma>;
     verbanden: Map<string, Dwarsverband>;
     meterPerKort: Map<string, MeterId>;
+    gebeurtenissen: Map<string, Gebeurtenis>;
   };
 };
 
@@ -76,6 +81,7 @@ export const SPEL_BESTANDEN = {
   missies: 'spel/missies.json',
   teksten: 'spel/teksten.json',
   personas: 'spel/personas.json',
+  gebeurtenissen: 'spel/gebeurtenissen.json',
 } as const;
 
 export class DataFout extends Error {
@@ -110,6 +116,7 @@ export type RuweData = {
   missies: unknown;
   teksten: unknown;
   personas: unknown;
+  gebeurtenissen: unknown;
   vergelijking: { bestand: string; inhoud: unknown }[];
 };
 
@@ -139,6 +146,22 @@ export function maakData(ruw: RuweData): Data {
   const reacties = valideer(reactiesSchema, ruw.reacties, SPEL_BESTANDEN.reacties).reacties;
   const missies = valideer(missiesSchema, ruw.missies, SPEL_BESTANDEN.missies);
   const teksten = valideer(tekstenSchema, ruw.teksten, SPEL_BESTANDEN.teksten);
+  const gebeurtenissen = valideer(
+    gebeurtenissenSchema,
+    ruw.gebeurtenissen,
+    SPEL_BESTANDEN.gebeurtenissen,
+  ).gebeurtenissen;
+  const onbekend: string[] = [];
+  for (const g of gebeurtenissen)
+    for (const { basis } of g.effecten) {
+      if (basis.soort === 'lasten')
+        for (const id of basis.posten)
+          if (!begroting.onderdelen.some((o) => o.id === id))
+            onbekend.push(`${g.id}: post "${id}" bestaat niet`);
+      if (basis.soort === 'belasting' && !begroting.belastingen.some((x) => x.id === basis.id))
+        onbekend.push(`${g.id}: belasting "${basis.id}" bestaat niet`);
+    }
+  if (onbekend.length) throw new DataFout(SPEL_BESTANDEN.gebeurtenissen, onbekend);
   const vergelijking = ruw.vergelijking.map(({ bestand, inhoud }) => ({
     bestand,
     tegenbegroting: valideer(tegenbegrotingSchema, inhoud, bestand),
@@ -157,13 +180,19 @@ export function maakData(ruw: RuweData): Data {
     reacties,
     missies,
     teksten,
+    gebeurtenissen,
     vergelijking,
     jaren: [...config.meerjarenHorizon],
-    index: maakIndex(begroting, dwarsverbanden, meters),
+    index: maakIndex(begroting, dwarsverbanden, meters, gebeurtenissen),
   };
 }
 
-function maakIndex(begroting: Begroting, dwarsverbanden: Dwarsverbanden, meters: MetersData) {
+function maakIndex(
+  begroting: Begroting,
+  dwarsverbanden: Dwarsverbanden,
+  meters: MetersData,
+  gebeurtenissen: Gebeurtenis[],
+) {
   return {
     onderdelen: new Map(begroting.onderdelen.map((o) => [o.id, o])),
     belastingen: new Map(begroting.belastingen.map((b) => [b.id, b])),
@@ -171,6 +200,7 @@ function maakIndex(begroting: Begroting, dwarsverbanden: Dwarsverbanden, meters:
     deelprogrammas: new Map(begroting.deelprogrammas.map((d) => [d.code, d])),
     verbanden: new Map(dwarsverbanden.dwarsverbanden.map((v) => [v.id, v])),
     meterPerKort: new Map(meters.meters.map((m) => [m.kort, m.id])),
+    gebeurtenissen: new Map(gebeurtenissen.map((g) => [g.id, g])),
   };
 }
 
@@ -180,7 +210,11 @@ export function metExtraKaarten(data: Data, kaarten: Actiekaart[]): Data {
     ...data.begroting,
     actiekaarten: [...data.begroting.actiekaarten, ...kaarten],
   };
-  return { ...data, begroting, index: maakIndex(begroting, data.dwarsverbanden, data.meters) };
+  return {
+    ...data,
+    begroting,
+    index: maakIndex(begroting, data.dwarsverbanden, data.meters, data.gebeurtenissen),
+  };
 }
 
 /** Laadt alle bestanden voor het jaar uit config.json. */

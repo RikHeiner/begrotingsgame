@@ -1,0 +1,113 @@
+{
+  "toelichting": "Gebeurteniskaarten voor de campagnemodus (opdracht 8.6). Elke kaart is een percentage van een bedrag uit de ontwerpbegroting (lasten van posten, de opbrengst van een belasting of het gemeentefonds). Dat bedrag is een feit; het percentage is een scenario, geen voorspelling. 'laag' en 'hoog' zijn de grenzen voor de scenario's voorzichtig en optimistisch. Soort S = elk jaar vanaf het jaar waarin de kaart wordt getrokken, I = alleen in dat jaar. Te controleren door de fractie (zie BEVINDINGEN.md).",
+  "gebeurtenissen": [
+    {
+      "id": "g_jeugdzorg",
+      "naam": "Meer vraag naar jeugdzorg",
+      "tekst": "Meer kinderen en gezinnen hebben jeugdhulp nodig. De kosten van jeugdzorg stijgen.",
+      "soort": "S",
+      "effecten": [{ "basis": { "soort": "lasten", "posten": ["z1"] }, "richting": "kosten", "pct": { "waarde": 0.04, "laag": 0.02, "hoog": 0.07 } }]
+    },
+    {
+      "id": "g_cao",
+      "naam": "Nieuwe cao voor ambtenaren",
+      "tekst": "Er is een nieuwe cao. De lonen van ambtenaren gaan omhoog.",
+      "soort": "S",
+      "effecten": [{ "basis": { "soort": "lasten", "posten": ["h1", "e2", "e10", "m11", "w4"] }, "richting": "kosten", "pct": { "waarde": 0.02, "laag": 0.01, "hoog": 0.035 } }]
+    },
+    {
+      "id": "g_winter",
+      "naam": "Een strenge winter",
+      "tekst": "Het vriest wekenlang. Er moet veel extra gestrooid worden en er komen gaten in de wegen.",
+      "soort": "I",
+      "effecten": [{ "basis": { "soort": "lasten", "posten": ["o1"] }, "richting": "kosten", "pct": { "waarde": 0.02, "laag": 0.01, "hoog": 0.035 } }]
+    },
+    {
+      "id": "g_meicirculaire",
+      "naam": "Een meevallende meicirculaire",
+      "tekst": "Het Rijk geeft gemeenten meer geld via het gemeentefonds.",
+      "soort": "S",
+      "effecten": [{ "basis": { "soort": "kengetal", "naam": "gemeentefonds_x1000" }, "richting": "opbrengst", "pct": { "waarde": 0.005, "laag": 0.0025, "hoog": 0.01 } }]
+    },
+    {
+      "id": "g_gemeentefonds_korting",
+      "naam": "Het Rijk kort op het gemeentefonds",
+      "tekst": "Het Rijk bezuinigt. De gemeente krijgt minder geld uit het gemeentefonds.",
+      "soort": "S",
+      "effecten": [{ "basis": { "soort": "kengetal", "naam": "gemeentefonds_x1000" }, "richting": "kosten", "pct": { "waarde": 0.01, "laag": 0.005, "hoog": 0.02 } }]
+    },
+    {
+      "id": "g_versterking_scholen",
+      "naam": "Extra kosten voor aardbevingsversterking",
+      "tekst": "Een aantal schoolgebouwen moet sneller versterkt worden tegen aardbevingen. Niet alles wordt vergoed.",
+      "soort": "I",
+      "effecten": [{ "basis": { "soort": "lasten", "posten": ["d1"] }, "richting": "kosten", "pct": { "waarde": 0.05, "laag": 0.03, "hoog": 0.1 } }]
+    },
+    {
+      "id": "g_nij_begun",
+      "naam": "Extra rijksgeld via Nij Begun",
+      "tekst": "Het Rijk betaalt via Nij Begun mee aan de wijkvernieuwing in aardbevingsgebied.",
+      "soort": "I",
+      "effecten": [{ "basis": { "soort": "lasten", "posten": ["g4"] }, "richting": "opbrengst", "pct": { "waarde": 0.2, "laag": 0.1, "hoog": 0.3 } }]
+    },
+    {
+      "id": "g_energie",
+      "naam": "Hogere energieprijzen",
+      "tekst": "Gas en stroom worden duurder. Zwembaden en sporthallen kosten de gemeente meer.",
+      "soort": "S",
+      "effecten": [{ "basis": { "soort": "lasten", "posten": ["k1"] }, "richting": "kosten", "pct": { "waarde": 0.03, "laag": 0.015, "hoog": 0.06 } }]
+    },
+    {
+      "id": "g_rente",
+      "naam": "Een hogere rente",
+      "tekst": "De rente stijgt. Geld lenen voor wegen en gebiedsontwikkeling wordt duurder.",
+      "soort": "S",
+      "effecten": [{ "basis": { "soort": "lasten", "posten": ["e11", "m10"] }, "richting": "kosten", "pct": { "waarde": 0.05, "laag": 0.03, "hoog": 0.1 } }]
+    },
+    {
+      "id": "g_zorgaanbieder",
+      "naam": "Een zorgaanbieder gaat failliet",
+      "tekst": "Een grote aanbieder van Wmo-hulp gaat failliet. De gemeente moet de zorg snel anders regelen.",
+      "soort": "I",
+      "effecten": [{ "basis": { "soort": "lasten", "posten": ["z3"] }, "richting": "kosten", "pct": { "waarde": 0.01, "laag": 0.005, "hoog": 0.02 } }]
+    },
+    {
+      "id": "g_evenement",
+      "naam": "Een groot evenement komt naar Groningen",
+      "tekst": "Een groot evenement trekt veel bezoekers. Er komen meer hotelgasten, maar ook extra kosten voor veiligheid.",
+      "soort": "I",
+      "effecten": [
+        { "basis": { "soort": "belasting", "id": "t2" }, "richting": "opbrengst", "pct": { "waarde": 0.1, "laag": 0.05, "hoog": 0.2 } },
+        { "basis": { "soort": "lasten", "posten": ["v3"] }, "richting": "kosten", "pct": { "waarde": 0.1, "laag": 0.05, "hoog": 0.15 } }
+      ]
+    },
+    {
+      "id": "g_brug",
+      "naam": "Een brug moet sneller vervangen worden",
+      "tekst": "Uit onderzoek blijkt dat een brug eerder vervangen moet worden dan gepland. Dat geeft extra afschrijving.",
+      "soort": "S",
+      "effecten": [{ "basis": { "soort": "lasten", "posten": ["m10"] }, "richting": "kosten", "pct": { "waarde": 0.04, "laag": 0.02, "hoog": 0.06 } }]
+    },
+    {
+      "id": "g_statushouders",
+      "naam": "Meer statushouders",
+      "tekst": "De gemeente moet meer statushouders huisvesten en begeleiden bij inburgering.",
+      "soort": "S",
+      "effecten": [{ "basis": { "soort": "lasten", "posten": ["s7", "z11"] }, "richting": "kosten", "pct": { "waarde": 0.1, "laag": 0.05, "hoog": 0.15 } }]
+    },
+    {
+      "id": "g_bouwkosten",
+      "naam": "De bouwkosten stijgen",
+      "tekst": "Bouwen wordt duurder. Nieuwe en vernieuwde schoolgebouwen kosten meer.",
+      "soort": "S",
+      "effecten": [{ "basis": { "soort": "lasten", "posten": ["d1"] }, "richting": "kosten", "pct": { "waarde": 0.03, "laag": 0.02, "hoog": 0.05 } }]
+    },
+    {
+      "id": "g_wmo_uitspraak",
+      "naam": "Een rechterlijke uitspraak over de Wmo",
+      "tekst": "De rechter zegt dat de gemeente meer huishoudelijke hulp moet geven. Dat kost elk jaar geld.",
+      "soort": "S",
+      "effecten": [{ "basis": { "soort": "lasten", "posten": ["z3"] }, "richting": "kosten", "pct": { "waarde": 0.03, "laag": 0.02, "hoog": 0.05 } }]
+    }
+  ]
+}
