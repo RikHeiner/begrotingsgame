@@ -170,22 +170,19 @@
     {
       "id": "peter_tineke",
       "naam": "Peter en Tineke",
-      "leeftijd": 68,
-      "situatie": "Gepensioneerd stel met een koophuis in de Oosterpoort. Ze gaan graag naar concerten in De Oosterpoort en fietsen naar de markt.",
+      "leeftijd": null,
+      "situatie": "Wonen in de Oosterpoort. Peter heeft een klusbedrijf en rijdt in een dieselbus uit 2011. Tineke werkt bij een garnalenpellerij in Zoutkamp; 's ochtends vroeg gaat daar geen bus heen. Ze hebben allebei een auto nodig, maar krijgen maar één parkeervergunning.",
       "meters": {
-        "sport_cultuur": 0.8,
-        "veilig": 0.6,
-        "schoon": 0.6,
-        "portemonnee": 0.6,
-        "zorg": 0.4
+        "portemonnee": 1,
+        "werk": 0.6,
+        "wonen": 0.5,
+        "veilig": 0.3,
+        "schoon": 0.3
       },
       "posten": {
-        "c1": 1,
-        "c2": 0.4,
-        "o1": 0.5,
-        "z3": 0.3,
-        "t1": -0.7,
-        "t5": -0.4
+        "t5": -1,
+        "m2": -0.3,
+        "o1": 0.3
       },
       "buurt": "BU00140101",
       "gebied": "zuid"

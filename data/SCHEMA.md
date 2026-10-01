@@ -51,7 +51,7 @@ Er is geen bedrag aangepast.
 - `spel/meters.json`: de korte codes (`v`, `s`, `z`, `w`, `c`) zijn de sleutels die de begroting al gebruikt bij `meters`. Daarbij komen `p` (portemonnee), `h` (wonen) en `d` (dienstverlening). De spelregels (gevoeligheid 120 en 150) komen uit het prototype.
 - `spel/gebieden.json`: de game gebruikt de gebiedsindeling van de gemeente (wijkwethouders en gebiedsteams), niet de CBS-wijken. Elke CBS-buurt uit de kaart hoort bij precies één gebied; `data:check` controleert dat. Buurten in `controleren` staan niet in de lijst van de gemeente en zijn voorlopig bij Oost gezet.
 - `spel/gebouwen.json`: de 14 gebouwen uit het prototype. `buurt` is een CBS-buurtcode, `gebied` moet daarbij passen. `onderdelen` moet precies overeenkomen met het veld `gebouw` bij de onderdelen; `data:check` controleert dat. De positie op de kaart volgt in fase 2.
-- `spel/personas.json`: de acht inwoners uit de opdracht plus Peter en Tineke (Oosterpoort, op verzoek van Rik), met buurt en gebied. De gewichten zijn een voorstel; de fractie stemt ze af via `docs/INWONERS-AFSTEMMEN.md` (`npm run personas:overzicht`).
+- `spel/personas.json`: de acht inwoners uit de opdracht plus Peter en Tineke (Oosterpoort; het voorbeeld dat Rik in de raad gebruikte bij het parkeerbeleid, zie OOG april en juli 2024), met buurt en gebied. De gewichten zijn een voorstel; de fractie stemt ze af via `docs/INWONERS-AFSTEMMEN.md` (`npm run personas:overzicht`).
 
 ## Hoe de rekenmotor de data leest
 

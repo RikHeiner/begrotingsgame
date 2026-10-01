@@ -152,23 +152,20 @@ _Gemaakt uit `data/spel/personas.json` met `npm run personas:overzicht`._
 - [ ] Klopt zo
 - [ ] Aanpassen: …
 
-## Peter en Tineke, 68
+## Peter en Tineke
 
 - **Woont in:** Oosterpoort (gebied Zuid)
-- **Situatie:** Gepensioneerd stel met een koophuis in de Oosterpoort. Ze gaan graag naar concerten in De Oosterpoort en fietsen naar de markt.
+- **Situatie:** Wonen in de Oosterpoort. Peter heeft een klusbedrijf en rijdt in een dieselbus uit 2011. Tineke werkt bij een garnalenpellerij in Zoutkamp; 's ochtends vroeg gaat daar geen bus heen. Ze hebben allebei een auto nodig, maar krijgen maar één parkeervergunning.
 - **Let op deze meters:**
-  - 🎭 Sport en cultuur: belangrijk
-  - 🛡️ Veilig: belangrijk
-  - 🌳 Schoon en heel: belangrijk
-  - 👛 Portemonnee: belangrijk
-  - 🤝 Zorg en vangnet: een beetje
+  - 👛 Portemonnee: heel belangrijk
+  - 💼 Werk: belangrijk
+  - 🏠 Wonen: belangrijk
+  - 🛡️ Veilig: een beetje
+  - 🌳 Schoon en heel: een beetje
 - **Merkt deze posten:**
-  - Stadsschouwburg en Oosterpoort: blij met meer geld hiervoor (heel belangrijk)
-  - Onroerendezaakbelasting (OZB): blij als de belasting omlaag gaat (belangrijk)
-  - Onderhoud straten, groen en speeltuinen: blij met meer geld hiervoor (belangrijk)
-  - Culturele instellingen en subsidies: blij met meer geld hiervoor (een beetje)
-  - Parkeertarieven: blij als de belasting omlaag gaat (een beetje)
-  - Wmo (huishoudelijke hulp, hulpmiddelen): blij met meer geld hiervoor (een beetje)
+  - Parkeertarieven: blij als de belasting omlaag gaat (heel belangrijk)
+  - Parkeercontrole: blij met minder geld hiervoor (een beetje)
+  - Onderhoud straten, groen en speeltuinen: blij met meer geld hiervoor (een beetje)
 
 - [ ] Klopt zo
 - [ ] Aanpassen: …
