@@ -40,7 +40,7 @@ test('gebouwpaneel en lijstweergave', async ({ page }) => {
   await controleer(page, 'lijst');
 });
 
-test('dialogen: waarom, inwoners, voor mij, campagne', async ({ page }) => {
+test('dialogen: waarom, inwoners, voor mij', async ({ page }) => {
   await page.goto(deellink());
   await page.getByTestId('saldo').click();
   await expect(page.getByRole('dialog')).toBeVisible();
@@ -51,9 +51,6 @@ test('dialogen: waarom, inwoners, voor mij, campagne', async ({ page }) => {
   await page.getByTestId('open-voor-mij').click();
   await expect(page.getByRole('dialog', { name: 'Wat betekent het voor mij?' })).toBeVisible();
   await controleer(page, 'voor mij');
-  await page.keyboard.press('Escape');
-  await page.getByTestId('campagne').click();
-  await controleer(page, 'campagne kiezen');
 });
 
 test('eindscherm, insturen en document', async ({ page }) => {
@@ -67,14 +64,6 @@ test('eindscherm, insturen en document', async ({ page }) => {
   await page.getByTestId('maak-tegenbegroting').click();
   await expect(page.getByTestId('document')).toBeVisible();
   await controleer(page, 'document');
-});
-
-test('campagne', async ({ page }) => {
-  await page.goto('/');
-  await page.getByTestId('campagne').click();
-  await page.getByTestId('start-campagne').click();
-  await expect(page.getByTestId('gebeurtenissen')).toBeVisible();
-  await controleer(page, 'campagne');
 });
 
 test('dashboard', async ({ page }) => {

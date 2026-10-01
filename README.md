@@ -4,7 +4,7 @@ Een game waarin inwoners hun eigen tegenbegroting maken voor de gemeente Groning
 Een initiatief van de VVD-fractie Groningen-Haren. De volledige opdracht staat in
 [`PROMPT-claude-code.md`](PROMPT-claude-code.md).
 
-Stand: **fase 8 (klaar voor de lancering, op een paar in te vullen punten na)**. De game is speelbaar (kaart, HUD, panelen met schuif én bedrag, tutorial, campagne, inwoners, "Wat betekent het voor mij?", eindscherm, deellink, geluid, offline). De tegenbegroting gaat naar Word, PDF en een afbeelding. Spelers kunnen hun begroting met toestemming insturen; de fractie ziet alles in een afgeschermd dashboard (`/dashboard.html`). Wat er nog moet gebeuren voor de lancering, staat in [docs/LANCERING.md](docs/LANCERING.md). De debugpagina van de rekenmotor staat op `/#debug`.
+Stand: **fase 8 (klaar voor de lancering, op een paar in te vullen punten na)**. De game is speelbaar (kaart, HUD, panelen met schuif én bedrag, tutorial, inwoners, "Wat betekent het voor mij?", eindscherm, deellink, geluid, offline). De tegenbegroting gaat naar Word, PDF en een afbeelding. Spelers kunnen hun begroting met toestemming insturen; de fractie ziet alles in een afgeschermd dashboard (`/dashboard.html`). Wat er nog moet gebeuren voor de lancering, staat in [docs/LANCERING.md](docs/LANCERING.md). De debugpagina van de rekenmotor staat op `/#debug`.
 
 ## Starten
 
@@ -116,15 +116,11 @@ scripts/         data-check, data-diff, vvd-check, vvd-word, db-test
 - Controle: de VVD-testcase in Word geeft dezelfde totalen als het origineel (op de bekende afwijkingen
   na, zie `data/BEVINDINGEN.md`). Test: `src/game/__tests__/tegenbegroting.test.ts`.
 
-## Campagne en persoonlijke impact
+## Persoonlijke impact
 
-- **Campagne** (`src/game/campagne.ts`, `src/engine/campagne.ts`): te starten met de knop Speel vier jaar (campagne) in de HUD.
-  Vier rondes, één per jaar. Elke ronde trekt de speler één of twee kaarten uit
-  `data/spel/gebeurtenissen.json` en stuurt bij. Een keuze geldt vanaf het jaar van de ronde, met
-  de ingroei vanaf dat jaar; eerdere keuzes werken door. De rekenmotor telt de rondes op met
-  `berekenCampagne`. Het eindscherm toont per jaar wat er gebeurde en of de begroting sloot.
-- **Gebeurteniskaarten**: een percentage van een bedrag uit de begroting (lasten van posten, de
-  opbrengst van een belasting of het gemeentefonds), met een lage en hoge waarde voor de scenario's.
+- **Campagne**: de campagnemodus (vier rondes met gebeurteniskaarten) is uit de game gehaald (zie
+  `data/BEVINDINGEN.md` punt 51). De gebeurteniskaarten in `data/spel/gebeurtenissen.json` en de
+  berekening ervan in de rekenmotor zijn gebleven.
 - **Inwoners**: in de dialoog onder het gezichtje in de HUD. Per inwoner de situatie, de
   tevredenheid en de drie keuzes die hij of zij het meest merkt.
 - **Wat betekent het voor mij?**: in diezelfde dialoog en op het eindscherm. Koop of huur,

@@ -15,7 +15,6 @@ import {
   type Resultaat,
 } from '../../engine';
 import type { Scenario } from '../../engine/schema';
-import { jaarVanRonde, rekenCampagne, trekKaarten, type Campagne } from '../campagne';
 import { gebouwStanden, type GebouwStand } from '../toestand';
 
 export type Weergave = 'kaart' | 'lijst';
@@ -56,14 +55,6 @@ type Spel = {
   geluid: boolean;
   /** titel, naam en eigen idee voor de tegenbegroting */
   meta: Meta;
-  /** campagnemodus: vier rondes met gebeurteniskaarten (ontbreekt bij vrij spel) */
-  campagne?: Campagne;
-  /** staat de dialoog met de kaarten van deze ronde open */
-  kaartenOpen: boolean;
-  startCampagne(): void;
-  volgendeRonde(): void;
-  stopCampagne(): void;
-  zetKaartenOpen(open: boolean): void;
   /** de keuzes (als JSON) die al zijn ingestuurd, om dubbel insturen te voorkomen */
   ingestuurd?: string;
   markeerIngestuurd(): void;
@@ -148,24 +139,24 @@ export function nieuweKetting(
   return { lijnen, ...(melding ? { melding } : {}) };
 }
 
-/** Het jaar waar de speler nu over beslist: in de campagne het jaar van de ronde. */
-export function huidigJaar(data: Data, campagne: Campagne | undefined): number {
-  return campagne ? jaarVanRonde(data, campagne.ronde) : (data.jaren[0] ?? data.config.actiefJaar);
+/** Het jaar waar de speler over beslist: het eerste jaar van de meerjarenraming. */
+export function huidigJaar(data: Data): number {
+  return data.jaren[0] ?? data.config.actiefJaar;
 }
 
 export const useSpel = create<Spel>((set, get) => {
-  const reken = (data: Data, keuzes: Keuzes, campagne = get().campagne) => {
-    const resultaat = campagne ? rekenCampagne(data, campagne, keuzes) : bereken(data, keuzes);
+  const reken = (data: Data, keuzes: Keuzes) => {
+    const resultaat = bereken(data, keuzes);
     return {
       keuzes: resultaat.keuzes,
       resultaat,
-      standen: gebouwStanden(data, data.kaart, resultaat, huidigJaar(data, campagne)),
+      standen: gebouwStanden(data, data.kaart, resultaat),
     };
   };
   const getoond = new Set<string>();
   let teller = 0;
   const saldo = (r: Resultaat | undefined, data: Data) =>
-    r?.perJaar[huidigJaar(data, get().campagne)]?.structureel ?? 0;
+    r?.perJaar[huidigJaar(data)]?.structureel ?? 0;
 
   return {
     keuzes: GEEN_KEUZES,
@@ -175,60 +166,6 @@ export const useSpel = create<Spel>((set, get) => {
     geluid: leesOpslag(OPSLAG_GELUID) === 'aan',
     meta: { titel: '', naam: '', idee: '' },
     ooitGekozen: false,
-    kaartenOpen: false,
-    startCampagne() {
-      const { data } = get();
-      if (!data) return;
-      const seed = Math.floor(Math.random() * 2 ** 31);
-      const kaarten = trekKaarten(data, seed, 1, []);
-      const campagne: Campagne = { ronde: 1, seed, vastgelegd: [], getrokken: [kaarten] };
-      getoond.clear();
-      set({
-        campagne,
-        kaartenOpen: true,
-        ...reken(
-          data,
-          { ...GEEN_KEUZES, scenario: data.config.scenario, gebeurtenissen: kaarten },
-          campagne,
-        ),
-        melding: undefined,
-        actie: undefined,
-        fase: 'spelen',
-        gekozenGebouw: undefined,
-      });
-    },
-    volgendeRonde() {
-      const { data, campagne, keuzes } = get();
-      if (!data || !campagne) return;
-      if (campagne.ronde >= data.jaren.length) {
-        get().indienen();
-        return;
-      }
-      const ronde = campagne.ronde + 1;
-      const al = campagne.getrokken.flat();
-      const kaarten = trekKaarten(data, campagne.seed, ronde, al);
-      const volgende: Campagne = {
-        ...campagne,
-        ronde,
-        vastgelegd: [...campagne.vastgelegd, keuzes],
-        getrokken: [...campagne.getrokken, kaarten],
-      };
-      set({
-        campagne: volgende,
-        kaartenOpen: true,
-        ...reken(data, { ...keuzes, gebeurtenissen: [...al, ...kaarten] }, volgende),
-        melding: undefined,
-        gekozenGebouw: undefined,
-      });
-    },
-    stopCampagne() {
-      const { data } = get();
-      set({ campagne: undefined, kaartenOpen: false });
-      if (data) get().start(data, { ...GEEN_KEUZES, scenario: data.config.scenario });
-    },
-    zetKaartenOpen(kaartenOpen) {
-      set({ kaartenOpen });
-    },
     zetMeta(m) {
       set({ meta: { ...get().meta, ...m } });
     },
@@ -236,23 +173,16 @@ export const useSpel = create<Spel>((set, get) => {
       getoond.clear();
       set({
         data,
-        campagne: undefined,
-        kaartenOpen: false,
-        ...reken(data, keuzes, undefined),
+        ...reken(data, keuzes),
         melding: undefined,
         actie: undefined,
         fase: 'spelen',
       });
     },
     probeer(nieuw, gebouw) {
-      const { data, keuzes, resultaat, campagne } = get();
+      const { data, keuzes, resultaat } = get();
       if (!data) return false;
-      const m = magWijzigen(
-        data,
-        keuzes,
-        nieuw,
-        campagne ? (k) => rekenCampagne(data, campagne, k) : undefined,
-      );
+      const m = magWijzigen(data, keuzes, nieuw);
       if (!m.ok) {
         set({
           melding: m.reden ?? 'Dit kan niet.',
@@ -350,11 +280,7 @@ export const useSpel = create<Spel>((set, get) => {
       set({ fase: 'spelen' });
     },
     opnieuw() {
-      const { data, campagne } = get();
-      if (campagne) {
-        get().startCampagne();
-        return;
-      }
+      const { data } = get();
       if (data) get().start(data, { ...GEEN_KEUZES, scenario: data.config.scenario });
     },
     wisMelding() {

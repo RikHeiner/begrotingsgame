@@ -174,9 +174,9 @@ function directeEffecten(data: Data, keuzes: Keuzes): Effect[] {
 }
 
 /**
- * Gebeurteniskaarten (campagnemodus): een percentage van een bedrag uit de begroting. Het bedrag is
- * een feit, het percentage een scenario. S geldt elk jaar van de horizon, I alleen in het eerste.
- * In de campagne begint de horizon in het jaar waarin de kaart is getrokken (zie campagne.ts).
+ * Gebeurteniskaarten: een percentage van een bedrag uit de begroting. Het bedrag is een feit, het
+ * percentage een scenario. S geldt elk jaar van de horizon, I alleen in het eerste. De game zet ze
+ * niet meer (de campagnemodus is eruit), maar de rekenmotor kent ze nog.
  */
 const procent = (fractie: number) =>
   `${(fractie * 100).toLocaleString('nl-NL', { maximumFractionDigits: 2 })}%`;
@@ -421,13 +421,7 @@ export type Toestemming = { ok: boolean; reden?: string };
  * saldo niet verslechtert. Hetzelfde geldt voor het totaal van structureel en eenmalig: eenmalige
  * uitgaven mogen met structureel en eenmalig geld samen worden gedekt.
  */
-export function magWijzigen(
-  data: Data,
-  huidig: Keuzes,
-  nieuw: Keuzes,
-  /** in de campagne: het resultaat over alle rondes */
-  reken: (k: Keuzes) => Resultaat = (k) => bereken(data, k),
-): Toestemming {
+export function magWijzigen(data: Data, huidig: Keuzes, nieuw: Keuzes): Toestemming {
   for (const [id, pct] of Object.entries(nieuw.onderdelen)) {
     if ((huidig.onderdelen[id] ?? 0) === pct) continue;
     const o = data.index.onderdelen.get(id);
@@ -454,8 +448,8 @@ export function magWijzigen(
       return { ok: false, reden: `De actiekaart "${id}" bestaat niet.` };
   }
 
-  const voor = reken(huidig);
-  const na = reken(nieuw);
+  const voor = bereken(data, huidig);
+  const na = bereken(data, nieuw);
   let tekortStructureel = 0;
   let tekortTotaal = 0;
   let jaarStructureel: number | undefined;

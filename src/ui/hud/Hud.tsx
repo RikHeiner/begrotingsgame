@@ -1,37 +1,29 @@
 /**
  * De HUD bovenaan, altijd zichtbaar (opdracht 9): geldpotje met slot, saldo elk jaar en eenmalig,
- * de inwoners, de campagne en de knop Indienen. Elk bedrag heeft een "Waarom?".
+ * de inwoners en de knop Indienen. Elk bedrag heeft een "Waarom?".
  */
 import { useState } from 'react';
 import { formatMln, type Data, type Resultaat } from '../../engine';
-import { huidigJaar, useSpel } from '../../game/state/store';
-import { CampagneDialoog } from './CampagneDialoog';
-import { GebeurtenisDialoog } from './GebeurtenisDialoog';
+import { useSpel } from '../../game/state/store';
 import { Geldpotje } from './Geldpotje';
 import { InstellingenDialoog } from './InstellingenDialoog';
 import { InwonersDialoog } from './InwonersDialoog';
 import { VoorMijDialoog } from './VoorMijDialoog';
 import { WaaromDialoog } from './WaaromDialoog';
 
-type Open = 'waarom' | 'inwoners' | 'instellingen' | 'campagne' | 'voormij' | undefined;
+type Open = 'waarom' | 'inwoners' | 'instellingen' | 'voormij' | undefined;
 
 export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
   const [open, setOpen] = useState<Open>();
   const weergave = useSpel((s) => s.weergave);
   const zetWeergave = useSpel((s) => s.zetWeergave);
   const indienen = useSpel((s) => s.indienen);
-  const campagne = useSpel((s) => s.campagne);
-  const volgendeRonde = useSpel((s) => s.volgendeRonde);
-  const zetKaartenOpen = useSpel((s) => s.zetKaartenOpen);
-  const jaar = huidigJaar(data, campagne);
-  const laatsteRonde = campagne?.ronde === data.jaren.length;
+  const jaar = data.jaren[0] ?? data.config.actiefJaar;
   const s = resultaat.perJaar[jaar]?.structureel ?? 0;
   const i = resultaat.perJaar[jaar]?.incidenteel ?? 0;
   const klasse = (x: number) => (x < -0.5 ? 'negatief' : x > 0.5 ? 'positief' : '');
-  // In de campagne liggen eerdere jaren vast: het slot kijkt naar dit jaar en later.
-  const minimum = Math.min(
-    ...data.jaren.filter((j) => j >= jaar).map((j) => resultaat.perJaar[j]?.structureel ?? 0),
-  );
+  // Het slot kijkt naar het slechtste jaar van de meerjarenraming.
+  const minimum = Math.min(...data.jaren.map((j) => resultaat.perJaar[j]?.structureel ?? 0));
 
   return (
     <header className="hud">
@@ -43,7 +35,7 @@ export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
           data-testid="saldo"
           onClick={() => setOpen('waarom')}
         >
-          <span className="hud-label">{campagne ? `Elk jaar (${jaar})` : 'Elk jaar'}</span>
+          <span className="hud-label">Elk jaar</span>
           <strong className={klasse(s)}>{formatMln(s, { teken: true })}</strong>
           <span className="hud-waarom">Waarom?</span>
         </button>
@@ -53,7 +45,7 @@ export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
           data-testid="eenmalig"
           onClick={() => setOpen('waarom')}
         >
-          <span className="hud-label">{campagne ? `Eenmalig (${jaar})` : 'Eenmalig'}</span>
+          <span className="hud-label">Eenmalig</span>
           <strong className={klasse(i)}>{formatMln(i, { teken: true })}</strong>
           <span className="hud-waarom">Waarom?</span>
         </button>
@@ -71,24 +63,6 @@ export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
         </button>
       </div>
       <div className="hud-rij hud-onder">
-        {campagne && (
-          <button
-            type="button"
-            className="hud-ronde"
-            data-testid="ronde"
-            onClick={() => zetKaartenOpen(true)}
-          >
-            Ronde {campagne.ronde}/{data.jaren.length} · {jaar}
-          </button>
-        )}
-        <button
-          type="button"
-          className="hud-missie"
-          data-testid="campagne"
-          onClick={() => setOpen('campagne')}
-        >
-          {campagne ? <>🗓️ Campagne</> : <>🗓️ Speel vier jaar (campagne)</>}
-        </button>
         <div className="wissel" role="group" aria-label="Weergave">
           <button
             type="button"
@@ -115,20 +89,9 @@ export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
         >
           ⚙︎
         </button>
-        {campagne && !laatsteRonde ? (
-          <button
-            type="button"
-            className="knop-indienen"
-            data-testid="volgende-ronde"
-            onClick={volgendeRonde}
-          >
-            Naar {jaar + 1} →
-          </button>
-        ) : (
-          <button type="button" className="knop-indienen" data-testid="indienen" onClick={indienen}>
-            Indienen
-          </button>
-        )}
+        <button type="button" className="knop-indienen" data-testid="indienen" onClick={indienen}>
+          Indienen
+        </button>
       </div>
       <WaaromDialoog
         open={open === 'waarom'}
@@ -156,8 +119,6 @@ export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
         data={data}
         resultaat={resultaat}
       />
-      <GebeurtenisDialoog data={data} resultaat={resultaat} />
-      <CampagneDialoog open={open === 'campagne'} onSluit={() => setOpen(undefined)} data={data} />
     </header>
   );
 }

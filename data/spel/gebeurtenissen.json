@@ -1,5 +1,5 @@
 {
-  "toelichting": "Gebeurteniskaarten voor de campagnemodus (opdracht 8.6). Elke kaart is een percentage van een bedrag uit de ontwerpbegroting (lasten van posten, de opbrengst van een belasting of het gemeentefonds). Dat bedrag is een feit; het percentage is een scenario, geen voorspelling. 'laag' en 'hoog' zijn de grenzen voor de scenario's voorzichtig en optimistisch. Soort S = elk jaar vanaf het jaar waarin de kaart wordt getrokken, I = alleen in dat jaar. Te controleren door de fractie (zie BEVINDINGEN.md).",
+  "toelichting": "Gebeurteniskaarten (opdracht 8.6; de campagnemodus is uit de game gehaald, zie BEVINDINGEN punt 51). Elke kaart is een percentage van een bedrag uit de ontwerpbegroting (lasten van posten, de opbrengst van een belasting of het gemeentefonds). Dat bedrag is een feit; het percentage is een scenario, geen voorspelling. 'laag' en 'hoog' zijn de grenzen voor de scenario's voorzichtig en optimistisch. Soort S = elk jaar vanaf het jaar waarin de kaart wordt getrokken, I = alleen in dat jaar. Te controleren door de fractie (zie BEVINDINGEN.md).",
   "gebeurtenissen": [
     {
       "id": "g_jeugdzorg",

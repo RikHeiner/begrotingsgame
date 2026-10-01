@@ -40,7 +40,7 @@ export type Tegenbegroting = {
   besparingen: ThemaGroep[];
   investeringen: ThemaGroep[];
   kettingeffecten: Regel[];
-  /** campagnemodus: wat er gebeurde (geen keuzes van de speler) */
+  /** gebeurteniskaarten uit de keuzes (alleen via de rekenmotor; de game zet ze niet meer) */
   gebeurtenissen: Regel[];
   ideeen: string;
   gevolgen: {

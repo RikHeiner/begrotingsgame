@@ -80,7 +80,7 @@ export function gebouwStanden(
   data: Data,
   kaart: KaartData,
   r: Resultaat,
-  /** in de campagne: het jaar van de ronde */
+  /** het jaar van het bedrag bij het gebouw */
   jaar = data.jaren[0],
 ): Record<string, GebouwStand> {
   const uit: Record<string, GebouwStand> = {};

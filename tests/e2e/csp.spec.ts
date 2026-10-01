@@ -59,12 +59,6 @@ test('de CSP staat in de pagina en blokkeert niets in de game', async ({ page })
     page.getByTestId('download-afbeelding').click(),
   ]);
   expect(png.suggestedFilename()).toMatch(/\.png$/);
-  // Campagne
-  await page.getByRole('button', { name: '← Terug' }).click();
-  await page.getByRole('button', { name: 'Terug naar de gemeente' }).click();
-  await page.getByTestId('campagne').click();
-  await page.getByTestId('start-campagne').click();
-  await expect(page.getByTestId('gebeurtenissen')).toBeVisible();
   expect(await overtredingen(page)).toEqual([]);
 });
 

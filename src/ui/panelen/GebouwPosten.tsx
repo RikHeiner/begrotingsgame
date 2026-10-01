@@ -181,7 +181,7 @@ export function GebouwPosten({
   resultaat: Resultaat;
 }) {
   const zetOnderdeel = useSpel((s) => s.zetOnderdeel);
-  const jaar = useSpel((s) => huidigJaar(data, s.campagne));
+  const jaar = huidigJaar(data);
   const zetBelasting = useSpel((s) => s.zetBelasting);
   const wisselKaart = useSpel((s) => s.wisselKaart);
   const k = resultaat.keuzes;

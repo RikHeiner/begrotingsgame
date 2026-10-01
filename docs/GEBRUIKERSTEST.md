@@ -34,7 +34,6 @@ Vraag vooraf toestemming om aantekeningen te maken. Neem geen namen op in het ve
 7. "Verander een budget door zelf een bedrag in te typen." (Vindt de deelnemer het invoerveld onder de schuif?)
 8. "Dien je begroting in en maak er een document van." (Download Word of pdf.)
 9. "Stuur je begroting naar de fractie." (Begrijpt de deelnemer de toestemming?)
-10. Optioneel: "Speel een campagne van vier jaar."
 
 ## Vragen na afloop
 

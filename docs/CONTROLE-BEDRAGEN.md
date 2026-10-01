@@ -18,7 +18,6 @@ Bedragen in miljoenen euro's, tenzij anders vermeld. Bron: [Ontwerpbegroting 202
 | Parkeerposten samen en schuif t5 | ✓ klopt | 35,100 tegenover 35,100 mln |
 | Parkeerposten zonder garages en kengetal parkeerbelasting | ✓ klopt | 26,325 tegenover 26,325 mln |
 | Zonder keuzes is het saldo in elk jaar € 0 | ✓ klopt | het saldo telt ten opzichte van de begroting |
-| Campagne met dezelfde keuzes = gewone begroting | ✓ klopt | overhead −10% in vier rondes |
 | Het kan en moet anders. Tegenbegroting VVD Groningen op de ontwerpbegroting 2026: saldo structureel in de game = tabel van de fractie | ✓ klopt | −0,059 tegenover −0,059 mln |
 
 ```
@@ -267,9 +266,9 @@ Parameters met status "aanname" of "te onderzoeken". Deze bedragen staan in de g
 | fin_reserves | ondergrens_ratio | 1 | aanname | Toegevoegd uit het mechanisme: een weerstandsvermogen onder 100% is een waarschuwingssignaal. Spelregel. |
 | jur_subsidies | ingroei | [0.25,1] | aanname |  |
 
-## 8. Gebeurteniskaarten (campagne)
+## 8. Gebeurteniskaarten (nu niet in de game)
 
-Percentage van een bedrag uit de begroting. Het percentage is een scenario.
+Hoorden bij de campagnemodus, die uit de game is gehaald. De rekenmotor kent ze nog. Percentage van een bedrag uit de begroting; het percentage is een scenario.
 
 | Kaart | S/I | Basis | Percentage (laag / midden / hoog) | Bedrag (midden) |
 | --- | --- | --- | --- | --- |

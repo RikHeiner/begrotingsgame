@@ -20,4 +20,3 @@ export {
 } from './parkeren';
 export { grensOnderdeel, grensBelasting } from './regels';
 export { blijeInwoners } from './meters';
-export { berekenCampagne, type CampagneStap } from './campagne';

@@ -6,13 +6,7 @@
  */
 import { writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import {
-  bereken,
-  berekenCampagne,
-  GEEN_KEUZES,
-  metExtraKaarten,
-  parkeerPosten,
-} from '../src/engine';
+import { bereken, GEEN_KEUZES, metExtraKaarten, parkeerPosten } from '../src/engine';
 import { alsTekst, controleer, heeftFouten } from '../src/engine/controle';
 import { alsKaarten, totalen } from '../src/engine/tegenbegroting';
 import { laadDataNode, leesBuurtcodes, leesMappings } from './lees';
@@ -90,19 +84,6 @@ controles.push([
       Math.abs(leeg.perJaar[j]?.incidenteel ?? 1) < 1,
   ),
   'het saldo telt ten opzichte van de begroting',
-]);
-const vier = berekenCampagne(
-  data,
-  data.jaren.map((j) => ({ vanaf: j, keuzes: { ...GEEN_KEUZES, onderdelen: { h1: -10 } } })),
-);
-const direct = bereken(data, { ...GEEN_KEUZES, onderdelen: { h1: -10 } });
-controles.push([
-  'Campagne met dezelfde keuzes = gewone begroting',
-  data.jaren.every(
-    (j) =>
-      Math.abs((vier.perJaar[j]?.structureel ?? 0) - (direct.perJaar[j]?.structureel ?? 0)) < 1,
-  ),
-  'overhead −10% in vier rondes',
 ]);
 for (const { tegenbegroting: tb } of data.vergelijking) {
   const t = totalen(tb);
@@ -245,8 +226,11 @@ tabel(
   ),
 );
 
-kop('8. Gebeurteniskaarten (campagne)');
-regels.push('Percentage van een bedrag uit de begroting. Het percentage is een scenario.', '');
+kop('8. Gebeurteniskaarten (nu niet in de game)');
+regels.push(
+  'Hoorden bij de campagnemodus, die uit de game is gehaald. De rekenmotor kent ze nog. Percentage van een bedrag uit de begroting; het percentage is een scenario.',
+  '',
+);
 tabel(
   ['Kaart', 'S/I', 'Basis', 'Percentage (laag / midden / hoog)', 'Bedrag (midden)'],
   data.gebeurtenissen.flatMap((g) =>

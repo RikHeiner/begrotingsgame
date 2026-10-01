@@ -111,6 +111,8 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
     - De pdf op gemeenteraad.groningen.nl zit achter een botcontrole en was niet te downloaden. Gebruikt is dezelfde meicirculaire van rijksoverheid.nl (`meicirculaire-gemeentefonds-2026.pdf`, 29 mei 2026).
     - *Vraag:* wonen in een nieuwe woning evenveel mensen als gemiddeld (1,93)? Bij studentenwoningen minder, bij gezinswoningen meer. Het woningbouwprogramma kan dat preciezer maken.
 
+51. **Campagnemodus eruit.** De knop "Speel vier jaar (campagne)" is weg, met de rondes, de gebeurtenisdialoog en het campagne-overzicht op het eindscherm. Ook de berekening over meerdere rondes (`berekenCampagne`) is verwijderd. Gebleven zijn de gebeurteniskaarten (`spel/gebeurtenissen.json`) en de berekening ervan in de rekenmotor, omdat de kettingeffecten `rijk_accres` (korting op het gemeentefonds) en `fin_onvoorzien` ze gebruiken. In de game zijn die twee nu niet meer te zien. *Vraag:* moeten de gebeurteniskaarten ook weg, of komen ze later terug (bijvoorbeeld als knop "Wat als het Rijk kort?")?
+
 ## Besluiten (1 oktober 2026)
 
 | Punt | Besluit | Verwerkt |
@@ -127,7 +129,8 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
 | 18. Persona's | De fractie stemt ze af. | `docs/INWONERS-AFSTEMMEN.md`. |
 | 19. Wijken | De gebiedsindeling van de gemeente aanhouden. | `spel/gebieden.json`: Centrum, Noord, Oost, Zuid, West, Haren, Ten Boer. Negen buurten bij het Eemskanaal en het Winschoterdiep staan niet in de lijst van de gemeente en zijn voorlopig bij Oost gezet (`controleren`). |
 | 34. Parkeeropbrengst | Het verschil tussen € 35,1 en € 26,3 mln zijn de parkeergarages. Kortparkeren krijgt één schuif voor alle zones. | `parkeren-2026.json`, punt 39. |
-| Missies | Vervallen: iedereen maakt een eigen begroting. De campagne blijft, met een eigen knop. | Punt 47. |
+| Missies | Vervallen: iedereen maakt een eigen begroting. | Punt 47. |
+| Campagne | Vervallen: de knop "Speel vier jaar" is eruit (1 oktober 2026). | Punt 51. |
 | Blije inwoners | Eerst weglaten; later misschien anders. | Punt 46. |
 | Bedragen | Naast het percentage ook een bedrag kunnen invullen. | Punt 48. |
 | Fase 7. Video | Geen persoonlijke video; de tegenbegroting blijft als Word, pdf en afbeelding. | `docs/VIDEO-ONTWERP.md` bewaard, niet gebouwd. |
