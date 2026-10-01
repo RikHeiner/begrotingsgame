@@ -135,9 +135,6 @@ export function normaliseer(data: Data, keuzes: Keuzes): { keuzes: Keuzes; corre
       ...(parkeren && Object.keys(parkeren).length ? { parkeren } : {}),
       kaarten,
       scenario: keuzes.scenario,
-      ...(keuzes.gebeurtenissen?.length
-        ? { gebeurtenissen: [...keuzes.gebeurtenissen].sort() }
-        : {}),
       ...normaliseerReserve(keuzes.reserve, correcties),
     },
     correcties,

@@ -173,96 +173,6 @@ function directeEffecten(data: Data, keuzes: Keuzes): Effect[] {
   return effecten;
 }
 
-/**
- * Gebeurteniskaarten: een percentage van een bedrag uit de begroting. Het bedrag is een feit, het
- * percentage een scenario. S geldt elk jaar van de horizon, I alleen in het eerste. De game zet ze
- * niet meer (de campagnemodus is eruit), maar de rekenmotor kent ze nog.
- */
-const procent = (fractie: number) =>
-  `${(fractie * 100).toLocaleString('nl-NL', { maximumFractionDigits: 2 })}%`;
-
-export function gebeurtenisEffecten(data: Data, keuzes: Keuzes): Effect[] {
-  const effecten: Effect[] = [];
-  const jaren = data.jaren;
-  for (const id of keuzes.gebeurtenissen ?? []) {
-    const g = data.index.gebeurtenissen.get(id);
-    if (!g) continue;
-    for (const e of g.effecten) {
-      const kosten = e.richting === 'kosten';
-      // Voorzichtig: de ongunstige kant van de band; optimistisch: de gunstige kant.
-      const pct =
-        keuzes.scenario === 'midden'
-          ? e.pct.waarde
-          : (keuzes.scenario === 'voorzichtig') === kosten
-            ? e.pct.hoog
-            : e.pct.laag;
-      const teken = kosten ? -1 : 1;
-      const posten: {
-        doel: string;
-        kant: 'lasten' | 'baten';
-        naam: string;
-        bedrag: (j: number) => number;
-      }[] =
-        e.basis.soort === 'lasten'
-          ? e.basis.posten.flatMap((pid) => {
-              const o = data.index.onderdelen.get(pid);
-              return o
-                ? [
-                    {
-                      doel: pid,
-                      kant: kosten ? ('lasten' as const) : ('baten' as const),
-                      naam: `de lasten van ${o.naam}`,
-                      bedrag: (j: number) =>
-                        vanMln(o.lasten_per_jaar_mln?.[String(jaren[j])] ?? o.lasten_mln),
-                    },
-                  ]
-                : [];
-            })
-          : e.basis.soort === 'belasting'
-            ? (() => {
-                const b = data.index.belastingen.get(e.basis.id);
-                return b
-                  ? [
-                      {
-                        doel: b.id,
-                        kant: 'baten' as const,
-                        naam: `de opbrengst van de ${b.naam}`,
-                        bedrag: () => vanMln(b.opbrengst_mln),
-                      },
-                    ]
-                  : [];
-              })()
-            : [
-                {
-                  doel: 'grootheid:gemeentefonds',
-                  kant: 'baten' as const,
-                  naam: 'het gemeentefonds',
-                  bedrag: () => vanDuizend(data.kengetallen.gemeentefonds_x1000),
-                },
-              ];
-      for (const p of posten) {
-        jaren.forEach((jaar, j) => {
-          if (g.soort === 'I' && j > 0) return;
-          const bedrag = teken * pct * p.bedrag(j);
-          if (Math.abs(bedrag) < 0.005) return;
-          effecten.push({
-            bron: g.id,
-            doel: p.doel,
-            bedrag,
-            jaar,
-            soort: g.soort,
-            zekerheid: 'aanname',
-            stap: 'direct',
-            kant: p.kant,
-            uitleg: `${g.naam}: ${procent(pct)} van ${p.naam} ${kosten ? 'extra kosten' : 'extra inkomsten'}. Dit is een scenario, geen voorspelling.`,
-          });
-        });
-      }
-    }
-  }
-  return effecten;
-}
-
 function renteVoorInvesteringen(data: Data): number {
   const w = data.index.verbanden.get('fin_kapitaallasten')?.parameters.rente?.waarde;
   return typeof w === 'number' ? w : 0;
@@ -352,7 +262,7 @@ export function bereken(data: Data, invoer: Keuzes): Resultaat {
     { data, keuzes, direct: perBron(data, direct), basisMeters: basis },
     legeMeters(0),
   );
-  const effecten = [...direct, ...gebeurtenisEffecten(data, keuzes), ...verbanden.effecten];
+  const effecten = [...direct, ...verbanden.effecten];
 
   // 4. Meters en persona's
   const meters = eindMeters(basis, kaartPunten(data, keuzes), verbanden.meters);

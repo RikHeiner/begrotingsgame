@@ -204,25 +204,6 @@ export function Documentweergave({ data, resultaat }: { data: Data; resultaat: R
           <p>Geen kettingeffecten.</p>
         )}
 
-        {tb.gebeurtenissen.length > 0 && (
-          <>
-            <h2>Gebeurtenissen</h2>
-            <p className="klein">
-              ⚠︎ Dit gebeurde tijdens de campagne. De bedragen zijn scenario’s, geen voorspellingen.
-            </p>
-            <ul className="doc-maatregelen">
-              {tb.gebeurtenissen.map((r) => (
-                <li key={r.id}>
-                  <strong>
-                    ⚠︎ {r.naam} ({r.wijziging}).
-                  </strong>{' '}
-                  {r.toelichting}
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
-
         <h2>Mijn eigen ideeën</h2>
         {tb.ideeen ? (
           tb.ideeen.split(/\n+/).map((x) => <p key={x}>{x}</p>)

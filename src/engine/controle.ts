@@ -24,7 +24,6 @@ const VASTE_VOORVOEGSELS = new Set([
   'grootheid:',
   'set:',
   'regel:',
-  'gebeurtenis:',
   'saldo:',
   'heffing:',
 ]);

@@ -15,8 +15,6 @@ export type Keuzes = {
   /** actieve actiekaarten */
   kaarten: string[];
   scenario: Scenario;
-  /** opgetreden gebeurteniskaarten (de game zet ze niet meer; zie BEVINDINGEN punt 51) */
-  gebeurtenissen?: string[];
   /**
    * Geld dat de speler in de algemene reserve stort, in euro's: elk jaar (structureel) of eenmalig in
    * het eerste jaar. Een overschot gaat niet vanzelf naar de reserve; de speler kiest dat zelf.

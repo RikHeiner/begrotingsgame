@@ -215,7 +215,6 @@ Parameters met status "aanname" of "te onderzoeken". Deze bedragen staan in de g
 | rijk_buig | gem_uitkering | 0.0165 | te onderzoeken | Ca. 16.500 euro per huishouden: nagaan met het aantal bijstandshuishoudens uit de begroting. |
 | rijk_buig | aantal_bijstand | null | te onderzoeken | Uit het beleidsindicatorenoverzicht van de begroting halen. |
 | rijk_verdeelmodel | inwoners_per_woning | 1.93 | aanname | Gemiddelde in de gemeente: 244.427 inwoners (CBS StatLine 70072ned, 1 januari 2026) / 126.796 woningen (begroting 2026, kerngegevens). Of een nieuwe woning evenveel bewoners heeft, is een aanname. |
-| rijk_accres | scenario_pct | -0.01 | aanname | Scenario, geen voorspelling. |
 | wia_reintegratie | kosten_per_traject | 0.008 | aanname | Ca. 8.000 euro per traject. |
 | wia_reintegratie | slagingskans | 0.3 | aanname | Duurzame uitstroom na traject. |
 | wia_reintegratie | ingroei | [0.3,0.7,1] | aanname | Effect groeit in drie jaar. |
@@ -265,30 +264,7 @@ Parameters met status "aanname" of "te onderzoeken". Deze bedragen staan in de g
 | fin_reserves | ondergrens_ratio | 1 | aanname | Toegevoegd uit het mechanisme: een weerstandsvermogen onder 100% is een waarschuwingssignaal. Spelregel. |
 | jur_subsidies | ingroei | [0.25,1] | aanname |  |
 
-## 8. Gebeurteniskaarten (nu niet in de game)
-
-Hoorden bij de campagnemodus, die uit de game is gehaald. De rekenmotor kent ze nog. Percentage van een bedrag uit de begroting; het percentage is een scenario.
-
-| Kaart | S/I | Basis | Percentage (laag / midden / hoog) | Bedrag (midden) |
-| --- | --- | --- | --- | --- |
-| Meer vraag naar jeugdzorg | S | lasten z1 (118,800) | 2% / 4% / 7% | − 4,752 |
-| Nieuwe cao voor ambtenaren | S | lasten h1, e2, e10, m11, w4 (146,580) | 1% / 2% / 3,5% | − 2,932 |
-| Een strenge winter | I | lasten o1 (66,400) | 1% / 2% / 3,5% | − 1,328 |
-| Een meevallende meicirculaire | S | gemeentefonds (825,768) | 0,25% / 0,5% / 1% | + 4,129 |
-| Het Rijk kort op het gemeentefonds | S | gemeentefonds (825,768) | 0,5% / 1% / 2% | − 8,258 |
-| Extra kosten voor aardbevingsversterking | I | lasten d1 (19,800) | 3% / 5% / 10% | − 0,990 |
-| Extra rijksgeld via Nij Begun | I | lasten g4 (8,150) | 10% / 20% / 30% | + 1,630 |
-| Hogere energieprijzen | S | lasten k1 (36,500) | 1,5% / 3% / 6% | − 1,095 |
-| Een hogere rente | S | lasten e11, m10 (16,800) | 3% / 5% / 10% | − 0,840 |
-| Een zorgaanbieder gaat failliet | I | lasten z3 (64,700) | 0,5% / 1% / 2% | − 0,647 |
-| Een groot evenement komt naar Groningen | I | opbrengst t2 (2,900) | 5% / 10% / 20% | + 0,290 |
-| Een groot evenement komt naar Groningen | I | lasten v3 (3,800) | 5% / 10% / 15% | − 0,380 |
-| Een brug moet sneller vervangen worden | S | lasten m10 (6,100) | 2% / 4% / 6% | − 0,244 |
-| Meer statushouders | S | lasten s7, z11 (5,958) | 5% / 10% / 15% | − 0,596 |
-| De bouwkosten stijgen | S | lasten d1 (19,800) | 2% / 3% / 5% | − 0,594 |
-| Een rechterlijke uitspraak over de Wmo | S | lasten z3 (64,700) | 2% / 3% / 5% | − 1,941 |
-
-## 9. Tarieven (te controleren)
+## 8. Tarieven (te controleren)
 
 Bron: [Gemeente Groningen, raadsvoorstel Belastingtarieven 2026](https://gemeenteraad.groningen.nl/Documenten/Belastingtarieven-2026.pdf).
 
@@ -300,7 +276,7 @@ Bron: [Gemeente Groningen, raadsvoorstel Belastingtarieven 2026](https://gemeent
 | ☐ | Afvalstoffenheffing, 3 of meer | € 402,12 |
 | ☐ | Rioolheffing, eigenaar | € 178,69 |
 
-## 10. Parkeren per vergunning en zone
+## 9. Parkeren per vergunning en zone
 
 De schuif Parkeertarieven (35,100 mln) is verdeeld in posten. Samen: 35,100 mln. Vergunningen: aantal × tarief. Kortparkeren: de parkeerbelasting uit de kerngegevens min de vergunningen. Garages: de rest.
 

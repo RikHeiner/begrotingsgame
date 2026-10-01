@@ -366,20 +366,6 @@ export const IMPLEMENTATIES: Record<string, Implementatie> = {
     },
   },
 
-  rijk_accres: {
-    reken(c) {
-      if (!c.keuzes.gebeurtenissen?.includes(c.verband.id)) return;
-      const fonds = vanMln(c.data.kengetallen.gemeentefonds_x1000 / 1000);
-      c.effect({
-        doel: 'grootheid:gemeentefonds',
-        kant: 'baten',
-        bedragen: perJaar(c.n, () => c.param('scenario_pct') * fonds),
-        params: ['scenario_pct'],
-        uitleg: 'Het Rijk kort op het gemeentefonds. Dit is een scenario, geen voorspelling.',
-      });
-    },
-  },
-
   // ---- Werk, inkomen en armoede ----
   wia_reintegratie: {
     schrijft: ['aantal_bijstand'],
@@ -1007,15 +993,6 @@ export const IMPLEMENTATIES: Record<string, Implementatie> = {
         if (isNul(gestort)) c.nogNiet(GEEN_FORMULE);
         c.deelsNiet('De extra rente door lenen voor investeringen is nog niet doorgerekend.');
       }
-    },
-  },
-
-  fin_onvoorzien: {
-    reken(c) {
-      if (!c.keuzes.gebeurtenissen?.length) return;
-      c.uitleg(
-        'Gebeurtenissen vragen om bijsturen. Een reserve of de post onvoorzien vangt ze op.',
-      );
     },
   },
 

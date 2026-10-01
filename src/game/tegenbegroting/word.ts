@@ -216,35 +216,6 @@ export function maakWord(tb: Tegenbegroting): Document {
           ),
         ]
       : [p('Geen kettingeffecten.')]),
-    // Campagne: gebeurtenissen
-    ...(tb.gebeurtenissen.length
-      ? [
-          kop('Gebeurtenissen'),
-          p(
-            '⚠︎ Dit gebeurde tijdens de campagne. De bedragen zijn scenario’s, geen voorspellingen.',
-            {
-              cursief: true,
-            },
-          ),
-          ...tb.gebeurtenissen.map(
-            (r) =>
-              new Paragraph({
-                spacing: { after: 100 },
-                children: [
-                  new TextRun({ text: '▶ ', color: ORANJE, font: LETTER, size: 22 }),
-                  new TextRun({
-                    text: `⚠︎ ${r.naam} (${r.wijziging}).`,
-                    bold: true,
-                    font: LETTER,
-                    size: 22,
-                    color: INKT,
-                  }),
-                  new TextRun({ text: ` ${r.toelichting}`, font: LETTER, size: 22, color: INKT }),
-                ],
-              }),
-          ),
-        ]
-      : []),
     // 6. Eigen ideeën
     kop('Mijn eigen ideeën'),
     ...(tb.ideeen ? tb.ideeen.split(/\n+/).map((x) => p(x)) : [p('Geen eigen ideeën ingevuld.')]),

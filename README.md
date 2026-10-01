@@ -118,9 +118,8 @@ scripts/         data-check, data-diff, vvd-check, vvd-word, db-test
 
 ## Persoonlijke impact
 
-- **Campagne**: de campagnemodus (vier rondes met gebeurteniskaarten) is uit de game gehaald (zie
-  `data/BEVINDINGEN.md` punt 51). De gebeurteniskaarten in `data/spel/gebeurtenissen.json` en de
-  berekening ervan in de rekenmotor zijn gebleven.
+- **Campagne**: de campagnemodus en de gebeurteniskaarten zijn uit de game gehaald (zie
+  `data/BEVINDINGEN.md` punt 51).
 - **Inwoners**: in de dialoog onder het gezichtje in de HUD. Per inwoner de situatie, de
   tevredenheid en de drie keuzes die hij of zij het meest merkt.
 - **Wat betekent het voor mij?**: in diezelfde dialoog en op het eindscherm. Koop of huur,
@@ -208,8 +207,7 @@ npm test                                      # alle tests
 
 Daarna in `data/config.json` het actieve jaar, het bestand, de horizon, het tarievenbestand
 (`tarieven-JJJJ.json`) en het parkeerbestand (`parkeren-JJJJ.json`) aanpassen. Let bij de tarieven
-en de parkeerdata op het jaartal van elk bedrag (stap 5 in `UPDATE-BEGROTING.md`). De gebeurteniskaarten in `spel/gebeurtenissen.json` verwijzen naar
-posten; als een post niet meer bestaat, meldt het laden dat.
+en de parkeerdata op het jaartal van elk bedrag (stap 5 in `UPDATE-BEGROTING.md`).
 
 ## CI
 

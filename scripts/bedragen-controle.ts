@@ -226,45 +226,9 @@ tabel(
   ),
 );
 
-kop('8. Gebeurteniskaarten (nu niet in de game)');
-regels.push(
-  'Hoorden bij de campagnemodus, die uit de game is gehaald. De rekenmotor kent ze nog. Percentage van een bedrag uit de begroting; het percentage is een scenario.',
-  '',
-);
-tabel(
-  ['Kaart', 'S/I', 'Basis', 'Percentage (laag / midden / hoog)', 'Bedrag (midden)'],
-  data.gebeurtenissen.flatMap((g) =>
-    g.effecten.map((e) => {
-      const basis =
-        e.basis.soort === 'lasten'
-          ? e.basis.posten.reduce(
-              (s, id) => s + (data.index.onderdelen.get(id)?.lasten_mln ?? 0),
-              0,
-            )
-          : e.basis.soort === 'belasting'
-            ? (data.index.belastingen.get(e.basis.id)?.opbrengst_mln ?? 0)
-            : k.gemeentefonds_x1000 / 1000;
-      const naam =
-        e.basis.soort === 'lasten'
-          ? `lasten ${e.basis.posten.join(', ')}`
-          : e.basis.soort === 'belasting'
-            ? `opbrengst ${e.basis.id}`
-            : 'gemeentefonds';
-      const pct = (x: number) => `${(x * 100).toLocaleString('nl-NL')}%`;
-      return [
-        g.naam,
-        g.soort,
-        `${naam} (${mln(basis)})`,
-        `${pct(e.pct.laag)} / ${pct(e.pct.waarde)} / ${pct(e.pct.hoog)}`,
-        `${e.richting === 'kosten' ? '−' : '+'} ${mln(basis * e.pct.waarde)}`,
-      ];
-    }),
-  ),
-);
-
 if (data.tarieven) {
   const t = data.tarieven;
-  kop(`9. Tarieven (${t.status})`);
+  kop(`8. Tarieven (${t.status})`);
   regels.push(`Bron: [${t.bron}](${t.bron_url}).`, '');
   tabel(
     ['✓', 'Tarief', 'Bedrag'],
@@ -299,7 +263,7 @@ if (data.parkeren) {
   const posten = parkeerPosten(data);
   const som = posten.reduce((s, x) => s + x.basis, 0);
   const t5 = data.index.belastingen.get(p.opbrengst.belasting);
-  kop('10. Parkeren per vergunning en zone');
+  kop('9. Parkeren per vergunning en zone');
   regels.push(
     `De schuif ${t5?.naam ?? p.opbrengst.belasting} (${mln(t5?.opbrengst_mln ?? 0)} mln) is verdeeld in posten. Samen: ${mln(som / 1e6)} mln. Vergunningen: aantal × tarief. Kortparkeren: de parkeerbelasting uit de kerngegevens min de vergunningen. Garages: de rest.`,
     '',

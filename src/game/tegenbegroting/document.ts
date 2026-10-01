@@ -40,8 +40,6 @@ export type Tegenbegroting = {
   besparingen: ThemaGroep[];
   investeringen: ThemaGroep[];
   kettingeffecten: Regel[];
-  /** gebeurteniskaarten uit de keuzes (alleen via de rekenmotor; de game zet ze niet meer) */
-  gebeurtenissen: Regel[];
   ideeen: string;
   gevolgen: {
     inwoners: { naam: string; zin: string }[];
@@ -138,14 +136,6 @@ export function maakTegenbegroting(data: Data, r: Resultaat, meta: Meta): Tegenb
         wijziging: kaart.structureel_of_incidenteel === 'S' ? 'elk jaar' : 'eenmalig',
         toelichting: kaart.uitleg,
       };
-    } else if (data.index.gebeurtenissen.has(id)) {
-      const g = data.index.gebeurtenissen.get(id);
-      const eerstJaar = jaren[item.perJaar.findIndex((x) => x !== 0)] ?? eerste;
-      info = {
-        naam: g?.naam ?? id,
-        wijziging: item.soort === 'S' ? `vanaf ${eerstJaar}` : `in ${eerstJaar}`,
-        toelichting: `${g?.tekst ?? ''} Scenario, geen voorspelling.`.trim(),
-      };
     } else if (id === 'reserve') {
       info = {
         naam: 'Geld in de reserve storten',
@@ -184,9 +174,7 @@ export function maakTegenbegroting(data: Data, r: Resultaat, meta: Meta): Tegenb
       .map(([thema, rs]) => ({ thema, regels: rs }))
       .sort((a, b) => a.thema.localeCompare(b.thema, 'nl'));
   };
-  const isGebeurtenis = (x: Regel) => data.index.gebeurtenissen.has(x.id);
-  const maatregelen = regels.filter((x) => !x.kettingeffect && !isGebeurtenis(x));
-  const gebeurtenissen = regels.filter(isGebeurtenis).sort(opBedrag);
+  const maatregelen = regels.filter((x) => !x.kettingeffect);
   // Een maatregel die pas later iets oplevert (bijvoorbeeld door een ingroeipad), telt naar het teken van het laatste jaar.
   const teken = (x: Regel) => (x.bedrag !== 0 ? x.bedrag : (x.perJaar.find((y) => y !== 0) ?? 0));
   const besparingen = groepeer(maatregelen.filter((x) => teken(x) > 0));
@@ -253,7 +241,6 @@ export function maakTegenbegroting(data: Data, r: Resultaat, meta: Meta): Tegenb
     besparingen,
     investeringen,
     kettingeffecten,
-    gebeurtenissen,
     ideeen: meta.idee.trim(),
     gevolgen: {
       inwoners: personaZinnen(data, r).map((p) => ({ naam: p.naam, zin: p.zin })),

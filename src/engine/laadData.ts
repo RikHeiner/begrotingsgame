@@ -16,7 +16,6 @@ import {
   metersSchema,
   personasSchema,
   tegenbegrotingSchema,
-  gebeurtenissenSchema,
   tarievenSchema,
   parkerenSchema,
   woonlastenSchema,
@@ -24,7 +23,6 @@ import {
   type Woonlasten,
   type Tarieven,
   type Actiekaart,
-  type Gebeurtenis,
   type Begroting,
   type Belasting,
   type Config,
@@ -59,8 +57,6 @@ export type Data = {
   reacties: Reactie[];
   badges: BadgesData;
   teksten: Teksten;
-  /** gebeurteniskaarten voor de campagnemodus */
-  gebeurtenissen: Gebeurtenis[];
   /** tarieven van de lokale heffingen, als config.json ze noemt */
   tarieven?: Tarieven;
   /** parkeren per vergunning en tariefgebied, als config.json het noemt */
@@ -77,7 +73,6 @@ export type Data = {
     deelprogrammas: Map<string, Deelprogramma>;
     verbanden: Map<string, Dwarsverband>;
     meterPerKort: Map<string, MeterId>;
-    gebeurtenissen: Map<string, Gebeurtenis>;
   };
 };
 
@@ -93,7 +88,6 @@ export const SPEL_BESTANDEN = {
   badges: 'spel/badges.json',
   teksten: 'spel/teksten.json',
   personas: 'spel/personas.json',
-  gebeurtenissen: 'spel/gebeurtenissen.json',
 } as const;
 
 export class DataFout extends Error {
@@ -128,7 +122,6 @@ export type RuweData = {
   badges: unknown;
   teksten: unknown;
   personas: unknown;
-  gebeurtenissen: unknown;
   tarieven?: { bestand: string; inhoud: unknown };
   parkeren?: { bestand: string; inhoud: unknown };
   woonlasten?: { bestand: string; inhoud: unknown };
@@ -161,22 +154,6 @@ export function maakData(ruw: RuweData): Data {
   const reacties = valideer(reactiesSchema, ruw.reacties, SPEL_BESTANDEN.reacties).reacties;
   const badges = valideer(badgesSchema, ruw.badges, SPEL_BESTANDEN.badges);
   const teksten = valideer(tekstenSchema, ruw.teksten, SPEL_BESTANDEN.teksten);
-  const gebeurtenissen = valideer(
-    gebeurtenissenSchema,
-    ruw.gebeurtenissen,
-    SPEL_BESTANDEN.gebeurtenissen,
-  ).gebeurtenissen;
-  const onbekend: string[] = [];
-  for (const g of gebeurtenissen)
-    for (const { basis } of g.effecten) {
-      if (basis.soort === 'lasten')
-        for (const id of basis.posten)
-          if (!begroting.onderdelen.some((o) => o.id === id))
-            onbekend.push(`${g.id}: post "${id}" bestaat niet`);
-      if (basis.soort === 'belasting' && !begroting.belastingen.some((x) => x.id === basis.id))
-        onbekend.push(`${g.id}: belasting "${basis.id}" bestaat niet`);
-    }
-  if (onbekend.length) throw new DataFout(SPEL_BESTANDEN.gebeurtenissen, onbekend);
   const tarieven = ruw.tarieven
     ? valideer(tarievenSchema, ruw.tarieven.inhoud, ruw.tarieven.bestand)
     : undefined;
@@ -243,22 +220,16 @@ export function maakData(ruw: RuweData): Data {
     reacties,
     badges,
     teksten,
-    gebeurtenissen,
     ...(tarieven ? { tarieven } : {}),
     ...(parkeren ? { parkeren } : {}),
     ...(woonlasten ? { woonlasten } : {}),
     vergelijking,
     jaren: [...config.meerjarenHorizon],
-    index: maakIndex(begroting, dwarsverbanden, meters, gebeurtenissen),
+    index: maakIndex(begroting, dwarsverbanden, meters),
   };
 }
 
-function maakIndex(
-  begroting: Begroting,
-  dwarsverbanden: Dwarsverbanden,
-  meters: MetersData,
-  gebeurtenissen: Gebeurtenis[],
-) {
+function maakIndex(begroting: Begroting, dwarsverbanden: Dwarsverbanden, meters: MetersData) {
   return {
     onderdelen: new Map(begroting.onderdelen.map((o) => [o.id, o])),
     belastingen: new Map(begroting.belastingen.map((b) => [b.id, b])),
@@ -266,7 +237,6 @@ function maakIndex(
     deelprogrammas: new Map(begroting.deelprogrammas.map((d) => [d.code, d])),
     verbanden: new Map(dwarsverbanden.dwarsverbanden.map((v) => [v.id, v])),
     meterPerKort: new Map(meters.meters.map((m) => [m.kort, m.id])),
-    gebeurtenissen: new Map(gebeurtenissen.map((g) => [g.id, g])),
   };
 }
 
@@ -279,7 +249,7 @@ export function metExtraKaarten(data: Data, kaarten: Actiekaart[]): Data {
   return {
     ...data,
     begroting,
-    index: maakIndex(begroting, data.dwarsverbanden, data.meters, data.gebeurtenissen),
+    index: maakIndex(begroting, data.dwarsverbanden, data.meters),
   };
 }
 

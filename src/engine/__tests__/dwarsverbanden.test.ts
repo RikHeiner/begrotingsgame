@@ -121,12 +121,6 @@ const GEVALLEN: Record<string, Geval> = {
     bedragen: [0, 0, 0, 0.1095987],
   },
   rijk_ozb_rekentarief: { keuzes: { belastingen: { t1: -10 } }, status: 'alleen uitleg' },
-  // −0,01 × 825,768
-  rijk_accres: {
-    keuzes: { gebeurtenissen: ['rijk_accres'] },
-    status: 'doorgerekend',
-    bedragen: [-8.25768, -8.25768, -8.25768, -8.25768],
-  },
   // s3 +10% = 2,07 mln → 2,07 / 0,008 × 0,3 = 77,625 huishoudens.
   // Bijstand: 77,625 × 0,0165 = 1,2808125; minima: 77,625 × 0,0015 = 0,1164375; samen 1,39725.
   // Ingroei 0,3 / 0,7 / 1 / 1.
@@ -300,7 +294,6 @@ const GEVALLEN: Record<string, Geval> = {
     keuzes: { kaarten: ['test_investering'] },
     status: 'nog niet doorgerekend',
   },
-  fin_onvoorzien: { keuzes: { gebeurtenissen: ['test'] }, status: 'alleen uitleg' },
   // c2 −10%: 3,02 bespaard; in 2026 telt maar 25%: −3,02 × 0,75 = −2,265
   jur_subsidies: {
     keuzes: { onderdelen: { c2: -10 } },

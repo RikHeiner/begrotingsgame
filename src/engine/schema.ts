@@ -205,14 +205,7 @@ export const parameterSchema = z
   .strict();
 export type Parameter = z.infer<typeof parameterSchema>;
 
-export const richtingSchema = z.enum([
-  'beide',
-  'bezuiniging',
-  'investering',
-  'groei',
-  'regel',
-  'gebeurtenis',
-]);
+export const richtingSchema = z.enum(['beide', 'bezuiniging', 'investering', 'groei', 'regel']);
 
 export const dwarsverbandSchema = z
   .object({
@@ -704,51 +697,6 @@ export const woonlastenSchema = z
   })
   .strict();
 export type Woonlasten = z.infer<typeof woonlastenSchema>;
-
-// ---------- spel/gebeurtenissen.json ----------
-
-const scenarioBand = z
-  .object({
-    waarde: z.number().positive(),
-    laag: z.number().positive(),
-    hoog: z.number().positive(),
-  })
-  .strict()
-  .refine((b) => b.laag <= b.waarde && b.waarde <= b.hoog, 'laag ≤ waarde ≤ hoog');
-
-export const gebeurtenisEffectSchema = z
-  .object({
-    basis: z.discriminatedUnion('soort', [
-      z.object({ soort: z.literal('lasten'), posten: z.array(z.string()).min(1) }).strict(),
-      z.object({ soort: z.literal('belasting'), id: z.string() }).strict(),
-      z.object({ soort: z.literal('kengetal'), naam: z.literal('gemeentefonds_x1000') }).strict(),
-    ]),
-    richting: z.enum(['kosten', 'opbrengst']),
-    /** fractie van de basis (0,04 = 4%), met grenzen voor de scenario's */
-    pct: scenarioBand,
-  })
-  .strict();
-
-export const gebeurtenissenSchema = z
-  .object({
-    toelichting: z.string(),
-    gebeurtenissen: z
-      .array(
-        z
-          .object({
-            id: z.string().regex(/^g_[a-z0-9_]+$/),
-            naam: z.string().min(1),
-            tekst: z.string().min(1),
-            soort: z.enum(['S', 'I']),
-            effecten: z.array(gebeurtenisEffectSchema).min(1),
-          })
-          .strict(),
-      )
-      .min(15),
-  })
-  .strict();
-export type GebeurtenissenData = z.infer<typeof gebeurtenissenSchema>;
-export type Gebeurtenis = GebeurtenissenData['gebeurtenissen'][number];
 
 // ---------- spel/personas.json ----------
 

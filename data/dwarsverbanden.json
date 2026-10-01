@@ -376,32 +376,6 @@
    "bron": "Verdeelsystematiek gemeentefonds (inkomstenverevening)"
   },
   {
-   "id": "rijk_accres",
-   "categorie": "Gemeentefonds-verdeelmodel",
-   "naam": "Rijksbezuinigingen en het 'ravijnjaar'",
-   "van": [
-    "gebeurtenis:willekeurig"
-   ],
-   "naar": [
-    "grootheid:gemeentefonds"
-   ],
-   "mechanisme": "De hoogte van het gemeentefonds hangt af van rijksbeleid en wordt elk jaar bijgesteld in de mei- en septembercirculaire. In de game een gebeurteniskaart: 'Het Rijk kort op het gemeentefonds'.",
-   "formule": "delta_gemeentefonds = scenario_pct * gemeentefonds",
-   "parameters": {
-    "scenario_pct": {
-     "waarde": -0.01,
-     "eenheid": "fractie",
-     "status": "aanname",
-     "toelichting": "Scenario, geen voorspelling."
-    }
-   },
-   "vertraging_jaren": 0,
-   "richting": "gebeurtenis",
-   "meters": {},
-   "melding": "Het Rijk kort op het gemeentefonds. Je moet extra bezuinigen.",
-   "bron": "Spelontwerp"
-  },
-  {
    "id": "wia_reintegratie",
    "categorie": "Werk, inkomen en armoede",
    "naam": "Meer begeleiding naar werk betekent minder bijstand",
@@ -1874,25 +1848,6 @@
    "bron": "Treasuryparagraaf"
   },
   {
-   "id": "fin_onvoorzien",
-   "categorie": "Financiering, reserves en tijd",
-   "naam": "Tegenvallers: gebeurteniskaarten",
-   "van": [
-    "gebeurtenis:willekeurig"
-   ],
-   "naar": [
-    "saldo:structureel"
-   ],
-   "mechanisme": "Laat tijdens het spel gebeurtenissen voorkomen, zoals een stijging van de jeugdzorgkosten, een hogere cao, een strenge winter (gladheidsbestrijding), een meicirculaire of een aardbevingsschade-regeling. De speler moet dan bijsturen. Een reserve of post onvoorzien vangt ze op.",
-   "formule": "",
-   "parameters": {},
-   "vertraging_jaren": 0,
-   "richting": "gebeurtenis",
-   "meters": {},
-   "melding": "",
-   "bron": "Spelontwerp"
-  },
-  {
    "id": "jur_subsidies",
    "categorie": "Juridisch en contractueel",
    "naam": "Subsidies afbouwen kost tijd",
@@ -2008,7 +1963,6 @@
    "set:": "een verzameling maatregelen",
    "verband:<id>": "verwijzing naar een ander dwarsverband",
    "regel:": "een spelregel",
-   "gebeurtenis:": "een gebeurteniskaart",
    "nieuw:": "een post of schuif die nog aan de begrotingsdata moet worden toegevoegd (zie 'nieuw')"
   },
   "nieuw": {
