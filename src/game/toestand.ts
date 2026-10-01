@@ -48,9 +48,13 @@ export function toestandBij(score: number, d: KaartData['toestanden']): Toestand
   return 'bloeiend';
 }
 
-/** Netto effect van een gebouw op het saldo in het eerste jaar (euro's, + = gunstig). */
-export function gebouwBedrag(data: Data, gebouw: Gebouw, r: Resultaat): number {
-  const jaar = data.jaren[0];
+/** Netto effect van een gebouw op het saldo in een jaar (standaard het eerste; euro's, + = gunstig). */
+export function gebouwBedrag(
+  data: Data,
+  gebouw: Gebouw,
+  r: Resultaat,
+  jaar = data.jaren[0],
+): number {
   const bronnen = new Set<string>(
     gebouw.soort === 'loket'
       ? data.begroting.belastingen.map((b) => b.id)
@@ -69,6 +73,8 @@ export function gebouwStanden(
   data: Data,
   kaart: KaartData,
   r: Resultaat,
+  /** in de campagne: het jaar van de ronde */
+  jaar = data.jaren[0],
 ): Record<string, GebouwStand> {
   const uit: Record<string, GebouwStand> = {};
   for (const g of data.gebouwen) {
@@ -80,7 +86,7 @@ export function gebouwStanden(
       id: g.id,
       score,
       toestand: toestandBij(score, kaart.toestanden),
-      bedrag: gebouwBedrag(data, g, r),
+      bedrag: gebouwBedrag(data, g, r, jaar),
     };
   }
   return uit;

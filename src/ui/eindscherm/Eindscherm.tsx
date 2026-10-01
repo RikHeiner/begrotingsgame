@@ -19,7 +19,9 @@ import {
 } from '../../game/score';
 import { useSpel } from '../../game/state/store';
 import { insturenMogelijk } from '../../inzending/opslag';
+import { rekenCampagne } from '../../game/campagne';
 import { gezicht } from '../hud/gezicht';
+import { CampagneOverzicht } from './CampagneOverzicht';
 import { InstuurDialoog } from './InstuurDialoog';
 import { SaldoGrafiek, VergelijkGrafiek } from './grafieken';
 
@@ -75,7 +77,23 @@ export function Eindscherm({ data, resultaat }: { data: Data; resultaat: Resulta
   const aantal = st.filter((s) => s.gehaald).length;
   const badges = behaaldeBadges(data, lees);
   const m = maatregelen(data, resultaat);
-  const g = useMemo(() => gevoeligheid(data, resultaat.keuzes), [data, resultaat]);
+  const campagne = useSpel((s) => s.campagne);
+  const g = useMemo(
+    () =>
+      gevoeligheid(
+        data,
+        resultaat.keuzes,
+        campagne
+          ? (k, scenario) =>
+              rekenCampagne(
+                data,
+                { ...campagne, vastgelegd: campagne.vastgelegd.map((v) => ({ ...v, scenario })) },
+                { ...k, scenario },
+              )
+          : undefined,
+      ),
+    [data, resultaat, campagne],
+  );
   const tb = data.vergelijking[0];
   const vergelijking = useMemo(
     () => vergelijkPerThema(data, resultaat, tb?.tegenbegroting),
@@ -125,6 +143,8 @@ export function Eindscherm({ data, resultaat }: { data: Data; resultaat: Resulta
           ))}
         </ul>
       </header>
+
+      {campagne && <CampagneOverzicht data={data} resultaat={resultaat} />}
 
       <section className="eind-blok">
         <h2>Saldo per jaar</h2>

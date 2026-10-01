@@ -197,10 +197,13 @@ export function maatregelen(
 export function gevoeligheid(
   data: Data,
   keuzes: Keuzes,
+  /** in de campagne: rekent alle rondes door met het andere scenario */
+  reken: (k: Keuzes, scenario: Keuzes['scenario']) => Resultaat = (k, scenario) =>
+    bereken(data, { ...k, scenario }),
 ): Record<'voorzichtig' | 'midden' | 'optimistisch', number> {
   const laatste = data.jaren.at(-1) ?? 0;
   const s = (scenario: Keuzes['scenario']) =>
-    bereken(data, { ...keuzes, scenario }).perJaar[laatste]?.structureel ?? 0;
+    reken(keuzes, scenario).perJaar[laatste]?.structureel ?? 0;
   return { voorzichtig: s('voorzichtig'), midden: s('midden'), optimistisch: s('optimistisch') };
 }
 

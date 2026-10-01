@@ -4,8 +4,9 @@
  */
 import { useState } from 'react';
 import { blijeInwoners, formatMln, type Data, type Resultaat } from '../../engine';
-import { useSpel } from '../../game/state/store';
+import { huidigJaar, useSpel } from '../../game/state/store';
 import { lezerVoor, missieStand } from '../../game/score';
+import { GebeurtenisDialoog } from './GebeurtenisDialoog';
 import { Geldpotje } from './Geldpotje';
 import { gezicht } from './gezicht';
 import { InstellingenDialoog } from './InstellingenDialoog';
@@ -21,14 +22,21 @@ export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
   const zetWeergave = useSpel((s) => s.zetWeergave);
   const missieId = useSpel((s) => s.missie);
   const indienen = useSpel((s) => s.indienen);
-  const jaar = data.jaren[0] ?? 0;
+  const campagne = useSpel((s) => s.campagne);
+  const volgendeRonde = useSpel((s) => s.volgendeRonde);
+  const zetKaartenOpen = useSpel((s) => s.zetKaartenOpen);
+  const jaar = huidigJaar(data, campagne);
+  const laatsteRonde = campagne?.ronde === data.jaren.length;
   const s = resultaat.perJaar[jaar]?.structureel ?? 0;
   const i = resultaat.perJaar[jaar]?.incidenteel ?? 0;
   const blij = blijeInwoners(resultaat.personas);
   const missie = data.missies.missies.find((m) => m.id === missieId);
   const stand = missie ? missieStand(missie, lezerVoor(data, resultaat)) : undefined;
   const klasse = (x: number) => (x < -0.5 ? 'negatief' : x > 0.5 ? 'positief' : '');
-  const minimum = Math.min(...data.jaren.map((j) => resultaat.perJaar[j]?.structureel ?? 0));
+  // In de campagne liggen eerdere jaren vast: het slot kijkt naar dit jaar en later.
+  const minimum = Math.min(
+    ...data.jaren.filter((j) => j >= jaar).map((j) => resultaat.perJaar[j]?.structureel ?? 0),
+  );
 
   return (
     <header className="hud">
@@ -40,7 +48,7 @@ export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
           data-testid="saldo"
           onClick={() => setOpen('waarom')}
         >
-          <span className="hud-label">Elk jaar</span>
+          <span className="hud-label">{campagne ? `Elk jaar (${jaar})` : 'Elk jaar'}</span>
           <strong className={klasse(s)}>{formatMln(s, { teken: true })}</strong>
           <span className="hud-waarom">Waarom?</span>
         </button>
@@ -50,7 +58,7 @@ export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
           data-testid="eenmalig"
           onClick={() => setOpen('waarom')}
         >
-          <span className="hud-label">Eenmalig</span>
+          <span className="hud-label">{campagne ? `Eenmalig (${jaar})` : 'Eenmalig'}</span>
           <strong className={klasse(i)}>{formatMln(i, { teken: true })}</strong>
           <span className="hud-waarom">Waarom?</span>
         </button>
@@ -68,6 +76,16 @@ export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
         </button>
       </div>
       <div className="hud-rij hud-onder">
+        {campagne && (
+          <button
+            type="button"
+            className="hud-ronde"
+            data-testid="ronde"
+            onClick={() => zetKaartenOpen(true)}
+          >
+            Ronde {campagne.ronde}/{data.jaren.length} · {jaar}
+          </button>
+        )}
         <button
           type="button"
           className="hud-missie"
@@ -117,9 +135,20 @@ export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
         >
           ⚙︎
         </button>
-        <button type="button" className="knop-indienen" data-testid="indienen" onClick={indienen}>
-          Indienen
-        </button>
+        {campagne && !laatsteRonde ? (
+          <button
+            type="button"
+            className="knop-indienen"
+            data-testid="volgende-ronde"
+            onClick={volgendeRonde}
+          >
+            Naar {jaar + 1} →
+          </button>
+        ) : (
+          <button type="button" className="knop-indienen" data-testid="indienen" onClick={indienen}>
+            Indienen
+          </button>
+        )}
       </div>
       <WaaromDialoog
         open={open === 'waarom'}
@@ -139,6 +168,7 @@ export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
         data={data}
         resultaat={resultaat}
       />
+      <GebeurtenisDialoog data={data} resultaat={resultaat} />
       <MissieDialoog
         open={open === 'missie'}
         onSluit={() => setOpen(undefined)}

@@ -1381,3 +1381,71 @@
   height: 1px;
   overflow: hidden;
 }
+
+/* ---------- Campagne ---------- */
+.hud-ronde {
+  min-height: 44px;
+  padding: 0 0.7rem;
+  border-radius: 999px;
+  border: 2px solid var(--oranje);
+  background: color-mix(in srgb, var(--oranje) 12%, var(--paneel));
+  color: var(--inkt);
+  font: inherit;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.campagne-keuze {
+  padding: 0.8rem;
+  margin-bottom: 0.75rem;
+  border-radius: 0.8rem;
+  border: 2px solid var(--oranje);
+  background: color-mix(in srgb, var(--oranje) 8%, var(--paneel));
+}
+
+.campagne-keuze h3 {
+  margin: 0 0 0.3rem;
+}
+
+.kaartjes {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.gebeurtenis {
+  padding: 0.8rem 1rem;
+  border-radius: 0.8rem;
+  background: var(--achtergrond);
+  border-left: 6px solid var(--negatief);
+}
+
+.gebeurtenis.meevaller {
+  border-left-color: var(--positief);
+}
+
+.gebeurtenis h3 {
+  margin: 0.1rem 0 0.3rem;
+}
+
+.gebeurtenis p {
+  margin: 0.2rem 0;
+}
+
+.gebeurtenis-soort {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.gebeurtenis-bedrag strong {
+  font-size: 1.2rem;
+}
+
+.campagne-kaart {
+  display: block;
+}
+
+.tabel .links {
+  text-align: left;
+}

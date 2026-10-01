@@ -4,11 +4,10 @@
  */
 import { formatMln, grensBelasting, grensOnderdeel, type Data, type Resultaat } from '../../engine';
 import type { Gebouw } from '../../engine/schema';
-import { useSpel } from '../../game/state/store';
+import { huidigJaar, useSpel } from '../../game/state/store';
 import { Schuif } from './Schuif';
 
-function directBedrag(data: Data, r: Resultaat, bron: string): number {
-  const jaar = data.jaren[0];
+function directBedrag(r: Resultaat, bron: string, jaar: number): number {
   return r.effecten
     .filter((e) => e.jaar === jaar && e.stap === 'direct' && e.bron === bron)
     .reduce((s, e) => s + e.bedrag, 0);
@@ -80,6 +79,7 @@ export function GebouwPosten({
   resultaat: Resultaat;
 }) {
   const zetOnderdeel = useSpel((s) => s.zetOnderdeel);
+  const jaar = useSpel((s) => huidigJaar(data, s.campagne));
   const zetBelasting = useSpel((s) => s.zetBelasting);
   const wisselKaart = useSpel((s) => s.wisselKaart);
   const k = resultaat.keuzes;
@@ -100,7 +100,7 @@ export function GebouwPosten({
                 beschrijving={b.uitleg}
                 onChange={(v) => zetBelasting(b.id, v)}
               />
-              <Bedrag euro={directBedrag(data, resultaat, b.id)} />
+              <Bedrag euro={directBedrag(resultaat, b.id, jaar)} />
               <OokEffect data={data} resultaat={resultaat} id={b.id} />
             </li>
           );
@@ -175,7 +175,7 @@ export function GebouwPosten({
               }
               onChange={(v) => zetOnderdeel(id, v)}
             />
-            <Bedrag euro={directBedrag(data, resultaat, id)} />
+            <Bedrag euro={directBedrag(resultaat, id, jaar)} />
             <OokEffect data={data} resultaat={resultaat} id={id} />
           </li>
         );

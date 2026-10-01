@@ -17,6 +17,9 @@ export function MissieDialoog({
 }) {
   const missie = useSpel((s) => s.missie);
   const kies = useSpel((s) => s.kiesMissie);
+  const campagne = useSpel((s) => s.campagne);
+  const startCampagne = useSpel((s) => s.startCampagne);
+  const stopCampagne = useSpel((s) => s.stopCampagne);
   const lees = lezerVoor(data, resultaat);
   const kiezen = (id?: string) => {
     kies(id);
@@ -24,6 +27,38 @@ export function MissieDialoog({
   };
   return (
     <Dialoog open={open} onSluit={onSluit} titel="Kies een missie">
+      <section className="campagne-keuze" aria-labelledby="campagne-kop">
+        <h3 id="campagne-kop">🗓️ Campagne: vier jaar besturen</h3>
+        <p>
+          Speel {data.jaren[0]} tot en met {data.jaren.at(-1)}, één jaar per ronde. Elke ronde
+          gebeurt er iets onverwachts en stuur je bij. Je begint opnieuw met de begroting van het
+          college.
+        </p>
+        {campagne ? (
+          <button
+            type="button"
+            className="knop"
+            onClick={() => {
+              stopCampagne();
+              onSluit();
+            }}
+          >
+            Stop de campagne
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="knop-indienen"
+            data-testid="start-campagne"
+            onClick={() => {
+              onSluit();
+              startCampagne();
+            }}
+          >
+            Start de campagne
+          </button>
+        )}
+      </section>
       <ul className="missies">
         <li>
           <button
