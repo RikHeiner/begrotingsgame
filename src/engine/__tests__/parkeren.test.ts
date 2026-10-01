@@ -59,8 +59,12 @@ describe('parkeren per vergunning en tariefgebied', () => {
   });
 
   it('grenzen per post', () => {
-    const r = bereken(data, keuzes({ parkeren: { kortparkeren: 80, onbekend: 5 } }));
-    expect(r.keuzes.parkeren?.kortparkeren).toBe(50);
+    const r = bereken(data, keuzes({ parkeren: { kortparkeren: -150, onbekend: 5 } }));
+    expect(r.keuzes.parkeren?.kortparkeren).toBe(-100);
+    // Geen maximum meer naar boven
+    expect(
+      bereken(data, keuzes({ parkeren: { kortparkeren: 80 } })).keuzes.parkeren?.kortparkeren,
+    ).toBe(80);
     expect(r.keuzes.parkeren).not.toHaveProperty('onbekend');
     expect(r.correcties.some((c) => c.includes('onbekend'))).toBe(true);
   });

@@ -2049,7 +2049,7 @@
    "deelprogramma": "4.3",
    "opbrengst_mln": 125.3,
    "min_pct": -30,
-   "max_pct": 20,
+   "max_pct": null,
    "voelbaarheid_portemonnee": 1,
    "uitleg": "Betalen alle huiseigenaren en bedrijven. Huurders betalen indirect mee via de huur."
   },
@@ -2059,7 +2059,7 @@
    "deelprogramma": "1.2",
    "opbrengst_mln": 35.1,
    "min_pct": -100,
-   "max_pct": 20,
+   "max_pct": null,
    "voelbaarheid_portemonnee": 0.6,
    "uitleg": "Parkeergeld en vergunningen. Op −100% is parkeren overal gratis."
   },
@@ -2069,7 +2069,7 @@
    "deelprogramma": "4.3",
    "opbrengst_mln": 2.9,
    "min_pct": -100,
-   "max_pct": 100,
+   "max_pct": null,
    "voelbaarheid_portemonnee": 0.05,
    "uitleg": "Betalen hotelgasten. Groningers merken er weinig van."
   },
@@ -2079,7 +2079,7 @@
    "deelprogramma": "2.2",
    "opbrengst_mln": 1.8,
    "min_pct": -100,
-   "max_pct": 50,
+   "max_pct": null,
    "voelbaarheid_portemonnee": 0.2,
    "uitleg": "Betaal je voor spullen op straat, zoals een container of steiger bij een verbouwing."
   },
@@ -2089,7 +2089,7 @@
    "deelprogramma": "4.3",
    "opbrengst_mln": 0.7,
    "min_pct": -100,
-   "max_pct": 50,
+   "max_pct": null,
    "voelbaarheid_portemonnee": 0.15,
    "uitleg": "Betalen ondernemers voor reclame aan de gevel."
   }

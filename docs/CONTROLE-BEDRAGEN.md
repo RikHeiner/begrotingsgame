@@ -172,11 +172,11 @@ Lasten en meebewegende baten per post. ✓ = gecontroleerd tegen het boekwerk (i
 
 | ✓ | Id | Belasting | Opbrengst | Grenzen |
 | --- | --- | --- | --- | --- |
-| ☐ | t1 | Onroerendezaakbelasting (OZB) | 125,300 | -30% tot +20% |
-| ☐ | t5 | Parkeertarieven | 35,100 | -100% tot +20% |
-| ☐ | t2 | Toeristenbelasting | 2,900 | -100% tot +100% |
-| ☐ | t4 | Precariobelasting | 1,800 | -100% tot +50% |
-| ☐ | t3 | Reclamebelasting | 0,700 | -100% tot +50% |
+| ☐ | t1 | Onroerendezaakbelasting (OZB) | 125,300 | -30% tot geen maximum |
+| ☐ | t5 | Parkeertarieven | 35,100 | -100% tot geen maximum |
+| ☐ | t2 | Toeristenbelasting | 2,900 | -100% tot geen maximum |
+| ☐ | t4 | Precariobelasting | 1,800 | -100% tot geen maximum |
+| ☐ | t3 | Reclamebelasting | 0,700 | -100% tot geen maximum |
 
 ## 6. Actiekaarten
 

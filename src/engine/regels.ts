@@ -29,7 +29,7 @@ export function grensOnderdeel(o: Onderdeel): Grens {
 }
 
 export function grensBelasting(b: Belasting): Grens {
-  return { min: b.min_pct, max: b.max_pct };
+  return { min: b.min_pct, max: b.max_pct ?? Infinity };
 }
 
 /** Uitleg waarom een percentage buiten de grens valt, of undefined als het mag. */

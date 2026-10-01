@@ -10,7 +10,7 @@ test('eerste bezoek: uitleg, dan de gemeente; daarna niet meer', async ({ page }
   await page.goto('/');
   const start = page.getByTestId('startscherm');
   await expect(start).toBeVisible();
-  await expect(start.getByRole('heading', { level: 1 })).toHaveText('Jij bent gemeenteraadslid');
+  await expect(page.getByRole('dialog', { name: 'Jij bent gemeenteraadslid' })).toBeVisible();
   await expect(start).toContainText('€ 1.482 miljoen');
   await expect(start).toContainText('Wie betaalt meer, wie minder?');
   await expect(start).toContainText('Wat kan minder, of later?');
@@ -20,7 +20,10 @@ test('eerste bezoek: uitleg, dan de gemeente; daarna niet meer', async ({ page }
     .analyze();
   expect(axe.violations.map((v) => v.id)).toEqual([]);
 
+  // De gemeente staat er al achter.
+  await expect(page.getByTestId('saldo')).toBeAttached();
   await page.getByTestId('begin').click();
+  await expect(page.getByTestId('startscherm')).toHaveCount(0);
   await expect(page.getByTestId('saldo')).toBeVisible();
   await page.reload();
   await expect(page.getByTestId('saldo')).toBeVisible();
@@ -30,6 +33,9 @@ test('eerste bezoek: uitleg, dan de gemeente; daarna niet meer', async ({ page }
   await page.getByRole('button', { name: 'Instellingen' }).click();
   await page.getByTestId('uitleg').click();
   await expect(page.getByTestId('startscherm')).toBeVisible();
+  // Escape sluit de pop-up ook.
+  await page.keyboard.press('Escape');
+  await expect(page.getByTestId('startscherm')).toHaveCount(0);
 });
 
 test('een gedeelde link opent direct de begroting', async ({ page }) => {

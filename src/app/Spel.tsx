@@ -86,14 +86,6 @@ export function Spel({ data }: { data: Data }) {
 
   if (!resultaat) return null;
 
-  if (startscherm && !gelezen) {
-    return (
-      <div className="spel">
-        <Startscherm data={data} onBegin={() => zetStartscherm(false)} />
-      </div>
-    );
-  }
-
   if (fase === 'document') {
     return (
       <div className="spel">
@@ -141,7 +133,11 @@ export function Spel({ data }: { data: Data }) {
       <p className="toast" role="status" aria-live="polite" data-testid="melding">
         {melding && <span>🔒 {melding}</span>}
       </p>
-      <Tutorial data={data} resultaat={resultaat} />
+      {startscherm && !gelezen ? (
+        <Startscherm data={data} onBegin={() => zetStartscherm(false)} />
+      ) : (
+        <Tutorial data={data} resultaat={resultaat} />
+      )}
     </div>
   );
 }

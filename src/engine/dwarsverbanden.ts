@@ -707,7 +707,10 @@ export const IMPLEMENTATIES: Record<string, Implementatie> = {
       c.effect({
         doel: 'baten:t5',
         kant: 'baten',
-        bedragen: perJaar(c.n, () => c.opbrengst('t5') * e * x * (1 + x)),
+        // Minder auto's bij een hoger tarief, maar de opbrengst wordt nooit lager dan nul.
+        bedragen: perJaar(c.n, () =>
+          Math.max(c.opbrengst('t5') * e * x * (1 + x), -c.opbrengst('t5') * (1 + x)),
+        ),
         params: ['elasticiteit'],
         uitleg:
           x > 0

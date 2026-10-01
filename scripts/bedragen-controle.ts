@@ -197,7 +197,7 @@ tabel(
     x.id,
     x.naam,
     mln(x.opbrengst_mln),
-    `${x.min_pct}% tot +${x.max_pct}%`,
+    `${x.min_pct}% tot ${x.max_pct === null ? 'geen maximum' : `+${x.max_pct}%`}`,
   ]),
 );
 

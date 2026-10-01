@@ -1506,11 +1506,31 @@
   );
 }
 
-/* Startscherm */
+/* Startscherm: pop-up over de gemeente, de kaart blijft erachter zichtbaar */
 .startscherm {
-  max-width: 44rem;
-  margin: 0 auto;
-  padding: 1.5rem 1rem 3rem;
+  width: min(40rem, calc(100% - 1.5rem));
+  max-height: calc(100dvh - 2rem);
+  padding: 0;
+  border: 0;
+  border-radius: 1.25rem;
+  /* Matglas: de kaart schemert erdoorheen, de tekst blijft leesbaar. */
+  background: color-mix(in srgb, var(--achtergrond) 78%, transparent);
+  backdrop-filter: blur(6px);
+  color: var(--inkt);
+  box-shadow: 0 20px 60px rgb(10 12 30 / 0.3);
+}
+
+/* Licht, zodat de gemeente erachter zichtbaar blijft. */
+.startscherm::backdrop {
+  background: rgb(10 12 30 / 0.15);
+}
+
+.startscherm h2#start-kop:focus {
+  outline: none;
+}
+
+.start-inhoud {
+  padding: 1.25rem 1rem 1.25rem;
 }
 
 .start-boven {
@@ -1519,44 +1539,40 @@
   font-weight: 700;
 }
 
-.startscherm h1 {
+.startscherm h2#start-kop {
   margin: 0.2rem 0 0.6rem;
-  font-size: clamp(2rem, 8vw, 3rem);
+  font-size: clamp(1.8rem, 7vw, 2.6rem);
   line-height: 1.05;
   color: var(--blauw);
 }
 
-.startscherm h1:focus {
-  outline: none;
-}
-
 .start-intro {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
 }
 
 .start-vragen {
   list-style: none;
   padding: 0;
-  margin: 1.25rem 0;
+  margin: 1rem 0;
   display: grid;
-  gap: 0.75rem;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 0.6rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
 }
 
 .start-vragen li {
-  padding: 0.9rem 1rem;
+  padding: 0.75rem 0.9rem;
   border-radius: 1rem;
-  background: var(--paneel);
+  background: color-mix(in srgb, var(--paneel) 92%, transparent);
   border: 2px solid color-mix(in srgb, var(--inkt) 12%, transparent);
 }
 
 .start-icoon {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
 }
 
-.start-vragen h2 {
+.start-vragen h3 {
   margin: 0.2rem 0 0.3rem;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
 }
 
 .start-vragen p {
@@ -1564,12 +1580,12 @@
 }
 
 .start-hoe-kop {
-  font-size: 1.15rem;
-  margin: 1.25rem 0 0.4rem;
+  font-size: 1.1rem;
+  margin: 1rem 0 0.4rem;
 }
 
 .start-hoe {
-  margin: 0 0 1.5rem;
+  margin: 0 0 1.25rem;
   padding-left: 1.4rem;
 }
 
@@ -1584,5 +1600,5 @@
 }
 
 .start-noot {
-  margin-top: 0.75rem;
+  margin: 0.75rem 0 0;
 }

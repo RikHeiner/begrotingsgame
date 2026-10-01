@@ -79,7 +79,8 @@ export const belastingSchema = z
     deelprogramma: z.string(),
     opbrengst_mln: z.number().nonnegative(),
     min_pct: z.number().min(-100).max(0),
-    max_pct: z.number().min(0).max(100),
+    /** null = geen maximum */
+    max_pct: z.number().min(0).nullable(),
     voelbaarheid_portemonnee: z.number().min(0).max(1),
     uitleg: z.string(),
     // Uitbreiding: tarieven voor "Wat betekent het voor mij?" (fase 6)
@@ -636,16 +637,26 @@ export const parkerenSchema = z
             .strict()
             .optional(),
           min_pct: z.number(),
-          max_pct: z.number(),
+          max_pct: z.number().nullable(),
           uitleg: z.string(),
         })
         .strict(),
     ),
     kortparkeren: z
-      .object({ naam: z.string(), min_pct: z.number(), max_pct: z.number(), uitleg: z.string() })
+      .object({
+        naam: z.string(),
+        min_pct: z.number(),
+        max_pct: z.number().nullable(),
+        uitleg: z.string(),
+      })
       .strict(),
     garages: z
-      .object({ naam: z.string(), min_pct: z.number(), max_pct: z.number(), uitleg: z.string() })
+      .object({
+        naam: z.string(),
+        min_pct: z.number(),
+        max_pct: z.number().nullable(),
+        uitleg: z.string(),
+      })
       .strict(),
   })
   .strict();

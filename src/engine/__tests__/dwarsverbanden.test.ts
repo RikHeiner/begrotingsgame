@@ -391,6 +391,16 @@ describe('dwarsverbanden', () => {
     expect(optimistisch.verbanden.ec_parkeren_elasticiteit?.eind).toBe('laag');
   });
 
+  it('een heel hoog parkeertarief: de opbrengst wordt niet negatief', () => {
+    // t5 +500%: zonder grens zou de terugval groter zijn dan de opbrengst.
+    const r = bereken(data, keuzes({ belastingen: { t5: 500 } }));
+    const jaar = data.jaren[0] ?? 0;
+    const t5 = r.effecten
+      .filter((e) => e.jaar === jaar && (e.bron.startsWith('t5') || e.doel === 'baten:t5'))
+      .reduce((s, e) => s + e.bedrag, 0);
+    expect(t5 + 35.1e6).toBeGreaterThanOrEqual(-1);
+  });
+
   it('de volgorde respecteert de graaf, ook bij grootheden', () => {
     const { volgorde } = bepaalVolgorde(data.dwarsverbanden.dwarsverbanden);
     const voor = (a: string, b: string) => volgorde.indexOf(a) < volgorde.indexOf(b);
