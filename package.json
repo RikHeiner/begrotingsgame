@@ -24,7 +24,11 @@
     "personas:overzicht": "tsx scripts/personas-overzicht.ts"
   },
   "dependencies": {
+    "@fontsource/asap": "^5.3.0",
+    "@fontsource/baloo-2": "^5.3.0",
     "d3-geo": "^3.1.1",
+    "howler": "^2.2.4",
+    "lz-string": "^1.5.0",
     "pixi.js": "^8.21.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -36,6 +40,7 @@
     "@playwright/test": "1.56.1",
     "@types/d3-geo": "^3.1.1",
     "@types/geojson": "^7946.0.16",
+    "@types/howler": "^2.2.13",
     "@types/node": "^22.20.4",
     "@types/react": "^18.3.31",
     "@types/react-dom": "^18.3.7",
@@ -51,6 +56,7 @@
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.71.0",
     "vite": "^8.3.1",
+    "vite-plugin-pwa": "^1.3.0",
     "vitest": "^5.0.3"
   }
 }

@@ -13,6 +13,13 @@
 import type { Data, Resultaat } from '../../engine';
 import type { GebouwStand } from '../toestand';
 
+/** Som van de directe effecten in een jaar met een teken (+1: alleen positief, −1: alleen negatief). */
+function directeSom(r: Resultaat, jaar: number, teken: 1 | -1): number {
+  return r.effecten
+    .filter((e) => e.jaar === jaar && e.stap === 'direct' && Math.sign(e.bedrag) === teken)
+    .reduce((s, e) => s + e.bedrag, 0);
+}
+
 export function maakLezer(
   data: Data,
   r: Resultaat,
@@ -42,6 +49,27 @@ export function maakLezer(
         );
       case 'sluitend':
         return r.regels.sluitend ? 1 : 0;
+      case 'vrijgemaakt':
+        return directeSom(r, jaar, 1) / 1e6;
+      case 'geinvesteerd':
+        return -directeSom(r, jaar, -1) / 1e6;
+      case 'lasten_verschil': {
+        const nu = r.perJaar[jaar]?.lasten ?? 0;
+        const basis =
+          data.begroting.deelprogrammas.reduce(
+            (x, d) => x + (d.lasten_x1000[String(jaar)] ?? 0),
+            0,
+          ) * 1000;
+        return (nu - basis) / 1e6;
+      }
+      case 'weerstand':
+        return r.weerstandsvermogen * 100;
+      case 'woningen':
+        return r.grootheden.extra_woningen?.at(-1) ?? 0;
+      case 'persona_min':
+        return Math.min(...Object.values(r.personas));
+      case 'meter_min':
+        return Math.min(...Object.values(r.meters));
       case 'reserve':
         return ((r.keuzes.reserve?.structureel ?? 0) + (r.keuzes.reserve?.eenmalig ?? 0)) / 1e6;
     }

@@ -41,12 +41,9 @@ export function laadDataNode(begrotingBestand?: string): Data {
     config,
     begroting,
     dwarsverbanden: leesJson('dwarsverbanden.json'),
-    meters: leesJson(SPEL_BESTANDEN.meters),
-    gebouwen: leesJson(SPEL_BESTANDEN.gebouwen),
-    gebieden: leesJson(SPEL_BESTANDEN.gebieden),
-    kaart: leesJson(SPEL_BESTANDEN.kaart),
-    reacties: leesJson(SPEL_BESTANDEN.reacties),
-    personas: leesJson(SPEL_BESTANDEN.personas),
+    ...(Object.fromEntries(
+      Object.entries(SPEL_BESTANDEN).map(([k, pad]) => [k, leesJson(pad)]),
+    ) as Record<keyof typeof SPEL_BESTANDEN, unknown>),
     vergelijking: (config.vergelijking as string[]).map((bestand) => ({
       bestand,
       inhoud: leesJson(bestand),

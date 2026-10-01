@@ -1,0 +1,28 @@
+{
+  "toelichting": "Vaste teksten in de game, op B1-niveau. Gebruik 'gemeente', niet 'stad'.",
+  "titel": "Maak de begroting van de gemeente Groningen",
+  "tutorial": [
+    {
+      "id": "gebouw",
+      "tekst": "Dit is jouw gemeente. Tik op een gebouw."
+    },
+    {
+      "id": "schuif",
+      "tekst": "Schuif naar links om te bezuinigen. Het geldpotje vult zich."
+    },
+    {
+      "id": "slot",
+      "tekst": "Nu is het slot eraf. Investeer ergens, of verlaag een belasting."
+    }
+  ],
+  "slot_dicht": "Het slot zit op de pot. Maak eerst geld vrij door ergens te bezuinigen.",
+  "slot_open": "Het slot is eraf: je hebt geld vrijgemaakt.",
+  "meters_uitleg": "De meters zijn een spelregel, geen voorspelling. 50 is de huidige begroting.",
+  "aanname_uitleg": "⚠︎ betekent: dit bedrag is een aanname of een spelregel, geen getal uit de begroting.",
+  "eindscherm": {
+    "geslaagd": "Missie geslaagd!",
+    "ingediend": "Je begroting is ingediend",
+    "niet_sluitend": "Je begroting sluit nog niet"
+  },
+  "colofon": "Een initiatief van de VVD-fractie Groningen-Haren. De bedragen komen uit de ontwerpbegroting; kettingeffecten met ⚠︎ zijn aannames."
+}

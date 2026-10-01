@@ -3,5 +3,6 @@
   "begroting": "begroting-2026.json",
   "vergelijking": ["tegenbegroting-vvd-2026.json"],
   "meerjarenHorizon": [2026, 2027, 2028, 2029],
-  "scenario": "midden"
+  "scenario": "midden",
+  "vergelijkingTonen": true
 }

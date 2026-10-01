@@ -157,6 +157,13 @@ export function bekendeNamen(data: {
     'saldo.incidenteel',
     'sluitend',
     'reserve',
+    'vrijgemaakt',
+    'geinvesteerd',
+    'lasten_verschil',
+    'weerstand',
+    'woningen',
+    'persona_min',
+    'meter_min',
   ]);
 }
 

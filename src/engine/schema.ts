@@ -20,6 +20,7 @@ export const configSchema = z
     vergelijking: z.array(bestandsnaam),
     meerjarenHorizon: z.array(z.number().int()).min(1),
     scenario: scenarioSchema.default('midden'),
+    vergelijkingTonen: z.boolean().default(true),
   })
   .strict()
   .refine((c) => c.meerjarenHorizon.every((j, i) => j === c.actiefJaar + i), {
@@ -442,6 +443,55 @@ export type Reactie = z.infer<typeof reactieSchema>;
 export const reactiesSchema = z
   .object({ toelichting: z.string(), reacties: z.array(reactieSchema).min(1) })
   .strict();
+
+// ---------- spel/missies.json ----------
+
+const voorwaardeItem = {
+  id: z.string().min(1),
+  icoon: z.string(),
+  naam: z.string(),
+  uitleg: z.string(),
+  voorwaarde: z.string().min(1),
+};
+
+export const missiesSchema = z
+  .object({
+    toelichting: z.string(),
+    missies: z.array(
+      z
+        .object({
+          ...voorwaardeItem,
+          voortgang: z
+            .object({ naam: z.string(), doel: z.number(), eenheid: z.string(), label: z.string() })
+            .strict(),
+        })
+        .strict(),
+    ),
+    badges: z.array(z.object(voorwaardeItem).strict()),
+    score: z.object({ gezond_mln: z.number(), meters_min: z.number() }).strict(),
+  })
+  .strict();
+export type MissiesData = z.infer<typeof missiesSchema>;
+export type Missie = MissiesData['missies'][number];
+
+// ---------- spel/teksten.json ----------
+
+export const tekstenSchema = z
+  .object({
+    toelichting: z.string(),
+    titel: z.string(),
+    tutorial: z.array(z.object({ id: z.string(), tekst: z.string() }).strict()).min(1),
+    slot_dicht: z.string(),
+    slot_open: z.string(),
+    meters_uitleg: z.string(),
+    aanname_uitleg: z.string(),
+    eindscherm: z
+      .object({ geslaagd: z.string(), ingediend: z.string(), niet_sluitend: z.string() })
+      .strict(),
+    colofon: z.string(),
+  })
+  .strict();
+export type Teksten = z.infer<typeof tekstenSchema>;
 
 // ---------- spel/personas.json ----------
 
