@@ -18,7 +18,7 @@ import type { Scenario } from '../../engine/schema';
 import { gebouwStanden, type GebouwStand } from '../toestand';
 
 export type Weergave = 'kaart' | 'lijst';
-export type Fase = 'spelen' | 'eindscherm';
+export type Fase = 'spelen' | 'eindscherm' | 'document';
 
 export type Lijn = { van: string; naar: string; positief: boolean };
 
@@ -69,6 +69,7 @@ type Spel = {
   zetWeergave(w: Weergave): void;
   zetGeluid(aan: boolean): void;
   indienen(): void;
+  toonDocument(): void;
   terugNaarGemeente(): void;
   opnieuw(): void;
   wisMelding(): void;
@@ -257,6 +258,9 @@ export const useSpel = create<Spel>((set, get) => {
     },
     indienen() {
       set({ fase: 'eindscherm', gekozenGebouw: undefined });
+    },
+    toonDocument() {
+      set({ fase: 'document' });
     },
     terugNaarGemeente() {
       set({ fase: 'spelen' });

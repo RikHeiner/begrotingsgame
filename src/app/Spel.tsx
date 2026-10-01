@@ -12,6 +12,7 @@ import { Hud } from '../ui/hud/Hud';
 import { KaartWeergave } from '../ui/kaart/KaartWeergave';
 import { Lijstweergave } from '../ui/lijstweergave/Lijstweergave';
 import { GebouwPaneel } from '../ui/panelen/GebouwPaneel';
+import { Documentweergave } from '../ui/tegenbegroting/Documentweergave';
 import { Tutorial } from '../ui/tutorial/Tutorial';
 import './spel.css';
 
@@ -77,6 +78,14 @@ export function Spel({ data }: { data: Data }) {
   );
 
   if (!resultaat) return null;
+
+  if (fase === 'document') {
+    return (
+      <div className="spel">
+        <Documentweergave data={data} resultaat={resultaat} />
+      </div>
+    );
+  }
 
   if (fase === 'eindscherm') {
     return (

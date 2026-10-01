@@ -4,7 +4,7 @@ Een game waarin inwoners hun eigen tegenbegroting maken voor de gemeente Groning
 Een initiatief van de VVD-fractie Groningen-Haren. De volledige opdracht staat in
 [`PROMPT-claude-code.md`](PROMPT-claude-code.md).
 
-Stand: **fase 3 (speelbare game)**. Kaart, HUD met geldpotje en slot, panelen met kettingeffecten, tutorial, missies, eindscherm, deellink, geluid (standaard uit) en offline spelen (PWA) werken. De export naar Word, PDF en afbeelding volgt in fase 4. De debugpagina van de rekenmotor staat op `/#debug`.
+Stand: **fase 4 (tegenbegroting als document)**. Kaart, HUD met geldpotje en slot, panelen met kettingeffecten, tutorial, missies, eindscherm, deellink, geluid (standaard uit) en offline spelen (PWA) werken. Vanuit het eindscherm maak je de tegenbegroting als document, met export naar Word (.docx), PDF (via printen) en een afbeelding van 1080 × 1350 voor sociale media. De debugpagina van de rekenmotor staat op `/#debug`.
 
 ## Starten
 
@@ -25,6 +25,7 @@ npm test               # unit tests van de rekenmotor (Vitest)
 npm run test:e2e       # end-to-end tests en screenshots (Playwright, 360×800, 390×844, 1440×900)
 npm run data:check     # controleert alle data (zie hieronder)
 npm run vvd:check      # rekent de VVD-tegenbegroting na met de schuiven van de game
+npm run vvd:word -- uit.docx  # maakt de VVD-tegenbegroting na in de game en schrijft hem als Word-bestand
 npm run personas:overzicht  # docs/INWONERS-AFSTEMMEN.md voor de fractie
 npm run iconen         # PWA-iconen opnieuw maken uit public/icoon.svg
 npm run geluiden       # geluidjes opnieuw maken (public/geluid/)
@@ -86,6 +87,19 @@ scripts/         data-check, data-diff, vvd-check
 - De keuzes staan in de URL (`?b=…`, gecomprimeerd met lz-string): elke begroting is een deelbare link.
 - De game werkt na het eerste bezoek ook offline (service worker met de data erin).
 - Lettertypen (Baloo 2 en Asap) worden zelf gehost; er gaat niets naar Google Fonts.
+
+## De tegenbegroting als document
+
+- `src/game/tegenbegroting/document.ts` maakt één documentmodel uit de keuzes. Word, PDF en de
+  afbeelding komen allemaal hieruit, dus de bedragen zijn overal gelijk.
+- De opbouw volgt de VVD-tegenbegroting: voorblad, inleiding, besparingen en investeringen per thema,
+  kettingeffecten (apart en gemarkeerd als aanname), eigen ideeën, gevolgen, financieel overzicht met
+  S/I-tabellen en meerjarig saldo, bronnen.
+- Word (`word.ts`, met de bibliotheek docx) en de afbeelding (`src/ui/tegenbegroting/afbeelding.ts`,
+  canvas) worden pas geladen als de speler op de knop drukt. PDF gaat via printen, met een eigen
+  printopmaak (A4).
+- Controle: de VVD-testcase in Word geeft dezelfde totalen als het origineel (op de bekende afwijkingen
+  na, zie `data/BEVINDINGEN.md`). Test: `src/game/__tests__/tegenbegroting.test.ts`.
 
 ## De kaart
 

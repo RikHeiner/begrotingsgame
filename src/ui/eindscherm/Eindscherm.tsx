@@ -53,6 +53,7 @@ export function Eindscherm({ data, resultaat }: { data: Data; resultaat: Resulta
   const opnieuw = useSpel((s) => s.opnieuw);
   const meta = useSpel((s) => s.meta);
   const zetMeta = useSpel((s) => s.zetMeta);
+  const toonDocument = useSpel((s) => s.toonDocument);
   const kop = useRef<HTMLHeadingElement>(null);
   const [gedeeld, setGedeeld] = useState<string>();
   const [toonVergelijking, setToonVergelijking] = useState(true);
@@ -242,8 +243,8 @@ export function Eindscherm({ data, resultaat }: { data: Data; resultaat: Resulta
           <button
             type="button"
             className="knop-indienen"
-            disabled
-            title="Volgt in de volgende versie"
+            onClick={toonDocument}
+            data-testid="maak-tegenbegroting"
           >
             Maak mijn tegenbegroting
           </button>
