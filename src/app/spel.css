@@ -1337,3 +1337,47 @@
     -webkit-print-color-adjust: exact;
   }
 }
+
+/* ---------- Insturen ---------- */
+.instuur-formulier select {
+  min-height: 44px;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.6rem;
+  border: 2px solid color-mix(in srgb, var(--inkt) 25%, transparent);
+  background: var(--achtergrond);
+  color: var(--inkt);
+  font: inherit;
+  font-weight: 400;
+}
+
+.keuze.toestemming {
+  align-items: flex-start;
+  padding: 0.4rem 0;
+}
+
+.keuze.toestemming input {
+  flex: none;
+  margin-top: 0.15rem;
+}
+
+.privacy {
+  margin: 0.75rem 0;
+}
+
+.privacy summary {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--blauw);
+  font-weight: 700;
+}
+
+/* Verborgen voor mensen, maar wel in het formulier (spamfilter). */
+.onzichtbaar {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}

@@ -489,6 +489,17 @@ export const tekstenSchema = z
       .object({ geslaagd: z.string(), ingediend: z.string(), niet_sluitend: z.string() })
       .strict(),
     colofon: z.string(),
+    insturen: z
+      .object({
+        toestemming_versie: z.number().int().positive(),
+        uitleg: z.string(),
+        toestemming: z.string(),
+        email_toestemming: z.string(),
+        privacy: z.array(z.string()).min(1),
+        bedankt: z.string(),
+        idee_waarschuwing: z.string(),
+      })
+      .strict(),
   })
   .strict();
 export type Teksten = z.infer<typeof tekstenSchema>;

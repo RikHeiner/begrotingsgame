@@ -44,7 +44,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: `npm run build && npm run preview -- --port ${POORT} --strictPort`,
+    command: `VITE_OPSLAG=lokaal npm run build && npm run preview -- --port ${POORT} --strictPort`,
     url: `http://localhost:${POORT}`,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

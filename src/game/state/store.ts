@@ -56,6 +56,9 @@ type Spel = {
   geluid: boolean;
   /** titel, naam en eigen idee voor de tegenbegroting */
   meta: Meta;
+  /** de keuzes (als JSON) die al zijn ingestuurd, om dubbel insturen te voorkomen */
+  ingestuurd?: string;
+  markeerIngestuurd(): void;
   zetMeta(m: Partial<Meta>): void;
   start(data: Data, keuzes?: Keuzes, missie?: string): void;
   probeer(nieuw: Keuzes, gebouw?: string): boolean;
@@ -261,6 +264,9 @@ export const useSpel = create<Spel>((set, get) => {
     },
     toonDocument() {
       set({ fase: 'document' });
+    },
+    markeerIngestuurd() {
+      set({ ingestuurd: JSON.stringify(get().keuzes) });
     },
     terugNaarGemeente() {
       set({ fase: 'spelen' });

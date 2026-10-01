@@ -127,4 +127,9 @@ update public.inzendingen set aangemaakt = now() - interval '25 months' where id
 select pg_temp.goed('opschonen verwijdert oude inzendingen', public.opschonen() = 1);
 select pg_temp.goed('de rest blijft', (select count(*) from public.inzendingen) = 5);
 
+-- ---------- Het filter doet hetzelfde als src/inzending/filter.ts ----------
+\set gevallen `cat supabase/tests/filter-gevallen.json`
+select pg_temp.goed('filter: ' || (g ->> 0), public.idee_verdacht(g ->> 0) = (g ->> 1)::boolean)
+  from jsonb_array_elements(:'gevallen'::jsonb) g;
+
 \echo 'Alle databasetests geslaagd.'

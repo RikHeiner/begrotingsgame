@@ -18,7 +18,9 @@ import {
   type Maatregel,
 } from '../../game/score';
 import { useSpel } from '../../game/state/store';
+import { insturenMogelijk } from '../../inzending/opslag';
 import { gezicht } from '../hud/gezicht';
+import { InstuurDialoog } from './InstuurDialoog';
 import { SaldoGrafiek, VergelijkGrafiek } from './grafieken';
 
 function Lijst({ titel, items, leeg }: { titel: string; items: Maatregel[]; leeg: string }) {
@@ -57,6 +59,9 @@ export function Eindscherm({ data, resultaat }: { data: Data; resultaat: Resulta
   const kop = useRef<HTMLHeadingElement>(null);
   const [gedeeld, setGedeeld] = useState<string>();
   const [toonVergelijking, setToonVergelijking] = useState(true);
+  const [insturen, setInsturen] = useState(false);
+  const kanInsturen = insturenMogelijk();
+  const alIngestuurd = useSpel((s) => s.ingestuurd === JSON.stringify(s.keuzes));
 
   useEffect(() => {
     kop.current?.focus();
@@ -251,9 +256,17 @@ export function Eindscherm({ data, resultaat }: { data: Data; resultaat: Resulta
           <button type="button" className="knop" onClick={deel}>
             Deel mijn begroting
           </button>
-          <button type="button" className="knop" disabled title="Volgt in een latere versie">
-            Stuur in naar de fractie
-          </button>
+          {kanInsturen && (
+            <button
+              type="button"
+              className="knop"
+              onClick={() => setInsturen(true)}
+              disabled={alIngestuurd}
+              data-testid="insturen"
+            >
+              {alIngestuurd ? 'Ingestuurd ✓' : 'Stuur in naar de fractie'}
+            </button>
+          )}
           <button type="button" className="knop" onClick={terug}>
             Terug naar de gemeente
           </button>
@@ -266,6 +279,14 @@ export function Eindscherm({ data, resultaat }: { data: Data; resultaat: Resulta
         </p>
       </section>
       <footer className="colofon">{data.teksten.colofon}</footer>
+      {kanInsturen && (
+        <InstuurDialoog
+          data={data}
+          resultaat={resultaat}
+          open={insturen}
+          onSluit={() => setInsturen(false)}
+        />
+      )}
     </main>
   );
 }
