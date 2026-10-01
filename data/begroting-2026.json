@@ -2271,5 +2271,12 @@
   "De onderdelen per deelprogramma zijn de posten uit 'Waar gaat het geld voornamelijk naar toe'. Ze dekken niet 100% van de lasten per deelprogramma; het restant is 'overige posten' en is in de game niet aanpasbaar.",
   "Parkeertarieven in de game gebruiken de baten van het parkeerbedrijf (35,1 mln, incl. vergunningen en garages); de kerngegevens noemen 26,3 mln parkeerbelasting.",
   "Meters, min/max-percentages, teksten en vergrendelingen zijn spelontwerp, geen begrotingsgegevens."
+ ],
+ "bekende_afwijkingen": [
+  {
+   "controle": "onderdelen_binnen_deelprogramma",
+   "deelprogramma": "2.1",
+   "toelichting": "De lasten van de onderdelen van 2.1 tellen op tot 139,8 mln; de lasten van het deelprogramma zijn 139,531 mln (0,269 mln minder). Nog niet uitgezocht welk getal klopt; zie data/BEVINDINGEN.md."
+  }
  ]
 }

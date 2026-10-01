@@ -91,6 +91,12 @@
      "eenheid": "fractie",
      "status": "aanname",
      "toelichting": "Aanname: leges dalen evenredig met capaciteit."
+    },
+    "drempel_pct": {
+     "waarde": 20,
+     "eenheid": "procent",
+     "status": "aanname",
+     "toelichting": "Toegevoegd uit de formule (bij pct < -20): vanaf deze bezuiniging loopt de woningbouw vertraging op."
     }
    },
    "vertraging_jaren": 0,
@@ -197,7 +203,9 @@
      "waarde": -0.4,
      "eenheid": "prijselasticiteit",
      "status": "aanname",
-     "toelichting": "Literatuur over vrijetijdsvoorzieningen: -0,2 tot -0,6."
+     "toelichting": "Literatuur over vrijetijdsvoorzieningen: -0,2 tot -0,6.",
+     "laag": -0.2,
+     "hoog": -0.6
     }
    },
    "vertraging_jaren": 0,
@@ -726,7 +734,9 @@
      "waarde": 0.3,
      "eenheid": "euro per euro",
      "status": "aanname",
-     "toelichting": "Bewijs wisselt per interventie: als bandbreedte 0,1 tot 0,5 tonen."
+     "toelichting": "Bewijs wisselt per interventie: als bandbreedte 0,1 tot 0,5 tonen.",
+     "laag": 0.1,
+     "hoog": 0.5
     },
     "ingroei": {
      "waarde": [
@@ -1121,7 +1131,9 @@
      "waarde": 1.5,
      "eenheid": "euro later per bespaarde euro nu",
      "status": "aanname",
-     "toelichting": "Vakliteratuur (CROW) noemt forse meerkosten; bandbreedte 1,2 tot 2,0."
+     "toelichting": "Vakliteratuur (CROW) noemt forse meerkosten; bandbreedte 1,2 tot 2,0.",
+     "laag": 1.2,
+     "hoog": 2.0
     }
    },
    "vertraging_jaren": 3,
@@ -1227,7 +1239,9 @@
      "waarde": -0.3,
      "eenheid": "prijselasticiteit parkeervraag",
      "status": "aanname",
-     "toelichting": "Literatuur: -0,1 tot -0,6."
+     "toelichting": "Literatuur: -0,1 tot -0,6.",
+     "laag": -0.1,
+     "hoog": -0.6
     },
     "factor_binnenstad": {
      "waarde": 10,
@@ -1600,7 +1614,9 @@
      "waarde": 0.05,
      "eenheid": "per jaar",
      "status": "aanname",
-     "toelichting": "Natuurlijk verloop bij gemeenten: 4 tot 7%."
+     "toelichting": "Natuurlijk verloop bij gemeenten: 4 tot 7%.",
+     "laag": 0.04,
+     "hoog": 0.07
     },
     "frictie_factor": {
      "waarde": 1.0,
@@ -1638,7 +1654,14 @@
    ],
    "mechanisme": "Minder overhead en ambtenaren betekent dat investeringen en projecten trager gaan. Dat geeft in het eerste jaar lagere kapitaallasten ('onderbesteding'), maar vertraagt resultaten.",
    "formule": "tempo_projecten *= (1 + 0.5 * pct_apparaat/100)",
-   "parameters": {},
+   "parameters": {
+    "factor_tempo": {
+     "waarde": 0.5,
+     "eenheid": "fractie",
+     "status": "aanname",
+     "toelichting": "Toegevoegd uit de formule (tempo_projecten *= 1 + 0,5 * pct_apparaat/100), zodat de rekenmotor het getal uit de data leest."
+    }
+   },
    "vertraging_jaren": 0,
    "richting": "bezuiniging",
    "meters": {},
@@ -1814,6 +1837,12 @@
      "eenheid": "",
      "status": "feit",
      "toelichting": ""
+    },
+    "ondergrens_ratio": {
+     "waarde": 1.0,
+     "eenheid": "fractie",
+     "status": "aanname",
+     "toelichting": "Toegevoegd uit het mechanisme: een weerstandsvermogen onder 100% is een waarschuwingssignaal. Spelregel."
     }
    },
    "vertraging_jaren": 0,

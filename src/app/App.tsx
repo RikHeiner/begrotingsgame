@@ -1,19 +1,18 @@
 import { useEffect, useState } from 'react';
-import { laadActieveBegroting, type BegrotingKop, type Config } from '../engine/config';
+import { laadData, type Data } from '../engine';
+import { DebugPagina } from './debug/DebugPagina';
 import { haalJson } from './haalJson';
 
 type Toestand =
-  | { status: 'laden' }
-  | { status: 'klaar'; config: Config; kop: BegrotingKop }
-  | { status: 'fout'; melding: string };
+  { status: 'laden' } | { status: 'klaar'; data: Data } | { status: 'fout'; melding: string };
 
 export function App() {
   const [toestand, setToestand] = useState<Toestand>({ status: 'laden' });
 
   useEffect(() => {
     let actief = true;
-    laadActieveBegroting(haalJson)
-      .then(({ config, kop }) => actief && setToestand({ status: 'klaar', config, kop }))
+    laadData(haalJson)
+      .then((data) => actief && setToestand({ status: 'klaar', data }))
       .catch(
         (fout: unknown) =>
           actief &&
@@ -37,23 +36,25 @@ export function App() {
         </p>
       )}
       {toestand.status === 'klaar' && (
-        <section aria-labelledby="actief-jaar">
-          <h2 id="actief-jaar" data-testid="actief-jaar">
-            Begroting {toestand.kop.begrotingsjaar}
-          </h2>
-          <p>
-            Meerjarenraming {toestand.config.meerjarenHorizon[0]} t/m{' '}
-            {toestand.config.meerjarenHorizon.at(-1)}.
+        <>
+          <p data-testid="actief-jaar" className="ondertitel">
+            Begroting {toestand.data.begroting.begrotingsjaar} · meerjarenraming{' '}
+            {toestand.data.jaren[0]} t/m {toestand.data.jaren.at(-1)}
           </p>
-          <p className="bron">
-            Bron:{' '}
-            <a href={toestand.kop.bronUrl} rel="noopener noreferrer">
-              {toestand.kop.document}
-            </a>
-          </p>
-        </section>
+          <DebugPagina data={toestand.data} />
+        </>
       )}
-      <footer className="colofon">Een initiatief van de VVD-fractie Groningen-Haren</footer>
+      <footer className="colofon">
+        Een initiatief van de VVD-fractie Groningen-Haren. Bron:{' '}
+        {toestand.status === 'klaar' ? (
+          <a href={toestand.data.begroting.bron_url} rel="noopener noreferrer">
+            {toestand.data.begroting.document}
+          </a>
+        ) : (
+          'ontwerpbegroting'
+        )}
+        .
+      </footer>
     </main>
   );
 }
