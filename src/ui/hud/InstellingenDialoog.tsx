@@ -110,6 +110,10 @@ export function InstellingenDialoog({
         </a>
         . <a href="#debug">Rekenmotor bekijken</a>.
       </p>
+      <p className="klein">
+        <a href="/privacy.html">Privacyverklaring</a> ·{' '}
+        <a href="/toegankelijkheid.html">Toegankelijkheid</a>
+      </p>
     </Dialoog>
   );
 }

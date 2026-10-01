@@ -177,6 +177,8 @@ export default defineConfig({
       input: {
         game: resolve(import.meta.dirname, 'index.html'),
         dashboard: resolve(import.meta.dirname, 'dashboard.html'),
+        privacy: resolve(import.meta.dirname, 'privacy.html'),
+        toegankelijkheid: resolve(import.meta.dirname, 'toegankelijkheid.html'),
       },
     },
   },

@@ -99,3 +99,19 @@ test.describe('donkere modus', () => {
     await controleer(page, 'dashboard (donker)');
   });
 });
+
+test('privacy- en toegankelijkheidsverklaring', async ({ page }, testInfo) => {
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Instellingen' }).click();
+  await page.getByRole('link', { name: 'Privacyverklaring' }).click();
+  await expect(page.getByRole('heading', { level: 1, name: 'Privacyverklaring' })).toBeVisible();
+  await controleer(page, 'privacy');
+  await page.screenshot({ path: testInfo.outputPath('privacy.png'), fullPage: true });
+  await page.getByRole('link', { name: 'toegankelijkheidsverklaring' }).click();
+  await expect(
+    page.getByRole('heading', { level: 1, name: 'Toegankelijkheidsverklaring' }),
+  ).toBeVisible();
+  await controleer(page, 'toegankelijkheid');
+  await page.getByRole('link', { name: '← Terug naar de game' }).click();
+  await expect(page.getByTestId('saldo')).toBeVisible();
+});

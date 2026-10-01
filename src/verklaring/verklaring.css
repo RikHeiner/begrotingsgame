@@ -1,0 +1,95 @@
+/* Opmaak voor de privacyverklaring en de toegankelijkheidsverklaring. */
+:root {
+  --blauw: #1233c4;
+  --oranje: #c24d00;
+  --inkt: #15193a;
+  --achtergrond: #f6f7fc;
+  --vlak: #ffffff;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --blauw: #8fa2ff;
+    --oranje: #ff9a57;
+    --inkt: #eef0fb;
+    --achtergrond: #11142b;
+    --vlak: #1b1f3d;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--achtergrond);
+  color: var(--inkt);
+  font:
+    1.0625rem/1.6 Asap,
+    system-ui,
+    sans-serif;
+}
+
+main {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+
+h1 {
+  color: var(--blauw);
+  font-size: clamp(1.7rem, 6vw, 2.3rem);
+  line-height: 1.2;
+}
+
+h2 {
+  color: var(--oranje);
+  margin-top: 2em;
+  font-size: 1.3rem;
+}
+
+a {
+  color: var(--blauw);
+  font-weight: 600;
+}
+
+a:focus-visible {
+  outline: 3px solid var(--oranje);
+  outline-offset: 2px;
+}
+
+.terug {
+  display: inline-block;
+  margin-bottom: 8px;
+  min-height: 44px;
+  line-height: 44px;
+}
+
+.blok {
+  background: var(--vlak);
+  border-radius: 12px;
+  padding: 4px 16px;
+}
+
+.invullen {
+  background: #fff4cc;
+  color: #15193a;
+  padding: 0 4px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.klein {
+  font-size: 0.9rem;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  text-align: left;
+  vertical-align: top;
+  padding: 6px 8px;
+  border-bottom: 1px solid color-mix(in srgb, var(--inkt) 15%, transparent);
+}

@@ -305,7 +305,10 @@ export function Eindscherm({ data, resultaat }: { data: Data; resultaat: Resulta
           {gedeeld}
         </p>
       </section>
-      <footer className="colofon">{data.teksten.colofon}</footer>
+      <footer className="colofon">
+        {data.teksten.colofon} <a href="/privacy.html">Privacyverklaring</a> ·{' '}
+        <a href="/toegankelijkheid.html">Toegankelijkheid</a>
+      </footer>
       <VoorMijDialoog
         open={voorMij}
         onSluit={() => setVoorMij(false)}

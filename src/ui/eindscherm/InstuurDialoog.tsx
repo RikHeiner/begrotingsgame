@@ -176,6 +176,12 @@ export function InstuurDialoog({
             {t.privacy.map((x) => (
               <p key={x}>{x}</p>
             ))}
+            <p>
+              <a href="/privacy.html" target="_blank" rel="noopener">
+                Lees de hele privacyverklaring
+              </a>{' '}
+              (opent in een nieuw tabblad)
+            </p>
           </details>
 
           {status.soort === 'fout' && (
