@@ -15,6 +15,7 @@ import {
   type Resultaat,
 } from '../../engine';
 import type { Scenario } from '../../engine/schema';
+import { nulbasisKeuzes } from '../nulbasis';
 import { gebouwStanden, type GebouwStand } from '../toestand';
 
 export type Weergave = 'kaart' | 'lijst';
@@ -52,6 +53,13 @@ type Spel = {
   ooitGekozen: boolean;
   weergave: Weergave;
   fase: Fase;
+  /** het beginpunt: de begroting van het college, of bij nul (alleen wettelijke taken) */
+  beginpunt: 'college' | 'nul';
+  /** begin opnieuw vanaf het gekozen beginpunt */
+  begin(beginpunt: 'college' | 'nul'): void;
+  /** uitleg na beginnen bij nul */
+  nulMelding: boolean;
+  wisNulMelding(): void;
   /** het startscherm met uitleg staat open */
   startscherm: boolean;
   zetStartscherm(open: boolean): void;
@@ -167,6 +175,22 @@ export const useSpel = create<Spel>((set, get) => {
     standen: {},
     weergave: 'kaart',
     fase: 'spelen',
+    beginpunt: 'college',
+    begin(beginpunt) {
+      const { data } = get();
+      if (!data) return;
+      get().start(
+        data,
+        beginpunt === 'nul'
+          ? nulbasisKeuzes(data)
+          : { ...GEEN_KEUZES, scenario: data.config.scenario },
+      );
+      set({ beginpunt, nulMelding: beginpunt === 'nul' });
+    },
+    nulMelding: false,
+    wisNulMelding() {
+      set({ nulMelding: false });
+    },
     // Bij het eerste bezoek de uitleg; een gedeelde link opent direct de begroting (zie Spel).
     startscherm: leesOpslag(OPSLAG_START) !== 'gezien',
     zetStartscherm(open) {
@@ -290,8 +314,7 @@ export const useSpel = create<Spel>((set, get) => {
       set({ fase: 'spelen' });
     },
     opnieuw() {
-      const { data } = get();
-      if (data) get().start(data, { ...GEEN_KEUZES, scenario: data.config.scenario });
+      get().begin(get().beginpunt);
     },
     wisMelding() {
       set({ melding: undefined });

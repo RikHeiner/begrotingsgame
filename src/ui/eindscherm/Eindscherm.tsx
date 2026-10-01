@@ -19,6 +19,7 @@ import {
 import { useSpel } from '../../game/state/store';
 import { insturenMogelijk } from '../../inzending/opslag';
 import { VoorMijDialoog } from '../hud/VoorMijDialoog';
+import { CollegeVergelijking } from './CollegeVergelijking';
 import { InstuurDialoog } from './InstuurDialoog';
 import { SaldoGrafiek, VergelijkGrafiek } from './grafieken';
 
@@ -178,6 +179,8 @@ export function Eindscherm({ data, resultaat }: { data: Data; resultaat: Resulta
         leeg="Je hebt nergens extra in geïnvesteerd."
       />
       {m.belasting.length > 0 && <Lijst titel="Dit betaal je meer" items={m.belasting} leeg="" />}
+
+      <CollegeVergelijking data={data} resultaat={resultaat} />
 
       {data.config.vergelijkingTonen && tb && (
         <section className="eind-blok">

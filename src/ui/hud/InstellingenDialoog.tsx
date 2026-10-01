@@ -22,6 +22,8 @@ export function InstellingenDialoog({
   const geluid = useSpel((s) => s.geluid);
   const zetGeluid = useSpel((s) => s.zetGeluid);
   const zetStartscherm = useSpel((s) => s.zetStartscherm);
+  const begin = useSpel((s) => s.begin);
+  const beginpunt = useSpel((s) => s.beginpunt);
   const k = resultaat.keuzes;
   const [reserve, setReserve] = useState({
     structureel: (k.reserve?.structureel ?? 0) / 1e6,
@@ -43,6 +45,37 @@ export function InstellingenDialoog({
           Uitleg van de game
         </button>
       </p>
+      <fieldset className="veldgroep">
+        <legend>Opnieuw beginnen</legend>
+        <p className="klein">
+          Je begon {beginpunt === 'nul' ? 'bij nul' : 'met de begroting van het college'}. Opnieuw
+          beginnen wist je keuzes.
+        </p>
+        <p className="knoppen-rij">
+          <button
+            type="button"
+            className="knop"
+            data-testid="opnieuw-college"
+            onClick={() => {
+              begin('college');
+              onSluit();
+            }}
+          >
+            Met de begroting van het college
+          </button>
+          <button
+            type="button"
+            className="knop"
+            data-testid="opnieuw-nul"
+            onClick={() => {
+              begin('nul');
+              onSluit();
+            }}
+          >
+            Bij nul: alleen wettelijke taken
+          </button>
+        </p>
+      </fieldset>
       <fieldset className="veldgroep">
         <legend>Aannames</legend>
         <p className="klein">

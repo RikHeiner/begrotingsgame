@@ -47,3 +47,20 @@ test('een gedeelde link opent direct de begroting', async ({ page }) => {
   await expect(page.getByTestId('saldo')).toBeVisible();
   await expect(page.getByTestId('startscherm')).toHaveCount(0);
 });
+
+test('beginnen bij nul: geld te verdelen, en op het eindscherm het verschil met het college', async ({
+  page,
+}, testInfo) => {
+  await page.goto('/');
+  await page.getByTestId('begin-nul').click();
+  const melding = page.getByTestId('nul-melding');
+  await expect(melding).toContainText('per jaar te verdelen');
+  await expect(page.getByTestId('saldo')).toContainText('+');
+  await page.screenshot({ path: testInfo.outputPath('nul.png') });
+  await page.getByTestId('indienen').click();
+  const v = page.getByTestId('college-vergelijking');
+  await expect(v).toBeVisible();
+  await expect(v).toContainText('Totaal uitgaven');
+  await v.scrollIntoViewIfNeeded();
+  await page.screenshot({ path: testInfo.outputPath('nul-eind.png') });
+});

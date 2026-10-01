@@ -3,7 +3,7 @@
  * De keuzes staan in de URL (?b=…), zodat elke begroting als link te delen is.
  */
 import { useCallback, useEffect, useState } from 'react';
-import type { Data } from '../engine';
+import { formatMln, type Data } from '../engine';
 import { codeer, leesUitUrl, PARAM } from '../game/deellink';
 import { useSpel } from '../game/state/store';
 import { Eindscherm } from '../ui/eindscherm/Eindscherm';
@@ -29,6 +29,10 @@ export function Spel({ data }: { data: Data }) {
   const fase = useSpel((s) => s.fase);
   const startscherm = useSpel((s) => s.startscherm);
   const zetStartscherm = useSpel((s) => s.zetStartscherm);
+  const begin = useSpel((s) => s.begin);
+  const beginpunt = useSpel((s) => s.beginpunt);
+  const nulMelding = useSpel((s) => s.nulMelding);
+  const wisNulMelding = useSpel((s) => s.wisNulMelding);
   const [kaartFout, setKaartFout] = useState<string>();
   const [gelezen] = useState(() => leesUitUrl(window.location.href));
   const zelfdeJaar = gelezen?.jaar === data.config.actiefJaar;
@@ -111,6 +115,17 @@ export function Spel({ data }: { data: Data }) {
           De kaart werkt niet op dit apparaat ({kaartFout}). Je kunt gewoon spelen met de lijst.
         </p>
       )}
+      {beginpunt === 'nul' && nulMelding && (
+        <p className="melding-blok" role="status" data-testid="nul-melding">
+          {data.teksten.start.nul_melding.replace(
+            '{vrij}',
+            formatMln(Math.min(...data.jaren.map((j) => resultaat.perJaar[j]?.structureel ?? 0))),
+          )}{' '}
+          <button type="button" className="link-knop" onClick={wisNulMelding}>
+            Oké
+          </button>
+        </p>
+      )}
       {linkMelding && (
         <p className="melding-blok" role="status">
           {linkMelding}{' '}
@@ -134,9 +149,17 @@ export function Spel({ data }: { data: Data }) {
         {melding && <span>🔒 {melding}</span>}
       </p>
       {startscherm && !gelezen ? (
-        <Startscherm data={data} onBegin={() => zetStartscherm(false)} />
+        <Startscherm
+          data={data}
+          onBegin={() => zetStartscherm(false)}
+          onBeginNul={() => {
+            begin('nul');
+            zetStartscherm(false);
+          }}
+        />
       ) : (
-        <Tutorial data={data} resultaat={resultaat} />
+        // Na beginnen bij nul eerst de melding met het geld dat je te verdelen hebt.
+        !(beginpunt === 'nul' && nulMelding) && <Tutorial data={data} resultaat={resultaat} />
       )}
     </div>
   );

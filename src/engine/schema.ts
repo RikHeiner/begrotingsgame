@@ -490,6 +490,10 @@ export const tekstenSchema = z
         hoe_kop: z.string(),
         hoe: z.array(z.string()).min(1),
         knop: z.string(),
+        knop_nul: z.string(),
+        nul_uitleg: z.string(),
+        /** {vrij} wordt ingevuld */
+        nul_melding: z.string(),
         noot: z.string(),
       })
       .strict(),

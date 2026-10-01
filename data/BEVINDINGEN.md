@@ -133,6 +133,10 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
     - De ondergrenzen (wettelijke taken, bijvoorbeeld jeugdzorg −10%) en de vaste posten zijn niet veranderd.
     - Besluit: ook de belastingen en parkeertarieven hebben geen maximum meer (er is bijvoorbeeld geen wettelijk maximum voor de OZB). Bij parkeren rekent het kettingeffect met minder bezoekers bij een hoger tarief; de parkeeropbrengst kan daardoor nooit onder nul zakken (bij +500% is ze precies nul).
 
+57. **Beginnen bij nul.** Op het startscherm (en in Instellingen) kun je kiezen: beginnen met de begroting van het college, of bij nul. Bij nul staat elke post op het laagste niveau dat de game toestaat: de 10 wettelijke taken op hun minimum (bijvoorbeeld jeugdzorg −10%), de 9 vaste posten (bijstand, Veiligheidsregio, rente, afval, riool, bouwleges) blijven, 50 posten gaan naar nul en 20 posten naar hun ondergrens (bijvoorbeeld schuldhulp en onderhoud van wegen −50%, de gemeenteraad −25%). De belastingen blijven zoals in de begroting. Van de € 1.329 mln aan posten blijft zo € 910 mln over; na de kettingeffecten (afbouw van subsidies, frictiekosten) heb je € 213 mln (2026) tot € 299 mln (2027) per jaar te verdelen.
+    - Op het eindscherm staat nu altijd de tabel "Jouw begroting naast die van het college": de uitgaven per thema en de inkomsten uit belastingen, in het eerste jaar en zonder kettingeffecten.
+    - *Vraag:* de ondergrenzen van de 20 posten die niet als wettelijke taak gemarkeerd zijn (bijvoorbeeld onderhoud openbare ruimte −50%, sport −50%, schouwburg −50%) zijn spelgrenzen. Moeten die bij nul ook naar nul, of zijn het (deels) wettelijke of contractuele plichten?
+
 ## Besluiten (1 oktober 2026)
 
 | Punt | Besluit | Verwerkt |
@@ -161,6 +165,7 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
 | 23. Water | Echte waterlijnen uit PDOK. | Gedaan. |
 | Netlify | Eerst hier verbeteren, daarna met de hand uploaden. | Open. |
 | Maximum op uitgaven | Geen plafond, tenzij het echt niet kan (zoals het maximum aantal wethouders). | Punt 56. |
+| Beginnen bij nul | Optie om bij de wettelijke taken te beginnen, met aan het eind het verschil met de begroting van het college. | Punt 57. |
 | Blije inwoners | Eerst weglaten; later misschien anders. | Punt 46. |
 | Bedragen | Naast het percentage ook een bedrag kunnen invullen. | Punt 48. |
 | Fase 7. Video | Geen persoonlijke video; de tegenbegroting blijft als Word, pdf en afbeelding. | `docs/VIDEO-ONTWERP.md` bewaard, niet gebouwd. |

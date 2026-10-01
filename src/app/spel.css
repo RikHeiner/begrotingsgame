@@ -1602,3 +1602,46 @@
 .start-noot {
   margin: 0.75rem 0 0;
 }
+
+.start-knop-nul {
+  margin-top: 0.6rem;
+}
+
+.start-nul-uitleg {
+  margin: 0.4rem 0 0;
+}
+
+.knoppen-rij {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.college-tabel .totaal th,
+.college-tabel .totaal td {
+  font-weight: 700;
+}
+
+/* De vergelijking met het college past op een smalle telefoon. */
+.eind-blok {
+  min-width: 0;
+}
+
+.tabel-scroll {
+  max-width: 100%;
+}
+
+.college-tabel th.links {
+  white-space: normal;
+}
+
+@media (max-width: 420px) {
+  .college-tabel {
+    font-size: 0.8rem;
+  }
+
+  .college-tabel th,
+  .college-tabel td {
+    padding: 0.25rem 0.2rem;
+  }
+}

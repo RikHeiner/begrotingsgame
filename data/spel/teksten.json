@@ -33,7 +33,10 @@
       "Eerst bezuinigen, dan uitgeven: het geldpotje zit op slot tot je geld vrijmaakt.",
       "Klaar? Dien je begroting in en maak er je eigen tegenbegroting van."
     ],
-    "knop": "Begin met je begroting",
+    "knop": "Begin met de begroting van het college",
+    "knop_nul": "Begin bij nul: alleen wettelijke taken",
+    "nul_uitleg": "Bij nul staat elke post op het laagste niveau dat kan: wettelijke taken op hun minimum, vaste posten zoals de bijstand blijven, de rest gaat naar nul. Jij beslist wat er weer bij komt. Op het eindscherm zie je het verschil met de begroting van het college.",
+    "nul_melding": "Je begint bij nul: alleen de wettelijke taken en de vaste posten staan erin. Je hebt {vrij} per jaar te verdelen. Tik op een gebouw en kies wat er weer bij komt.",
     "noot": "De bedragen komen uit de ontwerpbegroting {jaar} van de gemeente Groningen. Bedragen met ⚠︎ zijn aannames."
   },
   "tutorial": [

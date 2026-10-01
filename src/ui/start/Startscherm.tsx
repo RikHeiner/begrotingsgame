@@ -9,7 +9,15 @@ import type { Data } from '../../engine';
 const vul = (tekst: string, waarden: Record<string, string>) =>
   tekst.replace(/\{(\w+)\}/g, (m, k: string) => waarden[k] ?? m);
 
-export function Startscherm({ data, onBegin }: { data: Data; onBegin: () => void }) {
+export function Startscherm({
+  data,
+  onBegin,
+  onBeginNul,
+}: {
+  data: Data;
+  onBegin: () => void;
+  onBeginNul: () => void;
+}) {
   const ref = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     const d = ref.current;
@@ -70,6 +78,15 @@ export function Startscherm({ data, onBegin }: { data: Data; onBegin: () => void
         >
           {t.knop}
         </button>
+        <button
+          type="button"
+          className="knop start-knop start-knop-nul"
+          data-testid="begin-nul"
+          onClick={onBeginNul}
+        >
+          {t.knop_nul}
+        </button>
+        <p className="klein start-nul-uitleg">{t.nul_uitleg}</p>
         <p className="klein start-noot">{vul(t.noot, waarden)}</p>
       </div>
     </dialog>
