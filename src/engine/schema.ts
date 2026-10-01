@@ -4,6 +4,9 @@
  */
 import { z } from 'zod';
 
+// Geen eval of new Function: dan werkt de game met een strenge Content Security Policy.
+z.config({ jitless: true });
+
 const jaarRecord = z.record(z.string().regex(/^\d{4}$/), z.number());
 
 // ---------- config.json ----------

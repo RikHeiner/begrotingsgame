@@ -2,7 +2,8 @@
 import { cpSync, existsSync, readFileSync, statSync } from 'node:fs';
 import { extname, join, normalize, resolve, sep } from 'node:path';
 import react from '@vitejs/plugin-react';
-import { defineConfig, type Plugin } from 'vite';
+import { writeFileSync } from 'node:fs';
+import { defineConfig, loadEnv, type Plugin } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
 const DATA_MAP = resolve(import.meta.dirname, 'data');
@@ -57,10 +58,82 @@ function begrotingsData(): Plugin {
   };
 }
 
+/**
+ * Content Security Policy (opdracht 11): alleen code, stijlen, letters en data van de eigen site,
+ * plus de database (Supabase) als die is ingesteld. Geen inline scripts.
+ */
+export function maakCsp(supabaseUrl?: string, metFrames = false): string {
+  const database = supabaseUrl ? ` ${new URL(supabaseUrl).origin}` : '';
+  return [
+    "default-src 'self'",
+    "script-src 'self'",
+    "style-src 'self'",
+    "img-src 'self' data: blob:",
+    "font-src 'self'",
+    `connect-src 'self'${database}`,
+    "media-src 'self' data: blob:",
+    "worker-src 'self'",
+    "manifest-src 'self'",
+    "object-src 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+    ...(metFrames ? ["frame-ancestors 'none'"] : []),
+  ].join('; ');
+}
+
+/**
+ * Bij de build: de CSP als meta-tag in elke pagina, het adres van de site in de Open Graph-tags
+ * (VITE_SITE_URL), en een bestand _headers met beveiligingsheaders voor de hosting.
+ */
+function beveiligingEnDelen(): Plugin {
+  let bouwen = false;
+  let outDir = 'dist';
+  let env: Record<string, string> = {};
+  return {
+    name: 'beveiliging-en-delen',
+    configResolved(config) {
+      bouwen = config.command === 'build';
+      outDir = resolve(config.root, config.build.outDir);
+      env = loadEnv(config.mode, config.root, 'VITE_');
+    },
+    transformIndexHtml(html) {
+      const site = (env.VITE_SITE_URL ?? '').replace(/\/$/, '');
+      let uit = html.replaceAll('%SITE_URL%', site);
+      if (bouwen)
+        uit = uit.replace(
+          '<meta charset="UTF-8" />',
+          `<meta charset="UTF-8" />\n    <meta http-equiv="Content-Security-Policy" content="${maakCsp(env.VITE_SUPABASE_URL)}" />`,
+        );
+      return uit;
+    },
+    writeBundle() {
+      // Netlify en Cloudflare Pages lezen dit bestand; bij andere hosting dezelfde headers instellen.
+      writeFileSync(
+        join(outDir, '_headers'),
+        [
+          '/*',
+          `  Content-Security-Policy: ${maakCsp(env.VITE_SUPABASE_URL, true)}`,
+          '  X-Content-Type-Options: nosniff',
+          '  Referrer-Policy: strict-origin-when-cross-origin',
+          '  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()',
+          '  Strict-Transport-Security: max-age=31536000; includeSubDomains',
+          '  Cross-Origin-Opener-Policy: same-origin',
+          '/dashboard.html',
+          '  X-Robots-Tag: noindex, nofollow',
+          '/assets/*',
+          '  Cache-Control: public, max-age=31536000, immutable',
+          '',
+        ].join('\n'),
+      );
+    },
+  };
+}
+
 export default defineConfig({
   plugins: [
     react(),
     begrotingsData(),
+    beveiligingEnDelen(),
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'script-defer',
@@ -94,7 +167,7 @@ export default defineConfig({
         skipWaiting: true,
         navigateFallbackDenylist: [/^\/data\//, /^\/dashboard/],
         // Het dashboard hoort niet bij de offline-versie van de game.
-        globIgnores: ['dashboard.html'],
+        globIgnores: ['dashboard.html', 'og-afbeelding.png'],
       },
     }),
   ],
