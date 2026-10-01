@@ -73,6 +73,8 @@ type Spel = {
   probeer(nieuw: Keuzes, gebouw?: string): boolean;
   zetOnderdeel(id: string, pct: number): boolean;
   zetBelasting(id: string, pct: number): boolean;
+  /** een parkeerpost (zie engine/parkeren.ts), bijvoorbeeld "bewoners_1:tweede" */
+  zetParkeerpost(id: string, pct: number): boolean;
   wisselKaart(id: string): boolean;
   zetReserve(reserve: { structureel: number; eenmalig: number }): boolean;
   zetScenario(s: Scenario): void;
@@ -299,6 +301,13 @@ export const useSpel = create<Spel>((set, get) => {
       return get().probeer(
         { ...k, belastingen: { ...k.belastingen, [id]: pct } },
         data?.gebouwen.find((g) => g.soort === 'loket')?.id,
+      );
+    },
+    zetParkeerpost(id, pct) {
+      const { keuzes: k, data } = get();
+      return get().probeer(
+        { ...k, parkeren: { ...k.parkeren, [id]: pct } },
+        data?.parkeren?.opbrengst.gebouw,
       );
     },
     wisselKaart(id) {

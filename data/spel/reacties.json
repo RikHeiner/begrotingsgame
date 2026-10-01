@@ -1216,7 +1216,7 @@
     },
     {
       "id": "pt_duurder",
-      "voorwaarde": "tax.t5 >= 10",
+      "voorwaarde": "park.bewoners_1.tweede >= 10 || park.bewoners_2.tweede >= 10",
       "tekst": "Parkeren wordt duurder, en wij hebben de auto nodig voor ons werk 😟",
       "personas": ["peter_tineke"],
       "gewicht": 3,
@@ -1224,7 +1224,7 @@
     },
     {
       "id": "pt_weg",
-      "voorwaarde": "tax.t5 >= 20",
+      "voorwaarde": "park.bewoners_1.tweede >= 20 || park.bewoners_2.tweede >= 20",
       "tekst": "Moeten we straks weg uit de Oosterpoort? 😢",
       "personas": ["peter_tineke"],
       "gewicht": 3,
@@ -1232,7 +1232,7 @@
     },
     {
       "id": "pt_goedkoper",
-      "voorwaarde": "tax.t5 <= -10",
+      "voorwaarde": "park.bewoners_1.tweede <= -10 || park.bewoners_2.tweede <= -10",
       "tekst": "Goedkopere vergunningen: zo kunnen we in de Oosterpoort blijven wonen 🏠",
       "personas": ["peter_tineke"],
       "gewicht": 3,

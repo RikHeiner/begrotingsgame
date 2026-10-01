@@ -2,7 +2,7 @@
  * "Wat betekent het voor mij?" (opdracht 8.11): wat de keuzes van de speler betekenen voor één
  * huishouden. Alleen voor heffingen waarvan het tarief in de data staat. Er wordt niets opgeslagen.
  */
-import type { Data, Keuzes } from '../engine';
+import { parkeerPosten, type Data, type Keuzes, type ParkeerPost } from '../engine';
 import type { Tarieven } from '../engine/schema';
 
 export type Huishouden = {
@@ -11,9 +11,11 @@ export type Huishouden = {
   woz: number;
   volwassenen: 1 | 2;
   kinderen: number;
-  /** id van de vergunningzone, of undefined zonder auto of vergunning */
+  /** id van het tariefgebied (data/parkeren), of undefined zonder auto of vergunning */
   vergunning?: string;
   vergunningen: 1 | 2;
+  /** koopt een bezoekersvergunning */
+  bezoekers: boolean;
   /** inkomen rond of onder het sociaal minimum */
   minimum: boolean;
 };
@@ -34,18 +36,37 @@ export function standaardHuishouden(data: Data): Huishouden {
     volwassenen: 2,
     kinderen: 0,
     vergunningen: 1,
+    bezoekers: false,
     minimum: false,
   };
 }
 
 const rond = (x: number) => Math.round(x * 100) / 100;
 
-export function berekenImpact(tarieven: Tarieven, keuzes: Keuzes, h: Huishouden): ImpactRij[] {
+/** De parkeerposten die het paneel gebruikt: alleen vergunningen met een bekend tarief. */
+export function impactPosten(data: Data): ParkeerPost[] {
+  return parkeerPosten(data).filter((p) => p.groep === 'vergunning' && p.tarief !== undefined);
+}
+
+function wijziging(pct: number, wat: string): string {
+  return pct === -100
+    ? `Je maakt de ${wat} gratis.`
+    : pct
+      ? `Je verandert de ${wat} met ${pct > 0 ? '+' : '−'}${Math.abs(pct)}%.`
+      : `Je verandert de ${wat} niet.`;
+}
+
+export function berekenImpact(
+  tarieven: Tarieven,
+  keuzes: Keuzes,
+  h: Huishouden,
+  /** de parkeerposten uit `impactPosten`; zonder posten geen regels voor parkeren */
+  parkeren: ParkeerPost[] = [],
+): ImpactRij[] {
   const rijen: ImpactRij[] = [];
   const kwijt = (soort: Tarieven['kwijtschelding']['belastingen'][number]) =>
     h.minimum && tarieven.kwijtschelding.belastingen.includes(soort);
   const ozbPct = keuzes.belastingen.t1 ?? 0;
-  const parkeerPct = keuzes.belastingen.t5 ?? 0;
 
   if (h.woning === 'koop') {
     const nu = (h.woz * tarieven.ozb_woning_eigenaar_pct) / 100;
@@ -109,29 +130,44 @@ export function berekenImpact(tarieven: Tarieven, keuzes: Keuzes, h: Huishouden)
           },
     );
 
-  const zone = tarieven.parkeervergunning_bewoners.find((z) => z.id === h.vergunning);
-  if (zone) {
-    const tweede = h.vergunningen === 2 ? zone.tweede : 0;
-    if (tweede === null) {
-      rijen.push({
-        naam: 'Parkeervergunning',
-        uitleg: 'Het tarief voor een tweede vergunning in deze zone staat (nog) niet in de data.',
-      });
-    } else {
-      const nu = zone.eerste + tweede;
-      rijen.push({
-        naam: h.vergunningen === 2 ? 'Twee parkeervergunningen' : 'Parkeervergunning',
-        nu,
-        straks: rond(nu * Math.max(0, 1 + parkeerPct / 100)),
-        uitleg:
-          parkeerPct === -100
-            ? 'Je maakt parkeren overal gratis.'
-            : parkeerPct
-              ? `Je verandert de parkeertarieven met ${parkeerPct > 0 ? '+' : '−'}${Math.abs(parkeerPct)}%. De game gaat ervan uit dat vergunningen net zo veranderen.`
-              : 'Je verandert de parkeertarieven niet.',
-      });
-    }
+  // Parkeren: het tarief per tariefgebied en de keuze per post (zie engine/parkeren.ts).
+  const post = (vergunning: string, gebied?: string) =>
+    parkeren.find((p) => p.vergunning === vergunning && (!gebied || p.tariefgebied === gebied));
+  const pctVan = (p: ParkeerPost) => keuzes.parkeren?.[p.id] ?? 0;
+  const regel = (naam: string, p: ParkeerPost, wat: string, extra = ''): ImpactRij => {
+    const nu = p.tarief ?? 0;
+    return {
+      naam,
+      nu: rond(nu),
+      straks: rond(nu * Math.max(0, 1 + pctVan(p) / 100)),
+      uitleg: `${wijziging(pctVan(p), wat)}${extra}`,
+    };
+  };
+  if (h.vergunning) {
+    const eerste = post('bewoners_1', h.vergunning);
+    const tweede = post('bewoners_2', h.vergunning);
+    if (eerste) rijen.push(regel('Parkeervergunning', eerste, 'bewonersvergunning in jouw zone'));
+    if (h.vergunningen === 2)
+      rijen.push(
+        tweede
+          ? regel('Tweede parkeervergunning', tweede, 'tweede vergunning in jouw zone')
+          : {
+              naam: 'Tweede parkeervergunning',
+              uitleg:
+                'Het tarief voor een tweede vergunning in deze zone staat (nog) niet in de data.',
+            },
+      );
   }
+  const bezoek = post('bezoekers');
+  if (h.bezoekers && bezoek)
+    rijen.push(
+      regel(
+        'Bezoekersvergunning',
+        bezoek,
+        'bezoekersvergunning',
+        ' Het jaartarief; bijgekochte uren tellen hier niet mee.',
+      ),
+    );
   return rijen;
 }
 

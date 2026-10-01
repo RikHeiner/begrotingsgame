@@ -28,10 +28,10 @@ test('Wat betekent het voor mij: een lagere OZB scheelt de eigenaar geld', async
   await expect(d.getByTestId('voor-mij-verschil')).toHaveText('− € 50');
 
   // Peter en Tineke: Oosterpoort, twee vergunningen
-  await d.getByLabel(/parkeervergunning voor bewoners/).selectOption('zone_2');
+  await d.getByLabel(/parkeervergunning voor bewoners/).selectOption('tweede');
   await d.getByLabel('Aantal vergunningen').selectOption('2');
-  await expect(tabel).toContainText('Twee parkeervergunningen');
-  await expect(tabel).toContainText('€ 544');
+  await expect(tabel.locator('[data-heffing="Parkeervergunning"]')).toContainText('€ 135');
+  await expect(tabel.locator('[data-heffing="Tweede parkeervergunning"]')).toContainText('€ 409');
   await page.screenshot({ path: testInfo.outputPath('voor-mij.png'), fullPage: true });
   await tabel.scrollIntoViewIfNeeded();
   await page.screenshot({ path: testInfo.outputPath('voor-mij-tabel.png') });

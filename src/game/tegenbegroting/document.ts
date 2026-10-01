@@ -6,7 +6,7 @@
  * Bedragen in euro's; + is gunstig voor de gemeente. In de tabellen staan ze als positieve bedragen
  * in de tabel waar ze horen (ombuigingen en opbrengsten, of uitgaven).
  */
-import { blijeInwoners, formatPct, type Data, type Resultaat } from '../../engine';
+import { blijeInwoners, formatPct, parkeerPostVan, type Data, type Resultaat } from '../../engine';
 import type { Zekerheid } from '../../engine/schema';
 import { personaZinnen, themaVan } from '../score';
 import type { Meta } from '../state/store';
@@ -113,6 +113,7 @@ export function maakTegenbegroting(data: Data, r: Resultaat, meta: Meta): Tegenb
     const o = data.index.onderdelen.get(id);
     const b = data.index.belastingen.get(id);
     const kaart = data.index.kaarten.get(id);
+    const parkeerPost = parkeerPostVan(data, id);
     let info = { naam: id, toelichting: '', wijziging: '' };
     if (o) {
       const pct = k.onderdelen[id] ?? 0;
@@ -123,6 +124,16 @@ export function maakTegenbegroting(data: Data, r: Resultaat, meta: Meta): Tegenb
       };
     } else if (b) {
       info = { naam: b.naam, wijziging: formatPct(k.belastingen[id] ?? 0), toelichting: b.uitleg };
+    } else if (parkeerPost) {
+      const pct = k.parkeren?.[parkeerPost.id] ?? 0;
+      info = {
+        naam: parkeerPost.naam,
+        wijziging: formatPct(pct),
+        toelichting:
+          parkeerPost.tarief !== undefined
+            ? `${parkeerPost.uitleg} Tarief nu € ${parkeerPost.tarief.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} per jaar, nieuw € ${(parkeerPost.tarief * (1 + pct / 100)).toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}.`
+            : parkeerPost.uitleg,
+      };
     } else if (kaart) {
       info = {
         naam: kaart.naam,

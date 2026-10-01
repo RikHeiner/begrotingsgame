@@ -723,6 +723,34 @@
   text-decoration: none;
 }
 
+/* ---------- Paneel: parkeertarieven ---------- */
+
+.parkeren {
+  margin-top: 0.8rem;
+  padding-top: 0.6rem;
+  border-top: 2px solid color-mix(in srgb, currentColor 15%, transparent);
+}
+
+.parkeren h3 {
+  margin: 0 0 0.2rem;
+  font-size: 1.05rem;
+}
+
+.parkeren h4 {
+  margin: 0.7rem 0 0.2rem;
+  font-size: 0.95rem;
+}
+
+.parkeer-waarom {
+  margin: 0.1rem 0 0.4rem;
+  font-size: 0.85rem;
+}
+
+.parkeer-waarom ul {
+  margin: 0.2rem 0 0;
+  padding-left: 1.1rem;
+}
+
 /* ---------- Dialogen ---------- */
 
 .dialoog {

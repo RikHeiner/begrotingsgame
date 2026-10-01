@@ -180,7 +180,8 @@
         "schoon": 0.3
       },
       "posten": {
-        "t5": -1,
+        "t5:bewoners_1:tweede": -0.6,
+        "t5:bewoners_2:tweede": -0.4,
         "m2": -0.3,
         "o1": 0.3
       },

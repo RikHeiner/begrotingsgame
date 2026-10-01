@@ -145,8 +145,11 @@ export function bekendeNamen(data: {
   personas: { personas: { id: string }[] };
   gebouwen: { id: string }[];
   meterIds: readonly string[];
+  /** id's van de parkeerposten (zie parkeren.ts); "bewoners_1:tweede" wordt park.bewoners_1.tweede */
+  parkeerposten?: readonly string[];
 }): Set<string> {
   return new Set([
+    ...(data.parkeerposten ?? []).map((id) => `park.${id.replace(/:/g, '.')}`),
     ...data.begroting.onderdelen.map((o) => `pct.${o.id}`),
     ...data.begroting.belastingen.map((b) => `tax.${b.id}`),
     ...data.begroting.actiekaarten.map((k) => `kaart.${k.id}`),

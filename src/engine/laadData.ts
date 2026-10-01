@@ -18,6 +18,8 @@ import {
   tegenbegrotingSchema,
   gebeurtenissenSchema,
   tarievenSchema,
+  parkerenSchema,
+  type ParkerenData,
   type Tarieven,
   type Actiekaart,
   type Gebeurtenis,
@@ -59,6 +61,8 @@ export type Data = {
   gebeurtenissen: Gebeurtenis[];
   /** tarieven van de lokale heffingen, als config.json ze noemt */
   tarieven?: Tarieven;
+  /** parkeren per vergunning en tariefgebied, als config.json het noemt */
+  parkeren?: ParkerenData;
   vergelijking: { bestand: string; tegenbegroting: Tegenbegroting }[];
   /** Jaren van de meerjarenraming, bijvoorbeeld [2026, 2027, 2028, 2029]. */
   jaren: number[];
@@ -122,6 +126,7 @@ export type RuweData = {
   personas: unknown;
   gebeurtenissen: unknown;
   tarieven?: { bestand: string; inhoud: unknown };
+  parkeren?: { bestand: string; inhoud: unknown };
   vergelijking: { bestand: string; inhoud: unknown }[];
 };
 
@@ -174,6 +179,28 @@ export function maakData(ruw: RuweData): Data {
     throw new DataFout(ruw.tarieven.bestand, [
       `dit zijn de tarieven van ${tarieven.begrotingsjaar}, maar config.json verwacht ${config.actiefJaar}`,
     ]);
+  const parkeren = ruw.parkeren
+    ? valideer(parkerenSchema, ruw.parkeren.inhoud, ruw.parkeren.bestand)
+    : undefined;
+  if (ruw.parkeren && parkeren) {
+    const fout: string[] = [];
+    if (parkeren.begrotingsjaar !== config.actiefJaar)
+      fout.push(
+        `dit is parkeren ${parkeren.begrotingsjaar}, maar config.json verwacht ${config.actiefJaar}`,
+      );
+    if (!begroting.belastingen.some((x) => x.id === parkeren.opbrengst.belasting))
+      fout.push(`belasting "${parkeren.opbrengst.belasting}" bestaat niet`);
+    if (!gebouwen.some((g) => g.id === parkeren.opbrengst.gebouw))
+      fout.push(`gebouw "${parkeren.opbrengst.gebouw}" bestaat niet`);
+    const gebieden = new Set(parkeren.tariefgebieden.map((t) => t.id));
+    for (const v of parkeren.vergunningen)
+      for (const g of Object.keys(v.tarief))
+        if (g !== 'alle' && !gebieden.has(g)) fout.push(`${v.id}: onbekend tariefgebied "${g}"`);
+    for (const g of parkeren.aantallen.gebieden)
+      if (!gebieden.has(g.tariefgebied))
+        fout.push(`${g.naam}: onbekend tariefgebied "${g.tariefgebied}"`);
+    if (fout.length) throw new DataFout(ruw.parkeren.bestand, fout);
+  }
   const vergelijking = ruw.vergelijking.map(({ bestand, inhoud }) => ({
     bestand,
     tegenbegroting: valideer(tegenbegrotingSchema, inhoud, bestand),
@@ -194,6 +221,7 @@ export function maakData(ruw: RuweData): Data {
     teksten,
     gebeurtenissen,
     ...(tarieven ? { tarieven } : {}),
+    ...(parkeren ? { parkeren } : {}),
     vergelijking,
     jaren: [...config.meerjarenHorizon],
     index: maakIndex(begroting, dwarsverbanden, meters, gebeurtenissen),
@@ -235,12 +263,13 @@ export async function laadData(haal: HaalJson): Promise<Data> {
   const ruweConfig = await haal('config.json');
   const config = valideer(configSchema, ruweConfig, 'config.json');
   const spelSleutels = Object.keys(SPEL_BESTANDEN) as (keyof typeof SPEL_BESTANDEN)[];
-  const [begroting, dwarsverbanden, spel, vergelijking, tarieven] = await Promise.all([
+  const [begroting, dwarsverbanden, spel, vergelijking, tarieven, parkeren] = await Promise.all([
     haal(config.begroting),
     haal('dwarsverbanden.json'),
     Promise.all(spelSleutels.map((k) => haal(SPEL_BESTANDEN[k]))),
     Promise.all(config.vergelijking.map((b) => haal(b))),
     config.tarieven ? haal(config.tarieven) : Promise.resolve(undefined),
+    config.parkeren ? haal(config.parkeren) : Promise.resolve(undefined),
   ]);
   const spelData = Object.fromEntries(spelSleutels.map((k, i) => [k, spel[i]])) as Record<
     keyof typeof SPEL_BESTANDEN,
@@ -252,6 +281,7 @@ export async function laadData(haal: HaalJson): Promise<Data> {
     dwarsverbanden,
     ...spelData,
     ...(config.tarieven ? { tarieven: { bestand: config.tarieven, inhoud: tarieven } } : {}),
+    ...(config.parkeren ? { parkeren: { bestand: config.parkeren, inhoud: parkeren } } : {}),
     vergelijking: config.vergelijking.map((bestand, i) => ({ bestand, inhoud: vergelijking[i] })),
   });
 }

@@ -21,6 +21,16 @@ describe('toestand van gebouwen', () => {
     expect(toestandBij(-30, d)).toBe('gesloten');
   });
 
+  it('parkeren per zone telt bij de parkeergarage, niet bij het loket', () => {
+    const s = gebouwStanden(
+      data,
+      data.kaart,
+      bereken(data, keuzes({ parkeren: { kortparkeren: 10 } })),
+    );
+    expect(s.parkeer?.bedrag ?? 0).toBeGreaterThan(2e6);
+    expect(s.loket?.bedrag).toBe(0);
+  });
+
   it('zonder keuzes is alles normaal en kost niets', () => {
     const s = gebouwStanden(data, data.kaart, bereken(data, keuzes()));
     for (const g of Object.values(s)) {

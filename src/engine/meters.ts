@@ -3,6 +3,7 @@
  * 50 is de huidige begroting; elke meter blijft tussen 0 en 100.
  */
 import type { Data } from './laadData';
+import { PARKEER_PREFIX } from './parkeren';
 import { METER_IDS, type MeterId } from './schema';
 import type { Keuzes } from './types';
 
@@ -118,9 +119,11 @@ export function personaTevredenheid(
         ? (keuzes.onderdelen[id] ?? 0)
         : data.index.belastingen.has(id)
           ? (keuzes.belastingen[id] ?? 0)
-          : keuzes.kaarten.includes(id)
-            ? 100
-            : 0;
+          : id.startsWith(PARKEER_PREFIX)
+            ? (keuzes.parkeren?.[id.slice(PARKEER_PREFIX.length)] ?? 0)
+            : keuzes.kaarten.includes(id)
+              ? 100
+              : 0;
       waarde += w * (pct / 100) * punten_posten_per_100pct;
     }
     uit[p.id] = klem(waarde);

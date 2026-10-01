@@ -32,6 +32,7 @@ insert into public.fractie_leden (email) values ('raadslid@example.nl');
 create temp table voorbeeld as select jsonb_build_object(
   'begrotingsjaar', 2026,
   'keuzes', jsonb_build_object('onderdelen', jsonb_build_object('h1', -10), 'belastingen', jsonb_build_object('t1', -5),
+                               'parkeren', jsonb_build_object('bewoners_1:tweede', 10),
                                'kaarten', jsonb_build_array('k_veiling'), 'scenario', 'midden'),
   'missie', 'lagere_lasten', 'gebied', 'zuid', 'idee', 'Meer bankjes in het park.',
   'toestemming', true, 'toestemming_versie', 1, 'duur_ms', 60000, 'website', ''
@@ -61,6 +62,8 @@ select pg_temp.moet_falen($$select public.insturen((select jsonb_set(j, '{keuzes
 select pg_temp.moet_falen($$select public.insturen((select jsonb_set(j, '{keuzes,onderdelen,h1}', '5000') from voorbeeld))$$, 'keuzes');
 select pg_temp.moet_falen($$select public.insturen((select jsonb_set(j, '{keuzes,kaarten}', '["<script>"]') from voorbeeld))$$, 'keuzes');
 select pg_temp.moet_falen($$select public.insturen((select jsonb_set(j, '{keuzes,scenario}', '"alles"') from voorbeeld))$$, 'keuzes');
+select pg_temp.moet_falen($$select public.insturen((select jsonb_set(j, '{keuzes,parkeren,bezoekers}', '"duur"') from voorbeeld))$$, 'keuzes');
+select pg_temp.moet_falen($$select public.insturen((select jsonb_set(j, '{keuzes,parkeren}', '{"<b>": 5}') from voorbeeld))$$, 'keuzes');
 select pg_temp.moet_falen($$select public.insturen((select j || '{"gebied": "Mijn straat 12"}' from voorbeeld))$$, '23514');
 -- E-mail zonder aparte toestemming
 select pg_temp.moet_falen($$select public.insturen((select j || '{"email": "a@example.nl"}' from voorbeeld))$$, 'aparte toestemming');
@@ -94,8 +97,10 @@ select pg_temp.goed('e-mail los opgeslagen, in kleine letters',
   (select array_agg(email) from public.aanmeldingen) = array['a@example.nl']);
 select pg_temp.goed('geen IP-adres opgeslagen',
   not exists (select 1 from prive.limieten where sleutel like '%203.0.113%' or sleutel like '%198.51%'));
+select pg_temp.goed('parkeren opgeslagen',
+  (select bool_and(keuzes -> 'parkeren' = '{"bewoners_1:tweede": 10}') from public.inzendingen));
 select pg_temp.goed('geen extra velden in de keuzes',
-  (select bool_and(keuzes - array['onderdelen','belastingen','kaarten','scenario','reserve'] = '{}') from public.inzendingen));
+  (select bool_and(keuzes - array['onderdelen','belastingen','parkeren','kaarten','scenario','reserve'] = '{}') from public.inzendingen));
 
 -- ---------- Als ingelogde gebruiker die geen fractielid is ----------
 set role authenticated;

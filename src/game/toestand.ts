@@ -3,7 +3,7 @@
  * percentage van zijn posten (gewogen naar lasten, alleen niet-vergrendelde posten).
  * De drempels staan in data/spel/kaart.json.
  */
-import type { Data, Resultaat } from '../engine';
+import { PARKEER_PREFIX, type Data, type Resultaat } from '../engine';
 import type { Gebouw, KaartData } from '../engine/schema';
 
 export type Toestand = 'bloeiend' | 'beter' | 'normaal' | 'versoberd' | 'gesloten';
@@ -62,8 +62,15 @@ export function gebouwBedrag(
         ? data.begroting.actiekaarten.map((k) => k.id)
         : gebouw.onderdelen,
   );
+  // Parkeren per vergunning en zone hoort bij het gebouw uit de parkeerdata, niet bij het loket.
+  const parkeren = data.parkeren?.opbrengst.gebouw === gebouw.id;
   return r.effecten
-    .filter((e) => e.jaar === jaar && e.stap === 'direct' && bronnen.has(e.bron))
+    .filter(
+      (e) =>
+        e.jaar === jaar &&
+        e.stap === 'direct' &&
+        (bronnen.has(e.bron) || (parkeren && e.bron.startsWith(PARKEER_PREFIX))),
+    )
     .reduce((s, e) => s + e.bedrag, 0);
 }
 

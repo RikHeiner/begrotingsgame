@@ -58,6 +58,7 @@ export function InstuurDialoog({
         keuzes: {
           onderdelen: k.onderdelen,
           belastingen: k.belastingen,
+          ...(k.parkeren ? { parkeren: k.parkeren } : {}),
           kaarten: k.kaarten,
           scenario: k.scenario,
           ...(k.reserve ? { reserve: k.reserve } : {}),

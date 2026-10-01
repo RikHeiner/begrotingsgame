@@ -33,6 +33,9 @@ export function maakLezer(
         return r.keuzes.onderdelen[id] ?? 0;
       case 'tax':
         return r.keuzes.belastingen[id] ?? 0;
+      case 'park':
+        // park.bewoners_1.tweede is de parkeerpost "bewoners_1:tweede"
+        return r.keuzes.parkeren?.[naam.slice('park.'.length).replace(/\./g, ':')] ?? 0;
       case 'kaart':
         return r.keuzes.kaarten.includes(id) ? 1 : 0;
       case 'meter':

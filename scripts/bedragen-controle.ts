@@ -6,7 +6,13 @@
  */
 import { writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { bereken, berekenCampagne, GEEN_KEUZES, metExtraKaarten } from '../src/engine';
+import {
+  bereken,
+  berekenCampagne,
+  GEEN_KEUZES,
+  metExtraKaarten,
+  parkeerPosten,
+} from '../src/engine';
 import { alsTekst, controleer, heeftFouten } from '../src/engine/controle';
 import { alsKaarten, totalen } from '../src/engine/tegenbegroting';
 import { laadDataNode, leesBuurtcodes, leesMappings } from './lees';
@@ -56,11 +62,24 @@ vergelijk(
   belasting('t4'),
   kengetal('precariobelasting_x1000'),
 );
-vergelijk(
-  'Parkeertarieven (t5) en kengetal parkeerbelasting',
-  belasting('t5'),
-  kengetal('parkeerbelasting_x1000'),
-);
+if (data.parkeren) {
+  // Het verschil tussen t5 en de parkeerbelasting zijn de parkeergarages (een eigen post).
+  const posten = parkeerPosten(data);
+  const som = (groep?: string) =>
+    posten.filter((x) => !groep || x.groep !== groep).reduce((s, x) => s + x.basis, 0) / 1e6;
+  vergelijk('Parkeerposten samen en schuif t5', som(), belasting('t5'), 0.001);
+  vergelijk(
+    'Parkeerposten zonder garages en kengetal parkeerbelasting',
+    som('garages'),
+    kengetal('parkeerbelasting_x1000'),
+    0.001,
+  );
+} else
+  vergelijk(
+    'Parkeertarieven (t5) en kengetal parkeerbelasting',
+    belasting('t5'),
+    kengetal('parkeerbelasting_x1000'),
+  );
 
 const leeg = bereken(data, GEEN_KEUZES);
 controles.push([
@@ -287,12 +306,49 @@ if (data.tarieven) {
         `€ ${t.afvalstoffenheffing.drie_of_meer.toLocaleString('nl-NL')}`,
       ],
       ['☐', 'Rioolheffing, eigenaar', `€ ${t.rioolheffing_eigenaar.toLocaleString('nl-NL')}`],
-      ...t.parkeervergunning_bewoners.map((z) => [
-        '☐',
-        `Bewonersvergunning ${z.kort}`,
-        `€ ${z.eerste.toLocaleString('nl-NL')}${z.tweede !== null ? `, tweede € ${z.tweede.toLocaleString('nl-NL')}` : ''}`,
-      ]),
     ],
+  );
+}
+
+if (data.parkeren) {
+  const p = data.parkeren;
+  const posten = parkeerPosten(data);
+  const som = posten.reduce((s, x) => s + x.basis, 0);
+  const t5 = data.index.belastingen.get(p.opbrengst.belasting);
+  kop('10. Parkeren per vergunning en zone');
+  regels.push(
+    `De schuif ${t5?.naam ?? p.opbrengst.belasting} (${mln(t5?.opbrengst_mln ?? 0)} mln) is verdeeld in posten. Samen: ${mln(som / 1e6)} mln. Vergunningen: aantal × tarief. Kortparkeren: de parkeerbelasting uit de kerngegevens min de vergunningen. Garages: de rest.`,
+    '',
+    `Bronnen: ${p.bronnen.map((x) => `[${x.titel}](${x.url}) (${x.datum}, ${x.status})`).join('; ')}.`,
+    '',
+  );
+  tabel(
+    ['✓', 'Post', 'Tarief (bron, jaar)', 'Aantal (jaar)', 'Opbrengst (mln)', 'Status'],
+    posten.map((x) => [
+      '☐',
+      x.naam,
+      x.bronTarief
+        ? `€ ${x.bronTarief.bedrag.toLocaleString('nl-NL', { minimumFractionDigits: 2 })} (${x.bronTarief.prijspeil})${x.tarief !== undefined && x.bronTarief.prijspeil !== jaar ? `, geïndexeerd € ${x.tarief.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : ''}`
+        : 'afgeleid',
+      x.aantal !== undefined ? `${x.aantal.toLocaleString('nl-NL')} (${x.peiljaar})` : '',
+      mln(x.basis / 1e6),
+      x.zekerheid === 'feit' ? 'feit' : `⚠︎ ${x.zekerheid}`,
+    ]),
+  );
+  regels.push(
+    '',
+    'Uurtarieven kortparkeren (alleen ter informatie; de game heeft één schuif voor kortparkeren):',
+    '',
+  );
+  tabel(
+    ['✓', 'Zone', 'Uurtarief (jaar)'],
+    p.parkeerzones.map((z) => [
+      '☐',
+      z.naam,
+      z.uurtarief
+        ? `€ ${z.uurtarief.bedrag.toLocaleString('nl-NL', { minimumFractionDigits: 2 })} (${z.uurtarief.prijspeil})`
+        : 'onbekend',
+    ]),
   );
 }
 

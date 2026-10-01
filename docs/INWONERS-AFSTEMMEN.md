@@ -163,7 +163,8 @@ _Gemaakt uit `data/spel/personas.json` met `npm run personas:overzicht`._
   - 🛡️ Veilig: een beetje
   - 🌳 Schoon en heel: een beetje
 - **Merkt deze posten:**
-  - Parkeertarieven: blij als de belasting omlaag gaat (heel belangrijk)
+  - Bewonersvergunning (tweede zone): blij als de belasting omlaag gaat (belangrijk)
+  - Tweede bewonersvergunning (tweede zone): blij als de belasting omlaag gaat (een beetje)
   - Parkeercontrole: blij met minder geld hiervoor (een beetje)
   - Onderhoud straten, groen en speeltuinen: blij met meer geld hiervoor (een beetje)
 

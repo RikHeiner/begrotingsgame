@@ -2,7 +2,16 @@
  * Missies, badges, sterren en de teksten op het eindscherm. Pure functies over het resultaat van de
  * rekenmotor; geen bedragen in de code, de drempels staan in data/spel/missies.json.
  */
-import { bereken, formatMln, formatPct, type Data, type Keuzes, type Resultaat } from '../engine';
+import {
+  bereken,
+  formatMln,
+  formatPct,
+  PARKEER_PREFIX,
+  parkeerPostVan,
+  type Data,
+  type Keuzes,
+  type Resultaat,
+} from '../engine';
 import { evalueer, parseer } from '../engine/expressie';
 import type { Missie, Persona } from '../engine/schema';
 import { alsGezamenlijkeKeuzes } from '../engine/vvd';
@@ -75,19 +84,24 @@ export function personaInvloeden(data: Data, r: Resultaat, p: Persona): Invloed[
     const o = data.index.onderdelen.get(id);
     const b = data.index.belastingen.get(id);
     const kaart = data.index.kaarten.get(id);
+    const parkeer = parkeerPostVan(data, id);
     const pct = o
       ? (k.onderdelen[id] ?? 0)
       : b
         ? (k.belastingen[id] ?? 0)
-        : k.kaarten.includes(id)
-          ? 100
-          : 0;
+        : parkeer
+          ? (k.parkeren?.[parkeer.id] ?? 0)
+          : k.kaarten.includes(id)
+            ? 100
+            : 0;
     if (!pct) continue;
     const tekst = o
       ? `${pct < 0 ? 'minder' : 'meer'} geld voor ${kleineLetters(o.naam)} (${formatPct(pct)})`
       : b
         ? `een ${pct < 0 ? 'lagere' : 'hogere'} ${kleineLetters(b.naam.split(' (')[0] ?? '')} (${formatPct(pct)})`
-        : `de keuze "${kaart?.naam ?? id}"`;
+        : parkeer
+          ? `een ${pct < 0 ? 'lagere' : 'hogere'} prijs voor de ${kleineLetters(parkeer.naam)} (${formatPct(pct)})`
+          : `de keuze "${kaart?.naam ?? id}"`;
     uit.push({ waarde: w * pct, tekst });
   }
   return uit.sort((a, z) => Math.abs(z.waarde) - Math.abs(a.waarde));
@@ -167,13 +181,27 @@ export function maatregelen(
   }
   for (const [id, pct] of Object.entries(k.belastingen)) {
     const b = data.index.belastingen.get(id);
-    if (!b) continue;
+    if (!b || id === data.parkeren?.opbrengst.belasting) continue;
     const m = {
       id,
       naam: b.naam,
       wijziging: formatPct(pct),
       tekst: b.uitleg,
       bedrag: directBedrag(data, r, id),
+      soort: 'S' as const,
+    };
+    (pct < 0 ? meer : belasting).push(m);
+  }
+  // Parkeren per vergunning en zone (zie engine/parkeren.ts)
+  for (const [id, pct] of Object.entries(k.parkeren ?? {})) {
+    const post = parkeerPostVan(data, `${PARKEER_PREFIX}${id}`);
+    if (!post || !pct) continue;
+    const m = {
+      id: `${PARKEER_PREFIX}${id}`,
+      naam: post.naam,
+      wijziging: formatPct(pct),
+      tekst: post.uitleg,
+      bedrag: directBedrag(data, r, `${PARKEER_PREFIX}${id}`),
       soort: 'S' as const,
     };
     (pct < 0 ? meer : belasting).push(m);
@@ -226,7 +254,7 @@ export function themaVan(data: Data, id: string | null): string {
   if (!id) return THEMA_OVERIG;
   const o = data.index.onderdelen.get(id);
   if (o) return data.gebouwen.find((g) => g.id === o.gebouw)?.thema ?? THEMA_OVERIG;
-  if (data.index.belastingen.has(id)) return THEMA_BELASTINGEN;
+  if (data.index.belastingen.has(id) || id.startsWith(PARKEER_PREFIX)) return THEMA_BELASTINGEN;
   if (data.index.kaarten.has(id)) return THEMA_KAARTEN;
   return THEMA_OVERIG;
 }

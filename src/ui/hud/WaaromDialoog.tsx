@@ -8,6 +8,7 @@ import {
   beschrijf,
   formatMln,
   grootsteBronnen,
+  naamVan,
   type Data,
   type Resultaat,
 } from '../../engine';
@@ -26,9 +27,7 @@ export function WaaromDialoog({
 }) {
   const [jaar, setJaar] = useState(data.jaren[0] ?? 0);
   const naam = (bron: string) =>
-    data.index.onderdelen.get(bron)?.naam ??
-    data.index.belastingen.get(bron)?.naam ??
-    data.index.kaarten.get(bron)?.naam ??
+    naamVan(data, bron) ??
     (bron === 'reserve' ? 'Storting in de reserve' : undefined) ??
     `⚠︎ ${data.index.verbanden.get(bron)?.naam ?? bron}`;
   const bronnen = grootsteBronnen(resultaat, jaar);

@@ -120,7 +120,29 @@ scripts/         data-check, data-diff, vvd-check, vvd-word, db-test
   tevredenheid en de drie keuzes die hij of zij het meest merkt.
 - **Wat betekent het voor mij?**: in diezelfde dialoog en op het eindscherm. Koop of huur,
   WOZ-waarde, gezin, parkeervergunning en inkomen. Rekent met de tarieven uit
-  `data/tarieven-JJJJ.json` (in `config.json` onder `tarieven`). Er wordt niets opgeslagen.
+  `data/tarieven-JJJJ.json` (in `config.json` onder `tarieven`) en, voor de parkeervergunningen,
+  met het tarief van je eigen zone uit `data/parkeren-JJJJ.json`. Er wordt niets opgeslagen.
+
+## Parkeren per vergunning en zone
+
+`data/parkeren-JJJJ.json` (in `config.json` onder `parkeren`) verdeelt de parkeeropbrengst van de
+schuif t5 in posten, elk met een eigen schuif bij de Parkeergarage (`src/engine/parkeren.ts`):
+
+- **vergunningen**: aantal × tarief, voor bewoners per tariefgebied (binnenstad, tweede zone, derde
+  tot en met vijfde zone); daarnaast bezoekers, bedrijven, mantelzorg en maatschappelijk;
+- **kortparkeren en overig**: de parkeerbelasting uit de kerngegevens min de vergunningen (één
+  schuif; de uurtarieven per zone staan bij "Waarom ⚠︎?");
+- **parkeergarages**: de opbrengst in de begroting min de parkeerbelasting.
+
+Samen is dat precies de opbrengst van t5. De keuzes staan in `keuzes.parkeren` (sleutels als
+`bewoners_1:tweede`), de effecten hebben als bron `t5:<post>`. De schuif t5 wordt het gewogen
+gemiddelde, zodat kettingeffecten en inwoners blijven werken; een oude keuze voor t5 (deellink)
+geldt voor alle posten. In reacties kan `park.bewoners_1.tweede`, in persona's
+`t5:bewoners_1:tweede`.
+
+Elk tarief heeft een `prijspeil` en elk aantal een `peiljaar`. Een tarief van een eerder jaar wordt
+omgerekend met `indexatie`; zonder indexatie waarschuwt `npm run data:check`. Zie
+`UPDATE-BEGROTING.md` stap 5.
 
 ## Lancering, privacy en beveiliging
 
@@ -179,8 +201,9 @@ npm run data:diff 2026 2027                   # verschillen in Markdown (gebruik
 npm test                                      # alle tests
 ```
 
-Daarna in `data/config.json` het actieve jaar, het bestand, de horizon en het tarievenbestand
-(`tarieven-JJJJ.json`) aanpassen. De gebeurteniskaarten in `spel/gebeurtenissen.json` verwijzen naar
+Daarna in `data/config.json` het actieve jaar, het bestand, de horizon, het tarievenbestand
+(`tarieven-JJJJ.json`) en het parkeerbestand (`parkeren-JJJJ.json`) aanpassen. Let bij de tarieven
+en de parkeerdata op het jaartal van elk bedrag (stap 5 in `UPDATE-BEGROTING.md`). De gebeurteniskaarten in `spel/gebeurtenissen.json` verwijzen naar
 posten; als een post niet meer bestaat, meldt het laden dat.
 
 ## CI

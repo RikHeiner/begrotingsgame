@@ -67,6 +67,23 @@ test('bezuinigen en daarna investeren; een kettingeffect geeft een melding', asy
   await expect(page.getByTestId('saldo')).toContainText('+ € 7,8 mln');
 });
 
+test('parkeertarieven per vergunning en zone bij de parkeergarage', async ({ page }, testInfo) => {
+  await zonderTutorial(page);
+  await page.goto('/');
+  await tikOpGebouw(page, 'parkeer');
+  const paneel = page.getByTestId('paneel');
+  await expect(paneel.getByRole('heading', { name: 'Parkeertarieven' })).toBeVisible();
+  const s = await schuif(page, /Bewonersvergunning \(tweede zone\)/, 2);
+  await expect(s).toHaveValue('10');
+  await expect(paneel).toContainText('Nieuw tarief: € 148,56 per jaar');
+  await paneel.getByRole('heading', { name: 'Parkeertarieven' }).scrollIntoViewIfNeeded();
+  await page.screenshot({ path: testInfo.outputPath('parkeren.png') });
+  await paneel.getByRole('button', { name: 'Paneel sluiten' }).click();
+  // Het loket verwijst naar de parkeergarage
+  await tikOpGebouw(page, 'loket');
+  await expect(paneel).toContainText('stel je per vergunning en zone in bij de Parkeergarage');
+});
+
 test('missie kiezen en indienen: het eindscherm', async ({ page }, testInfo) => {
   await zonderTutorial(page);
   await page.goto('/');

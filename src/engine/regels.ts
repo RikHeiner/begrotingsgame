@@ -2,6 +2,7 @@
  * Spelregels: grenzen per post (vergrendeld, wettelijke taak, min/max), structureel sluitend,
  * eenmalig geld niet voor vaste lasten, en het weerstandsvermogen.
  */
+import { parkeerGemiddelde, parkeerPosten } from './parkeren';
 import { EPSILON, vanDuizend, vanMln } from './eenheden';
 import { formatMln, formatPct } from './format';
 import type { Data } from './laadData';
@@ -87,6 +88,36 @@ export function normaliseer(data: Data, keuzes: Keuzes): { keuzes: Keuzes; corre
     if (waarde !== 0) belastingen[id] = waarde;
   }
 
+  // Parkeren: de keuzes per post, met t5 als gewogen gemiddelde. Een oude keuze voor t5 zonder
+  // posten (bijvoorbeeld uit een deellink) geldt voor alle posten.
+  let parkeren: Record<string, number> | undefined;
+  if (data.parkeren) {
+    const posten = new Map(parkeerPosten(data).map((x) => [x.id, x]));
+    const invoer = keuzes.parkeren;
+    parkeren = {};
+    if (invoer && Object.keys(invoer).length) {
+      for (const [id, pct] of Object.entries(invoer)) {
+        const post = posten.get(id);
+        if (!post) {
+          correcties.push(`Onbekende parkeerpost "${id}" is overgeslagen.`);
+          continue;
+        }
+        if (!Number.isFinite(pct)) continue;
+        const grens = { min: post.min, max: post.max };
+        const reden = buitenGrens(post.naam, pct, grens, false);
+        if (reden) correcties.push(reden);
+        const waarde = klem(pct, grens.min, grens.max);
+        if (waarde !== 0) parkeren[id] = waarde;
+      }
+    } else if (belastingen.t5) {
+      for (const post of posten.values())
+        parkeren[post.id] = klem(belastingen.t5, post.min, post.max);
+    }
+    delete belastingen.t5;
+    const gemiddeld = parkeerGemiddelde(data, parkeren);
+    if (gemiddeld) belastingen.t5 = gemiddeld;
+  }
+
   const kaarten: string[] = [];
   for (const id of keuzes.kaarten) {
     if (!data.index.kaarten.has(id)) {
@@ -101,6 +132,7 @@ export function normaliseer(data: Data, keuzes: Keuzes): { keuzes: Keuzes; corre
     keuzes: {
       onderdelen,
       belastingen,
+      ...(parkeren && Object.keys(parkeren).length ? { parkeren } : {}),
       kaarten,
       scenario: keuzes.scenario,
       ...(keuzes.gebeurtenissen?.length

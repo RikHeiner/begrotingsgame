@@ -5,6 +5,7 @@
  * Volgorde per jaar (opdracht 6.2): directe effecten, grenzen, dwarsverbanden, meters en persona's,
  * regels, uitleg (elk bedrag is een lijst Effect-regels).
  */
+import { PARKEER_PREFIX, parkeerPosten } from './parkeren';
 import { rekenDwarsverbanden } from './dwarsverbanden';
 import { EPSILON, vanDuizend, vanMln } from './eenheden';
 import { formatMln, formatPct } from './format';
@@ -74,7 +75,32 @@ function directeEffecten(data: Data, keuzes: Keuzes): Effect[] {
     }
   }
 
+  // Parkeren per post (zie parkeren.ts); dan geen effect meer via de schuif t5 zelf.
+  const parkeerPost = data.parkeren ? data.parkeren.opbrengst.belasting : undefined;
+  if (parkeerPost) {
+    for (const post of parkeerPosten(data)) {
+      const pct = keuzes.parkeren?.[post.id] ?? 0;
+      if (!pct) continue;
+      jaren.forEach((jaar) => {
+        const bedrag = (pct / 100) * post.basis;
+        if (Math.abs(bedrag) < 0.005) return;
+        effecten.push({
+          bron: `${PARKEER_PREFIX}${post.id}`,
+          doel: parkeerPost,
+          bedrag,
+          jaar,
+          soort: 'S',
+          kant: 'baten',
+          stap: 'direct',
+          zekerheid: post.zekerheid,
+          uitleg: `${post.naam} ${formatPct(pct)}: de gemeente krijgt ${pct > 0 ? 'meer' : 'minder'} binnen.${post.aantal !== undefined && post.tarief !== undefined ? ` ${post.aantal.toLocaleString('nl-NL')} vergunningen × € ${post.tarief.toLocaleString('nl-NL', { maximumFractionDigits: 2 })}.` : ''}`,
+        });
+      });
+    }
+  }
+
   for (const b of data.begroting.belastingen) {
+    if (b.id === parkeerPost) continue;
     const pct = keuzes.belastingen[b.id] ?? 0;
     if (!pct) continue;
     voegToe(
@@ -414,6 +440,13 @@ export function magWijzigen(
     const b = data.index.belastingen.get(id);
     if (!b) return { ok: false, reden: `De belasting "${id}" bestaat niet.` };
     const reden = buitenGrens(b.naam, pct, grensBelasting(b), false);
+    if (reden) return { ok: false, reden };
+  }
+  for (const [id, pct] of Object.entries(nieuw.parkeren ?? {})) {
+    if ((huidig.parkeren?.[id] ?? 0) === pct) continue;
+    const post = parkeerPosten(data).find((x) => x.id === id);
+    if (!post) return { ok: false, reden: `De parkeerpost "${id}" bestaat niet.` };
+    const reden = buitenGrens(post.naam, pct, { min: post.min, max: post.max }, false);
     if (reden) return { ok: false, reden };
   }
   for (const id of nieuw.kaarten) {

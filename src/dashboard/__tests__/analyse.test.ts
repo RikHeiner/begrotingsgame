@@ -57,6 +57,21 @@ describe('dashboard: analyse van inzendingen', () => {
     expect(b[2]?.saldoS).toBeLessThan(0);
   });
 
+  it('neemt parkeren per post mee, ook in de CSV', () => {
+    const i = inzending({ keuzes: keuzes({ parkeren: { 'bewoners_1:tweede': 10 } }) });
+    const b = rekenDoor(data, [i]);
+    const verwacht = 0.1 * 9275 * 135.05;
+    expect(b[0]?.perBron.get('t5:bewoners_1:tweede')).toBeCloseTo(verwacht, 2);
+    // ook opgeteld bij de schuif Parkeertarieven zelf
+    expect(b[0]?.perBron.get('t5')).toBeCloseTo(verwacht, 2);
+    const rij = perPost(data, b).find((r) => r.id === 't5:bewoners_1:tweede');
+    expect(rij?.gekozen).toBe(1);
+    expect(rij?.gemiddeldPct).toBe(10);
+    expect(maakCsv(data, b)).toMatch(
+      /t5:bewoners_1:tweede Bewonersvergunning \(tweede zone\) \(%\)/,
+    );
+  });
+
   it('telt per post hoe vaak en hoeveel', () => {
     const rijen = perPost(data, rekenDoor(data, drie()));
     const h1 = rijen.find((r) => r.id === 'h1');

@@ -2,7 +2,15 @@
  * De posten van één gebouw: schuiven voor de onderdelen, het belastingloket of de actiekaarten van
  * het veilinghuis. Gebruikt in het gebouwpaneel én in de lijstweergave.
  */
-import { formatMln, grensBelasting, grensOnderdeel, type Data, type Resultaat } from '../../engine';
+import {
+  formatMln,
+  formatPct,
+  grensBelasting,
+  grensOnderdeel,
+  type Data,
+  type Resultaat,
+} from '../../engine';
+import { PARKEER_PREFIX, parkeerPosten, type ParkeerPost } from '../../engine/parkeren';
 import type { Gebouw } from '../../engine/schema';
 import { huidigJaar, useSpel } from '../../game/state/store';
 import { Schuif } from './Schuif';
@@ -69,6 +77,95 @@ function Bedrag({ euro }: { euro: number }) {
   );
 }
 
+const euro = (x: number) =>
+  `€ ${x.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+const PARKEER_GROEPEN: { titel: string; filter: (p: ParkeerPost) => boolean }[] = [
+  { titel: 'Bewonersvergunningen', filter: (p) => p.vergunning?.startsWith('bewoners') === true },
+  {
+    titel: 'Andere vergunningen',
+    filter: (p) => p.groep === 'vergunning' && !p.vergunning?.startsWith('bewoners'),
+  },
+  { titel: 'Kortparkeren en garages', filter: (p) => p.groep !== 'vergunning' },
+];
+
+/**
+ * De parkeertarieven per vergunning en tariefgebied (zie engine/parkeren.ts). Bij elk tarief staat
+ * het jaar; ⚠︎ betekent dat iets niet zeker is (oud jaartal, aanname of afgeleid bedrag).
+ */
+function ParkeerSchuiven({
+  gebouw,
+  data,
+  resultaat,
+  jaar,
+}: {
+  gebouw: Gebouw;
+  data: Data;
+  resultaat: Resultaat;
+  jaar: number;
+}) {
+  const zet = useSpel((s) => s.zetParkeerpost);
+  const posten = parkeerPosten(data);
+  const keuzes = resultaat.keuzes.parkeren ?? {};
+  const id = data.parkeren?.opbrengst.belasting ?? '';
+  return (
+    <section className="parkeren" aria-labelledby={`${gebouw.id}-parkeren`}>
+      <h3 id={`${gebouw.id}-parkeren`}>Parkeertarieven</h3>
+      <p className="klein">
+        Samen {formatMln(posten.reduce((s, p) => s + p.basis, 0))} per jaar. Je kiest per vergunning
+        en per zone of het tarief omhoog of omlaag gaat.
+      </p>
+      {PARKEER_GROEPEN.map((groep) => {
+        const lijst = posten.filter(groep.filter);
+        if (!lijst.length) return null;
+        return (
+          <div key={groep.titel}>
+            <h4>{groep.titel}</h4>
+            <ul className="posten">
+              {lijst.map((p) => {
+                const pct = keuzes[p.id] ?? 0;
+                const label =
+                  p.tarief !== undefined && p.aantal !== undefined
+                    ? `${p.zekerheid !== 'feit' ? '⚠︎ ' : ''}${p.naam} (${euro(p.tarief)} per jaar · ${p.aantal.toLocaleString('nl-NL')} vergunningen)`
+                    : `${p.zekerheid !== 'feit' ? '⚠︎ ' : ''}${p.naam} (${formatMln(p.basis)})`;
+                const nieuw =
+                  p.tarief !== undefined && pct
+                    ? `Nieuw tarief: ${euro(p.tarief * (1 + pct / 100))} per jaar.`
+                    : null;
+                return (
+                  <li key={p.id}>
+                    <Schuif
+                      id={`${gebouw.id}-parkeren-${p.id.replace(':', '-')}`}
+                      label={label}
+                      min={p.min}
+                      max={p.max}
+                      waarde={pct}
+                      beschrijving={[p.uitleg, nieuw].filter(Boolean).join(' ')}
+                      onChange={(v) => zet(p.id, v)}
+                    />
+                    <Bedrag euro={directBedrag(resultaat, `${PARKEER_PREFIX}${p.id}`, jaar)} />
+                    {p.opmerkingen.length > 0 && (
+                      <details className="parkeer-waarom">
+                        <summary>Waarom ⚠︎ of welk jaar?</summary>
+                        <ul>
+                          {p.opmerkingen.map((o) => (
+                            <li key={o}>{o}</li>
+                          ))}
+                        </ul>
+                      </details>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        );
+      })}
+      <OokEffect data={data} resultaat={resultaat} id={id} />
+    </section>
+  );
+}
+
 export function GebouwPosten({
   gebouw,
   data,
@@ -88,6 +185,20 @@ export function GebouwPosten({
     return (
       <ul className="posten">
         {data.begroting.belastingen.map((b) => {
+          if (data.parkeren && b.id === data.parkeren.opbrengst.belasting) {
+            const garage = data.gebouwen.find((x) => x.id === data.parkeren?.opbrengst.gebouw);
+            return (
+              <li key={b.id}>
+                <p className="schuif-uitleg">
+                  {b.naam} ({formatMln(b.opbrengst_mln * 1e6)}): die stel je per vergunning en zone
+                  in bij de {garage?.naam ?? 'parkeergarage'}.
+                  {k.belastingen[b.id]
+                    ? ` Gemiddeld nu ${formatPct(k.belastingen[b.id] ?? 0)}.`
+                    : ''}
+                </p>
+              </li>
+            );
+          }
           const g = grensBelasting(b);
           return (
             <li key={b.id}>
@@ -139,47 +250,52 @@ export function GebouwPosten({
   }
 
   return (
-    <ul className="posten">
-      {gebouw.onderdelen.map((id) => {
-        const o = data.index.onderdelen.get(id);
-        if (!o) return null;
-        const g = grensOnderdeel(o);
-        const pct = k.onderdelen[id] ?? 0;
-        const vergrendeld = g.min === 0 && g.max === 0;
-        const tekst = vergrendeld
-          ? o.reden_vergrendeld
-          : pct < 0
-            ? o.tekst_bezuinigen
-            : pct > 0
-              ? o.tekst_investeren
-              : null;
-        const label = `${vergrendeld ? '🔒 ' : o.wettelijke_taak ? '⚖️ ' : ''}${o.naam} (${o.gekoppelde_baten_mln > 0 ? `uitgaven ${formatMln(o.lasten_mln * 1e6)} · inkomsten ${formatMln(o.gekoppelde_baten_mln * 1e6)}` : formatMln(o.lasten_mln * 1e6)})`;
-        return (
-          <li key={id}>
-            <Schuif
-              id={`${gebouw.id}-${id}`}
-              label={label}
-              min={g.min}
-              max={g.max}
-              waarde={pct}
-              vergrendeld={vergrendeld}
-              beschrijving={
-                [
-                  tekst,
-                  o.wettelijke_taak && !vergrendeld
-                    ? `Wettelijke taak: niet lager dan ${g.min}%.`
-                    : null,
-                ]
-                  .filter(Boolean)
-                  .join(' ') || undefined
-              }
-              onChange={(v) => zetOnderdeel(id, v)}
-            />
-            <Bedrag euro={directBedrag(resultaat, id, jaar)} />
-            <OokEffect data={data} resultaat={resultaat} id={id} />
-          </li>
-        );
-      })}
-    </ul>
+    <>
+      <ul className="posten">
+        {gebouw.onderdelen.map((id) => {
+          const o = data.index.onderdelen.get(id);
+          if (!o) return null;
+          const g = grensOnderdeel(o);
+          const pct = k.onderdelen[id] ?? 0;
+          const vergrendeld = g.min === 0 && g.max === 0;
+          const tekst = vergrendeld
+            ? o.reden_vergrendeld
+            : pct < 0
+              ? o.tekst_bezuinigen
+              : pct > 0
+                ? o.tekst_investeren
+                : null;
+          const label = `${vergrendeld ? '🔒 ' : o.wettelijke_taak ? '⚖️ ' : ''}${o.naam} (${o.gekoppelde_baten_mln > 0 ? `uitgaven ${formatMln(o.lasten_mln * 1e6)} · inkomsten ${formatMln(o.gekoppelde_baten_mln * 1e6)}` : formatMln(o.lasten_mln * 1e6)})`;
+          return (
+            <li key={id}>
+              <Schuif
+                id={`${gebouw.id}-${id}`}
+                label={label}
+                min={g.min}
+                max={g.max}
+                waarde={pct}
+                vergrendeld={vergrendeld}
+                beschrijving={
+                  [
+                    tekst,
+                    o.wettelijke_taak && !vergrendeld
+                      ? `Wettelijke taak: niet lager dan ${g.min}%.`
+                      : null,
+                  ]
+                    .filter(Boolean)
+                    .join(' ') || undefined
+                }
+                onChange={(v) => zetOnderdeel(id, v)}
+              />
+              <Bedrag euro={directBedrag(resultaat, id, jaar)} />
+              <OokEffect data={data} resultaat={resultaat} id={id} />
+            </li>
+          );
+        })}
+      </ul>
+      {data.parkeren?.opbrengst.gebouw === gebouw.id && (
+        <ParkeerSchuiven gebouw={gebouw} data={data} resultaat={resultaat} jaar={jaar} />
+      )}
+    </>
   );
 }

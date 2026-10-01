@@ -7,7 +7,7 @@ Bedragen in miljoenen euro's, tenzij anders vermeld. Bron: [Ontwerpbegroting 202
 
 ## 1. Automatische controles
 
-- `data:check`: **0 fouten, 3 waarschuwingen** ✓
+- `data:check`: **0 fouten, 6 waarschuwingen** ✓
 
 | Controle | Uitkomst | Toelichting |
 | --- | --- | --- |
@@ -15,7 +15,8 @@ Bedragen in miljoenen euro's, tenzij anders vermeld. Bron: [Ontwerpbegroting 202
 | Toeristenbelasting (t2) en kengetal logiesbelasting | ✓ klopt | 2,900 tegenover 2,903 mln |
 | Reclamebelasting (t3) en kengetal | ✓ klopt | 0,700 tegenover 0,700 mln |
 | Precariobelasting (t4) en kengetal | ✓ klopt | 1,800 tegenover 1,784 mln |
-| Parkeertarieven (t5) en kengetal parkeerbelasting | ✗ **controleren** | 35,100 tegenover 26,325 mln |
+| Parkeerposten samen en schuif t5 | ✓ klopt | 35,100 tegenover 35,100 mln |
+| Parkeerposten zonder garages en kengetal parkeerbelasting | ✓ klopt | 26,325 tegenover 26,325 mln |
 | Zonder keuzes is het saldo in elk jaar € 0 | ✓ klopt | het saldo telt ten opzichte van de begroting |
 | Campagne met dezelfde keuzes = gewone begroting | ✓ klopt | overhead −10% in vier rondes |
 | Het kan en moet anders. Tegenbegroting VVD Groningen op de ontwerpbegroting 2026: saldo structureel in de game = tabel van de fractie | ✓ klopt | −0,059 tegenover −0,059 mln |
@@ -24,8 +25,11 @@ Bedragen in miljoenen euro's, tenzij anders vermeld. Bron: [Ontwerpbegroting 202
 ⚠︎ [deelprogramma] De onderdelen van 2.1 (Kwaliteit leefomgeving) tellen op tot 139.800 mln; het deelprogramma heeft 139.531 mln lasten in 2026. (bekende afwijking)
 ⚠︎ [totalen] 2026: de baten van de deelprogramma's (1514976) wijken 2 (x € 1.000) af van de totalen inclusief reservemutaties (1514978). Dat past bij afronding.
 ⚠︎ [totalen] 2028: de baten van de deelprogramma's (1525034) wijken 3 (x € 1.000) af van de totalen inclusief reservemutaties (1525031). Dat past bij afronding.
+⚠︎ [parkeren] Uurtarief Zone 3 (onder andere Paddepoel, Selwerd, Helpman, De Linie): tarief van 2023 en geen indexatie naar 2026. Vervang het tarief of vul "indexatie" aan.
+⚠︎ [parkeren] Uurtarief Zone 4 (Hoornse Meer, De Wijert-Zuid, Stadspark, Oosterhoogebrug): tarief van 2023 en geen indexatie naar 2026. Vervang het tarief of vul "indexatie" aan.
+⚠︎ [parkeren] bedrijven: de gebieden tellen op tot 2215, de bron noemt 2216 (verschil -1).
 
-0 fouten, 3 waarschuwingen, 0 meldingen.
+0 fouten, 6 waarschuwingen, 0 meldingen.
 ```
 
 ## 2. Totalen en kengetallen
@@ -299,6 +303,32 @@ Bron: [Gemeente Groningen, raadsvoorstel Belastingtarieven 2026](https://gemeent
 | ☐ | Afvalstoffenheffing, 2 personen | € 331,2 |
 | ☐ | Afvalstoffenheffing, 3 of meer | € 402,12 |
 | ☐ | Rioolheffing, eigenaar | € 178,69 |
-| ☐ | Bewonersvergunning Binnenstad | € 394,2 |
-| ☐ | Bewonersvergunning Zone 2 (onder andere Oosterpoort en Schildersbuurt) | € 135,05, tweede € 408,8 |
-| ☐ | Bewonersvergunning Zone 3 tot en met 5 (onder andere Selwerd, Helpman en Haren) | € 62,05 |
+
+## 10. Parkeren per vergunning en zone
+
+De schuif Parkeertarieven (35,100 mln) is verdeeld in posten. Samen: 35,100 mln. Vergunningen: aantal × tarief. Kortparkeren: de parkeerbelasting uit de kerngegevens min de vergunningen. Garages: de rest.
+
+Bronnen: [Voortgang pakket parkeermaatregelen, technisch rapport (september 2025)](https://gemeenteraad.groningen.nl/Documenten/Bijlage-Voortgang-pakket-parkeermaatregelen-technisch-rapport.pdf) (2025-09, feit); [Gemeente Groningen, raadsvoorstel Belastingtarieven 2026 (via zoekresultaten, document zelf nog niet ingezien)](https://gemeenteraad.groningen.nl/Documenten/Belastingtarieven-2026.pdf) (2025-11, te controleren); [Ontwerpbegroting 2026 (kerngegevens en schuif t5)](https://gemeenteraad.groningen.nl/Documenten/Bijlage-2-Ontwerpbegroting-2026-boekwerk.pdf) (2025-09, feit).
+
+| ✓ | Post | Tarief (bron, jaar) | Aantal (jaar) | Opbrengst (mln) | Status |
+| --- | --- | --- | --- | --- | --- |
+| ☐ | Bewonersvergunning (binnenstad) | € 394,20 (2026) | 765 (2025) | 0,302 | ⚠︎ aanname |
+| ☐ | Bewonersvergunning (tweede zone) | € 135,05 (2026) | 9.275 (2025) | 1,253 | ⚠︎ aanname |
+| ☐ | Bewonersvergunning (derde tot en met vijfde zone) | € 62,05 (2026) | 17.710 (2025) | 1,099 | ⚠︎ aanname |
+| ☐ | Tweede bewonersvergunning (tweede zone) | € 408,80 (2026) | 336 (2025) | 0,137 | ⚠︎ aanname |
+| ☐ | Bezoekersvergunning | € 25,00 (2026) | 24.621 (2025) | 0,616 | ⚠︎ aanname |
+| ☐ | Bedrijfsvergunning | € 135,05 (2026) | 2.215 (2025) | 0,299 | ⚠︎ aanname |
+| ☐ | Mantelzorgvergunning | € 26,02 (2026) | 247 (2025) | 0,006 | ⚠︎ aanname |
+| ☐ | Maatschappelijke parkeervergunning | € 65,70 (2026) | 110 (2025) | 0,007 | feit |
+| ☐ | Kortparkeren (uurtarief) en overige parkeerbelasting | afgeleid |  | 22,606 | ⚠︎ aanname |
+| ☐ | Parkeergarages | afgeleid |  | 8,775 | ⚠︎ aanname |
+
+Uurtarieven kortparkeren (alleen ter informatie; de game heeft één schuif voor kortparkeren):
+
+| ✓ | Zone | Uurtarief (jaar) |
+| --- | --- | --- |
+| ☐ | Zone 1 (binnenstad) | € 5,00 (2026) |
+| ☐ | Zone 2 (onder andere Oosterpoort, Schildersbuurt, Korrewegwijk, Haren Centrum) | € 4,50 (2026) |
+| ☐ | Zone 3 (onder andere Paddepoel, Selwerd, Helpman, De Linie) | € 2,70 (2023) |
+| ☐ | Zone 4 (Hoornse Meer, De Wijert-Zuid, Stadspark, Oosterhoogebrug) | € 2,70 (2023) |
+| ☐ | Zone 5 (Haren Schil, alleen voor vergunninghouders) | onbekend |

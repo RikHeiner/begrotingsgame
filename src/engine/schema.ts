@@ -26,6 +26,8 @@ export const configSchema = z
     vergelijkingTonen: z.boolean().default(true),
     /** tarieven van de lokale heffingen (voor "Wat betekent het voor mij?"), optioneel */
     tarieven: bestandsnaam.optional(),
+    /** parkeren per vergunning en tariefgebied (verdeelt de schuif t5), optioneel */
+    parkeren: bestandsnaam.optional(),
   })
   .strict()
   .refine((c) => c.meerjarenHorizon.every((j, i) => j === c.actiefJaar + i), {
@@ -525,17 +527,6 @@ export const tarievenSchema = z
       .object({ een_persoon: euro, twee_personen: euro, drie_of_meer: euro })
       .strict(),
     rioolheffing_eigenaar: euro,
-    parkeervergunning_bewoners: z.array(
-      z
-        .object({
-          id: z.string(),
-          kort: z.string(),
-          naam: z.string(),
-          eerste: euro,
-          tweede: euro.nullable(),
-        })
-        .strict(),
-    ),
     kwijtschelding: z
       .object({
         belastingen: z.array(z.enum(['afvalstoffenheffing', 'rioolheffing', 'ozb'])),
@@ -545,6 +536,112 @@ export const tarievenSchema = z
   })
   .strict();
 export type Tarieven = z.infer<typeof tarievenSchema>;
+
+// ---------- parkeren-JJJJ.json ----------
+
+const parkeerBedrag = z
+  .object({
+    bedrag: z.number().nonnegative(),
+    /** het jaar van het tarief; is dat niet het begrotingsjaar, dan wordt er geïndexeerd */
+    prijspeil: z.number().int(),
+    bron: z.string(),
+    aanname: z.string().optional(),
+  })
+  .strict();
+
+export const parkerenSchema = z
+  .object({
+    begrotingsjaar: z.number().int(),
+    toelichting: z.string(),
+    bronnen: z.array(
+      z
+        .object({
+          id: z.string(),
+          titel: z.string(),
+          url: z.string().url(),
+          datum: z.string(),
+          status: z.enum(['feit', 'aanname', 'te onderzoeken', 'te controleren']),
+        })
+        .strict(),
+    ),
+    opbrengst: z
+      .object({
+        belasting: z.string(),
+        /** het gebouw op de kaart met de parkeerschuiven */
+        gebouw: z.string(),
+        kengetal_parkeerbelasting: z.string(),
+        garages_toelichting: z.string(),
+      })
+      .strict(),
+    indexatie: z.array(
+      z
+        .object({
+          naar_jaar: z.number().int(),
+          pct: z.number(),
+          bron: z.string(),
+          toelichting: z.string(),
+        })
+        .strict(),
+    ),
+    parkeerzones: z.array(
+      z.object({ id: z.string(), naam: z.string(), uurtarief: parkeerBedrag.nullable() }).strict(),
+    ),
+    tariefgebieden: z
+      .array(z.object({ id: z.string(), kort: z.string(), naam: z.string() }).strict())
+      .min(1),
+    aantallen: z
+      .object({
+        peiljaar: z.number().int(),
+        bron: z.string(),
+        toelichting: z.string(),
+        totaal_volgens_bron: z.record(z.string(), z.number().int()),
+        gebieden: z.array(
+          z
+            .object({
+              naam: z.string(),
+              parkeerzone: z.string(),
+              tariefgebied: z.string(),
+              bewoners_1: z.number().int().nonnegative(),
+              bewoners_2: z.number().int().nonnegative(),
+              bezoekers: z.number().int().nonnegative(),
+              bedrijven: z.number().int().nonnegative(),
+            })
+            .strict(),
+        ),
+      })
+      .strict(),
+    vergunningen: z.array(
+      z
+        .object({
+          id: z.string().regex(/^[a-z0-9_]+$/),
+          naam: z.string(),
+          per_tariefgebied: z.boolean(),
+          /** per tariefgebied, of 'alle' */
+          tarief: z.record(z.string(), parkeerBedrag),
+          /** alleen als het aantal niet uit de tabel per gebied komt */
+          aantal: z
+            .object({
+              waarde: z.number().int().nonnegative(),
+              peiljaar: z.number().int(),
+              bron: z.string(),
+            })
+            .strict()
+            .optional(),
+          min_pct: z.number(),
+          max_pct: z.number(),
+          uitleg: z.string(),
+        })
+        .strict(),
+    ),
+    kortparkeren: z
+      .object({ naam: z.string(), min_pct: z.number(), max_pct: z.number(), uitleg: z.string() })
+      .strict(),
+    garages: z
+      .object({ naam: z.string(), min_pct: z.number(), max_pct: z.number(), uitleg: z.string() })
+      .strict(),
+  })
+  .strict();
+export type ParkerenData = z.infer<typeof parkerenSchema>;
 
 // ---------- spel/gebeurtenissen.json ----------
 

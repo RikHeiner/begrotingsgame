@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from 'vitest';
-import type { Data } from '../../engine';
+import { bereken, type Data } from '../../engine';
 import { echteData, keuzes } from '../../engine/__tests__/hulp';
-import { berekenImpact, standaardHuishouden, totaal } from '../impact';
+import { berekenImpact, impactPosten, standaardHuishouden, totaal } from '../impact';
 
 let data: Data;
 beforeAll(async () => {
@@ -50,20 +50,49 @@ describe('Wat betekent het voor mij?', () => {
   });
 
   it('Peter en Tineke: Oosterpoort, twee vergunningen, parkeren gratis', () => {
-    const h = { ...standaardHuishouden(data), vergunning: 'zone_2', vergunningen: 2 as const };
-    const nu = berekenImpact(tarieven(), keuzes(), h).find((x) => x.naam.includes('parkeer'));
-    expect(nu?.nu).toBeCloseTo(135.05 + 408.8, 6);
-    const gratis = berekenImpact(tarieven(), keuzes({ belastingen: { t5: -100 } }), h);
-    expect(gratis.find((x) => x.naam.includes('arkeer'))?.straks).toBe(0);
+    const h = { ...standaardHuishouden(data), vergunning: 'tweede', vergunningen: 2 as const };
+    const parkeer = (r: ReturnType<typeof berekenImpact>) =>
+      r.filter((x) => x.naam.includes('arkeervergunning'));
+    const nu = parkeer(berekenImpact(tarieven(), keuzes(), h, impactPosten(data)));
+    expect(nu.reduce((s, x) => s + (x.nu ?? 0), 0)).toBeCloseTo(135.05 + 408.8, 6);
+    // Een oude keuze voor t5 (deellink) geldt voor alle posten; de rekenmotor zet dat om.
+    const k = bereken(data, keuzes({ belastingen: { t5: -100 } })).keuzes;
+    const gratis = parkeer(berekenImpact(tarieven(), k, h, impactPosten(data)));
+    expect(gratis.every((x) => x.straks === 0)).toBe(true);
+  });
+
+  it('de keuze per zone telt alleen in die zone', () => {
+    const k = bereken(data, keuzes({ parkeren: { 'bewoners_1:tweede': 10 } })).keuzes;
+    const zone = (vergunning: string) =>
+      berekenImpact(
+        tarieven(),
+        k,
+        { ...standaardHuishouden(data), vergunning },
+        impactPosten(data),
+      ).find((x) => x.naam === 'Parkeervergunning');
+    expect(zone('tweede')?.straks).toBe(148.56);
+    expect(zone('derde_tm_vijfde')?.straks).toBe(62.05);
+  });
+
+  it('de bezoekersvergunning', () => {
+    const r = berekenImpact(
+      tarieven(),
+      keuzes(),
+      { ...standaardHuishouden(data), bezoekers: true },
+      impactPosten(data),
+    );
+    expect(r.find((x) => x.naam === 'Bezoekersvergunning')?.nu).toBe(25);
   });
 
   it('een onbekend tarief wordt niet verzonnen', () => {
-    const r = berekenImpact(tarieven(), keuzes(), {
-      ...standaardHuishouden(data),
-      vergunning: 'binnenstad',
-      vergunningen: 2,
-    });
-    const p = r.find((x) => x.naam === 'Parkeervergunning');
+    const r = berekenImpact(
+      tarieven(),
+      keuzes(),
+      { ...standaardHuishouden(data), vergunning: 'binnenstad', vergunningen: 2 },
+      impactPosten(data),
+    );
+    expect(r.find((x) => x.naam === 'Parkeervergunning')?.nu).toBe(394.2);
+    const p = r.find((x) => x.naam === 'Tweede parkeervergunning');
     expect(p?.nu).toBeUndefined();
     expect(p?.uitleg).toMatch(/niet in de data/);
   });

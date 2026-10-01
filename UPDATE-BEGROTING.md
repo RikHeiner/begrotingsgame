@@ -52,6 +52,8 @@ Pas `data/config.json` aan:
   "actiefJaar": JJJJ,
   "begroting": "begroting-JJJJ.json",
   "vergelijking": ["tegenbegroting-vvd-JJJJ.json"],
+  "tarieven": "tarieven-JJJJ.json",
+  "parkeren": "parkeren-JJJJ.json",
   "meerjarenHorizon": [JJJJ, JJJJ+1, JJJJ+2, JJJJ+3]
 }
 ```
@@ -61,3 +63,27 @@ Staat er nog geen tegenbegroting van de fractie voor het nieuwe jaar, laat `verg
 ## Stap 4: de nieuwe tegenbegroting van de fractie
 
 Zodra de fractie haar eigen tegenbegroting voor het nieuwe jaar heeft, maakt Claude er een `tegenbegroting-vvd-JJJJ.json` van, in dezelfde vorm als het bestand van 2026: per post omschrijving, bedrag, S/I en de koppeling aan een game-id. Posten zonder koppeling worden nieuwe actiekaarten. `npm run vvd-check` rekent de totalen na en toont afwijkingen.
+
+## Stap 5: tarieven en parkeren
+
+Twee bestanden hebben bedragen met een eigen jaartal. Let bij elk bedrag op dat jaartal: een rapport uit 2025 geeft bedragen van 2025, niet van het begrotingsjaar.
+
+**`tarieven-JJJJ.json`** (paneel "Wat betekent het voor mij?"): OZB, afvalstoffenheffing en rioolheffing uit het raadsvoorstel *Belastingtarieven JJJJ*.
+
+**`parkeren-JJJJ.json`** (de parkeerschuiven bij de Parkeergarage). Kopieer het bestand van vorig jaar en loop het na:
+
+1. `begrotingsjaar` en de `bronnen` (titel, url, datum, status). Zet de status pas op `feit` als iemand het bedrag in het document heeft gezien.
+2. **Tarieven** per vergunning en tariefgebied (`vergunningen[].tarief`) en het uurtarief per zone (`parkeerzones[].uurtarief`). Elk tarief heeft een `prijspeil`: het jaar waarvoor het tarief geldt.
+   - Is het nieuwe tarief bekend? Vul het in met `prijspeil` JJJJ.
+   - Nog niet bekend? Laat het oude tarief staan en voeg in `indexatie` een regel toe, bijvoorbeeld `{ "naar_jaar": JJJJ, "pct": 3.5, "bron": "…", "toelichting": "…" }`. De game rekent het tarief dan om naar JJJJ en zegt dat bij "Waarom ⚠︎?".
+3. **Aantallen** vergunningen per gebied (`aantallen.gebieden`) met het `peiljaar`. Vergelijk `totaal_volgens_bron` met de tabel in de bron.
+4. Het kengetal `parkeerbelasting_x1000` in de kerngegevens en de schuif `t5` in de begroting. Kortparkeren is de parkeerbelasting min de vergunningen; de garages zijn `t5` min de parkeerbelasting.
+5. Voer uit:
+
+```
+npm run data:check -- --alles
+npm run bedragen:controle
+```
+
+`data:check` waarschuwt bij een tarief van een ouder jaar zonder indexatie, bij aantallen ouder dan vorig jaar, en als de gebieden niet optellen tot het totaal in de bron. `bedragen:controle` zet alle parkeerposten met tarief, jaar en aantal in `docs/CONTROLE-BEDRAGEN.md`, om naast de bron te leggen.
+

@@ -4,7 +4,13 @@
  */
 import { useState } from 'react';
 import { formatEuro, type Data, type Resultaat } from '../../engine';
-import { berekenImpact, standaardHuishouden, totaal, type Huishouden } from '../../game/impact';
+import {
+  berekenImpact,
+  impactPosten,
+  standaardHuishouden,
+  totaal,
+  type Huishouden,
+} from '../../game/impact';
 import { Dialoog } from '../algemeen/Dialoog';
 
 const euro = (x: number | undefined) => (x === undefined ? 'onbekend' : formatEuro(x));
@@ -35,9 +41,12 @@ export function VoorMijDialoog({
   const zet = (deel: Partial<Huishouden>) => setH((x) => ({ ...x, ...deel }));
   const t = data.tarieven;
   if (!t) return null;
-  const rijen = berekenImpact(t, resultaat.keuzes, h);
+  const posten = impactPosten(data);
+  const rijen = berekenImpact(t, resultaat.keuzes, h, posten);
   const som = totaal(rijen);
-  const zone = t.parkeervergunning_bewoners.find((z) => z.id === h.vergunning);
+  const zones = data.parkeren?.tariefgebieden ?? [];
+  const zone = zones.find((z) => z.id === h.vergunning);
+  const bezoekers = posten.some((p) => p.vergunning === 'bezoekers');
 
   return (
     <Dialoog open={open} onSluit={onSluit} titel="Wat betekent het voor mij?" breed>
@@ -104,21 +113,23 @@ export function VoorMijDialoog({
             </select>
           </label>
         </div>
-        <label className="veld">
-          Auto met een parkeervergunning voor bewoners
-          <select
-            value={h.vergunning ?? ''}
-            onChange={(e) => zet({ vergunning: e.target.value || undefined })}
-          >
-            <option value="">Geen vergunning</option>
-            {t.parkeervergunning_bewoners.map((z) => (
-              <option key={z.id} value={z.id}>
-                {z.kort}
-              </option>
-            ))}
-          </select>
-          {zone && <span className="klein">{zone.naam}.</span>}
-        </label>
+        {zones.length > 0 && (
+          <label className="veld">
+            Auto met een parkeervergunning voor bewoners
+            <select
+              value={h.vergunning ?? ''}
+              onChange={(e) => zet({ vergunning: e.target.value || undefined })}
+            >
+              <option value="">Geen vergunning</option>
+              {zones.map((z) => (
+                <option key={z.id} value={z.id}>
+                  {z.kort}
+                </option>
+              ))}
+            </select>
+            {zone && <span className="klein">{zone.naam}.</span>}
+          </label>
+        )}
         {zone && (
           <label className="veld">
             Aantal vergunningen
@@ -129,6 +140,16 @@ export function VoorMijDialoog({
               <option value={1}>1</option>
               <option value={2}>2</option>
             </select>
+          </label>
+        )}
+        {bezoekers && (
+          <label className="keuze">
+            <input
+              type="checkbox"
+              checked={h.bezoekers}
+              onChange={(e) => zet({ bezoekers: e.target.checked })}
+            />
+            Ik heb een bezoekersvergunning
           </label>
         )}
         <label className="keuze">
@@ -173,6 +194,8 @@ export function VoorMijDialoog({
       <p className="klein">
         Alleen heffingen waarvan het tarief bekend is. Bron: {t.bron}
         {t.status !== 'feit' ? ` (⚠︎ ${t.status})` : ''}.
+        {data.parkeren &&
+          ` Parkeren: ${data.parkeren.bronnen.map((b) => `${b.titel}${b.status !== 'feit' ? ` (⚠︎ ${b.status})` : ''}`).join('; ')}.`}
       </p>
     </Dialoog>
   );

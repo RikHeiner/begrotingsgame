@@ -5,6 +5,7 @@
  */
 import { writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { naamVan, parkeerPostVan } from '../src/engine';
 import { laadDataNode, leesJson } from './lees';
 
 const data = laadDataNode();
@@ -19,12 +20,9 @@ const gebied = new Map(data.gebieden.gebieden.map((g) => [g.id, g.naam]));
 const meterNaam = new Map(data.meters.meters.map((m) => [m.id, `${m.icoon} ${m.naam}`]));
 const sterkte = (w: number) =>
   w >= 0.9 ? 'heel belangrijk' : w >= 0.5 ? 'belangrijk' : 'een beetje';
-const postNaam = (id: string) =>
-  data.index.onderdelen.get(id)?.naam ??
-  data.index.belastingen.get(id)?.naam ??
-  data.index.kaarten.get(id)?.naam ??
-  id;
-const isBelasting = (id: string) => data.index.belastingen.has(id);
+const postNaam = (id: string) => naamVan(data, id) ?? id;
+const isBelasting = (id: string) =>
+  data.index.belastingen.has(id) || parkeerPostVan(data, id) !== undefined;
 const isKaart = (id: string) => data.index.kaarten.has(id);
 
 const r: string[] = [

@@ -36,6 +36,7 @@ export function lokaleOpslag(): Opslag {
         keuzes: {
           onderdelen: i.keuzes.onderdelen,
           belastingen: i.keuzes.belastingen,
+          ...(i.keuzes.parkeren ? { parkeren: i.keuzes.parkeren } : {}),
           kaarten: i.keuzes.kaarten,
           scenario: i.keuzes.scenario,
           ...(i.keuzes.reserve ? { reserve: i.keuzes.reserve } : {}),

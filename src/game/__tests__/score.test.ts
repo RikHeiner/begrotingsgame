@@ -82,7 +82,7 @@ describe('eindscherm', () => {
     const zinnen = personaZinnen(data, r);
     expect(zinnen).toHaveLength(data.personas.personas.length);
     expect(zinnen.find((z) => z.id === 'peter_tineke')?.zin).toMatch(
-      /blij met een lagere parkeertarieven/,
+      /blij met een lagere prijs voor de bewonersvergunning \(tweede zone\)/,
     );
     expect(zinnen.find((z) => z.id === 'sem')?.zin).toMatch(/merkt weinig/);
     expect(zinnen.every((z) => !/€/.test(z.zin))).toBe(true);
@@ -134,6 +134,11 @@ describe('deellink', () => {
     });
     const g = decodeer(codeer(k, 2026, 'lasten'));
     expect(g).toEqual({ jaar: 2026, keuzes: k, missie: 'lasten' });
+  });
+
+  it('neemt de parkeerkeuzes mee', () => {
+    const k = keuzes({ belastingen: { t5: 1.2 }, parkeren: { 'bewoners_1:tweede': 10 } });
+    expect(decodeer(codeer(k, 2026))?.keuzes).toEqual(k);
   });
 
   it('zit in de url en negeert onzin', () => {

@@ -3,7 +3,14 @@
  * rekenmotor: de bedragen komen dus uit de begroting, niet uit wat een browser instuurt.
  * Alles hier is los van de schermen te testen.
  */
-import { bereken, GEEN_KEUZES, type Data, type Keuzes } from '../engine';
+import {
+  bereken,
+  GEEN_KEUZES,
+  PARKEER_PREFIX,
+  parkeerPosten,
+  type Data,
+  type Keuzes,
+} from '../engine';
 import { themaVan } from '../game/score';
 import type { Inzending } from '../inzending/types';
 
@@ -30,6 +37,7 @@ export function schoneKeuzes(k: Partial<Keuzes> | null | undefined): Keuzes {
     ...GEEN_KEUZES,
     onderdelen: getallen(k?.onderdelen),
     belastingen: getallen(k?.belastingen),
+    ...(Object.keys(getallen(k?.parkeren)).length ? { parkeren: getallen(k?.parkeren) } : {}),
     kaarten: Array.isArray(k?.kaarten) ? k.kaarten.filter((x) => typeof x === 'string') : [],
     scenario,
     ...(k?.reserve ? { reserve: k.reserve } : {}),
@@ -43,6 +51,9 @@ function rekenUit(data: Data, keuzes: Keuzes): Omit<Berekend, 'inzending'> {
   for (const e of r.effecten) {
     if (e.stap !== 'direct' || e.jaar !== eerste) continue;
     perBron.set(e.bron, (perBron.get(e.bron) ?? 0) + e.bedrag);
+    // Parkeren per post telt ook op bij de belasting zelf (t5).
+    if (e.bron.startsWith(PARKEER_PREFIX))
+      perBron.set(e.doel, (perBron.get(e.doel) ?? 0) + e.bedrag);
   }
   return {
     saldoS: r.perJaar[eerste]?.structureel ?? 0,
@@ -152,6 +163,8 @@ export function perPost(data: Data, b: Berekend[]): PostRij[] {
     voeg(o.id, o.naam, 'onderdeel', (k) => k.onderdelen[o.id]);
   for (const t of data.index.belastingen.values())
     voeg(t.id, t.naam, 'belasting', (k) => k.belastingen[t.id]);
+  for (const p of parkeerPosten(data))
+    voeg(`${PARKEER_PREFIX}${p.id}`, p.naam, 'belasting', (k) => k.parkeren?.[p.id]);
   for (const k of data.index.kaarten.values())
     voeg(k.id, k.naam, 'kaart', (x) => (x.kaarten.includes(k.id) ? 1 : undefined));
   return rijen.sort((a, z) => z.gekozen - a.gekozen || a.naam.localeCompare(z.naam, 'nl'));
@@ -186,7 +199,12 @@ export function keuzeLabels(data: Data, k: Keuzes): string[] {
   }
   for (const [id, p] of Object.entries(k.belastingen)) {
     const t = data.index.belastingen.get(id);
+    if (id === data.parkeren?.opbrengst.belasting && k.parkeren) continue;
     if (t && p) uit.push(`${t.naam} ${p < 0 ? 'omlaag' : 'omhoog'}`);
+  }
+  for (const post of parkeerPosten(data)) {
+    const p = k.parkeren?.[post.id];
+    if (p) uit.push(`${post.naam} ${p < 0 ? 'omlaag' : 'omhoog'}`);
   }
   for (const id of k.kaarten) {
     const kaart = data.index.kaarten.get(id);
@@ -252,6 +270,7 @@ function cel(x: string | number | Tekst): string {
 export function maakCsv(data: Data, b: Berekend[]): string {
   const onderdelen = [...data.index.onderdelen.values()];
   const belastingen = [...data.index.belastingen.values()];
+  const parkeren = parkeerPosten(data);
   const gebied = new Map(data.gebieden.gebieden.map((g) => [g.id, g.naam]));
   const kop = [
     'id',
@@ -267,6 +286,7 @@ export function maakCsv(data: Data, b: Berekend[]): string {
     'status idee',
     ...onderdelen.map((o) => `${o.id} ${o.naam} (%)`),
     ...belastingen.map((t) => `${t.id} ${t.naam} (%)`),
+    ...parkeren.map((p) => `${PARKEER_PREFIX}${p.id} ${p.naam} (%)`),
     'reserve elk jaar (mln)',
     'reserve eenmalig (mln)',
     'kaarten',
@@ -287,6 +307,7 @@ export function maakCsv(data: Data, b: Berekend[]): string {
       i.idee_status,
       ...onderdelen.map((o) => getal(k.onderdelen[o.id] ?? 0, 0)),
       ...belastingen.map((t) => getal(k.belastingen[t.id] ?? 0, 0)),
+      ...parkeren.map((p) => getal(k.parkeren?.[p.id] ?? 0, 0)),
       getal((k.reserve?.structureel ?? 0) / 1e6, 3),
       getal((k.reserve?.eenmalig ?? 0) / 1e6, 3),
       k.kaarten.map((id) => data.index.kaarten.get(id)?.naam ?? id).join(' | '),

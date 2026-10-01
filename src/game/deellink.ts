@@ -14,6 +14,8 @@ type Compact = {
   j: number;
   o?: Record<string, number>;
   t?: Record<string, number>;
+  /** parkeren per post (zie engine/parkeren.ts) */
+  p?: Record<string, number>;
   k?: string[];
   s?: Keuzes['scenario'];
   r?: [number, number];
@@ -24,6 +26,7 @@ export function codeer(keuzes: Keuzes, jaar: number, missie?: string): string {
   const c: Compact = { v: VERSIE, j: jaar };
   if (Object.keys(keuzes.onderdelen).length) c.o = keuzes.onderdelen;
   if (Object.keys(keuzes.belastingen).length) c.t = keuzes.belastingen;
+  if (keuzes.parkeren && Object.keys(keuzes.parkeren).length) c.p = keuzes.parkeren;
   if (keuzes.kaarten.length) c.k = keuzes.kaarten;
   if (keuzes.scenario !== 'midden') c.s = keuzes.scenario;
   if (keuzes.reserve)
@@ -63,6 +66,7 @@ export function decodeer(tekst: string): Gelezen | undefined {
         ...GEEN_KEUZES,
         onderdelen: getallen(c.o),
         belastingen: getallen(c.t),
+        ...(Object.keys(getallen(c.p)).length ? { parkeren: getallen(c.p) } : {}),
         kaarten: Array.isArray(c.k) ? c.k.filter((x): x is string => typeof x === 'string') : [],
         scenario,
         ...(r ? { reserve: { structureel: r[0] * 1000, eenmalig: r[1] * 1000 } } : {}),

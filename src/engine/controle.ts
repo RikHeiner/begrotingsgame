@@ -5,6 +5,7 @@
 import { bepaalVolgorde, IMPLEMENTATIES } from './dwarsverbanden';
 import type { Data } from './laadData';
 import { bekendeNamen, ExpressieFout, namen, parseer } from './expressie';
+import { indexeer, parkeerPosten, parkeerPostVan } from './parkeren';
 import { METER_IDS, type IdMapping } from './schema';
 
 export type Niveau = 'fout' | 'waarschuwing' | 'info';
@@ -221,7 +222,8 @@ export function controleer({ data, buurtcodes, mappings = [] }: ControleInvoer):
   // ---- Persona's ----
   for (const p of data.personas.personas) {
     plek('personas', p.id, p.buurt, p.gebied);
-    for (const id of Object.keys(p.posten)) bestaatOfVervallen('personas', id, `persona ${p.id}`);
+    for (const id of Object.keys(p.posten))
+      if (!parkeerPostVan(data, id)) bestaatOfVervallen('personas', id, `persona ${p.id}`);
   }
 
   // ---- Dwarsverbanden ----
@@ -299,7 +301,11 @@ export function controleer({ data, buurtcodes, mappings = [] }: ControleInvoer):
   }
 
   // ---- Reacties (tekstballonnen) ----
-  const toegestaan = bekendeNamen({ ...data, meterIds: METER_IDS });
+  const toegestaan = bekendeNamen({
+    ...data,
+    meterIds: METER_IDS,
+    parkeerposten: parkeerPosten(data).map((p) => p.id),
+  });
   const personaIds = new Set(data.personas.personas.map((p) => p.id));
   const reactieIds = new Set<string>();
   for (const r of data.reacties) {
@@ -356,6 +362,55 @@ export function controleer({ data, buurtcodes, mappings = [] }: ControleInvoer):
     for (const post of [...tegenbegroting.ombuigingen_en_opbrengsten, ...tegenbegroting.uitgaven]) {
       if (post.game_koppeling) bestaatOfVervallen('tegenbegroting', post.game_koppeling, bestand);
     }
+  }
+
+  // ---- Parkeren: datums van tarieven en aantallen (opdracht: let op het jaar van elk bedrag) ----
+  const p = data.parkeren;
+  if (p) {
+    const status = new Map(p.bronnen.map((x) => [x.id, x.status]));
+    for (const [id, st] of status)
+      if (st !== 'feit') info('parkeren', `Bron "${id}" heeft status "${st}".`);
+    const kijk = (waar: string, t: { prijspeil: number; bron: string }) => {
+      if (!status.has(t.bron)) fout('parkeren', `${waar}: onbekende bron "${t.bron}".`);
+      if (t.prijspeil === p.begrotingsjaar) return;
+      const { volledig } = indexeer(p, 1, t.prijspeil);
+      if (volledig)
+        info(
+          'parkeren',
+          `${waar}: tarief van ${t.prijspeil}, wordt geïndexeerd naar ${p.begrotingsjaar}.`,
+        );
+      else
+        waarschuw(
+          'parkeren',
+          `${waar}: tarief van ${t.prijspeil} en geen indexatie naar ${p.begrotingsjaar}. Vervang het tarief of vul "indexatie" aan.`,
+        );
+    };
+    for (const v of p.vergunningen)
+      for (const [gebied, t] of Object.entries(v.tarief)) kijk(`${v.naam} (${gebied})`, t);
+    for (const z of p.parkeerzones) if (z.uurtarief) kijk(`Uurtarief ${z.naam}`, z.uurtarief);
+    if (p.aantallen.peiljaar < p.begrotingsjaar - 1)
+      waarschuw(
+        'parkeren',
+        `De aantallen vergunningen zijn van ${p.aantallen.peiljaar}; er zijn nieuwere cijfers nodig voor ${p.begrotingsjaar}.`,
+      );
+    for (const [soort, totaal] of Object.entries(p.aantallen.totaal_volgens_bron)) {
+      const som = p.aantallen.gebieden.reduce(
+        (x, g) => x + ((g as Record<string, unknown>)[soort] as number),
+        0,
+      );
+      if (som !== totaal)
+        waarschuw(
+          'parkeren',
+          `${soort}: de gebieden tellen op tot ${som}, de bron noemt ${totaal} (verschil ${som - totaal}).`,
+        );
+    }
+    const posten = parkeerPosten(data);
+    const kort = posten.find((x) => x.id === 'kortparkeren');
+    if (kort && kort.basis <= 0)
+      fout(
+        'parkeren',
+        'De vergunningen zijn samen meer dan de parkeerbelasting; controleer de tarieven.',
+      );
   }
 
   return uit;

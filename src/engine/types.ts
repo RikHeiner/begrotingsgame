@@ -7,6 +7,11 @@ export type Keuzes = {
   onderdelen: Record<string, number>;
   /** belasting-id -> percentage */
   belastingen: Record<string, number>;
+  /**
+   * parkeren per onderdeel (parkeerpost-id -> percentage), zie parkeren.ts. De schuif t5 in
+   * `belastingen` wordt daaruit afgeleid (het gewogen gemiddelde).
+   */
+  parkeren?: Record<string, number>;
   /** actieve actiekaarten */
   kaarten: string[];
   scenario: Scenario;

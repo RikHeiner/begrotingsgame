@@ -4,6 +4,7 @@
  */
 import { formatMln } from './format';
 import type { Data } from './laadData';
+import { parkeerPostVan } from './parkeren';
 import type { Effect, Resultaat } from './types';
 
 export type Filter = {
@@ -32,6 +33,16 @@ export function somVan(effecten: Effect[]): number {
 
 export const AANNAME_LABEL = '⚠︎';
 
+/** De naam van een post, belasting, actiekaart of parkeerpost; undefined als die onbekend is. */
+export function naamVan(data: Data, bron: string): string | undefined {
+  return (
+    data.index.onderdelen.get(bron)?.naam ??
+    data.index.belastingen.get(bron)?.naam ??
+    data.index.kaarten.get(bron)?.naam ??
+    parkeerPostVan(data, bron)?.naam
+  );
+}
+
 /** Eén regel in gewone taal, met ⚠︎ bij een aanname. */
 export function beschrijf(data: Data, e: Effect): string {
   const label =
@@ -43,10 +54,7 @@ export function beschrijf(data: Data, e: Effect): string {
   const bron =
     e.stap === 'dwarsverband'
       ? `Kettingeffect "${data.index.verbanden.get(e.verband ?? '')?.naam ?? e.bron}"`
-      : (data.index.onderdelen.get(e.bron)?.naam ??
-        data.index.belastingen.get(e.bron)?.naam ??
-        data.index.kaarten.get(e.bron)?.naam ??
-        e.bron);
+      : (naamVan(data, e.bron) ?? e.bron);
   return `${bron}: ${formatMln(e.bedrag, { decimalen: 2, teken: true })} in ${e.jaar}${e.soort === 'I' ? ' (eenmalig)' : ''}${label}. ${e.uitleg}`;
 }
 
