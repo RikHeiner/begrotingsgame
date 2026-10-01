@@ -21,6 +21,8 @@ export const configSchema = z
     meerjarenHorizon: z.array(z.number().int()).min(1),
     scenario: scenarioSchema.default('midden'),
     vergelijkingTonen: z.boolean().default(true),
+    /** tarieven van de lokale heffingen (voor "Wat betekent het voor mij?"), optioneel */
+    tarieven: bestandsnaam.optional(),
   })
   .strict()
   .refine((c) => c.meerjarenHorizon.every((j, i) => j === c.actiefJaar + i), {
@@ -503,6 +505,43 @@ export const tekstenSchema = z
   })
   .strict();
 export type Teksten = z.infer<typeof tekstenSchema>;
+
+// ---------- tarieven-JJJJ.json ----------
+
+const euro = z.number().nonnegative();
+export const tarievenSchema = z
+  .object({
+    begrotingsjaar: z.number().int(),
+    toelichting: z.string(),
+    bron: z.string().min(1),
+    bron_url: z.string().url(),
+    status: zekerheidSchema.or(z.literal('te controleren')),
+    /** procent van de WOZ-waarde (0,1473 = 0,1473%) */
+    ozb_woning_eigenaar_pct: z.number().positive(),
+    afvalstoffenheffing: z
+      .object({ een_persoon: euro, twee_personen: euro, drie_of_meer: euro })
+      .strict(),
+    rioolheffing_eigenaar: euro,
+    parkeervergunning_bewoners: z.array(
+      z
+        .object({
+          id: z.string(),
+          kort: z.string(),
+          naam: z.string(),
+          eerste: euro,
+          tweede: euro.nullable(),
+        })
+        .strict(),
+    ),
+    kwijtschelding: z
+      .object({
+        belastingen: z.array(z.enum(['afvalstoffenheffing', 'rioolheffing', 'ozb'])),
+        toelichting: z.string(),
+      })
+      .strict(),
+  })
+  .strict();
+export type Tarieven = z.infer<typeof tarievenSchema>;
 
 // ---------- spel/gebeurtenissen.json ----------
 

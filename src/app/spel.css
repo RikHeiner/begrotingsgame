@@ -1449,3 +1449,108 @@
 .tabel .links {
   text-align: left;
 }
+
+/* ---------- Inwoners en Wat betekent het voor mij ---------- */
+.personas {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.personas details {
+  border-bottom: 1px solid color-mix(in srgb, var(--inkt) 10%, transparent);
+}
+
+.personas summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(4rem, 1fr) 2.2rem;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.persona-meer {
+  padding: 0 0 0.6rem 1.6rem;
+}
+
+.persona-meer p {
+  margin: 0.3rem 0;
+}
+
+.invloeden {
+  margin: 0.3rem 0 0;
+  padding-left: 1rem;
+  font-weight: 600;
+}
+
+.voormij-knop {
+  margin-top: 0.75rem;
+}
+
+.voormij select,
+.voormij input[type='number'] {
+  min-height: 44px;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.6rem;
+  border: 2px solid color-mix(in srgb, var(--inkt) 25%, transparent);
+  background: var(--achtergrond);
+  color: var(--inkt);
+  font: inherit;
+  font-weight: 400;
+}
+
+.voormij-rij {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1rem;
+}
+
+.voormij-rij .veld {
+  flex: 1 1 8rem;
+}
+
+.voormij-uitleg {
+  display: block;
+  font-weight: 400;
+}
+
+.voormij .veld {
+  min-width: 0;
+}
+
+.voormij select,
+.voormij input[type='number'] {
+  width: 100%;
+  max-width: 100%;
+}
+
+.voormij-uitkomst {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.voormij-uitkomst li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--inkt) 10%, transparent);
+}
+
+.voormij-uitkomst p {
+  margin: 0.1rem 0;
+}
+
+.voormij-kop {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-weight: 700;
+}
+
+.voormij-bedragen {
+  font-variant-numeric: tabular-nums;
+}
+
+.voormij-totaal {
+  font-size: 1.1rem;
+}

@@ -17,6 +17,8 @@ import {
   personasSchema,
   tegenbegrotingSchema,
   gebeurtenissenSchema,
+  tarievenSchema,
+  type Tarieven,
   type Actiekaart,
   type Gebeurtenis,
   type Begroting,
@@ -55,6 +57,8 @@ export type Data = {
   teksten: Teksten;
   /** gebeurteniskaarten voor de campagnemodus */
   gebeurtenissen: Gebeurtenis[];
+  /** tarieven van de lokale heffingen, als config.json ze noemt */
+  tarieven?: Tarieven;
   vergelijking: { bestand: string; tegenbegroting: Tegenbegroting }[];
   /** Jaren van de meerjarenraming, bijvoorbeeld [2026, 2027, 2028, 2029]. */
   jaren: number[];
@@ -117,6 +121,7 @@ export type RuweData = {
   teksten: unknown;
   personas: unknown;
   gebeurtenissen: unknown;
+  tarieven?: { bestand: string; inhoud: unknown };
   vergelijking: { bestand: string; inhoud: unknown }[];
 };
 
@@ -162,6 +167,13 @@ export function maakData(ruw: RuweData): Data {
         onbekend.push(`${g.id}: belasting "${basis.id}" bestaat niet`);
     }
   if (onbekend.length) throw new DataFout(SPEL_BESTANDEN.gebeurtenissen, onbekend);
+  const tarieven = ruw.tarieven
+    ? valideer(tarievenSchema, ruw.tarieven.inhoud, ruw.tarieven.bestand)
+    : undefined;
+  if (ruw.tarieven && tarieven && tarieven.begrotingsjaar !== config.actiefJaar)
+    throw new DataFout(ruw.tarieven.bestand, [
+      `dit zijn de tarieven van ${tarieven.begrotingsjaar}, maar config.json verwacht ${config.actiefJaar}`,
+    ]);
   const vergelijking = ruw.vergelijking.map(({ bestand, inhoud }) => ({
     bestand,
     tegenbegroting: valideer(tegenbegrotingSchema, inhoud, bestand),
@@ -181,6 +193,7 @@ export function maakData(ruw: RuweData): Data {
     missies,
     teksten,
     gebeurtenissen,
+    ...(tarieven ? { tarieven } : {}),
     vergelijking,
     jaren: [...config.meerjarenHorizon],
     index: maakIndex(begroting, dwarsverbanden, meters, gebeurtenissen),
@@ -222,11 +235,12 @@ export async function laadData(haal: HaalJson): Promise<Data> {
   const ruweConfig = await haal('config.json');
   const config = valideer(configSchema, ruweConfig, 'config.json');
   const spelSleutels = Object.keys(SPEL_BESTANDEN) as (keyof typeof SPEL_BESTANDEN)[];
-  const [begroting, dwarsverbanden, spel, vergelijking] = await Promise.all([
+  const [begroting, dwarsverbanden, spel, vergelijking, tarieven] = await Promise.all([
     haal(config.begroting),
     haal('dwarsverbanden.json'),
     Promise.all(spelSleutels.map((k) => haal(SPEL_BESTANDEN[k]))),
     Promise.all(config.vergelijking.map((b) => haal(b))),
+    config.tarieven ? haal(config.tarieven) : Promise.resolve(undefined),
   ]);
   const spelData = Object.fromEntries(spelSleutels.map((k, i) => [k, spel[i]])) as Record<
     keyof typeof SPEL_BESTANDEN,
@@ -237,6 +251,7 @@ export async function laadData(haal: HaalJson): Promise<Data> {
     begroting,
     dwarsverbanden,
     ...spelData,
+    ...(config.tarieven ? { tarieven: { bestand: config.tarieven, inhoud: tarieven } } : {}),
     vergelijking: config.vergelijking.map((bestand, i) => ({ bestand, inhoud: vergelijking[i] })),
   });
 }

@@ -4,7 +4,7 @@
  */
 import { bereken, formatMln, formatPct, type Data, type Keuzes, type Resultaat } from '../engine';
 import { evalueer, parseer } from '../engine/expressie';
-import type { Missie } from '../engine/schema';
+import type { Missie, Persona } from '../engine/schema';
 import { alsGezamenlijkeKeuzes } from '../engine/vvd';
 import { maakLezer } from './reacties/context';
 import { gebouwStanden } from './toestand';
@@ -65,34 +65,41 @@ export function sterren(data: Data, r: Resultaat, missie: Missie | undefined, le
 // Inwoners
 // ---------------------------------------------------------------------------------------------
 
+export type Invloed = { waarde: number; tekst: string };
+
+/** Wat een inwoner merkt van jouw keuzes, het sterkst eerst (gewicht × wijziging, + = blij). */
+export function personaInvloeden(data: Data, r: Resultaat, p: Persona): Invloed[] {
+  const k = r.keuzes;
+  const uit: Invloed[] = [];
+  for (const [id, w] of Object.entries(p.posten)) {
+    const o = data.index.onderdelen.get(id);
+    const b = data.index.belastingen.get(id);
+    const kaart = data.index.kaarten.get(id);
+    const pct = o
+      ? (k.onderdelen[id] ?? 0)
+      : b
+        ? (k.belastingen[id] ?? 0)
+        : k.kaarten.includes(id)
+          ? 100
+          : 0;
+    if (!pct) continue;
+    const tekst = o
+      ? `${pct < 0 ? 'minder' : 'meer'} geld voor ${kleineLetters(o.naam)} (${formatPct(pct)})`
+      : b
+        ? `een ${pct < 0 ? 'lagere' : 'hogere'} ${kleineLetters(b.naam.split(' (')[0] ?? '')} (${formatPct(pct)})`
+        : `de keuze "${kaart?.naam ?? id}"`;
+    uit.push({ waarde: w * pct, tekst });
+  }
+  return uit.sort((a, z) => Math.abs(z.waarde) - Math.abs(a.waarde));
+}
+
 /** Een zin per inwoner over wat hij of zij het meest merkt. Kwalitatief: geen verzonnen bedragen. */
 export function personaZinnen(
   data: Data,
   r: Resultaat,
 ): { id: string; naam: string; tevredenheid: number; zin: string }[] {
-  const k = r.keuzes;
   return data.personas.personas.map((p) => {
-    let beste: { waarde: number; tekst: string } | undefined;
-    for (const [id, w] of Object.entries(p.posten)) {
-      const o = data.index.onderdelen.get(id);
-      const b = data.index.belastingen.get(id);
-      const kaart = data.index.kaarten.get(id);
-      const pct = o
-        ? (k.onderdelen[id] ?? 0)
-        : b
-          ? (k.belastingen[id] ?? 0)
-          : k.kaarten.includes(id)
-            ? 100
-            : 0;
-      if (!pct) continue;
-      const waarde = w * pct;
-      const tekst = o
-        ? `${pct < 0 ? 'minder' : 'meer'} geld voor ${kleineLetters(o.naam)} (${formatPct(pct)})`
-        : b
-          ? `een ${pct < 0 ? 'lagere' : 'hogere'} ${kleineLetters(b.naam.split(' (')[0] ?? '')} (${formatPct(pct)})`
-          : `de keuze "${kaart?.naam ?? id}"`;
-      if (!beste || Math.abs(waarde) > Math.abs(beste.waarde)) beste = { waarde, tekst };
-    }
+    const beste = personaInvloeden(data, r, p)[0];
     const naam = p.naam;
     const meervoud = / en /.test(naam);
     const zin = !beste

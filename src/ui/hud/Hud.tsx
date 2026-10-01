@@ -12,9 +12,10 @@ import { gezicht } from './gezicht';
 import { InstellingenDialoog } from './InstellingenDialoog';
 import { InwonersDialoog } from './InwonersDialoog';
 import { MissieDialoog } from './MissieDialoog';
+import { VoorMijDialoog } from './VoorMijDialoog';
 import { WaaromDialoog } from './WaaromDialoog';
 
-type Open = 'waarom' | 'inwoners' | 'instellingen' | 'missie' | undefined;
+type Open = 'waarom' | 'inwoners' | 'instellingen' | 'missie' | 'voormij' | undefined;
 
 export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
   const [open, setOpen] = useState<Open>();
@@ -158,6 +159,14 @@ export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
       />
       <InwonersDialoog
         open={open === 'inwoners'}
+        // Het close-event komt ook als we doorgaan naar "Wat betekent het voor mij?".
+        onSluit={() => setOpen((o) => (o === 'inwoners' ? undefined : o))}
+        data={data}
+        resultaat={resultaat}
+        onVoorMij={() => setOpen('voormij')}
+      />
+      <VoorMijDialoog
+        open={open === 'voormij'}
         onSluit={() => setOpen(undefined)}
         data={data}
         resultaat={resultaat}

@@ -4,5 +4,6 @@
   "vergelijking": ["tegenbegroting-vvd-2026.json"],
   "meerjarenHorizon": [2026, 2027, 2028, 2029],
   "scenario": "midden",
-  "vergelijkingTonen": true
+  "vergelijkingTonen": true,
+  "tarieven": "tarieven-2026.json"
 }

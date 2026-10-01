@@ -34,6 +34,9 @@ export function laadDataNode(begrotingBestand?: string): Data {
       v.includes(String(b.begrotingsjaar)),
     );
     config.vergelijking = vergelijking.filter((v) => existsSync(resolve(DATA_MAP, v)));
+    const tarieven = `tarieven-${b.begrotingsjaar}.json`;
+    if (existsSync(resolve(DATA_MAP, tarieven))) config.tarieven = tarieven;
+    else delete config.tarieven;
   } else {
     begroting = leesJson(config.begroting as string);
   }
@@ -44,6 +47,9 @@ export function laadDataNode(begrotingBestand?: string): Data {
     ...(Object.fromEntries(
       Object.entries(SPEL_BESTANDEN).map(([k, pad]) => [k, leesJson(pad)]),
     ) as Record<keyof typeof SPEL_BESTANDEN, unknown>),
+    ...(typeof config.tarieven === 'string'
+      ? { tarieven: { bestand: config.tarieven, inhoud: leesJson(config.tarieven) } }
+      : {}),
     vergelijking: (config.vergelijking as string[]).map((bestand) => ({
       bestand,
       inhoud: leesJson(bestand),
