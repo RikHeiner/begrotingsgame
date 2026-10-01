@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Begrotingsgame gemeente Groningen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Asap:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--blue:#1233C4;--blue-soft:#E8ECFB;--orange:#FF6A00;--orange-soft:#FFF0E5;--ink:#15193A;--muted:#5A5F7D;--line:#D9DDEE;--bg:#F6F7FC;--card:#FFFFFF;--pos:#15875A;--neg:#C4321E;--lockbg:#EEF0F6;
+--grass:#A9DB8A;--grass2:#98D077;--road:#C9B99A;--roadline:#F4F5FA;--sky:#CFE6FF;--water:#4A9FD8;--water-bg:#E3EEF9;--wline:rgba(255,255,255,.7)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--blue:#8198FF;--blue-soft:#1B2250;--orange:#FF8A33;--orange-soft:#3A2210;--ink:#EEF0FA;--muted:#A5AACB;--line:#2C3363;--bg:#0F1330;--card:#171C42;--pos:#43C28A;--neg:#FF7B66;--lockbg:#1F2550;--grass:#3F6B3A;--grass2:#355D31;--road:#4A4F66;--roadline:#8A8FA8;--water:#4A8FC6;--water-bg:#131A40;--wline:rgba(255,255,255,.15)}}
+:root[data-theme="dark"]{--blue:#8198FF;--blue-soft:#1B2250;--orange:#FF8A33;--orange-soft:#3A2210;--ink:#EEF0FA;--muted:#A5AACB;--line:#2C3363;--bg:#0F1330;--card:#171C42;--pos:#43C28A;--neg:#FF7B66;--lockbg:#1F2550;--grass:#3F6B3A;--grass2:#355D31;--road:#4A4F66;--roadline:#8A8FA8;--water:#4A8FC6;--water-bg:#131A40;--wline:rgba(255,255,255,.15)}
+html{height:100%}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Asap",system-ui,sans-serif;line-height:1.45;font-variant-numeric:tabular-nums;overscroll-behavior:none}
+h1,h2,.fun{font-family:"Baloo 2","Asap",system-ui,sans-serif}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+.hidden{display:none!important}
+.pos{color:var(--pos)}.neg{color:var(--neg)}
+.btn{border:0;background:var(--orange);color:#fff;border-radius:14px;padding:11px 20px;font-weight:700;box-shadow:0 4px 0 #B84C00}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 #B84C00}
+.btn.ghost{background:var(--card);color:var(--blue);box-shadow:0 4px 0 var(--line);border:2px solid var(--line)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* START */
+#start{padding:36px 0 50px}
+#start h1{font-size:clamp(2.6rem,11vw,4rem);line-height:.95;margin:0 0 14px;color:var(--blue);font-weight:800}
+#start p{max-width:56ch;color:var(--muted);margin:0 0 12px}
+.big{font-size:1.1rem;color:var(--ink)!important}
+.missions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0}
+@media(max-width:560px){.missions{grid-template-columns:1fr}}
+.mission{text-align:left;background:var(--card);border:3px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 5px 0 var(--line)}
+.mission:hover{border-color:var(--blue)}
+.mission b{display:block;font-family:"Baloo 2",sans-serif;font-size:1.25rem;margin-bottom:2px}
+.mission span{color:var(--muted);font-size:.92rem}
+.mission .ico{font-size:1.9rem;display:block}
+
+/* HUD */
+.hud{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--card);border-bottom:3px solid var(--line)}
+.hud .top{display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:10px;align-items:center;padding-top:8px;padding-bottom:8px}
+.pot{width:46px;height:54px}
+.pot svg{width:100%;height:100%;display:block}
+.lock{transition:transform .55s cubic-bezier(.5,-.4,.4,1.4),opacity .4s}
+.pot.open .lock{transform:translate(20px,-24px) rotate(30deg);opacity:0}
+.pot.shake{animation:shake .4s}
+.pot.bump{animation:bump .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+@keyframes bump{50%{transform:scale(1.15)}}
+.fill{transition:height .45s,y .45s}
+.stat small{display:block;font-size:.72rem;color:var(--muted);line-height:1.1}
+.stat strong{white-space:nowrap;font-family:"Baloo 2",sans-serif;font-size:1.05rem;font-weight:800;line-height:1.1}
+.missionbar{font-size:.82rem;padding:5px 0 7px;border-top:1px dashed var(--line);color:var(--muted);display:flex;justify-content:space-between;gap:8px;align-items:center}
+.missionbar b{color:var(--ink)}.mbtn{background:none;border:0;padding:0;text-align:left;color:var(--muted);font-size:.82rem}.mbtn::after{content:" ▾";color:var(--blue)}
+.missionbar .btn{padding:6px 12px;font-size:.85rem;box-shadow:0 3px 0 #B84C00}
+
+/* CITY */
+.cityWrap{position:relative;max-width:560px;margin:10px auto 0}
+#city{width:100%;height:auto;display:block;border-radius:22px;background:var(--water-bg);touch-action:manipulation}
+.bld{cursor:pointer}
+.bld:focus{outline:none}
+.bld:focus-visible .base{stroke:var(--orange);stroke-width:4}
+.bld .shade{transition:opacity .5s}
+.bld.sad .body{filter:grayscale(.85) brightness(.85)}
+.bld .closed,.bld .spark{opacity:0;transition:opacity .4s}
+.bld.closedB .closed{opacity:1}
+.bld.happy .spark{opacity:1}
+
+@keyframes twinkle{50%{transform:translateY(-3px)}}
+.bld.pulse .inner{animation:pulse .5s}
+@keyframes pulse{50%{transform:scale(.56)}}
+.bld text.lbl{font:700 19px "Asap",sans-serif;paint-order:stroke;stroke:var(--card);stroke-width:5px;fill:var(--ink);text-anchor:middle}
+.bld text.amt{font:800 17px "Asap",sans-serif;paint-order:stroke;stroke:var(--card);stroke-width:5px;text-anchor:middle}
+.walker{transition:none}.wlbl{font:600 8px "Asap",sans-serif;fill:#3B5A2E;text-anchor:middle;opacity:.8}
+.intro{max-width:560px;margin:12px auto 0;padding:0 16px}.intro h1{font-size:clamp(1.7rem,7vw,2.4rem);line-height:1;color:var(--blue);margin:0 0 6px}.intro p{margin:0;color:var(--muted)}
+.bubble{position:absolute;background:var(--card);color:var(--ink);border:2px solid var(--ink);border-radius:14px;padding:6px 10px;font-size:.82rem;font-weight:600;max-width:190px;pointer-events:none;transform:translate(-50%,-100%);animation:pop .25s ease;box-shadow:0 3px 0 rgba(0,0,0,.15);z-index:3}
+.bubble::after{content:"";position:absolute;left:50%;bottom:-8px;border:7px solid transparent;border-top-color:var(--ink);transform:translateX(-50%)}
+@keyframes pop{from{transform:translate(-50%,-80%) scale(.6);opacity:0}}
+.coin{position:fixed;z-index:40;font-size:22px;pointer-events:none}
+.tapHint{text-align:center;color:var(--muted);font-size:.88rem;margin:10px 0 0}
+.happyRow{display:flex;align-items:center;gap:10px;justify-content:center;margin:12px 0 30px}
+.happyRow .face{font-size:2rem}
+.happyRow .hb{width:160px;height:12px;border-radius:6px;background:var(--line);overflow:hidden}
+.happyRow .hb div{height:100%;background:var(--pos);transition:width .5s}
+
+/* SHEET */
+.sheetBg{position:fixed;inset:0;background:rgba(10,14,40,.45);z-index:20;opacity:0;pointer-events:none;transition:opacity .25s}
+.sheetBg.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:21;background:var(--card);border-radius:22px 22px 0 0;max-height:78vh;overflow:auto;transform:translateY(105%);transition:transform .3s cubic-bezier(.2,.8,.2,1);padding:0 0 calc(env(safe-area-inset-bottom,0px) + 16px)}
+.sheet.on{transform:none}.sheet:not(.on){visibility:hidden;transition:transform .3s,visibility 0s .3s}
+.sheet .sh{position:sticky;top:0;background:var(--card);padding:14px 18px 10px;border-bottom:2px solid var(--line);display:flex;align-items:center;gap:12px;z-index:2}
+.sheet .sh .e{font-size:2rem}
+.sheet .sh h2{margin:0;font-size:1.4rem;line-height:1}
+.sheet .sh small{color:var(--muted)}
+.sheet .x{margin-left:auto;background:var(--lockbg);border:0;border-radius:50%;width:38px;height:38px;font-size:1.2rem}
+.sheet .inner{max-width:720px;margin:0 auto;padding:4px 16px}
+.hint{color:var(--muted);font-size:.9rem;margin:10px 0 4px}
+.it{border-top:1px solid var(--line);padding:12px 2px 10px}
+.it:first-of-type{border-top:0}
+.it .h{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.it .n{font-weight:600;line-height:1.25}
+.it .v{font-weight:800;white-space:nowrap;font-size:.95rem}
+.it .sub{font-size:.8rem;color:var(--muted);margin-top:2px}
+.it input[type=range]{width:100%;margin:10px 0 2px;accent-color:var(--orange);height:28px}
+.scale{display:flex;justify-content:space-between;font-size:.68rem;color:var(--muted)}
+.it .msg{font-size:.86rem;margin-top:6px;display:none}
+.it.changed .msg{display:block}
+.it.cut .msg{color:var(--neg)}
+.it.up .msg{color:var(--pos)}
+.it.locked{opacity:.75}
+.it.locked .lockmsg{font-size:.82rem;color:var(--muted);background:var(--lockbg);border-radius:6px;padding:6px 8px;margin-top:8px}
+.badge{display:inline-block;font-size:.68rem;font-weight:700;padding:1px 6px;border-radius:4px;background:var(--orange-soft);color:var(--orange);margin-left:6px;vertical-align:1px}
+.pass{background:var(--blue-soft);color:var(--blue)}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+@media(max-width:560px){.cards{grid-template-columns:1fr}}
+.card{background:var(--card);border:3px solid var(--line);border-radius:16px;padding:12px;text-align:left;position:relative;box-shadow:0 4px 0 var(--line)}
+.card.on{border-color:var(--orange);background:var(--orange-soft)}
+.card .k{font-size:.72rem;font-weight:700;color:var(--muted)}
+.card b{display:block;margin:4px 0 6px;line-height:1.25}
+.card .d{font-size:.86rem;color:var(--muted)}
+.card .a{font-weight:800;margin-top:8px}
+.card.on::after{content:"✓";position:absolute;top:8px;right:12px;color:var(--orange);font-weight:800;font-size:1.2rem}
+h3.sec{margin:18px 0 0;font-size:1.05rem}
+
+/* toast */
+#toasts{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 16px);z-index:30;width:min(92vw,520px);display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast{background:var(--ink);color:var(--bg);padding:11px 14px;border-radius:14px;font-size:.92rem;box-shadow:0 8px 24px rgba(0,0,0,.25);animation:tin .3s ease}
+@keyframes tin{from{opacity:0;transform:translateY(10px)}}
+
+/* result */
+#result{padding:30px 16px 60px}
+#result h1{font-size:clamp(2rem,8vw,3rem);line-height:1;color:var(--blue);margin:0 0 10px;font-weight:800}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.bdg{border:2px solid var(--line);border-radius:999px;padding:6px 12px;font-weight:600;font-size:.9rem}
+.bdg.got{border-color:var(--orange);background:var(--orange-soft)}
+.bdg.no{opacity:.45}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0}
+.panel h2{margin:0 0 8px;font-size:1.2rem}
+.panel ul{margin:0;padding-left:18px}.panel li{margin:3px 0}
+.rm{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:560px){.rm{grid-template-columns:repeat(2,1fr)}}
+.mt .e{font-size:1rem;display:block}
+.mt .bar{height:6px;border-radius:3px;background:var(--blue-soft);margin-top:4px;overflow:hidden}
+.mt .bar div{height:100%;background:var(--blue)}
+.submit{margin:24px 0;display:flex;gap:10px;flex-wrap:wrap}
+.tin{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit;background:var(--bg);color:var(--ink);margin:2px 0 10px}
+.tbpanel{border:3px solid var(--orange)}
+.doctools{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 6px}
+/*doc*/
+textarea{width:100%;min-height:90px;border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit;background:var(--bg);color:var(--ink)}
+.note{font-size:.8rem;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+
+
+<div id="game">
+  <div class="hud" role="status" aria-live="polite">
+    <div class="wrap">
+      <div class="top">
+        <div class="pot" id="pot" title="Het geldpotje">
+          <svg viewBox="0 0 60 70" aria-hidden="true">
+            <defs><clipPath id="jar"><path d="M12 22 Q8 24 8 32 L8 60 Q8 66 14 66 L46 66 Q52 66 52 60 L52 32 Q52 24 48 22 Z"/></clipPath></defs>
+            <rect x="14" y="14" width="32" height="8" rx="2" fill="var(--blue)"/>
+            <path d="M12 22 Q8 24 8 32 L8 60 Q8 66 14 66 L46 66 Q52 66 52 60 L52 32 Q52 24 48 22 Z" fill="var(--blue-soft)" stroke="var(--blue)" stroke-width="2.5"/>
+            <rect class="fill" id="potfill" x="0" y="66" width="60" height="0" fill="#FFC53D" clip-path="url(#jar)"/>
+            <g class="lock"><path d="M23 16 V10 a7 7 0 0 1 14 0 V16" fill="none" stroke="var(--ink)" stroke-width="3"/><rect x="19" y="15" width="22" height="16" rx="3" fill="var(--ink)"/><circle cx="30" cy="23" r="2.5" fill="var(--card)"/></g>
+          </svg>
+        </div>
+        <div class="stat"><small>Pot, elk jaar</small><strong id="sS">€ 0</strong></div>
+        <div class="stat"><small>Eenmalig</small><strong id="sI">€ 0</strong></div>
+        <div class="stat"><small>Blije Groningers</small><strong id="sH">50%</strong></div>
+      </div>
+      <div class="missionbar"><button id="missionbar" class="mbtn" aria-label="Missie kiezen"></button><button class="btn" id="submitTop">Indienen</button></div>
+    </div>
+  </div>
+
+  <div class="intro"><h1>Maak de begroting van de gemeente Groningen</h1><p>Jij beheert € 1.482 miljoen. Tik op een gebouw en kies waar het geld heen gaat. Het geldpotje zit op slot tot je eerst ergens bezuinigt.</p></div>
+  <div class="cityWrap" id="cityWrap">
+    <svg id="city" viewBox="0 0 360 560" role="img" aria-label="Kaart van de gemeente Groningen met gebouwen"></svg>
+  </div>
+  <p class="tapHint">Tik op een gebouw om de begroting ervan aan te passen.</p>
+  <div class="happyRow"><span class="face" id="face">🙂</span><div class="hb"><div id="hbar" style="width:50%"></div></div><button class="btn ghost" id="reset">Opnieuw</button></div>
+  <p class="tapHint" id="submitWhy" style="color:var(--neg);margin-bottom:40px"></p>
+</div>
+
+<div class="sheetBg" id="sheetBg"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="shTitle">
+  <div class="sh"><span class="e" id="shE"></span><div><h2 id="shTitle"></h2><small id="shSub"></small></div><button class="x" id="shClose" aria-label="Sluiten">✕</button></div>
+  <div class="inner" id="shBody"></div>
+</div>
+
+<section id="result" class="wrap hidden"></section>
+<div id="toasts" aria-live="polite"></div>
+
+<script>
+// ============ DATA (bedragen x € mln, ontwerpbegroting 2026) ============
+// l = lasten, b = gekoppelde baten, min/max in %, lock = vaste of wettelijke post
+// m = gemeentemeters: v veiligheid, s schoon&heel, z zorg&vangnet, w werk, c cultuur&sport
+const PROG=[
+{n:"Economie en ruimte",items:[
+ {id:"e1",n:"Economische agenda",l:1.4,m:{w:.5},stop:"Minder projecten en evenementen om bedrijven te helpen en aan te trekken."},
+ {id:"e2",n:"Ambtenaren economische zaken",l:2.9,min:-50,m:{w:.3},stop:"Minder mensen die bedrijven helpen bij vestiging en groei."},
+ {id:"e3",n:"Citymarketing en economische activiteiten",l:2.25,m:{w:.3},stop:"Minder promotie van Groningen, o.a. via Marketing Groningen."},
+ {id:"e4",n:"Akkoord van Groningen (RUG, Hanze, UMCG)",l:1.25,b:.75,m:{w:.3},stop:"De gemeente stapt (deels) uit de samenwerking met kennisinstellingen. Partners betalen dan ook niet meer mee."},
+ {id:"e5",n:"Markten, havens en brugbediening",l:2.5,b:1.3,min:-40,m:{w:.2},stop:"Minder markten en kortere bedieningstijden van bruggen. Je mist ook marktgelden."},
+ {id:"e6",n:"Bedrijventerreinen en winkelcentra",l:1.545,m:{w:.4},stop:"Minder geld om bedrijventerreinen en wijkwinkelcentra op te knappen."},
+ {id:"e7",n:"Strategisch bezit (panden en grond)",l:9.8,b:5.9,min:-50,stop:"De gemeente houdt minder panden aan. Minder kosten, maar ook minder huurinkomsten."},
+ {id:"e8",n:"Suikerzijde (gebiedsontwikkeling)",l:3.84,min:-50,stop:"De ontwikkeling van de Suikerzijde gaat langzamer."},
+ {id:"e9",n:"Regio Groningen-Assen",l:1.6,stop:"Groningen doet minder mee aan de regionale samenwerking."},
+ {id:"e10",n:"Ambtenaren gebiedsontwikkeling",l:6.8,min:-50,stop:"Minder mensen voor grote bouwprojecten en gebiedsontwikkeling."},
+ {id:"e11",n:"Rente en afschrijving (o.a. Meerstad)",l:10.7,lock:"Dit zijn vaste kosten van investeringen die al gedaan zijn. Die kun je niet meer schrappen."}
+]},
+{n:"Verkeer en parkeren",items:[
+ {id:"m2",n:"Parkeercontrole",l:5.0,b:6.0,max:50,m:{v:.2},stop:"Minder controle. Let op: je mist dan ook naheffingen, dus dit kost je geld."},
+ {id:"m3",n:"Extra geld mobiliteit",l:5.28,m:{s:.2},stop:"Minder nieuwe fietspaden, oversteekplaatsen en verkeersmaatregelen."},
+ {id:"m4",n:"Uitvoering mobiliteitsvisie",l:1.5,stop:"De plannen uit de mobiliteitsvisie gaan langzamer."},
+ {id:"m5",n:"Fietsenstallingen centrum",l:.5,max:100,m:{s:.2},stop:"Kortere openingstijden van fietsenstallingen.",up:"Langer open, eventueel 24/7."},
+ {id:"m6",n:"Binnenstadsprogramma",l:2.06,m:{s:.2},stop:"Minder vernieuwing van straten en pleinen in het centrum."},
+ {id:"m7",n:"Stationsgebied",l:.988,stop:"De plannen voor het stationsgebied gaan langzamer."},
+ {id:"m9",n:"Oosterhamrikzone",l:.25,stop:"Stoppen met planvorming; de busbaan wordt niet verlegd."},
+ {id:"m11",n:"Ambtenaren mobiliteit",l:3.1,min:-50,stop:"Minder mensen voor verkeersplannen."},
+ {id:"m10",n:"Rente en afschrijving wegen",l:6.1,lock:"Vaste kosten van eerder aangelegde wegen en bruggen."}
+]},
+{n:"Wonen en bouwen",items:[
+ {id:"w1",n:"Extra geld wonen",l:1.775,m:{w:.1},stop:"Minder extra inzet op woningbouw."},
+ {id:"w2",n:"Meer betaalbare woningen",l:1.2,stop:"Minder steun voor betaalbare huur- en koopwoningen."},
+ {id:"w3",n:"Goed verhuurderschap",l:1.25,b:.5,m:{v:.1},stop:"Minder controle op huisjesmelkers."},
+ {id:"w4",n:"Ambtenaren wonen",l:4.6,min:-50,stop:"Minder mensen voor woningbouwprojecten."},
+ {id:"w6",n:"Energiesubsidies",l:12.0,b:11.7,stop:"Minder subsidies voor isolatie en verduurzaming. Het meeste geld komt van het Rijk, dus je bespaart maar weinig."},
+ {id:"w7",n:"Extra geld energietransitie",l:2.275,stop:"Minder gemeentelijke projecten voor de energietransitie."},
+ {id:"w8",n:"Omgevingsvergunningen",l:10.5,b:17.9,min:-50,max:50,stop:"Minder vergunningverleners: langere wachttijden en je mist leges. Dit kost je dus geld.",up:"Snellere vergunningen, en meer leges."},
+ {id:"w10",n:"Toezicht op bouwen",l:2.1,m:{v:.2},stop:"Minder controle op bouwplaatsen en illegale bouw."},
+ {id:"w11",n:"Verduurzamen gemeentegebouwen",l:1.3,stop:"Gemeentegebouwen worden langzamer verduurzaamd."}
+]},
+{n:"Openbare ruimte",items:[
+ {id:"o1",n:"Onderhoud straten, groen en speeltuinen",l:66.4,b:1.9,min:-50,max:25,m:{s:1},stop:"Minder maaien, vegen en repareren. Wie te lang wacht, betaalt later meer.",up:"Een beter onderhouden openbare ruimte in alle wijken."},
+ {id:"o3",n:"Afvalinzameling huishoudens",l:36.8,b:41.4,lock:"Wordt volledig betaald uit de afvalstoffenheffing. Minder doen levert de begroting niets op; alleen de heffing gaat omlaag.",pass:1},
+ {id:"o2",n:"Riolering",l:22.5,b:23.7,lock:"Wordt volledig betaald uit de rioolheffing.",pass:1},
+ {id:"o4",n:"Bedrijfsafval inzamelen",l:7.6,b:9.1,stop:"De gemeente stopt met bedrijfsafval; ondernemers kiezen een eigen inzamelaar. Je mist de inkomsten, dus dit kost geld."},
+ {id:"o5",n:"Autowerkplaats voor derden",l:.9,b:.9,stop:"De gemeente repareert geen auto's meer voor anderen. Kosten en inkomsten vallen tegen elkaar weg."},
+ {id:"o6",n:"Leefkwaliteit (groen en spelen in wijken)",l:4.5,m:{s:.5},stop:"Minder nieuw groen en minder nieuwe speelplekken."},
+ {id:"o8",n:"Geo en data",l:1.1,stop:"Minder kaarten en data over de gemeente."}
+]},
+{n:"Veiligheid",items:[
+ {id:"v2",n:"Boa's en toezicht op straat",l:3.4,b:.1,max:50,m:{v:1},stop:"Minder boa's op straat.",up:"Meer boa's op straat, ook tegen opgevoerde fatbikes."},
+ {id:"v3",n:"Openbare orde en veiligheid",l:3.8,max:50,m:{v:.7},stop:"Minder aanpak van overlast en minder cameratoezicht.",up:"Meer cameratoezicht en aanpak van overlast."},
+ {id:"v4",n:"Ondermijning (drugs en criminele geldstromen)",l:1.5,b:.2,max:50,m:{v:.7},stop:"Minder aanpak van criminaliteit achter gewone bedrijfjes."},
+ {id:"v5",n:"Jeugd en veiligheid",l:4.0,b:1.9,max:50,m:{v:.5,z:.3},stop:"Minder aanpak van jeugdoverlast en jonge criminelen."},
+ {id:"v6",n:"Zorg- en Veiligheidshuis",l:2.2,b:1.2,m:{v:.5,z:.5},stop:"Minder samenwerking tussen politie, zorg en justitie rond verwarde personen en veelplegers."},
+ {id:"v9",n:"Reclamezuilen op straat",l:.5,b:1.2,max:100,stop:"Minder reclamezuilen. Je mist dan reclame-inkomsten, dus dit kost geld.",up:"Meer reclamezuilen: dit levert juist geld op."},
+ {id:"v1",n:"Brandweer en ambulancezorg (Veiligheidsregio)",l:25.7,lock:"Vaste bijdrage aan de Veiligheidsregio. Die bepaalt de gemeente niet alleen.",m:{v:1}},
+ {id:"v8",n:"Omgevingsdienst",l:1.747,lock:"Vaste bijdrage aan de Omgevingsdienst Groningen."}
+]},
+{n:"Werk en inkomen",items:[
+ {id:"s3",n:"Begeleiding naar werk",l:20.7,max:50,m:{w:1},stop:"Minder begeleiding naar werk. ⚠︎ Daardoor blijven meer mensen in de bijstand.",up:"Meer coaching naar werk. ⚠︎ Daardoor stromen mensen sneller uit de bijstand."},
+ {id:"s1",n:"Bijstandsuitkeringen",l:199,b:186.8,lock:"Iedereen heeft wettelijk recht op bijstand. Deze post daalt alleen als meer mensen werk vinden: stop meer geld in begeleiding naar werk.",m:{z:1}},
+ {id:"s2",n:"Sociale werkvoorziening (Iederz)",l:38.4,b:5.5,min:-10,m:{w:.6,z:.3},stop:"Efficiënter werken bij Iederz. Het is een wettelijke taak, dus veel meer bezuinigen kan niet."},
+ {id:"s4",n:"Loonkostensubsidie",l:11.8,b:11.3,m:{w:.5},stop:"Minder werkgevers krijgen subsidie om iemand met een beperking aan te nemen."},
+ {id:"s5",n:"Werk in Zicht",l:9.4,b:6.7,m:{w:.5},stop:"Minder werkervaringsplekken."},
+ {id:"s6",n:"Basisbanen",l:9.4,b:2.9,m:{w:.5},stop:"Minder of geen gemeentelijke basisbanen."},
+ {id:"s8",n:"Afspraakbanen",l:3.4,m:{w:.4},stop:"Minder banen bij de gemeente voor mensen met een arbeidsbeperking."},
+ {id:"s9",n:"Schuldhulpverlening",l:11.3,b:1.1,min:-50,m:{z:.7},stop:"Minder hulp bij schulden. ⚠︎ Meer mensen komen in de problemen en vragen bijzondere bijstand aan."},
+ {id:"s10",n:"Armoede- en minimaregelingen",l:12.2,m:{z:.8},stop:"Minder regelingen voor mensen met een laag inkomen, zoals kortingen en vergoedingen."},
+ {id:"s11",n:"Bijzondere bijstand",l:6.1,b:.5,min:-50,m:{z:.6},stop:"Strengere regels voor vergoeding van onverwachte, noodzakelijke kosten."},
+ {id:"s12",n:"Individuele inkomenstoeslag",l:4.2,min:-50,m:{z:.4},stop:"Een lagere toeslag voor mensen die lang van een minimuminkomen leven."},
+ {id:"s7",n:"Inburgering",l:5.0,b:3.0,min:-10,stop:"Efficiënter werken bij inburgering. Het is een wettelijke taak."}
+]},
+{n:"Zorg en welzijn",items:[
+ {id:"z1",n:"Jeugdzorg",l:118.8,b:1.4,min:-10,m:{z:1},stop:"Strakker sturen op jeugdzorg. Kinderen hebben wettelijk recht op hulp, dus veel meer dan 10% kan niet."},
+ {id:"z2",n:"Beschermd wonen",l:84.4,b:1.4,min:-10,m:{z:1},stop:"Strakker sturen op beschermd wonen. Het is een wettelijke taak."},
+ {id:"z3",n:"Wmo (huishoudelijke hulp, hulpmiddelen)",l:64.7,b:1.9,min:-10,m:{z:1},stop:"Strakker toetsen bij aanvragen voor hulp en hulpmiddelen. Het is een wettelijke taak."},
+ {id:"z4",n:"WIJ-teams in de wijk",l:44.2,min:-25,m:{z:.8},stop:"Minder hulpverleners in de wijk; langere wachttijden."},
+ {id:"z5",n:"Daklozen- en vrouwenopvang",l:28.6,b:3.6,min:-10,m:{z:.7,v:.2},stop:"Minder opvangplekken. Het is grotendeels een wettelijke taak."},
+ {id:"z6",n:"Gezondheid (GGD)",l:18.8,b:6.6,min:-10,m:{z:.4},stop:"Minder preventie en gezondheidsprogramma's."},
+ {id:"z7",n:"Huiselijk geweld en kindermishandeling",l:10.2,b:3.6,min:-10,m:{z:.5,v:.3},stop:"Minder capaciteit bij Veilig Thuis. Het is een wettelijke taak."},
+ {id:"z8",n:"Welzijnsinstellingen en buurthuizen",l:8.2,b:.25,m:{z:.4,c:.2},stop:"Minder buurthuizen en welzijnswerk."},
+ {id:"z9",n:"Sociale samenhang in wijken",l:7.9,m:{z:.3,s:.2},stop:"Minder bewonersinitiatieven en buurtactiviteiten."},
+ {id:"z10",n:"Diversiteit en inclusie",l:1.2,stop:"De gemeente stopt (deels) met haar diversiteitsbeleid."},
+ {id:"z11",n:"Opvang vluchtelingen en asielzoekers",l:.958,min:-100,stop:"Minder gemeentelijk geld voor opvang."}
+]},
+{n:"Onderwijs, sport en cultuur",items:[
+ {id:"d1",n:"Schoolgebouwen",l:19.8,b:4.0,min:-10,m:{c:.2},stop:"Nieuwbouw en renovatie van scholen gaan langzamer. Het is een wettelijke taak."},
+ {id:"d2",n:"Onderwijskansen",l:12.3,b:4.7,m:{z:.3},stop:"Minder voorschool en extra lessen voor kinderen met een achterstand."},
+ {id:"d4",n:"Voortijdig schoolverlaten",l:3.5,b:2.4,m:{w:.2},stop:"Minder aanpak van jongeren die zonder diploma stoppen."},
+ {id:"d5",n:"Leerlingenvervoer",l:2.6,lock:"Wettelijke taak: kinderen met een beperking hebben recht op vervoer naar school."},
+ {id:"d6",n:"Natuur- en duurzaamheidseducatie",l:1.3,stop:"Minder lessen over natuur en duurzaamheid op scholen."},
+ {id:"k1",n:"Sporthallen, zwembaden en ijsbaan",l:36.5,b:11.2,min:-50,max:25,m:{c:1},stop:"Minder onderhoud en kortere openingstijden. Bij grote bezuinigingen moet er een zwembad dicht.",up:"Sneller nieuwe en betere sportaccommodaties."},
+ {id:"k2",n:"Sportstimulering",l:2.2,b:1.1,max:50,m:{c:.5},stop:"Minder sportcoaches en sportactiviteiten in de wijk."},
+ {id:"k3",n:"Recreatiegebieden en bewegen",l:1.1,m:{c:.3,s:.2},stop:"Minder onderhoud van recreatiegebieden."},
+ {id:"c1",n:"Stadsschouwburg en Oosterpoort",l:26.1,b:16.6,min:-50,m:{c:.8},stop:"Minder voorstellingen. Je mist ook kaartverkoop, dus je bespaart minder dan je denkt."},
+ {id:"c2",n:"Culturele instellingen en subsidies",l:30.2,m:{c:1},stop:"Minder subsidie voor musea, podia, festivals en kunstenaars."},
+ {id:"c3",n:"Overal cultuur (o.a. Forum, broedplaatsen)",l:14.0,b:4.9,m:{c:.6},stop:"Minder cultuurprogramma's en broedplaatsen."},
+ {id:"c4",n:"Groninger Archieven",l:2.8,min:-25,stop:"Kortere openingstijden van het archief."}
+]},
+{n:"Bestuur en organisatie",items:[
+ {id:"g1",n:"College van burgemeester en wethouders",l:2.534,min:-40,stop:"Minder wethouders."},
+ {id:"g2",n:"Gemeenteraad en griffie",l:3.733,min:-25,stop:"Minder ondersteuning voor de gemeenteraad."},
+ {id:"g3",n:"Wijkbudgetten",l:4.25,m:{s:.3},stop:"Minder geld dat wijken zelf mogen besteden."},
+ {id:"g4",n:"Wijkvernieuwing (o.a. Selwerd, De Wijert, Beijum)",l:8.15,m:{s:.4,z:.2},stop:"Wijkvernieuwing gaat langzamer."},
+ {id:"g5",n:"Samenwerkingsverbanden",l:1.753,stop:"Groningen stapt uit samenwerkingsverbanden met andere overheden."},
+ {id:"g7",n:"Concernposten",l:5.0,stop:"Minder algemene reservepotjes binnen de organisatie."},
+ {id:"b1",n:"Burgerzaken (paspoort, rijbewijs)",l:5.4,min:-25,stop:"Langere wachttijden voor een paspoort of rijbewijs."},
+ {id:"b2",n:"Klantcontactcentrum",l:3.8,min:-50,stop:"De gemeente is minder goed bereikbaar."},
+ {id:"b3",n:"Uitvoering belastingen",l:5.0,min:-25,stop:"Minder mensen voor aanslagen en bezwaren."},
+ {id:"h1",n:"Overhead (staf, ICT, huisvesting, HR)",l:129.18,b:5.944,min:-20,max:20,stop:"Minder ondersteunend personeel en minder kantoorruimte."}
+]}
+];
+// belastingen: r = opbrengst, p = hoeveel inwoners/ondernemers het in de portemonnee voelen
+const TAX=[
+ {id:"t1",n:"Onroerendezaakbelasting (OZB)",r:125.3,min:-30,max:20,p:1,d:"Betalen alle huiseigenaren en bedrijven. Huurders betalen indirect mee via de huur."},
+ {id:"t5",n:"Parkeertarieven",r:35.1,min:-100,max:20,p:.6,d:"Parkeergeld en vergunningen. Op −100% is parkeren overal gratis."},
+ {id:"t2",n:"Toeristenbelasting",r:2.9,min:-100,max:100,p:.05,d:"Betalen hotelgasten. Groningers merken er weinig van."},
+ {id:"t4",n:"Precariobelasting",r:1.8,min:-100,max:50,p:.2,d:"Betaal je voor spullen op straat, zoals een container of steiger bij een verbouwing."},
+ {id:"t3",n:"Reclamebelasting",r:.7,min:-100,max:50,p:.15,d:"Betalen ondernemers voor reclame aan de gevel."}
+];
+// actiekaarten: s = +opbrengst / −kosten, t = S of I
+const CARDS=[
+ {id:"k_vast",g:"vrij",t:"I",s:2.0,n:"Gemeentelijk vastgoed verkopen",d:"Onder andere het Vapiano-pand en de Glaudé-panden."},
+ {id:"k_warm",g:"vrij",t:"I",s:4.9,n:"Minderheidsbelang WarmteStad verkopen",d:"De gemeente houdt de meerderheid, zoals de wet voorschrijft."},
+ {id:"k_zon",g:"vrij",t:"I",s:4.0,n:"Zonnepark Meerstad-Noord niet aanleggen",d:"Het zonnepark komt er niet."},
+ {id:"k_wind",g:"vrij",t:"I",s:1.762,n:"Windpark Roodehaan stoppen",d:"Geen windmolens bij Roodehaan."},
+ {id:"k_laad",g:"vrij",t:"I",s:.74,n:"Laadpalen aan de markt laten",d:"De gemeente stopt met haar eigen laadpalenbedrijf."},
+ {id:"k_eiw",g:"vrij",t:"I",s:.7,n:"Stoppen met de eiwittransitie",d:"Geen gemeentelijk programma meer voor voedsel- en eiwittransitie."},
+ {id:"k_cas",g:"vrij",t:"I",s:.6,n:"Casinolocatie aan de markt laten",d:"De gemeente betaalt niet meer voor de tijdelijke invulling."},
+ {id:"k_kwijt",g:"vrij",t:"S",s:4.2,n:"Kwijtschelding gemeentelijke belastingen schrappen",d:"Ongeveer 14.000 huishoudens betalen voortaan zelf hun gemeentelijke belastingen.",m:{z:-8}},
+ {id:"k_ongedoc",g:"vrij",t:"S",s:3.5,n:"Stoppen met opvang ongedocumenteerden",d:"De gemeente betaalt deze opvang niet meer zelf, nu het Rijk ermee stopt.",m:{z:-3}},
+ {id:"k_brug",g:"uit",t:"I",s:-5,n:"Bruggenfonds",d:"Een tijdelijke verbinding tijdens de bouw van de Gerrit Krolbrug.",m:{s:3}},
+ {id:"k_fc",g:"uit",t:"I",s:-2,n:"Trainingscomplex FC Groningen",d:"De eerste stap, zodat er op sportpark Corpus ruimte komt voor amateurs.",m:{c:4}},
+ {id:"k_licht",g:"uit",t:"I",s:-1,n:"Betere straatverlichting",d:"Meer licht op onveilige plekken, ook na middernacht.",m:{v:4}},
+ {id:"k_res",g:"uit",t:"I",s:-7,n:"Reserves aanvullen",d:"Een grotere buffer, zodat een tegenvaller niet meteen tot bezuinigingen leidt."},
+ {id:"k_smr",g:"uit",t:"I",s:-.5,n:"Onderzoek kleine kerncentrale (SMR)",d:"Onderzoeken wat een SMR in Groningen kan betekenen."},
+ {id:"k_bouw",g:"uit",t:"S",s:-5,n:"Sneller-bouwenfonds",d:"Sneller grond bouwrijp maken, zodat er meer woningen komen.",m:{w:2}},
+ {id:"k_ai",g:"uit",t:"S",s:-2,n:"Investeren in AI",d:"Slimmere gemeentelijke dienstverlening."}
+];
+const METERS=[{k:"v",n:"Veilig",e:"🛡️"},{k:"s",n:"Schoon",e:"🌳"},{k:"z",n:"Zorg",e:"🤝"},{k:"w",n:"Werk",e:"💼"},{k:"c",n:"Sport en cultuur",e:"🎭"},{k:"p",n:"Portemonnee",e:"👛"}];
+const MISSIONS=[
+ {id:"lasten",ico:"👛",n:"Lagere lasten",d:"Verlaag de OZB met minstens 10% en houd je begroting sluitend.",check:st=>(st.tax.t1||0)<=-10,prog:st=>"OZB: "+((st.tax.t1||0))+"% (doel: −10%)"},
+ {id:"veilig",ico:"🛡️",n:"Veilige gemeente",d:"Krijg de veiligheidsmeter boven 70 met een sluitende begroting.",check:(st,m)=>m.v>=70,prog:(st,m)=>"Veiligheid: "+Math.round(m.v)+" (doel: 70)"},
+ {id:"werk",ico:"💼",n:"Iedereen aan het werk",d:"Krijg de werkmeter boven 70 met een sluitende begroting.",check:(st,m)=>m.w>=70,prog:(st,m)=>"Werk: "+Math.round(m.w)+" (doel: 70)"},
+ {id:"vrij",ico:"🎲",n:"Vrij spel",d:"Geen opdracht. Maak de begroting zoals jij hem wilt.",check:()=>true,prog:()=>"tik hier voor een missie"}
+];
+const REINT=0.3, SCHULD=0.25; // ⚠︎ voorbeeld-kettingeffecten
+
+// ============ STATE ============
+const ITEMS={}; PROG.forEach(p=>p.items.forEach(i=>{i.prog=p.n;ITEMS[i.id]=i}));
+let st={pct:{},tax:{},cards:new Set(),mission:null}, tab="uit", openProg=new Set([0]), warned=new Set();
+const fmt=(v,d=1)=>(v<-0.0005?"− ":v>0.0005?"+ ":"")+"€ "+Math.abs(v).toLocaleString("nl-NL",{minimumFractionDigits:d,maximumFractionDigits:d})+" mln";
+const net=i=>i.l-(i.b||0);
+function steps(i){const mn=i.min??-100,mx=i.max??25;return [-100,-75,-50,-40,-25,-20,-10,0,10,20,25,50,100].filter(x=>x>=mn&&x<=mx)}
+
+function calc(s=st){
+  let S=0,I=0,chains=[];
+  for(const id in s.pct){const i=ITEMS[id],p=s.pct[id]/100; S+=-p*net(i);}
+  // kettingeffecten
+  const rp=(s.pct.s3||0)/100; if(rp){const x=rp*ITEMS.s3.l*REINT; S+=x; chains.push({t:"Bijstand",v:x});}
+  const sp=(s.pct.s9||0)/100; if(sp<0){const x=sp*-ITEMS.s9.l*SCHULD; S-=x; chains.push({t:"Extra bijzondere bijstand",v:-x});}
+  for(const id in s.tax){const t=TAX.find(x=>x.id===id); S+=s.tax[id]/100*t.r;}
+  for(const id of s.cards){const c=CARDS.find(x=>x.id===id); if(c.t==="S")S+=c.s; else I+=c.s;}
+  return {S:Math.round(S*1000)/1000,I:Math.round(I*1000)/1000,chains};
+}
+function meters(s=st){
+  const out={};
+  for(const M of METERS){ if(M.k==="p") continue;
+    let T=0,D=0;
+    for(const id in ITEMS){const i=ITEMS[id],w=i.m?.[M.k]; if(!w||i.lock) continue; T+=i.l*w; D+=i.l*w*((s.pct[id]||0)/100);}
+    let v=50+ (T?D/T*120:0);
+    if(M.k==="z"&&s.pct.s3>0) v+=s.pct.s3/10; // meer mensen aan het werk
+    for(const id of s.cards){const c=CARDS.find(x=>x.id===id); if(c.m?.[M.k]) v+=c.m[M.k];}
+    out[M.k]=Math.max(0,Math.min(100,v));
+  }
+  let T=0,D=0; for(const t of TAX){T+=t.r*t.p; D+=t.r*t.p*((s.tax[t.id]||0)/100);}
+  let pv=50 - D/T*150; if(s.cards.has("k_kwijt")) pv-=3;
+  out.p=Math.max(0,Math.min(100,pv));
+  return out;
+}
+
+
+
+// ============ GEMEENTE ============
+const MAP={"W": 360, "H": 381, "gm": "M315.4 22.4 L319.8 25.7 L320.5 25.8 L320.6 24.8 L323.3 25.7 L325.0 28.5 L322.6 30.4 L326.7 37.4 L331.7 44.0 L333.1 43.4 L338.2 50.5 L339.8 47.2 L346.9 57.2 L345.7 58.5 L348.3 63.1 L346.7 64.2 L350.0 69.9 L328.3 84.3 L320.1 91.7 L308.5 100.5 L313.4 105.8 L313.9 109.1 L323.6 122.6 L322.6 124.2 L326.7 130.0 L323.6 135.9 L322.2 142.0 L321.1 143.6 L322.7 146.0 L322.7 148.5 L321.8 150.0 L321.2 155.5 L323.1 159.8 L321.6 162.1 L322.0 163.1 L318.9 173.5 L317.1 176.9 L317.3 177.9 L316.4 178.7 L316.9 183.4 L313.5 184.5 L313.5 187.2 L311.7 187.0 L311.4 188.5 L309.8 188.3 L309.8 189.2 L305.9 191.6 L305.8 189.9 L304.1 190.9 L303.3 198.4 L305.3 197.7 L305.5 211.1 L304.6 213.7 L297.3 216.0 L292.2 214.2 L275.0 237.2 L267.1 242.9 L263.6 247.2 L269.5 250.0 L261.1 256.5 L276.2 261.2 L277.2 268.1 L276.5 276.0 L277.4 278.0 L278.8 279.3 L282.6 278.8 L283.5 281.8 L288.3 283.5 L293.3 296.8 L292.9 302.7 L289.6 305.7 L288.5 307.5 L289.7 311.4 L286.3 340.9 L226.3 370.8 L229.1 367.8 L229.0 363.0 L223.3 362.6 L221.8 361.7 L222.0 360.2 L225.2 357.3 L223.3 357.6 L222.8 354.1 L217.8 351.1 L217.8 348.9 L215.6 347.5 L216.1 345.6 L213.8 344.4 L210.4 345.2 L212.0 341.7 L208.3 339.6 L203.8 338.6 L197.7 333.6 L182.2 333.5 L182.1 330.2 L179.4 323.4 L183.0 320.6 L178.4 318.1 L175.7 313.0 L176.4 311.7 L150.7 320.7 L143.4 304.9 L123.0 286.0 L115.0 288.9 L113.5 288.8 L108.9 283.8 L99.1 277.5 L84.7 252.8 L85.9 252.4 L80.0 250.2 L63.6 240.0 L61.6 242.6 L52.0 232.4 L42.0 234.4 L39.9 233.7 L37.9 230.6 L37.0 227.1 L29.1 218.1 L25.4 218.0 L11.3 222.9 L10.1 218.6 L12.4 214.1 L12.4 209.7 L10.0 206.1 L27.0 115.4 L29.4 105.3 L36.3 105.4 L35.6 109.2 L37.4 108.5 L39.1 109.3 L38.1 111.9 L42.2 110.1 L43.9 107.6 L50.0 103.7 L64.4 86.8 L61.4 83.9 L62.4 81.2 L65.1 81.7 L75.2 76.2 L81.4 76.4 L102.1 67.1 L106.3 65.8 L105.7 60.1 L110.0 60.1 L124.7 56.1 L123.4 57.1 L125.9 59.9 L127.5 60.0 L150.7 56.6 L151.8 59.8 L182.0 61.2 L181.7 59.7 L186.0 60.1 L185.0 63.5 L185.1 70.6 L217.1 80.1 L218.7 84.7 L234.6 88.7 L237.1 93.3 L255.3 94.5 L253.4 89.0 L247.6 77.4 L235.2 63.7 L242.0 30.5 L244.0 17.0 L246.2 10.0 L270.0 21.1 L283.8 32.3 L292.6 22.4 L293.8 23.3 L294.5 19.8 L308.4 29.1 L312.3 30.4 L312.5 23.2 L315.4 22.4Z", "wk": [{"n": "Centrum", "d": "M132.1 130.4 L133.9 135.4 L144.4 132.8 L153.1 136.5 L168.0 131.3 L190.2 149.4 L196.7 165.1 L196.9 180.7 L199.6 188.3 L176.0 213.8 L168.1 217.4 L170.4 223.4 L131.1 224.2 L126.2 214.3 L116.8 208.1 L116.8 199.6 L111.6 178.0 L106.2 176.9 L106.2 159.3 L114.8 139.9 L132.1 130.4Z", "x": 153, "y": 177}, {"n": "Oud-Zuid", "d": "M211.0 209.5 L190.0 228.6 L174.6 238.1 L136.6 247.3 L101.3 253.9 L95.4 254.1 L91.1 253.4 L80.9 229.0 L82.7 228.5 L76.2 212.6 L101.5 218.2 L89.9 205.2 L102.4 201.7 L116.8 208.1 L126.2 214.3 L131.1 224.2 L170.4 223.4 L168.1 217.4 L176.0 213.8 L199.6 188.3 L201.9 194.4 L211.0 209.5Z", "x": 105, "y": 221}, {"n": "Oud-West", "d": "M116.8 199.6 L116.8 208.1 L102.4 201.7 L90.9 204.9 L84.8 190.0 L84.3 179.3 L85.6 174.2 L122.4 125.7 L131.7 129.5 L132.1 130.4 L114.8 139.9 L106.2 159.3 L106.2 176.9 L111.6 178.0 L116.8 199.6Z", "x": 99, "y": 167}, {"n": "Oud-Noord", "d": "M195.9 118.4 L153.1 136.5 L144.4 132.8 L133.9 135.4 L131.7 129.5 L122.4 125.7 L128.8 118.8 L133.7 109.9 L133.7 102.3 L130.4 93.5 L180.4 108.6 L195.9 118.4Z", "x": 160, "y": 114}, {"n": "Oosterparkwijk", "d": "M227.1 164.0 L199.6 188.3 L196.9 180.7 L196.7 165.1 L190.2 149.4 L168.0 131.3 L195.9 118.4 L227.1 164.0Z", "x": 208, "y": 157}, {"n": "Zuidoost", "d": "M270.6 223.4 L277.5 223.6 L287.8 220.0 L275.0 237.2 L267.1 242.9 L263.6 247.2 L269.5 250.0 L261.1 256.5 L258.5 256.8 L254.3 254.0 L244.4 251.1 L225.3 246.1 L223.0 247.3 L190.0 228.6 L211.0 209.5 L201.9 194.4 L199.6 188.3 L242.7 152.7 L250.9 181.6 L260.7 212.9 L264.1 219.5 L270.6 223.4Z", "x": 234, "y": 206}, {"n": "Helpman e.o.", "d": "M178.9 281.4 L170.7 283.4 L157.5 277.5 L149.5 267.2 L146.6 260.6 L149.7 253.2 L149.6 245.4 L174.6 238.1 L190.0 228.6 L223.0 247.3 L213.4 253.2 L210.7 263.0 L180.6 278.9 L178.0 279.7 L178.9 281.4Z", "x": 180, "y": 257}, {"n": "Zuidwest", "d": "M157.5 277.5 L170.7 283.4 L162.8 284.2 L156.4 282.7 L144.9 284.3 L138.4 283.9 L137.2 282.6 L123.9 285.1 L123.3 286.3 L123.0 286.0 L115.0 288.9 L113.5 288.8 L108.9 283.8 L99.1 277.5 L84.7 252.8 L85.9 252.4 L95.4 254.1 L101.3 253.9 L149.6 245.4 L149.7 253.2 L146.6 260.6 L149.5 267.2 L157.5 277.5Z", "x": 120, "y": 264}, {"n": "Hoogkerk e.o.", "d": "M54.0 203.8 L65.3 230.4 L79.3 226.0 L76.9 219.4 L78.6 219.4 L82.7 228.5 L80.9 229.0 L91.1 253.4 L85.9 252.4 L80.0 250.2 L63.6 240.0 L61.6 242.6 L52.0 232.4 L42.0 234.4 L39.9 233.7 L37.9 230.6 L37.0 227.1 L29.1 218.1 L25.4 218.0 L11.3 222.9 L10.1 218.6 L12.4 214.1 L12.4 209.7 L10.0 206.1 L27.0 115.4 L38.8 117.9 L64.3 126.2 L60.3 133.2 L49.7 139.3 L48.0 141.5 L45.6 165.7 L46.5 171.1 L42.3 172.3 L41.8 180.6 L58.9 192.5 L52.1 192.3 L54.0 203.8Z", "x": 32, "y": 186}, {"n": "Nieuw-West", "d": "M72.8 96.8 L80.0 146.7 L82.4 158.7 L87.4 170.1 L85.6 174.2 L84.3 179.3 L84.8 190.0 L90.9 204.9 L89.9 205.2 L101.5 218.2 L76.2 212.6 L78.6 219.4 L76.9 219.4 L79.3 226.0 L65.3 230.4 L54.0 203.8 L52.1 192.3 L58.9 192.5 L41.8 180.6 L42.3 172.3 L46.5 171.1 L45.6 165.7 L48.0 141.5 L49.7 139.3 L60.3 133.2 L64.3 126.2 L38.8 117.9 L27.0 115.4 L29.4 105.3 L36.3 105.4 L35.6 109.2 L37.4 108.5 L39.1 109.3 L38.1 111.9 L42.2 110.1 L43.9 107.6 L50.0 103.7 L64.4 86.8 L71.2 92.4 L72.8 96.8Z", "x": 64, "y": 153}, {"n": "Noordwest", "d": "M122.4 125.7 L87.4 170.1 L82.4 158.7 L72.8 96.8 L71.2 92.4 L61.4 83.9 L62.2 81.7 L130.4 93.5 L133.7 102.3 L133.7 109.9 L128.8 118.8 L122.4 125.7Z", "x": 95, "y": 142}, {"n": "Noordoost", "d": "M123.4 57.1 L125.9 59.9 L127.5 60.0 L150.7 56.6 L151.8 59.8 L182.0 61.2 L181.7 59.7 L186.0 60.1 L185.0 63.5 L185.1 70.6 L217.1 80.1 L220.6 89.5 L225.9 96.2 L221.7 98.3 L218.7 95.7 L211.5 97.9 L210.0 96.2 L196.1 101.9 L200.7 105.9 L196.8 110.1 L186.9 107.3 L180.7 107.7 L180.4 108.6 L62.2 81.7 L62.4 81.2 L65.1 81.7 L75.2 76.2 L81.4 76.4 L102.1 67.1 L106.3 65.8 L105.7 60.1 L110.0 60.1 L124.7 56.1 L123.4 57.1Z", "x": 149, "y": 86}, {"n": "Noorddijk e.o.", "d": "M234.6 88.7 L237.1 93.3 L254.3 94.5 L271.3 134.5 L227.1 164.0 L195.9 118.4 L180.4 108.6 L180.7 107.7 L186.9 107.3 L196.8 110.1 L200.7 105.9 L196.1 101.9 L210.0 96.2 L211.5 97.9 L218.7 95.7 L221.7 98.3 L225.9 96.2 L220.6 89.5 L218.7 84.7 L234.6 88.7Z", "x": 235, "y": 126}, {"n": "Meerdorpen", "d": "M287.8 220.0 L277.5 223.6 L270.6 223.4 L264.1 219.5 L260.7 212.9 L257.3 202.7 L242.7 152.7 L271.3 134.5 L271.9 137.8 L268.9 139.7 L270.3 143.4 L272.6 145.2 L270.7 149.2 L273.8 155.0 L280.1 181.7 L289.3 207.9 L292.2 214.2 L287.8 220.0Z", "x": 265, "y": 179}, {"n": "Meerstad e.o.", "d": "M313.5 184.5 L313.5 187.2 L311.7 187.0 L311.4 188.5 L309.8 188.3 L309.8 189.2 L305.9 191.6 L305.8 189.9 L304.1 190.9 L303.3 198.4 L305.3 197.7 L305.5 211.1 L304.6 213.7 L297.3 216.0 L292.2 214.2 L289.3 207.9 L280.1 181.7 L273.8 155.0 L270.7 149.2 L272.6 145.2 L270.3 143.4 L268.9 139.7 L271.9 137.8 L271.2 133.9 L276.4 129.9 L288.5 115.8 L308.5 100.5 L313.4 105.8 L313.9 109.1 L323.6 122.6 L322.6 124.2 L326.7 130.0 L323.6 135.9 L322.2 142.0 L321.1 143.6 L322.7 146.0 L322.7 148.5 L321.8 150.0 L321.2 155.5 L323.1 159.8 L321.6 162.1 L322.0 163.1 L318.9 173.5 L317.1 176.9 L317.3 177.9 L316.4 178.7 L316.9 183.4 L313.5 184.5Z", "x": 298, "y": 158}, {"n": "Ten Boer e.o.", "d": "M246.2 10.0 L270.0 21.1 L283.8 32.3 L307.1 57.4 L317.3 65.6 L313.0 81.1 L320.1 91.7 L288.5 115.8 L276.4 129.9 L271.2 133.9 L254.3 94.5 L255.3 94.5 L253.4 89.0 L247.6 77.4 L235.2 63.7 L242.0 30.5 L244.0 17.0 L246.2 10.0Z", "x": 279, "y": 71}, {"n": "Ten Post e.o.", "d": "M315.4 22.4 L319.8 25.7 L319.8 25.3 L320.5 25.8 L320.6 24.8 L323.3 25.7 L325.0 28.5 L322.6 30.4 L326.7 37.4 L331.7 44.0 L333.1 43.4 L338.2 50.5 L339.8 47.2 L346.9 57.2 L345.7 58.5 L348.3 63.1 L346.7 64.2 L350.0 69.9 L338.8 77.8 L328.3 84.3 L320.1 91.7 L313.0 81.1 L317.3 65.6 L307.1 57.4 L283.8 32.3 L292.6 22.4 L293.8 23.3 L294.5 19.8 L308.4 29.1 L312.3 30.4 L312.5 23.2 L315.4 22.4Z", "x": 324, "y": 54}, {"n": "Haren-West e.o.", "d": "M225.5 252.5 L237.5 315.5 L236.1 323.1 L235.5 323.3 L235.4 320.3 L231.7 320.2 L227.9 322.1 L218.6 324.0 L218.2 322.8 L213.1 323.6 L212.2 327.9 L215.4 334.4 L207.9 337.0 L206.4 337.9 L206.7 339.3 L203.8 338.6 L197.7 333.6 L182.2 333.5 L182.1 330.2 L179.4 323.4 L183.0 320.6 L178.4 318.1 L175.7 313.0 L176.4 311.7 L150.7 320.7 L143.4 304.9 L123.3 286.3 L123.9 285.1 L137.2 282.6 L138.4 283.9 L144.9 284.3 L156.4 282.7 L162.8 284.2 L169.1 283.8 L178.9 281.4 L178.0 279.7 L180.6 278.9 L210.7 263.0 L213.4 253.2 L223.0 247.3 L225.5 252.5Z", "x": 184, "y": 296}, {"n": "Haren-Oost e.o.", "d": "M238.2 308.8 L236.2 310.6 L225.5 252.5 L223.0 247.3 L225.3 246.1 L254.3 254.0 L258.5 256.8 L261.1 256.5 L268.0 258.4 L264.0 263.3 L249.9 285.3 L243.0 293.2 L244.3 293.5 L240.0 299.4 L238.2 308.8Z", "x": 243, "y": 274}, {"n": "Glimmen-Onnen-Noordlaren", "d": "M288.5 307.5 L289.7 311.4 L286.3 340.9 L226.3 370.8 L229.1 367.8 L229.0 363.0 L227.3 362.4 L223.3 362.6 L221.8 361.7 L222.0 360.2 L225.2 357.3 L223.3 357.6 L222.8 354.1 L217.8 351.1 L217.8 348.9 L215.6 347.5 L216.1 345.6 L213.8 344.4 L210.4 345.2 L212.0 341.7 L208.3 339.6 L206.7 339.3 L206.4 337.9 L215.4 334.4 L212.2 327.9 L213.1 323.6 L218.2 322.8 L218.6 324.0 L227.9 322.1 L231.7 320.2 L235.4 320.3 L235.5 323.3 L236.1 323.1 L237.5 315.5 L236.2 310.6 L238.2 308.8 L240.0 299.4 L244.3 293.5 L243.0 293.2 L249.9 285.3 L264.0 263.3 L268.0 258.4 L276.2 261.2 L277.2 268.1 L276.5 276.0 L277.4 278.0 L278.8 279.3 L282.6 278.8 L283.5 281.8 L288.3 283.5 L293.3 296.8 L292.9 302.7 L289.6 305.7 L288.5 307.5Z", "x": 263, "y": 313}]};
+const B=[
+ {id:"stadhuis",n:"Stadhuis",e:"🏛️",c:"#E9D8B4",roof:"#1233C4",x:150,y:182,tower:1,ids:["g1","g2","g5","g7","b1","b2","b3","h1"],sub:"Bestuur, loketten en ambtenaren"},
+ {id:"winkel",n:"Winkelstraat",e:"🛍️",c:"#FFD7B8",roof:"#FF6A00",x:92,y:170,ids:["e1","e2","e3","e4","e5","e6","e7","e8","e9","e10","e11"],sub:"Economie en ondernemen"},
+ {id:"parkeer",n:"Parkeergarage",e:"🅿️",c:"#C9D3F5",roof:"#1233C4",x:158,y:118,ids:["m2","m3","m4","m5","m6","m7","m9","m11","m10"],sub:"Verkeer, fietsen en parkeren"},
+ {id:"werk",n:"Werkplein",e:"💼",c:"#FFE9A8",roof:"#C98A00",x:86,y:112,ids:["s3","s1","s2","s4","s5","s6","s8","s9","s10","s11","s12","s7"],sub:"Werk, bijstand en armoede"},
+ {id:"zwembad",n:"Zwembad",e:"🏊",c:"#CDEBFA",roof:"#1D86C8",x:152,y:60,ids:["k1","k2","k3"],sub:"Sport en bewegen"},
+ {id:"buurt",n:"Buurthuis",e:"🏘️",c:"#E0F2D6",roof:"#3E8E41",x:238,y:108,ids:["g3","g4","z8","z9"],sub:"Wijken en welzijn"},
+ {id:"zorg",n:"Zorgcentrum",e:"🏥",c:"#FFDDE3",roof:"#D2465E",x:214,y:160,ids:["z1","z2","z3","z4","z5","z6","z7","z10","z11"],sub:"Jeugdzorg, Wmo en opvang"},
+ {id:"politie",n:"Politie en boa's",e:"🚓",c:"#D6DEFF",roof:"#15193A",x:246,y:214,ids:["v2","v3","v4","v5","v6","v9","v1","v8"],sub:"Veiligheid en handhaving"},
+ {id:"theater",n:"Schouwburg",e:"🎭",c:"#EBDDFB",roof:"#7A3DC8",x:98,y:226,ids:["c1","c2","c3","c4"],sub:"Cultuur"},
+ {id:"school",n:"School",e:"🏫",c:"#FFE3C7",roof:"#B5542B",x:178,y:244,ids:["d1","d2","d4","d5","d6"],sub:"Onderwijs"},
+ {id:"park",n:"Park",e:"🌳",x:118,y:282,park:1,ids:["o1","o3","o2","o4","o5","o6","o8"],sub:"Straten, groen, afval en riolering"},
+ {id:"bouw",n:"Nieuwbouw",e:"🏗️",c:"#F3F0E6",roof:"#8A6D3B",x:302,y:164,ids:["w1","w2","w3","w4","w6","w7","w8","w10","w11"],sub:"Wonen, bouwen en energie"},
+ {id:"veiling",n:"Veilinghuis",e:"🔨",c:"#FFF4CC",roof:"#FF6A00",x:284,y:64,cards:1,sub:"Eenmalige acties: verkopen, stoppen en investeren"},
+ {id:"loket",n:"Belastingloket",e:"💶",c:"#DFF5EA",roof:"#15875A",x:214,y:304,tax:1,sub:"OZB, parkeren en andere belastingen"}
+];
+const WIJKLBL={"Hoogkerk e.o.":"Hoogkerk","Ten Boer e.o.":"Ten Boer","Haren-West e.o.":"Haren","Meerstad e.o.":"Meerstad","Ten Post e.o.":"Ten Post","Glimmen-Onnen-Noordlaren":"Glimmen","Noorddijk e.o.":"Beijum, Lewenborg"};
+const S5=0.5; // schaal gebouwen
+
+function bldSVG(b){
+  const w=88,h=54,x=-w/2,y=-h/2;
+  let body;
+  if(b.park){
+    body=`<rect class="base" x="${x}" y="${y-8}" width="${w}" height="${h+8}" rx="12" fill="#6DBB55" stroke="rgba(0,0,0,.2)" stroke-width="3"/>
+    <circle cx="${x+20}" cy="${y+10}" r="13" fill="#2F8A42"/><circle cx="${x+68}" cy="${y+14}" r="14" fill="#267A38"/><circle cx="${x+44}" cy="${y+30}" r="12" fill="#3E9B4F"/>
+    <rect x="${x+18}" y="${y+20}" width="5" height="11" fill="#6B4A2B"/><rect x="${x+66}" y="${y+25}" width="5" height="11" fill="#6B4A2B"/>
+    <ellipse cx="${x+70}" cy="${y+40}" rx="13" ry="6" fill="var(--water)"/>
+    <g class="shade" opacity="0"><text x="${x+30}" y="${y+46}" font-size="16">🗑️</text><text x="${x+50}" y="${y+22}" font-size="14">🕳️</text></g>`;
+  } else {
+    let win=""; for(let r=0;r<2;r++) for(let c=0;c<4;c++) win+=`<rect class="win" x="${x+10+c*19}" y="${y+10+r*15}" width="11" height="9" rx="2" fill="#FFE27A"/>`;
+    body=`<rect class="base" x="${x}" y="${y}" width="${w}" height="${h}" rx="6" fill="${b.c}" stroke="rgba(0,0,0,.3)" stroke-width="3"/>
+    <path d="M${x-5} ${y+2} L0 ${y-20} L${x+w+5} ${y+2}Z" fill="${b.roof}" stroke="rgba(0,0,0,.3)" stroke-width="3" stroke-linejoin="round"/>
+    ${win}<rect x="-8" y="${y+h-18}" width="16" height="18" rx="3" fill="#6B4A2B"/>
+    <text x="0" y="${y-3}" font-size="17" text-anchor="middle">${b.e}</text>`;
+  }
+  const tower=b.tower?`<g transform="translate(62 -6)">
+    <rect x="-10" y="-36" width="20" height="66" fill="#B98B5E" stroke="#6B4A2B" stroke-width="3"/>
+    <rect x="-7" y="-52" width="14" height="16" fill="#A67A50" stroke="#6B4A2B" stroke-width="3"/>
+    <path d="M-6 -52 L0 -68 L6 -52Z" fill="#3E7D6A" stroke="#6B4A2B" stroke-width="3"/>
+    <circle cx="0" cy="-20" r="6" fill="#FFF" stroke="#6B4A2B" stroke-width="2.5"/></g>`:"";
+  return `<g class="bld" id="b-${b.id}" data-b="${b.id}" tabindex="0" role="button" aria-label="${b.n}: ${b.sub}" transform="translate(${b.x} ${b.y})">
+   <g class="inner" transform="scale(${S5})">
+    <ellipse cx="0" cy="${y+h+4}" rx="50" ry="8" fill="rgba(0,0,0,.18)"/>
+    <g class="body">${body}${tower}</g>
+    <g class="closed"><g transform="rotate(-8)"><rect x="-38" y="-6" width="76" height="22" rx="4" fill="#8B5A2B" stroke="#4A2F14" stroke-width="2"/><text x="0" y="10" font-size="14" font-weight="800" fill="#FFF" text-anchor="middle">GESLOTEN</text></g></g>
+    <g class="spark"><text x="${x+w-8}" y="${y-10}" font-size="18">✨</text><text x="${x-6}" y="${y+6}" font-size="14">⭐</text></g>
+    <text class="lbl" x="0" y="${y+h+22}">${b.n}</text>
+    <text class="amt" id="amt-${b.id}" x="0" y="${y+h+40}"></text>
+   </g></g>`;
+}
+let ROADS=[];
+function drawCity(){
+  const svg=document.getElementById("city"); svg.setAttribute("viewBox",`0 0 ${MAP.W} ${MAP.H}`);
+  const wk=MAP.wk.map((k,i)=>`<path d="${k.d}" fill="${i%2?"var(--grass)":"var(--grass2)"}" stroke="var(--wline)" stroke-width="1"/>`).join("");
+  const lbls=MAP.wk.filter(k=>WIJKLBL[k.n]).map(k=>{let x=k.x,y=k.y; if(k.n==="Haren-West e.o."){x=160;y=318} if(k.n==="Meerstad e.o."){x=312;y=202} if(k.n==="Ten Boer e.o."){x=276;y=92} if(k.n==="Noorddijk e.o."){x=236;y=136} return `<text class="wlbl" x="${x}" y="${y}">${WIJKLBL[k.n]}</text>`}).join("");
+  const hub=B[0];
+  ROADS=B.slice(1).map((b,i)=>{const mx=(hub.x+b.x)/2+(i%2?12:-12), my=(hub.y+b.y)/2+(i%3-1)*10; return `M${hub.x} ${hub.y+6} Q${mx} ${my} ${b.x} ${b.y+8}`});
+  const roads=ROADS.map((d,i)=>`<path id="r${i}" d="${d}" fill="none" stroke="var(--road)" stroke-width="6" stroke-linecap="round"/><path d="${d}" fill="none" stroke="var(--roadline)" stroke-width="1" stroke-dasharray="4 4"/>`).join("");
+  const canal=`<path d="M150 190 Q220 186 270 176 T345 172" stroke="var(--water)" stroke-width="4" fill="none" opacity=".9"/>`;
+  const people=[0,1,2,3,4,5,6,7].map(i=>`<g class="walker" id="p${i}"><g transform="scale(.6)"><circle cx="0" cy="-12" r="4.5" fill="${["#F2C29B","#8D5A3B","#E8B48A","#C68642","#F5D0B0","#6B4226","#E8B48A","#8D5A3B"][i]}"/><rect x="-4.5" y="-8" width="9" height="10" rx="3" fill="${["#FF6A00","#1233C4","#3E8E41","#D2465E","#7A3DC8","#C98A00","#1D86C8","#15193A"][i]}"/><rect x="-3.5" y="2" width="2.5" height="6" fill="#15193A"/><rect x="1" y="2" width="2.5" height="6" fill="#15193A"/></g></g>`).join("");
+  svg.innerHTML=`<path d="${MAP.gm}" fill="var(--grass)" stroke="none"/>${wk}<path d="${MAP.gm}" fill="none" stroke="var(--blue)" stroke-width="3" stroke-linejoin="round"/>${canal}${lbls}${roads}${B.map(bldSVG).join("")}${people}`;
+}
+
+// wandelaars lopen over de wegen tussen stadhuis en de gebouwen
+let WALK=[];
+function initWalk(){WALK=[0,1,2,3,4,5,6,7].map(i=>{const r=i%ROADS.length;return {r,t:Math.random(),v:(0.0012+Math.random()*0.0018)*(Math.random()<.5?-1:1),x:0,y:0}});}
+function walk(){
+  WALK.forEach((w,i)=>{const p=document.getElementById("r"+w.r); if(!p) return;
+    w.t+=w.v; if(w.t>1||w.t<0){ w.v=-w.v; w.t=Math.max(0,Math.min(1,w.t)); if(w.t===0&&Math.random()<.6) w.r=Math.floor(Math.random()*ROADS.length);}
+    const L=p.getTotalLength(), pt=p.getPointAtLength(L*w.t); const dx=w.x?pt.x-w.x:0; w.x=pt.x; w.y=pt.y;
+    const el=document.getElementById("p"+i); if(el) el.setAttribute("transform",`translate(${pt.x.toFixed(1)} ${(pt.y+Math.abs(Math.sin(w.t*200))*0.8).toFixed(1)}) scale(${dx<0?-1:1} 1)`);});
+  requestAnimationFrame(walk);
+}
+function say(){
+  if(document.getElementById("game").classList.contains("hidden")) return;
+  const pool=thoughts(), t=pool[Math.floor(Math.random()*pool.length)];
+  const w=WALK[Math.floor(Math.random()*WALK.length)], svg=document.getElementById("city"), wrap=document.getElementById("cityWrap");
+  const sc=svg.clientWidth/MAP.W;
+  const b=document.createElement("div"); b.className="bubble"; b.textContent=t;
+  b.style.left=Math.min(Math.max(w.x*sc,95),svg.clientWidth-95)+"px"; b.style.top=((w.y-10)*sc)+"px";
+  wrap.querySelectorAll(".bubble").forEach(x=>x.remove()); wrap.appendChild(b); setTimeout(()=>b.remove(),3200);
+}
+function thoughts(){
+  const p=id=>st.pct[id]||0, t=id=>st.tax[id]||0, c=id=>st.cards.has(id), L=[];
+  if(p("o1")<=-25) L.push("Mijn straat ligt vol gaten 🕳️","Het gras staat tot mijn knieën 🌾"); if(p("o1")>0) L.push("Wat ziet de buurt er netjes uit 🌷");
+  if(p("k1")<=-50) L.push("Mijn zwembad is dicht 😢","Waar moeten de kinderen nu zwemles krijgen?"); if(p("k1")>0) L.push("Nieuwe sporthal, top! 🏀");
+  if(p("v2")>0) L.push("Fijn, meer boa's op straat 👮"); if(p("v2")<0) L.push("Niemand doet iets aan die fatbikes 😠");
+  if(p("v3")<0) L.push("'s Avonds voel ik me minder veilig 😟");
+  if(t("t1")<0) L.push("Mijn OZB-aanslag is lager 🎉","Ik hou meer over dit jaar 👛"); if(t("t1")>0) L.push("Wéér hogere OZB? 😤");
+  if(t("t5")<=-50) L.push("Eindelijk betaalbaar parkeren 🚗"); if(t("t5")>0) L.push("Parkeren wordt onbetaalbaar 💸");
+  if(p("c2")<0) L.push("Mijn favoriete festival gaat niet door 🎸"); if(p("c1")<0) L.push("Minder voorstellingen in de Oosterpoort 🎭");
+  if(p("s3")>0) L.push("Dankzij mijn coach heb ik werk! 💼"); if(p("s3")<0) L.push("Ik zoek al maanden werk, maar krijg geen hulp");
+  if(p("s10")<0||p("s12")<0) L.push("Het wordt krap aan het eind van de maand 😕");
+  if(p("h1")<0) L.push("Het stadhuis is een stuk kleiner geworden 🏛️"); if(p("b1")<0) L.push("Ik wacht al weken op mijn paspoort 🛂");
+  if(p("z4")<0) L.push("Wachtlijst bij het WIJ-team…"); if(p("z1")<0) L.push("Hoe lang duurt het nog voor mijn kind hulp krijgt?");
+  if(p("g3")<0||p("g4")<0) L.push("Er gebeurt minder in onze wijk"); if(p("m5")>0) L.push("Fietsenstalling 's nachts open, handig! 🚲");
+  if(c("k_kwijt")) L.push("Ik moet nu zelf alle gemeentebelasting betalen 😟"); if(c("k_licht")) L.push("Wat is het hier nu goed verlicht 💡");
+  if(c("k_zon")) L.push("Geen zonnepark in Meerstad-Noord"); if(c("k_fc")) L.push("Eindelijk ruimte op Corpus ⚽"); if(c("k_brug")) L.push("Toch een tijdelijke brug bij de Gerrit Krol 🌉");
+  const {S}=calc(); if(S>10) L.push("Houdt de gemeente nou geld over? 🤔");
+  if(!L.length) L.push("Wat gaat de gemeente met ons geld doen?","Ik ben benieuwd naar de nieuwe begroting","Tik maar eens op een gebouw 👆","Mooie gemeente, hè?");
+  return L;
+}
+
+// gebouwstatus
+function bScore(b){
+  if(b.tax){let s=0;TAX.forEach(t=>s+= (st.tax[t.id]||0)*t.r); return {sc:0,money:TAX.reduce((a,t)=>a+(st.tax[t.id]||0)/100*t.r,0)};}
+  if(b.cards){let m=0;CARDS.forEach(c=>{if(st.cards.has(c.id))m+=c.s});return {sc:0,money:m};}
+  let T=0,D=0,m=0; b.ids.forEach(id=>{const i=ITEMS[id]; if(i.lock) return; T+=i.l; D+=i.l*(st.pct[id]||0); m+=-(st.pct[id]||0)/100*net(i);});
+  return {sc:T?D/T:0,money:m};
+}
+function updCity(){
+  B.forEach(b=>{ if(b.decor) return; const g=document.getElementById("b-"+b.id), {sc,money}=bScore(b);
+    let sad=sc<-4, closed=sc<=-30, happy=sc>3;
+    if(b.tax){const o=st.tax.t1||0; happy=o<0; sad=o>0;}
+    if(b.cards){happy=[...st.cards].some(id=>CARDS.find(c=>c.id===id).g==="uit");}
+    g.classList.toggle("sad",sad); g.classList.toggle("closedB",closed); g.classList.toggle("happy",happy);
+    g.querySelectorAll(".win").forEach((w,k)=>w.setAttribute("fill", sad && k%(closed?1:2)===0 ? "#5C6070":"#FFE27A"));
+    const sh=g.querySelector(".shade"); if(sh) sh.setAttribute("opacity", sad?1:0);
+    const a=document.getElementById("amt-"+b.id); a.textContent=Math.abs(money)>0.0005?fmt(money):""; a.setAttribute("fill",money>0?"var(--pos)":"var(--neg)");
+  });
+}
+
+// ============ UI ============
+function toast(msg){const d=document.createElement("div");d.className="toast";d.textContent=msg;const box=document.getElementById("toasts");box.appendChild(d);setTimeout(()=>d.remove(),4200);while(box.children.length>3)box.firstChild.remove();}
+function potFx(cls){const p=document.getElementById("pot");p.classList.remove("shake","bump");void p.offsetWidth;p.classList.add(cls);}
+function coins(fromEl,n){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches||!fromEl) return;
+  const a=fromEl.getBoundingClientRect(), b=document.getElementById("pot").getBoundingClientRect();
+  for(let k=0;k<Math.min(n,6);k++){const c=document.createElement("div");c.className="coin";c.textContent="🪙";document.body.appendChild(c);
+    const sx=a.left+a.width/2+(Math.random()*40-20), sy=a.top+a.height/2;
+    c.animate([{transform:`translate(${sx}px,${sy}px) scale(1)`},{transform:`translate(${(sx+b.left)/2}px,${Math.min(sy,b.top)-60}px) scale(1.2)`},{transform:`translate(${b.left+10}px,${b.top+10}px) scale(.5)`,opacity:.3}],{duration:700+k*90,easing:"ease-in"}).onfinish=()=>{c.remove();potFx("bump")};}
+}
+let lastS=0, curB=null;
+function hud(){
+  const {S,I}=calc(), m=meters();
+  const eS=document.getElementById("sS"),eI=document.getElementById("sI");
+  eS.textContent=fmt(S); eS.className=S>0.0005?"pos":S<-0.0005?"neg":"";
+  eI.textContent=fmt(I); eI.className=I>0.0005?"pos":I<-0.0005?"neg":"";
+  document.getElementById("pot").classList.toggle("open",S>0.0005);
+  const h=Math.min(1,Math.max(0,S)/30)*44,f=document.getElementById("potfill"); f.setAttribute("height",h); f.setAttribute("y",66-h);
+  const hap=Object.values(m).reduce((a,v)=>a+v,0)/6;
+  document.getElementById("sH").textContent=Math.round(hap)+"%";
+  document.getElementById("hbar").style.width=hap+"%";
+  document.getElementById("face").textContent=hap>62?"😄":hap>52?"🙂":hap>42?"😐":hap>32?"🙁":"😠";
+  const mi=MISSIONS.find(x=>x.id===st.mission), ok=mi.check(st,m)&&S>=-0.0005&&S+I>=-0.0005;
+  document.getElementById("missionbar").innerHTML=`${mi.ico} <b>${mi.n}</b> · ${mi.prog(st,m)} ${ok&&mi.id!=="vrij"?"✅":""}`;
+  const why=S<-0.0005?"Je begroting is structureel niet sluitend: elk jaar "+fmt(-S).replace("− ","")+" tekort.":(S+I<-0.0005?"Je komt dit jaar "+fmt(-(S+I)).replace("− ","")+" tekort.":"");
+  document.getElementById("submitWhy").textContent=why; document.getElementById("submitTop").disabled=!!why;
+  updCity();
+  return S;
+}
+
+function itemHTML(i){
+  if(i.lock) return `<div class="it locked"><div class="h"><div class="n">🔒 ${i.n}${i.pass?'<span class="badge pass">betaald uit heffing</span>':''}</div><div class="v">€ ${i.l.toLocaleString("nl-NL")} mln</div></div><div class="lockmsg">${i.lock}</div></div>`;
+  const s=steps(i),cur=st.pct[i.id]||0,legal=(i.min??-100)>-25?'<span class="badge">wettelijke taak</span>':'';
+  return `<div class="it" id="it-${i.id}"><div class="h"><div class="n">${i.n}${legal}</div><div class="v" id="v-${i.id}"></div></div>
+   <div class="sub">€ ${i.l.toLocaleString("nl-NL")} mln per jaar${i.b?` · €&nbsp;${i.b.toLocaleString("nl-NL")} mln aan inkomsten hangt ermee samen`:''}</div>
+   <input type="range" min="0" max="${s.length-1}" step="1" value="${s.indexOf(cur)}" data-id="${i.id}" aria-label="${i.n}" aria-valuetext="${cur}%">
+   <div class="scale"><span>${s[0]}%</span><span>0%</span><span>+${s[s.length-1]}%</span></div><div class="msg" id="msg-${i.id}"></div></div>`;
+}
+function updItem(id){
+  const i=ITEMS[id],el=document.getElementById("it-"+id); if(!el) return;
+  const p=st.pct[id]||0,save=-p/100*net(i);
+  el.classList.toggle("changed",p!==0); el.classList.toggle("cut",p<0); el.classList.toggle("up",p>0);
+  document.getElementById("v-"+id).innerHTML=p===0?`<span style="color:var(--muted)">0%</span>`:`${p>0?"+":""}${p}% · <span class="${save>=0?'pos':'neg'}">${fmt(save,2)}</span>`;
+  document.getElementById("msg-"+id).textContent=p<0?(p===-100?"De gemeente stopt hiermee. ":"")+i.stop:(i.up||"Meer geld voor "+i.n.toLowerCase()+".");
+}
+function updTax(t){const cur=st.tax[t.id]||0,el=document.getElementById("v-"+t.id); if(!el)return; const v=cur/100*t.r; el.innerHTML=cur===0?`<span style="color:var(--muted)">0%</span>`:`${cur>0?"+":""}${cur}% · <span class="${v>=0?'pos':'neg'}">${fmt(v,2)}</span>`}
+function cardHTML(c){return `<button class="card ${st.cards.has(c.id)?"on":""}" data-card="${c.id}" aria-pressed="${st.cards.has(c.id)}"><span class="k">${c.t==="S"?"Structureel, elk jaar":"Eenmalig"}</span><b>${c.n}</b><span class="d">${c.d}</span><div class="a ${c.s>0?'pos':'neg'}">${fmt(c.s,2)}</div></button>`}
+
+function openSheet(bid){
+  const b=B.find(x=>x.id===bid); curB=b;
+  if(b.decor){ if(!document.getElementById("submitTop").disabled) showResult(); else toast("🔔 Maak je begroting eerst sluitend, dan kun je hem hier indienen."); return; }
+  document.getElementById("shE").textContent=b.e; document.getElementById("shTitle").textContent=b.n; document.getElementById("shSub").textContent=b.sub;
+  let h="";
+  if(b.tax){ h+=`<p class="hint">Lagere belastingen kosten geld, dus die kun je pas verlagen als er geld in de pot zit.</p>`;
+    TAX.forEach(t=>{const s=[-100,-75,-50,-30,-25,-20,-10,-5,0,5,10,20,50,100].filter(x=>x>=t.min&&x<=t.max),cur=st.tax[t.id]||0;
+      h+=`<div class="it" id="it-${t.id}"><div class="h"><div class="n">${t.n}</div><div class="v" id="v-${t.id}"></div></div><div class="sub">Brengt € ${t.r.toLocaleString("nl-NL")} mln per jaar op. ${t.d}</div><input type="range" min="0" max="${s.length-1}" value="${s.indexOf(cur)}" data-tax="${t.id}" data-steps="${s.join(",")}" aria-label="${t.n}"><div class="scale"><span>${s[0]}%</span><span>0%</span><span>+${s[s.length-1]}%</span></div></div>`;});
+  } else if(b.cards){ h+=`<p class="hint">Eenmalig geld kun je maar één keer uitgeven. Gebruik het niet voor vaste lasten.</p><h3 class="sec">Verkopen of stoppen</h3><div class="cards">${CARDS.filter(c=>c.g==="vrij").map(cardHTML).join("")}</div><h3 class="sec">Investeren</h3><div class="cards">${CARDS.filter(c=>c.g==="uit").map(cardHTML).join("")}</div>`;
+  } else { h+=`<p class="hint">Schuif naar links om te bezuinigen en naar rechts om te investeren.</p>`+b.ids.map(id=>itemHTML(ITEMS[id])).join(""); }
+  const body=document.getElementById("shBody"); body.innerHTML=h;
+  if(b.ids) b.ids.forEach(updItem); if(b.tax) TAX.forEach(updTax);
+  document.getElementById("sheet").classList.add("on"); document.getElementById("sheetBg").classList.add("on"); document.getElementById("sheet").scrollTop=0;
+  setTimeout(()=>document.getElementById("shClose").focus(),50);
+}
+function closeSheet(){document.getElementById("sheet").classList.remove("on");document.getElementById("sheetBg").classList.remove("on");
+  if(curB){const g=document.getElementById("b-"+curB.id); g.classList.remove("pulse"); void g.getBBox(); g.classList.add("pulse"); g.focus({preventScroll:true});} else document.getElementById("missionbar").focus();}
+
+function allowed(n){const a=calc(st),b=calc(n); if(b.S<-0.0005&&b.S<a.S) return false; if(b.S+b.I<-0.0005&&b.S+b.I<a.S+a.I) return false; return true;}
+function clone(){return {pct:{...st.pct},tax:{...st.tax},cards:new Set(st.cards),mission:st.mission}}
+function chainToasts(id,old,now){
+  if(id==="s3"&&now>0&&old<=0) toast("🔗 Meer mensen aan het werk: minder bijstand nodig. ⚠︎ Voorbeeld: 30 cent terug per extra euro.");
+  if(id==="s3"&&now<0&&old>=0) toast("🔗 Minder begeleiding naar werk: meer mensen blijven in de bijstand.");
+  if(id==="s9"&&now<0&&old>=0) toast("🔗 Minder schuldhulp: meer aanvragen voor bijzondere bijstand.");
+  if(id==="o1"&&now<=-25&&old>-25) toast("🚧 Achterstallig onderhoud: later wordt herstel duurder.");
+  if(id==="k1"&&now<=-50&&old>-50) toast("🏊 Deze bezuiniging kan alleen als er een zwembad of sporthal dichtgaat.");
+  if(id==="h1"&&now<=-20&&old>-20) toast("🏢 20% minder overhead: honderden banen minder bij de gemeente.");
+  if(id==="w8"&&now<0&&old>=0) toast("🔗 Minder vergunningverleners: je mist leges, dus dit kost netto geld.");
+  if(id==="m2"&&now<0&&old>=0) toast("🔗 Minder parkeercontrole: minder naheffingen, dus dit kost geld.");
+  if(id==="t5"&&now===-100) toast("🅿️ Overal gratis parkeren: € 35 mln minder inkomsten per jaar.");
+}
+function afterChange(before){const S=hud(); const el=curB&&document.getElementById("b-"+curB.id); if(S>before+0.05) coins(el,Math.ceil((S-before)/2));}
+
+document.addEventListener("input",e=>{
+  const r=e.target; if(r.type!=="range") return; const before=calc().S;
+  if(r.dataset.id){const id=r.dataset.id,s=steps(ITEMS[id]),v=s[+r.value],old=st.pct[id]||0,n=clone(); if(v===0)delete n.pct[id]; else n.pct[id]=v;
+    if(!allowed(n)){r.value=s.indexOf(old);potFx("shake");toast("🔒 Het potje is leeg. Maak eerst ergens anders geld vrij.");return;}
+    st=n; chainToasts(id,old,v); updItem(id); afterChange(before);}
+  if(r.dataset.tax){const id=r.dataset.tax,s=r.dataset.steps.split(",").map(Number),v=s[+r.value],old=st.tax[id]||0,n=clone(); if(v===0)delete n.tax[id]; else n.tax[id]=v;
+    if(!allowed(n)){r.value=s.indexOf(old);potFx("shake");toast("🔒 Belasting verlagen kost geld. Maak eerst geld vrij.");return;}
+    st=n; chainToasts(id,old,v); updTax(TAX.find(t=>t.id===id)); afterChange(before);}
+});
+document.addEventListener("click",e=>{
+  const g=e.target.closest("[data-b]"); if(g){openSheet(g.dataset.b);return;}
+  const c=e.target.closest("[data-card]"); if(c){const before=calc().S,id=c.dataset.card,n=clone(); n.cards.has(id)?n.cards.delete(id):n.cards.add(id);
+    if(!allowed(n)){potFx("shake");toast("🔒 Hier is niet genoeg geld voor. Maak eerst geld vrij.");return;}
+    st=n; c.classList.toggle("on"); c.setAttribute("aria-pressed",st.cards.has(id)); const cd=CARDS.find(x=>x.id===id); hud(); if(st.cards.has(id)&&cd.s>0) coins(c,3); return;}
+  const m=e.target.closest("[data-mission]"); if(m){st.mission=m.dataset.mission; closeSheet(); hud(); const mi=MISSIONS.find(x=>x.id===st.mission); toast(mi.ico+" Missie: "+mi.d); return;}
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape") closeSheet();
+  if((e.key==="Enter"||e.key===" ")&&e.target.matches?.(".bld")){e.preventDefault();openSheet(e.target.dataset.b);}
+});
+document.getElementById("shClose").onclick=closeSheet; document.getElementById("sheetBg").onclick=closeSheet;
+document.getElementById("submitTop").onclick=showResult;
+document.getElementById("reset").onclick=()=>{if(confirm("Weet je zeker dat je opnieuw wilt beginnen?")) location.reload()};
+
+function startGame(){
+  st.mission="vrij"; drawCity(); initWalk(); hud(); requestAnimationFrame(walk); setInterval(say,3800); setTimeout(say,1500);
+  setTimeout(()=>toast("💡 Tik op een gebouw. Bezuinig eerst ergens om het geldpotje open te krijgen."),800);
+}
+function openMissions(){
+  curB=null;
+  document.getElementById("shE").textContent="🎯"; document.getElementById("shTitle").textContent="Kies een missie"; document.getElementById("shSub").textContent="Of speel vrij";
+  document.getElementById("shBody").innerHTML=`<div class="missions">${MISSIONS.map(m=>`<button class="mission" data-mission="${m.id}" aria-pressed="${st.mission===m.id}" style="${st.mission===m.id?'border-color:var(--orange)':''}"><span class="ico">${m.ico}</span><b>${m.n}</b><span>${m.d}</span></button>`).join("")}</div>`;
+  document.getElementById("sheet").classList.add("on"); document.getElementById("sheetBg").classList.add("on");
+}
+document.getElementById("missionbar").onclick=openMissions;
+
+// ============ EIGEN TEGENBEGROTING ============
+const THEMA={stadhuis:"Bestuur en organisatie",winkel:"Economie",parkeer:"Verkeer en parkeren",werk:"Werk en inkomen",zwembad:"Sport",buurt:"Wijken en welzijn",zorg:"Zorg",politie:"Veiligheid",theater:"Cultuur",school:"Onderwijs",park:"Openbare ruimte",bouw:"Wonen en energie"};
+const themaOf=id=>{const b=B.find(x=>x.ids&&x.ids.includes(id));return b?THEMA[b.id]:"Overig"};
+function collectPlan(){
+  const cuts=[],ups=[];
+  for(const id in st.pct){const i=ITEMS[id],p=st.pct[id],v=-p/100*net(i);
+    (p<0?cuts:ups).push({key:id,n:i.n,thema:themaOf(id),pct:p,v,t:"S",txt:p<0?((p===-100?"De gemeente stopt hiermee. ":"")+i.stop):(i.up||"Meer geld voor "+i.n.toLowerCase()+".")});}
+  for(const id in st.tax){const t=TAX.find(x=>x.id===id),p=st.tax[id],v=p/100*t.r;
+    (p>0?cuts:ups).push({key:id,n:t.n+(p>0?" verhogen":" verlagen")+` (${p>0?"+":""}${p}%)`,thema:p>0?"Hogere lasten":"Lagere lasten",v,t:"S",txt:p<0?`De ${t.n.toLowerCase()} gaat ${-p}% omlaag. Dat scheelt inwoners en ondernemers € ${mln1(-v)} miljoen per jaar.`:`De ${t.n.toLowerCase()} gaat ${p}% omhoog. Dat levert € ${mln1(v)} miljoen per jaar op.`});}
+  for(const id of st.cards){const c=CARDS.find(x=>x.id===id);(c.s>0?cuts:ups).push({key:id,n:c.n,thema:c.s>0?(c.t==="I"?"Verkopen en projecten stoppen":"Beleidskeuzes"):"Investeren in de toekomst",v:c.s,t:c.t,txt:c.d});}
+  const {chains}=calc(); chains.forEach(c=>(c.v>0?cuts:ups).push({key:"chain-"+c.t,n:"Kettingeffect: "+c.t.toLowerCase(),thema:"Kettingeffecten",v:c.v,t:"S",txt:"⚠︎ Voorbeeldbedrag uit de game, nog te onderbouwen.",chain:1}));
+  cuts.sort((a,b)=>b.v-a.v); ups.sort((a,b)=>a.v-b.v);
+  return {cuts,ups};
+}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const mln1=v=>Math.abs(v).toLocaleString("nl-NL",{minimumFractionDigits:1,maximumFractionDigits:1});
+const mln=v=>Math.abs(v).toLocaleString("nl-NL",{minimumFractionDigits:1,maximumFractionDigits:3});
+function groups(list){const g={};list.forEach(x=>{(g[x.thema]=g[x.thema]||[]).push(x)});return g;}
+function defaultIntro(plan,S,I,meta){
+  const tc=plan.cuts.filter(x=>!x.chain).reduce((a,x)=>a+x.v,0), tu=plan.ups.filter(x=>!x.chain).reduce((a,x)=>a-x.v,0);
+  const top=plan.ups.filter(x=>!x.chain).slice(0,3).map(x=>x.n.toLowerCase());
+  return `Met deze tegenbegroting maak ik andere keuzes dan het college in de ontwerpbegroting 2026 van de gemeente Groningen. Ik maak € ${mln1(tc)} miljoen vrij door ${plan.cuts.length} onderdelen te schrappen, te verkleinen of te verkopen, en ik zet € ${mln1(tu)} miljoen in voor andere prioriteiten${top.length?", waaronder "+top.join(", "):""}. Mijn begroting sluit met een structureel saldo van € ${mln1(S)} miljoen per jaar${Math.abs(I)>0.0005?` en een eenmalig saldo van € ${mln1(I)} miljoen`:""}.`;
+}
+function buildDoc(){
+  const plan=collectPlan(), {S,I}=calc(), m=meters();
+  const meta={title:(window._tbT||"").trim()||"Mijn tegenbegroting",who:(window._tbN||"").trim(),idea:(window._tbI||"").trim()};
+  const txt=k=>null;
+  const sec=(list)=>Object.entries(groups(list)).map(([th,xs])=>`<h3>${esc(th)}</h3>${xs.map(x=>`<p class="m"><b>▶ ${esc(x.n)}${x.pct?` (${x.pct>0?"+":""}${x.pct}%)`:""}.</b> ${esc(txt(x.key)||x.txt)}</p>`).join("")}`).join("");
+  const row=x=>`<tr><td>${esc(x.n)}${x.pct?` (${x.pct>0?"+":""}${x.pct}%)`:""}</td><td class="r">${mln(x.v)}</td><td class="c">${x.t}</td></tr>`;
+  const sum=l=>l.reduce((a,x)=>a+Math.abs(x.v),0);
+  const meterRows=METERS.map(M=>`<tr><td>${M.e} ${M.n}</td><td class="r">${Math.round(m[M.k])}</td><td class="c">${m[M.k]>55?"beter":m[M.k]<45?"slechter":"gelijk"}</td></tr>`).join("");
+  const doc={meta,plan,S,I,m,intro:defaultIntro(plan,S,I,meta)};
+  const html=`<article class="tb" id="tbDoc">
+   <header class="cover"><div class="tag">Tegenbegroting</div><h1>${esc(meta.title)}</h1><p class="subt">Op de ontwerpbegroting 2026 van de gemeente Groningen</p>${meta.who?`<p class="who">Door ${esc(meta.who)}</p>`:""}</header>
+   <h2>Inleiding</h2><p>${esc(doc.intro)}</p>
+   <h2>Besparingen en opbrengsten</h2>${plan.cuts.length?sec(plan.cuts):"<p>Ik heb geen bezuinigingen gekozen.</p>"}
+   <h2>Investeringen en lastenverlichting</h2>${plan.ups.length?sec(plan.ups):"<p>Ik heb geen extra uitgaven gekozen.</p>"}
+   ${meta.idea?`<h2>Mijn eigen ideeën</h2><p>${esc(meta.idea)}</p>`:""}
+   <h2>Gevolgen voor de gemeente</h2><p class="note">Indicatie uit de game op een schaal van 0 tot 100, waarbij 50 de huidige begroting is.</p>
+   <table><thead><tr><th>Meter</th><th class="r">Score</th><th class="c">Effect</th></tr></thead><tbody>${meterRows}</tbody></table>
+   <h2>Financieel overzicht</h2>
+   <h3>Ombuigingen en opbrengsten (x € 1 miljoen)</h3>
+   <table><thead><tr><th>Omschrijving</th><th class="r">2026</th><th class="c">S/I</th></tr></thead><tbody>${plan.cuts.map(row).join("")}<tr class="tot"><td>Totaal</td><td class="r">${mln(sum(plan.cuts))}</td><td></td></tr></tbody></table>
+   <h3>Uitgaven (x € 1 miljoen)</h3>
+   <table><thead><tr><th>Omschrijving</th><th class="r">2026</th><th class="c">S/I</th></tr></thead><tbody>${plan.ups.map(row).join("")}<tr class="tot"><td>Totaal</td><td class="r">${mln(sum(plan.ups))}</td><td></td></tr></tbody></table>
+   <table class="saldo"><tbody><tr><td>Saldo structureel (elk jaar)</td><td class="r">${S<0?"−":""}${mln(S)}</td></tr><tr><td>Saldo eenmalig (2026)</td><td class="r">${I<0?"−":""}${mln(I)}</td></tr></tbody></table>
+   <p class="note">S = structureel, I = incidenteel. Bedragen uit de ontwerpbegroting 2026 van de gemeente Groningen, gemaakt met de Begrotingsgame. Kettingeffecten en meters zijn vereenvoudigingen.</p>
+  </article>`;
+  return {html,doc};
+}
+function showDoc(){
+  if(!document.getElementById('doccss')){const st_=document.createElement('style');st_.id='doccss';st_.textContent=DOCCSS.replace(/^body\{[^}]*\}/,'');document.head.appendChild(st_);}
+  const R=document.getElementById("result"); const {html}=buildDoc();
+  R.innerHTML=`<div class="doctools">
+     <button class="btn ghost" id="docBack">← Terug</button>
+          <button class="btn hidden" id="docWord">Download als Word</button>
+     <button class="btn ghost hidden" id="docHtml">Download als webpagina</button>
+   </div><p class="note" id="docStatus"></p>${html}`;
+  window.scrollTo(0,0);
+  document.getElementById("docBack").onclick=showResult;
+  initDocTools();
+}
+async function initDocTools(){
+  if(!window.claude?.use) return;
+  const dl=await claude.use("downloads").catch(()=>null);
+  const status=document.getElementById("docStatus"); if(!status) return;
+  if(dl){["docWord","docHtml"].forEach(id=>document.getElementById(id)?.classList.remove("hidden"));
+    document.getElementById("docWord").onclick=()=>saveWord(dl,status);
+    document.getElementById("docHtml").onclick=()=>saveHtml(dl,status);}
+}
+function fileBase(){return ((window._tbT||"").trim()||"Mijn tegenbegroting").replace(/[\\/:*?"<>|]/g,"").slice(0,80)}
+async function saveHtml(dl,status){
+  const {html}=buildDoc();
+  const page=`<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${esc(fileBase())}</title><style>${DOCCSS}</style></head><body>${html}</body></html>`;
+  try{await dl.save({filename:fileBase()+".html",data:page});status.textContent="Opgeslagen.";}catch(e){status.textContent=dlMsg(e);}
+}
+function dlMsg(e){return e.code==="declined"?"Opslaan geannuleerd.":e.code==="rate_limited"?"Er staat al een opslagvenster open.":"Opslaan is hier niet beschikbaar."}
+function loadDocx(){return new Promise((res,rej)=>{if(window.docx) return res(window.docx);const s=document.createElement("script");s.src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js";s.onload=()=>res(window.docx);s.onerror=rej;document.head.appendChild(s);});}
+async function saveWord(dl,status){
+  status.textContent="Word-bestand maken…";
+  let D; try{D=await loadDocx();}catch(e){status.textContent="Het Word-bestand kon niet worden gemaakt.";return;}
+  const {doc}=buildDoc(), {Document,Packer,Paragraph,TextRun,HeadingLevel,Table,TableRow,TableCell,WidthType,AlignmentType,BorderStyle}=D;
+  const txt=k=>null;
+  const P=(t,o={})=>new Paragraph({children:[new TextRun({text:t,...o})],spacing:{after:120}});
+  const H=(t,l)=>new Paragraph({text:t,heading:l,spacing:{before:240,after:120}});
+  const items=list=>{const out=[];Object.entries(groups(list)).forEach(([th,xs])=>{out.push(H(th,HeadingLevel.HEADING_3));xs.forEach(x=>out.push(new Paragraph({spacing:{after:120},children:[new TextRun({text:"▶ "+x.n+(x.pct?` (${x.pct>0?"+":""}${x.pct}%)`:"")+". ",bold:true}),new TextRun(txt(x.key)||x.txt)]})))});return out;};
+  const cell=(t,o={})=>new TableCell({children:[new Paragraph({alignment:o.al,children:[new TextRun({text:t,bold:o.b,color:o.c})]})],shading:o.fill?{fill:o.fill}:undefined,width:o.w?{size:o.w,type:WidthType.PERCENTAGE}:undefined});
+  const table=(list,label)=>new Table({width:{size:100,type:WidthType.PERCENTAGE},rows:[
+     new TableRow({tableHeader:true,children:[cell("Omschrijving",{b:1,c:"FFFFFF",fill:"FF6A00",w:70}),cell("2026",{b:1,c:"FFFFFF",fill:"FF6A00",al:AlignmentType.RIGHT,w:15}),cell("S/I",{b:1,c:"FFFFFF",fill:"FF6A00",al:AlignmentType.CENTER,w:15})]}),
+     ...list.map(x=>new TableRow({children:[cell(x.n+(x.pct?` (${x.pct>0?"+":""}${x.pct}%)`:"")),cell(mln(x.v),{al:AlignmentType.RIGHT}),cell(x.t,{al:AlignmentType.CENTER})]})),
+     new TableRow({children:[cell("Totaal",{b:1}),cell(mln(list.reduce((a,x)=>a+Math.abs(x.v),0)),{b:1,al:AlignmentType.RIGHT}),cell("")]})]});
+  const children=[
+    new Paragraph({children:[new TextRun({text:"Tegenbegroting",bold:true,color:"FF6A00",size:28})]}),
+    new Paragraph({heading:HeadingLevel.TITLE,children:[new TextRun({text:doc.meta.title,color:"1233C4"})]}),
+    P("Op de ontwerpbegroting 2026 van de gemeente Groningen",{color:"FF6A00"}),
+    ...(doc.meta.who?[P("Door "+doc.meta.who)]:[]),
+    H("Inleiding",HeadingLevel.HEADING_1),P(doc.intro),
+    H("Besparingen en opbrengsten",HeadingLevel.HEADING_1),...(doc.plan.cuts.length?items(doc.plan.cuts):[P("Ik heb geen bezuinigingen gekozen.")]),
+    H("Investeringen en lastenverlichting",HeadingLevel.HEADING_1),...(doc.plan.ups.length?items(doc.plan.ups):[P("Ik heb geen extra uitgaven gekozen.")]),
+    ...(doc.meta.idea?[H("Mijn eigen ideeën",HeadingLevel.HEADING_1),P(doc.meta.idea)]:[]),
+    H("Financieel overzicht",HeadingLevel.HEADING_1),
+    H("Ombuigingen en opbrengsten (x € 1 miljoen)",HeadingLevel.HEADING_3),table(doc.plan.cuts),
+    H("Uitgaven (x € 1 miljoen)",HeadingLevel.HEADING_3),table(doc.plan.ups),
+    P(""),P(`Saldo structureel (elk jaar): € ${doc.S<0?"−":""}${mln(doc.S)} miljoen`,{bold:true}),P(`Saldo eenmalig (2026): € ${doc.I<0?"−":""}${mln(doc.I)} miljoen`,{bold:true}),
+    P("S = structureel, I = incidenteel. Bedragen uit de ontwerpbegroting 2026 van de gemeente Groningen, gemaakt met de Begrotingsgame. Kettingeffecten zijn vereenvoudigingen.",{italics:true,size:18,color:"5A5F7D"})
+  ];
+  const d=new Document({styles:{default:{document:{run:{font:"Calibri",size:22}}},paragraphStyles:[{id:"Heading1",name:"Heading 1",basedOn:"Normal",next:"Normal",run:{size:36,bold:true,color:"1233C4"}},{id:"Heading3",name:"Heading 3",basedOn:"Normal",next:"Normal",run:{size:24,bold:true,color:"FF6A00"}},{id:"Title",name:"Title",basedOn:"Normal",run:{size:64,bold:true,color:"1233C4"}}]},sections:[{children}]});
+  const blob=await Packer.toBlob(d);
+  try{await dl.save({filename:fileBase()+".docx",data:blob});status.textContent="Opgeslagen.";}catch(e){status.textContent=dlMsg(e);}
+}
+const DOCCSS=`body{margin:0;background:#EEF0F6;font-family:Asap,Calibri,system-ui,sans-serif;color:#15193A}
+.tb{background:#fff;color:#15193A;max-width:760px;margin:16px auto 40px;padding:28px 26px 36px;border-radius:6px;box-shadow:0 8px 30px -12px rgba(18,51,196,.35);line-height:1.55}
+.tb .cover{border-bottom:4px solid #FF6A00;padding-bottom:16px;margin-bottom:10px}
+.tb .tag{color:#FF6A00;font-weight:800}
+.tb h1{font-family:"Baloo 2",Asap,sans-serif;color:#1233C4;font-size:clamp(2rem,8vw,3rem);line-height:1;margin:6px 0 8px}
+.tb .subt{color:#FF6A00;font-weight:700;margin:0}.tb .who{margin:6px 0 0;color:#5A5F7D}
+.tb h2{color:#1233C4;font-size:1.45rem;margin:28px 0 6px;font-family:"Baloo 2",Asap,sans-serif}
+.tb h3{color:#FF6A00;font-size:1.05rem;margin:18px 0 4px}
+.tb p{margin:0 0 10px;max-width:68ch}.tb .m b{color:#15193A}
+.tb table{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:.92rem}
+.tb th{background:#FF6A00;color:#fff;text-align:left;padding:6px 8px}
+.tb td{border-bottom:1px solid #D9DDEE;padding:6px 8px;vertical-align:top}
+.tb .r{text-align:right;white-space:nowrap}.tb .c{text-align:center}
+.tb tr.tot td{font-weight:800;border-top:2px solid #15193A}
+.tb table.saldo td{font-weight:800;font-size:1rem}
+.tb .note{font-size:.8rem;color:#5A5F7D}`;
+
+function showResult(){
+  const {S,I,chains}=calc(), m=meters(), mi=MISSIONS.find(x=>x.id===st.mission);
+  const cuts=[],ups=[];
+  for(const id in st.pct){const i=ITEMS[id],p=st.pct[id]; (p<0?cuts:ups).push({n:i.n,p,v:-p/100*net(i),txt:p<0?i.stop:(i.up||"")});}
+  for(const id in st.tax){const t=TAX.find(x=>x.id===id),p=st.tax[id]; (p<0?ups:cuts).push({n:t.n+" "+(p>0?"omhoog":"omlaag"),p,v:p/100*t.r,txt:""});}
+  for(const id of st.cards){const c=CARDS.find(x=>x.id===id); (c.s>0?cuts:ups).push({n:c.n,v:c.s,txt:c.d});}
+  cuts.sort((a,b)=>b.v-a.v); ups.sort((a,b)=>a.v-b.v);
+  const gotMission=mi.check(st,m), badges=[
+    {n:"Sluitende begroting",ok:true},
+    {n:"Missie: "+mi.n,ok:gotMission},
+    {n:"Structureel gezond (€ 5 mln over)",ok:S>=5},
+    {n:"Geen eenmalig geld voor vaste lasten",ok:!(I>0.0005&&S<0.0005)},
+    {n:"Iedereen blij (alle meters boven 40)",ok:Object.values(m).every(v=>v>=40)}];
+  const stars=badges.filter(b=>b.ok).length;
+  const R=document.getElementById("result");
+  R.innerHTML=`<h1>${gotMission?"Missie geslaagd!":"Je begroting is ingediend"}</h1>
+   <p class="big">${"⭐".repeat(stars)}${"☆".repeat(5-stars)} Je houdt elk jaar <b class="${S>=0?'pos':'neg'}">${fmt(S)}</b> over${Math.abs(I)>0.0005?` en eenmalig <b>${fmt(I)}</b>`:""}.</p>
+   <div class="badges">${badges.map(b=>`<span class="bdg ${b.ok?"got":"no"}">${b.ok?"🏅":"○"} ${b.n}</span>`).join("")}</div>
+   <div class="panel"><h2>Zo staat de gemeente erbij</h2><div class="rm">${METERS.map(M=>`<div class="mt" style="font-size:.85rem;text-align:left"><span class="e">${M.e}</span>${M.n}: <b>${Math.round(m[M.k])}</b><div class="bar"><div style="width:${m[M.k]}%"></div></div></div>`).join("")}</div></div>
+   <div class="panel"><h2>Dit doet de gemeente niet meer, of minder</h2>${cuts.length?`<ul>${cuts.map(c=>`<li><b>${c.n}</b>${c.p?` (${c.p}%)`:""}: ${fmt(c.v,2)}${c.txt?`<br><span class="note">${c.txt}</span>`:""}</li>`).join("")}</ul>`:`<p class="note">Je hebt niets geschrapt.</p>`}</div>
+   <div class="panel"><h2>Hier krijg je meer voor terug</h2>${ups.length?`<ul>${ups.map(c=>`<li><b>${c.n}</b>${c.p?` (${c.p>0?"+":""}${c.p}%)`:""}: ${fmt(c.v,2)}${c.txt?`<br><span class="note">${c.txt}</span>`:""}</li>`).join("")}</ul>`:`<p class="note">Je hebt nergens extra geld in gestoken.</p>`}
+   ${chains.length?`<p class="note" style="margin-top:10px">Kettingeffecten: ${chains.map(c=>c.t+" "+fmt(c.v,2)).join(", ")} ⚠︎ voorbeeldbedragen</p>`:""}</div>
+   <div class="panel tbpanel"><h2>📄 Maak je eigen tegenbegroting</h2><p class="note" style="margin:0 0 10px">Van al je keuzes maken we automatisch een complete tegenbegroting, met toelichting en financieel overzicht.</p><label class="note" for="tbTitle">Titel</label><input id="tbTitle" class="tin" value="Mijn tegenbegroting"><label class="note" for="tbName">Je naam (mag leeg blijven)</label><input id="tbName" class="tin" placeholder="Bijvoorbeeld: Anne uit Beijum"><button class="btn" id="mkTB" style="margin-top:12px">Maak mijn tegenbegroting</button></div>
+   <div class="panel"><h2>Wat mis je nog in deze game?</h2><label for="idea" class="note">Geef je eigen idee: waar kan het geld weg, of waar moet het juist heen?</label><textarea id="idea"></textarea><p class="note">In dit prototype wordt je idee nog niet verstuurd.</p></div>
+   <div class="submit"><button class="btn" id="share">Kopieer mijn begroting</button><button class="btn ghost" id="back">Terug naar de game</button><button class="btn ghost" onclick="location.reload()">Opnieuw spelen</button></div>`;
+  document.getElementById("game").classList.add("hidden"); R.classList.remove("hidden"); window.scrollTo(0,0);
+  document.getElementById("back").onclick=()=>{R.classList.add("hidden");document.getElementById("game").classList.remove("hidden");};
+  const keep={t:window._tbT,n:window._tbN,i:window._tbI}; if(keep.t) document.getElementById("tbTitle").value=keep.t; if(keep.n) document.getElementById("tbName").value=keep.n; if(keep.i) document.getElementById("idea").value=keep.i;
+  document.getElementById("mkTB").onclick=()=>{window._tbT=document.getElementById("tbTitle").value;window._tbN=document.getElementById("tbName").value;window._tbI=document.getElementById("idea").value; const t=_tbT,n=_tbN,i=_tbI; showDoc(); /* velden voor buildDoc */ };
+  document.getElementById("share").onclick=async()=>{
+    const txt=`Mijn begroting voor Groningen: ${"⭐".repeat(stars)}\nIk hou elk jaar ${fmt(S)} over.\nGeschrapt: ${cuts.slice(0,5).map(c=>c.n).join(", ")||"niets"}.\nMeer geld voor: ${ups.slice(0,5).map(c=>c.n).join(", ")||"niets"}.`;
+    try{await navigator.clipboard.writeText(txt);toast("Gekopieerd. Plak het in een bericht of post.");}catch(err){toast("Kopiëren lukte niet op dit apparaat.");}
+  };
+}
+
+
+
+startGame();
+</script>
+</body>
+</html>

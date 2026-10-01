@@ -1,0 +1,355 @@
+{
+ "titel": "Het kan en moet anders. Tegenbegroting VVD Groningen op de ontwerpbegroting 2026",
+ "bron_url": "https://gemeenteraad.groningen.nl/Vergaderingen/gemeenteraad/2025/12-november/15:00/A-01-Tegenbegroting-Het-kan-en-moet-anders-VVD/A-01-1-Bijlage-Tegenbegroting-Het-kan-en-moet-anders-VVD.pdf",
+ "ombuigingen_en_opbrengsten": [
+  {
+   "omschrijving": "Besparingen op het ambtenarenapparaat 5% (niet beheer openbare ruimte en veiligheid)",
+   "bedrag_mln": 16.4,
+   "S_of_I": "S",
+   "game_koppeling": null,
+   "opmerking": "Geen schuif: wordt de nieuwe post nieuw:apparaat of een losse kaart."
+  },
+  {
+   "omschrijving": "Schrappen kwijtscheldingen gemeentelijke heffingen en belastingen",
+   "bedrag_mln": 4.2,
+   "S_of_I": "S",
+   "game_koppeling": "k_kwijt"
+  },
+  {
+   "omschrijving": "Aanpak Oosterhamrikzone",
+   "bedrag_mln": 0.25,
+   "S_of_I": "S",
+   "game_koppeling": "m9"
+  },
+  {
+   "omschrijving": "Diverse subsidies programma energie",
+   "bedrag_mln": 0.3,
+   "S_of_I": "S",
+   "game_koppeling": "w6"
+  },
+  {
+   "omschrijving": "Besparing overhead 5%",
+   "bedrag_mln": 7.0,
+   "S_of_I": "S",
+   "game_koppeling": "h1",
+   "opmerking": "5% van de lasten van deelprogramma 4.4 (140,1 mln). De schuif h1 rekent netto met 123,2 mln (129,18 - 5,944): 5% daarvan is 6,2. Als losse kaart opnemen of h1 bruto laten rekenen."
+  },
+  {
+   "omschrijving": "Taakstelling 20% individuele inkomenstoeslag",
+   "bedrag_mln": 0.84,
+   "S_of_I": "S",
+   "game_koppeling": "s12"
+  },
+  {
+   "omschrijving": "Taakstelling cultuur 20%",
+   "bedrag_mln": 15.2,
+   "S_of_I": "S",
+   "game_koppeling": null,
+   "opmerking": "20% van de lasten van heel deelprogramma 3.5 (77,3 mln = 15,5; VVD rekent 15,2). Niet koppelen aan c2 alleen: als losse kaart of als 20% over c1 t/m c4. Let op: c1 en c3 hebben gekoppelde baten, dus 20% over de schuiven levert netto minder op."
+  },
+  {
+   "omschrijving": "Taakstelling armoede en minimaregeling 20%",
+   "bedrag_mln": 2.4,
+   "S_of_I": "S",
+   "game_koppeling": "s10"
+  },
+  {
+   "omschrijving": "Bijzondere bijstand 10%",
+   "bedrag_mln": 0.6,
+   "S_of_I": "S",
+   "game_koppeling": "s11"
+  },
+  {
+   "omschrijving": "Stoppen met opvang ongedocumenteerden",
+   "bedrag_mln": 3.5,
+   "S_of_I": "S",
+   "game_koppeling": "k_ongedoc"
+  },
+  {
+   "omschrijving": "Schrappen Gemeentelijk Ontwikkelbedrijf",
+   "bedrag_mln": 0.15,
+   "S_of_I": "S",
+   "game_koppeling": null
+  },
+  {
+   "omschrijving": "Gefaseerd schrappen basisbanen in 4 jaar",
+   "bedrag_mln": 1.625,
+   "S_of_I": "S",
+   "game_koppeling": "s6"
+  },
+  {
+   "omschrijving": "Minder wethouders in 2026",
+   "bedrag_mln": 0.2,
+   "S_of_I": "S",
+   "game_koppeling": "g1"
+  },
+  {
+   "omschrijving": "Zakelijke werkplaats Stadsbeheer",
+   "bedrag_mln": 0.9,
+   "S_of_I": "S",
+   "game_koppeling": "o5"
+  },
+  {
+   "omschrijving": "Stoppen uitvoering plan van aanpak diversiteit",
+   "bedrag_mln": 0.205,
+   "S_of_I": "S",
+   "game_koppeling": "z10"
+  },
+  {
+   "omschrijving": "Meer reclamedragend straatmeubilair (ondergrondse fietsenstalling)",
+   "bedrag_mln": 0.2,
+   "S_of_I": "S",
+   "game_koppeling": "v9"
+  },
+  {
+   "omschrijving": "Verkopen van minderheidsbelang WarmteStad",
+   "bedrag_mln": 4.9,
+   "S_of_I": "I",
+   "game_koppeling": "k_warm"
+  },
+  {
+   "omschrijving": "Schrappen cultuurprogramma Niemeyer",
+   "bedrag_mln": 0.25,
+   "S_of_I": "I",
+   "game_koppeling": null
+  },
+  {
+   "omschrijving": "Windmolens Roodehaan",
+   "bedrag_mln": 1.762,
+   "S_of_I": "I",
+   "game_koppeling": "k_wind"
+  },
+  {
+   "omschrijving": "Tijdelijke invulling Casinolocatie aan de markt laten",
+   "bedrag_mln": 0.6,
+   "S_of_I": "I",
+   "game_koppeling": "k_cas"
+  },
+  {
+   "omschrijving": "Verkoop gemeentelijk vastgoed zoals Vapiano-pand en Glaudé-panden",
+   "bedrag_mln": 2.0,
+   "S_of_I": "I",
+   "game_koppeling": "k_vast"
+  },
+  {
+   "omschrijving": "Organisatiekosten Energiebedrijf Groningen",
+   "bedrag_mln": 0.2,
+   "S_of_I": "I",
+   "game_koppeling": null
+  },
+  {
+   "omschrijving": "Wegenfundering WarmteStad",
+   "bedrag_mln": 0.45,
+   "S_of_I": "I",
+   "game_koppeling": null
+  },
+  {
+   "omschrijving": "Schrappen laadpalenbedrijf",
+   "bedrag_mln": 0.74,
+   "S_of_I": "I",
+   "game_koppeling": "k_laad"
+  },
+  {
+   "omschrijving": "Stoppen aanleg Zonnepark Meerstad Noord",
+   "bedrag_mln": 4.0,
+   "S_of_I": "I",
+   "game_koppeling": "k_zon"
+  },
+  {
+   "omschrijving": "Schrappen voedsel- en eiwittransitie landelijk gebied",
+   "bedrag_mln": 0.7,
+   "S_of_I": "I",
+   "game_koppeling": "k_eiw"
+  }
+ ],
+ "uitgaven": [
+  {
+   "omschrijving": "Afschaffen reclamebelasting",
+   "bedrag_mln": 0.7,
+   "S_of_I": "S",
+   "game_koppeling": "t3"
+  },
+  {
+   "omschrijving": "Verlaging OZB",
+   "bedrag_mln": 10,
+   "S_of_I": "S",
+   "game_koppeling": "t1"
+  },
+  {
+   "omschrijving": "Verlaging gemeentelijke heffingen en belastingen",
+   "bedrag_mln": 4.2,
+   "S_of_I": "S",
+   "game_koppeling": null,
+   "opmerking": "Geen schuif (heffingen zijn kostendekkend): losse kaart. Hangt samen met het schrappen van kwijtschelding (4,2 mln)."
+  },
+  {
+   "omschrijving": "10% meer investeren in beheer en onderhoud openbare ruimte",
+   "bedrag_mln": 7,
+   "S_of_I": "S",
+   "game_koppeling": "o1"
+  },
+  {
+   "omschrijving": "Prullenbakken openbare ruimte",
+   "bedrag_mln": 0.5,
+   "S_of_I": "S",
+   "game_koppeling": null
+  },
+  {
+   "omschrijving": "Cameratoezicht 360-graden camera's",
+   "bedrag_mln": 0.52,
+   "S_of_I": "S",
+   "game_koppeling": "v3"
+  },
+  {
+   "omschrijving": "10 extra BOA's",
+   "bedrag_mln": 1,
+   "S_of_I": "S",
+   "game_koppeling": "v2"
+  },
+  {
+   "omschrijving": "Intensieve coaching",
+   "bedrag_mln": 5,
+   "S_of_I": "S",
+   "game_koppeling": "s3"
+  },
+  {
+   "omschrijving": "Aanpak verkeersaso's",
+   "bedrag_mln": 1,
+   "S_of_I": "S",
+   "game_koppeling": null
+  },
+  {
+   "omschrijving": "Aanpak graffiti",
+   "bedrag_mln": 1,
+   "S_of_I": "S",
+   "game_koppeling": null
+  },
+  {
+   "omschrijving": "Fietsenstalling 24/7 open",
+   "bedrag_mln": 0.3,
+   "S_of_I": "S",
+   "game_koppeling": "m5"
+  },
+  {
+   "omschrijving": "Verlaging precariobelasting",
+   "bedrag_mln": 2,
+   "S_of_I": "S",
+   "game_koppeling": "t4",
+   "opmerking": "2,0 mln is meer dan de totale precario-opbrengst van 1,784 mln. In de game maximaal -100% = 1,8 mln."
+  },
+  {
+   "omschrijving": "Betaald parkeren verlagen van 4,50 naar 3,75 per uur",
+   "bedrag_mln": 1,
+   "S_of_I": "S",
+   "game_koppeling": "t5"
+  },
+  {
+   "omschrijving": "Betaald parkeren: vergunningen verlagen en gefaseerd afschaffen",
+   "bedrag_mln": 5,
+   "S_of_I": "S",
+   "game_koppeling": "t5"
+  },
+  {
+   "omschrijving": "Algeheel vrij parkeren na 21:00",
+   "bedrag_mln": 0.4,
+   "S_of_I": "S",
+   "game_koppeling": "t5"
+  },
+  {
+   "omschrijving": "Zakelijke werkplaats Stadsbeheer",
+   "bedrag_mln": 0.9,
+   "S_of_I": "S",
+   "game_koppeling": "o5"
+  },
+  {
+   "omschrijving": "Investeren in AI",
+   "bedrag_mln": 2,
+   "S_of_I": "S",
+   "game_koppeling": "k_ai"
+  },
+  {
+   "omschrijving": "Uitvoeringskosten heffingen per maand betalen",
+   "bedrag_mln": 0.2,
+   "S_of_I": "S",
+   "game_koppeling": null
+  },
+  {
+   "omschrijving": "Sneller bouwenfonds",
+   "bedrag_mln": 5,
+   "S_of_I": "S",
+   "game_koppeling": "k_bouw"
+  },
+  {
+   "omschrijving": "Versnellen Masterplan (door)ontwikkeling Sportvoorzieningen 2037",
+   "bedrag_mln": 2,
+   "S_of_I": "S",
+   "game_koppeling": "k1"
+  },
+  {
+   "omschrijving": "Langer openhouden afvalbrengstation Vinkhuizen op zaterdag",
+   "bedrag_mln": 0.109,
+   "S_of_I": "S",
+   "game_koppeling": null
+  },
+  {
+   "omschrijving": "Toevoeging armoede en minimaregeling ten behoeve van kwijtscheldingen",
+   "bedrag_mln": 4.2,
+   "S_of_I": "S",
+   "game_koppeling": "s10",
+   "opmerking": "Tegenhanger van het schrappen van kwijtschelding."
+  },
+  {
+   "omschrijving": "Trainingscomplex FC Groningen",
+   "bedrag_mln": 2,
+   "S_of_I": "I",
+   "game_koppeling": "k_fc"
+  },
+  {
+   "omschrijving": "Kosten onderzoek SMR",
+   "bedrag_mln": 0.5,
+   "S_of_I": "I",
+   "game_koppeling": "k_smr"
+  },
+  {
+   "omschrijving": "Slopen geheugenpaviljoen",
+   "bedrag_mln": 0.5,
+   "S_of_I": "I",
+   "game_koppeling": null
+  },
+  {
+   "omschrijving": "Bruggenfonds",
+   "bedrag_mln": 5,
+   "S_of_I": "I",
+   "game_koppeling": "k_brug"
+  },
+  {
+   "omschrijving": "Verbeteren financiële positie van de gemeente",
+   "bedrag_mln": 6.971,
+   "S_of_I": "I",
+   "game_koppeling": "k_res"
+  },
+  {
+   "omschrijving": "Betere straatverlichting",
+   "bedrag_mln": 1,
+   "S_of_I": "I",
+   "game_koppeling": "k_licht"
+  }
+ ],
+ "controle": {
+  "ombuigingen_structureel": 53.97,
+  "ombuigingen_incidenteel": 15.602,
+  "ombuigingen_totaal": 69.572,
+  "uitgaven_structureel": 54.029,
+  "uitgaven_incidenteel": 15.971,
+  "uitgaven_totaal": 70.0,
+  "bekende_afwijkingen": [
+   "Het document noemt 69,6 als totaal van de uitgaven; de posten tellen op tot 70,0.",
+   "Structureel: 53,97 ombuigingen tegenover 54,03 uitgaven (tekort 0,06).",
+   "'Zakelijke werkplaats Stadsbeheer' staat in beide tabellen (0,9): netto 0, de gemiste inkomsten van derden.",
+   "De toelichting bij 'Algeheel gratis parkeren na 21:00' is een kopie van die bij 'heffingen per maand betalen'.",
+   "Precario: 2,0 mln verlaging tegenover 1,784 mln totale opbrengst (kerngegevens begroting 2026).",
+   "Cultuur 20% (15,2) en overhead 5% (7,0) zijn berekend over bruto lasten van hele deelprogramma's, niet over de schuiven in de game."
+  ]
+ },
+ "gebruik_in_game": "Vergelijking op het eindscherm ('jouw keuzes naast die van de VVD') en als testcase voor de rekenmotor. Posten zonder game_koppeling worden als losse actiekaart toegevoegd."
+}

@@ -1,0 +1,2001 @@
+{
+ "schema_versie": "1.1",
+ "toelichting": "Dwarsverbanden tussen inkomsten en uitgaven voor de begrotingsgame. 'status' per parameter: feit = volgt uit wet of begroting; aanname = startwaarde voor het spel, moet worden gevalideerd; te onderzoeken = waarde ontbreekt nog. Ids in 'van' en 'naar' verwijzen naar begroting-2026.json (onderdelen, belastingen, actiekaarten) of naar afgeleide grootheden (zoals bouw_tempo, gemeentefonds, meters). Ids beginnend met 'nieuw_' zijn schuiven die nog moeten worden toegevoegd.",
+ "dwarsverbanden": [
+  {
+   "id": "kd_afval",
+   "categorie": "Kostendekkende heffingen",
+   "naam": "Afvalinzameling en afvalstoffenheffing",
+   "van": [
+    "o3"
+   ],
+   "naar": [
+    "heffing:afval",
+    "meter:portemonnee"
+   ],
+   "mechanisme": "De afvalstoffenheffing mag wettelijk niet meer opbrengen dan de kosten. Minder dienstverlening (minder vaak legen, milieustraat korter open) verlaagt de heffing voor huishoudens, niet het tekort van de gemeente.",
+   "formule": "delta_heffing = delta_lasten_afval * kostendekkingsgraad; delta_saldo_algemene_middelen = -delta_lasten_afval * aandeel_toegerekende_overhead",
+   "parameters": {
+    "kostendekkingsgraad": {
+     "waarde": 1.0,
+     "eenheid": "fractie",
+     "status": "feit",
+     "toelichting": "Maximaal 100% (art. 229b Gemeentewet)."
+    },
+    "aandeel_toegerekende_overhead": {
+     "waarde": 0.1,
+     "eenheid": "fractie",
+     "status": "te onderzoeken",
+     "toelichting": "Deel van de overhead dat via de heffing wordt gedekt. Minder afvaldienst betekent minder overhead die de heffing draagt, wat de algemene middelen belast. Opvragen bij de gemeente."
+    }
+   },
+   "vertraging_jaren": 0,
+   "richting": "beide",
+   "meters": {
+    "portemonnee": "+ bij minder lasten",
+    "schoon": "- bij minder lasten"
+   },
+   "melding": "Afval wordt betaald uit de afvalstoffenheffing. Minder doen maakt de heffing lager, maar levert de begroting niets op.",
+   "bron": "Gemeentewet art. 229b; begroting 2026 deelprogramma 2.1"
+  },
+  {
+   "id": "kd_riool",
+   "categorie": "Kostendekkende heffingen",
+   "naam": "Riolering, klimaatadaptatie en rioolheffing",
+   "van": [
+    "o2",
+    "o1",
+    "o6"
+   ],
+   "naar": [
+    "heffing:riool",
+    "meter:portemonnee",
+    "meter:schoon"
+   ],
+   "mechanisme": "Riolering en de wateropgave (hemelwater, klimaatadaptatie) worden betaald uit de rioolheffing. Meer groen en minder verharding kan wateroverlast beperken en riool-investeringen uitstellen.",
+   "formule": "delta_heffing = delta_lasten_riool; extra groen (o6) -> delta_lasten_riool_lange_termijn = -factor_groen_riool * delta_groen",
+   "parameters": {
+    "factor_groen_riool": {
+     "waarde": 0.1,
+     "eenheid": "euro per euro",
+     "status": "aanname",
+     "toelichting": "Zeer onzeker; alleen als verhalend effect tonen of na onderzoek met een getal."
+    }
+   },
+   "vertraging_jaren": 5,
+   "richting": "beide",
+   "meters": {
+    "portemonnee": "heffing"
+   },
+   "melding": "Riolering wordt volledig betaald uit de rioolheffing.",
+   "bron": "Gemeentewet art. 228a"
+  },
+  {
+   "id": "kd_leges_omgeving",
+   "categorie": "Kostendekkende heffingen",
+   "naam": "Vergunningverleners en leges",
+   "van": [
+    "w8",
+    "e10",
+    "w4"
+   ],
+   "naar": [
+    "baten:w8",
+    "grootheid:bouw_tempo"
+   ],
+   "mechanisme": "Minder vergunningverleners betekent minder afgehandelde aanvragen, dus minder leges. Omdat de leges hoger zijn dan de directe lasten (17,9 tegenover 10,5 mln), kost bezuinigen hier netto geld. Bovendien vertraagt woningbouw.",
+   "formule": "delta_baten = pct * baten_leges * elasticiteit_capaciteit; bij pct < -20: bouw_tempo -= (|pct|-20)/100",
+   "parameters": {
+    "elasticiteit_capaciteit": {
+     "waarde": 1.0,
+     "eenheid": "fractie",
+     "status": "aanname",
+     "toelichting": "Aanname: leges dalen evenredig met capaciteit."
+    }
+   },
+   "vertraging_jaren": 0,
+   "richting": "beide",
+   "meters": {
+    "werk": "-",
+    "wonen": "-"
+   },
+   "melding": "Minder vergunningverleners: je mist leges, dus dit kost netto geld. Woningbouw loopt vertraging op.",
+   "bron": "Begroting 2026 deelprogramma 1.3"
+  },
+  {
+   "id": "kd_leges_burgerzaken",
+   "categorie": "Kostendekkende heffingen",
+   "naam": "Burgerzaken en leges paspoort/rijbewijs",
+   "van": [
+    "b1"
+   ],
+   "naar": [
+    "baten:b1",
+    "meter:dienstverlening"
+   ],
+   "mechanisme": "Leges voor paspoort en rijbewijs zijn deels wettelijk gemaximeerd. Minder personeel leidt tot langere wachttijden, maar de aanvragen komen toch. De leges blijven dus ongeveer gelijk.",
+   "formule": "delta_baten = 0; wachttijd_weken = basis * (1 + |pct|/25)",
+   "parameters": {},
+   "vertraging_jaren": 0,
+   "richting": "bezuiniging",
+   "meters": {
+    "dienstverlening": "-"
+   },
+   "melding": "Langere wachttijden bij Burgerzaken.",
+   "bron": "Begroting 2026 deelprogramma 4.1"
+  },
+  {
+   "id": "kd_bedrijfsafval",
+   "categorie": "Kostendekkende heffingen",
+   "naam": "Bedrijfsafval: commerciële inkomsten",
+   "van": [
+    "o4"
+   ],
+   "naar": [
+    "baten:o4"
+   ],
+   "mechanisme": "De gemeente verdient aan bedrijfsafval (9,1 mln inkomsten tegenover 7,6 mln kosten). Stoppen betekent dat de marge wegvalt, dat vaste kosten (wagens, depot, overhead) op huishoudens landen, en dat ondernemers naar de markt gaan.",
+   "formule": "delta_saldo = -pct/100 * (baten - lasten) - pct/100 * lasten * aandeel_vaste_kosten",
+   "parameters": {
+    "aandeel_vaste_kosten": {
+     "waarde": 0.2,
+     "eenheid": "fractie",
+     "status": "te onderzoeken",
+     "toelichting": "Welk deel van de kosten doorloopt als de gemeente stopt."
+    }
+   },
+   "vertraging_jaren": 0,
+   "richting": "beide",
+   "meters": {},
+   "melding": "Stoppen met bedrijfsafval kost geld: je mist de inkomsten.",
+   "bron": "Begroting 2026 deelprogramma 2.1"
+  },
+  {
+   "id": "kd_werkplaats",
+   "categorie": "Kostendekkende heffingen",
+   "naam": "Autowerkplaats voor derden",
+   "van": [
+    "o5"
+   ],
+   "naar": [
+    "baten:o5",
+    "h1"
+   ],
+   "mechanisme": "Kosten en inkomsten zijn gelijk (0,9 mln). Stoppen levert netto niets op, behalve als er ook overhead of ruimte vrijkomt.",
+   "formule": "delta_saldo = aandeel_overheadvrijval * 0.9",
+   "parameters": {
+    "aandeel_overheadvrijval": {
+     "waarde": 0.1,
+     "eenheid": "fractie",
+     "status": "te onderzoeken",
+     "toelichting": ""
+    }
+   },
+   "vertraging_jaren": 1,
+   "richting": "bezuiniging",
+   "meters": {},
+   "melding": "Kosten en inkomsten vallen tegen elkaar weg.",
+   "bron": "Begroting 2026; VVD-tegenbegroting 2026"
+  },
+  {
+   "id": "kd_zwembad_tarief",
+   "categorie": "Kostendekkende heffingen",
+   "naam": "Entreeprijzen sport en bezoekersaantallen",
+   "van": [
+    "k1",
+    "nieuw:entreeprijzen_sport"
+   ],
+   "naar": [
+    "baten:k1",
+    "meter:sport_cultuur",
+    "meter:zorg"
+   ],
+   "mechanisme": "Een hogere entreeprijs voor zwembaden en ijsbaan levert meer op per bezoek, maar er komen minder bezoekers. Minder bewegen heeft op lange termijn effect op gezondheid.",
+   "formule": "delta_baten = baten * (tariefstijging + elasticiteit * tariefstijging)",
+   "parameters": {
+    "elasticiteit": {
+     "waarde": -0.4,
+     "eenheid": "prijselasticiteit",
+     "status": "aanname",
+     "toelichting": "Literatuur over vrijetijdsvoorzieningen: -0,2 tot -0,6."
+    }
+   },
+   "vertraging_jaren": 0,
+   "richting": "beide",
+   "meters": {
+    "sport_cultuur": "- bij hogere prijzen"
+   },
+   "melding": "Hogere entreeprijzen: meer inkomsten per bezoeker, maar minder bezoekers.",
+   "bron": "Spelontwerp; nieuwe schuif voorstellen"
+  },
+  {
+   "id": "kd_schouwburg",
+   "categorie": "Kostendekkende heffingen",
+   "naam": "Schouwburg en Oosterpoort: subsidie en kaartverkoop",
+   "van": [
+    "c1"
+   ],
+   "naar": [
+    "baten:c1",
+    "t2",
+    "grootheid:horeca"
+   ],
+   "mechanisme": "SPOT verdient 16,6 mln zelf. Minder programma betekent minder kaartverkoop: de besparing is kleiner dan de bezuiniging. Minder voorstellingen betekent ook minder bezoekers voor horeca en hotels.",
+   "formule": "delta_saldo = -pct/100 * (lasten - baten); delta_toeristenbelasting = pct/100 * factor_bezoekers * logiesbelasting",
+   "parameters": {
+    "factor_bezoekers": {
+     "waarde": 0.05,
+     "eenheid": "fractie",
+     "status": "aanname",
+     "toelichting": "Aandeel hotelovernachtingen dat door cultuur wordt veroorzaakt."
+    }
+   },
+   "vertraging_jaren": 1,
+   "richting": "beide",
+   "meters": {
+    "sport_cultuur": "-"
+   },
+   "melding": "Minder voorstellingen: je mist ook kaartverkoop.",
+   "bron": "Begroting 2026 deelprogramma 3.5"
+  },
+  {
+   "id": "rijk_geoormerkt",
+   "categorie": "Rijksgeld en geoormerkte middelen",
+   "naam": "Geoormerkt rijksgeld: niet besteden betekent terugbetalen",
+   "van": [
+    "w6",
+    "s4",
+    "s5",
+    "s7",
+    "z5",
+    "g4",
+    "nieuw:rijk_npg",
+    "nieuw:rijk_rigg",
+    "nieuw:rijk_blok_b",
+    "nieuw:rijk_nij_begun"
+   ],
+   "naar": [
+    "grootheid:rijksbijdragen"
+   ],
+   "mechanisme": "Veel posten worden betaald uit specifieke uitkeringen of decentralisatie-uitkeringen van het Rijk, zoals energiesubsidies, NPG en Nij Begun. Schrap je de uitgave, dan vervalt ook het rijksgeld of moet het terug. Het saldo verbetert alleen met het gemeentelijke deel. De NPG-, RIGG-, Blok B- en Nij Begun-posten staan nog niet als schuif in de game: voeg ze toe als vergrendelde posten met gekoppelde baten, zodat dit zichtbaar wordt.",
+   "formule": "delta_saldo = -pct/100 * (lasten - gekoppelde_baten)",
+   "parameters": {},
+   "vertraging_jaren": 0,
+   "richting": "beide",
+   "meters": {},
+   "melding": "Dit wordt grotendeels betaald door het Rijk. Schrappen levert weinig op: het rijksgeld vervalt ook.",
+   "bron": "BBV; begroting 2026 (baten per post)"
+  },
+  {
+   "id": "rijk_buig",
+   "categorie": "Rijksgeld en geoormerkte middelen",
+   "naam": "BUIG: bijstandsbudget van het Rijk",
+   "van": [
+    "s1",
+    "s3",
+    "s6",
+    "s4"
+   ],
+   "naar": [
+    "s1"
+   ],
+   "mechanisme": "De gemeente krijgt een vast budget voor bijstandsuitkeringen (186,8 mln) en geeft 199 mln uit. Elke persoon minder in de bijstand is een voordeel voor de gemeente, elke persoon meer een nadeel. Het budget zelf reageert pas na enkele jaren op het eigen aantal (verdeelmodel).",
+   "formule": "lasten_buig = aantal_bijstand * gem_uitkering; baten_buig = vast (jaar t), later deels bijgesteld",
+   "parameters": {
+    "gem_uitkering": {
+     "waarde": 0.0165,
+     "eenheid": "mln per huishouden per jaar",
+     "status": "te onderzoeken",
+     "toelichting": "Ca. 16.500 euro per huishouden: nagaan met het aantal bijstandshuishoudens uit de begroting."
+    },
+    "aantal_bijstand": {
+     "waarde": null,
+     "eenheid": "huishoudens",
+     "status": "te onderzoeken",
+     "toelichting": "Uit het beleidsindicatorenoverzicht van de begroting halen."
+    }
+   },
+   "vertraging_jaren": 0,
+   "richting": "beide",
+   "meters": {
+    "werk": "+ bij minder bijstand"
+   },
+   "melding": "Minder mensen in de bijstand is direct voordeel voor de gemeente.",
+   "bron": "Participatiewet; begroting 2026 deelprogramma 3.1"
+  },
+  {
+   "id": "rijk_verdeelmodel",
+   "categorie": "Gemeentefonds-verdeelmodel",
+   "naam": "Gemeentefonds reageert op het aantal inwoners, woningen en bijstandshuishoudens",
+   "van": [
+    "grootheid:bouw_tempo",
+    "grootheid:aantal_bijstand"
+   ],
+   "naar": [
+    "grootheid:gemeentefonds"
+   ],
+   "mechanisme": "De algemene uitkering (825,8 mln) wordt deels verdeeld op maatstaven zoals inwoners, woonruimten, huishoudens met een laag inkomen en bijstand. Meer woningen levert zo meer gemeentefonds op. Minder bijstandshuishoudens levert via deze maatstaf iets minder op: een klein tegeneffect.",
+   "formule": "delta_gemeentefonds = extra_woningen * bedrag_per_woonruimte + extra_inwoners * bedrag_per_inwoner - minder_bijstand * bedrag_per_bijstandshuishouden",
+   "parameters": {
+    "bedrag_per_woonruimte": {
+     "waarde": null,
+     "eenheid": "euro",
+     "status": "te onderzoeken",
+     "toelichting": "Uit de meicirculaire gemeentefonds halen."
+    },
+    "bedrag_per_inwoner": {
+     "waarde": null,
+     "eenheid": "euro",
+     "status": "te onderzoeken",
+     "toelichting": "Idem."
+    },
+    "bedrag_per_bijstandshuishouden": {
+     "waarde": null,
+     "eenheid": "euro",
+     "status": "te onderzoeken",
+     "toelichting": "Idem."
+    }
+   },
+   "vertraging_jaren": 1,
+   "richting": "beide",
+   "meters": {},
+   "melding": "Meer woningen en inwoners leveren ook meer geld uit het gemeentefonds op.",
+   "bron": "Financiële-verhoudingswet; meicirculaire"
+  },
+  {
+   "id": "rijk_ozb_rekentarief",
+   "categorie": "Gemeentefonds-verdeelmodel",
+   "naam": "OZB-verlaging wordt niet gecompenseerd door het Rijk",
+   "van": [
+    "t1"
+   ],
+   "naar": [
+    "saldo:structureel"
+   ],
+   "mechanisme": "Het gemeentefonds rekent met een landelijk rekentarief voor de OZB, niet met het eigen tarief. Verlaag je de OZB, dan betaal je dat volledig zelf. Verhoog je, dan houd je alles.",
+   "formule": "delta_saldo = pct/100 * opbrengst_ozb",
+   "parameters": {},
+   "vertraging_jaren": 0,
+   "richting": "beide",
+   "meters": {
+    "portemonnee": "+ bij verlaging"
+   },
+   "melding": "Een lagere OZB betaal je volledig uit eigen middelen.",
+   "bron": "Verdeelsystematiek gemeentefonds (inkomstenverevening)"
+  },
+  {
+   "id": "rijk_accres",
+   "categorie": "Gemeentefonds-verdeelmodel",
+   "naam": "Rijksbezuinigingen en het 'ravijnjaar'",
+   "van": [
+    "gebeurtenis:willekeurig"
+   ],
+   "naar": [
+    "grootheid:gemeentefonds"
+   ],
+   "mechanisme": "De hoogte van het gemeentefonds hangt af van rijksbeleid en wordt elk jaar bijgesteld in de mei- en septembercirculaire. In de game een gebeurteniskaart: 'Het Rijk kort op het gemeentefonds'.",
+   "formule": "delta_gemeentefonds = scenario_pct * gemeentefonds",
+   "parameters": {
+    "scenario_pct": {
+     "waarde": -0.01,
+     "eenheid": "fractie",
+     "status": "aanname",
+     "toelichting": "Scenario, geen voorspelling."
+    }
+   },
+   "vertraging_jaren": 0,
+   "richting": "gebeurtenis",
+   "meters": {},
+   "melding": "Het Rijk kort op het gemeentefonds. Je moet extra bezuinigen.",
+   "bron": "Spelontwerp"
+  },
+  {
+   "id": "wia_reintegratie",
+   "categorie": "Werk, inkomen en armoede",
+   "naam": "Meer begeleiding naar werk betekent minder bijstand",
+   "van": [
+    "s3"
+   ],
+   "naar": [
+    "s1",
+    "s10",
+    "s11",
+    "s12",
+    "k_kwijt",
+    "meter:werk"
+   ],
+   "mechanisme": "Extra geld voor re-integratie laat meer mensen uitstromen naar werk. Dat bespaart op bijstandsuitkeringen en daarna ook op armoederegelingen, bijzondere bijstand, inkomenstoeslag en kwijtschelding. Het effect loopt op over 1 tot 3 jaar.",
+   "formule": "extra_uitstroom = delta_budget / kosten_per_traject * slagingskans; besparing_jaar_t = extra_uitstroom * gem_uitkering * ingroei[t] + extra_uitstroom * minima_kosten_pp",
+   "parameters": {
+    "kosten_per_traject": {
+     "waarde": 0.008,
+     "eenheid": "mln per traject",
+     "status": "aanname",
+     "toelichting": "Ca. 8.000 euro per traject."
+    },
+    "slagingskans": {
+     "waarde": 0.3,
+     "eenheid": "fractie",
+     "status": "aanname",
+     "toelichting": "Duurzame uitstroom na traject."
+    },
+    "ingroei": {
+     "waarde": [
+      0.3,
+      0.7,
+      1.0
+     ],
+     "eenheid": "fractie per jaar",
+     "status": "aanname",
+     "toelichting": "Effect groeit in drie jaar."
+    },
+    "minima_kosten_pp": {
+     "waarde": 0.0015,
+     "eenheid": "mln per huishouden per jaar",
+     "status": "aanname",
+     "toelichting": "Armoederegelingen, bijzondere bijstand en kwijtschelding per huishouden."
+    }
+   },
+   "vertraging_jaren": 1,
+   "richting": "beide",
+   "meters": {
+    "werk": "+",
+    "zorg": "+"
+   },
+   "melding": "Meer mensen aan het werk: minder bijstand nodig.",
+   "bron": "Aannames: laten toetsen met cijfers van de gemeente, zoals het uitstroompercentage van Werk in Zicht."
+  },
+  {
+   "id": "wia_basisbanen",
+   "categorie": "Werk, inkomen en armoede",
+   "naam": "Basisbanen schrappen: mensen terug in de bijstand",
+   "van": [
+    "s6"
+   ],
+   "naar": [
+    "s1"
+   ],
+   "mechanisme": "Een basisbaan vervangt een uitkering. Schrap je basisbanen, dan valt een deel van de mensen terug in de bijstand. De netto besparing is dus kleiner dan het budget. De VVD-tegenbegroting bouwt dit af in vier jaar.",
+   "formule": "delta_saldo = besparing_basisbanen - aantal_terugval * gem_uitkering",
+   "parameters": {
+    "terugval": {
+     "waarde": 0.6,
+     "eenheid": "fractie van deelnemers",
+     "status": "aanname",
+     "toelichting": "Deel dat zonder basisbaan in de bijstand komt."
+    }
+   },
+   "vertraging_jaren": 0,
+   "richting": "bezuiniging",
+   "meters": {
+    "werk": "-"
+   },
+   "melding": "Een deel van de mensen met een basisbaan komt terug in de bijstand.",
+   "bron": "Aanname"
+  },
+  {
+   "id": "wia_loonkosten",
+   "categorie": "Werk, inkomen en armoede",
+   "naam": "Loonkostensubsidie en uitkeringen",
+   "van": [
+    "s4"
+   ],
+   "naar": [
+    "s1"
+   ],
+   "mechanisme": "Loonkostensubsidie wordt grotendeels door het Rijk betaald (11,3 van 11,8 mln) en voorkomt uitkeringen. Bezuinigen levert weinig op en kan de bijstand laten stijgen.",
+   "formule": "delta_saldo = -pct/100*(lasten-baten) - pct/100 * deelnemers * terugval * gem_uitkering",
+   "parameters": {
+    "terugval": {
+     "waarde": 0.5,
+     "eenheid": "fractie",
+     "status": "aanname",
+     "toelichting": ""
+    }
+   },
+   "vertraging_jaren": 0,
+   "richting": "beide",
+   "meters": {
+    "werk": "-"
+   },
+   "melding": "Loonkostensubsidie is grotendeels rijksgeld.",
+   "bron": "Begroting 2026"
+  },
+  {
+   "id": "wia_armoedeval",
+   "categorie": "Werk, inkomen en armoede",
+   "naam": "Armoedeval: minimaregelingen en de prikkel om te werken",
+   "van": [
+    "s10",
+    "s12",
+    "k_kwijt",
+    "s11"
+   ],
+   "naar": [
+    "s1",
+    "meter:werk",
+    "meter:zorg"
+   ],
+   "mechanisme": "Veel inkomensafhankelijke regelingen maken het verschil tussen bijstand en een laagbetaalde baan klein. Minder regelingen kan de prikkel om te werken vergroten, maar vergroot ook schulden en stress. Die tonen zich later bij schuldhulp, WIJ en jeugdzorg. Beide effecten naast elkaar laten zien.",
+   "formule": "prikkel_uitstroom = -delta_minima_pct * gevoeligheid_uitstroom; schuldendruk = -delta_minima_pct * gevoeligheid_schulden",
+   "parameters": {
+    "gevoeligheid_uitstroom": {
+     "waarde": 0.02,
+     "eenheid": "extra uitstroom per 10% minder",
+     "status": "te onderzoeken",
+     "toelichting": "Wetenschappelijk omstreden: als bandbreedte tonen."
+    },
+    "gevoeligheid_schulden": {
+     "waarde": 0.05,
+     "eenheid": "extra schuldhulpvragen per 10% minder",
+     "status": "te onderzoeken",
+     "toelichting": ""
+    }
+   },
+   "vertraging_jaren": 1,
+   "richting": "beide",
+   "meters": {
+    "werk": "+ bij minder regelingen",
+    "zorg": "- bij minder regelingen"
+   },
+   "melding": "Minder regelingen: werken loont meer, maar meer huishoudens komen krap te zitten.",
+   "bron": "VVD-tegenbegroting (armoedeval, tabel IIT); CPB en Nibud over armoedeval"
+  },
+  {
+   "id": "wia_kwijtschelding",
+   "categorie": "Werk, inkomen en armoede",
+   "naam": "Kwijtschelding schrappen",
+   "van": [
+    "k_kwijt"
+   ],
+   "naar": [
+    "heffing:afval",
+    "heffing:riool",
+    "s10",
+    "s9",
+    "s11",
+    "grootheid:oninbare_posten",
+    "b3"
+   ],
+   "mechanisme": "Zonder kwijtschelding betalen huishoudens met een minimuminkomen zelf hun gemeentelijke belastingen. Dat levert 4,2 mln op, maar een deel betaalt niet: dan volgen aanmaningen, dwanginvordering en oninbare posten. Meer mensen raken in de schulden. De VVD-tegenbegroting zet daarom 4,2 mln extra armoedegeld ernaast.",
+   "formule": "opbrengst_netto = 4.2 * (1 - oninbaar_pct) - extra_invorderingskosten; extra_schuldhulpvragen = huishoudens * kans_schulden",
+   "parameters": {
+    "oninbaar_pct": {
+     "waarde": 0.3,
+     "eenheid": "fractie",
+     "status": "aanname",
+     "toelichting": "Deel dat niet betaald wordt."
+    },
+    "extra_invorderingskosten": {
+     "waarde": 0.3,
+     "eenheid": "mln per jaar",
+     "status": "aanname",
+     "toelichting": ""
+    },
+    "huishoudens": {
+     "waarde": 14000,
+     "eenheid": "huishoudens",
+     "status": "feit",
+     "toelichting": "Volgens de VVD-tegenbegroting ontvangen ca. 14.000 huishoudens kwijtschelding."
+    }
+   },
+   "vertraging_jaren": 0,
+   "richting": "bezuiniging",
+   "meters": {
+    "zorg": "-",
+    "portemonnee": "- voor minima"
+   },
+   "melding": "Een deel van de huishoudens kan de aanslag niet betalen: meer schulden en oninbare posten.",
+   "bron": "VVD-tegenbegroting 2026; Invorderingswet"
+  },
+  {
+   "id": "wia_tegenprestatie",
+   "categorie": "Werk, inkomen en armoede",
+   "naam": "Strengere tegenprestatie",
+   "van": [
+    "s10",
+    "nieuw:tegenprestatie"
+   ],
+   "naar": [
+    "s1",
+    "v2",
+    "grootheid:uitvoeringskosten"
+   ],
+   "mechanisme": "Een strengere tegenprestatie vraagt uitvoeringscapaciteit (consulenten, controle) en kan uitstroom bevorderen of mensen afschrikken om bijstand aan te vragen. Het kost eerst geld, het effect op uitstroom is onzeker.",
+   "formule": "kosten_uitvoering = deelnemers * kosten_pp; uitstroomeffect = deelnemers * extra_uitstroom",
+   "parameters": {
+    "kosten_pp": {
+     "waarde": 0.001,
+     "eenheid": "mln per deelnemer",
+     "status": "aanname",
+     "toelichting": ""
+    },
+    "extra_uitstroom": {
+     "waarde": 0.03,
+     "eenheid": "fractie",
+     "status": "te onderzoeken",
+     "toelichting": ""
+    }
+   },
+   "vertraging_jaren": 1,
+   "richting": "beide",
+   "meters": {
+    "werk": "+"
+   },
+   "melding": "Een strengere tegenprestatie kost eerst geld voor uitvoering.",
+   "bron": "VVD-tegenbegroting 2026 (nieuwe maatregel om als schuif toe te voegen)"
+  },
+  {
+   "id": "wia_inburgering",
+   "categorie": "Werk, inkomen en armoede",
+   "naam": "Inburgering en werk",
+   "van": [
+    "s7"
+   ],
+   "naar": [
+    "s1",
+    "meter:werk"
+   ],
+   "mechanisme": "Goede inburgering met taal en werk tegelijk verkort de tijd in de bijstand van statushouders. Bezuinigen verlengt die tijd.",
+   "formule": "delta_bijstand = -pct/100 * deelnemers * verkorting_jaren * gem_uitkering",
+   "parameters": {
+    "verkorting_jaren": {
+     "waarde": 0.5,
+     "eenheid": "jaar",
+     "status": "aanname",
+     "toelichting": ""
+    }
+   },
+   "vertraging_jaren": 2,
+   "richting": "beide",
+   "meters": {
+    "werk": "+"
+   },
+   "melding": "Minder inburgering: statushouders blijven langer in de bijstand.",
+   "bron": "Aanname"
+  },
+  {
+   "id": "zp_schuldhulp",
+   "categorie": "Zorg en preventie",
+   "naam": "Schuldhulp voorkomt duurdere hulp",
+   "van": [
+    "s9"
+   ],
+   "naar": [
+    "s11",
+    "z5",
+    "z1",
+    "z4",
+    "grootheid:huisuitzettingen"
+   ],
+   "mechanisme": "Minder schuldhulp betekent meer mensen met problematische schulden. Dat leidt tot meer bijzondere bijstand, huisuitzettingen (maatschappelijke opvang), stress in gezinnen (jeugdzorg) en meer vraag bij de WIJ-teams.",
+   "formule": "extra_kosten = |bezuiniging| * (a_bijzbijstand + a_opvang + a_jeugd + a_wij)",
+   "parameters": {
+    "a_bijzbijstand": {
+     "waarde": 0.25,
+     "eenheid": "euro per bespaarde euro",
+     "status": "aanname",
+     "toelichting": "Waarde uit de game."
+    },
+    "a_opvang": {
+     "waarde": 0.1,
+     "eenheid": "",
+     "status": "aanname",
+     "toelichting": ""
+    },
+    "a_jeugd": {
+     "waarde": 0.1,
+     "eenheid": "",
+     "status": "aanname",
+     "toelichting": ""
+    },
+    "a_wij": {
+     "waarde": 0.05,
+     "eenheid": "",
+     "status": "aanname",
+     "toelichting": ""
+    }
+   },
+   "vertraging_jaren": 1,
+   "richting": "bezuiniging",
+   "meters": {
+    "zorg": "-"
+   },
+   "melding": "Minder schuldhulp: meer aanvragen voor bijzondere bijstand en meer huisuitzettingen.",
+   "bron": "Aanname; maatschappelijke kosten-batenanalyses schuldhulp (Panteia/SEO) als bron gebruiken"
+  },
+  {
+   "id": "zp_preventie_jeugd",
+   "categorie": "Zorg en preventie",
+   "naam": "Preventie en jeugdzorg",
+   "van": [
+    "z4",
+    "z8",
+    "d2",
+    "k2",
+    "z9",
+    "v5"
+   ],
+   "naar": [
+    "z1"
+   ],
+   "mechanisme": "WIJ-teams, welzijn, onderwijskansen, sportstimulering en jeugdwerk voorkomen dat problemen escaleren. Bezuinigen op preventie bespaart nu, maar laat de jeugdzorg (118,8 mln) na enkele jaren stijgen.",
+   "formule": "delta_jeugdzorg_jaar_t = -sum(bezuiniging_preventie) * factor_escalatie * ingroei[t]",
+   "parameters": {
+    "factor_escalatie": {
+     "waarde": 0.3,
+     "eenheid": "euro per euro",
+     "status": "aanname",
+     "toelichting": "Bewijs wisselt per interventie: als bandbreedte 0,1 tot 0,5 tonen."
+    },
+    "ingroei": {
+     "waarde": [
+      0,
+      0.5,
+      1.0
+     ],
+     "eenheid": "per jaar",
+     "status": "aanname",
+     "toelichting": ""
+    }
+   },
+   "vertraging_jaren": 2,
+   "richting": "beide",
+   "meters": {
+    "zorg": "-"
+   },
+   "melding": "Minder preventie: over een paar jaar meer vraag naar jeugdzorg.",
+   "bron": "Aanname"
+  },
+  {
+   "id": "zp_preventie_wmo",
+   "categorie": "Zorg en preventie",
+   "naam": "Welzijn, bewegen en Wmo",
+   "van": [
+    "z8",
+    "z9",
+    "k2",
+    "k3",
+    "g3"
+   ],
+   "naar": [
+    "z3"
+   ],
+   "mechanisme": "Buurthuizen, ontmoeting en bewegen voor ouderen stellen zwaardere Wmo-zorg (hulpmiddelen, begeleiding) uit.",
+   "formule": "delta_wmo_t = -sum(bezuiniging) * factor * ingroei[t]",
+   "parameters": {
+    "factor": {
+     "waarde": 0.2,
+     "eenheid": "euro per euro",
+     "status": "aanname",
+     "toelichting": ""
+    },
+    "ingroei": {
+     "waarde": [
+      0,
+      0.5,
+      1.0
+     ],
+     "eenheid": "per jaar",
+     "status": "aanname",
+     "toelichting": ""
+    }
+   },
+   "vertraging_jaren": 2,
+   "richting": "beide",
+   "meters": {
+    "zorg": "-"
+   },
+   "melding": "Minder welzijnswerk: meer ouderen hebben eerder Wmo-hulp nodig.",
+   "bron": "Aanname"
+  },
+  {
+   "id": "zp_beschermd_opvang",
+   "categorie": "Zorg en preventie",
+   "naam": "Beschermd wonen, opvang en overlast",
+   "van": [
+    "z2",
+    "z5"
+   ],
+   "naar": [
+    "v3",
+    "v6",
+    "meter:veilig"
+   ],
+   "mechanisme": "Minder plekken voor beschermd wonen en opvang betekent meer mensen op straat of zonder begeleiding thuis. Dat leidt tot meer meldingen van verward gedrag en overlast, en meer inzet van politie, boa's en het Zorg- en Veiligheidshuis.",
+   "formule": "extra_veiligheid = |bezuiniging| * factor_overlast",
+   "parameters": {
+    "factor_overlast": {
+     "waarde": 0.1,
+     "eenheid": "euro per euro",
+     "status": "aanname",
+     "toelichting": ""
+    }
+   },
+   "vertraging_jaren": 0,
+   "richting": "bezuiniging",
+   "meters": {
+    "veilig": "-",
+    "zorg": "-"
+   },
+   "melding": "Minder opvang: meer overlast op straat.",
+   "bron": "Aanname"
+  },
+  {
+   "id": "zp_ongedocumenteerden",
+   "categorie": "Zorg en preventie",
+   "naam": "Stoppen opvang ongedocumenteerden",
+   "van": [
+    "k_ongedoc"
+   ],
+   "naar": [
+    "z5",
+    "v3",
+    "meter:veilig"
+   ],
+   "mechanisme": "Stoppen bespaart 3,5 mln. Een deel van de mensen komt op straat en doet een beroep op nachtopvang, noodhulp of veroorzaakt overlast. Toon het effect op de veiligheidsmeter en een mogelijk kostenrestant.",
+   "formule": "restkosten = 3.5 * aandeel_restkosten",
+   "parameters": {
+    "aandeel_restkosten": {
+     "waarde": 0.2,
+     "eenheid": "fractie",
+     "status": "te onderzoeken",
+     "toelichting": ""
+    }
+   },
+   "vertraging_jaren": 0,
+   "richting": "bezuiniging",
+   "meters": {
+    "zorg": "-",
+    "veilig": "-"
+   },
+   "melding": "Een deel van de mensen komt op straat terecht.",
+   "bron": "VVD-tegenbegroting 2026; aanname"
+  },
+  {
+   "id": "zp_huiselijk_geweld",
+   "categorie": "Zorg en preventie",
+   "naam": "Huiselijk geweld, vrouwenopvang en jeugd",
+   "van": [
+    "z7"
+   ],
+   "naar": [
+    "z5",
+    "z1"
+   ],
+   "mechanisme": "Minder capaciteit bij Veilig Thuis betekent later ingrijpen. Dat leidt tot zwaardere trajecten in jeugdzorg en opvang.",
+   "formule": "",
+   "parameters": {},
+   "vertraging_jaren": 1,
+   "richting": "bezuiniging",
+   "meters": {
+    "zorg": "-",
+    "veilig": "-"
+   },
+   "melding": "Later ingrijpen bij huiselijk geweld: zwaardere hulp nodig.",
+   "bron": "Aanname"
+  },
+  {
+   "id": "zp_heroine",
+   "categorie": "Zorg en preventie",
+   "naam": "Heroïneverstrekking en overlast",
+   "van": [
+    "nieuw:heroineverstrekking"
+   ],
+   "naar": [
+    "meter:veilig"
+   ],
+   "mechanisme": "Heroïneverstrekking (0,850 mln lasten, 0,793 mln baten) vermindert criminaliteit en overlast. Schrappen levert vrijwel niets op en vergroot de overlast.",
+   "formule": "",
+   "parameters": {},
+   "vertraging_jaren": 0,
+   "richting": "bezuiniging",
+   "meters": {
+    "veilig": "-"
+   },
+   "melding": "",
+   "bron": "Begroting 2026 deelprogramma 3.3, post 'Heroïneverstrekking' (0,85 mln, bijna volledig gedekt): als nieuwe post toevoegen"
+  },
+  {
+   "id": "zp_onderwijs_jeugd",
+   "categorie": "Zorg en preventie",
+   "naam": "Passend onderwijs, jeugdzorg en leerlingenvervoer",
+   "van": [
+    "z1",
+    "d5"
+   ],
+   "naar": [
+    "d5",
+    "z1"
+   ],
+   "mechanisme": "Strenger sturen op jeugdzorg kan meer kinderen in het speciaal onderwijs of thuiszitters opleveren. Dat verhoogt de kosten van leerlingenvervoer, een wettelijke taak.",
+   "formule": "",
+   "parameters": {},
+   "vertraging_jaren": 1,
+   "richting": "bezuiniging",
+   "meters": {
+    "zorg": "-"
+   },
+   "melding": "",
+   "bron": "Aanname"
+  },
+  {
+   "id": "zp_gezondheid_sport",
+   "categorie": "Zorg en preventie",
+   "naam": "Sport en gezondheid",
+   "van": [
+    "k1",
+    "k2"
+   ],
+   "naar": [
+    "z6",
+    "z3"
+   ],
+   "mechanisme": "Minder sportaanbod betekent op lange termijn meer overgewicht en eenzaamheid. Dat heeft effect op GGD en Wmo. Toon dit als verhalend effect met een lange vertraging.",
+   "formule": "",
+   "parameters": {},
+   "vertraging_jaren": 4,
+   "richting": "bezuiniging",
+   "meters": {
+    "sport_cultuur": "-",
+    "zorg": "-"
+   },
+   "melding": "",
+   "bron": "Aanname"
+  },
+  {
+   "id": "vh_boetes_rijk",
+   "categorie": "Veiligheid en handhaving",
+   "naam": "Boetes van boa's gaan naar het Rijk",
+   "van": [
+    "v2"
+   ],
+   "naar": [
+    "grootheid:boete_inkomsten"
+   ],
+   "mechanisme": "Boa's schrijven boetes uit via de bestuurlijke strafbeschikking of de Wet Mulder. Die opbrengst gaat naar het Rijk, niet naar de gemeente. Meer boa's kosten dus geld zonder boete-inkomsten. Parkeernaheffingen zijn de uitzondering: die gaan wel naar de gemeente.",
+   "formule": "delta_baten_boetes_gemeente = 0",
+   "parameters": {},
+   "vertraging_jaren": 0,
+   "richting": "beide",
+   "meters": {
+    "veilig": "+"
+   },
+   "melding": "Boetes van boa's gaan naar het Rijk, niet naar de gemeente.",
+   "bron": "Wet Mulder / bestuurlijke strafbeschikking (CJIB)"
+  },
+  {
+   "id": "vh_parkeerhandhaving",
+   "categorie": "Veiligheid en handhaving",
+   "naam": "Parkeercontrole en naheffingen",
+   "van": [
+    "m2"
+   ],
+   "naar": [
+    "baten:m2",
+    "t5"
+   ],
+   "mechanisme": "Parkeercontrole kost 5,0 mln en levert 6,0 mln op. Minder controle betekent minder naheffingen én meer mensen die niet betalen, waardoor ook de parkeeropbrengst daalt.",
+   "formule": "delta_saldo = pct/100*(baten_naheffing - lasten) + pct/100 * betaalbereidheid * opbrengst_parkeren",
+   "parameters": {
+    "betaalbereidheid": {
+     "waarde": 0.1,
+     "eenheid": "fractie",
+     "status": "aanname",
+     "toelichting": "Hoeveel parkeeropbrengst verdwijnt bij 100% minder controle."
+    }
+   },
+   "vertraging_jaren": 0,
+   "richting": "beide",
+   "meters": {},
+   "melding": "Minder parkeercontrole kost geld: minder naheffingen en meer mensen die niet betalen.",
+   "bron": "Begroting 2026 deelprogramma 1.2"
+  },
+  {
+   "id": "vh_camera_verlichting",
+   "categorie": "Veiligheid en handhaving",
+   "naam": "Camera's, verlichting en veiligheidsgevoel",
+   "van": [
+    "v3",
+    "k_licht"
+   ],
+   "naar": [
+    "meter:veilig",
+    "grootheid:energiekosten",
+    "grootheid:kapitaallasten"
+   ],
+   "mechanisme": "Camera's en betere straatverlichting verhogen het veiligheidsgevoel. Beide hebben terugkerende kosten: camera's voor uitlezen en onderhoud, verlichting voor energie. Straatverlichting 's nachts aanlaten kost energie en gaat tegen duurzaamheidsdoelen in.",
+   "formule": "structureel = investering/afschrijvingstermijn + beheer",
+   "parameters": {
+    "afschrijvingstermijn": {
+     "waarde": 10,
+     "eenheid": "jaar",
+     "status": "aanname",
+     "toelichting": ""
+    }
+   },
+   "vertraging_jaren": 0,
+   "richting": "investering",
+   "meters": {
+    "veilig": "+"
+   },
+   "melding": "Camera's en licht kosten ook elk jaar geld voor beheer en energie.",
+   "bron": "BBV"
+  },
+  {
+   "id": "vh_graffiti_onderhoud",
+   "categorie": "Veiligheid en handhaving",
+   "naam": "Graffiti, verloedering en onderhoud",
+   "van": [
+    "o1",
+    "nieuw:graffiti"
+   ],
+   "naar": [
+    "meter:veilig",
+    "meter:schoon"
+   ],
+   "mechanisme": "Verloedering trekt meer verloedering aan (broken windows). Snel verwijderen van graffiti en zwerfafval verbetert zowel de schoon- als de veiligheidsmeter. Minder onderhoud werkt twee kanten op.",
+   "formule": "veilig_meter += 0.3 * delta_schoon_meter",
+   "parameters": {
+    "koppeling": {
+     "waarde": 0.3,
+     "eenheid": "",
+     "status": "aanname",
+     "toelichting": ""
+    }
+   },
+   "vertraging_jaren": 0,
+   "richting": "beide",
+   "meters": {
+    "veilig": "+",
+    "schoon": "+"
+   },
+   "melding": "",
+   "bron": "Spelontwerp"
+  },
+  {
+   "id": "vh_ondermijning_vastgoed",
+   "categorie": "Veiligheid en handhaving",
+   "naam": "Ondermijning, verhuurders en vastgoed",
+   "van": [
+    "v4",
+    "w3",
+    "nieuw:misstanden_vastgoed"
+   ],
+   "naar": [
+    "meter:veilig",
+    "meter:wonen"
+   ],
+   "mechanisme": "De aanpak van ondermijning, goed verhuurderschap en misstanden in vastgoed versterken elkaar. Bezuinigen op één ervan maakt de andere minder effectief.",
+   "formule": "effectiviteit = gemiddelde van de drie schuiven",
+   "parameters": {},
+   "vertraging_jaren": 0,
+   "richting": "beide",
+   "meters": {
+    "veilig": "+"
+   },
+   "melding": "",
+   "bron": "Spelontwerp"
+  },
+  {
+   "id": "vh_evenementen",
+   "categorie": "Veiligheid en handhaving",
+   "naam": "Evenementen en handhaving",
+   "van": [
+    "c2",
+    "c3"
+   ],
+   "naar": [
+    "v3",
+    "t2",
+    "grootheid:horeca"
+   ],
+   "mechanisme": "Meer festivals en evenementen trekken bezoekers (toeristenbelasting, horeca) maar vragen ook om vergunningen, toezicht en schoonmaak.",
+   "formule": "",
+   "parameters": {},
+   "vertraging_jaren": 0,
+   "richting": "beide",
+   "meters": {
+    "sport_cultuur": "+"
+   },
+   "melding": "",
+   "bron": "Aanname"
+  },
+  {
+   "id": "or_achterstallig",
+   "categorie": "Openbare ruimte en onderhoud",
+   "naam": "Achterstallig onderhoud wordt later duurder",
+   "van": [
+    "o1"
+   ],
+   "naar": [
+    "grootheid:kapitaallasten",
+    "grootheid:schadeclaims",
+    "meter:schoon",
+    "meter:veilig"
+   ],
+   "mechanisme": "Minder onderhoud aan wegen, bruggen en groen bespaart nu, maar de kwaliteit gaat achteruit. Na enkele jaren moeten onderdelen eerder vervangen worden (hogere kapitaallasten), komen er meer schadeclaims van fietsers en voetgangers, en daalt het veiligheidsgevoel.",
+   "formule": "extra_kosten_jaar_t = |bezuiniging| * factor_achterstallig * max(0, t - 2) / 3",
+   "parameters": {
+    "factor_achterstallig": {
+     "waarde": 1.5,
+     "eenheid": "euro later per bespaarde euro nu",
+     "status": "aanname",
+     "toelichting": "Vakliteratuur (CROW) noemt forse meerkosten; bandbreedte 1,2 tot 2,0."
+    }
+   },
+   "vertraging_jaren": 3,
+   "richting": "bezuiniging",
+   "meters": {
+    "schoon": "-",
+    "veilig": "-"
+   },
+   "melding": "Achterstallig onderhoud: straten en groen gaan zichtbaar achteruit. Herstel wordt later duurder.",
+   "bron": "CROW-kwaliteitsniveaus; aanname"
+  },
+  {
+   "id": "or_areaal",
+   "categorie": "Openbare ruimte en onderhoud",
+   "naam": "Meer woningen betekent meer openbare ruimte om te onderhouden",
+   "van": [
+    "k_bouw",
+    "grootheid:bouw_tempo"
+   ],
+   "naar": [
+    "o1",
+    "o3",
+    "o2"
+   ],
+   "mechanisme": "Nieuwe wijken zoals Meerstad brengen nieuwe straten, groen en riolering mee. Het onderhoudsbudget moet meegroeien (areaaluitbreiding).",
+   "formule": "delta_onderhoud = extra_woningen * onderhoud_per_woning",
+   "parameters": {
+    "onderhoud_per_woning": {
+     "waarde": 0.0005,
+     "eenheid": "mln per woning per jaar",
+     "status": "aanname",
+     "toelichting": ""
+    }
+   },
+   "vertraging_jaren": 1,
+   "richting": "groei",
+   "meters": {},
+   "melding": "",
+   "bron": "Aanname"
+  },
+  {
+   "id": "or_zwerfafval",
+   "categorie": "Openbare ruimte en onderhoud",
+   "naam": "Prullenbakken, straatreiniging en zwerfafval",
+   "van": [
+    "nieuw:prullenbakken",
+    "o1"
+   ],
+   "naar": [
+    "meter:schoon"
+   ],
+   "mechanisme": "Meer (statiegeldbestendige) prullenbakken betekent minder zwerfafval en minder reinigingskosten. Legen kost wel structureel geld.",
+   "formule": "",
+   "parameters": {},
+   "vertraging_jaren": 0,
+   "richting": "investering",
+   "meters": {
+    "schoon": "+"
+   },
+   "melding": "",
+   "bron": "VVD-tegenbegroting 2026"
+  },
+  {
+   "id": "or_klimaat",
+   "categorie": "Openbare ruimte en onderhoud",
+   "naam": "Groen, hitte en wateroverlast",
+   "van": [
+    "o6",
+    "o1"
+   ],
+   "naar": [
+    "verband:kd_riool",
+    "meter:zorg"
+   ],
+   "mechanisme": "Meer groen vermindert hittestress en wateroverlast, wat goed is voor gezondheid en riolering. Toon als verhalend effect.",
+   "formule": "",
+   "parameters": {},
+   "vertraging_jaren": 5,
+   "richting": "beide",
+   "meters": {
+    "schoon": "+"
+   },
+   "melding": "",
+   "bron": "Aanname"
+  },
+  {
+   "id": "ec_parkeren_elasticiteit",
+   "categorie": "Economie, parkeren en bezoekers",
+   "naam": "Parkeertarief, bezoekers en binnenstad",
+   "van": [
+    "t5"
+   ],
+   "naar": [
+    "baten:t5",
+    "grootheid:binnenstad",
+    "m5",
+    "grootheid:autoverkeer"
+   ],
+   "mechanisme": "Een lager parkeertarief kost opbrengst per uur, maar trekt meer bezoekers met de auto. Dat is goed voor winkels en horeca in het centrum, maar geeft meer autoverkeer, drukte en uitstoot, en minder fietsers in de stallingen. Een hoger tarief werkt andersom.",
+   "formule": "nieuwe_opbrengst = opbrengst * (1 + pct/100) * (1 + elasticiteit * pct/100); binnenstad_meter -= pct/100 * factor_binnenstad",
+   "parameters": {
+    "elasticiteit": {
+     "waarde": -0.3,
+     "eenheid": "prijselasticiteit parkeervraag",
+     "status": "aanname",
+     "toelichting": "Literatuur: -0,1 tot -0,6."
+    },
+    "factor_binnenstad": {
+     "waarde": 10,
+     "eenheid": "meterpunten per 100%",
+     "status": "aanname",
+     "toelichting": ""
+    }
+   },
+   "vertraging_jaren": 0,
+   "richting": "beide",
+   "meters": {
+    "portemonnee": "+ bij verlaging",
+    "schoon": "- bij verlaging (meer auto's)"
+   },
+   "melding": "Goedkoper parkeren: meer bezoekers in de binnenstad, maar ook meer autoverkeer.",
+   "bron": "Aanname; KiM-onderzoek naar parkeerbeleid als bron"
+  },
+  {
+   "id": "ec_gratis_parkeren",
+   "categorie": "Economie, parkeren en bezoekers",
+   "naam": "Gratis parkeren en vaste kosten garages",
+   "van": [
+    "t5"
+   ],
+   "naar": [
+    "e11",
+    "m10"
+   ],
+   "mechanisme": "Bij gratis parkeren verdwijnt de opbrengst, maar de rente, afschrijving en exploitatie van de parkeergarages lopen door. Garages worden voller, dus er is sneller vraag naar extra capaciteit.",
+   "formule": "bij pct = -100: opbrengst = 0, lasten_garages blijven",
+   "parameters": {},
+   "vertraging_jaren": 0,
+   "richting": "bezuiniging",
+   "meters": {},
+   "melding": "Overal gratis parkeren: de kosten van de garages blijven.",
+   "bron": "Begroting 2026 deelprogramma 1.2"
+  },
+  {
+   "id": "ec_reclame",
+   "categorie": "Economie, parkeren en bezoekers",
+   "naam": "Reclamebelasting en reclamezuilen",
+   "van": [
+    "t3",
+    "v9"
+   ],
+   "naar": [
+    "groep:ondernemers",
+    "m5"
+   ],
+   "mechanisme": "Afschaffen van de reclamebelasting kost 0,7 mln en scheelt ondernemers kosten. Meer reclamezuilen levert juist inkomsten op, die de VVD wil gebruiken om fietsenstallingen 24/7 open te houden.",
+   "formule": "",
+   "parameters": {},
+   "vertraging_jaren": 0,
+   "richting": "beide",
+   "meters": {
+    "portemonnee": "+ ondernemers"
+   },
+   "melding": "Reclamezuilen leveren geld op dat je kunt gebruiken voor de fietsenstallingen.",
+   "bron": "VVD-tegenbegroting 2026"
+  },
+  {
+   "id": "ec_toerisme_cultuur",
+   "categorie": "Economie, parkeren en bezoekers",
+   "naam": "Cultuur, evenementen, toeristenbelasting en citymarketing",
+   "van": [
+    "c2",
+    "c3",
+    "e3"
+   ],
+   "naar": [
+    "t2",
+    "grootheid:horeca"
+   ],
+   "mechanisme": "Minder cultuuraanbod en citymarketing betekent op termijn minder overnachtingen, dus minder toeristenbelasting (2,9 mln) en minder omzet voor horeca en hotels.",
+   "formule": "delta_toeristenbelasting = pct_cultuur/100 * factor * 2.9",
+   "parameters": {
+    "factor": {
+     "waarde": 0.2,
+     "eenheid": "",
+     "status": "aanname",
+     "toelichting": ""
+    }
+   },
+   "vertraging_jaren": 1,
+   "richting": "beide",
+   "meters": {},
+   "melding": "Minder cultuur: minder bezoekers en minder toeristenbelasting.",
+   "bron": "Aanname"
+  },
+  {
+   "id": "ec_precario_terras",
+   "categorie": "Economie, parkeren en bezoekers",
+   "naam": "Precario, terrassen en verbouwingen",
+   "van": [
+    "t4"
+   ],
+   "naar": [
+    "groep:ondernemers",
+    "groep:inwoners"
+   ],
+   "mechanisme": "Precario betalen horeca voor terrassen en inwoners voor containers en steigers. Verlaging helpt beide groepen. De opbrengst is klein, de voelbaarheid groot.",
+   "formule": "",
+   "parameters": {},
+   "vertraging_jaren": 0,
+   "richting": "beide",
+   "meters": {
+    "portemonnee": "+"
+   },
+   "melding": "",
+   "bron": "Begroting 2026"
+  },
+  {
+   "id": "ec_ozb_nietwoningen",
+   "categorie": "Economie, parkeren en bezoekers",
+   "naam": "OZB voor woningen en niet-woningen apart",
+   "van": [
+    "t1"
+   ],
+   "naar": [
+    "groep:ondernemers",
+    "groep:huurders"
+   ],
+   "mechanisme": "De OZB bestaat uit een eigenarendeel voor woningen, en een eigenaren- en gebruikersdeel voor niet-woningen. Splits de schuif, zodat spelers kunnen kiezen voor lagere lasten voor huiseigenaren of voor ondernemers. Huurders merken OZB indirect via de huurprijs.",
+   "formule": "",
+   "parameters": {
+    "verdeling": {
+     "waarde": null,
+     "eenheid": "mln per tariefsoort",
+     "status": "te onderzoeken",
+     "toelichting": "Uit de paragraaf lokale heffingen van de begroting halen."
+    }
+   },
+   "vertraging_jaren": 0,
+   "richting": "beide",
+   "meters": {
+    "portemonnee": "+"
+   },
+   "melding": "",
+   "bron": "Paragraaf lokale heffingen (nog toevoegen)"
+  },
+  {
+   "id": "ec_strategisch_bezit",
+   "categorie": "Economie, parkeren en bezoekers",
+   "naam": "Vastgoed verkopen: eenmalig geld tegen structureel minder huur",
+   "van": [
+    "e7",
+    "k_vast"
+   ],
+   "naar": [
+    "grootheid:huurinkomsten",
+    "grootheid:onderhoudskosten",
+    "grootheid:risicoprofiel",
+    "grootheid:boekresultaat"
+   ],
+   "mechanisme": "Verkoop levert eenmalig geld op (verkoopprijs min boekwaarde is boekwinst of -verlies). Daarna vallen huurinkomsten en onderhoudskosten weg, en daalt het risico. Het structurele effect kan positief of negatief zijn.",
+   "formule": "eenmalig = verkoopprijs - boekwaarde; structureel = -huur + onderhoud + rente_bespaard",
+   "parameters": {
+    "boekwaarde": {
+     "waarde": null,
+     "eenheid": "mln",
+     "status": "te onderzoeken",
+     "toelichting": "Per pand opvragen."
+    }
+   },
+   "vertraging_jaren": 0,
+   "richting": "bezuiniging",
+   "meters": {},
+   "melding": "Verkopen levert eenmalig geld op, maar je mist daarna huurinkomsten.",
+   "bron": "BBV"
+  },
+  {
+   "id": "wg_woningbouw",
+   "categorie": "Wonen, groei en grond",
+   "naam": "Sneller bouwen: meer OZB, leges en gemeentefonds",
+   "van": [
+    "k_bouw",
+    "w1",
+    "w2",
+    "w4",
+    "w8"
+   ],
+   "naar": [
+    "t1",
+    "baten:w8",
+    "grootheid:gemeentefonds",
+    "verband:or_areaal",
+    "d1",
+    "z3"
+   ],
+   "mechanisme": "Meer woningen leveren meer OZB, meer leges en meer gemeentefonds op. Maar nieuwe inwoners gebruiken ook scholen, sport, zorg en openbare ruimte. Het netto-effect is positief, maar pas na enkele jaren.",
+   "formule": "per_extra_woning: +ozb_per_woning +gemeentefonds_per_woning -onderhoud_per_woning -voorzieningen_per_woning",
+   "parameters": {
+    "ozb_per_woning": {
+     "waarde": 0.0003,
+     "eenheid": "mln per jaar",
+     "status": "aanname",
+     "toelichting": "Uit het OZB-tarief en de gemiddelde WOZ van 340.000 berekenen."
+    },
+    "extra_woningen_per_mln_fonds": {
+     "waarde": 20,
+     "eenheid": "woningen per jaar",
+     "status": "aanname",
+     "toelichting": ""
+    }
+   },
+   "vertraging_jaren": 2,
+   "richting": "beide",
+   "meters": {
+    "wonen": "+",
+    "werk": "+"
+   },
+   "melding": "Meer woningen: meer OZB en gemeentefonds, maar ook meer voorzieningen nodig.",
+   "bron": "Aanname"
+  },
+  {
+   "id": "wg_grondexploitatie",
+   "categorie": "Wonen, groei en grond",
+   "naam": "Grondexploitaties en Meerstad",
+   "van": [
+    "e11",
+    "k_bouw"
+   ],
+   "naar": [
+    "grootheid:risicoprofiel",
+    "grootheid:reserves"
+   ],
+   "mechanisme": "Meerstad en andere gebieden hebben grondexploitaties. Sneller verkopen van kavels verlaagt de rentelasten en het risico. Een dalende grondprijs door een groot aanbod kan de winst drukken. De VVD wil daarvoor een sneller-bouwenfonds.",
+   "formule": "",
+   "parameters": {},
+   "vertraging_jaren": 1,
+   "richting": "beide",
+   "meters": {},
+   "melding": "",
+   "bron": "Paragraaf grondbeleid (nog toevoegen); VVD-tegenbegroting 2026"
+  },
+  {
+   "id": "wg_onderwijshuisvesting",
+   "categorie": "Wonen, groei en grond",
+   "naam": "Groei en schoolgebouwen",
+   "van": [
+    "grootheid:bouw_tempo"
+   ],
+   "naar": [
+    "d1"
+   ],
+   "mechanisme": "Nieuwe wijken met jonge gezinnen vragen om nieuwe scholen: een wettelijke taak met hoge kapitaallasten.",
+   "formule": "",
+   "parameters": {},
+   "vertraging_jaren": 3,
+   "richting": "groei",
+   "meters": {},
+   "melding": "",
+   "bron": "Aanname"
+  },
+  {
+   "id": "wg_verduurzaming",
+   "categorie": "Wonen, groei en grond",
+   "naam": "Gemeentegebouwen verduurzamen en energiekosten",
+   "van": [
+    "w11"
+   ],
+   "naar": [
+    "grootheid:energiekosten"
+   ],
+   "mechanisme": "Verduurzaming kost eerst geld maar verlaagt de energierekening van gemeentelijke gebouwen. De terugverdientijd hangt af van de energieprijs.",
+   "formule": "besparing_t = investering * rendement * ingroei",
+   "parameters": {
+    "rendement": {
+     "waarde": 0.08,
+     "eenheid": "per jaar",
+     "status": "aanname",
+     "toelichting": ""
+    }
+   },
+   "vertraging_jaren": 1,
+   "richting": "beide",
+   "meters": {},
+   "melding": "",
+   "bron": "Aanname"
+  },
+  {
+   "id": "en_warmtestad",
+   "categorie": "Energie en deelnemingen",
+   "naam": "WarmteStad: verkoop, dividend en risico",
+   "van": [
+    "k_warm",
+    "nieuw:wegfundering_warmtestad"
+   ],
+   "naar": [
+    "grootheid:dividend",
+    "grootheid:garantstellingen",
+    "grootheid:risicoprofiel"
+   ],
+   "mechanisme": "Verkoop van een minderheidsbelang levert eenmalig geld op en verlaagt het risico. Er vallen dan wel toekomstig dividend en zeggenschap weg. De Wet collectieve warmte schrijft een publieke meerderheid voor. Kosten voor wegfundering bij WarmteStad neerleggen maakt warmte voor aangesloten huishoudens duurder.",
+   "formule": "",
+   "parameters": {},
+   "vertraging_jaren": 0,
+   "richting": "bezuiniging",
+   "meters": {},
+   "melding": "",
+   "bron": "VVD-tegenbegroting 2026; Wet collectieve warmte"
+  },
+  {
+   "id": "en_opwek",
+   "categorie": "Energie en deelnemingen",
+   "naam": "Zonnepark en windpark: geen opbrengsten later",
+   "van": [
+    "k_zon",
+    "k_wind"
+   ],
+   "naar": [
+    "grootheid:toekomstige_opbrengst",
+    "grootheid:klimaatdoelen"
+   ],
+   "mechanisme": "Stoppen met zon- en windprojecten bespaart eenmalig investerings- of voorbereidingsgeld, maar verliest mogelijke toekomstige opbrengsten (pacht, energieverkoop) en maakt klimaatdoelen moeilijker.",
+   "formule": "",
+   "parameters": {
+    "gemiste_opbrengst": {
+     "waarde": null,
+     "eenheid": "mln per jaar",
+     "status": "te onderzoeken",
+     "toelichting": "Uit de businesscase halen."
+    }
+   },
+   "vertraging_jaren": 3,
+   "richting": "bezuiniging",
+   "meters": {},
+   "melding": "",
+   "bron": "Te onderzoeken"
+  },
+  {
+   "id": "en_dividenden",
+   "categorie": "Energie en deelnemingen",
+   "naam": "Dividenden en deelnemingen",
+   "van": [
+    "nieuw:dividend"
+   ],
+   "naar": [
+    "saldo:structureel"
+   ],
+   "mechanisme": "De gemeente ontvangt 2,2 mln dividend. Aandelen verkopen levert eenmalig geld op, maar dat dividend valt dan structureel weg.",
+   "formule": "",
+   "parameters": {},
+   "vertraging_jaren": 0,
+   "richting": "beide",
+   "meters": {},
+   "melding": "",
+   "bron": "Begroting 2026 deelprogramma 4.3"
+  },
+  {
+   "id": "org_frictie",
+   "categorie": "Organisatie en uitvoering",
+   "naam": "Minder ambtenaren: natuurlijk verloop en frictiekosten",
+   "van": [
+    "h1",
+    "e2",
+    "e10",
+    "w4",
+    "m11",
+    "nieuw:apparaat"
+   ],
+   "naar": [
+    "saldo:meerjarig",
+    "grootheid:inhuur"
+   ],
+   "mechanisme": "Een bezuiniging op personeel is niet in één jaar te halen. Via natuurlijk verloop (pensioen, vertrek) groeit de besparing in enkele jaren. Gedwongen ontslag kost eenmalig frictiegeld. Te snel bezuinigen leidt tot duurdere inhuur.",
+   "formule": "besparing_t = min(doel, verloop_pct * personeelskosten * t); eenmalig_frictie = versneld_deel * frictie_factor",
+   "parameters": {
+    "verloop_pct": {
+     "waarde": 0.05,
+     "eenheid": "per jaar",
+     "status": "aanname",
+     "toelichting": "Natuurlijk verloop bij gemeenten: 4 tot 7%."
+    },
+    "frictie_factor": {
+     "waarde": 1.0,
+     "eenheid": "jaarsalaris per ontslag",
+     "status": "aanname",
+     "toelichting": ""
+    },
+    "personeelskosten": {
+     "waarde": null,
+     "eenheid": "mln",
+     "status": "te onderzoeken",
+     "toelichting": "Uit het overzicht van de gemeentelijke organisatie halen."
+    }
+   },
+   "vertraging_jaren": 0,
+   "richting": "bezuiniging",
+   "meters": {
+    "dienstverlening": "-"
+   },
+   "melding": "Minder ambtenaren gaat via natuurlijk verloop: de besparing groeit in een paar jaar.",
+   "bron": "Aanname"
+  },
+  {
+   "id": "org_capaciteit",
+   "categorie": "Organisatie en uitvoering",
+   "naam": "Minder uitvoeringscapaciteit vertraagt andere plannen",
+   "van": [
+    "h1",
+    "nieuw:apparaat"
+   ],
+   "naar": [
+    "grootheid:bouw_tempo",
+    "grootheid:vergunningen_tempo",
+    "grootheid:investeringen_tempo"
+   ],
+   "mechanisme": "Minder overhead en ambtenaren betekent dat investeringen en projecten trager gaan. Dat geeft in het eerste jaar lagere kapitaallasten ('onderbesteding'), maar vertraagt resultaten.",
+   "formule": "tempo_projecten *= (1 + 0.5 * pct_apparaat/100)",
+   "parameters": {},
+   "vertraging_jaren": 0,
+   "richting": "bezuiniging",
+   "meters": {},
+   "melding": "",
+   "bron": "Spelontwerp"
+  },
+  {
+   "id": "org_ai",
+   "categorie": "Organisatie en uitvoering",
+   "naam": "Investeren in AI en digitalisering",
+   "van": [
+    "k_ai"
+   ],
+   "naar": [
+    "h1",
+    "b2",
+    "b1"
+   ],
+   "mechanisme": "Een investering in AI kan na enkele jaren besparen op KCC, Burgerzaken en overhead. Eerst kost het geld en moet het gemeten worden.",
+   "formule": "besparing_t = investering * rendement * ingroei[t]",
+   "parameters": {
+    "rendement": {
+     "waarde": 0.5,
+     "eenheid": "euro besparing per euro na 3 jaar",
+     "status": "aanname",
+     "toelichting": ""
+    },
+    "ingroei": {
+     "waarde": [
+      0,
+      0.3,
+      0.7,
+      1
+     ],
+     "eenheid": "",
+     "status": "aanname",
+     "toelichting": ""
+    }
+   },
+   "vertraging_jaren": 2,
+   "richting": "investering",
+   "meters": {
+    "dienstverlening": "+"
+   },
+   "melding": "",
+   "bron": "VVD-tegenbegroting 2026; aanname"
+  },
+  {
+   "id": "org_bereikbaarheid",
+   "categorie": "Organisatie en uitvoering",
+   "naam": "Minder bereikbaar betekent meer bezwaren en klachten",
+   "van": [
+    "b2",
+    "b3"
+   ],
+   "naar": [
+    "b3",
+    "nieuw:ombudsman"
+   ],
+   "mechanisme": "Minder KCC en belastingpersoneel leidt tot meer bezwaarschriften, klachten en fouten die later hersteld moeten worden.",
+   "formule": "",
+   "parameters": {},
+   "vertraging_jaren": 1,
+   "richting": "bezuiniging",
+   "meters": {
+    "dienstverlening": "-"
+   },
+   "melding": "",
+   "bron": "Aanname"
+  },
+  {
+   "id": "org_wethouders",
+   "categorie": "Organisatie en uitvoering",
+   "naam": "Minder wethouders en wachtgeld",
+   "van": [
+    "g1"
+   ],
+   "naar": [
+    "saldo:incidenteel"
+   ],
+   "mechanisme": "Minder wethouders bespaart structureel, maar vertrekkende wethouders hebben recht op wachtgeld. De besparing gaat pas in na de verkiezingen.",
+   "formule": "",
+   "parameters": {},
+   "vertraging_jaren": 0,
+   "richting": "bezuiniging",
+   "meters": {},
+   "melding": "Minder wethouders: bespaart pas na de verkiezingen, en er is wachtgeld.",
+   "bron": "Appa"
+  },
+  {
+   "id": "fin_kapitaallasten",
+   "categorie": "Financiering, reserves en tijd",
+   "naam": "Investeren is niet hetzelfde als uitgeven",
+   "van": [
+    "k_fc",
+    "k_brug",
+    "k1",
+    "m5",
+    "set:alle_investeringen"
+   ],
+   "naar": [
+    "grootheid:kapitaallasten"
+   ],
+   "mechanisme": "Een sporthal, brug of fietsenstalling wordt in de begroting over de levensduur afgeschreven. Het jaarlijkse bedrag is rente plus afschrijving, niet het hele bedrag in één keer. Een eenmalige bijdrage aan een derde, zoals FC Groningen, is wel in één keer een last.",
+   "formule": "kapitaallast_jaar = investering/levensduur + rente * boekwaarde",
+   "parameters": {
+    "levensduur_gebouw": {
+     "waarde": 40,
+     "eenheid": "jaar",
+     "status": "aanname",
+     "toelichting": "Afschrijvingsbeleid gemeente nagaan."
+    },
+    "levensduur_brug": {
+     "waarde": 50,
+     "eenheid": "jaar",
+     "status": "aanname",
+     "toelichting": ""
+    },
+    "rente": {
+     "waarde": 0.025,
+     "eenheid": "",
+     "status": "aanname",
+     "toelichting": "Omslagrente uit de begroting."
+    }
+   },
+   "vertraging_jaren": 0,
+   "richting": "investering",
+   "meters": {},
+   "melding": "Een investering kost elk jaar rente en afschrijving, niet alles in één keer.",
+   "bron": "BBV"
+  },
+  {
+   "id": "fin_incidenteel_structureel",
+   "categorie": "Financiering, reserves en tijd",
+   "naam": "Eenmalig geld dekt geen vaste lasten",
+   "van": [
+    "set:alle_incidentele_maatregelen"
+   ],
+   "naar": [
+    "saldo:meerjarig"
+   ],
+   "mechanisme": "De begroting moet structureel sluitend zijn: vaste lasten moeten gedekt worden met vaste inkomsten. Zo toetst ook de provincie (financieel toezicht). Eenmalig geld mag alleen eenmalige uitgaven dekken. Laat in de meerjarenweergave zien dat het gat in 2027 terugkomt.",
+   "formule": "structureel_saldo_t >= 0 voor elk jaar t; incidenteel mag niet structureel dekken",
+   "parameters": {},
+   "vertraging_jaren": 0,
+   "richting": "regel",
+   "meters": {},
+   "melding": "Eenmalig geld is op. Volgend jaar is het gat terug.",
+   "bron": "Gemeentewet art. 189 en 203; Gemeenschappelijk financieel toezichtkader"
+  },
+  {
+   "id": "fin_reserves",
+   "categorie": "Financiering, reserves en tijd",
+   "naam": "Reserves, weerstandsvermogen en risico's",
+   "van": [
+    "k_res",
+    "set:risicovolle_maatregelen"
+   ],
+   "naar": [
+    "grootheid:weerstandsvermogen"
+   ],
+   "mechanisme": "Reserves aanvullen verbetert het weerstandsvermogen (nu 161%). Risicovolle keuzes, zoals grondexploitaties of garantstellingen, verlagen het. Een weerstandsvermogen onder 100% is een waarschuwingssignaal.",
+   "formule": "ratio = weerstandscapaciteit / benodigde_capaciteit",
+   "parameters": {
+    "algemene_reserve": {
+     "waarde": 81.1,
+     "eenheid": "mln",
+     "status": "feit",
+     "toelichting": "Kerngegevens begroting 2026."
+    },
+    "ratio_2026": {
+     "waarde": 1.61,
+     "eenheid": "",
+     "status": "feit",
+     "toelichting": ""
+    }
+   },
+   "vertraging_jaren": 0,
+   "richting": "beide",
+   "meters": {},
+   "melding": "",
+   "bron": "Begroting 2026, paragraaf weerstandsvermogen"
+  },
+  {
+   "id": "fin_rente",
+   "categorie": "Financiering, reserves en tijd",
+   "naam": "Rente en lenen",
+   "van": [
+    "set:alle_investeringen",
+    "k_res"
+   ],
+   "naar": [
+    "nieuw:treasury"
+   ],
+   "mechanisme": "Meer investeren betekent meer lenen en dus hogere rentelasten. Reserves inzetten in plaats van lenen scheelt rente, maar verlaagt de buffer.",
+   "formule": "",
+   "parameters": {},
+   "vertraging_jaren": 0,
+   "richting": "beide",
+   "meters": {},
+   "melding": "",
+   "bron": "Treasuryparagraaf"
+  },
+  {
+   "id": "fin_onvoorzien",
+   "categorie": "Financiering, reserves en tijd",
+   "naam": "Tegenvallers: gebeurteniskaarten",
+   "van": [
+    "gebeurtenis:willekeurig"
+   ],
+   "naar": [
+    "saldo:structureel"
+   ],
+   "mechanisme": "Laat tijdens het spel gebeurtenissen voorkomen, zoals een stijging van de jeugdzorgkosten, een hogere cao, een strenge winter (gladheidsbestrijding), een meicirculaire of een aardbevingsschade-regeling. De speler moet dan bijsturen. Een reserve of post onvoorzien vangt ze op.",
+   "formule": "",
+   "parameters": {},
+   "vertraging_jaren": 0,
+   "richting": "gebeurtenis",
+   "meters": {},
+   "melding": "",
+   "bron": "Spelontwerp"
+  },
+  {
+   "id": "jur_subsidies",
+   "categorie": "Juridisch en contractueel",
+   "naam": "Subsidies afbouwen kost tijd",
+   "van": [
+    "c2",
+    "c3",
+    "z8",
+    "z9",
+    "e3"
+   ],
+   "naar": [
+    "saldo:meerjarig"
+   ],
+   "mechanisme": "Structurele subsidies kun je niet van de ene op de andere dag stoppen: er geldt een redelijke opzegtermijn (vaak een jaar) en soms een afbouwregeling. De besparing komt dus pas in het tweede jaar volledig binnen.",
+   "formule": "besparing = doel * ingroei[t]",
+   "parameters": {
+    "ingroei": {
+     "waarde": [
+      0.25,
+      1.0
+     ],
+     "eenheid": "per jaar",
+     "status": "aanname",
+     "toelichting": ""
+    }
+   },
+   "vertraging_jaren": 1,
+   "richting": "bezuiniging",
+   "meters": {},
+   "melding": "Subsidies moet je netjes opzeggen: de besparing komt pas volgend jaar volledig binnen.",
+   "bron": "Jurisprudentie over opzeggen van structurele subsidies"
+  },
+  {
+   "id": "jur_wettelijk",
+   "categorie": "Juridisch en contractueel",
+   "naam": "Wettelijke taken hebben een ondergrens",
+   "van": [
+    "s1",
+    "z1",
+    "z2",
+    "z3",
+    "d5",
+    "d1",
+    "s7",
+    "v1"
+   ],
+   "naar": [
+    "regel:min_pct"
+   ],
+   "mechanisme": "Bijstand, jeugdzorg, Wmo, beschermd wonen, leerlingenvervoer, onderwijshuisvesting en de Veiligheidsregio zijn wettelijk verplicht. Je kunt alleen de uitvoering efficiënter maken, en dat kost tijd.",
+   "formule": "min_pct uit data",
+   "parameters": {},
+   "vertraging_jaren": 0,
+   "richting": "regel",
+   "meters": {},
+   "melding": "Wettelijke taak: veel meer bezuinigen kan niet.",
+   "bron": "Participatiewet, Jeugdwet, Wmo 2015, WPO, Wet veiligheidsregio's"
+  },
+  {
+   "id": "jur_gr",
+   "categorie": "Juridisch en contractueel",
+   "naam": "Gemeenschappelijke regelingen",
+   "van": [
+    "v1",
+    "v8",
+    "z6",
+    "e9"
+   ],
+   "naar": [
+    "regel:min_pct"
+   ],
+   "mechanisme": "De bijdrage aan de Veiligheidsregio, GGD, Omgevingsdienst en regionale samenwerking wordt samen met andere gemeenten bepaald. Eén gemeente kan die niet zelf verlagen. Uittreden kost een uittreedsom.",
+   "formule": "",
+   "parameters": {},
+   "vertraging_jaren": 2,
+   "richting": "regel",
+   "meters": {},
+   "melding": "",
+   "bron": "Wet gemeenschappelijke regelingen"
+  },
+  {
+   "id": "jur_contracten",
+   "categorie": "Juridisch en contractueel",
+   "naam": "Lopende contracten en aanbestedingen",
+   "van": [
+    "z1",
+    "z2",
+    "z3",
+    "o1"
+   ],
+   "naar": [
+    "saldo:meerjarig"
+   ],
+   "mechanisme": "Zorg en onderhoud worden ingekocht via contracten die meerdere jaren lopen. Bezuinigen kan vaak pas bij een nieuwe aanbesteding.",
+   "formule": "",
+   "parameters": {},
+   "vertraging_jaren": 1,
+   "richting": "bezuiniging",
+   "meters": {},
+   "melding": "",
+   "bron": "Aanname"
+  }
+ ],
+ "vocabulaire": {
+  "uitleg": "Ids in 'van' en 'naar' zijn óf een id uit begroting-JJJJ.json (onderdeel, belasting, actiekaart), óf een afgeleide naam met een voorvoegsel. data-check moet beide accepteren en al het andere als fout melden.",
+  "voorvoegsels": {
+   "meter:": "een gemeentemeter (veilig, schoon, zorg, werk, sport_cultuur, portemonnee, wonen, dienstverlening)",
+   "saldo:": "structureel, incidenteel of meerjarig",
+   "baten:<id>": "de gekoppelde baten van onderdeel <id>",
+   "heffing:": "afval of riool (doorgeefluik naar het tarief voor huishoudens)",
+   "groep:": "een groep inwoners voor wie het effect voelbaar is",
+   "grootheid:": "een afgeleide grootheid die de rekenmotor bijhoudt",
+   "set:": "een verzameling maatregelen",
+   "verband:<id>": "verwijzing naar een ander dwarsverband",
+   "regel:": "een spelregel",
+   "gebeurtenis:": "een gebeurteniskaart",
+   "nieuw:": "een post of schuif die nog aan de begrotingsdata moet worden toegevoegd (zie 'nieuw')"
+  },
+  "nieuw": {
+   "nieuw:heroineverstrekking": "Heroïneverstrekking, 3.3: 0,850 mln lasten, 0,793 mln baten (boekwerk 2026)",
+   "nieuw:misstanden_vastgoed": "Aanpak misstanden vastgoedsector, 2.2: 0,566 mln (boekwerk 2026)",
+   "nieuw:graffiti": "Aanpak graffiti (VVD-tegenbegroting: 1 mln S)",
+   "nieuw:prullenbakken": "Prullenbakken openbare ruimte (VVD: 0,5 mln S)",
+   "nieuw:tegenprestatie": "Strengere tegenprestatie bijstand (VVD-tegenbegroting, geen bedrag)",
+   "nieuw:apparaat": "5% minder ambtenaren buiten openbare ruimte en veiligheid (VVD: 16,4 mln S). Vereist personeelskosten per deelprogramma.",
+   "nieuw:wegfundering_warmtestad": "Wegenfundering WarmteStad (VVD: 0,45 mln I)",
+   "nieuw:entreeprijzen_sport": "Schuif voor entreetarieven sportaccommodaties",
+   "nieuw:ombudsman": "Ombudsman, 4.2: 0,535 mln (boekwerk 2026)",
+   "nieuw:dividend": "Dividend/deelnemingen, 4.3: 0,116 mln lasten, 2,156 mln baten (boekwerk 2026)",
+   "nieuw:treasury": "Treasury/rente, 4.3",
+   "nieuw:rijk_npg": "NPG-middelen (diverse deelprogramma's)",
+   "nieuw:rijk_rigg": "RIGG, 3.3: 20,7 mln lasten = 20,7 mln baten (boekwerk 2026)",
+   "nieuw:rijk_blok_b": "Blok B, 1.1: 9,8 mln lasten = 9,8 mln baten (boekwerk 2026)",
+   "nieuw:rijk_nij_begun": "Nij Begun / NPG-wijkvernieuwing, 4.2"
+  }
+ }
+}

@@ -1,0 +1,2275 @@
+{
+ "schema_versie": "1.0",
+ "begrotingsjaar": 2026,
+ "document": "Ontwerpbegroting 2026 gemeente Groningen (boekwerk, bijlage 2)",
+ "bron_url": "https://gemeenteraad.groningen.nl/Documenten/Bijlage-2-Ontwerpbegroting-2026-boekwerk.pdf",
+ "eenheid": "miljoen euro tenzij anders vermeld",
+ "totalen": {
+  "lasten_excl_reserves_x1000": {
+   "2026": 1481991,
+   "2027": 1479934,
+   "2028": 1494460,
+   "2029": 1536595
+  },
+  "baten_excl_reserves_x1000": {
+   "2026": 1481492,
+   "2027": 1496806,
+   "2028": 1514749,
+   "2029": 1554150
+  },
+  "toevoegingen_reserves_x1000": {
+   "2026": 32987,
+   "2027": 29254,
+   "2028": 30571,
+   "2029": 24768
+  },
+  "onttrekkingen_reserves_x1000": {
+   "2026": 33486,
+   "2027": 12382,
+   "2028": 10282,
+   "2029": 3747
+  },
+  "saldo_x1000": {
+   "2026": 0,
+   "2027": 0,
+   "2028": 0,
+   "2029": -3467
+  },
+  "bron": "boekwerk p. 353"
+ },
+ "kengetallen_2026": {
+  "gemeentefonds_x1000": 825768,
+  "opbrengst_belastingen_totaal_x1000": 157189,
+  "ozb_x1000": 125336,
+  "parkeerbelasting_x1000": 26325,
+  "reclamebelasting_x1000": 700,
+  "logiesbelasting_x1000": 2903,
+  "precariobelasting_x1000": 1784,
+  "roerende_zaakbelasting_x1000": 141,
+  "algemene_reserve_x1000": 81138,
+  "ratio_weerstandsvermogen": 1.61,
+  "aantal_woningen": 126796,
+  "gemiddelde_woz": 340000,
+  "bron": "boekwerk p. 4 (kerngegevens)"
+ },
+ "programmas": [
+  {
+   "code": "1",
+   "naam": "Economie en Ruimte"
+  },
+  {
+   "code": "2",
+   "naam": "Leefomgeving en Veiligheid"
+  },
+  {
+   "code": "3",
+   "naam": "Vitaal en Sociaal"
+  },
+  {
+   "code": "4",
+   "naam": "Dienstverlening en bestuur"
+  }
+ ],
+ "deelprogrammas": [
+  {
+   "code": "1.1",
+   "programma": "1",
+   "naam": "Economie en werkgelegenheid",
+   "lasten_x1000": {
+    "2026": 48504,
+    "2027": 47959,
+    "2028": 48388,
+    "2029": 49351
+   },
+   "baten_x1000": {
+    "2026": 11791,
+    "2027": 11791,
+    "2028": 11791,
+    "2029": 11791
+   },
+   "bron": "boekwerk p. 352-353"
+  },
+  {
+   "code": "1.2",
+   "programma": "1",
+   "naam": "Mobiliteit",
+   "lasten_x1000": {
+    "2026": 53828,
+    "2027": 56500,
+    "2028": 57816,
+    "2029": 59226
+   },
+   "baten_x1000": {
+    "2026": 41830,
+    "2027": 43284,
+    "2028": 44049,
+    "2029": 44923
+   },
+   "bron": "boekwerk p. 352-353"
+  },
+  {
+   "code": "1.3",
+   "programma": "1",
+   "naam": "Wonen",
+   "lasten_x1000": {
+    "2026": 46678,
+    "2027": 46313,
+    "2028": 46848,
+    "2029": 48190
+   },
+   "baten_x1000": {
+    "2026": 30849,
+    "2027": 29694,
+    "2028": 29879,
+    "2029": 29804
+   },
+   "bron": "boekwerk p. 352-353"
+  },
+  {
+   "code": "2.1",
+   "programma": "2",
+   "naam": "Kwaliteit leefomgeving",
+   "lasten_x1000": {
+    "2026": 139531,
+    "2027": 142124,
+    "2028": 146089,
+    "2029": 149184
+   },
+   "baten_x1000": {
+    "2026": 81144,
+    "2027": 82197,
+    "2028": 82473,
+    "2029": 82471
+   },
+   "bron": "boekwerk p. 352-353"
+  },
+  {
+   "code": "2.2",
+   "programma": "2",
+   "naam": "Veiligheid",
+   "lasten_x1000": {
+    "2026": 49178,
+    "2027": 47748,
+    "2028": 49266,
+    "2029": 50578
+   },
+   "baten_x1000": {
+    "2026": 7512,
+    "2027": 5290,
+    "2028": 5291,
+    "2029": 5291
+   },
+   "bron": "boekwerk p. 352-353"
+  },
+  {
+   "code": "3.1",
+   "programma": "3",
+   "naam": "Werk en inkomen",
+   "lasten_x1000": {
+    "2026": 335448,
+    "2027": 330136,
+    "2028": 336268,
+    "2029": 340814
+   },
+   "baten_x1000": {
+    "2026": 219163,
+    "2027": 213960,
+    "2028": 219576,
+    "2029": 222005
+   },
+   "bron": "boekwerk p. 352-353"
+  },
+  {
+   "code": "3.2",
+   "programma": "3",
+   "naam": "Onderwijs",
+   "lasten_x1000": {
+    "2026": 52034,
+    "2027": 53310,
+    "2028": 58337,
+    "2029": 60230
+   },
+   "baten_x1000": {
+    "2026": 22096,
+    "2027": 21663,
+    "2028": 21750,
+    "2029": 15829
+   },
+   "bron": "boekwerk p. 352-353"
+  },
+  {
+   "code": "3.3",
+   "programma": "3",
+   "naam": "Welzijn, gezondheid, zorg en diversiteit",
+   "lasten_x1000": {
+    "2026": 427869,
+    "2027": 432557,
+    "2028": 418180,
+    "2029": 431180
+   },
+   "baten_x1000": {
+    "2026": 41937,
+    "2027": 37045,
+    "2028": 37111,
+    "2029": 37175
+   },
+   "bron": "boekwerk p. 352-353"
+  },
+  {
+   "code": "3.4",
+   "programma": "3",
+   "naam": "Sport en bewegen",
+   "lasten_x1000": {
+    "2026": 43124,
+    "2027": 43150,
+    "2028": 43226,
+    "2029": 44185
+   },
+   "baten_x1000": {
+    "2026": 12368,
+    "2027": 12225,
+    "2028": 12242,
+    "2029": 12259
+   },
+   "bron": "boekwerk p. 352-353"
+  },
+  {
+   "code": "3.5",
+   "programma": "3",
+   "naam": "Cultuur en evenementen",
+   "lasten_x1000": {
+    "2026": 77293,
+    "2027": 82766,
+    "2028": 85143,
+    "2029": 88944
+   },
+   "baten_x1000": {
+    "2026": 22409,
+    "2027": 25121,
+    "2028": 23526,
+    "2029": 22948
+   },
+   "bron": "boekwerk p. 352-353"
+  },
+  {
+   "code": "4.1",
+   "programma": "4",
+   "naam": "Dienstverlening",
+   "lasten_x1000": {
+    "2026": 20483,
+    "2027": 20102,
+    "2028": 19580,
+    "2029": 20327
+   },
+   "baten_x1000": {
+    "2026": 5959,
+    "2027": 6040,
+    "2028": 5554,
+    "2029": 5550
+   },
+   "bron": "boekwerk p. 352-353"
+  },
+  {
+   "code": "4.2",
+   "programma": "4",
+   "naam": "College, raad, wijkontwikkeling en wijkvernieuwing",
+   "lasten_x1000": {
+    "2026": 72420,
+    "2027": 58684,
+    "2028": 62396,
+    "2029": 60556
+   },
+   "baten_x1000": {
+    "2026": 44997,
+    "2027": 16882,
+    "2028": 13139,
+    "2029": 11027
+   },
+   "bron": "boekwerk p. 352-353"
+  },
+  {
+   "code": "4.3",
+   "programma": "4",
+   "naam": "Algemene inkomsten en post onvoorzien",
+   "lasten_x1000": {
+    "2026": 8462,
+    "2027": 3950,
+    "2028": 4828,
+    "2029": 4548
+   },
+   "baten_x1000": {
+    "2026": 962731,
+    "2027": 993679,
+    "2028": 1008396,
+    "2029": 1046602
+   },
+   "bron": "boekwerk p. 352-353"
+  },
+  {
+   "code": "4.4",
+   "programma": "4",
+   "naam": "Overhead en ondersteuning organisatie",
+   "lasten_x1000": {
+    "2026": 140125,
+    "2027": 143889,
+    "2028": 148667,
+    "2029": 154051
+   },
+   "baten_x1000": {
+    "2026": 10190,
+    "2027": 10317,
+    "2028": 10257,
+    "2029": 10222
+   },
+   "bron": "boekwerk p. 352-353"
+  }
+ ],
+ "onderdelen": [
+  {
+   "id": "e1",
+   "naam": "Economische agenda",
+   "deelprogramma": "1.1",
+   "gebouw": "winkel",
+   "lasten_mln": 1.4,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "w": 0.5
+   },
+   "tekst_bezuinigen": "Minder projecten en evenementen om bedrijven te helpen en aan te trekken.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "e2",
+   "naam": "Ambtenaren economische zaken",
+   "deelprogramma": "1.1",
+   "gebouw": "winkel",
+   "lasten_mln": 2.9,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -50,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "w": 0.3
+   },
+   "tekst_bezuinigen": "Minder mensen die bedrijven helpen bij vestiging en groei.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "e3",
+   "naam": "Citymarketing en economische activiteiten",
+   "deelprogramma": "1.1",
+   "gebouw": "winkel",
+   "lasten_mln": 2.25,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "w": 0.3
+   },
+   "tekst_bezuinigen": "Minder promotie van Groningen, o.a. via Marketing Groningen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "e4",
+   "naam": "Akkoord van Groningen (RUG, Hanze, UMCG)",
+   "deelprogramma": "1.1",
+   "gebouw": "winkel",
+   "lasten_mln": 1.25,
+   "gekoppelde_baten_mln": 0.75,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "w": 0.3
+   },
+   "tekst_bezuinigen": "De gemeente stapt (deels) uit de samenwerking met kennisinstellingen. Partners betalen dan ook niet meer mee.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "e5",
+   "naam": "Markten, havens en brugbediening",
+   "deelprogramma": "1.1",
+   "gebouw": "winkel",
+   "lasten_mln": 2.5,
+   "gekoppelde_baten_mln": 1.3,
+   "min_pct": -40,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "w": 0.2
+   },
+   "tekst_bezuinigen": "Minder markten en kortere bedieningstijden van bruggen. Je mist ook marktgelden.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "e6",
+   "naam": "Bedrijventerreinen en winkelcentra",
+   "deelprogramma": "1.1",
+   "gebouw": "winkel",
+   "lasten_mln": 1.545,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "w": 0.4
+   },
+   "tekst_bezuinigen": "Minder geld om bedrijventerreinen en wijkwinkelcentra op te knappen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "e7",
+   "naam": "Strategisch bezit (panden en grond)",
+   "deelprogramma": "1.1",
+   "gebouw": "winkel",
+   "lasten_mln": 9.8,
+   "gekoppelde_baten_mln": 5.9,
+   "min_pct": -50,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "De gemeente houdt minder panden aan. Minder kosten, maar ook minder huurinkomsten.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "e8",
+   "naam": "Suikerzijde (gebiedsontwikkeling)",
+   "deelprogramma": "1.1",
+   "gebouw": "winkel",
+   "lasten_mln": 3.84,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -50,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "De ontwikkeling van de Suikerzijde gaat langzamer.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "e9",
+   "naam": "Regio Groningen-Assen",
+   "deelprogramma": "1.1",
+   "gebouw": "winkel",
+   "lasten_mln": 1.6,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Groningen doet minder mee aan de regionale samenwerking.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "e10",
+   "naam": "Ambtenaren gebiedsontwikkeling",
+   "deelprogramma": "1.1",
+   "gebouw": "winkel",
+   "lasten_mln": 6.8,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -50,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Minder mensen voor grote bouwprojecten en gebiedsontwikkeling.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "e11",
+   "naam": "Rente en afschrijving (o.a. Meerstad)",
+   "deelprogramma": "1.1",
+   "gebouw": "winkel",
+   "lasten_mln": 10.7,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": null,
+   "max_pct": null,
+   "vergrendeld": true,
+   "reden_vergrendeld": "Dit zijn vaste kosten van investeringen die al gedaan zijn. Die kun je niet meer schrappen.",
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": null,
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "m2",
+   "naam": "Parkeercontrole",
+   "deelprogramma": "1.2",
+   "gebouw": "parkeer",
+   "lasten_mln": 5,
+   "gekoppelde_baten_mln": 6,
+   "min_pct": -100,
+   "max_pct": 50,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "v": 0.2
+   },
+   "tekst_bezuinigen": "Minder controle. Let op: je mist dan ook naheffingen, dus dit kost je geld.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "m3",
+   "naam": "Extra geld mobiliteit",
+   "deelprogramma": "1.2",
+   "gebouw": "parkeer",
+   "lasten_mln": 5.28,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "s": 0.2
+   },
+   "tekst_bezuinigen": "Minder nieuwe fietspaden, oversteekplaatsen en verkeersmaatregelen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "m4",
+   "naam": "Uitvoering mobiliteitsvisie",
+   "deelprogramma": "1.2",
+   "gebouw": "parkeer",
+   "lasten_mln": 1.5,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "De plannen uit de mobiliteitsvisie gaan langzamer.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "m5",
+   "naam": "Fietsenstallingen centrum",
+   "deelprogramma": "1.2",
+   "gebouw": "parkeer",
+   "lasten_mln": 0.5,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 100,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "s": 0.2
+   },
+   "tekst_bezuinigen": "Kortere openingstijden van fietsenstallingen.",
+   "tekst_investeren": "Langer open, eventueel 24/7.",
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "m6",
+   "naam": "Binnenstadsprogramma",
+   "deelprogramma": "1.2",
+   "gebouw": "parkeer",
+   "lasten_mln": 2.06,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "s": 0.2
+   },
+   "tekst_bezuinigen": "Minder vernieuwing van straten en pleinen in het centrum.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "m7",
+   "naam": "Stationsgebied",
+   "deelprogramma": "1.2",
+   "gebouw": "parkeer",
+   "lasten_mln": 0.988,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "De plannen voor het stationsgebied gaan langzamer.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "m9",
+   "naam": "Oosterhamrikzone",
+   "deelprogramma": "1.2",
+   "gebouw": "parkeer",
+   "lasten_mln": 0.25,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Stoppen met planvorming; de busbaan wordt niet verlegd.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "m11",
+   "naam": "Ambtenaren mobiliteit",
+   "deelprogramma": "1.2",
+   "gebouw": "parkeer",
+   "lasten_mln": 3.1,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -50,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Minder mensen voor verkeersplannen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "m10",
+   "naam": "Rente en afschrijving wegen",
+   "deelprogramma": "1.2",
+   "gebouw": "parkeer",
+   "lasten_mln": 6.1,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": null,
+   "max_pct": null,
+   "vergrendeld": true,
+   "reden_vergrendeld": "Vaste kosten van eerder aangelegde wegen en bruggen.",
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": null,
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "w1",
+   "naam": "Extra geld wonen",
+   "deelprogramma": "1.3",
+   "gebouw": "bouw",
+   "lasten_mln": 1.775,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "w": 0.1
+   },
+   "tekst_bezuinigen": "Minder extra inzet op woningbouw.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "w2",
+   "naam": "Meer betaalbare woningen",
+   "deelprogramma": "1.3",
+   "gebouw": "bouw",
+   "lasten_mln": 1.2,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Minder steun voor betaalbare huur- en koopwoningen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "w3",
+   "naam": "Goed verhuurderschap",
+   "deelprogramma": "1.3",
+   "gebouw": "bouw",
+   "lasten_mln": 1.25,
+   "gekoppelde_baten_mln": 0.5,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "v": 0.1
+   },
+   "tekst_bezuinigen": "Minder controle op huisjesmelkers.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "w4",
+   "naam": "Ambtenaren wonen",
+   "deelprogramma": "1.3",
+   "gebouw": "bouw",
+   "lasten_mln": 4.6,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -50,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Minder mensen voor woningbouwprojecten.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "w6",
+   "naam": "Energiesubsidies",
+   "deelprogramma": "1.3",
+   "gebouw": "bouw",
+   "lasten_mln": 12,
+   "gekoppelde_baten_mln": 11.7,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Minder subsidies voor isolatie en verduurzaming. Het meeste geld komt van het Rijk, dus je bespaart maar weinig.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "w7",
+   "naam": "Extra geld energietransitie",
+   "deelprogramma": "1.3",
+   "gebouw": "bouw",
+   "lasten_mln": 2.275,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Minder gemeentelijke projecten voor de energietransitie.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "w8",
+   "naam": "Omgevingsvergunningen",
+   "deelprogramma": "1.3",
+   "gebouw": "bouw",
+   "lasten_mln": 10.5,
+   "gekoppelde_baten_mln": 17.9,
+   "min_pct": -50,
+   "max_pct": 50,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Minder vergunningverleners: langere wachttijden en je mist leges. Dit kost je dus geld.",
+   "tekst_investeren": "Snellere vergunningen, en meer leges.",
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "w10",
+   "naam": "Toezicht op bouwen",
+   "deelprogramma": "1.3",
+   "gebouw": "bouw",
+   "lasten_mln": 2.1,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "v": 0.2
+   },
+   "tekst_bezuinigen": "Minder controle op bouwplaatsen en illegale bouw.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "w11",
+   "naam": "Verduurzamen gemeentegebouwen",
+   "deelprogramma": "1.3",
+   "gebouw": "bouw",
+   "lasten_mln": 1.3,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Gemeentegebouwen worden langzamer verduurzaamd.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "o1",
+   "naam": "Onderhoud straten, groen en speeltuinen",
+   "deelprogramma": "2.1",
+   "gebouw": "park",
+   "lasten_mln": 66.4,
+   "gekoppelde_baten_mln": 1.9,
+   "min_pct": -50,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "s": 1
+   },
+   "tekst_bezuinigen": "Minder maaien, vegen en repareren. Wie te lang wacht, betaalt later meer.",
+   "tekst_investeren": "Een beter onderhouden openbare ruimte in alle wijken.",
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "o3",
+   "naam": "Afvalinzameling huishoudens",
+   "deelprogramma": "2.1",
+   "gebouw": "park",
+   "lasten_mln": 36.8,
+   "gekoppelde_baten_mln": 41.4,
+   "min_pct": null,
+   "max_pct": null,
+   "vergrendeld": true,
+   "reden_vergrendeld": "Wordt volledig betaald uit de afvalstoffenheffing. Minder doen levert de begroting niets op; alleen de heffing gaat omlaag.",
+   "doorgeefluik_heffing": true,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": null,
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "o2",
+   "naam": "Riolering",
+   "deelprogramma": "2.1",
+   "gebouw": "park",
+   "lasten_mln": 22.5,
+   "gekoppelde_baten_mln": 23.7,
+   "min_pct": null,
+   "max_pct": null,
+   "vergrendeld": true,
+   "reden_vergrendeld": "Wordt volledig betaald uit de rioolheffing.",
+   "doorgeefluik_heffing": true,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": null,
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "o4",
+   "naam": "Bedrijfsafval inzamelen",
+   "deelprogramma": "2.1",
+   "gebouw": "park",
+   "lasten_mln": 7.6,
+   "gekoppelde_baten_mln": 9.1,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "De gemeente stopt met bedrijfsafval; ondernemers kiezen een eigen inzamelaar. Je mist de inkomsten, dus dit kost geld.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "o5",
+   "naam": "Autowerkplaats voor derden",
+   "deelprogramma": "2.1",
+   "gebouw": "park",
+   "lasten_mln": 0.9,
+   "gekoppelde_baten_mln": 0.9,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "De gemeente repareert geen auto's meer voor anderen. Kosten en inkomsten vallen tegen elkaar weg.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "o6",
+   "naam": "Leefkwaliteit (groen en spelen in wijken)",
+   "deelprogramma": "2.1",
+   "gebouw": "park",
+   "lasten_mln": 4.5,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "s": 0.5
+   },
+   "tekst_bezuinigen": "Minder nieuw groen en minder nieuwe speelplekken.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "o8",
+   "naam": "Geo en data",
+   "deelprogramma": "2.1",
+   "gebouw": "park",
+   "lasten_mln": 1.1,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Minder kaarten en data over de gemeente.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "v2",
+   "naam": "Boa's en toezicht op straat",
+   "deelprogramma": "2.2",
+   "gebouw": "politie",
+   "lasten_mln": 3.4,
+   "gekoppelde_baten_mln": 0.1,
+   "min_pct": -100,
+   "max_pct": 50,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "v": 1
+   },
+   "tekst_bezuinigen": "Minder boa's op straat.",
+   "tekst_investeren": "Meer boa's op straat, ook tegen opgevoerde fatbikes.",
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "v3",
+   "naam": "Openbare orde en veiligheid",
+   "deelprogramma": "2.2",
+   "gebouw": "politie",
+   "lasten_mln": 3.8,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 50,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "v": 0.7
+   },
+   "tekst_bezuinigen": "Minder aanpak van overlast en minder cameratoezicht.",
+   "tekst_investeren": "Meer cameratoezicht en aanpak van overlast.",
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "v4",
+   "naam": "Ondermijning (drugs en criminele geldstromen)",
+   "deelprogramma": "2.2",
+   "gebouw": "politie",
+   "lasten_mln": 1.5,
+   "gekoppelde_baten_mln": 0.2,
+   "min_pct": -100,
+   "max_pct": 50,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "v": 0.7
+   },
+   "tekst_bezuinigen": "Minder aanpak van criminaliteit achter gewone bedrijfjes.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "v5",
+   "naam": "Jeugd en veiligheid",
+   "deelprogramma": "2.2",
+   "gebouw": "politie",
+   "lasten_mln": 4,
+   "gekoppelde_baten_mln": 1.9,
+   "min_pct": -100,
+   "max_pct": 50,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "v": 0.5,
+    "z": 0.3
+   },
+   "tekst_bezuinigen": "Minder aanpak van jeugdoverlast en jonge criminelen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "v6",
+   "naam": "Zorg- en Veiligheidshuis",
+   "deelprogramma": "2.2",
+   "gebouw": "politie",
+   "lasten_mln": 2.2,
+   "gekoppelde_baten_mln": 1.2,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "v": 0.5,
+    "z": 0.5
+   },
+   "tekst_bezuinigen": "Minder samenwerking tussen politie, zorg en justitie rond verwarde personen en veelplegers.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "v9",
+   "naam": "Reclamezuilen op straat",
+   "deelprogramma": "2.2",
+   "gebouw": "politie",
+   "lasten_mln": 0.5,
+   "gekoppelde_baten_mln": 1.2,
+   "min_pct": -100,
+   "max_pct": 100,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Minder reclamezuilen. Je mist dan reclame-inkomsten, dus dit kost geld.",
+   "tekst_investeren": "Meer reclamezuilen: dit levert juist geld op.",
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "v1",
+   "naam": "Brandweer en ambulancezorg (Veiligheidsregio)",
+   "deelprogramma": "2.2",
+   "gebouw": "politie",
+   "lasten_mln": 25.7,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": null,
+   "max_pct": null,
+   "vergrendeld": true,
+   "reden_vergrendeld": "Vaste bijdrage aan de Veiligheidsregio. Die bepaalt de gemeente niet alleen.",
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "v": 1
+   },
+   "tekst_bezuinigen": null,
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "v8",
+   "naam": "Omgevingsdienst",
+   "deelprogramma": "2.2",
+   "gebouw": "politie",
+   "lasten_mln": 1.747,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": null,
+   "max_pct": null,
+   "vergrendeld": true,
+   "reden_vergrendeld": "Vaste bijdrage aan de Omgevingsdienst Groningen.",
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": null,
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "s3",
+   "naam": "Begeleiding naar werk",
+   "deelprogramma": "3.1",
+   "gebouw": "werk",
+   "lasten_mln": 20.7,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 50,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "w": 1
+   },
+   "tekst_bezuinigen": "Minder begeleiding naar werk. ⚠︎ Daardoor blijven meer mensen in de bijstand.",
+   "tekst_investeren": "Meer coaching naar werk. ⚠︎ Daardoor stromen mensen sneller uit de bijstand.",
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "s1",
+   "naam": "Bijstandsuitkeringen",
+   "deelprogramma": "3.1",
+   "gebouw": "werk",
+   "lasten_mln": 199,
+   "gekoppelde_baten_mln": 186.8,
+   "min_pct": null,
+   "max_pct": null,
+   "vergrendeld": true,
+   "reden_vergrendeld": "Iedereen heeft wettelijk recht op bijstand. Deze post daalt alleen als meer mensen werk vinden: stop meer geld in begeleiding naar werk.",
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "z": 1
+   },
+   "tekst_bezuinigen": null,
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "s2",
+   "naam": "Sociale werkvoorziening (Iederz)",
+   "deelprogramma": "3.1",
+   "gebouw": "werk",
+   "lasten_mln": 38.4,
+   "gekoppelde_baten_mln": 5.5,
+   "min_pct": -10,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "meters": {
+    "w": 0.6,
+    "z": 0.3
+   },
+   "tekst_bezuinigen": "Efficiënter werken bij Iederz. Het is een wettelijke taak, dus veel meer bezuinigen kan niet.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "s4",
+   "naam": "Loonkostensubsidie",
+   "deelprogramma": "3.1",
+   "gebouw": "werk",
+   "lasten_mln": 11.8,
+   "gekoppelde_baten_mln": 11.3,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "w": 0.5
+   },
+   "tekst_bezuinigen": "Minder werkgevers krijgen subsidie om iemand met een beperking aan te nemen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "s5",
+   "naam": "Werk in Zicht",
+   "deelprogramma": "3.1",
+   "gebouw": "werk",
+   "lasten_mln": 9.4,
+   "gekoppelde_baten_mln": 6.7,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "w": 0.5
+   },
+   "tekst_bezuinigen": "Minder werkervaringsplekken.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "s6",
+   "naam": "Basisbanen",
+   "deelprogramma": "3.1",
+   "gebouw": "werk",
+   "lasten_mln": 9.4,
+   "gekoppelde_baten_mln": 2.9,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "w": 0.5
+   },
+   "tekst_bezuinigen": "Minder of geen gemeentelijke basisbanen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "s8",
+   "naam": "Afspraakbanen",
+   "deelprogramma": "3.1",
+   "gebouw": "werk",
+   "lasten_mln": 3.4,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "w": 0.4
+   },
+   "tekst_bezuinigen": "Minder banen bij de gemeente voor mensen met een arbeidsbeperking.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "s9",
+   "naam": "Schuldhulpverlening",
+   "deelprogramma": "3.1",
+   "gebouw": "werk",
+   "lasten_mln": 11.3,
+   "gekoppelde_baten_mln": 1.1,
+   "min_pct": -50,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "z": 0.7
+   },
+   "tekst_bezuinigen": "Minder hulp bij schulden. ⚠︎ Meer mensen komen in de problemen en vragen bijzondere bijstand aan.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "s10",
+   "naam": "Armoede- en minimaregelingen",
+   "deelprogramma": "3.1",
+   "gebouw": "werk",
+   "lasten_mln": 12.2,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "z": 0.8
+   },
+   "tekst_bezuinigen": "Minder regelingen voor mensen met een laag inkomen, zoals kortingen en vergoedingen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "s11",
+   "naam": "Bijzondere bijstand",
+   "deelprogramma": "3.1",
+   "gebouw": "werk",
+   "lasten_mln": 6.1,
+   "gekoppelde_baten_mln": 0.5,
+   "min_pct": -50,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "z": 0.6
+   },
+   "tekst_bezuinigen": "Strengere regels voor vergoeding van onverwachte, noodzakelijke kosten.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "s12",
+   "naam": "Individuele inkomenstoeslag",
+   "deelprogramma": "3.1",
+   "gebouw": "werk",
+   "lasten_mln": 4.2,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -50,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "z": 0.4
+   },
+   "tekst_bezuinigen": "Een lagere toeslag voor mensen die lang van een minimuminkomen leven.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "s7",
+   "naam": "Inburgering",
+   "deelprogramma": "3.1",
+   "gebouw": "werk",
+   "lasten_mln": 5,
+   "gekoppelde_baten_mln": 3,
+   "min_pct": -10,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "meters": {},
+   "tekst_bezuinigen": "Efficiënter werken bij inburgering. Het is een wettelijke taak.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "z1",
+   "naam": "Jeugdzorg",
+   "deelprogramma": "3.3",
+   "gebouw": "zorg",
+   "lasten_mln": 118.8,
+   "gekoppelde_baten_mln": 1.4,
+   "min_pct": -10,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "meters": {
+    "z": 1
+   },
+   "tekst_bezuinigen": "Strakker sturen op jeugdzorg. Kinderen hebben wettelijk recht op hulp, dus veel meer dan 10% kan niet.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "z2",
+   "naam": "Beschermd wonen",
+   "deelprogramma": "3.3",
+   "gebouw": "zorg",
+   "lasten_mln": 84.4,
+   "gekoppelde_baten_mln": 1.4,
+   "min_pct": -10,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "meters": {
+    "z": 1
+   },
+   "tekst_bezuinigen": "Strakker sturen op beschermd wonen. Het is een wettelijke taak.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "z3",
+   "naam": "Wmo (huishoudelijke hulp, hulpmiddelen)",
+   "deelprogramma": "3.3",
+   "gebouw": "zorg",
+   "lasten_mln": 64.7,
+   "gekoppelde_baten_mln": 1.9,
+   "min_pct": -10,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "meters": {
+    "z": 1
+   },
+   "tekst_bezuinigen": "Strakker toetsen bij aanvragen voor hulp en hulpmiddelen. Het is een wettelijke taak.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "z4",
+   "naam": "WIJ-teams in de wijk",
+   "deelprogramma": "3.3",
+   "gebouw": "zorg",
+   "lasten_mln": 44.2,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -25,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "z": 0.8
+   },
+   "tekst_bezuinigen": "Minder hulpverleners in de wijk; langere wachttijden.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "z5",
+   "naam": "Daklozen- en vrouwenopvang",
+   "deelprogramma": "3.3",
+   "gebouw": "zorg",
+   "lasten_mln": 28.6,
+   "gekoppelde_baten_mln": 3.6,
+   "min_pct": -10,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "meters": {
+    "z": 0.7,
+    "v": 0.2
+   },
+   "tekst_bezuinigen": "Minder opvangplekken. Het is grotendeels een wettelijke taak.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "z6",
+   "naam": "Gezondheid (GGD)",
+   "deelprogramma": "3.3",
+   "gebouw": "zorg",
+   "lasten_mln": 18.8,
+   "gekoppelde_baten_mln": 6.6,
+   "min_pct": -10,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "meters": {
+    "z": 0.4
+   },
+   "tekst_bezuinigen": "Minder preventie en gezondheidsprogramma's.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "z7",
+   "naam": "Huiselijk geweld en kindermishandeling",
+   "deelprogramma": "3.3",
+   "gebouw": "zorg",
+   "lasten_mln": 10.2,
+   "gekoppelde_baten_mln": 3.6,
+   "min_pct": -10,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "meters": {
+    "z": 0.5,
+    "v": 0.3
+   },
+   "tekst_bezuinigen": "Minder capaciteit bij Veilig Thuis. Het is een wettelijke taak.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "z8",
+   "naam": "Welzijnsinstellingen en buurthuizen",
+   "deelprogramma": "3.3",
+   "gebouw": "buurt",
+   "lasten_mln": 8.2,
+   "gekoppelde_baten_mln": 0.25,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "z": 0.4,
+    "c": 0.2
+   },
+   "tekst_bezuinigen": "Minder buurthuizen en welzijnswerk.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "z9",
+   "naam": "Sociale samenhang in wijken",
+   "deelprogramma": "3.3",
+   "gebouw": "buurt",
+   "lasten_mln": 7.9,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "z": 0.3,
+    "s": 0.2
+   },
+   "tekst_bezuinigen": "Minder bewonersinitiatieven en buurtactiviteiten.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "z10",
+   "naam": "Diversiteit en inclusie",
+   "deelprogramma": "3.3",
+   "gebouw": "zorg",
+   "lasten_mln": 1.2,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "De gemeente stopt (deels) met haar diversiteitsbeleid.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "z11",
+   "naam": "Opvang vluchtelingen en asielzoekers",
+   "deelprogramma": "3.3",
+   "gebouw": "zorg",
+   "lasten_mln": 0.958,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Minder gemeentelijk geld voor opvang.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "d1",
+   "naam": "Schoolgebouwen",
+   "deelprogramma": "3.2",
+   "gebouw": "school",
+   "lasten_mln": 19.8,
+   "gekoppelde_baten_mln": 4,
+   "min_pct": -10,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "meters": {
+    "c": 0.2
+   },
+   "tekst_bezuinigen": "Nieuwbouw en renovatie van scholen gaan langzamer. Het is een wettelijke taak.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "d2",
+   "naam": "Onderwijskansen",
+   "deelprogramma": "3.2",
+   "gebouw": "school",
+   "lasten_mln": 12.3,
+   "gekoppelde_baten_mln": 4.7,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "z": 0.3
+   },
+   "tekst_bezuinigen": "Minder voorschool en extra lessen voor kinderen met een achterstand.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "d4",
+   "naam": "Voortijdig schoolverlaten",
+   "deelprogramma": "3.2",
+   "gebouw": "school",
+   "lasten_mln": 3.5,
+   "gekoppelde_baten_mln": 2.4,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "w": 0.2
+   },
+   "tekst_bezuinigen": "Minder aanpak van jongeren die zonder diploma stoppen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "d5",
+   "naam": "Leerlingenvervoer",
+   "deelprogramma": "3.2",
+   "gebouw": "school",
+   "lasten_mln": 2.6,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": null,
+   "max_pct": null,
+   "vergrendeld": true,
+   "reden_vergrendeld": "Wettelijke taak: kinderen met een beperking hebben recht op vervoer naar school.",
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": null,
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "d6",
+   "naam": "Natuur- en duurzaamheidseducatie",
+   "deelprogramma": "3.2",
+   "gebouw": "school",
+   "lasten_mln": 1.3,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Minder lessen over natuur en duurzaamheid op scholen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "k1",
+   "naam": "Sporthallen, zwembaden en ijsbaan",
+   "deelprogramma": "3.4",
+   "gebouw": "zwembad",
+   "lasten_mln": 36.5,
+   "gekoppelde_baten_mln": 11.2,
+   "min_pct": -50,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "c": 1
+   },
+   "tekst_bezuinigen": "Minder onderhoud en kortere openingstijden. Bij grote bezuinigingen moet er een zwembad dicht.",
+   "tekst_investeren": "Sneller nieuwe en betere sportaccommodaties.",
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.4 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "k2",
+   "naam": "Sportstimulering",
+   "deelprogramma": "3.4",
+   "gebouw": "zwembad",
+   "lasten_mln": 2.2,
+   "gekoppelde_baten_mln": 1.1,
+   "min_pct": -100,
+   "max_pct": 50,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "c": 0.5
+   },
+   "tekst_bezuinigen": "Minder sportcoaches en sportactiviteiten in de wijk.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.4 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "k3",
+   "naam": "Recreatiegebieden en bewegen",
+   "deelprogramma": "3.4",
+   "gebouw": "zwembad",
+   "lasten_mln": 1.1,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "c": 0.3,
+    "s": 0.2
+   },
+   "tekst_bezuinigen": "Minder onderhoud van recreatiegebieden.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.4 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "c1",
+   "naam": "Stadsschouwburg en Oosterpoort",
+   "deelprogramma": "3.5",
+   "gebouw": "theater",
+   "lasten_mln": 26.1,
+   "gekoppelde_baten_mln": 16.6,
+   "min_pct": -50,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "c": 0.8
+   },
+   "tekst_bezuinigen": "Minder voorstellingen. Je mist ook kaartverkoop, dus je bespaart minder dan je denkt.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.5 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "c2",
+   "naam": "Culturele instellingen en subsidies",
+   "deelprogramma": "3.5",
+   "gebouw": "theater",
+   "lasten_mln": 30.2,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "c": 1
+   },
+   "tekst_bezuinigen": "Minder subsidie voor musea, podia, festivals en kunstenaars.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.5 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "c3",
+   "naam": "Overal cultuur (o.a. Forum, broedplaatsen)",
+   "deelprogramma": "3.5",
+   "gebouw": "theater",
+   "lasten_mln": 14,
+   "gekoppelde_baten_mln": 4.9,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "c": 0.6
+   },
+   "tekst_bezuinigen": "Minder cultuurprogramma's en broedplaatsen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.5 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "c4",
+   "naam": "Groninger Archieven",
+   "deelprogramma": "3.5",
+   "gebouw": "theater",
+   "lasten_mln": 2.8,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -25,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Kortere openingstijden van het archief.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.5 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "g1",
+   "naam": "College van burgemeester en wethouders",
+   "deelprogramma": "4.2",
+   "gebouw": "stadhuis",
+   "lasten_mln": 2.534,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -40,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Minder wethouders.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 4.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "g2",
+   "naam": "Gemeenteraad en griffie",
+   "deelprogramma": "4.2",
+   "gebouw": "stadhuis",
+   "lasten_mln": 3.733,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -25,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Minder ondersteuning voor de gemeenteraad.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 4.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "g3",
+   "naam": "Wijkbudgetten",
+   "deelprogramma": "4.2",
+   "gebouw": "buurt",
+   "lasten_mln": 4.25,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "s": 0.3
+   },
+   "tekst_bezuinigen": "Minder geld dat wijken zelf mogen besteden.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 4.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "g4",
+   "naam": "Wijkvernieuwing (o.a. Selwerd, De Wijert, Beijum)",
+   "deelprogramma": "4.2",
+   "gebouw": "buurt",
+   "lasten_mln": 8.15,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "s": 0.4,
+    "z": 0.2
+   },
+   "tekst_bezuinigen": "Wijkvernieuwing gaat langzamer.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 4.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "g5",
+   "naam": "Samenwerkingsverbanden",
+   "deelprogramma": "4.2",
+   "gebouw": "stadhuis",
+   "lasten_mln": 1.753,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Groningen stapt uit samenwerkingsverbanden met andere overheden.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 4.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "g7",
+   "naam": "Concernposten",
+   "deelprogramma": "4.2",
+   "gebouw": "stadhuis",
+   "lasten_mln": 5,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Minder algemene reservepotjes binnen de organisatie.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 4.2 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "b1",
+   "naam": "Burgerzaken (paspoort, rijbewijs)",
+   "deelprogramma": "4.1",
+   "gebouw": "stadhuis",
+   "lasten_mln": 5.4,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -25,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Langere wachttijden voor een paspoort of rijbewijs.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 4.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "b2",
+   "naam": "Klantcontactcentrum",
+   "deelprogramma": "4.1",
+   "gebouw": "stadhuis",
+   "lasten_mln": 3.8,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -50,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "De gemeente is minder goed bereikbaar.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 4.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "b3",
+   "naam": "Uitvoering belastingen",
+   "deelprogramma": "4.1",
+   "gebouw": "stadhuis",
+   "lasten_mln": 5,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -25,
+   "max_pct": 25,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Minder mensen voor aanslagen en bezwaren.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 4.1 ('Waar gaat het geld voornamelijk naar toe')"
+  },
+  {
+   "id": "h1",
+   "naam": "Overhead (staf, ICT, huisvesting, HR)",
+   "deelprogramma": "4.4",
+   "gebouw": "stadhuis",
+   "lasten_mln": 129.18,
+   "gekoppelde_baten_mln": 5.944,
+   "min_pct": -20,
+   "max_pct": 20,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "meters": {},
+   "tekst_bezuinigen": "Minder ondersteunend personeel en minder kantoorruimte.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2026, financiële toelichting deelprogramma 4.4 ('Waar gaat het geld voornamelijk naar toe')"
+  }
+ ],
+ "belastingen": [
+  {
+   "id": "t1",
+   "naam": "Onroerendezaakbelasting (OZB)",
+   "deelprogramma": "4.3",
+   "opbrengst_mln": 125.3,
+   "min_pct": -30,
+   "max_pct": 20,
+   "voelbaarheid_portemonnee": 1,
+   "uitleg": "Betalen alle huiseigenaren en bedrijven. Huurders betalen indirect mee via de huur."
+  },
+  {
+   "id": "t5",
+   "naam": "Parkeertarieven",
+   "deelprogramma": "1.2",
+   "opbrengst_mln": 35.1,
+   "min_pct": -100,
+   "max_pct": 20,
+   "voelbaarheid_portemonnee": 0.6,
+   "uitleg": "Parkeergeld en vergunningen. Op −100% is parkeren overal gratis."
+  },
+  {
+   "id": "t2",
+   "naam": "Toeristenbelasting",
+   "deelprogramma": "4.3",
+   "opbrengst_mln": 2.9,
+   "min_pct": -100,
+   "max_pct": 100,
+   "voelbaarheid_portemonnee": 0.05,
+   "uitleg": "Betalen hotelgasten. Groningers merken er weinig van."
+  },
+  {
+   "id": "t4",
+   "naam": "Precariobelasting",
+   "deelprogramma": "2.2",
+   "opbrengst_mln": 1.8,
+   "min_pct": -100,
+   "max_pct": 50,
+   "voelbaarheid_portemonnee": 0.2,
+   "uitleg": "Betaal je voor spullen op straat, zoals een container of steiger bij een verbouwing."
+  },
+  {
+   "id": "t3",
+   "naam": "Reclamebelasting",
+   "deelprogramma": "4.3",
+   "opbrengst_mln": 0.7,
+   "min_pct": -100,
+   "max_pct": 50,
+   "voelbaarheid_portemonnee": 0.15,
+   "uitleg": "Betalen ondernemers voor reclame aan de gevel."
+  }
+ ],
+ "actiekaarten": [
+  {
+   "id": "k_vast",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 2,
+   "naam": "Gemeentelijk vastgoed verkopen",
+   "uitleg": "Onder andere het Vapiano-pand en de Glaudé-panden.",
+   "meter_effect_punten": {},
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_warm",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 4.9,
+   "naam": "Minderheidsbelang WarmteStad verkopen",
+   "uitleg": "De gemeente houdt de meerderheid, zoals de wet voorschrijft.",
+   "meter_effect_punten": {},
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_zon",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 4,
+   "naam": "Zonnepark Meerstad-Noord niet aanleggen",
+   "uitleg": "Het zonnepark komt er niet.",
+   "meter_effect_punten": {},
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_wind",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 1.762,
+   "naam": "Windpark Roodehaan stoppen",
+   "uitleg": "Geen windmolens bij Roodehaan.",
+   "meter_effect_punten": {},
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_laad",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 0.74,
+   "naam": "Laadpalen aan de markt laten",
+   "uitleg": "De gemeente stopt met haar eigen laadpalenbedrijf.",
+   "meter_effect_punten": {},
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_eiw",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 0.7,
+   "naam": "Stoppen met de eiwittransitie",
+   "uitleg": "Geen gemeentelijk programma meer voor voedsel- en eiwittransitie.",
+   "meter_effect_punten": {},
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_cas",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 0.6,
+   "naam": "Casinolocatie aan de markt laten",
+   "uitleg": "De gemeente betaalt niet meer voor de tijdelijke invulling.",
+   "meter_effect_punten": {},
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_kwijt",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": 4.2,
+   "naam": "Kwijtschelding gemeentelijke belastingen schrappen",
+   "uitleg": "Ongeveer 14.000 huishoudens betalen voortaan zelf hun gemeentelijke belastingen.",
+   "meter_effect_punten": {
+    "z": -8
+   },
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_ongedoc",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": 3.5,
+   "naam": "Stoppen met opvang ongedocumenteerden",
+   "uitleg": "De gemeente betaalt deze opvang niet meer zelf, nu het Rijk ermee stopt.",
+   "meter_effect_punten": {
+    "z": -3
+   },
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_brug",
+   "soort": "uitgave",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": -5,
+   "naam": "Bruggenfonds",
+   "uitleg": "Een tijdelijke verbinding tijdens de bouw van de Gerrit Krolbrug.",
+   "meter_effect_punten": {
+    "s": 3
+   },
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_fc",
+   "soort": "uitgave",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": -2,
+   "naam": "Trainingscomplex FC Groningen",
+   "uitleg": "De eerste stap, zodat er op sportpark Corpus ruimte komt voor amateurs.",
+   "meter_effect_punten": {
+    "c": 4
+   },
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_licht",
+   "soort": "uitgave",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": -1,
+   "naam": "Betere straatverlichting",
+   "uitleg": "Meer licht op onveilige plekken, ook na middernacht.",
+   "meter_effect_punten": {
+    "v": 4
+   },
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_res",
+   "soort": "uitgave",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": -7,
+   "naam": "Reserves aanvullen",
+   "uitleg": "Een grotere buffer, zodat een tegenvaller niet meteen tot bezuinigingen leidt.",
+   "meter_effect_punten": {},
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_smr",
+   "soort": "uitgave",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": -0.5,
+   "naam": "Onderzoek kleine kerncentrale (SMR)",
+   "uitleg": "Onderzoeken wat een SMR in Groningen kan betekenen.",
+   "meter_effect_punten": {},
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_bouw",
+   "soort": "uitgave",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": -5,
+   "naam": "Sneller-bouwenfonds",
+   "uitleg": "Sneller grond bouwrijp maken, zodat er meer woningen komen.",
+   "meter_effect_punten": {
+    "w": 2
+   },
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_ai",
+   "soort": "uitgave",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": -2,
+   "naam": "Investeren in AI",
+   "uitleg": "Slimmere gemeentelijke dienstverlening.",
+   "meter_effect_punten": {},
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  }
+ ],
+ "opmerkingen": [
+  "De onderdelen per deelprogramma zijn de posten uit 'Waar gaat het geld voornamelijk naar toe'. Ze dekken niet 100% van de lasten per deelprogramma; het restant is 'overige posten' en is in de game niet aanpasbaar.",
+  "Parkeertarieven in de game gebruiken de baten van het parkeerbedrijf (35,1 mln, incl. vergunningen en garages); de kerngegevens noemen 26,3 mln parkeerbelasting.",
+  "Meters, min/max-percentages, teksten en vergrendelingen zijn spelontwerp, geen begrotingsgegevens."
+ ]
+}
