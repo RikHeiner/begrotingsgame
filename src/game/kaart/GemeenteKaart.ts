@@ -307,8 +307,10 @@ export class GemeenteKaart {
     const { geo, data } = this.o;
     const laag = new Container();
     data.personas.personas.forEach((p, i) => {
-      // Elke inwoner loopt over de weg naar het gebouw in zijn eigen gebied (of een willekeurige).
-      const eigen = data.gebouwen.find((g) => g.gebied === p.gebied && g.id !== 'stadhuis');
+      // Elke inwoner loopt over de weg naar het gebouw in de eigen buurt, anders in het eigen gebied.
+      const eigen =
+        data.gebouwen.find((g) => g.buurt === p.buurt && g.id !== 'stadhuis') ??
+        data.gebouwen.find((g) => g.gebied === p.gebied && g.id !== 'stadhuis');
       const weg = geo.wegen.find((w) => w.gebouw === eigen?.id) ?? geo.wegen[i % geo.wegen.length];
       if (!weg) return;
       const figuur = new Container();

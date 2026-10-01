@@ -1,6 +1,6 @@
 # Inwoners in de game: ter afstemming met de fractie
 
-Acht inwoners lopen als poppetjes over de kaart. Hun tevredenheid telt mee in de score. Hieronder staat per inwoner waar hij of zij op let. Dit is een voorstel: graag per inwoner aangeven of het klopt of wat anders moet.
+9 inwoners lopen als poppetjes over de kaart. Hun tevredenheid telt mee in de score. Hieronder staat per inwoner waar hij of zij op let. Dit is een voorstel: graag per inwoner aangeven of het klopt of wat anders moet.
 
 Zo werkt het (spelregel, geen voorspelling): de tevredenheid begint op 50. Hij gaat omhoog of omlaag met de meters die de inwoner belangrijk vindt, en met de posten die hij of zij merkt.
 
@@ -148,6 +148,27 @@ _Gemaakt uit `data/spel/personas.json` met `npm run personas:overzicht`._
   - Sportstimulering: blij met meer geld hiervoor (belangrijk)
   - Voortijdig schoolverlaten: blij met meer geld hiervoor (een beetje)
   - Onderwijskansen: blij met meer geld hiervoor (een beetje)
+
+- [ ] Klopt zo
+- [ ] Aanpassen: …
+
+## Peter en Tineke, 68
+
+- **Woont in:** Oosterpoort (gebied Zuid)
+- **Situatie:** Gepensioneerd stel met een koophuis in de Oosterpoort. Ze gaan graag naar concerten in De Oosterpoort en fietsen naar de markt.
+- **Let op deze meters:**
+  - 🎭 Sport en cultuur: belangrijk
+  - 🛡️ Veilig: belangrijk
+  - 🌳 Schoon en heel: belangrijk
+  - 👛 Portemonnee: belangrijk
+  - 🤝 Zorg en vangnet: een beetje
+- **Merkt deze posten:**
+  - Stadsschouwburg en Oosterpoort: blij met meer geld hiervoor (heel belangrijk)
+  - Onroerendezaakbelasting (OZB): blij als de belasting omlaag gaat (belangrijk)
+  - Onderhoud straten, groen en speeltuinen: blij met meer geld hiervoor (belangrijk)
+  - Culturele instellingen en subsidies: blij met meer geld hiervoor (een beetje)
+  - Parkeertarieven: blij als de belasting omlaag gaat (een beetje)
+  - Wmo (huishoudelijke hulp, hulpmiddelen): blij met meer geld hiervoor (een beetje)
 
 - [ ] Klopt zo
 - [ ] Aanpassen: …

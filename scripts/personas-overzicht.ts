@@ -1,6 +1,6 @@
 /**
  * npm run personas:overzicht
- * Schrijft docs/INWONERS-AFSTEMMEN.md: de acht inwoners en wat ze belangrijk vinden, zodat de fractie
+ * Schrijft docs/INWONERS-AFSTEMMEN.md: de inwoners en wat ze belangrijk vinden, zodat de fractie
  * ze kan nalopen voordat de game live gaat. Bron: data/spel/personas.json.
  */
 import { writeFileSync } from 'node:fs';
@@ -30,7 +30,7 @@ const isKaart = (id: string) => data.index.kaarten.has(id);
 const r: string[] = [
   '# Inwoners in de game: ter afstemming met de fractie',
   '',
-  'Acht inwoners lopen als poppetjes over de kaart. Hun tevredenheid telt mee in de score. Hieronder staat per inwoner waar hij of zij op let. Dit is een voorstel: graag per inwoner aangeven of het klopt of wat anders moet.',
+  `${data.personas.personas.length} inwoners lopen als poppetjes over de kaart. Hun tevredenheid telt mee in de score. Hieronder staat per inwoner waar hij of zij op let. Dit is een voorstel: graag per inwoner aangeven of het klopt of wat anders moet.`,
   '',
   'Zo werkt het (spelregel, geen voorspelling): de tevredenheid begint op 50. Hij gaat omhoog of omlaag met de meters die de inwoner belangrijk vindt, en met de posten die hij of zij merkt.',
   '',

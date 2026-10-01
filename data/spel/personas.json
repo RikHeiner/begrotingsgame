@@ -1,5 +1,5 @@
 {
-  "toelichting": "Acht inwoners. Hun tevredenheid is een spelregel: 50 + gewogen afwijking van hun meters + de wijziging van posten die zij merken. Een positief gewicht bij een post betekent: meer geld is beter voor deze persoon. Bij een belasting is het gewicht negatief: een hogere belasting is slechter. Bij een actiekaart telt aan als 100%.",
+  "toelichting": "De inwoners in de game (de acht uit de opdracht plus Peter en Tineke). Hun tevredenheid is een spelregel: 50 + gewogen afwijking van hun meters + de wijziging van posten die zij merken. Een positief gewicht bij een post betekent: meer geld is beter voor deze persoon. Bij een belasting is het gewicht negatief: een hogere belasting is slechter. Bij een actiekaart telt aan als 100%.",
   "spelregels": {
     "gewicht_meters": 1,
     "punten_posten_per_100pct": 25
@@ -166,6 +166,29 @@
       },
       "buurt": "BU00140800",
       "gebied": "west"
+    },
+    {
+      "id": "peter_tineke",
+      "naam": "Peter en Tineke",
+      "leeftijd": 68,
+      "situatie": "Gepensioneerd stel met een koophuis in de Oosterpoort. Ze gaan graag naar concerten in De Oosterpoort en fietsen naar de markt.",
+      "meters": {
+        "sport_cultuur": 0.8,
+        "veilig": 0.6,
+        "schoon": 0.6,
+        "portemonnee": 0.6,
+        "zorg": 0.4
+      },
+      "posten": {
+        "c1": 1,
+        "c2": 0.4,
+        "o1": 0.5,
+        "z3": 0.3,
+        "t1": -0.7,
+        "t5": -0.4
+      },
+      "buurt": "BU00140101",
+      "gebied": "zuid"
     }
   ]
 }

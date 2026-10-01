@@ -14,7 +14,7 @@ Alle bedragen, posten, teksten en parameters staan in deze map. De code kent gee
 | `spel/meters.json` | De acht meters, hun korte code en de spelregels voor de berekening. |
 | `spel/gebieden.json` | De zeven gebieden van de gemeente (Centrum, Noord, Oost, Zuid, West, Haren, Ten Boer) met hun CBS-buurten. |
 | `spel/gebouwen.json` | De 14 gebouwen, hun buurt, hun gebied en hun posten. |
-| `spel/personas.json` | De acht inwoners, hun buurt, hun gebied en waar ze om geven. |
+| `spel/personas.json` | De inwoners, hun buurt, hun gebied en waar ze om geven. |
 | `mappings/id-mapping-OUD-NIEUW.json` | Koppeling van ids tussen begrotingsjaren (vanaf de begroting 2027). |
 
 Alleen `.json` en `.geojson` worden online gezet. Deze documentatie niet.
@@ -51,7 +51,7 @@ Er is geen bedrag aangepast.
 - `spel/meters.json`: de korte codes (`v`, `s`, `z`, `w`, `c`) zijn de sleutels die de begroting al gebruikt bij `meters`. Daarbij komen `p` (portemonnee), `h` (wonen) en `d` (dienstverlening). De spelregels (gevoeligheid 120 en 150) komen uit het prototype.
 - `spel/gebieden.json`: de game gebruikt de gebiedsindeling van de gemeente (wijkwethouders en gebiedsteams), niet de CBS-wijken. Elke CBS-buurt uit de kaart hoort bij precies één gebied; `data:check` controleert dat. Buurten in `controleren` staan niet in de lijst van de gemeente en zijn voorlopig bij Oost gezet.
 - `spel/gebouwen.json`: de 14 gebouwen uit het prototype. `buurt` is een CBS-buurtcode, `gebied` moet daarbij passen. `onderdelen` moet precies overeenkomen met het veld `gebouw` bij de onderdelen; `data:check` controleert dat. De positie op de kaart volgt in fase 2.
-- `spel/personas.json`: de acht inwoners uit de opdracht, met buurt en gebied. De gewichten zijn een voorstel; de fractie stemt ze af via `docs/INWONERS-AFSTEMMEN.md` (`npm run personas:overzicht`).
+- `spel/personas.json`: de acht inwoners uit de opdracht plus Peter en Tineke (Oosterpoort, op verzoek van Rik), met buurt en gebied. De gewichten zijn een voorstel; de fractie stemt ze af via `docs/INWONERS-AFSTEMMEN.md` (`npm run personas:overzicht`).
 
 ## Hoe de rekenmotor de data leest
 

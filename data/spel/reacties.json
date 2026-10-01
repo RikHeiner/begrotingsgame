@@ -197,7 +197,7 @@
       "id": "c2_minder",
       "voorwaarde": "pct.c2 <= -20",
       "tekst": "Er zijn minder voorstellingen in de gemeente 🎭",
-      "personas": ["devries", "anne"],
+      "personas": ["devries", "anne", "peter_tineke"],
       "gewicht": 3,
       "toon": "negatief"
     },
@@ -213,7 +213,7 @@
       "id": "c1_minder",
       "voorwaarde": "pct.c1 <= -25",
       "tekst": "Minder concerten in de Oosterpoort 🎵",
-      "personas": ["anne", "devries"],
+      "personas": ["anne", "devries", "peter_tineke"],
       "gewicht": 3,
       "toon": "negatief"
     },
@@ -221,7 +221,7 @@
       "id": "c1_meer",
       "voorwaarde": "pct.c1 >= 10",
       "tekst": "Mooie voorstelling gezien in de Stadsschouwburg 🎭",
-      "personas": ["devries", "fatima"],
+      "personas": ["devries", "fatima", "peter_tineke"],
       "gewicht": 3,
       "toon": "positief"
     },
@@ -253,7 +253,7 @@
       "id": "v2_meer",
       "voorwaarde": "pct.v2 >= 20",
       "tekst": "Fijn dat er meer boa's rondlopen 👮",
-      "personas": ["henk", "devries", "fatima"],
+      "personas": ["henk", "devries", "fatima", "peter_tineke"],
       "gewicht": 3,
       "toon": "positief"
     },
@@ -314,7 +314,7 @@
       "id": "o1_gras",
       "voorwaarde": "pct.o1 <= -20",
       "tekst": "Het gras in het park wordt bijna niet gemaaid 🌾",
-      "personas": ["devries", "gezin"],
+      "personas": ["devries", "gezin", "peter_tineke"],
       "gewicht": 3,
       "toon": "negatief"
     },
@@ -322,7 +322,7 @@
       "id": "o1_stoep",
       "voorwaarde": "pct.o1 >= 10",
       "tekst": "De stoep is eindelijk gerepareerd 👍",
-      "personas": ["devries"],
+      "personas": ["devries", "peter_tineke"],
       "gewicht": 3,
       "toon": "positief"
     },
@@ -495,7 +495,7 @@
       "id": "z3_minder",
       "voorwaarde": "pct.z3 <= -5",
       "tekst": "Mijn huishoudelijke hulp komt minder vaak 😟",
-      "personas": ["devries"],
+      "personas": ["devries", "peter_tineke"],
       "gewicht": 3,
       "toon": "negatief"
     },
@@ -647,7 +647,7 @@
       "id": "t5_hoger",
       "voorwaarde": "tax.t5 >= 10",
       "tekst": "Parkeren is weer duurder geworden 😤",
-      "personas": ["henk", "fatima", "gezin"],
+      "personas": ["henk", "fatima", "gezin", "peter_tineke"],
       "gewicht": 3,
       "toon": "negatief"
     },
@@ -711,7 +711,7 @@
       "id": "t1_lager",
       "voorwaarde": "tax.t1 <= -5",
       "tekst": "Mijn OZB-aanslag is lager 🎉",
-      "personas": ["henk", "devries", "gezin", "kees"],
+      "personas": ["henk", "devries", "gezin", "kees", "peter_tineke"],
       "gewicht": 3,
       "toon": "positief"
     },
@@ -719,7 +719,7 @@
       "id": "t1_hoger",
       "voorwaarde": "tax.t1 >= 5",
       "tekst": "Mijn OZB-aanslag is hoger geworden 😬",
-      "personas": ["henk", "devries", "gezin", "kees"],
+      "personas": ["henk", "devries", "gezin", "kees", "peter_tineke"],
       "gewicht": 3,
       "toon": "negatief"
     },
@@ -1082,7 +1082,7 @@
       "id": "reserve",
       "voorwaarde": "reserve >= 5",
       "tekst": "Fijn dat er geld opzij wordt gezet voor later 🏦",
-      "personas": ["devries", "henk"],
+      "personas": ["devries", "henk", "peter_tineke"],
       "gewicht": 3,
       "toon": "positief"
     },
@@ -1171,6 +1171,62 @@
       "voorwaarde": "persona.anne < 35",
       "tekst": "Ik denk erover om na mijn studie te verhuizen 😕",
       "personas": ["anne"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "basis_peter_tineke1",
+      "voorwaarde": "true",
+      "tekst": "Even naar de markt op de fiets 🚲",
+      "personas": ["peter_tineke"],
+      "gewicht": 1,
+      "toon": "neutraal"
+    },
+    {
+      "id": "basis_peter_tineke2",
+      "voorwaarde": "true",
+      "tekst": "Vanavond een concert in De Oosterpoort 🎶",
+      "personas": ["peter_tineke"],
+      "gewicht": 1,
+      "toon": "neutraal"
+    },
+    {
+      "id": "pt_oosterpoort_dicht",
+      "voorwaarde": "pct.c1 <= -40",
+      "tekst": "Ons vaste concert in De Oosterpoort is geschrapt 😢",
+      "personas": ["peter_tineke"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "pt_parkeren",
+      "voorwaarde": "tax.t5 >= 10",
+      "tekst": "Bezoek voor ons kost nu meer parkeergeld 😕",
+      "personas": ["peter_tineke"],
+      "gewicht": 3,
+      "toon": "negatief"
+    },
+    {
+      "id": "pt_ozb",
+      "voorwaarde": "tax.t1 <= -10",
+      "tekst": "Met ons pensioen scheelt een lagere OZB echt 👍",
+      "personas": ["peter_tineke"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "pt_hoog",
+      "voorwaarde": "persona.peter_tineke > 65",
+      "tekst": "Wat wonen we hier toch fijn in de Oosterpoort 😊",
+      "personas": ["peter_tineke"],
+      "gewicht": 3,
+      "toon": "positief"
+    },
+    {
+      "id": "pt_laag",
+      "voorwaarde": "persona.peter_tineke < 35",
+      "tekst": "We herkennen onze wijk bijna niet meer 😕",
+      "personas": ["peter_tineke"],
       "gewicht": 3,
       "toon": "negatief"
     }
