@@ -22,6 +22,7 @@
     "data:diff": "tsx scripts/data-diff.ts",
     "vvd:check": "tsx scripts/vvd-check.ts",
     "vvd:word": "tsx scripts/vvd-word.ts",
+    "db:test": "bash scripts/db-test.sh",
     "personas:overzicht": "tsx scripts/personas-overzicht.ts",
     "geluiden": "node scripts/maak-geluiden.mjs",
     "iconen": "tsx scripts/maak-iconen.ts"
