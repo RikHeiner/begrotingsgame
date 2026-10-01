@@ -20,6 +20,8 @@ jobs:
         run: npm run format:check
       - name: Typecheck
         run: npm run typecheck
+      - name: Data controleren
+        run: npm run data:check
       - name: Unit tests (Vitest)
         run: npm test
       - name: Build

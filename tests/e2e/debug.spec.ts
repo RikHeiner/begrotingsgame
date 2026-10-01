@@ -1,6 +1,8 @@
 import { expect, test } from '@playwright/test';
 
-test('debugpagina: bezuinigen vult de pot, daarna kan er geïnvesteerd worden', async ({ page }, testInfo) => {
+test('debugpagina: bezuinigen vult de pot, daarna kan er geïnvesteerd worden', async ({
+  page,
+}, testInfo) => {
   await page.goto('/');
   const saldo2026 = page.getByTestId('saldo-tabel').getByRole('row', { name: /^2026/ });
   await expect(saldo2026).toContainText('€ 0,000 mln');
