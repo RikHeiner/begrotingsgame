@@ -57,7 +57,8 @@ export function sterren(data: Data, r: Resultaat): Ster[] {
 // Inwoners
 // ---------------------------------------------------------------------------------------------
 
-export type Invloed = { waarde: number; tekst: string };
+/** id: de post, belasting of kaart waar het over gaat */
+export type Invloed = { waarde: number; tekst: string; id: string };
 
 /** Wat een inwoner merkt van jouw keuzes, het sterkst eerst (gewicht × wijziging, + = blij). */
 export function personaInvloeden(data: Data, r: Resultaat, p: Persona): Invloed[] {
@@ -85,7 +86,7 @@ export function personaInvloeden(data: Data, r: Resultaat, p: Persona): Invloed[
         : parkeer
           ? `een ${pct < 0 ? 'lagere' : 'hogere'} prijs voor de ${kleineLetters(parkeer.naam)} (${formatPct(pct)})`
           : `de keuze "${kaart?.naam ?? id}"`;
-    uit.push({ waarde: w * pct, tekst });
+    uit.push({ waarde: w * pct, tekst, id });
   }
   return uit.sort((a, z) => Math.abs(z.waarde) - Math.abs(a.waarde));
 }

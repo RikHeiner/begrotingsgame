@@ -182,3 +182,20 @@ test('werkt offline na het eerste bezoek (PWA)', async ({ page, context }) => {
   await expect(page.locator('.kaart-gebouw')).toHaveCount(15);
   await context.setOffline(false);
 });
+
+test('een opmerking van een inwoner brengt je naar de post', async ({ page }) => {
+  await zonderTutorial(page);
+  const b = codeer(
+    { onderdelen: { o1: -20 }, belastingen: {}, kaarten: [], scenario: 'midden' },
+    2026,
+  );
+  await page.goto(`/?b=${b}`);
+  await page.getByRole('button', { name: /Inwoners/ }).click();
+  await page.locator('summary', { hasText: 'Peter en Tineke' }).click();
+  await page
+    .getByRole('button', { name: /last van minder geld voor onderhoud.*Naar Onderhoud/ })
+    .click();
+  const paneel = page.getByTestId('paneel');
+  await expect(paneel.getByRole('heading')).toContainText('Park');
+  await expect(paneel.getByRole('textbox', { name: /Budget voor .*Onderhoud/ })).toBeFocused();
+});

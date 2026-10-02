@@ -117,7 +117,7 @@ function ParkeerSchuiven({
   const keuzes = resultaat.keuzes.parkeren ?? {};
   const id = data.parkeren?.opbrengst.belasting ?? '';
   return (
-    <section className="parkeren" aria-labelledby={`${gebouw.id}-parkeren`}>
+    <section className="parkeren" aria-labelledby={`${gebouw.id}-parkeren`} data-post="parkeren">
       <h3 id={`${gebouw.id}-parkeren`}>Parkeertarieven</h3>
       <p className="klein">
         Samen {formatMln(posten.reduce((s, p) => s + p.basis, 0))} per jaar. Je kiest per vergunning
@@ -141,7 +141,7 @@ function ParkeerSchuiven({
                     ? `Nieuw tarief: ${euro(p.tarief * (1 + pct / 100))} per jaar.`
                     : null;
                 return (
-                  <li key={p.id}>
+                  <li key={p.id} data-post={`parkeren:${p.id}`}>
                     <Schuif
                       id={`${gebouw.id}-parkeren-${p.id.replace(':', '-')}`}
                       label={label}
@@ -208,7 +208,7 @@ function Programmas({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
                 const loopt = !isGestopt(resultaat.keuzes, p.id) && !minimum;
                 const eenmalig = p.structureel_of_incidenteel === 'I';
                 return (
-                  <li key={p.id}>
+                  <li key={p.id} data-post={p.id}>
                     <button
                       type="button"
                       className={`actiekaart programma${loopt ? ' aan' : ''}`}
@@ -269,7 +269,7 @@ export function GebouwPosten({
           if (data.parkeren && b.id === data.parkeren.opbrengst.belasting) {
             const garage = data.gebouwen.find((x) => x.id === data.parkeren?.opbrengst.gebouw);
             return (
-              <li key={b.id}>
+              <li key={b.id} data-post={b.id}>
                 <p className="schuif-uitleg">
                   {b.naam} ({formatMln(b.opbrengst_mln * 1e6)}): die stel je per vergunning en zone
                   in bij de {garage?.naam ?? 'parkeergarage'}.
@@ -282,7 +282,7 @@ export function GebouwPosten({
           }
           const g = grensBelasting(b);
           return (
-            <li key={b.id}>
+            <li key={b.id} data-post={b.id}>
               <Schuif
                 id={`${gebouw.id}-${b.id}`}
                 label={`${b.naam} (${formatMln(b.opbrengst_mln * 1e6)})`}
@@ -315,7 +315,7 @@ export function GebouwPosten({
         {kaarten.map((kaart) => {
           const aan = k.kaarten.includes(kaart.id);
           return (
-            <li key={kaart.id}>
+            <li key={kaart.id} data-post={kaart.id}>
               <button
                 type="button"
                 className={`actiekaart${aan ? ' aan' : ''}`}
@@ -378,7 +378,7 @@ export function GebouwPosten({
                 ? `Wettelijke taak: niet lager dan ${formatPct(g.min)}.`
                 : null;
           return (
-            <li key={id}>
+            <li key={id} data-post={id}>
               <Schuif
                 id={`${gebouw.id}-${id}`}
                 label={label}

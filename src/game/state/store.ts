@@ -16,6 +16,7 @@ import {
 } from '../../engine';
 import type { Scenario } from '../../engine/schema';
 import { wisselProgramma } from '../beleidshuis';
+import type { Doel } from '../naarPost';
 import { beginKeuzes, type Beginpunt } from '../nulbasis';
 import { gebouwStanden, type GebouwStand } from '../toestand';
 
@@ -92,6 +93,10 @@ type Spel = {
   zetReserve(reserve: { structureel: number; eenmalig: number }): boolean;
   zetScenario(s: Scenario): void;
   kiesGebouw(id?: string): void;
+  /** de post die het paneel moet tonen (na een tik op een opmerking van een inwoner) */
+  focus?: { post: string; teller: number };
+  /** open het gebouw van een post en ga naar die post */
+  naarPost(doel: Doel): void;
   zetWeergave(w: Weergave): void;
   zetGeluid(aan: boolean): void;
   indienen(): void;
@@ -315,6 +320,15 @@ export const useSpel = create<Spel>((set, get) => {
     },
     kiesGebouw(id) {
       set({ gekozenGebouw: id, melding: undefined, ...(id ? { ooitGekozen: true } : {}) });
+    },
+    naarPost(doel) {
+      set({
+        weergave: 'kaart',
+        gekozenGebouw: doel.gebouw,
+        ooitGekozen: true,
+        melding: undefined,
+        focus: doel.post ? { post: doel.post, teller: ++teller } : undefined,
+      });
     },
     zetWeergave(weergave) {
       set({ weergave });

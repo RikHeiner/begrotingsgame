@@ -16,12 +16,35 @@ export function GebouwPaneel({
 }) {
   const gekozen = useSpel((s) => s.gekozenGebouw);
   const kies = useSpel((s) => s.kiesGebouw);
+  const focus = useSpel((s) => s.focus);
   const kop = useRef<HTMLHeadingElement>(null);
+  const paneel = useRef<HTMLElement>(null);
   const gebouw = data.gebouwen.find((g) => g.id === gekozen);
 
+  // Open het gebouw met de focus op de kop, of (na een tik op een opmerking) op de post zelf:
+  // het bedragvak als dat er is, anders de schuif of knop.
   useEffect(() => {
-    if (gebouw) kop.current?.focus();
-  }, [gebouw]);
+    if (!gebouw) return;
+    const regel = focus
+      ? paneel.current?.querySelector<HTMLElement>(`[data-post="${CSS.escape(focus.post)}"]`)
+      : null;
+    if (!regel) {
+      kop.current?.focus();
+      return;
+    }
+    const doel =
+      regel.querySelector<HTMLElement>('.schuif-bedrag input') ??
+      regel.querySelector<HTMLElement>('input, button');
+    regel.classList.remove('gekozen-post');
+    void regel.offsetWidth;
+    regel.classList.add('gekozen-post');
+    // Na de andere effecten: een dialoog die net sluit, zet de focus anders terug op zijn knop.
+    const t = window.setTimeout(() => {
+      regel.scrollIntoView({ block: 'center' });
+      (doel ?? kop.current)?.focus({ preventScroll: true });
+    }, 0);
+    return () => window.clearTimeout(t);
+  }, [gebouw, focus]);
 
   useEffect(() => {
     const toets = (e: KeyboardEvent) => e.key === 'Escape' && kies(undefined);
@@ -32,7 +55,7 @@ export function GebouwPaneel({
   if (!gebouw) return null;
   const stand = standen[gebouw.id];
   return (
-    <section className="paneel" aria-labelledby="paneel-kop" data-testid="paneel">
+    <section ref={paneel} className="paneel" aria-labelledby="paneel-kop" data-testid="paneel">
       <header className="paneel-kop">
         <h2 id="paneel-kop" ref={kop} tabIndex={-1}>
           {gebouw.icoon} {gebouw.naam}

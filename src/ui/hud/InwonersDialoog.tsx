@@ -1,5 +1,7 @@
 import type { Data, Resultaat } from '../../engine';
+import { doelVanId } from '../../game/naarPost';
 import { personaInvloeden, personaZinnen } from '../../game/score';
+import { useSpel } from '../../game/state/store';
 import { Dialoog } from '../algemeen/Dialoog';
 
 /**
@@ -20,6 +22,7 @@ export function InwonersDialoog({
   /** opent "Wat betekent het voor mij?" (alleen als de tarieven bekend zijn) */
   onVoorMij?: () => void;
 }) {
+  const naarPost = useSpel((s) => s.naarPost);
   const gebied = new Map(data.gebieden.gebieden.map((g) => [g.id, g.naam]));
   const zinnen = new Map(personaZinnen(data, resultaat).map((z) => [z.id, z.zin]));
   return (
@@ -34,7 +37,10 @@ export function InwonersDialoog({
           👤 Wat betekent het voor mij?
         </button>
       )}
-      <p className="klein">{data.teksten.inwoners_uitleg} Tik op een naam voor meer.</p>
+      <p className="klein">
+        {data.teksten.inwoners_uitleg} Tik op een naam voor meer, en op een regel om naar die post
+        te gaan.
+      </p>
       <ul className="personas" data-testid="personas">
         {data.personas.personas.map((p) => {
           const invloeden = personaInvloeden(data, resultaat, p).slice(0, 3);
@@ -53,11 +59,29 @@ export function InwonersDialoog({
                   {invloeden.length === 0 && <p>{zinnen.get(p.id)}</p>}
                   {invloeden.length > 0 && (
                     <ul className="invloeden">
-                      {invloeden.map((x) => (
-                        <li key={x.tekst} className={x.waarde > 0 ? 'positief' : 'negatief'}>
-                          {x.waarde > 0 ? '▲ blij met' : '▼ last van'} {x.tekst}
-                        </li>
-                      ))}
+                      {invloeden.map((x) => {
+                        const doel = doelVanId(data, x.id);
+                        const zin = `${x.waarde > 0 ? '▲ blij met' : '▼ last van'} ${x.tekst}`;
+                        return (
+                          <li key={x.tekst} className={x.waarde > 0 ? 'positief' : 'negatief'}>
+                            {doel ? (
+                              <button
+                                type="button"
+                                className="link-knop invloed-knop"
+                                aria-label={`${zin}. Naar ${doel.naam}`}
+                                onClick={() => {
+                                  onSluit();
+                                  naarPost(doel);
+                                }}
+                              >
+                                {zin} ›
+                              </button>
+                            ) : (
+                              zin
+                            )}
+                          </li>
+                        );
+                      })}
                     </ul>
                   )}
                 </div>

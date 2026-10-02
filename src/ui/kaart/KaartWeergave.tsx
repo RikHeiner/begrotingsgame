@@ -8,6 +8,7 @@ import { formatMln, type Data, type Resultaat } from '../../engine';
 import type { Camera } from '../../game/kaart/camera';
 import type { GemeenteKaart } from '../../game/kaart/GemeenteKaart';
 import type { BuurtGeo, KaartGeometrie } from '../../game/kaart/geometrie';
+import { doelVanVoorwaarde, type Doel } from '../../game/naarPost';
 import { maakLezer } from '../../game/reacties/context';
 import { compileer, kiesReactie } from '../../game/reacties/kies';
 import { useSpel } from '../../game/state/store';
@@ -36,8 +37,16 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
   const [geo, setGeo] = useState<KaartGeometrie>();
   const [camera, setCamera] = useState<Camera>();
   const [klaar, setKlaar] = useState(false);
-  const [ballon, setBallon] = useState<{ persona: string; tekst: string; id: string }>();
-  const ballonEl = useRef<HTMLDivElement>(null);
+  const [ballon, setBallon] = useState<{
+    persona: string;
+    tekst: string;
+    id: string;
+    doel?: Doel;
+  }>();
+  const naarPost = useSpel((s) => s.naarPost);
+  // Zolang de muis of focus op de ballon staat, blijft hij staan.
+  const vastgehouden = useRef(false);
+  const ballonEl = useRef<HTMLElement | null>(null);
   const kies = useSpel((s) => s.kiesGebouw);
   const laatste = useRef({ resultaat, standen });
   useEffect(() => {
@@ -118,13 +127,20 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
       );
       if (!keuze) return;
       vorige = keuze.reactie.id;
+      if (vastgehouden.current) return;
+      const doel = doelVanVoorwaarde(data, keuze.reactie.voorwaarde);
       setBallon({
         persona: keuze.persona,
         tekst: keuze.reactie.tekst,
         id: `${keuze.reactie.id}-${Date.now()}`,
+        ...(doel ? { doel } : {}),
       });
       window.clearTimeout(verberg);
-      verberg = window.setTimeout(() => setBallon(undefined), BALLON_ZICHTBAAR_MS);
+      const verdwijn = () => {
+        if (vastgehouden.current) verberg = window.setTimeout(verdwijn, 1000);
+        else setBallon(undefined);
+      };
+      verberg = window.setTimeout(verdwijn, BALLON_ZICHTBAAR_MS);
     };
     const eerste = window.setTimeout(praat, 1200);
     const klok = window.setInterval(praat, BALLON_MS);
@@ -186,9 +202,11 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
           })}
         </ul>
       )}
-      {ballon && (
+      {ballon && !ballon.doel && (
         <div
-          ref={ballonEl}
+          ref={(el) => {
+            ballonEl.current = el;
+          }}
           className="ballon"
           aria-hidden="true"
           key={ballon.id}
@@ -196,6 +214,32 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
         >
           <strong>{persona(ballon.persona)}</strong> {ballon.tekst}
         </div>
+      )}
+      {ballon?.doel && (
+        // Een opmerking over een post: tik erop en je gaat naar die post.
+        <button
+          type="button"
+          ref={(el) => {
+            ballonEl.current = el;
+          }}
+          className="ballon ballon-knop"
+          key={ballon.id}
+          data-testid="ballon"
+          aria-label={`${persona(ballon.persona)}: ${ballon.tekst} Naar ${ballon.doel.naam}`}
+          onMouseEnter={() => (vastgehouden.current = true)}
+          onMouseLeave={() => (vastgehouden.current = false)}
+          onFocus={() => (vastgehouden.current = true)}
+          onBlur={() => (vastgehouden.current = false)}
+          onClick={() => {
+            vastgehouden.current = false;
+            const doel = ballon.doel;
+            setBallon(undefined);
+            if (doel) naarPost(doel);
+          }}
+        >
+          <strong>{persona(ballon.persona)}</strong> {ballon.tekst}
+          <span className="ballon-naar">Naar {ballon.doel.naam} ›</span>
+        </button>
       )}
       {klaar && (
         <div className="kaart-zoom">

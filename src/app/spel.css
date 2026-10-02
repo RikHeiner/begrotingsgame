@@ -166,6 +166,46 @@
   animation: ballon-in 0.25s ease-out;
 }
 
+.ballon-knop {
+  pointer-events: auto;
+  border: 2px solid var(--blauw);
+  text-align: left;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.ballon-knop:hover,
+.ballon-knop:focus-visible {
+  background: color-mix(in srgb, var(--blauw) 10%, var(--paneel));
+}
+
+.ballon-naar {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--blauw);
+  text-decoration: underline;
+}
+
+/* De post waar je naartoe ging vanuit een opmerking van een inwoner, even oplichten. */
+.gekozen-post {
+  animation: post-licht 2s ease-out;
+  border-radius: 0.5rem;
+}
+
+@keyframes post-licht {
+  from {
+    background: color-mix(in srgb, var(--blauw) 22%, transparent);
+  }
+}
+
+.invloed-knop {
+  color: inherit;
+  text-align: left;
+}
+
 .ballon strong {
   display: block;
   font-size: 0.75rem;
