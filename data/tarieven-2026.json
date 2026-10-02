@@ -1,9 +1,9 @@
 {
   "begrotingsjaar": 2026,
-  "toelichting": "Tarieven van de lokale heffingen voor het paneel 'Wat betekent het voor mij?' (opdracht 8.11). Alleen posten waarvan het tarief bekend is. De parkeervergunningen staan in parkeren-2026.json. De bron is het raadsvoorstel Belastingtarieven 2026 van de gemeente Groningen; dat document was bij het invoeren niet rechtstreeks te openen, de bedragen komen uit meerdere zoekresultaten die naar dit document verwijzen. Daarom staat de status op 'te controleren' (zie BEVINDINGEN.md).",
-  "bron": "Gemeente Groningen, raadsvoorstel Belastingtarieven 2026",
-  "bron_url": "https://gemeenteraad.groningen.nl/Documenten/Belastingtarieven-2026.pdf",
-  "status": "te controleren",
+  "toelichting": "Tarieven van de lokale heffingen voor het paneel 'Wat betekent het voor mij?' (opdracht 8.11). Alleen posten waarvan het tarief bekend is. De parkeervergunningen staan in parkeren-2026.json. Gecontroleerd op 2 oktober 2026 met het raadsvoorstel Belastingtarieven 2027 (registratienummer 274695-2026), dat de tarieven van 2026 ter vergelijking noemt (p. 2 en 3).",
+  "bron": "Gemeente Groningen, raadsvoorstel Belastingtarieven 2027 (tarieven 2026 ter vergelijking, p. 2-3)",
+  "bron_url": "https://gemeenteraad.groningen.nl/Documenten/Belastingtarieven-2027.pdf",
+  "status": "feit",
   "ozb_woning_eigenaar_pct": 0.1473,
   "afvalstoffenheffing": {
     "een_persoon": 283.08,
