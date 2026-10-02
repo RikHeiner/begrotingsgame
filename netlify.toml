@@ -1,0 +1,9 @@
+# Netlify: bouwen en publiceren (zie docs/LANCERING.md). De beveiligingsheaders staan in dist/_headers.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  # Het adres van de site, voor de deellinks en de afbeelding bij delen (WhatsApp, LinkedIn).
+  VITE_SITE_URL = "https://begrotingsspel.nl"
+  NODE_VERSION = "22"
