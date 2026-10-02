@@ -8,7 +8,7 @@
       {
         "icoon": "💶",
         "kop": "Wie betaalt meer, wie minder?",
-        "tekst": "Verhoog of verlaag de OZB, het parkeergeld, de toeristenbelasting en andere heffingen. Inwoners en ondernemers merken dat in hun portemonnee."
+        "tekst": "Bij nul heft de gemeente nog geen OZB, parkeergeld of toeristenbelasting. Kies zelf wat inwoners en ondernemers gaan betalen. Dat merken ze in hun portemonnee."
       },
       {
         "icoon": "🏗️",
@@ -35,9 +35,9 @@
     ],
     "knop": "Begin bij nul",
     "knop_college": "Begin met de begroting van het college",
-    "keuze_uitleg": "Bij nul staat elke post op het minimum: wat de wet vraagt en vaste lasten zoals rente. De rest staat op nul. Begin je met de begroting van het college, dan schuif je vanaf de plannen van het college. Het geldpotje zit dan op slot tot je ergens bezuinigt.",
+    "keuze_uitleg": "Bij nul staat elke post op het minimum: wat de wet vraagt en vaste lasten zoals rente. De rest staat op nul, en de belastingen ook. Begin je met de begroting van het college, dan schuif je vanaf de plannen van het college. Het geldpotje zit dan op slot tot je ergens bezuinigt.",
     "knop_terug": "Terug naar de game",
-    "nul_melding": "Je begint bij nul: alleen wat de wet vraagt staat erin, op het minimum. Je hebt {vrij} per jaar te verdelen. Tik op een gebouw en kies wat er weer bij komt.",
+    "nul_melding": "Je begint bij nul: alleen wat de wet vraagt staat erin, op het minimum. Ook de belastingen staan op nul, want de wet verplicht geen OZB of parkeergeld. Je hebt {vrij} per jaar te verdelen. Kies wat er weer bij komt, en welke belastingen je heft om dat te betalen.",
     "noot": "De bedragen komen uit de ontwerpbegroting {jaar} van de gemeente Groningen. Bedragen met ⚠︎ zijn aannames."
   },
   "tutorial": [

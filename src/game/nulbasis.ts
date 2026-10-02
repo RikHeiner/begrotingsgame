@@ -1,17 +1,20 @@
 /**
  * Beginnen bij nul (de standaard): elke post op het laagste niveau dat kan. Wettelijke taken op het
  * minimum dat de wet vraagt, vaste posten (bijstand, Veiligheidsregio, rente) blijven, de rest gaat
- * naar nul. Posten die meer opleveren dan ze kosten blijven staan: schrappen kost dan geld. De
- * belastingen blijven zoals in de begroting. De speler verdeelt daarna zelf het geld dat vrijkomt.
+ * naar nul. Posten die meer opleveren dan ze kosten blijven staan: schrappen kost dan geld. Ook de
+ * belastingen staan op hun wettelijke minimum (nul). De speler kiest daarna zelf wat er weer bij
+ * komt, en welke belastingen hij heft om dat te betalen.
  */
 import {
   bereken,
+  grensBelasting,
   grensOnderdeel,
   GEEN_KEUZES,
   type Data,
   type Keuzes,
   type Resultaat,
 } from '../engine';
+import { parkeerPosten } from '../engine/parkeren';
 import { gestoptBijMinimum } from './beleidshuis';
 import { themaVan, THEMA_BELASTINGEN, THEMA_KAARTEN } from './score';
 
@@ -29,8 +32,30 @@ const saldoOverJaren = (data: Data, r: Resultaat) =>
  * alle jaren samen niet beter. Bijvoorbeeld bedrijfsafval (de inkomsten zijn hoger dan de kosten)
  * en parkeercontrole (zonder controle betaalt bijna niemand voor parkeren).
  */
+/**
+ * De belastingen en parkeertarieven op hun minimum. De Gemeentewet zegt bij de OZB, de
+ * parkeerbelasting, de toeristenbelasting, de precario en de reclamebelasting dat de gemeente ze
+ * "kan" heffen: het wettelijke minimum is nul. Afval en riool zitten vast (kostendekkend).
+ */
+function belastingenOpMinimum(data: Data): Pick<Keuzes, 'belastingen' | 'parkeren'> {
+  const belastingen: Record<string, number> = {};
+  for (const b of data.begroting.belastingen) {
+    if (data.parkeren && b.id === data.parkeren.opbrengst.belasting) continue;
+    const g = grensBelasting(b);
+    if (g.min < 0) belastingen[b.id] = g.min;
+  }
+  const parkeren: Record<string, number> = {};
+  for (const p of parkeerPosten(data)) if (p.min < 0) parkeren[p.id] = p.min;
+  return { belastingen, ...(Object.keys(parkeren).length ? { parkeren } : {}) };
+}
+
+/**
+ * Posten waarvan schrappen geld kost: alleen deze post naar zijn minimum, en dan is het saldo over
+ * alle jaren samen niet beter. Bijvoorbeeld bedrijfsafval (de inkomsten zijn hoger dan de kosten).
+ * Gerekend met de belastingen al op hun minimum, zoals bij nul.
+ */
 export function postenDieOpleveren(data: Data): Set<string> {
-  const basis = collegeKeuzes(data);
+  const basis = { ...collegeKeuzes(data), ...belastingenOpMinimum(data) };
   const nul = saldoOverJaren(data, bereken(data, basis));
   const uit = new Set<string>();
   for (const o of data.begroting.onderdelen) {
@@ -55,7 +80,12 @@ export function nulbasisKeuzes(data: Data): Keuzes {
     if (g.min < 0 && !houden.has(o.id)) onderdelen[o.id] = g.min;
   }
   const gestopt = gestoptBijMinimum(data, onderdelen);
-  const k = { ...collegeKeuzes(data), onderdelen, ...(gestopt.length ? { gestopt } : {}) };
+  const k = {
+    ...collegeKeuzes(data),
+    ...belastingenOpMinimum(data),
+    onderdelen,
+    ...(gestopt.length ? { gestopt } : {}),
+  };
   cache.set(data, k);
   return k;
 }

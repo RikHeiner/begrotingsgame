@@ -2458,10 +2458,10 @@
    "naam": "Onroerendezaakbelasting (OZB)",
    "deelprogramma": "4.3",
    "opbrengst_mln": 125.3,
-   "min_pct": -30,
+   "min_pct": -100,
    "max_pct": null,
    "voelbaarheid_portemonnee": 1,
-   "uitleg": "Betalen alle huiseigenaren en bedrijven. Huurders betalen indirect mee via de huur."
+   "uitleg": "Betalen alle huiseigenaren en bedrijven. Huurders betalen indirect mee via de huur. De wet verplicht de gemeente niet om OZB te heffen (Gemeentewet art. 220): op −100% is er geen OZB."
   },
   {
    "id": "t5",

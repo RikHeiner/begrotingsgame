@@ -16,12 +16,14 @@ describe('beginnen bij nul', () => {
     expect(k.onderdelen.z1).toBe(-20); // jeugdzorg: wettelijk minimum
     expect(k.onderdelen.s4).toBeUndefined(); // loonkostensubsidie: wettelijk recht, zit vast
     expect(k.onderdelen.s1).toBeUndefined(); // bijstand zit vast
-    expect(k.belastingen).toEqual({});
+    // Belastingen: de wet verplicht ze niet, dus op nul (afval en riool zitten vast).
+    expect(k.belastingen).toEqual({ t1: -100, t2: -100, t3: -100, t4: -100 });
+    expect(Object.values(k.parkeren ?? {}).every((x) => x === -100)).toBe(true);
     // Een geldige begroting: de rekenmotor hoeft niets te corrigeren.
     const r = bereken(data, k);
     expect(r.correcties).toEqual([]);
     // Er komt veel geld vrij om te verdelen.
-    expect(r.perJaar[data.jaren[0] ?? 0]?.structureel).toBeGreaterThan(150e6);
+    expect(r.perJaar[data.jaren[0] ?? 0]?.structureel).toBeGreaterThan(50e6);
   });
 
   it('posten waarvan schrappen geld kost, blijven staan', () => {
@@ -57,14 +59,15 @@ describe('beginnen bij nul', () => {
     expect(uit).toBeCloseTo(lasten, -3);
   });
 
-  it('bij nul: minder uitgaven dan het college, gelijke belastingen', () => {
+  it('bij nul: minder uitgaven en geen belastingen', () => {
     const rijen = vergelijkMetCollege(data, bereken(data, nulbasisKeuzes(data)));
     const uit = rijen.filter((r) => r.thema !== THEMA_BELASTINGEN);
     expect(uit.reduce((s, r) => s + r.jij, 0)).toBeLessThan(
       uit.reduce((s, r) => s + r.college, 0) - 300e6,
     );
     const b = rijen.find((r) => r.thema === THEMA_BELASTINGEN);
-    expect(b && Math.abs(b.jij - b.college)).toBeLessThan(1);
+    expect(b?.college).toBeGreaterThan(160e6);
+    expect(Math.abs(b?.jij ?? 1)).toBeLessThan(1);
   });
 
   it('OZB +10%: de inkomsten stijgen met 10% van de OZB-opbrengst', () => {

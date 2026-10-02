@@ -142,9 +142,10 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
     - **Ruimer dan eerst** (de oude grens had geen grond): jeugdzorg, Wmo en Veilig Thuis −20%, beschermd wonen −15%, opvang −25%, GGD −30%, WIJ-teams −60%, inburgering −20%, schoolgebouwen −20%, overhead −40%, college −64% (burgemeester en twee wethouders), gemeenteraad −43% (45 raadsleden, vergoeding van het Rijk), klantcontactcentrum −75%, RO-ambtenaren −75%, Suikerzijde −65%. Leerlingenvervoer zit niet meer vast: −10% (eigen bijdrage, strengere regels).
     - **Naar nul** (spelgrens zonder wettelijke of vaste reden): ambtenaren economische zaken, markten en brugbediening, strategisch bezit.
     - Posten waarvan schrappen geld kost, blijven bij nul staan (bedrijfsafval, parkeercontrole, reclamezuilen); de game rekent dat zelf uit.
-    - Bij nul heb je nu € 261 mln (2026) tot € 368 mln (2027) per jaar te verdelen.
+    - Bij nul hield je eerst € 261 mln tot € 368 mln over; met de belastingen op nul is dat minder (zie hieronder).
     - Bijna alle percentages zijn een **aanname** (⚠︎): de wet zegt meestal dat een taak er moet zijn, niet hoeveel. De onderbouwing staat in `minimum.berekening`. *Vraag:* wil de fractie de grootste laten narekenen met het boekwerk (jeugdzorg, Wmo, overhead, sport, schoolgebouwen)?
     - Op elke schuif staat een knopje "college": daar zit de begroting van het college, en één tik zet de post terug.
+    - **Belastingen op het wettelijke minimum: nul.** De Gemeentewet zegt bij OZB (art. 220), toeristenbelasting (224), parkeerbelasting (225), reclamebelasting (227) en precario (228) dat de gemeente ze "kan" heffen; een plicht is er niet. Bij nul staan ze dus op −100%, en de parkeertarieven ook. Afval en riool blijven vast (kostendekkend). De ondergrens van de OZB was −30% (spelgrens) en is nu −100%. Bij nul heb je daardoor € 96 mln (2026) tot € 203 mln (2027) te verdelen, en kies je zelf welke belastingen je heft.
 
 ## Besluiten (1 oktober 2026)
 
