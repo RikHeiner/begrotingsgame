@@ -146,6 +146,29 @@ export const actiekaartSchema = z
   });
 export type Actiekaart = z.infer<typeof actiekaartSchema>;
 
+/**
+ * Een programma binnen een post, in het Beleidshuis: stopzetten verlaagt de post met het bedrag,
+ * weer aanzetten verhoogt hem. Bij nul staat het programma stil (de post staat op zijn minimum).
+ */
+export const programmaSchema = z
+  .object({
+    id: z.string().min(1),
+    naam: z.string().min(1),
+    /** wat merkt een inwoner (B1) */
+    uitleg: z.string(),
+    /** de post waar het programma in zit */
+    post: z.string().min(1),
+    /** lasten per jaar */
+    bedrag_mln: z.number().positive(),
+    /** nummers uit de optielijst van de fractie (docs/OPTIES-KOPPELING.md) */
+    opties: z.array(z.number().int()).optional(),
+    bron: z.string(),
+    zekerheid: z.enum(['feit', 'aanname']),
+    berekening: z.string().optional(),
+  })
+  .strict();
+export type Programma = z.infer<typeof programmaSchema>;
+
 export const deelprogrammaSchema = z
   .object({
     code: z.string(),
@@ -191,6 +214,8 @@ export const begrotingSchema = z
     onderdelen: z.array(onderdeelSchema).min(1),
     belastingen: z.array(belastingSchema),
     actiekaarten: z.array(actiekaartSchema),
+    /** programma's binnen posten, in het Beleidshuis */
+    beleidsprogrammas: z.array(programmaSchema).optional(),
     opmerkingen: z.array(z.string()).optional(),
     bekende_afwijkingen: z.array(bekendeAfwijkingSchema).optional(),
   })
@@ -359,7 +384,7 @@ export const gebouwSchema = z
     icoon: z.string(),
     buurt: z.string().regex(/^BU\d{8}$/),
     gebied: z.string().min(1),
-    soort: z.enum(['gebouw', 'park', 'loket', 'veilinghuis', 'landmark']),
+    soort: z.enum(['gebouw', 'park', 'loket', 'veilinghuis', 'beleidshuis', 'landmark']),
     omschrijving: z.string(),
     onderdelen: z.array(z.string()),
     positie: z.object({ lon: z.number(), lat: z.number() }).strict().optional(),

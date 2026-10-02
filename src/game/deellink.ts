@@ -22,11 +22,14 @@ type Compact = {
   r?: [number, number];
   /** 1 = begonnen bij nul; zonder: met de begroting van het college (zo waren oude links) */
   n?: 1;
+  /** programma's in het Beleidshuis die stilstaan */
+  g?: string[];
 };
 
 export function codeer(keuzes: Keuzes, jaar: number, beginpunt: Beginpunt = 'college'): string {
   const c: Compact = { v: VERSIE, j: jaar };
   if (beginpunt === 'nul') c.n = 1;
+  if (keuzes.gestopt?.length) c.g = keuzes.gestopt;
   if (Object.keys(keuzes.onderdelen).length) c.o = keuzes.onderdelen;
   if (Object.keys(keuzes.belastingen).length) c.t = keuzes.belastingen;
   if (keuzes.parkeren && Object.keys(keuzes.parkeren).length) c.p = keuzes.parkeren;
@@ -73,6 +76,9 @@ export function decodeer(tekst: string): Gelezen | undefined {
         kaarten: Array.isArray(c.k) ? c.k.filter((x): x is string => typeof x === 'string') : [],
         scenario,
         ...(r ? { reserve: { structureel: r[0] * 1000, eenmalig: r[1] * 1000 } } : {}),
+        ...(Array.isArray(c.g) && c.g.length
+          ? { gestopt: c.g.filter((x): x is string => typeof x === 'string') }
+          : {}),
       },
     };
   } catch {

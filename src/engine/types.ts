@@ -20,6 +20,11 @@ export type Keuzes = {
    * het eerste jaar. Een overschot gaat niet vanzelf naar de reserve; de speler kiest dat zelf.
    */
   reserve?: { structureel: number; eenmalig: number };
+  /**
+   * Programma's in het Beleidshuis die stilstaan (zie Programma). Alleen een label: het bedrag zit
+   * al in de schuif van de post.
+   */
+  gestopt?: string[];
 };
 
 export const GEEN_KEUZES: Keuzes = {

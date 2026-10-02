@@ -11,7 +11,7 @@ test.describe('gemeentekaart', () => {
       'Maak de begroting van de gemeente Groningen',
     );
     await expect(page.locator('.kaart canvas')).toBeVisible();
-    await expect(page.locator('.kaart-gebouw')).toHaveCount(14);
+    await expect(page.locator('.kaart-gebouw')).toHaveCount(15);
     await expect(page.getByTestId('ballon')).toBeVisible({ timeout: 8000 });
     await page.screenshot({ path: testInfo.outputPath('kaart.png') });
   });
@@ -20,7 +20,7 @@ test.describe('gemeentekaart', () => {
     page,
   }, testInfo) => {
     await page.goto('/');
-    await expect(page.locator('.kaart-gebouw')).toHaveCount(14);
+    await expect(page.locator('.kaart-gebouw')).toHaveCount(15);
     // Tik op het zwembad (op de kaart zelf, niet op de onzichtbare knop)
     const knop = page.locator('[data-gebouw="zwembad"]');
     const vak = await knop.boundingBox();
@@ -56,7 +56,7 @@ test.describe('gemeentekaart', () => {
 
   test('met het toetsenbord naar een gebouw op de kaart', async ({ page }) => {
     await page.goto('/');
-    await expect(page.locator('.kaart-gebouw')).toHaveCount(14);
+    await expect(page.locator('.kaart-gebouw')).toHaveCount(15);
     await page.locator('[data-gebouw="park"]').focus();
     await page.keyboard.press('Enter');
     await expect(page.getByTestId('paneel').getByRole('heading')).toContainText('Park');
@@ -69,7 +69,7 @@ test.describe('gemeentekaart', () => {
     // om iets te zeggen over echte apparaten.
     test.skip(testInfo.project.name === 'desktop', 'fps-meting alleen op telefoonformaat');
     await page.goto('/');
-    await expect(page.locator('.kaart-gebouw')).toHaveCount(14);
+    await expect(page.locator('.kaart-gebouw')).toHaveCount(15);
     const fps = await page.evaluate(
       () =>
         new Promise<number>((klaar) => {

@@ -27,8 +27,8 @@ beforeAll(async () => {
 describe('kaartgeometrie', () => {
   it('heeft alle buurten, gebouwen en een weg naar elk gebouw', () => {
     expect(geo.buurten).toHaveLength(151);
-    expect(Object.keys(geo.gebouwen)).toHaveLength(14);
-    expect(geo.wegen).toHaveLength(13);
+    expect(Object.keys(geo.gebouwen)).toHaveLength(15);
+    expect(geo.wegen).toHaveLength(14);
     expect(geo.gebiedsgrenzen.length).toBeGreaterThan(50);
   });
 

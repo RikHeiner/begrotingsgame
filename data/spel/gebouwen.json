@@ -223,6 +223,23 @@
       "dak": "#FF6A00"
     },
     {
+      "id": "beleid",
+      "naam": "Beleidshuis",
+      "thema": "Programma's en plannen",
+      "icoon": "📋",
+      "soort": "beleidshuis",
+      "omschrijving": "Programma's van de gemeente: stopzetten of weer aanzetten",
+      "onderdelen": [],
+      "buurt": "BU00140800",
+      "gebied": "west",
+      "positie": {
+        "lon": 6.5014,
+        "lat": 53.2203
+      },
+      "kleur": "#ECE6FA",
+      "dak": "#6B4FBB"
+    },
+    {
       "id": "loket",
       "naam": "Belastingloket",
       "thema": "Belastingen",

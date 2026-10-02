@@ -23,6 +23,7 @@ import {
   type Woonlasten,
   type Tarieven,
   type Actiekaart,
+  type Programma,
   type Begroting,
   type Belasting,
   type Config,
@@ -70,6 +71,7 @@ export type Data = {
     onderdelen: Map<string, Onderdeel>;
     belastingen: Map<string, Belasting>;
     kaarten: Map<string, Actiekaart>;
+    programmas: Map<string, Programma>;
     deelprogrammas: Map<string, Deelprogramma>;
     verbanden: Map<string, Dwarsverband>;
     meterPerKort: Map<string, MeterId>;
@@ -161,6 +163,33 @@ export function maakData(ruw: RuweData): Data {
     throw new DataFout(ruw.tarieven.bestand, [
       `dit zijn de tarieven van ${tarieven.begrotingsjaar}, maar config.json verwacht ${config.actiefJaar}`,
     ]);
+  // Programma's: de post bestaat en kan bewegen, en samen passen ze boven de ondergrens.
+  const programmaFouten: string[] = [];
+  const perPost = new Map<string, number>();
+  for (const p of begroting.beleidsprogrammas ?? []) {
+    const o = begroting.onderdelen.find((x) => x.id === p.post);
+    if (!o) programmaFouten.push(`${p.id}: post "${p.post}" bestaat niet`);
+    else if (o.vergrendeld || o.min_pct === null)
+      programmaFouten.push(`${p.id}: post "${p.post}" zit vast`);
+    else perPost.set(o.id, (perPost.get(o.id) ?? 0) + p.bedrag_mln);
+  }
+  for (const [id, som] of perPost) {
+    const o = begroting.onderdelen.find((x) => x.id === id);
+    const ruimte = o ? (o.lasten_mln * -(o.min_pct ?? 0)) / 100 : 0;
+    if (som > ruimte + 1e-6)
+      programmaFouten.push(
+        `post "${id}": de programma's (${som.toFixed(3)} mln) zijn meer dan het deel boven de ondergrens (${ruimte.toFixed(3)} mln)`,
+      );
+  }
+  if (programmaFouten.length) throw new DataFout(config.begroting, programmaFouten);
+  if (
+    (begroting.beleidsprogrammas ?? []).length &&
+    !gebouwen.some((g) => g.soort === 'beleidshuis')
+  )
+    throw new DataFout(SPEL_BESTANDEN.gebouwen, [
+      "programma's in de begroting, maar geen Beleidshuis",
+    ]);
+
   const hondKaart = tarieven?.hondenbelasting?.kaart;
   if (ruw.tarieven && hondKaart && !begroting.actiekaarten.some((k) => k.id === hondKaart))
     throw new DataFout(ruw.tarieven.bestand, [`actiekaart "${hondKaart}" bestaat niet`]);
@@ -237,6 +266,7 @@ function maakIndex(begroting: Begroting, dwarsverbanden: Dwarsverbanden, meters:
     onderdelen: new Map(begroting.onderdelen.map((o) => [o.id, o])),
     belastingen: new Map(begroting.belastingen.map((b) => [b.id, b])),
     kaarten: new Map(begroting.actiekaarten.map((k) => [k.id, k])),
+    programmas: new Map((begroting.beleidsprogrammas ?? []).map((p) => [p.id, p])),
     deelprogrammas: new Map(begroting.deelprogrammas.map((d) => [d.code, d])),
     verbanden: new Map(dwarsverbanden.dwarsverbanden.map((v) => [v.id, v])),
     meterPerKort: new Map(meters.meters.map((m) => [m.kort, m.id])),

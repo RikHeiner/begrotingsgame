@@ -11,7 +11,8 @@ import {
   type Resultaat,
 } from '../../engine';
 import { PARKEER_PREFIX, parkeerPosten, type ParkeerPost } from '../../engine/parkeren';
-import type { Gebouw, Minimum } from '../../engine/schema';
+import type { Gebouw, Minimum, Programma } from '../../engine/schema';
+import { isGestopt } from '../../game/beleidshuis';
 import { huidigJaar, useSpel } from '../../game/state/store';
 import { Schuif } from './Schuif';
 
@@ -179,6 +180,61 @@ function ParkeerSchuiven({
   );
 }
 
+/**
+ * De programma's van het Beleidshuis, per post. Stopzetten haalt het bedrag van de post af,
+ * aanzetten zet het er weer bij (zie game/beleidshuis.ts).
+ */
+function Programmas({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
+  const wissel = useSpel((s) => s.wisselProgramma);
+  const perPost = new Map<string, Programma[]>();
+  for (const p of data.index.programmas.values())
+    perPost.set(p.post, [...(perPost.get(p.post) ?? []), p]);
+  return (
+    <section aria-labelledby="programmas-kop">
+      <h3 id="programmas-kop">Programma's van de gemeente</h3>
+      <p className="klein">
+        Zet een programma stop, of zet het weer aan. Het geld gaat van de post af of komt erbij; dat
+        zie je ook bij de schuif van die post.
+      </p>
+      {[...perPost].map(([post, lijst]) => {
+        const o = data.index.onderdelen.get(post);
+        return (
+          <div key={post}>
+            <h4>{o?.naam ?? post}</h4>
+            <ul className="posten kaarten">
+              {lijst.map((p) => {
+                const loopt = !isGestopt(resultaat.keuzes, p.id);
+                return (
+                  <li key={p.id}>
+                    <button
+                      type="button"
+                      className={`actiekaart programma${loopt ? ' aan' : ''}`}
+                      aria-pressed={loopt}
+                      data-testid={`programma-${p.id}`}
+                      onClick={() => wissel(p.id)}
+                    >
+                      <span className="actiekaart-soort">{loopt ? 'Loopt' : 'Staat stil'}</span>
+                      <strong>
+                        {p.zekerheid !== 'feit' ? '⚠︎ ' : ''}
+                        {p.naam}
+                      </strong>
+                      <span>{p.uitleg}</span>
+                      <span>
+                        {formatMln(p.bedrag_mln * 1e6, { decimalen: 2 })} per jaar ·{' '}
+                        {loopt ? 'tik om stop te zetten' : 'tik om weer aan te zetten'}
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        );
+      })}
+    </section>
+  );
+}
+
 export function GebouwPosten({
   gebouw,
   data,
@@ -235,10 +291,16 @@ export function GebouwPosten({
     );
   }
 
-  if (gebouw.soort === 'veilinghuis') {
-    return (
+  if (gebouw.soort === 'veilinghuis' || gebouw.soort === 'beleidshuis') {
+    // Elke kaart hoort bij één gebouw: met `gebouw` bij dat gebouw, anders bij het Veilinghuis.
+    const kaarten = data.begroting.actiekaarten.filter((kaart) =>
+      gebouw.soort === 'beleidshuis'
+        ? kaart.gebouw === gebouw.id
+        : !kaart.gebouw || kaart.gebouw === gebouw.id,
+    );
+    const lijst = (
       <ul className="posten kaarten">
-        {data.begroting.actiekaarten.map((kaart) => {
+        {kaarten.map((kaart) => {
           const aan = k.kaarten.includes(kaart.id);
           return (
             <li key={kaart.id}>
@@ -251,7 +313,10 @@ export function GebouwPosten({
                 <span className="actiekaart-soort">
                   {kaart.structureel_of_incidenteel === 'S' ? 'Elk jaar' : 'Eenmalig'}
                 </span>
-                <strong>{kaart.naam}</strong>
+                <strong>
+                  {kaart.zekerheid && kaart.zekerheid !== 'feit' ? '⚠︎ ' : ''}
+                  {kaart.naam}
+                </strong>
                 <span>{kaart.uitleg}</span>
                 <span className={kaart.bedrag_mln >= 0 ? 'positief' : 'negatief'}>
                   {formatMln(kaart.bedrag_mln * 1e6, { decimalen: 2, teken: true })}
@@ -261,6 +326,18 @@ export function GebouwPosten({
           );
         })}
       </ul>
+    );
+    if (gebouw.soort === 'veilinghuis') return lijst;
+    return (
+      <>
+        <Programmas data={data} resultaat={resultaat} />
+        {kaarten.length > 0 && (
+          <section aria-labelledby={`${gebouw.id}-plannen`}>
+            <h3 id={`${gebouw.id}-plannen`}>Nieuwe plannen</h3>
+            {lijst}
+          </section>
+        )}
+      </>
     );
   }
 

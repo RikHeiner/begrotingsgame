@@ -134,6 +134,14 @@ export function normaliseer(data: Data, keuzes: Keuzes): { keuzes: Keuzes; corre
     if (gemiddeld) belastingen.t5 = gemiddeld;
   }
 
+  const gestopt = [...new Set(keuzes.gestopt ?? [])]
+    .filter((id) => {
+      if (data.index.programmas.has(id)) return true;
+      correcties.push(`Onbekend programma "${id}" is overgeslagen.`);
+      return false;
+    })
+    .sort();
+
   const kaarten: string[] = [];
   for (const id of keuzes.kaarten) {
     if (!data.index.kaarten.has(id)) {
@@ -152,6 +160,7 @@ export function normaliseer(data: Data, keuzes: Keuzes): { keuzes: Keuzes; corre
       kaarten,
       scenario: keuzes.scenario,
       ...normaliseerReserve(keuzes.reserve, correcties),
+      ...(gestopt.length ? { gestopt } : {}),
     },
     correcties,
   };

@@ -31,7 +31,7 @@ test('de CSP staat in de pagina en blokkeert niets in de game', async ({ page })
     .locator('meta[http-equiv="Content-Security-Policy"]')
     .getAttribute('content');
   expect(csp).toContain("script-src 'self'");
-  await expect(page.locator('.kaart-gebouw')).toHaveCount(14);
+  await expect(page.locator('.kaart-gebouw')).toHaveCount(15);
   // Een keuze maken (geluid staat aan)
   await page
     .getByRole('button', { name: /Stadhuis/ })

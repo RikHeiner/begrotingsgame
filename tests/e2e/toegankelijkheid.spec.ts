@@ -29,7 +29,7 @@ test.beforeEach(async ({ page }) => {
 
 test('kaart en HUD', async ({ page }) => {
   await page.goto(deellink());
-  await expect(page.locator('.kaart-gebouw')).toHaveCount(14);
+  await expect(page.locator('.kaart-gebouw')).toHaveCount(15);
   await controleer(page, 'kaart');
 });
 
@@ -77,7 +77,7 @@ test.describe('donkere modus', () => {
 
   test('kaart, eindscherm, document en dashboard', async ({ page }) => {
     await page.goto(deellink());
-    await expect(page.locator('.kaart-gebouw')).toHaveCount(14);
+    await expect(page.locator('.kaart-gebouw')).toHaveCount(15);
     await controleer(page, 'kaart (donker)');
     await page.getByTestId('indienen').click();
     await controleer(page, 'eindscherm (donker)');

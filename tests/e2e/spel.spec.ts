@@ -6,7 +6,7 @@ const zonderTutorial = (page: Page) =>
   page.addInitScript(() => localStorage.setItem('begrotingsgame:tutorial', 'klaar'));
 
 async function tikOpGebouw(page: Page, id: string) {
-  await expect(page.locator('.kaart-gebouw')).toHaveCount(14);
+  await expect(page.locator('.kaart-gebouw')).toHaveCount(15);
   const vak = await page.locator(`[data-gebouw="${id}"]`).boundingBox();
   if (!vak) throw new Error(id);
   await page.mouse.click(vak.x + vak.width / 2, vak.y + vak.height / 2);
@@ -34,7 +34,7 @@ test('eerste bezoek: de tutorial in drie stappen, daarna niet meer', async ({ pa
   await coach.getByRole('button', { name: 'Begrepen' }).click();
   await expect(coach).toHaveCount(0);
   await page.reload();
-  await expect(page.locator('.kaart-gebouw')).toHaveCount(14);
+  await expect(page.locator('.kaart-gebouw')).toHaveCount(15);
   await expect(page.getByTestId('tutorial')).toHaveCount(0);
 });
 
@@ -166,7 +166,7 @@ test('waarom-knop en inwoners', async ({ page }, testInfo) => {
 test('werkt offline na het eerste bezoek (PWA)', async ({ page, context }) => {
   await zonderTutorial(page);
   await page.goto('/');
-  await expect(page.locator('.kaart-gebouw')).toHaveCount(14);
+  await expect(page.locator('.kaart-gebouw')).toHaveCount(15);
   await page.evaluate(async () => {
     const reg = await navigator.serviceWorker.ready;
     if (!navigator.serviceWorker.controller) {
@@ -179,6 +179,6 @@ test('werkt offline na het eerste bezoek (PWA)', async ({ page, context }) => {
   await context.setOffline(true);
   await page.reload();
   await expect(page.getByTestId('saldo')).toBeVisible();
-  await expect(page.locator('.kaart-gebouw')).toHaveCount(14);
+  await expect(page.locator('.kaart-gebouw')).toHaveCount(15);
   await context.setOffline(false);
 });

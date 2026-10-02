@@ -12,6 +12,7 @@ import {
   type Keuzes,
   type Resultaat,
 } from '../engine';
+import { gestoptBijMinimum } from './beleidshuis';
 import { themaVan, THEMA_BELASTINGEN, THEMA_KAARTEN } from './score';
 
 /** Waar de speler begint: bij nul, of met de begroting van het college. */
@@ -53,7 +54,8 @@ export function nulbasisKeuzes(data: Data): Keuzes {
     const g = grensOnderdeel(o);
     if (g.min < 0 && !houden.has(o.id)) onderdelen[o.id] = g.min;
   }
-  const k = { ...collegeKeuzes(data), onderdelen };
+  const gestopt = gestoptBijMinimum(data, onderdelen);
+  const k = { ...collegeKeuzes(data), onderdelen, ...(gestopt.length ? { gestopt } : {}) };
   cache.set(data, k);
   return k;
 }

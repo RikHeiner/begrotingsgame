@@ -58,8 +58,14 @@ export function gebouwBedrag(
   const bronnen = new Set<string>(
     gebouw.soort === 'loket'
       ? data.begroting.belastingen.map((b) => b.id)
-      : gebouw.soort === 'veilinghuis'
-        ? data.begroting.actiekaarten.map((k) => k.id)
+      : gebouw.soort === 'veilinghuis' || gebouw.soort === 'beleidshuis'
+        ? data.begroting.actiekaarten
+            .filter((k) =>
+              gebouw.soort === 'beleidshuis'
+                ? k.gebouw === gebouw.id
+                : !k.gebouw || k.gebouw === gebouw.id,
+            )
+            .map((k) => k.id)
         : gebouw.onderdelen,
   );
   // Parkeren per vergunning en zone hoort bij het gebouw uit de parkeerdata, niet bij het loket.
@@ -88,7 +94,9 @@ export function gebouwStanden(
     const score =
       g.soort === 'loket'
         ? -gemiddeldeBelasting(data, r.keuzes.belastingen)
-        : gebouwScore(data, g, r.keuzes.onderdelen);
+        : g.soort === 'beleidshuis'
+          ? -gestoptAandeel(data, r.keuzes.gestopt ?? [])
+          : gebouwScore(data, g, r.keuzes.onderdelen);
     uit[g.id] = {
       id: g.id,
       score,
@@ -97,6 +105,17 @@ export function gebouwStanden(
     };
   }
   return uit;
+}
+
+/** Voor het Beleidshuis: welk deel van het geld van de programma's stilstaat (0 tot 100). */
+function gestoptAandeel(data: Data, gestopt: string[]): number {
+  let totaal = 0;
+  let stil = 0;
+  for (const p of data.index.programmas.values()) {
+    totaal += p.bedrag_mln;
+    if (gestopt.includes(p.id)) stil += p.bedrag_mln;
+  }
+  return totaal > 0 ? (100 * stil) / totaal : 0;
 }
 
 /** Voor het belastingloket: gewogen gemiddelde wijziging van de belastingen (hoger = slechter). */

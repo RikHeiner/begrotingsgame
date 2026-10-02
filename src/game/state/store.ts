@@ -15,6 +15,7 @@ import {
   type Resultaat,
 } from '../../engine';
 import type { Scenario } from '../../engine/schema';
+import { wisselProgramma } from '../beleidshuis';
 import { beginKeuzes, type Beginpunt } from '../nulbasis';
 import { gebouwStanden, type GebouwStand } from '../toestand';
 
@@ -86,6 +87,8 @@ type Spel = {
   /** een parkeerpost (zie engine/parkeren.ts), bijvoorbeeld "bewoners_1:tweede" */
   zetParkeerpost(id: string, pct: number): boolean;
   wisselKaart(id: string): boolean;
+  /** een programma in het Beleidshuis stopzetten of weer aanzetten */
+  wisselProgramma(id: string): boolean;
   zetReserve(reserve: { structureel: number; eenmalig: number }): boolean;
   zetScenario(s: Scenario): void;
   kiesGebouw(id?: string): void;
@@ -288,7 +291,16 @@ export const useSpel = create<Spel>((set, get) => {
         : [...k.kaarten, id];
       return get().probeer(
         { ...k, kaarten },
-        data?.gebouwen.find((g) => g.soort === 'veilinghuis')?.id,
+        data?.index.kaarten.get(id)?.gebouw ??
+          data?.gebouwen.find((g) => g.soort === 'veilinghuis')?.id,
+      );
+    },
+    wisselProgramma(id) {
+      const { keuzes: k, data } = get();
+      if (!data) return false;
+      return get().probeer(
+        wisselProgramma(data, k, id),
+        data.gebouwen.find((g) => g.soort === 'beleidshuis')?.id,
       );
     },
     zetReserve(reserve) {
