@@ -30,9 +30,10 @@ test.describe('gemeentekaart', () => {
     await expect(paneel.getByRole('heading')).toContainText('Zwembad');
     const sport = paneel.getByRole('slider', { name: /Sporthallen, zwembaden/ });
     await sport.focus();
+    // De ondergrens is −40%: de gebouwen en de gymzalen voor scholen blijven.
     for (let i = 0; i < 10; i++) await page.keyboard.press('ArrowLeft');
-    await expect(sport).toHaveValue('-50');
-    await expect(page.getByTestId('saldo')).toContainText('+ € 12,7 mln');
+    await expect(sport).toHaveValue('-40');
+    await expect(page.getByTestId('saldo')).toContainText('+ € 10,1 mln');
     await expect(paneel).toContainText('Gesloten');
     await page.screenshot({ path: testInfo.outputPath('paneel.png') });
   });

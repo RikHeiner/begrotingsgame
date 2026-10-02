@@ -13,7 +13,8 @@ describe('beginnen bij nul', () => {
   it('elke post op zijn minimum; vaste posten en wettelijke taken blijven', () => {
     const k = nulbasisKeuzes(data);
     expect(k.onderdelen.c2).toBe(-100); // cultuursubsidies naar nul
-    expect(k.onderdelen.z1).toBe(-10); // jeugdzorg: wettelijk minimum
+    expect(k.onderdelen.z1).toBe(-20); // jeugdzorg: wettelijk minimum
+    expect(k.onderdelen.s4).toBeUndefined(); // loonkostensubsidie: wettelijk recht, zit vast
     expect(k.onderdelen.s1).toBeUndefined(); // bijstand zit vast
     expect(k.belastingen).toEqual({});
     // Een geldige begroting: de rekenmotor hoeft niets te corrigeren.

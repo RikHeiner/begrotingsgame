@@ -39,12 +39,12 @@ describe('toestand van gebouwen', () => {
     }
   });
 
-  it('het zwembad sluit bij −50% op sport, en het bedrag staat eronder', () => {
-    const r = bereken(data, keuzes({ onderdelen: { k1: -50, k2: -100, k3: -100 } }));
+  it('het zwembad sluit als sport op het minimum staat, en het bedrag staat eronder', () => {
+    const r = bereken(data, keuzes({ onderdelen: { k1: -40, k2: -100, k3: -30 } }));
     const s = gebouwStanden(data, data.kaart, r);
     expect(s.zwembad?.toestand).toBe('gesloten');
-    // 0,5 × (36,5 − 11,2) + 1 × (2,2 − 1,1) + 1 × 1,1 = 14,85
-    expect((s.zwembad?.bedrag ?? 0) / 1e6).toBeCloseTo(14.85, 6);
+    // 0,4 × (36,5 − 11,2) + 1 × (2,2 − 1,1) + 0,3 × 1,1 = 11,55
+    expect((s.zwembad?.bedrag ?? 0) / 1e6).toBeCloseTo(11.55, 6);
   });
 
   it('belastingloket: hogere belastingen maken het loket somber', () => {

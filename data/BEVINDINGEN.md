@@ -135,7 +135,16 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
 
 57. **Beginnen bij nul.** Op het startscherm (en in Instellingen) kun je kiezen: beginnen met de begroting van het college, of bij nul. Bij nul staat elke post op het laagste niveau dat de game toestaat: de 10 wettelijke taken op hun minimum (bijvoorbeeld jeugdzorg −10%), de 9 vaste posten (bijstand, Veiligheidsregio, rente, afval, riool, bouwleges) blijven, 50 posten gaan naar nul en 20 posten naar hun ondergrens (bijvoorbeeld schuldhulp en onderhoud van wegen −50%, de gemeenteraad −25%). De belastingen blijven zoals in de begroting. Van de € 1.329 mln aan posten blijft zo € 910 mln over; na de kettingeffecten (afbouw van subsidies, frictiekosten) heb je € 213 mln (2026) tot € 299 mln (2027) per jaar te verdelen.
     - Op het eindscherm staat nu altijd de tabel "Jouw begroting naast die van het college": de uitgaven per thema en de inkomsten uit belastingen, in het eerste jaar en zonder kettingeffecten.
-    - *Vraag:* de ondergrenzen van de 20 posten die niet als wettelijke taak gemarkeerd zijn (bijvoorbeeld onderhoud openbare ruimte −50%, sport −50%, schouwburg −50%) zijn spelgrenzen. Moeten die bij nul ook naar nul, of zijn het (deels) wettelijke of contractuele plichten?
+    - De vraag over de spelgrenzen is beantwoord in punt 58.
+58. **Bij nul is de standaard, met het echte minimum per post.** De game begint nu bij nul en onthoudt het beginpunt (ook in een deellink). Elke ondergrens is opnieuw onderzocht: per post de wet en het artikel (wetten.overheid.nl), gecontroleerd door een juridische en een spelmatige tegenlezer. Bij verschil telt de hoogste ondergrens, want "lager kan niet" moet kloppen. De reden staat per post in het nieuwe veld `minimum` (soort, reden, wet, bron, zekerheid, berekening; zie `SCHEMA.md`) en de speler ziet hem in het paneel.
+    - **Uitkeringen op het wettelijke minimum.** De bijstand (`s1`) blijft vast: de norm staat in de wet. Loonkostensubsidie (`s4`) zit nu ook vast: een wettelijk recht (Participatiewet art. 10d). Bijzondere bijstand −25% (was −50%: het is een individueel recht), individuele inkomenstoeslag −75%, schuldhulp −60%, begeleiding naar werk −70% (was −100%).
+    - **Nieuwe ondergrens waar de wet iets vraagt** (was −100%): voorschoolse educatie in onderwijskansen −40%, leerplicht en RMC −40%, toezicht op bouwen −60%, openbare orde −75%, meldpunt goed verhuurderschap −80%, BGT bijhouden (geo en data) −50%, meldpunt discriminatie −85%, warmteprogramma −90%, alcoholtoezicht −90%, verkennend onderzoek Wvggz −90%, mantelzorgsteun −95%, Meerschap Paterswolde (GR) −30%, kapitaallasten in extra geld mobiliteit −50%, Forum en schouwburg (gebouwen) −85% en −90%.
+    - **Ruimer dan eerst** (de oude grens had geen grond): jeugdzorg, Wmo en Veilig Thuis −20%, beschermd wonen −15%, opvang −25%, GGD −30%, WIJ-teams −60%, inburgering −20%, schoolgebouwen −20%, overhead −40%, college −64% (burgemeester en twee wethouders), gemeenteraad −43% (45 raadsleden, vergoeding van het Rijk), klantcontactcentrum −75%, RO-ambtenaren −75%, Suikerzijde −65%. Leerlingenvervoer zit niet meer vast: −10% (eigen bijdrage, strengere regels).
+    - **Naar nul** (spelgrens zonder wettelijke of vaste reden): ambtenaren economische zaken, markten en brugbediening, strategisch bezit.
+    - Posten waarvan schrappen geld kost, blijven bij nul staan (bedrijfsafval, parkeercontrole, reclamezuilen); de game rekent dat zelf uit.
+    - Bij nul heb je nu € 261 mln (2026) tot € 368 mln (2027) per jaar te verdelen.
+    - Bijna alle percentages zijn een **aanname** (⚠︎): de wet zegt meestal dat een taak er moet zijn, niet hoeveel. De onderbouwing staat in `minimum.berekening`. *Vraag:* wil de fractie de grootste laten narekenen met het boekwerk (jeugdzorg, Wmo, overhead, sport, schoolgebouwen)?
+    - Op elke schuif staat een knopje "college": daar zit de begroting van het college, en één tik zet de post terug.
 
 ## Besluiten (1 oktober 2026)
 
@@ -166,6 +175,7 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
 | Netlify | Eerst hier verbeteren, daarna met de hand uploaden. | Open. |
 | Maximum op uitgaven | Geen plafond, tenzij het echt niet kan (zoals het maximum aantal wethouders). | Punt 56. |
 | Beginnen bij nul | Optie om bij de wettelijke taken te beginnen, met aan het eind het verschil met de begroting van het college. | Punt 57. |
+| Standaard bij nul | Bij nul is de standaard; wettelijke plichten zoals uitkeringen op het minimum. | Punt 58. |
 | Blije inwoners | Eerst weglaten; later misschien anders. | Punt 46. |
 | Bedragen | Naast het percentage ook een bedrag kunnen invullen. | Punt 48. |
 | Fase 7. Video | Geen persoonlijke video; de tegenbegroting blijft als Word, pdf en afbeelding. | `docs/VIDEO-ONTWERP.md` bewaard, niet gebouwd. |

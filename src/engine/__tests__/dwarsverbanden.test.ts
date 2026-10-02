@@ -134,7 +134,8 @@ const GEVALLEN: Record<string, Geval> = {
       ]),
   },
   wia_basisbanen: { keuzes: { onderdelen: { s6: -50 } }, status: 'nog niet doorgerekend' },
-  wia_loonkosten: { keuzes: { onderdelen: { s4: -10 } }, status: 'nog niet doorgerekend' },
+  // Loonkostensubsidie is een wettelijk recht en zit vast: dit verband slaat niet aan.
+  wia_loonkosten: { keuzes: { onderdelen: { s4: -10 } }, status: 'niet actief' },
   wia_armoedeval: {
     keuzes: { onderdelen: { s10: -20 } },
     status: 'nog niet doorgerekend',
@@ -162,9 +163,9 @@ const GEVALLEN: Record<string, Geval> = {
   },
   // k3 −100%: 1,1 bespaard; −1,1 × 0,2 × ingroei (0 / 0,5 / 1 / 1)
   zp_preventie_wmo: {
-    keuzes: { onderdelen: { k3: -100 } },
+    keuzes: { onderdelen: { k3: -30 } },
     status: 'doorgerekend',
-    bedragen: [0, -0.11, -0.22, -0.22],
+    bedragen: [0, -0.033, -0.066, -0.066],
   },
   // z2 −10%: 0,1 × (84,4 − 1,4) = 8,3 bespaard; × 0,1 overlast
   zp_beschermd_opvang: {
@@ -300,7 +301,7 @@ const GEVALLEN: Record<string, Geval> = {
     status: 'doorgerekend',
     bedragen: [-2.265, 0, 0, 0],
   },
-  jur_wettelijk: { keuzes: { onderdelen: { z1: -10 } }, status: 'alleen uitleg' },
+  jur_wettelijk: { keuzes: { onderdelen: { z1: -20 } }, status: 'alleen uitleg' },
   // z6 −10%: 0,1 × (18,8 − 6,6) = 1,22; de eerste twee jaar nog niet
   jur_gr: {
     keuzes: { onderdelen: { z6: -10 } },

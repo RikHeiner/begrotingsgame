@@ -106,14 +106,14 @@ describe('gekoppelde baten', () => {
 });
 
 describe('wettelijke grenzen', () => {
-  it('jeugdzorg kan niet verder omlaag dan −10%', () => {
+  it('jeugdzorg kan niet verder omlaag dan −20%, met de reden erbij', () => {
     const r = bereken(data, keuzes({ onderdelen: { z1: -50 } }));
-    expect(r.keuzes.onderdelen.z1).toBe(-10);
-    expect(r.correcties[0]).toMatch(/wettelijke taak/);
-    const m = magWijzigen(data, GEEN_KEUZES, keuzes({ onderdelen: { z1: -20 } }));
+    expect(r.keuzes.onderdelen.z1).toBe(-20);
+    expect(r.correcties[0]).toMatch(/recht op jeugdhulp/);
+    const m = magWijzigen(data, GEEN_KEUZES, keuzes({ onderdelen: { z1: -30 } }));
     expect(m.ok).toBe(false);
-    expect(m.reden).toMatch(/Jeugdzorg is een wettelijke taak.*−10%/);
-    expect(magWijzigen(data, GEEN_KEUZES, keuzes({ onderdelen: { z1: -10 } })).ok).toBe(true);
+    expect(m.reden).toMatch(/🔒 Bij Jeugdzorg kan het niet lager dan −20%\. Kinderen/);
+    expect(magWijzigen(data, GEEN_KEUZES, keuzes({ onderdelen: { z1: -20 } })).ok).toBe(true);
   });
 
   it('vergrendelde posten kun je niet aanpassen', () => {
