@@ -42,6 +42,28 @@ export type Config = z.infer<typeof configSchema>;
 
 const ingroeipad = z.array(z.number().min(0).max(1)).min(1);
 
+/**
+ * Waarom een post niet lager kan dan min_pct (of vastzit): een wettelijke plicht, een
+ * gemeenschappelijke regeling, vaste lasten, of nodig voor andere taken. Bij nul (de standaard)
+ * staat de post op dit minimum.
+ */
+export const minimumSchema = z
+  .object({
+    soort: z.enum(['wet', 'gr', 'vast', 'nodig']),
+    /** voor de speler, B1 */
+    reden: z.string().min(1),
+    /** wet en artikel, bijvoorbeeld "Participatiewet, art. 35" */
+    wet: z.string().optional(),
+    /** waar het staat (URL) */
+    bron: z.string().optional(),
+    /** feit: volgt direct uit wet of document; aanname: het percentage is geschat */
+    zekerheid: z.enum(['feit', 'aanname']),
+    /** hoe het percentage is bepaald (voor de fractie, niet in de game) */
+    berekening: z.string().optional(),
+  })
+  .strict();
+export type Minimum = z.infer<typeof minimumSchema>;
+
 export const onderdeelSchema = z
   .object({
     id: z.string().min(1),
@@ -59,6 +81,8 @@ export const onderdeelSchema = z
     reden_vergrendeld: z.string().nullable(),
     doorgeefluik_heffing: z.boolean(),
     wettelijke_taak: z.boolean(),
+    /** waarom lager dan min_pct niet kan; verplicht als min_pct hoger is dan −100 */
+    minimum: minimumSchema.optional(),
     meters: z.record(z.string(), z.number()),
     tekst_bezuinigen: z.string().nullable(),
     tekst_investeren: z.string().nullable(),
@@ -489,15 +513,22 @@ export const tekstenSchema = z
           .min(1),
         hoe_kop: z.string(),
         hoe: z.array(z.string()).min(1),
+        /** de eerste knop: beginnen bij nul (de standaard) */
         knop: z.string(),
-        knop_nul: z.string(),
-        nul_uitleg: z.string(),
+        knop_college: z.string(),
+        /** uitleg onder de knoppen */
+        keuze_uitleg: z.string(),
+        /** de knop als het startscherm later als uitleg opent */
+        knop_terug: z.string(),
         /** {vrij} wordt ingevuld */
         nul_melding: z.string(),
         noot: z.string(),
       })
       .strict(),
+    /** coachmarks als je begint met de begroting van het college */
     tutorial: z.array(z.object({ id: z.string(), tekst: z.string() }).strict()).min(1),
+    /** coachmarks als je begint bij nul (de standaard) */
+    tutorial_nul: z.array(z.object({ id: z.string(), tekst: z.string() }).strict()).min(1),
     slot_dicht: z.string(),
     slot_open: z.string(),
     inwoners_uitleg: z.string(),

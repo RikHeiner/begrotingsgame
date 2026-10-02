@@ -21,6 +21,8 @@ export type SchuifProps = {
   vergrendeld?: boolean;
   beschrijving?: string;
   bedrag?: SchuifBedrag;
+  /** een knopje op de schuif bij 0%: terug naar de begroting van het college */
+  collegeKnop?: boolean;
   onChange: (waarde: number) => void;
 };
 
@@ -95,26 +97,45 @@ export function Schuif({
   vergrendeld,
   beschrijving,
   bedrag,
+  collegeKnop,
   onChange,
 }: SchuifProps) {
   const uitleg = beschrijving ? `${id}-uitleg` : undefined;
   // Zonder maximum loopt de schuif tot +100%; meer kun je als bedrag typen.
   const schuifMax = Number.isFinite(max) ? max : Math.max(SCHUIF_MAX, waarde);
+  // Waar het college zit (0%), als deel van de schuif; alleen als de speler daar niet staat.
+  const collegeDeel = min < 0 && schuifMax > 0 ? -min / (schuifMax - min) : undefined;
+  const toonCollege = collegeKnop && !vergrendeld && collegeDeel !== undefined && waarde !== 0;
   return (
     <div className="schuif">
       <label htmlFor={id}>{label}</label>
-      <input
-        id={id}
-        type="range"
-        min={min}
-        max={schuifMax}
-        step={stap}
-        value={waarde}
-        disabled={vergrendeld}
-        aria-valuetext={formatPct(waarde)}
-        aria-describedby={uitleg}
-        onChange={(e) => onChange(Number(e.target.value))}
-      />
+      <div className={`schuif-baan${toonCollege ? ' met-college' : ''}`}>
+        <input
+          id={id}
+          type="range"
+          min={min}
+          max={schuifMax}
+          step={stap}
+          value={waarde}
+          disabled={vergrendeld}
+          aria-valuetext={formatPct(waarde)}
+          aria-describedby={uitleg}
+          onChange={(e) => onChange(Number(e.target.value))}
+        />
+        {toonCollege && (
+          <button
+            type="button"
+            className="schuif-college"
+            // De duim van de schuif is ongeveer 16px breed: het midden loopt van 8px tot 100% − 8px.
+            style={{ left: `calc(8px + (100% - 16px) * ${collegeDeel})` }}
+            aria-label={`${label}: terug naar de begroting van het college (0%)`}
+            title="Terug naar de begroting van het college"
+            onClick={() => onChange(0)}
+          >
+            college
+          </button>
+        )}
+      </div>
       <output htmlFor={id}>{formatPct(waarde)}</output>
       {bedrag && !vergrendeld && bedrag.basis > 0 && (
         <Bedrag id={id} label={label} waarde={waarde} bedrag={bedrag} onChange={onChange} />

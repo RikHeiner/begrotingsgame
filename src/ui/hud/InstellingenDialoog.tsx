@@ -39,7 +39,7 @@ export function InstellingenDialoog({
           data-testid="uitleg"
           onClick={() => {
             onSluit();
-            zetStartscherm(true);
+            zetStartscherm('uitleg');
           }}
         >
           Uitleg van de game
@@ -55,6 +55,17 @@ export function InstellingenDialoog({
           <button
             type="button"
             className="knop"
+            data-testid="opnieuw-nul"
+            onClick={() => {
+              begin('nul');
+              onSluit();
+            }}
+          >
+            Bij nul: alleen wat de wet vraagt
+          </button>
+          <button
+            type="button"
+            className="knop"
             data-testid="opnieuw-college"
             onClick={() => {
               begin('college');
@@ -62,17 +73,6 @@ export function InstellingenDialoog({
             }}
           >
             Met de begroting van het college
-          </button>
-          <button
-            type="button"
-            className="knop"
-            data-testid="opnieuw-nul"
-            onClick={() => {
-              begin('nul');
-              onSluit();
-            }}
-          >
-            Bij nul: alleen wettelijke taken
           </button>
         </p>
       </fieldset>

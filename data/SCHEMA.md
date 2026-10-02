@@ -33,6 +33,8 @@ Alle uitbreidingen zijn optioneel. Zonder het veld werkt alles zoals eerst.
 | `gebouw` | actiekaart | Optioneel gebouw waar de kaart op de kaart bij hoort. |
 | `tarieven` | belasting | Tarieven voor "Wat betekent het voor mij?" (fase 6). |
 | `voorstel`, `controleren` | onderdeel | Markering bij een nieuwe begroting (zie `UPDATE-BEGROTING.md`). |
+| `max_reden` | onderdeel | Waarom een post een maximum heeft (`max_pct`), bijvoorbeeld het maximum aantal wethouders. Zonder `max_pct` is er geen maximum. |
+| `minimum` | onderdeel | Waarom een post niet lager kan dan `min_pct`: `{soort, reden, wet, bron, zekerheid, berekening}`. `soort` is `wet` (wettelijke plicht), `gr` (gemeenschappelijke regeling), `vast` (vaste lasten die blijven) of `nodig` (nodig voor andere taken of om de inkomsten te innen). `reden` ziet de speler (B1). `zekerheid` is `feit` als het percentage direct uit wet of document volgt, anders `aanname` (⚠︎). Verplicht als `min_pct` hoger is dan −100; `data:check` waarschuwt anders. Bij beginnen bij nul (de standaard) staat elke post op `min_pct`. |
 | `bekende_afwijkingen` | hoofdniveau | Afwijkingen die bekend en uitgelegd zijn. `data:check` meldt ze dan als waarschuwing in plaats van fout. Toegevoegd: deelprogramma 2.1 (zie `BEVINDINGEN.md`). |
 
 ### `dwarsverbanden.json`
@@ -70,6 +72,7 @@ Dit zijn de afspraken die niet direct uit de JSON volgen. Ze zijn bewust gekozen
 11. **Slot op de pot.** Een wijziging mag als het structurele saldo daarna in elk jaar ≥ 0 is of niet slechter wordt; hetzelfde voor structureel + eenmalig samen.
 12. **Meters.** Per meter 50 + gevoeligheid × (gewogen gemiddelde wijziging van de niet-vergrendelde posten met een gewicht). Portemonnee: 50 − gevoeligheid × (gewogen gemiddelde wijziging van de belastingen, gewogen naar opbrengst × voelbaarheid). Daarbij de punten van kaarten en kettingeffecten (`punten_dwarsverband_per_100pct` per 100% wijziging). Altijd tussen 0 en 100.
 13. **Persona's.** 50 + gewogen gemiddelde afwijking van hun meters + `punten_posten_per_100pct` × gewicht × wijziging van hun posten. Een actieve kaart telt als 100%.
+14. **Beginnen bij nul (de standaard).** Elke post staat op `min_pct`; vergrendelde posten blijven. Een post blijft op het niveau van het college als schrappen geld kost: alleen die post naar zijn minimum maakt het structurele saldo over alle jaren samen niet beter (bijvoorbeeld bedrijfsafval en parkeercontrole). De belastingen, parkeertarieven en kaarten beginnen zoals in de begroting. De percentages blijven ten opzichte van de begroting van het college, zodat een deellink, de tegenbegroting en de vergelijking op het eindscherm altijd hetzelfde betekenen. Code: `src/game/nulbasis.ts`.
 
 ## Een id-mapping (`mappings/id-mapping-OUD-NIEUW.json`)
 

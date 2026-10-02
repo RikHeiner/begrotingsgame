@@ -49,11 +49,11 @@ export function Spel({ data }: { data: Data }) {
     if (gelezen) zetStartscherm(false);
   }, [gelezen, zetStartscherm]);
 
-  // Start, eventueel met de keuzes uit een gedeelde link
+  // Start met de keuzes uit een gedeelde link, of bij het beginpunt (standaard: bij nul)
   useEffect(() => {
-    if (gelezen && zelfdeJaar) start(data, gelezen.keuzes);
-    else start(data);
-  }, [data, start, gelezen, zelfdeJaar]);
+    if (gelezen && zelfdeJaar) start(data, gelezen.keuzes, gelezen.beginpunt);
+    else begin(useSpel.getState().beginpunt, data);
+  }, [data, start, begin, gelezen, zelfdeJaar]);
 
   // Keuzes bijhouden in de URL
   useEffect(() => {
@@ -61,6 +61,7 @@ export function Spel({ data }: { data: Data }) {
     const t = window.setTimeout(() => {
       const url = new URL(window.location.href);
       const leeg =
+        beginpunt === 'college' &&
         !Object.keys(keuzes.onderdelen).length &&
         !Object.keys(keuzes.belastingen).length &&
         !Object.keys(keuzes.parkeren ?? {}).length &&
@@ -68,11 +69,11 @@ export function Spel({ data }: { data: Data }) {
         !keuzes.reserve &&
         keuzes.scenario === data.config.scenario;
       if (leeg) url.searchParams.delete(PARAM);
-      else url.searchParams.set(PARAM, codeer(keuzes, data.config.actiefJaar));
+      else url.searchParams.set(PARAM, codeer(keuzes, data.config.actiefJaar, beginpunt));
       window.history.replaceState(null, '', url);
     }, 300);
     return () => window.clearTimeout(t);
-  }, [keuzes, resultaat, data]);
+  }, [keuzes, resultaat, data, beginpunt]);
 
   useEffect(() => {
     if (!melding) return;
@@ -148,12 +149,13 @@ export function Spel({ data }: { data: Data }) {
       <p className="toast" role="status" aria-live="polite" data-testid="melding">
         {melding && <span>🔒 {melding}</span>}
       </p>
-      {startscherm && !gelezen ? (
+      {startscherm && !(gelezen && startscherm === 'eerste') ? (
         <Startscherm
           data={data}
-          onBegin={() => zetStartscherm(false)}
-          onBeginNul={() => {
-            begin('nul');
+          alleenUitleg={startscherm === 'uitleg'}
+          onSluit={() => zetStartscherm(false)}
+          onBegin={(b) => {
+            begin(b);
             zetStartscherm(false);
           }}
         />

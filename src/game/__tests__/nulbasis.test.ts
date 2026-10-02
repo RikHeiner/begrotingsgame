@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from 'vitest';
 import { bereken, magWijzigen, type Data } from '../../engine';
 import { echteData, keuzes } from '../../engine/__tests__/hulp';
-import { nulbasisKeuzes, vergelijkMetCollege } from '../nulbasis';
+import { beginKeuzes, nulbasisKeuzes, postenDieOpleveren, vergelijkMetCollege } from '../nulbasis';
 import { THEMA_BELASTINGEN } from '../score';
 
 let data: Data;
@@ -21,6 +21,23 @@ describe('beginnen bij nul', () => {
     expect(r.correcties).toEqual([]);
     // Er komt veel geld vrij om te verdelen.
     expect(r.perJaar[data.jaren[0] ?? 0]?.structureel).toBeGreaterThan(150e6);
+  });
+
+  it('posten waarvan schrappen geld kost, blijven staan', () => {
+    const houden = postenDieOpleveren(data);
+    // bedrijfsafval levert meer op dan het kost; zonder parkeercontrole betaalt bijna niemand
+    expect([...houden].sort()).toEqual(expect.arrayContaining(['m2', 'o4', 'v9']));
+    const k = nulbasisKeuzes(data);
+    for (const id of houden) expect(k.onderdelen[id], id).toBeUndefined();
+    // Elke andere post naar zijn minimum levert geld op.
+    expect(Object.keys(k.onderdelen).length).toBeGreaterThan(60);
+  });
+
+  it('beginpunt: nul is de nulbasis, het college is zonder keuzes', () => {
+    expect(beginKeuzes(data, 'nul')).toEqual(nulbasisKeuzes(data));
+    expect(beginKeuzes(data, 'college').onderdelen).toEqual({});
+    // Eén keer uitgerekend per dataset.
+    expect(nulbasisKeuzes(data)).toBe(nulbasisKeuzes(data));
   });
 
   it('van nul weer iets toevoegen mag', () => {

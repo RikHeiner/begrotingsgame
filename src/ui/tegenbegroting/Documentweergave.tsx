@@ -130,7 +130,12 @@ export function Documentweergave({ data, resultaat }: { data: Data; resultaat: R
       const { maakAfbeelding, download } = await import('./afbeelding');
       const st = sterren(data, resultaat);
       const aantal = st.filter((s) => s.gehaald).length;
-      const link = maakLink(window.location.href, resultaat.keuzes, data.config.actiefJaar);
+      const link = maakLink(
+        window.location.href,
+        resultaat.keuzes,
+        data.config.actiefJaar,
+        useSpel.getState().beginpunt,
+      );
       download(
         await maakAfbeelding(tb, { aantal, van: st.length }, link),
         bestandsnaam(tb.titel, 'png'),

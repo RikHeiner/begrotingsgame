@@ -5,6 +5,7 @@
  */
 import LZString from 'lz-string';
 import { GEEN_KEUZES, type Keuzes } from '../engine';
+import type { Beginpunt } from './nulbasis';
 
 export const PARAM = 'b';
 const VERSIE = 1;
@@ -19,10 +20,13 @@ type Compact = {
   k?: string[];
   s?: Keuzes['scenario'];
   r?: [number, number];
+  /** 1 = begonnen bij nul; zonder: met de begroting van het college (zo waren oude links) */
+  n?: 1;
 };
 
-export function codeer(keuzes: Keuzes, jaar: number): string {
+export function codeer(keuzes: Keuzes, jaar: number, beginpunt: Beginpunt = 'college'): string {
   const c: Compact = { v: VERSIE, j: jaar };
+  if (beginpunt === 'nul') c.n = 1;
   if (Object.keys(keuzes.onderdelen).length) c.o = keuzes.onderdelen;
   if (Object.keys(keuzes.belastingen).length) c.t = keuzes.belastingen;
   if (keuzes.parkeren && Object.keys(keuzes.parkeren).length) c.p = keuzes.parkeren;
@@ -36,7 +40,7 @@ export function codeer(keuzes: Keuzes, jaar: number): string {
   return LZString.compressToEncodedURIComponent(JSON.stringify(c));
 }
 
-export type Gelezen = { keuzes: Keuzes; jaar: number };
+export type Gelezen = { keuzes: Keuzes; jaar: number; beginpunt: Beginpunt };
 
 const getallen = (x: unknown): Record<string, number> => {
   if (typeof x !== 'object' || x === null || Array.isArray(x)) return {};
@@ -60,6 +64,7 @@ export function decodeer(tekst: string): Gelezen | undefined {
         : undefined;
     return {
       jaar: c.j,
+      beginpunt: c.n === 1 ? 'nul' : 'college',
       keuzes: {
         ...GEEN_KEUZES,
         onderdelen: getallen(c.o),
@@ -80,9 +85,14 @@ export function leesUitUrl(url: string): Gelezen | undefined {
   return b ? decodeer(b) : undefined;
 }
 
-export function maakLink(basis: string, keuzes: Keuzes, jaar: number): string {
+export function maakLink(
+  basis: string,
+  keuzes: Keuzes,
+  jaar: number,
+  beginpunt: Beginpunt = 'college',
+): string {
   const url = new URL(basis);
   url.hash = '';
-  url.searchParams.set(PARAM, codeer(keuzes, jaar));
+  url.searchParams.set(PARAM, codeer(keuzes, jaar, beginpunt));
   return url.toString();
 }

@@ -11,7 +11,7 @@ import {
   type Resultaat,
 } from '../../engine';
 import { PARKEER_PREFIX, parkeerPosten, type ParkeerPost } from '../../engine/parkeren';
-import type { Gebouw } from '../../engine/schema';
+import type { Gebouw, Minimum } from '../../engine/schema';
 import { huidigJaar, useSpel } from '../../game/state/store';
 import { Schuif } from './Schuif';
 
@@ -67,6 +67,13 @@ function OokEffect({ data, resultaat, id }: { data: Data; resultaat: Resultaat; 
     </div>
   );
 }
+
+const SOORT_MINIMUM: Record<Minimum['soort'], string> = {
+  wet: 'Wettelijke taak',
+  gr: 'Samen met andere gemeenten',
+  vast: 'Vaste lasten',
+  nodig: 'Nodig voor andere taken',
+};
 
 function Bedrag({ euro }: { euro: number }) {
   if (Math.abs(euro) < 50_000) return null;
@@ -146,6 +153,7 @@ function ParkeerSchuiven({
                           : { basis: p.basis / 1e6, eenheid: 'mln', soort: 'Opbrengst' }
                       }
                       beschrijving={[p.uitleg, nieuw].filter(Boolean).join(' ')}
+                      collegeKnop
                       onChange={(v) => zet(p.id, v)}
                     />
                     <Bedrag euro={directBedrag(resultaat, `${PARKEER_PREFIX}${p.id}`, jaar)} />
@@ -214,6 +222,7 @@ export function GebouwPosten({
                 max={g.max}
                 waarde={k.belastingen[b.id] ?? 0}
                 bedrag={{ basis: b.opbrengst_mln, eenheid: 'mln', soort: 'Opbrengst' }}
+                collegeKnop
                 beschrijving={b.uitleg}
                 onChange={(v) => zetBelasting(b.id, v)}
               />
@@ -272,6 +281,13 @@ export function GebouwPosten({
                 ? o.tekst_investeren
                 : null;
           const label = `${vergrendeld ? '🔒 ' : o.wettelijke_taak ? '⚖️ ' : ''}${o.naam} (${o.gekoppelde_baten_mln > 0 ? `uitgaven ${formatMln(o.lasten_mln * 1e6)} · inkomsten ${formatMln(o.gekoppelde_baten_mln * 1e6)}` : formatMln(o.lasten_mln * 1e6)})`;
+          // Waarom de post niet lager kan (bij nul staat hij op dit minimum).
+          const minimum =
+            !vergrendeld && o.minimum && g.minReden
+              ? `${o.minimum.zekerheid === 'aanname' ? '⚠︎ ' : ''}${SOORT_MINIMUM[o.minimum.soort]}: niet lager dan ${formatPct(g.min)}. ${g.minReden}`
+              : o.wettelijke_taak && !vergrendeld
+                ? `Wettelijke taak: niet lager dan ${formatPct(g.min)}.`
+                : null;
           return (
             <li key={id}>
               <Schuif
@@ -282,16 +298,8 @@ export function GebouwPosten({
                 waarde={pct}
                 vergrendeld={vergrendeld}
                 bedrag={{ basis: o.lasten_mln, eenheid: 'mln', soort: 'Budget' }}
-                beschrijving={
-                  [
-                    tekst,
-                    o.wettelijke_taak && !vergrendeld
-                      ? `Wettelijke taak: niet lager dan ${g.min}%.`
-                      : null,
-                  ]
-                    .filter(Boolean)
-                    .join(' ') || undefined
-                }
+                collegeKnop
+                beschrijving={[tekst, minimum].filter(Boolean).join(' ') || undefined}
                 onChange={(v) => zetOnderdeel(id, v)}
               />
               <Bedrag euro={directBedrag(resultaat, id, jaar)} />

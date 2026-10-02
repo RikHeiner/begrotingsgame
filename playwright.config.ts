@@ -18,13 +18,17 @@ export default defineConfig({
     baseURL: `http://localhost:${POORT}`,
     trace: 'on-first-retry',
     launchOptions,
-    // De meeste tests beginnen in de gemeente; tests/e2e/startscherm.spec.ts test het startscherm.
+    // De meeste tests beginnen in de gemeente, met de begroting van het college (de bedragen in de
+    // tests gaan daarvan uit). tests/e2e/startscherm.spec.ts test het startscherm en beginnen bij nul.
     storageState: {
       cookies: [],
       origins: [
         {
           origin: `http://localhost:${POORT}`,
-          localStorage: [{ name: 'begrotingsgame:start', value: 'gezien' }],
+          localStorage: [
+            { name: 'begrotingsgame:start', value: 'gezien' },
+            { name: 'begrotingsgame:beginpunt', value: 'college' },
+          ],
         },
       ],
     },

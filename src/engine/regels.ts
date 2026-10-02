@@ -10,7 +10,14 @@ import type { Belasting, Onderdeel } from './schema';
 import { vanMln as mln } from './eenheden';
 import type { Keuzes } from './types';
 
-export type Grens = { min: number; max: number; reden?: string };
+export type Grens = {
+  min: number;
+  max: number;
+  /** waarom er een maximum is, of waarom de post vastzit */
+  reden?: string;
+  /** waarom het niet lager kan dan min (zie `minimum` in de data) */
+  minReden?: string;
+};
 
 export function grensOnderdeel(o: Onderdeel): Grens {
   if (o.vergrendeld || o.min_pct === null) {
@@ -25,6 +32,7 @@ export function grensOnderdeel(o: Onderdeel): Grens {
     min: o.min_pct,
     max: o.max_pct ?? Infinity,
     ...(o.max_reden ? { reden: o.max_reden } : {}),
+    ...(o.minimum && o.min_pct > -100 ? { minReden: o.minimum.reden } : {}),
   };
 }
 
@@ -41,6 +49,8 @@ export function buitenGrens(
 ): string | undefined {
   if (grens.min === 0 && grens.max === 0 && pct !== 0) return grens.reden;
   if (pct < grens.min) {
+    if (grens.minReden)
+      return `${wettelijk ? '🔒 ' : ''}Bij ${naam} kan het niet lager dan ${formatPct(grens.min)}. ${grens.minReden}`;
     return wettelijk
       ? `🔒 ${naam} is een wettelijke taak. De gemeente moet dit blijven doen. Verder dan ${formatPct(grens.min)} kan niet.`
       : `Bij ${naam} kan het niet verder omlaag dan ${formatPct(grens.min)}.`;

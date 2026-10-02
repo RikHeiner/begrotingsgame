@@ -15,7 +15,7 @@ import {
   type Resultaat,
 } from '../../engine';
 import type { Scenario } from '../../engine/schema';
-import { nulbasisKeuzes } from '../nulbasis';
+import { beginKeuzes, type Beginpunt } from '../nulbasis';
 import { gebouwStanden, type GebouwStand } from '../toestand';
 
 export type Weergave = 'kaart' | 'lijst';
@@ -53,16 +53,24 @@ type Spel = {
   ooitGekozen: boolean;
   weergave: Weergave;
   fase: Fase;
-  /** het beginpunt: de begroting van het college, of bij nul (alleen wettelijke taken) */
-  beginpunt: 'college' | 'nul';
+  /**
+   * Het beginpunt: bij nul (de standaard: alleen wat de wet vraagt) of de begroting van het
+   * college. De game onthoudt de keuze.
+   */
+  beginpunt: Beginpunt;
+  /** de keuzes waarmee de speler begon (bij nul: alle posten op hun minimum) */
+  basis: Keuzes;
   /** begin opnieuw vanaf het gekozen beginpunt */
-  begin(beginpunt: 'college' | 'nul'): void;
+  begin(beginpunt: Beginpunt, data?: Data): void;
   /** uitleg na beginnen bij nul */
   nulMelding: boolean;
   wisNulMelding(): void;
-  /** het startscherm met uitleg staat open */
-  startscherm: boolean;
-  zetStartscherm(open: boolean): void;
+  /**
+   * Het startscherm: bij het eerste bezoek met de keuze waar je begint ('eerste'), of later
+   * vanuit Instellingen alleen als uitleg ('uitleg').
+   */
+  startscherm: false | 'eerste' | 'uitleg';
+  zetStartscherm(open: false | 'eerste' | 'uitleg'): void;
   geluid: boolean;
   /** titel, naam en eigen idee voor de tegenbegroting */
   meta: Meta;
@@ -70,7 +78,8 @@ type Spel = {
   ingestuurd?: string;
   markeerIngestuurd(): void;
   zetMeta(m: Partial<Meta>): void;
-  start(data: Data, keuzes?: Keuzes): void;
+  /** begin met deze keuzes (bijvoorbeeld uit een gedeelde link); zonder keuzes: het beginpunt */
+  start(data: Data, keuzes?: Keuzes, beginpunt?: Beginpunt): void;
   probeer(nieuw: Keuzes, gebouw?: string): boolean;
   zetOnderdeel(id: string, pct: number): boolean;
   zetBelasting(id: string, pct: number): boolean;
@@ -106,6 +115,7 @@ function schrijfOpslag(sleutel: string, waarde: string): void {
 
 export const OPSLAG_GELUID = 'begrotingsgame:geluid';
 export const OPSLAG_START = 'begrotingsgame:start';
+export const OPSLAG_BEGINPUNT = 'begrotingsgame:beginpunt';
 
 /** Het gebouw waar een effect landt: het gebouw van de post, of het loket en het veilinghuis. */
 export function gebouwVanDoel(data: Data, doel: string): string | undefined {
@@ -175,24 +185,20 @@ export const useSpel = create<Spel>((set, get) => {
     standen: {},
     weergave: 'kaart',
     fase: 'spelen',
-    beginpunt: 'college',
-    begin(beginpunt) {
-      const { data } = get();
+    beginpunt: leesOpslag(OPSLAG_BEGINPUNT) === 'college' ? 'college' : 'nul',
+    basis: GEEN_KEUZES,
+    begin(beginpunt, data = get().data) {
       if (!data) return;
-      get().start(
-        data,
-        beginpunt === 'nul'
-          ? nulbasisKeuzes(data)
-          : { ...GEEN_KEUZES, scenario: data.config.scenario },
-      );
-      set({ beginpunt, nulMelding: beginpunt === 'nul' });
+      schrijfOpslag(OPSLAG_BEGINPUNT, beginpunt);
+      get().start(data, beginKeuzes(data, beginpunt), beginpunt);
+      set({ nulMelding: beginpunt === 'nul' });
     },
     nulMelding: false,
     wisNulMelding() {
       set({ nulMelding: false });
     },
     // Bij het eerste bezoek de uitleg; een gedeelde link opent direct de begroting (zie Spel).
-    startscherm: leesOpslag(OPSLAG_START) !== 'gezien',
+    startscherm: leesOpslag(OPSLAG_START) !== 'gezien' ? 'eerste' : false,
     zetStartscherm(open) {
       if (!open) schrijfOpslag(OPSLAG_START, 'gezien');
       set({ startscherm: open });
@@ -203,11 +209,15 @@ export const useSpel = create<Spel>((set, get) => {
     zetMeta(m) {
       set({ meta: { ...get().meta, ...m } });
     },
-    start(data, keuzes = { ...GEEN_KEUZES, scenario: data.config.scenario }) {
+    start(data, keuzes, beginpunt = get().beginpunt) {
       getoond.clear();
+      const uit = reken(data, keuzes ?? beginKeuzes(data, beginpunt));
       set({
         data,
-        ...reken(data, keuzes),
+        ...uit,
+        basis: uit.keuzes,
+        beginpunt,
+        nulMelding: false,
         melding: undefined,
         actie: undefined,
         fase: 'spelen',

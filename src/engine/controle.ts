@@ -115,6 +115,14 @@ export function controleer({ data, buurtcodes, mappings = [] }: ControleInvoer):
     if (o.vergrendeld && !o.reden_vergrendeld) {
       waarschuw('onderdelen', `${o.id}: vergrendeld zonder reden voor de speler.`);
     }
+    if (!o.vergrendeld && o.min_pct !== null && o.min_pct > -100 && !o.minimum) {
+      waarschuw(
+        'onderdelen',
+        `${o.id}: kan niet naar nul (min_pct ${o.min_pct}), maar de reden (minimum) ontbreekt.`,
+      );
+    }
+    if (o.minimum?.zekerheid === 'aanname')
+      info('onderdelen', `${o.id}: het minimum (${o.min_pct ?? 0}%) is een aanname.`);
     for (const kort of Object.keys(o.meters)) {
       if (!data.index.meterPerKort.has(kort)) fout('meters', `${o.id}: onbekende meter "${kort}".`);
     }

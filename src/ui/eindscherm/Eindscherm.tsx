@@ -85,7 +85,12 @@ export function Eindscherm({ data, resultaat }: { data: Data; resultaat: Resulta
     : data.teksten.eindscherm.niet_sluitend;
 
   const deel = async () => {
-    const link = maakLink(window.location.href, resultaat.keuzes, data.config.actiefJaar);
+    const link = maakLink(
+      window.location.href,
+      resultaat.keuzes,
+      data.config.actiefJaar,
+      useSpel.getState().beginpunt,
+    );
     const tekst = `Mijn begroting voor de gemeente Groningen: ${aantal} van de ${st.length} sterren.`;
     try {
       if (navigator.share) {

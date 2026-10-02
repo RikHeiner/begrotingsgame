@@ -271,6 +271,37 @@
   accent-color: var(--blauw);
 }
 
+/* De schuif met het knopje "college" eronder (waar de begroting van het college zit). */
+.schuif-baan {
+  position: relative;
+}
+
+.schuif-baan.met-college {
+  padding-bottom: 1.5rem;
+}
+
+.schuif-college {
+  position: absolute;
+  bottom: 0;
+  transform: translateX(-50%);
+  min-height: 24px;
+  padding: 0 0.35rem;
+  border: 0;
+  border-top: 3px solid var(--inkt);
+  border-radius: 0 0 0.3rem 0.3rem;
+  background: color-mix(in srgb, var(--inkt) 8%, transparent);
+  color: var(--inkt);
+  font: inherit;
+  font-size: 0.7rem;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.schuif-college:hover,
+.schuif-college:focus-visible {
+  background: color-mix(in srgb, var(--blauw) 20%, transparent);
+}
+
 .schuif output {
   align-self: center;
   text-align: right;
@@ -1603,11 +1634,11 @@
   margin: 0.75rem 0 0;
 }
 
-.start-knop-nul {
+.start-knop-college {
   margin-top: 0.6rem;
 }
 
-.start-nul-uitleg {
+.start-keuze-uitleg {
   margin: 0.4rem 0 0;
 }
 

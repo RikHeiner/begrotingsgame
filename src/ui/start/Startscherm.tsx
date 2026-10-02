@@ -1,22 +1,29 @@
 /**
  * Startscherm als pop-up over de gemeente: jij bent gemeenteraadslid. Wie betaalt meer of minder,
  * wat gaat de gemeente doen, wat kan minder of later, en sluit je begroting? De kaart blijft
- * erachter zichtbaar. De teksten staan in spel/teksten.json.
+ * erachter zichtbaar. Bij het eerste bezoek kies je waar je begint: bij nul (de standaard) of met
+ * de begroting van het college. Later (vanuit Instellingen) is het alleen uitleg, zodat je keuzes
+ * niet per ongeluk verdwijnen. De teksten staan in spel/teksten.json.
  */
 import { useEffect, useRef } from 'react';
 import type { Data } from '../../engine';
+import type { Beginpunt } from '../../game/nulbasis';
 
 const vul = (tekst: string, waarden: Record<string, string>) =>
   tekst.replace(/\{(\w+)\}/g, (m, k: string) => waarden[k] ?? m);
 
 export function Startscherm({
   data,
+  alleenUitleg = false,
+  onSluit,
   onBegin,
-  onBeginNul,
 }: {
   data: Data;
-  onBegin: () => void;
-  onBeginNul: () => void;
+  /** later geopend: alleen een knop terug, je keuzes blijven */
+  alleenUitleg?: boolean;
+  /** sluiten zonder opnieuw te beginnen (Escape, buiten de pop-up, of terug) */
+  onSluit: () => void;
+  onBegin: (beginpunt: Beginpunt) => void;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
   useEffect(() => {
@@ -40,10 +47,10 @@ export function Startscherm({
       className="startscherm"
       aria-labelledby="start-kop"
       data-testid="startscherm"
-      // Escape of buiten de pop-up klikken: ook beginnen.
-      onClose={onBegin}
+      // Escape of buiten de pop-up klikken: verder met het beginpunt dat al klaarstaat.
+      onClose={onSluit}
       onClick={(e) => {
-        if (e.target === ref.current) onBegin();
+        if (e.target === ref.current) onSluit();
       }}
     >
       <div className="start-inhoud">
@@ -70,23 +77,36 @@ export function Startscherm({
             <li key={h}>{h}</li>
           ))}
         </ol>
-        <button
-          type="button"
-          className="knop-indienen start-knop"
-          data-testid="begin"
-          onClick={onBegin}
-        >
-          {t.knop}
-        </button>
-        <button
-          type="button"
-          className="knop start-knop start-knop-nul"
-          data-testid="begin-nul"
-          onClick={onBeginNul}
-        >
-          {t.knop_nul}
-        </button>
-        <p className="klein start-nul-uitleg">{t.nul_uitleg}</p>
+        {alleenUitleg ? (
+          <button
+            type="button"
+            className="knop-indienen start-knop"
+            data-testid="start-terug"
+            onClick={onSluit}
+          >
+            {t.knop_terug}
+          </button>
+        ) : (
+          <>
+            <button
+              type="button"
+              className="knop-indienen start-knop"
+              data-testid="begin"
+              onClick={() => onBegin('nul')}
+            >
+              {t.knop}
+            </button>
+            <button
+              type="button"
+              className="knop start-knop start-knop-college"
+              data-testid="begin-college"
+              onClick={() => onBegin('college')}
+            >
+              {t.knop_college}
+            </button>
+            <p className="klein start-keuze-uitleg">{t.keuze_uitleg}</p>
+          </>
+        )}
         <p className="klein start-noot">{vul(t.noot, waarden)}</p>
       </div>
     </dialog>

@@ -96,7 +96,15 @@ describe('deellink', () => {
       reserve: { structureel: 2e6, eenmalig: 0 },
     });
     const g = decodeer(codeer(k, 2026));
-    expect(g).toEqual({ jaar: 2026, keuzes: k });
+    expect(g).toEqual({ jaar: 2026, keuzes: k, beginpunt: 'college' });
+  });
+
+  it('neemt het beginpunt mee; een oude link begon bij het college', () => {
+    const k = keuzes({ onderdelen: { c2: -100 } });
+    expect(decodeer(codeer(k, 2026, 'nul'))?.beginpunt).toBe('nul');
+    expect(decodeer(codeer(k, 2026))?.beginpunt).toBe('college');
+    const link = maakLink('https://begrotingsgame.nl/', k, 2026, 'nul');
+    expect(leesUitUrl(link)?.beginpunt).toBe('nul');
   });
 
   it('neemt de parkeerkeuzes mee', () => {

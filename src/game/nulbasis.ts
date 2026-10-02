@@ -1,18 +1,66 @@
 /**
- * Beginnen bij nul: elke post op het laagste niveau dat kan. Wettelijke taken op hun minimum, vaste
- * posten (bijstand, Veiligheidsregio, rente) blijven, de rest gaat naar nul. De belastingen blijven
- * zoals in de begroting. De speler verdeelt daarna zelf het geld dat vrijkomt.
+ * Beginnen bij nul (de standaard): elke post op het laagste niveau dat kan. Wettelijke taken op het
+ * minimum dat de wet vraagt, vaste posten (bijstand, Veiligheidsregio, rente) blijven, de rest gaat
+ * naar nul. Posten die meer opleveren dan ze kosten blijven staan: schrappen kost dan geld. De
+ * belastingen blijven zoals in de begroting. De speler verdeelt daarna zelf het geld dat vrijkomt.
  */
-import { grensOnderdeel, GEEN_KEUZES, type Data, type Keuzes, type Resultaat } from '../engine';
+import {
+  bereken,
+  grensOnderdeel,
+  GEEN_KEUZES,
+  type Data,
+  type Keuzes,
+  type Resultaat,
+} from '../engine';
 import { themaVan, THEMA_BELASTINGEN, THEMA_KAARTEN } from './score';
 
+/** Waar de speler begint: bij nul, of met de begroting van het college. */
+export type Beginpunt = 'nul' | 'college';
+
+const collegeKeuzes = (data: Data): Keuzes => ({ ...GEEN_KEUZES, scenario: data.config.scenario });
+
+/** Het structurele saldo over alle jaren samen. */
+const saldoOverJaren = (data: Data, r: Resultaat) =>
+  data.jaren.reduce((s, j) => s + (r.perJaar[j]?.structureel ?? 0), 0);
+
+/**
+ * Posten waarvan schrappen geld kost: alleen deze post naar zijn minimum, en dan is het saldo over
+ * alle jaren samen niet beter. Bijvoorbeeld bedrijfsafval (de inkomsten zijn hoger dan de kosten)
+ * en parkeercontrole (zonder controle betaalt bijna niemand voor parkeren).
+ */
+export function postenDieOpleveren(data: Data): Set<string> {
+  const basis = collegeKeuzes(data);
+  const nul = saldoOverJaren(data, bereken(data, basis));
+  const uit = new Set<string>();
+  for (const o of data.begroting.onderdelen) {
+    const g = grensOnderdeel(o);
+    if (g.min >= 0) continue;
+    const r = bereken(data, { ...basis, onderdelen: { [o.id]: g.min } });
+    if (saldoOverJaren(data, r) <= nul + 1) uit.add(o.id);
+  }
+  return uit;
+}
+
+// Eén keer per dataset uitrekenen (ongeveer 90 berekeningen).
+const cache = new WeakMap<Data, Keuzes>();
+
 export function nulbasisKeuzes(data: Data): Keuzes {
+  const bewaard = cache.get(data);
+  if (bewaard) return bewaard;
+  const houden = postenDieOpleveren(data);
   const onderdelen: Record<string, number> = {};
   for (const o of data.begroting.onderdelen) {
     const g = grensOnderdeel(o);
-    if (g.min < 0) onderdelen[o.id] = g.min;
+    if (g.min < 0 && !houden.has(o.id)) onderdelen[o.id] = g.min;
   }
-  return { ...GEEN_KEUZES, onderdelen, scenario: data.config.scenario };
+  const k = { ...collegeKeuzes(data), onderdelen };
+  cache.set(data, k);
+  return k;
+}
+
+/** De keuzes waarmee de game begint. */
+export function beginKeuzes(data: Data, beginpunt: Beginpunt): Keuzes {
+  return beginpunt === 'nul' ? nulbasisKeuzes(data) : collegeKeuzes(data);
 }
 
 export type CollegeRij = {

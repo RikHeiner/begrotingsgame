@@ -13,12 +13,12 @@
       {
         "icoon": "🏗️",
         "kop": "Wat gaat de gemeente doen?",
-        "tekst": "Kies waar meer geld naartoe gaat: veiligheid, onderhoud van straten en groen, woningbouw, sport, zorg of cultuur."
+        "tekst": "Je begint bij nul: alleen wat de wet vraagt, staat erin. Jij kiest wat er weer bij komt: veiligheid, onderhoud van straten en groen, woningbouw, sport, zorg of cultuur."
       },
       {
         "icoon": "✂️",
         "kop": "Wat kan minder, of later?",
-        "tekst": "Bezuinig waar het kan, of stel iets uit. Let op: sommige taken moet de gemeente wettelijk doen, en uitstellen kan later duurder worden."
+        "tekst": "Niet alles past. Kies wat minder kan of later komt. Let op: uitstellen kan later duurder worden."
       },
       {
         "icoon": "⚖️",
@@ -29,14 +29,15 @@
     "hoe_kop": "Zo speel je",
     "hoe": [
       "Tik op een gebouw op de kaart, of kies de lijst.",
-      "Schuif naar links om te bezuinigen en naar rechts om meer te doen. Je kunt ook zelf een bedrag typen.",
-      "Eerst bezuinigen, dan uitgeven: het geldpotje zit op slot tot je geld vrijmaakt.",
-      "Klaar? Dien je begroting in en maak er je eigen tegenbegroting van."
+      "Schuif naar rechts om iets weer te doen, of meer. Je kunt ook zelf een bedrag typen.",
+      "Bij elke post zie je waarom hij niet lager kan, bijvoorbeeld omdat de wet het vraagt.",
+      "Klaar? Dien je begroting in. Je ziet dan het verschil met de begroting van het college."
     ],
-    "knop": "Begin met de begroting van het college",
-    "knop_nul": "Begin bij nul: alleen wettelijke taken",
-    "nul_uitleg": "Bij nul staat elke post op het laagste niveau dat kan: wettelijke taken op hun minimum, vaste posten zoals de bijstand blijven, de rest gaat naar nul. Jij beslist wat er weer bij komt. Op het eindscherm zie je het verschil met de begroting van het college.",
-    "nul_melding": "Je begint bij nul: alleen de wettelijke taken en de vaste posten staan erin. Je hebt {vrij} per jaar te verdelen. Tik op een gebouw en kies wat er weer bij komt.",
+    "knop": "Begin bij nul",
+    "knop_college": "Begin met de begroting van het college",
+    "keuze_uitleg": "Bij nul staat elke post op het minimum: wat de wet vraagt en vaste lasten zoals rente. De rest staat op nul. Begin je met de begroting van het college, dan schuif je vanaf de plannen van het college. Het geldpotje zit dan op slot tot je ergens bezuinigt.",
+    "knop_terug": "Terug naar de game",
+    "nul_melding": "Je begint bij nul: alleen wat de wet vraagt staat erin, op het minimum. Je hebt {vrij} per jaar te verdelen. Tik op een gebouw en kies wat er weer bij komt.",
     "noot": "De bedragen komen uit de ontwerpbegroting {jaar} van de gemeente Groningen. Bedragen met ⚠︎ zijn aannames."
   },
   "tutorial": [
@@ -51,6 +52,20 @@
     {
       "id": "slot",
       "tekst": "Nu is het slot eraf. Investeer ergens, of verlaag een belasting."
+    }
+  ],
+  "tutorial_nul": [
+    {
+      "id": "gebouw",
+      "tekst": "Dit is jouw gemeente. Alles staat op het minimum. Tik op een gebouw."
+    },
+    {
+      "id": "schuif",
+      "tekst": "Schuif naar rechts: dan doet de gemeente hier weer meer. Het geld gaat uit het geldpotje."
+    },
+    {
+      "id": "verdeel",
+      "tekst": "Goed zo. Verdeel de rest, verlaag een belasting of zet geld in de reserve. Klaar? Dien je begroting in."
     }
   ],
   "slot_dicht": "Het slot zit op de pot. Maak eerst geld vrij door ergens te bezuinigen.",
