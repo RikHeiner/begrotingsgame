@@ -160,6 +160,11 @@ export const programmaSchema = z
     post: z.string().min(1),
     /** lasten per jaar */
     bedrag_mln: z.number().positive(),
+    /**
+     * S: elk jaar (stopzetten verlaagt de schuif van de post). I: alleen in het eerste jaar
+     * (stopzetten scheelt dan eenmalig, zolang de post boven zijn minimum zit).
+     */
+    structureel_of_incidenteel: z.enum(['S', 'I']),
     /** nummers uit de optielijst van de fractie (docs/OPTIES-KOPPELING.md) */
     opties: z.array(z.number().int()).optional(),
     bron: z.string(),

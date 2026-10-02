@@ -132,6 +132,33 @@ function directeEffecten(data: Data, keuzes: Keuzes): Effect[] {
     if (eenmalig > 0) stort(eenmalig, 'I');
   }
 
+  // Eenmalige programma's in het Beleidshuis: stopzetten scheelt in het eerste jaar, zolang de post
+  // nog boven zijn minimum zit (anders staat het programma al stil). Structurele programma's zitten
+  // al in de schuif van de post (zie game/beleidshuis.ts).
+  const ruimte = new Map<string, number>();
+  for (const id of keuzes.gestopt ?? []) {
+    const p = data.index.programmas.get(id);
+    const o = p && data.index.onderdelen.get(p.post);
+    if (!p || !o || p.structureel_of_incidenteel !== 'I' || o.min_pct === null) continue;
+    const over =
+      ruimte.get(o.id) ??
+      (((keuzes.onderdelen[o.id] ?? 0) - o.min_pct) / 100) * vanMln(o.lasten_mln);
+    const bedrag = Math.max(0, Math.min(vanMln(p.bedrag_mln), over));
+    ruimte.set(o.id, over - bedrag);
+    voegToe(
+      {
+        bron: id,
+        doel: o.id,
+        soort: 'I',
+        kant: 'lasten',
+        uitleg: `${p.naam}: eenmalig ${formatMln(bedrag)} minder uitgeven bij ${o.naam}.`,
+      },
+      perJaar(jaren.length, (j) => (j === 0 ? bedrag : 0)),
+    );
+    if (p.zekerheid !== 'feit')
+      for (const e of effecten) if (e.bron === id) e.zekerheid = p.zekerheid;
+  }
+
   const rente = renteVoorInvesteringen(data);
   for (const id of keuzes.kaarten) {
     const k = data.index.kaarten.get(id);

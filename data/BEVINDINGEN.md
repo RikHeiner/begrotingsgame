@@ -146,6 +146,11 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
     - Bijna alle percentages zijn een **aanname** (⚠︎): de wet zegt meestal dat een taak er moet zijn, niet hoeveel. De onderbouwing staat in `minimum.berekening`. *Vraag:* wil de fractie de grootste laten narekenen met het boekwerk (jeugdzorg, Wmo, overhead, sport, schoolgebouwen)?
     - Op elke schuif staat een knopje "college": daar zit de begroting van het college, en één tik zet de post terug.
     - **Belastingen op het wettelijke minimum: nul.** De Gemeentewet zegt bij OZB (art. 220), toeristenbelasting (224), parkeerbelasting (225), reclamebelasting (227) en precario (228) dat de gemeente ze "kan" heffen; een plicht is er niet. Bij nul staan ze dus op −100%, en de parkeertarieven ook. Afval en riool blijven vast (kostendekkend). De ondergrens van de OZB was −30% (spelgrens) en is nu −100%. Bij nul heb je daardoor € 96 mln (2026) tot € 203 mln (2027) te verdelen, en kies je zelf welke belastingen je heft.
+59. **Beleidshuis.** Een nieuw gebouw (in Hoogkerk) met de beleidskeuzes uit de optielijst van de fractie die een eigen bedrag in de begroting 2026 hebben (groningen.begroting-2026.nl). Per thema gezocht en daarna gecontroleerd op bedrag, bron en dubbeltelling.
+    - **21 programma's binnen een post** (`beleidsprogrammas`), bijvoorbeeld het groenplan Vitamine G (o6, € 0,5 mln), het Museum aan de A (SIA in g7), jeugdboa's (v5) en de subsidie van het Groninger Museum (c2, ⚠︎). Een programma dat elk jaar loopt, is een snelkoppeling naar de schuif van zijn post: stopzetten verlaagt de post, aanzetten verhoogt hem. Een eenmalig programma (intensivering 2026, bijvoorbeeld het preventiefonds jeugd € 4,5 mln) scheelt alleen in 2026, en alleen zolang de post boven zijn minimum zit. Zo telt niets dubbel. Bij nul staan alle programma's stil.
+    - **21 nieuwe plannen** (actiekaarten met `gebouw: "beleid"`), bijvoorbeeld stoppen met het Young Professional Programma (€ 0,68 mln), de eigen ombudsman (⚠︎), de bijdrage aan het Fonds Ondernemend Groningen (€ 3,3 mln), de pandenbrigade en Veilig Uitgaan.
+    - Niet opgenomen: opties zonder eigen bedrag, wettelijke delen van posten, en wat al een schuif of kaart heeft. De redenen per optie staan in de uitkomsten van het onderzoek; de koppeling per optie staat in `docs/OPTIES-KOPPELING.md`.
+    - *Vraag:* de bedragen zijn van de begroting 2026. Bij de begroting 2027 opnieuw nalopen.
 
 ## Besluiten (1 oktober 2026)
 
@@ -176,6 +181,7 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
 | Netlify | Eerst hier verbeteren, daarna met de hand uploaden. | Open. |
 | Maximum op uitgaven | Geen plafond, tenzij het echt niet kan (zoals het maximum aantal wethouders). | Punt 56. |
 | Beginnen bij nul | Optie om bij de wettelijke taken te beginnen, met aan het eind het verschil met de begroting van het college. | Punt 57. |
+| Beleidshuis | Een gebouw met programma's en plannen die je stopzet of aanzet. | Punt 59. |
 | Standaard bij nul | Bij nul is de standaard; wettelijke plichten zoals uitkeringen op het minimum. | Punt 58. |
 | Blije inwoners | Eerst weglaten; later misschien anders. | Punt 46. |
 | Bedragen | Naast het percentage ook een bedrag kunnen invullen. | Punt 48. |

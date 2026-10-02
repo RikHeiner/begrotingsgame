@@ -1,6 +1,6 @@
 # Opties uit de lijst van de fractie, gekoppeld aan de game
 
-Elke optie uit de lijst (295) staat hieronder met wat er in de game bij hoort: een schuif (↑ meer, ↓ minder), een belasting, een parkeerpost, een actiekaart, een spelregel of een kettingeffect. De codes tussen haakjes zijn de ids in de data. Gemaakt op 1 oktober 2026, met de begroting 2026.
+Elke optie uit de lijst (295) staat hieronder met wat er in de game bij hoort: een schuif (↑ meer, ↓ minder), een belasting, een parkeerpost, een actiekaart, een spelregel of een kettingeffect. De codes tussen haakjes zijn de ids in de data. Gemaakt op 1 oktober 2026, met de begroting 2026. Sinds 2 oktober staan 42 beleidskeuzes met een eigen bedrag in het Beleidshuis (zie `data/BEVINDINGEN.md` punt 59).
 
 ## Samenvatting
 

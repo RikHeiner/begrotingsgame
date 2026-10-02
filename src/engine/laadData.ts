@@ -171,7 +171,8 @@ export function maakData(ruw: RuweData): Data {
     if (!o) programmaFouten.push(`${p.id}: post "${p.post}" bestaat niet`);
     else if (o.vergrendeld || o.min_pct === null)
       programmaFouten.push(`${p.id}: post "${p.post}" zit vast`);
-    else perPost.set(o.id, (perPost.get(o.id) ?? 0) + p.bedrag_mln);
+    else if (p.structureel_of_incidenteel === 'S')
+      perPost.set(o.id, (perPost.get(o.id) ?? 0) + p.bedrag_mln);
   }
   for (const [id, som] of perPost) {
     const o = begroting.onderdelen.find((x) => x.id === id);

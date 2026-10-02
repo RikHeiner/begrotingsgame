@@ -12,7 +12,7 @@ import {
 } from '../../engine';
 import { PARKEER_PREFIX, parkeerPosten, type ParkeerPost } from '../../engine/parkeren';
 import type { Gebouw, Minimum, Programma } from '../../engine/schema';
-import { isGestopt } from '../../game/beleidshuis';
+import { isGestopt, stilDoorMinimum } from '../../game/beleidshuis';
 import { huidigJaar, useSpel } from '../../game/state/store';
 import { Schuif } from './Schuif';
 
@@ -186,6 +186,7 @@ function ParkeerSchuiven({
  */
 function Programmas({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
   const wissel = useSpel((s) => s.wisselProgramma);
+  const jaar = huidigJaar(data);
   const perPost = new Map<string, Programma[]>();
   for (const p of data.index.programmas.values())
     perPost.set(p.post, [...(perPost.get(p.post) ?? []), p]);
@@ -203,25 +204,36 @@ function Programmas({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
             <h4>{o?.naam ?? post}</h4>
             <ul className="posten kaarten">
               {lijst.map((p) => {
-                const loopt = !isGestopt(resultaat.keuzes, p.id);
+                const minimum = stilDoorMinimum(data, resultaat.keuzes, p);
+                const loopt = !isGestopt(resultaat.keuzes, p.id) && !minimum;
+                const eenmalig = p.structureel_of_incidenteel === 'I';
                 return (
                   <li key={p.id}>
                     <button
                       type="button"
                       className={`actiekaart programma${loopt ? ' aan' : ''}`}
                       aria-pressed={loopt}
+                      disabled={minimum}
                       data-testid={`programma-${p.id}`}
                       onClick={() => wissel(p.id)}
                     >
-                      <span className="actiekaart-soort">{loopt ? 'Loopt' : 'Staat stil'}</span>
+                      <span className="actiekaart-soort">
+                        {loopt ? 'Loopt' : 'Staat stil'} ·{' '}
+                        {eenmalig ? `alleen ${jaar}` : 'elk jaar'}
+                      </span>
                       <strong>
                         {p.zekerheid !== 'feit' ? '⚠︎ ' : ''}
                         {p.naam}
                       </strong>
                       <span>{p.uitleg}</span>
                       <span>
-                        {formatMln(p.bedrag_mln * 1e6, { decimalen: 2 })} per jaar ·{' '}
-                        {loopt ? 'tik om stop te zetten' : 'tik om weer aan te zetten'}
+                        {formatMln(p.bedrag_mln * 1e6, { decimalen: 2 })}
+                        {eenmalig ? ` in ${jaar}` : ' per jaar'} ·{' '}
+                        {minimum
+                          ? 'staat stil: de post staat op zijn minimum'
+                          : loopt
+                            ? 'tik om stop te zetten'
+                            : 'tik om weer aan te zetten'}
                       </span>
                     </button>
                   </li>

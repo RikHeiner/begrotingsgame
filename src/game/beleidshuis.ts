@@ -19,14 +19,22 @@ export function isGestopt(keuzes: Keuzes, id: string): boolean {
   return (keuzes.gestopt ?? []).includes(id);
 }
 
+/** Staat de post van een eenmalig programma op zijn minimum? Dan staat het programma al stil. */
+export function stilDoorMinimum(data: Data, keuzes: Keuzes, p: Programma): boolean {
+  const o = data.index.onderdelen.get(p.post);
+  if (!o || p.structureel_of_incidenteel !== 'I') return false;
+  return (keuzes.onderdelen[p.post] ?? 0) <= grensOnderdeel(o).min;
+}
+
 /** De keuzes na het stopzetten of weer aanzetten van een programma. */
 export function wisselProgramma(data: Data, keuzes: Keuzes, id: string): Keuzes {
   const p = data.index.programmas.get(id);
   if (!p) return keuzes;
   const gestopt = isGestopt(keuzes, id);
-  const pct = afgerond(
-    (keuzes.onderdelen[p.post] ?? 0) + (gestopt ? 1 : -1) * programmaPct(data, p),
-  );
+  // Een eenmalig programma verandert de schuif niet: de rekenmotor rekent het eerste jaar.
+  const verschil =
+    p.structureel_of_incidenteel === 'S' ? (gestopt ? 1 : -1) * programmaPct(data, p) : 0;
+  const pct = afgerond((keuzes.onderdelen[p.post] ?? 0) + verschil);
   const onderdelen = Object.fromEntries(
     Object.entries({ ...keuzes.onderdelen, [p.post]: pct }).filter(([, x]) => x !== 0),
   );
@@ -39,12 +47,15 @@ export function wisselProgramma(data: Data, keuzes: Keuzes, id: string): Keuzes 
   return uit;
 }
 
-/** Bij nul staan de programma's stil waarvan de post op zijn minimum staat. */
+/**
+ * Bij nul staan de structurele programma's stil waarvan de post op zijn minimum staat. Een
+ * eenmalig programma staat daar vanzelf stil (de rekenmotor ziet geen ruimte boven het minimum).
+ */
 export function gestoptBijMinimum(data: Data, onderdelen: Record<string, number>): string[] {
   const uit: string[] = [];
   for (const p of data.index.programmas.values()) {
     const o = data.index.onderdelen.get(p.post);
-    if (!o) continue;
+    if (!o || p.structureel_of_incidenteel !== 'S') continue;
     const pct = onderdelen[p.post];
     if (pct !== undefined && pct <= grensOnderdeel(o).min) uit.push(p.id);
   }
