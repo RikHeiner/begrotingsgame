@@ -184,7 +184,7 @@ ontwerp en de kostenraming staan voor later in [docs/VIDEO-ONTWERP.md](docs/VIDE
 
 - `data/spel/kaart.json`: middelpunt (Grote Markt), vergroting, toestandsdrempels, water en labels.
 - `data/spel/gebieden.json`: de zeven gebieden van de gemeente met hun CBS-buurten.
-- `data/spel/gebouwen.json`: de 14 gebouwen met buurt, gebied, positie en kleuren.
+- `data/spel/gebouwen.json`: de 15 gebouwen met buurt, gebied, positie en kleuren.
 - `data/spel/reacties.json`: de tekstballonnen; de voorwaarden gebruiken een eigen, veilige expressietaal
   (`src/engine/expressie.ts`).
 - De kaart is een canvas (Canvas 2D), pas geladen als hij in beeld komt. De vaste laag (buurten,
