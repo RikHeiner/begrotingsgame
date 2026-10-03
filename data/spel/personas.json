@@ -1,0 +1,192 @@
+{
+  "toelichting": "De inwoners in de game (de acht uit de opdracht plus Peter en Tineke). Hun tevredenheid is een spelregel: 50 + gewogen afwijking van hun meters + de wijziging van posten die zij merken. Een positief gewicht bij een post betekent: meer geld is beter voor deze persoon. Bij een belasting is het gewicht negatief: een hogere belasting is slechter. Bij een actiekaart telt aan als 100%.",
+  "spelregels": {
+    "gewicht_meters": 1,
+    "punten_posten_per_100pct": 25
+  },
+  "personas": [
+    {
+      "id": "anne",
+      "naam": "Anne",
+      "leeftijd": 21,
+      "situatie": "Student, huurt een kamer in Selwerd. Fietst veel en gaat naar festivals.",
+      "meters": {
+        "sport_cultuur": 1,
+        "schoon": 0.5,
+        "veilig": 0.5,
+        "portemonnee": 0.3
+      },
+      "posten": {
+        "c2": 0.5,
+        "c3": 0.5,
+        "m5": 0.7,
+        "t5": -0.2
+      },
+      "buurt": "BU00141000",
+      "gebied": "west"
+    },
+    {
+      "id": "bakker",
+      "naam": "Familie Bakker",
+      "leeftijd": null,
+      "situatie": "Woont in Beijum, leeft van de bijstand en heeft twee kinderen. Gebruikt minimaregelingen en kwijtschelding.",
+      "meters": {
+        "zorg": 1,
+        "werk": 0.8,
+        "portemonnee": 0.6
+      },
+      "posten": {
+        "s10": 1,
+        "s11": 0.7,
+        "s12": 0.5,
+        "k_kwijt": -1,
+        "z4": 0.5,
+        "d2": 0.4,
+        "s3": 0.4
+      },
+      "buurt": "BU00141100",
+      "gebied": "oost"
+    },
+    {
+      "id": "henk",
+      "naam": "Henk",
+      "leeftijd": 52,
+      "situatie": "Eigenaar van een winkel in de binnenstad. Betaalt OZB, reclamebelasting en parkeergeld.",
+      "meters": {
+        "portemonnee": 1,
+        "veilig": 0.6,
+        "schoon": 0.6,
+        "werk": 0.4
+      },
+      "posten": {
+        "t1": -1,
+        "t3": -0.8,
+        "t5": -0.8,
+        "t4": -0.4,
+        "m6": 0.5,
+        "e3": 0.4
+      },
+      "buurt": "BU00140000",
+      "gebied": "centrum"
+    },
+    {
+      "id": "fatima",
+      "naam": "Fatima",
+      "leeftijd": 38,
+      "situatie": "Verpleegkundige in het UMCG, huurt in Lewenborg. Heeft een parkeervergunning.",
+      "meters": {
+        "zorg": 0.6,
+        "veilig": 0.5,
+        "portemonnee": 0.5,
+        "dienstverlening": 0.3
+      },
+      "posten": {
+        "t5": -0.6,
+        "z4": 0.3,
+        "z3": 0.3
+      },
+      "buurt": "BU00141201",
+      "gebied": "oost"
+    },
+    {
+      "id": "devries",
+      "naam": "Meneer De Vries",
+      "leeftijd": 78,
+      "situatie": "Woont zelfstandig in Haren. Gebruikt Wmo-hulp en het buurthuis.",
+      "meters": {
+        "zorg": 1,
+        "dienstverlening": 0.6,
+        "veilig": 0.5,
+        "portemonnee": 0.5
+      },
+      "posten": {
+        "z3": 1,
+        "z8": 0.8,
+        "b1": 0.3,
+        "t1": -0.5
+      },
+      "buurt": "BU00141700",
+      "gebied": "haren"
+    },
+    {
+      "id": "gezin",
+      "naam": "Jeroen en Sanne",
+      "leeftijd": 34,
+      "situatie": "Jong gezin met een koophuis in Meerstad. Hebben kinderopvang, school en sport nodig.",
+      "meters": {
+        "wonen": 1,
+        "portemonnee": 0.7,
+        "sport_cultuur": 0.6,
+        "schoon": 0.4
+      },
+      "posten": {
+        "d1": 0.7,
+        "k1": 0.6,
+        "k2": 0.3,
+        "k_bouw": 0.5,
+        "t1": -0.8
+      },
+      "buurt": "BU00141400",
+      "gebied": "oost"
+    },
+    {
+      "id": "kees",
+      "naam": "Kees",
+      "leeftijd": 60,
+      "situatie": "Melkveehouder bij Ten Boer. Aardbevingen en de dorpen zijn belangrijk voor hem.",
+      "meters": {
+        "portemonnee": 0.7,
+        "wonen": 0.4,
+        "veilig": 0.3,
+        "schoon": 0.3
+      },
+      "posten": {
+        "g4": 0.6,
+        "g3": 0.5,
+        "t1": -0.7
+      },
+      "buurt": "BU00141500",
+      "gebied": "ten_boer"
+    },
+    {
+      "id": "sem",
+      "naam": "Sem",
+      "leeftijd": 17,
+      "situatie": "Scholier in Hoogkerk. Zit op voetbal en zwemt graag.",
+      "meters": {
+        "sport_cultuur": 1,
+        "werk": 0.3,
+        "schoon": 0.3
+      },
+      "posten": {
+        "k1": 1,
+        "k2": 0.7,
+        "d4": 0.3,
+        "d2": 0.3
+      },
+      "buurt": "BU00140800",
+      "gebied": "west"
+    },
+    {
+      "id": "peter_tineke",
+      "naam": "Peter en Tineke",
+      "leeftijd": null,
+      "situatie": "Wonen in de Oosterpoort. Peter heeft een klusbedrijf en rijdt in een dieselbus uit 2011. Tineke werkt bij een garnalenpellerij in Zoutkamp; 's ochtends vroeg gaat daar geen bus heen. Ze hebben allebei een auto nodig, maar krijgen maar één parkeervergunning.",
+      "meters": {
+        "portemonnee": 1,
+        "werk": 0.6,
+        "wonen": 0.5,
+        "veilig": 0.3,
+        "schoon": 0.3
+      },
+      "posten": {
+        "t5:bewoners_1:tweede": -0.6,
+        "t5:bewoners_2:tweede": -0.4,
+        "m2": -0.3,
+        "o1": 0.3
+      },
+      "buurt": "BU00140101",
+      "gebied": "zuid"
+    }
+  ]
+}

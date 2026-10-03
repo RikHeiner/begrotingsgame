@@ -1,0 +1,4 @@
+# Begrotingsgame gemeente Groningen
+User-agent: *
+Allow: /
+Disallow: /dashboard.html

@@ -1,0 +1,79 @@
+{
+  "toelichting": "De route bij nul: eerst de belasting, daarna de onderwerpen in de volgorde die VVD Groningen het belangrijkst vindt (besluit 3 oktober 2026). Op de kaart staan de nummers bij de gebouwen. Het standpunt van VVD Groningen (vvd) vult de fractie later in. Het Beleidshuis en het Veilinghuis horen niet bij de route.",
+  "intro": {
+    "kop": "De gemeente heeft geld nodig",
+    "tekst": "Je begint bij nul: alleen wat de wet verplicht staat erin. Je hebt {vrij} per jaar te verdelen. Volg de nummers op de kaart: eerst de belasting, dan veiligheid, ondernemen en sport.",
+    "knop": "Naar het belastingloket"
+  },
+  "klaar": {
+    "kop": "Je bent alle gebouwen langs geweest",
+    "tekst": "Kijk nog in het Beleidshuis en het Veilinghuis, of pas iets aan. Klaar? Dien je begroting in. Dan zie je ook wat het college heeft gekozen."
+  },
+  "stappen": [
+    {
+      "gebouw": "loket",
+      "thema": "Financiën",
+      "vraag": "Hoeveel belasting vraag jij van inwoners en ondernemers?"
+    },
+    {
+      "gebouw": "politie",
+      "thema": "Veiligheid",
+      "vraag": "Hoeveel geld gaat naar toezicht, handhaving en de aanpak van criminaliteit?"
+    },
+    {
+      "gebouw": "winkel",
+      "thema": "Ondernemen",
+      "vraag": "Wat doet de gemeente voor ondernemers, winkels en bedrijventerreinen?"
+    },
+    {
+      "gebouw": "zwembad",
+      "thema": "Sport",
+      "vraag": "Hoeveel sporthallen, zwembaden en sportactiviteiten wil je?"
+    },
+    {
+      "gebouw": "park",
+      "thema": "Straten en groen",
+      "vraag": "Hoe goed onderhoudt de gemeente straten, groen en speeltuinen?"
+    },
+    {
+      "gebouw": "parkeer",
+      "thema": "Verkeer en parkeren",
+      "vraag": "Wat kost parkeren, en wat doet de gemeente voor verkeer?"
+    },
+    {
+      "gebouw": "bouw",
+      "thema": "Wonen en bouwen",
+      "vraag": "Hoeveel geld gaat naar woningbouw, vergunningen en energie?"
+    },
+    {
+      "gebouw": "school",
+      "thema": "Onderwijs",
+      "vraag": "Wat doet de gemeente voor schoolgebouwen en leerlingen?"
+    },
+    {
+      "gebouw": "werk",
+      "thema": "Werk en inkomen",
+      "vraag": "Hoe helpt de gemeente mensen aan werk, en wie krijgt een uitkering?"
+    },
+    {
+      "gebouw": "zorg",
+      "thema": "Zorg",
+      "vraag": "Hoeveel geld gaat naar jeugdzorg, Wmo, opvang en de GGD?"
+    },
+    {
+      "gebouw": "buurt",
+      "thema": "Buurt en welzijn",
+      "vraag": "Hoeveel geld gaat naar wijkbudgetten, buurthuizen en welzijn?"
+    },
+    {
+      "gebouw": "theater",
+      "thema": "Cultuur",
+      "vraag": "Hoeveel geld gaat naar de schouwburg, musea en culturele instellingen?"
+    },
+    {
+      "gebouw": "stadhuis",
+      "thema": "Het stadhuis",
+      "vraag": "Hoe groot is de organisatie van de gemeente zelf?"
+    }
+  ]
+}

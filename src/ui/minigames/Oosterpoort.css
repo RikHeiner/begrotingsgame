@@ -1,0 +1,93 @@
+/* De Oosterpoort: wie betaalt de voorstelling? */
+.mg-poort {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.mg-poort p,
+.mg-poort h3 {
+  margin: 0;
+}
+
+.mg-poort-gok {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--blauw);
+}
+
+.mg-poort-rij {
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.mg-poort-rij .knop {
+  min-width: 44px;
+  padding: 0;
+  font-size: 1.2rem;
+}
+
+.mg-poort-rij input[type='range'] {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  accent-color: var(--oranje);
+}
+
+.mg-poort-balk {
+  position: relative;
+  display: flex;
+  height: 2.4rem;
+  border-radius: 0.6rem;
+  overflow: hidden;
+  border: 2px solid var(--blauw);
+}
+
+.mg-poort-bezoekers,
+.mg-poort-gemeente {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.mg-poort-bezoekers {
+  background: color-mix(in srgb, var(--oranje) 55%, var(--paneel));
+  transition: width 0.3s ease;
+}
+
+.mg-poort-gemeente {
+  flex: 1;
+  background: color-mix(in srgb, var(--blauw) 25%, var(--paneel));
+}
+
+.mg-poort-echt {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  margin-left: -2px;
+  background: var(--inkt);
+}
+
+.mg-poort-legenda {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.mg-poort-uitslag {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.mg-poort > .knop-indienen {
+  justify-self: start;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mg-poort-bezoekers {
+    transition: none;
+  }
+}

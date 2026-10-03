@@ -1,0 +1,19 @@
+{
+  "toelichting": "De meters zijn een spelregel, geen voorspelling. 50 is de huidige begroting. Gewichten per onderdeel staan in de begroting (veld 'meters', met de korte code).",
+  "meters": [
+    { "id": "veilig", "kort": "v", "naam": "Veilig", "icoon": "🛡️" },
+    { "id": "schoon", "kort": "s", "naam": "Schoon en heel", "icoon": "🌳" },
+    { "id": "zorg", "kort": "z", "naam": "Zorg en vangnet", "icoon": "🤝" },
+    { "id": "werk", "kort": "w", "naam": "Werk", "icoon": "💼" },
+    { "id": "sport_cultuur", "kort": "c", "naam": "Sport en cultuur", "icoon": "🎭" },
+    { "id": "portemonnee", "kort": "p", "naam": "Portemonnee", "icoon": "👛" },
+    { "id": "wonen", "kort": "h", "naam": "Wonen", "icoon": "🏠" },
+    { "id": "dienstverlening", "kort": "d", "naam": "Dienstverlening", "icoon": "🛂" }
+  ],
+  "spelregels": {
+    "gevoeligheid_onderdelen": 120,
+    "gevoeligheid_belastingen": 150,
+    "punten_dwarsverband_per_100pct": 10,
+    "uitleg": "Per meter: 50 + gevoeligheid × (gewogen gemiddelde wijziging van de betrokken, niet-vergrendelde posten). De portemonnee volgt de belastingen, gewogen naar opbrengst en voelbaarheid (hogere belasting is lager). Kettingeffecten en actiekaarten tellen daar punten bij op. Elke meter blijft tussen 0 en 100. Deze waarden komen uit het prototype."
+  }
+}

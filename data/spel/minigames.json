@@ -1,0 +1,206 @@
+{
+  "toelichting": "Minigames over geld en de begroting, elk in een bekend gebouw van de gemeente Groningen. De plek is ongeveer de echte plek; de kaart schuift ze een stukje opzij als ze te dicht bij een ander gebouw staan. 'vorm' bepaalt de tekening op de kaart. De vragen en bedragen in de spellen komen uit de begroting zelf (data); waar een spel een aanname gebruikt, zegt het spel dat. Met 'bij' staat het spel op een plek van een gebouw van de begroting (de Martinitoren is de toren naast het Stadhuis); er komt dan geen eigen tekening bij.",
+  "minigames": [
+    {
+      "id": "martinitoren",
+      "naam": "Martinitoren",
+      "spel": "Beklim d'Olle Grieze",
+      "vorm": "toren",
+      "icoon": "🗼",
+      "positie": {
+        "lon": 6.5702,
+        "lat": 53.2212
+      },
+      "kort": "Hoger of lager: wat kost meer? Elke goede keuze is een trede hoger.",
+      "leerdoel": "Hoe groot de posten van de begroting zijn, vergeleken met elkaar.",
+      "bij": {
+        "gebouw": "stadhuis",
+        "dx": 33,
+        "dy": -8
+      }
+    },
+    {
+      "id": "grotemarkt",
+      "naam": "Grote Markt",
+      "spel": "Marktkoopman",
+      "vorm": "markt",
+      "icoon": "🧺",
+      "positie": {
+        "lon": 6.5655,
+        "lat": 53.2176
+      },
+      "kort": "Vul je kraam met uitgaven, maar blijf binnen het budget.",
+      "leerdoel": "Je kunt niet alles kopen: kiezen binnen een vast budget."
+    },
+    {
+      "id": "station",
+      "naam": "Hoofdstation",
+      "spel": "Op tijd vertrekken",
+      "vorm": "station",
+      "icoon": "🚉",
+      "positie": {
+        "lon": 6.564,
+        "lat": 53.2105
+      },
+      "kort": "Zet elke trein op het goede spoor: eenmalig of elk jaar?",
+      "leerdoel": "Het verschil tussen eenmalig geld en geld dat elk jaar terugkomt."
+    },
+    {
+      "id": "forum",
+      "naam": "Forum",
+      "spel": "Schatten op het dakterras",
+      "vorm": "forum",
+      "icoon": "🏢",
+      "positie": {
+        "lon": 6.5722,
+        "lat": 53.2196
+      },
+      "kort": "Raad hoeveel de gemeente ergens aan uitgeeft. Hoe dichterbij, hoe meer punten.",
+      "leerdoel": "Gevoel krijgen voor miljoenen: wat is veel en wat is weinig?"
+    },
+    {
+      "id": "euroborg",
+      "naam": "Euroborg",
+      "spel": "Penalty's voor de pot",
+      "vorm": "stadion",
+      "icoon": "⚽",
+      "positie": {
+        "lon": 6.5928,
+        "lat": 53.2063
+      },
+      "kort": "Schiet bezuinigingen in het doel. De keeper is de wet.",
+      "leerdoel": "Wat de wet verplicht, kun je niet zomaar schrappen."
+    },
+    {
+      "id": "noorderplantsoen",
+      "naam": "Noorderplantsoen",
+      "spel": "Gaten en lantaarns",
+      "vorm": "plantsoen",
+      "icoon": "🌳",
+      "positie": {
+        "lon": 6.5585,
+        "lat": 53.225
+      },
+      "kort": "Repareer snel wat kapot gaat. Wat je laat liggen, wordt duurder.",
+      "leerdoel": "Uitstellen kost later vaak meer geld."
+    },
+    {
+      "id": "museum",
+      "naam": "Groninger Museum",
+      "spel": "Moet of mag?",
+      "vorm": "museum",
+      "icoon": "🖼️",
+      "positie": {
+        "lon": 6.5672,
+        "lat": 53.2128
+      },
+      "kort": "Is het verplicht van de wet, een eigen keuze, of levert het geld op?",
+      "leerdoel": "Welke taken moeten van de wet, en welke kiest de gemeente zelf?"
+    },
+    {
+      "id": "academie",
+      "naam": "Academiegebouw",
+      "spel": "Rondkomen als student",
+      "vorm": "academie",
+      "icoon": "🎓",
+      "positie": {
+        "lon": 6.5625,
+        "lat": 53.2192
+      },
+      "kort": "Verdeel een maand studentenbudget. Ook de gemeente stuurt een rekening.",
+      "leerdoel": "Wat gemeentelijke heffingen betekenen voor je eigen portemonnee."
+    },
+    {
+      "id": "sluis",
+      "naam": "Oostersluis",
+      "spel": "Sluiswachter",
+      "vorm": "sluis",
+      "icoon": "🚢",
+      "positie": {
+        "lon": 6.603,
+        "lat": 53.2232
+      },
+      "kort": "Houd het water op peil: geld komt binnen en gaat eruit.",
+      "leerdoel": "Een begroting in evenwicht: niet meer uitgeven dan er binnenkomt."
+    },
+    {
+      "id": "oosterpoort",
+      "naam": "De Oosterpoort",
+      "spel": "Wie betaalt de voorstelling?",
+      "vorm": "concertzaal",
+      "icoon": "🎻",
+      "positie": {
+        "lon": 6.58,
+        "lat": 53.214
+      },
+      "kort": "Raad welk deel bezoekers betalen en welk deel de gemeente.",
+      "leerdoel": "Hoe subsidie werkt: wie betaalt wat?"
+    },
+    {
+      "id": "goudkantoor",
+      "naam": "Goudkantoor",
+      "spel": "Geldzoeker",
+      "vorm": "goudkantoor",
+      "icoon": "⛏️",
+      "positie": {
+        "lon": 6.5669,
+        "lat": 53.2183
+      },
+      "kort": "Graaf naar geld: tijdelijke uitgaven die VVD Groningen wil schrappen. Laat de kerntaken liggen.",
+      "leerdoel": "Waar tijdelijk geld heen gaat, en welke uitgaven VVD Groningen liever niet doet.",
+      "goud": {
+        "bron": "Verkiezingsprogramma VVD Groningen 2026-2030 (B1-versie)",
+        "url": "https://www.vvd.nl/wp-content/uploads/sites/28/2026/02/Verkiezingsprogramma-VVD-Groningen-2026-2030-in-B1-1-1.pdf",
+        "schatten": [
+          {
+            "kaart": "k_ongedoc",
+            "vvd": "De gemeente moet stoppen met de bed-bad-brood-opvang.",
+            "pagina": 21
+          },
+          {
+            "kaart": "p_energiebedrijf",
+            "vvd": "We stoppen met een eigen energiebedrijf en een eigen ontwikkelbedrijf.",
+            "pagina": 21
+          },
+          {
+            "kaart": "p_wegenfundering_warmtestad",
+            "vvd": "En we onderzoeken of onderdelen van Warmtestad kunnen worden afgestoten. Zo lopen de belastingbetalers geen risico als deze projecten niet lukken.",
+            "pagina": 21
+          },
+          {
+            "kaart": "p_niemeyer",
+            "vvd": "De gemeente moet kritischer kijken naar cultuursubsidies.",
+            "pagina": 50
+          },
+          {
+            "kaart": "p_diversiteit_organisatie",
+            "vvd": "Tegelijkertijd stoppen we dus met de minder belangrijke taken.",
+            "pagina": 21
+          }
+        ],
+        "stenen": [
+          {
+            "post": "v2",
+            "vvd": "Veiligheid is een basisvoorwaarde.",
+            "pagina": 4
+          },
+          {
+            "post": "o1",
+            "vvd": "Dat betekent: schone straten, goed onderhouden groen, veilige wijken en dorpen, en handhaving van regels die echt nut hebben.",
+            "pagina": 4
+          },
+          {
+            "post": "w8",
+            "vvd": "Dat betekent: snelle vergunningen, minder regels en sneller woningen bouwen.",
+            "pagina": 20
+          },
+          {
+            "post": "k1",
+            "vvd": "Daarom investeren we in toegankelijke sportplekken (…).",
+            "pagina": 44
+          }
+        ]
+      }
+    }
+  ]
+}

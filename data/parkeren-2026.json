@@ -1,0 +1,446 @@
+{
+  "begrotingsjaar": 2026,
+  "toelichting": "Parkeren in de gemeente Groningen, voor de schuiven per vergunning en tariefgebied (de oude schuif 'Parkeertarieven' t5 is hierover verdeeld). Elk bedrag heeft een bron, een jaartal (prijspeil of peiljaar) en een status. Voor de begroting 2027: nieuwe tarieven en aantallen invullen, of indexeren met 'indexatie' (zie UPDATE-BEGROTING.md). De opbrengst van een vergunning is aantal x tarief. Kortparkeren is wat er van de parkeerbelasting overblijft na de vergunningen; de parkeergarages zijn het verschil tussen de opbrengst in de begroting (t5) en de parkeerbelasting in de kerngegevens.",
+  "bronnen": [
+    {
+      "id": "rapport_2025",
+      "titel": "Voortgang pakket parkeermaatregelen, technisch rapport (september 2025)",
+      "url": "https://gemeenteraad.groningen.nl/Documenten/Bijlage-Voortgang-pakket-parkeermaatregelen-technisch-rapport.pdf",
+      "datum": "2025-09",
+      "status": "feit"
+    },
+    {
+      "id": "tarieven_2026",
+      "titel": "Gemeente Groningen, raadsvoorstel Belastingtarieven 2026 (via zoekresultaten, document zelf nog niet ingezien)",
+      "url": "https://gemeenteraad.groningen.nl/Documenten/Belastingtarieven-2026.pdf",
+      "datum": "2025-11",
+      "status": "te controleren"
+    },
+    {
+      "id": "begroting_2026",
+      "titel": "Ontwerpbegroting 2026 (kerngegevens en schuif t5)",
+      "url": "https://gemeenteraad.groningen.nl/Documenten/Bijlage-2-Ontwerpbegroting-2026-boekwerk.pdf",
+      "datum": "2025-09",
+      "status": "feit"
+    }
+  ],
+  "opbrengst": {
+    "belasting": "t5",
+    "gebouw": "parkeer",
+    "kengetal_parkeerbelasting": "parkeerbelasting_x1000",
+    "garages_toelichting": "Verschil tussen de parkeeropbrengst in de begroting (t5) en de parkeerbelasting in de kerngegevens. Volgens de fractie (1 oktober 2026) zijn dat de parkeergarages."
+  },
+  "indexatie": [
+    {
+      "naar_jaar": 2026,
+      "pct": 4.09,
+      "bron": "tarieven_2026",
+      "toelichting": "Indexatie van de parkeervergunningen voor 2026 (behalve bezoekers- en maatschappelijke vergunning)."
+    }
+  ],
+  "parkeerzones": [
+    {
+      "id": "zone_1",
+      "naam": "Zone 1 (binnenstad)",
+      "uurtarief": {
+        "bedrag": 5.0,
+        "prijspeil": 2026,
+        "bron": "tarieven_2026"
+      }
+    },
+    {
+      "id": "zone_2",
+      "naam": "Zone 2 (onder andere Oosterpoort, Schildersbuurt, Korrewegwijk, Haren Centrum)",
+      "uurtarief": {
+        "bedrag": 4.5,
+        "prijspeil": 2026,
+        "bron": "tarieven_2026"
+      }
+    },
+    {
+      "id": "zone_3",
+      "naam": "Zone 3 (onder andere Paddepoel, Selwerd, Helpman, De Linie)",
+      "uurtarief": {
+        "bedrag": 2.7,
+        "prijspeil": 2023,
+        "bron": "rapport_2025"
+      }
+    },
+    {
+      "id": "zone_4",
+      "naam": "Zone 4 (Hoornse Meer, De Wijert-Zuid, Stadspark, Oosterhoogebrug)",
+      "uurtarief": {
+        "bedrag": 2.7,
+        "prijspeil": 2023,
+        "bron": "rapport_2025"
+      }
+    },
+    {
+      "id": "zone_5",
+      "naam": "Zone 5 (Haren Schil, alleen voor vergunninghouders)",
+      "uurtarief": null
+    }
+  ],
+  "tariefgebieden": [
+    {
+      "id": "binnenstad",
+      "kort": "Binnenstad",
+      "naam": "Binnenstad"
+    },
+    {
+      "id": "tweede",
+      "kort": "Zone 2 (onder andere Oosterpoort en Schildersbuurt)",
+      "naam": "Binnenstad-Oost, Oosterpoort, Grunobuurt, Hortusbuurt, Kop van Oost, Oranjewijk, Rivierenbuurt, Schildersbuurt, Zeeheldenbuurt"
+    },
+    {
+      "id": "derde_tm_vijfde",
+      "kort": "Zone 3 tot en met 5 (onder andere Selwerd, Helpman en Haren)",
+      "naam": "De Hoogte, Korrewegwijk, Oosterparkwijk, Corpus den Hoorn, De Linie, De Wijert, Helpman, Hoornse Meer, Paddepoel, Selwerd, Tuinwijk, Oosterhoogebrug, Haren"
+    }
+  ],
+  "aantallen": {
+    "peiljaar": 2025,
+    "bron": "rapport_2025",
+    "toelichting": "Tabel 8 (vergunningsdruk 2025, p. 31). Haren en het Stadspark staan nog niet in de tabel (betaald parkeren daar vanaf eind 2025 en 2026).",
+    "totaal_volgens_bron": {
+      "bewoners_1": 27750,
+      "bewoners_2": 1837,
+      "bezoekers": 24621,
+      "bedrijven": 2216
+    },
+    "gebieden": [
+      {
+        "naam": "Binnenstad",
+        "parkeerzone": "zone_1",
+        "tariefgebied": "binnenstad",
+        "bewoners_1": 765,
+        "bewoners_2": 0,
+        "bezoekers": 0,
+        "bedrijven": 0
+      },
+      {
+        "naam": "Binnenstad-Oost",
+        "parkeerzone": "zone_2",
+        "tariefgebied": "tweede",
+        "bewoners_1": 595,
+        "bewoners_2": 14,
+        "bezoekers": 551,
+        "bedrijven": 182
+      },
+      {
+        "naam": "Corpus den Hoorn",
+        "parkeerzone": "zone_3",
+        "tariefgebied": "derde_tm_vijfde",
+        "bewoners_1": 1230,
+        "bewoners_2": 120,
+        "bezoekers": 965,
+        "bedrijven": 113
+      },
+      {
+        "naam": "De Hoogte",
+        "parkeerzone": "zone_2",
+        "tariefgebied": "derde_tm_vijfde",
+        "bewoners_1": 1028,
+        "bewoners_2": 58,
+        "bezoekers": 705,
+        "bedrijven": 43
+      },
+      {
+        "naam": "De Linie",
+        "parkeerzone": "zone_3",
+        "tariefgebied": "derde_tm_vijfde",
+        "bewoners_1": 126,
+        "bewoners_2": 16,
+        "bezoekers": 180,
+        "bedrijven": 8
+      },
+      {
+        "naam": "De Wijert-Noord",
+        "parkeerzone": "zone_3",
+        "tariefgebied": "derde_tm_vijfde",
+        "bewoners_1": 1367,
+        "bewoners_2": 137,
+        "bezoekers": 978,
+        "bedrijven": 103
+      },
+      {
+        "naam": "De Wijert-Zuid",
+        "parkeerzone": "zone_4",
+        "tariefgebied": "derde_tm_vijfde",
+        "bewoners_1": 719,
+        "bewoners_2": 63,
+        "bezoekers": 616,
+        "bedrijven": 40
+      },
+      {
+        "naam": "Grunobuurt/Laanhuizen",
+        "parkeerzone": "zone_2",
+        "tariefgebied": "tweede",
+        "bewoners_1": 845,
+        "bewoners_2": 37,
+        "bezoekers": 1055,
+        "bedrijven": 51
+      },
+      {
+        "naam": "Helpman",
+        "parkeerzone": "zone_3",
+        "tariefgebied": "derde_tm_vijfde",
+        "bewoners_1": 2803,
+        "bewoners_2": 303,
+        "bezoekers": 2448,
+        "bedrijven": 236
+      },
+      {
+        "naam": "Hoornse Meer",
+        "parkeerzone": "zone_4",
+        "tariefgebied": "derde_tm_vijfde",
+        "bewoners_1": 1345,
+        "bewoners_2": 157,
+        "bezoekers": 1034,
+        "bedrijven": 44
+      },
+      {
+        "naam": "Hortusbuurt",
+        "parkeerzone": "zone_2",
+        "tariefgebied": "tweede",
+        "bewoners_1": 736,
+        "bewoners_2": 23,
+        "bezoekers": 784,
+        "bedrijven": 240
+      },
+      {
+        "naam": "Kop van Oost",
+        "parkeerzone": "zone_2",
+        "tariefgebied": "tweede",
+        "bewoners_1": 7,
+        "bewoners_2": 0,
+        "bezoekers": 147,
+        "bedrijven": 1
+      },
+      {
+        "naam": "Korrewegwijk",
+        "parkeerzone": "zone_2",
+        "tariefgebied": "derde_tm_vijfde",
+        "bewoners_1": 2861,
+        "bewoners_2": 142,
+        "bezoekers": 2422,
+        "bedrijven": 152
+      },
+      {
+        "naam": "Oosterhoogebrug",
+        "parkeerzone": "zone_4",
+        "tariefgebied": "derde_tm_vijfde",
+        "bewoners_1": 11,
+        "bewoners_2": 4,
+        "bezoekers": 52,
+        "bedrijven": 15
+      },
+      {
+        "naam": "Oosterparkwijk",
+        "parkeerzone": "zone_2",
+        "tariefgebied": "derde_tm_vijfde",
+        "bewoners_1": 2882,
+        "bewoners_2": 148,
+        "bezoekers": 2645,
+        "bedrijven": 130
+      },
+      {
+        "naam": "Oosterpoort/de Meeuwen",
+        "parkeerzone": "zone_2",
+        "tariefgebied": "tweede",
+        "bewoners_1": 1541,
+        "bewoners_2": 56,
+        "bezoekers": 1664,
+        "bedrijven": 135
+      },
+      {
+        "naam": "Oranjewijk (met Noorderplantsoenbuurt)",
+        "parkeerzone": "zone_2",
+        "tariefgebied": "tweede",
+        "bewoners_1": 1633,
+        "bewoners_2": 56,
+        "bezoekers": 1646,
+        "bedrijven": 75
+      },
+      {
+        "naam": "Paddepoel",
+        "parkeerzone": "zone_3",
+        "tariefgebied": "derde_tm_vijfde",
+        "bewoners_1": 1419,
+        "bewoners_2": 170,
+        "bezoekers": 1073,
+        "bedrijven": 59
+      },
+      {
+        "naam": "Rivierenbuurt (met Herewegbuurt)",
+        "parkeerzone": "zone_2",
+        "tariefgebied": "tweede",
+        "bewoners_1": 1234,
+        "bewoners_2": 36,
+        "bezoekers": 1378,
+        "bedrijven": 127
+      },
+      {
+        "naam": "Schildersbuurt",
+        "parkeerzone": "zone_2",
+        "tariefgebied": "tweede",
+        "bewoners_1": 1828,
+        "bewoners_2": 65,
+        "bezoekers": 1845,
+        "bedrijven": 311
+      },
+      {
+        "naam": "Selwerd",
+        "parkeerzone": "zone_3",
+        "tariefgebied": "derde_tm_vijfde",
+        "bewoners_1": 1255,
+        "bewoners_2": 128,
+        "bezoekers": 1100,
+        "bedrijven": 70
+      },
+      {
+        "naam": "Tuinwijk",
+        "parkeerzone": "zone_3",
+        "tariefgebied": "derde_tm_vijfde",
+        "bewoners_1": 664,
+        "bewoners_2": 55,
+        "bezoekers": 517,
+        "bedrijven": 33
+      },
+      {
+        "naam": "Zeeheldenbuurt (met Badstratenbuurt)",
+        "parkeerzone": "zone_2",
+        "tariefgebied": "tweede",
+        "bewoners_1": 856,
+        "bewoners_2": 49,
+        "bezoekers": 816,
+        "bedrijven": 47
+      }
+    ]
+  },
+  "vergunningen": [
+    {
+      "id": "bewoners_1",
+      "naam": "Bewonersvergunning",
+      "per_tariefgebied": true,
+      "tarief": {
+        "binnenstad": {
+          "bedrag": 394.2,
+          "prijspeil": 2026,
+          "bron": "tarieven_2026"
+        },
+        "tweede": {
+          "bedrag": 135.05,
+          "prijspeil": 2026,
+          "bron": "tarieven_2026"
+        },
+        "derde_tm_vijfde": {
+          "bedrag": 62.05,
+          "prijspeil": 2026,
+          "bron": "tarieven_2026"
+        }
+      },
+      "min_pct": -100,
+      "max_pct": null,
+      "uitleg": "Wat bewoners per jaar betalen voor hun eerste parkeervergunning."
+    },
+    {
+      "id": "bewoners_2",
+      "naam": "Tweede bewonersvergunning",
+      "per_tariefgebied": true,
+      "tarief": {
+        "tweede": {
+          "bedrag": 408.8,
+          "prijspeil": 2026,
+          "bron": "tarieven_2026"
+        }
+      },
+      "min_pct": -100,
+      "max_pct": null,
+      "uitleg": "Voor een tweede auto op hetzelfde adres. Het tarief in de derde tot en met vijfde zone is nog niet bekend; die vergunningen tellen voorlopig mee bij kortparkeren en overig."
+    },
+    {
+      "id": "bezoekers",
+      "naam": "Bezoekersvergunning",
+      "per_tariefgebied": false,
+      "tarief": {
+        "alle": {
+          "bedrag": 25.0,
+          "prijspeil": 2026,
+          "bron": "tarieven_2026"
+        }
+      },
+      "min_pct": -100,
+      "max_pct": null,
+      "uitleg": "De jaarprijs voor bewoners om bezoek aan te melden, met een startsaldo aan uren. Bijgekochte uren zijn niet apart bekend en tellen mee bij kortparkeren en overig."
+    },
+    {
+      "id": "bedrijven",
+      "naam": "Bedrijfsvergunning",
+      "per_tariefgebied": false,
+      "tarief": {
+        "alle": {
+          "bedrag": 135.05,
+          "prijspeil": 2026,
+          "bron": "tarieven_2026",
+          "aanname": "Alle bedrijfsvergunningen tegen het tarief van de eerste vergunning; een extra vergunning kost € 609,55, maar hoeveel dat er zijn is niet bekend."
+        }
+      },
+      "min_pct": -100,
+      "max_pct": null,
+      "uitleg": "Voor ondernemers in betaald parkeergebied."
+    },
+    {
+      "id": "mantelzorg",
+      "naam": "Mantelzorgvergunning",
+      "per_tariefgebied": false,
+      "tarief": {
+        "alle": {
+          "bedrag": 26.02,
+          "prijspeil": 2026,
+          "bron": "tarieven_2026"
+        }
+      },
+      "aantal": {
+        "waarde": 247,
+        "peiljaar": 2025,
+        "bron": "rapport_2025"
+      },
+      "min_pct": -100,
+      "max_pct": null,
+      "uitleg": "Voor mensen die mantelzorg krijgen: hun mantelzorgers kunnen parkeren."
+    },
+    {
+      "id": "maatschappelijk",
+      "naam": "Maatschappelijke parkeervergunning",
+      "per_tariefgebied": false,
+      "tarief": {
+        "alle": {
+          "bedrag": 65.7,
+          "prijspeil": 2026,
+          "bron": "rapport_2025"
+        }
+      },
+      "aantal": {
+        "waarde": 110,
+        "peiljaar": 2025,
+        "bron": "rapport_2025"
+      },
+      "min_pct": -100,
+      "max_pct": null,
+      "uitleg": "Voor scholen, kinderopvang, zorg en vrijwilligersorganisaties. Vanaf 2026 gehalveerd van € 131,40 naar € 65,70."
+    }
+  ],
+  "kortparkeren": {
+    "naam": "Kortparkeren (uurtarief) en overige parkeerbelasting",
+    "min_pct": -100,
+    "max_pct": null,
+    "uitleg": "Parkeergeld per uur op straat, in alle zones samen, plus de vergunningen waarvan het tarief nog niet bekend is. Op −100% is parkeren op straat gratis."
+  },
+  "garages": {
+    "naam": "Parkeergarages",
+    "min_pct": -100,
+    "max_pct": null,
+    "uitleg": "Tarieven van de gemeentelijke parkeergarages."
+  }
+}

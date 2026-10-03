@@ -1,0 +1,94 @@
+/* Groninger Museum: kleurige lijsten, zoals de gebouwen van het museum */
+.mg-museum {
+  --mu-geel: #f5c400;
+  --mu-roze: #e8418b;
+  --mu-turkoois: #13a3a3;
+  --mu-paars: #7a4ad8;
+  --mu-oranje: var(--oranje);
+}
+
+.mg-mu-lijst {
+  --mu-kleur: var(--mu-geel);
+  margin: 0.5rem 0 0.75rem;
+  padding: 0.7rem;
+  border-radius: 0.3rem;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--mu-kleur) 0 0.6rem,
+    color-mix(in srgb, var(--mu-kleur) 70%, var(--paneel)) 0.6rem 1.2rem
+  );
+  box-shadow: 0 0.3rem 0.8rem color-mix(in srgb, var(--inkt) 20%, transparent);
+}
+
+.mg-mu-lijst.roze {
+  --mu-kleur: var(--mu-roze);
+}
+.mg-mu-lijst.turkoois {
+  --mu-kleur: var(--mu-turkoois);
+}
+.mg-mu-lijst.paars {
+  --mu-kleur: var(--mu-paars);
+}
+.mg-mu-lijst.oranje {
+  --mu-kleur: var(--mu-oranje);
+}
+
+.mg-mu-doek {
+  padding: 1rem;
+  border-radius: 0.2rem;
+  background: var(--paneel);
+  color: var(--inkt);
+  text-align: center;
+}
+
+.mg-mu-doek h3 {
+  margin: 0.3rem 0;
+  font-size: 1.25rem;
+}
+
+.mg-mu-doek p {
+  margin: 0;
+}
+
+.mg-mu-soort {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--mu-kleur) 22%, var(--paneel));
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mg-mu-bordje {
+  width: fit-content;
+  margin: 0.5rem auto 0;
+  padding: 0.15rem 0.6rem;
+  border-radius: 0.2rem;
+  background: var(--paneel);
+  color: var(--inkt);
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.mg-mu-keuzes {
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+}
+
+.mg-mu-keuzes .mg-keuze {
+  justify-content: center;
+  min-height: 56px;
+  text-align: center;
+}
+
+.mg-mu-uitleg {
+  padding: 0.6rem 0.8rem;
+  border-left: 5px solid var(--mu-roze);
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, var(--mu-roze) 8%, var(--paneel));
+}
+
+.mg-mu-uitleg p {
+  margin: 0 0 0.5rem;
+}

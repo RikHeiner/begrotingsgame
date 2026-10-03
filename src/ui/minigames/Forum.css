@@ -1,0 +1,44 @@
+/* Forum: Schatten op het dakterras */
+.mg-forum h3 {
+  overflow-wrap: anywhere;
+}
+
+.mg-forum-gok {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.75rem 0;
+}
+
+.mg-forum-gok label {
+  font-weight: 700;
+}
+
+.mg-forum-gok output {
+  color: var(--blauw);
+  font-variant-numeric: tabular-nums;
+}
+
+.mg-forum-gok input[type='range'] {
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  accent-color: var(--oranje);
+  cursor: pointer;
+}
+
+.mg-forum-gok input[type='range']:disabled {
+  cursor: default;
+}
+
+.mg-forum-gok p {
+  margin: 0;
+}
+
+.mg-forum-schaal {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mg-forum .mg-uitslag p {
+  margin: 0.25rem 0;
+}

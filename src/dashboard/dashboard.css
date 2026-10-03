@@ -1,0 +1,238 @@
+/* Dashboard voor de fractie. Kleuren van de heatmap gecontroleerd met de dataviz-validator
+   (één kleur, oplopend, licht en donker apart). */
+:root {
+  --heat-0: #e4e6ef;
+  --heat-1: #86b6ef;
+  --heat-2: #5598e7;
+  --heat-3: #256abf;
+  --heat-4: #104281;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --heat-0: #2c3052;
+    --heat-1: #1c5cab;
+    --heat-2: #3987e5;
+    --heat-3: #86b6ef;
+    --heat-4: #cde2fb;
+  }
+}
+
+:root[data-theme='dark'] {
+  --heat-0: #2c3052;
+  --heat-1: #1c5cab;
+  --heat-2: #3987e5;
+  --heat-3: #86b6ef;
+  --heat-4: #cde2fb;
+}
+
+body {
+  background: var(--achtergrond);
+}
+
+.dashboard {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 16px 16px 48px;
+}
+
+.dash-kop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.dash-kop h1 {
+  margin: 0;
+  color: var(--blauw);
+  font-size: clamp(1.4rem, 5vw, 2rem);
+}
+
+.dash-gebruiker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.dash-acties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.dash-blok {
+  background: var(--paneel);
+  border-radius: 1rem;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 6px rgb(0 0 0 / 0.08);
+}
+
+.dash-blok h2 {
+  margin-top: 0;
+}
+
+.dash-tegels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+
+.dash-tegels div {
+  padding: 12px;
+  border-radius: 0.8rem;
+  background: var(--achtergrond);
+}
+
+.dash-tegels dt {
+  font-size: 0.9rem;
+  color: var(--gedempt);
+}
+
+.dash-tegels dd {
+  margin: 4px 0 0;
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.dash-kaart svg {
+  display: block;
+  width: 100%;
+  max-width: 40rem;
+  max-height: 70vh;
+  margin: 0 auto;
+}
+
+.dash-kaart path {
+  stroke: var(--paneel);
+  stroke-width: 1;
+}
+
+.heat-0 {
+  fill: var(--heat-0);
+  background: var(--heat-0);
+}
+.heat-1 {
+  fill: var(--heat-1);
+  background: var(--heat-1);
+}
+.heat-2 {
+  fill: var(--heat-2);
+  background: var(--heat-2);
+}
+.heat-3 {
+  fill: var(--heat-3);
+  background: var(--heat-3);
+}
+.heat-4 {
+  fill: var(--heat-4);
+  background: var(--heat-4);
+}
+
+.heat-grens {
+  stroke: var(--inkt);
+  stroke-width: 2.5;
+  stroke-opacity: 0.55;
+}
+
+.heat-label {
+  fill: var(--inkt);
+  font-weight: 700;
+  paint-order: stroke;
+  stroke: var(--paneel);
+  stroke-linejoin: round;
+}
+
+.heat-getal {
+  font-size: 1.4em;
+  font-family: 'Baloo 2', sans-serif;
+}
+
+.dash-combinaties {
+  padding-left: 1.4em;
+}
+
+.dash-combinaties li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--inkt) 10%, transparent);
+}
+
+.dash-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.dash-filters .veld {
+  flex: 1 1 14rem;
+}
+
+.dash-filters select {
+  min-height: 44px;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.6rem;
+  border: 2px solid color-mix(in srgb, var(--inkt) 25%, transparent);
+  background: var(--achtergrond);
+  color: var(--inkt);
+  font: inherit;
+}
+
+.dash-ideeen {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.idee {
+  padding: 12px;
+  border-radius: 0.8rem;
+  background: var(--achtergrond);
+  border-left: 5px solid color-mix(in srgb, var(--inkt) 20%, transparent);
+}
+
+.idee.status-verdacht {
+  border-left-color: var(--oranje);
+}
+
+.idee.status-goedgekeurd {
+  border-left-color: var(--positief);
+}
+
+.idee.status-verborgen {
+  opacity: 0.7;
+}
+
+.idee-tekst {
+  margin: 0 0 4px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.idee-status {
+  font-weight: 700;
+}
+
+.idee-knoppen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.idee-knoppen .knop[aria-pressed='true'] {
+  background: var(--blauw);
+  color: var(--achtergrond);
+}

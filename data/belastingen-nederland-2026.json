@@ -1,0 +1,33 @@
+{
+ "jaar": 2026,
+ "toelichting": "Wat gemeenten gemiddeld per inwoner aan belasting begroten, voor het belastingloket bij nul. Uit de begrotingen 2026 van alle gemeenten (CBS, voorlopige cijfers). Het is dus niet het jaar van de begroting in de game; de game zegt dat er steeds bij.",
+ "bronnen": [
+  {
+   "id": "cbs_heffingen",
+   "titel": "CBS StatLine 83614NED, Gemeentebegrotingen; heffingen naar regio en grootteklasse, 2026 (voorlopig), euro per inwoner",
+   "url": "https://opendata.cbs.nl/ODataApi/odata/83614NED",
+   "pagina": "https://opendata.cbs.nl/statline/#/CBS/nl/dataset/83614NED/table",
+   "opgehaald": "2026-10-03",
+   "status": "feit"
+  },
+  {
+   "id": "cbs_inwoners",
+   "titel": "CBS StatLine 70072ned, Regionale kerncijfers: bevolking van de gemeente Groningen op 1 januari 2026",
+   "url": "https://opendata.cbs.nl/statline/#/CBS/nl/dataset/70072ned/table",
+   "opgehaald": "2026-10-01",
+   "status": "feit"
+  }
+ ],
+ "inwoners": 244427,
+ "grootteklasse": "gemeenten met 150.000 tot 250.000 inwoners",
+ "belastingen": {
+  "t1": { "nederland": 350, "grootteklasse": 392 },
+  "t2": { "nederland": 36, "grootteklasse": 19 },
+  "t4": { "nederland": 3, "grootteklasse": 4 },
+  "t5": {
+   "nederland": 88,
+   "grootteklasse": 110,
+   "let_op": "Het CBS telt de parkeerbelasting en de vergunningen. In de game horen ook de parkeergarages bij parkeren."
+  }
+ }
+}

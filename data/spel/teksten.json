@@ -1,0 +1,95 @@
+{
+  "toelichting": "Vaste teksten in de game, op B1-niveau. Gebruik 'gemeente', niet 'stad'.",
+  "titel": "Maak de begroting van de gemeente Groningen",
+  "start": {
+    "kop": "De gemeente heeft geld nodig",
+    "intro": "De gemeente Groningen geeft in {jaar} ongeveer {bedrag} uit. Ruim de helft komt van het Rijk. Een deel betalen inwoners en ondernemers zelf, via belasting. Jij beslist: hoeveel belasting vraagt de gemeente, en waar gaat het geld naartoe?",
+    "vragen": [
+      {
+        "icoon": "💶",
+        "kop": "Meer geld nodig? Verhoog de belasting!",
+        "tekst": "Zo gaat het in het echt ook: wil de gemeente meer uitgeven, dan gaan de OZB en andere lasten omhoog. Bij nul heft de gemeente nog geen OZB, parkeergeld of toeristenbelasting. Kies zelf wat inwoners en ondernemers gaan betalen. Dat merken ze in hun portemonnee."
+      },
+      {
+        "icoon": "🏗️",
+        "kop": "Wat gaat de gemeente doen?",
+        "tekst": "Je begint bij nul: alleen wat de wet vraagt, staat erin. Jij kiest wat er weer bij komt: veiligheid, onderhoud van straten en groen, woningbouw, sport, zorg of cultuur."
+      },
+      {
+        "icoon": "✂️",
+        "kop": "Wat kan minder, of later?",
+        "tekst": "Niet alles past. Kies wat minder kan of later komt. Let op: uitstellen kan later duurder worden."
+      },
+      {
+        "icoon": "⚖️",
+        "kop": "Sluit je begroting?",
+        "tekst": "Je geeft niet meer uit dan er binnenkomt, ook niet in de jaren erna. Eenmalig geld gebruik je niet voor vaste lasten."
+      }
+    ],
+    "hoe_kop": "Zo speel je",
+    "hoe": [
+      "Volg de nummers op de kaart: eerst het belastingloket, dan veiligheid, ondernemen, sport en de rest.",
+      "Schuif naar rechts om iets te doen, of meer. Je kunt ook zelf een bedrag typen.",
+      "Bij elke post zie je waarom hij niet lager kan, bijvoorbeeld omdat de wet het vraagt.",
+      "Klaar? Dien je begroting in. Dan zie je ook wat het college heeft gekozen."
+    ],
+    "knop": "Begin bij nul",
+    "keuze_uitleg": "Je begint bij nul: elke post staat op het minimum, op wat de wet vraagt en op vaste lasten zoals rente. De rest staat op nul, en de belastingen ook. Wat het college heeft gekozen, zie je pas als je klaar bent.",
+    "knop_terug": "Terug naar de game",
+    "nul_melding": "Je begint bij nul: alleen wat de wet vraagt staat erin, op het minimum. Ook de belastingen staan op nul, want de wet verplicht geen OZB of parkeergeld. Je hebt {vrij} per jaar te verdelen. Kies wat er weer bij komt, en welke belastingen je heft om dat te betalen.",
+    "noot": "De bedragen komen uit de ontwerpbegroting {jaar} van de gemeente Groningen. Bedragen met ⚠︎ zijn aannames.",
+    "afzender": "Een spel van VVD Groningen"
+  },
+  "tutorial": [
+    {
+      "id": "gebouw",
+      "tekst": "Dit is jouw gemeente. Tik op een gebouw."
+    },
+    {
+      "id": "schuif",
+      "tekst": "Schuif naar links om te bezuinigen. Het geldpotje vult zich."
+    },
+    {
+      "id": "slot",
+      "tekst": "Nu is het slot eraf. Investeer ergens, of verlaag een belasting."
+    }
+  ],
+  "tutorial_nul": [
+    {
+      "id": "gebouw",
+      "tekst": "Dit is jouw gemeente. Alles staat op het minimum. Tik op een gebouw."
+    },
+    {
+      "id": "schuif",
+      "tekst": "Schuif naar rechts: dan doet de gemeente hier weer meer. Het geld gaat uit het geldpotje."
+    },
+    {
+      "id": "verdeel",
+      "tekst": "Goed zo. Verdeel de rest, verlaag een belasting of zet geld in de reserve. Klaar? Dien je begroting in."
+    }
+  ],
+  "slot_dicht": "Het slot zit op de pot. Maak eerst geld vrij door ergens te bezuinigen.",
+  "slot_open": "Het slot is eraf: je hebt geld vrijgemaakt.",
+  "inwoners_uitleg": "Bedachte inwoners, om te laten zien wie wat merkt van jouw keuzes. Het zijn geen echte mensen en het is geen voorspelling.",
+  "aanname_uitleg": "⚠︎ betekent: dit bedrag is een aanname of een spelregel, geen getal uit de begroting.",
+  "eindscherm": {
+    "ingediend": "Je begroting is ingediend",
+    "niet_sluitend": "Je begroting sluit nog niet"
+  },
+  "colofon": "Een initiatief van VVD Groningen. De bedragen komen uit de ontwerpbegroting; kettingeffecten met ⚠︎ zijn aannames.",
+  "insturen": {
+    "toestemming_versie": 1,
+    "uitleg": "Stuur je begroting naar VVD Groningen. De fractie gebruikt alle inzendingen samen om te zien wat inwoners belangrijk vinden. Je naam sturen we niet mee.",
+    "toestemming": "Ik geef toestemming dat de fractie mijn keuzes, mijn idee en (als ik dat invul) mijn gebied bewaart en gebruikt voor haar werk in de gemeenteraad.",
+    "email_toestemming": "Houd me op de hoogte via e-mail. Ik kan me altijd weer afmelden.",
+    "privacy": [
+      "Wat slaan we op? Je keuzes in de game, je eigen idee en, als je dat kiest, het gebied waar je woont. Je naam en je IP-adres slaan we niet op.",
+      "Je e-mailadres slaan we alleen op als je dat zelf aanvinkt. Het staat los van je begroting: niemand kan zien welke begroting bij welk e-mailadres hoort.",
+      "Wie ziet het? Alleen leden en medewerkers van de fractie van VVD Groningen in de gemeenteraad. Je idee kan de fractie gebruiken in haar werk, maar nooit met jouw naam erbij.",
+      "Hoe lang? We bewaren alles 2 jaar. Daarna wordt het automatisch verwijderd.",
+      "Wil je iets laten verwijderen of heb je een vraag? Mail de fractie. Je kunt je ook altijd afmelden voor de e-mails."
+    ],
+    "bedankt": "Bedankt! Je begroting is ingestuurd naar de fractie.",
+    "idee_waarschuwing": "Je idee lijkt persoonsgegevens of een scheldwoord te bevatten. Laat namen, adressen en telefoonnummers weg. De fractie leest elk idee voordat het ergens wordt gebruikt."
+  }
+}

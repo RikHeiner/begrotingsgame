@@ -1,0 +1,50 @@
+{
+  "toelichting": "Badges en de score op het eindscherm. 'voorwaarde' gebruikt dezelfde expressietaal als reacties.json (src/engine/expressie.ts), met extra namen: vrijgemaakt en geinvesteerd (mln, eerste jaar, directe effecten), lasten_verschil (mln, verandering van de totale lasten in het eerste jaar), weerstand (weerstandsvermogen in procenten in het laatste jaar) en woningen (extra woningen in het laatste jaar). gezond_mln: wat je elk jaar minstens over moet houden voor de derde ster. De missies zijn vervallen (besluit 1 oktober 2026).",
+  "badges": [
+    {
+      "id": "zuinig",
+      "icoon": "🪙",
+      "naam": "Zuinige Zuiderling",
+      "uitleg": "Je houdt elk jaar minstens € 10 mln over.",
+      "voorwaarde": "saldo.structureel >= 10"
+    },
+    {
+      "id": "buurthuis",
+      "icoon": "🏘️",
+      "naam": "Buurthuisheld",
+      "uitleg": "Je investeert in buurthuizen en wijkbudgetten.",
+      "voorwaarde": "pct.z8 >= 10 || pct.g3 >= 10"
+    },
+    {
+      "id": "woningbouwer",
+      "icoon": "🏗️",
+      "naam": "Woningbouwer",
+      "uitleg": "Je zet het sneller-bouwenfonds in.",
+      "voorwaarde": "kaart.k_bouw"
+    },
+    {
+      "id": "stadhuisslanker",
+      "icoon": "✂️",
+      "naam": "Stadhuisslanker",
+      "uitleg": "Je bezuinigt minstens 10% op de overhead.",
+      "voorwaarde": "pct.h1 <= -10"
+    },
+    {
+      "id": "buffer",
+      "icoon": "🏦",
+      "naam": "Buffer-bouwer",
+      "uitleg": "Je stort geld in de reserve.",
+      "voorwaarde": "reserve >= 5 || kaart.k_res"
+    },
+    {
+      "id": "lastenverlichter",
+      "icoon": "👛",
+      "naam": "Lastenverlichter",
+      "uitleg": "Je verlaagt de OZB met minstens 5%.",
+      "voorwaarde": "tax.t1 <= -5"
+    }
+  ],
+  "score": {
+    "gezond_mln": 5
+  }
+}

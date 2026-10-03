@@ -1,0 +1,83 @@
+/* Grote Markt: Marktkoopman */
+.mg-markt-balk {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+  margin: 0.5rem 0 0.25rem;
+}
+
+.mg-markt-balk p {
+  margin: 0;
+}
+
+.mg-markt-tijd {
+  font-variant-numeric: tabular-nums;
+}
+
+.mg-markt-tijd.bijna {
+  color: var(--negatief);
+}
+
+.mg-markt-meter {
+  height: 0.6rem;
+  border-radius: 1rem;
+  background:
+    linear-gradient(var(--oranje), var(--oranje)) no-repeat left / var(--vol, 0%) 100%,
+    color-mix(in srgb, var(--gedempt) 25%, var(--paneel));
+  transition: background-size 0.3s ease;
+}
+
+.mg-markt-kramen {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mg-markt-kramen li {
+  display: flex;
+}
+
+.mg-markt-kraam {
+  flex: 1;
+  min-height: 44px;
+  padding: 0.6rem;
+  /* luifel van een marktkraam */
+  border-top: 6px solid var(--oranje);
+  overflow-wrap: anywhere;
+}
+
+.mg-markt-kraam:disabled {
+  opacity: 0.55;
+  border-style: dashed;
+  border-top-style: solid;
+}
+
+.mg-markt-waar {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.mg-markt-melding {
+  margin: 0.25rem 0;
+}
+
+.mg-markt-lijst {
+  margin: 0.25rem 0 0.75rem;
+  padding-left: 1.2rem;
+}
+
+@media (max-width: 400px) {
+  .mg-markt-kramen {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mg-markt-meter {
+    transition: none;
+  }
+}

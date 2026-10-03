@@ -1,0 +1,20 @@
+[
+  ["mail me op jan@example.nl", true],
+  ["Bel me: 06-12345678", true],
+  ["bel 050 367 7777", true],
+  ["+31 6 12345678", true],
+  ["Kom langs op 9712 AB 4", true],
+  ["9712AB, 4", true],
+  ["NL91ABNA0417164300", true],
+  ["Wat een KANKERplan", true],
+  ["Meer geld voor kankeronderzoek", true],
+  ["schakel de lul-de-behanger-aanpak uit", true],
+  ["Wat een sukkels", true],
+  ["Meer bankjes in het park.", false],
+  ["Fietsenstalling 24/7 open", false],
+  ["Verlaag de OZB met 5% in 2027", false],
+  ["Groningen 2026: 1000 woningen erbij", false],
+  ["Bouw 2500 huizen in Meerstad", false],
+  ["Schoolkut? Nee: scholieren", false],
+  ["Minder regels voor ondernemers, € 1.250.000 besparen", false]
+]

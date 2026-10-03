@@ -1,0 +1,481 @@
+{
+  "toelichting": "Instellingen van de gemeentekaart. 'centrum' is het punt waaruit de kaart wordt vergroot (r' = R × (r/R)^exponent). Toestanden van gebouwen: gesloten bij ≤ gesloten_tot, versoberd onder versoberd_tot, normaal tot en met normaal_tot, beter tot en met beter_tot, daarboven bloeiend (in procenten). Het water komt uit PDOK, BRT TOP10NL (waterdeel_vlak, opgehaald op 1 oktober 2026): van de kanalen de middenlijn binnen de gemeente, van de Hoornse Plas de vereenvoudigde omtrek. Water met 'schets: true' zou met de hand getekend zijn; de meren met 'buurt' gebruiken de vorm van die CBS-buurt. Labels staan op het midden van de buurten. 'kanteling' drukt de kaart in de hoogte in, alsof je er schuin op kijkt (2,5D); 'dikte' is de rand eronder. De gebouwen blijven rechtop staan.",
+  "centrum": {
+    "lon": 6.5683,
+    "lat": 53.2192,
+    "naam": "Grote Markt (Martinitoren)"
+  },
+  "vergroting": {
+    "exponent": 0.55
+  },
+  "wereld_breedte": 1000,
+  "kanteling": 0.62,
+  "dikte": 16,
+  "zoom_max": 6,
+  "toestanden": {
+    "gesloten_tot": -30,
+    "versoberd_tot": -4,
+    "normaal_tot": 3,
+    "beter_tot": 15
+  },
+  "water": [
+    {
+      "id": "eemskanaal",
+      "naam": "Eemskanaal",
+      "soort": "kanaal",
+      "schets": false,
+      "breedte": 7,
+      "lijn": [
+        [
+          6.595,
+          53.2238
+        ],
+        [
+          6.6119,
+          53.2261
+        ],
+        [
+          6.6171,
+          53.2274
+        ],
+        [
+          6.629,
+          53.2308
+        ],
+        [
+          6.635,
+          53.2326
+        ],
+        [
+          6.6475,
+          53.2363
+        ],
+        [
+          6.6583,
+          53.2407
+        ],
+        [
+          6.6682,
+          53.2452
+        ],
+        [
+          6.676,
+          53.2479
+        ],
+        [
+          6.6878,
+          53.2519
+        ],
+        [
+          6.6977,
+          53.2554
+        ],
+        [
+          6.7089,
+          53.2598
+        ],
+        [
+          6.7163,
+          53.2624
+        ],
+        [
+          6.7285,
+          53.2673
+        ],
+        [
+          6.7351,
+          53.2698
+        ],
+        [
+          6.7473,
+          53.2736
+        ],
+        [
+          6.7573,
+          53.2772
+        ],
+        [
+          6.7659,
+          53.2803
+        ]
+      ]
+    },
+    {
+      "id": "van_starkenborghkanaal",
+      "naam": "Van Starkenborghkanaal",
+      "soort": "kanaal",
+      "schets": false,
+      "breedte": 7,
+      "lijn": [
+        [
+          6.4691,
+          53.2604
+        ],
+        [
+          6.4725,
+          53.2601
+        ],
+        [
+          6.4824,
+          53.2597
+        ],
+        [
+          6.488,
+          53.2595
+        ],
+        [
+          6.4973,
+          53.2591
+        ],
+        [
+          6.502,
+          53.2586
+        ],
+        [
+          6.5106,
+          53.2566
+        ],
+        [
+          6.5186,
+          53.2538
+        ],
+        [
+          6.5252,
+          53.2519
+        ],
+        [
+          6.5314,
+          53.2501
+        ],
+        [
+          6.5393,
+          53.248
+        ],
+        [
+          6.5473,
+          53.2458
+        ],
+        [
+          6.5566,
+          53.2429
+        ],
+        [
+          6.561,
+          53.2412
+        ],
+        [
+          6.5678,
+          53.2391
+        ],
+        [
+          6.5783,
+          53.2362
+        ],
+        [
+          6.5845,
+          53.2337
+        ],
+        [
+          6.5918,
+          53.2276
+        ]
+      ]
+    },
+    {
+      "id": "hoornseplas",
+      "naam": "Hoornseplas",
+      "soort": "meer",
+      "schets": false,
+      "vlak": [
+        [
+          6.5554,
+          53.1775
+        ],
+        [
+          6.5554,
+          53.1776
+        ],
+        [
+          6.5545,
+          53.1787
+        ],
+        [
+          6.5539,
+          53.1789
+        ],
+        [
+          6.5521,
+          53.1793
+        ],
+        [
+          6.5512,
+          53.179
+        ],
+        [
+          6.5502,
+          53.1781
+        ],
+        [
+          6.5503,
+          53.1774
+        ],
+        [
+          6.5486,
+          53.1777
+        ],
+        [
+          6.5481,
+          53.1775
+        ],
+        [
+          6.5479,
+          53.1773
+        ],
+        [
+          6.5481,
+          53.1761
+        ],
+        [
+          6.549,
+          53.176
+        ],
+        [
+          6.5497,
+          53.1764
+        ],
+        [
+          6.55,
+          53.1759
+        ],
+        [
+          6.5498,
+          53.1757
+        ],
+        [
+          6.5491,
+          53.1757
+        ],
+        [
+          6.5493,
+          53.1751
+        ],
+        [
+          6.549,
+          53.1748
+        ],
+        [
+          6.5491,
+          53.1746
+        ],
+        [
+          6.5503,
+          53.1743
+        ],
+        [
+          6.5506,
+          53.1746
+        ],
+        [
+          6.5518,
+          53.1747
+        ],
+        [
+          6.5519,
+          53.1748
+        ],
+        [
+          6.551,
+          53.175
+        ],
+        [
+          6.5511,
+          53.1751
+        ],
+        [
+          6.5518,
+          53.1751
+        ],
+        [
+          6.552,
+          53.1753
+        ],
+        [
+          6.5515,
+          53.1755
+        ],
+        [
+          6.5517,
+          53.1757
+        ],
+        [
+          6.5536,
+          53.1759
+        ],
+        [
+          6.5537,
+          53.1758
+        ],
+        [
+          6.5531,
+          53.1755
+        ],
+        [
+          6.5535,
+          53.175
+        ],
+        [
+          6.554,
+          53.1752
+        ],
+        [
+          6.5542,
+          53.175
+        ],
+        [
+          6.555,
+          53.1753
+        ],
+        [
+          6.5556,
+          53.1756
+        ],
+        [
+          6.5553,
+          53.176
+        ],
+        [
+          6.5548,
+          53.1762
+        ],
+        [
+          6.5548,
+          53.1766
+        ],
+        [
+          6.5555,
+          53.1769
+        ],
+        [
+          6.5553,
+          53.1772
+        ],
+        [
+          6.555,
+          53.1773
+        ]
+      ]
+    },
+    {
+      "id": "paterswoldsemeer",
+      "naam": "Paterswoldsemeer",
+      "soort": "buurt",
+      "schets": false,
+      "buurt": "BU00141707"
+    },
+    {
+      "id": "zuidlaardermeer",
+      "naam": "Zuidlaardermeer",
+      "soort": "buurt",
+      "schets": false,
+      "buurt": "BU00141906"
+    }
+  ],
+  "labels": [
+    {
+      "tekst": "Centrum",
+      "lon": 6.565,
+      "lat": 53.2191,
+      "soort": "gebied"
+    },
+    {
+      "tekst": "Noord",
+      "lon": 6.5711,
+      "lat": 53.2252,
+      "soort": "gebied"
+    },
+    {
+      "tekst": "Zuid",
+      "lon": 6.5648,
+      "lat": 53.2008,
+      "soort": "gebied"
+    },
+    {
+      "tekst": "West",
+      "lon": 6.5193,
+      "lat": 53.2217,
+      "soort": "gebied"
+    },
+    {
+      "tekst": "Oost",
+      "lon": 6.617,
+      "lat": 53.2286,
+      "soort": "gebied"
+    },
+    {
+      "tekst": "Haren",
+      "lon": 6.6039,
+      "lat": 53.1723,
+      "soort": "dorp"
+    },
+    {
+      "tekst": "Ten Boer",
+      "lon": 6.695,
+      "lat": 53.2767,
+      "soort": "dorp"
+    },
+    {
+      "tekst": "Ten Post",
+      "lon": 6.7282,
+      "lat": 53.298,
+      "soort": "dorp"
+    },
+    {
+      "tekst": "Hoogkerk",
+      "lon": 6.5015,
+      "lat": 53.2165,
+      "soort": "dorp"
+    },
+    {
+      "tekst": "Meerstad",
+      "lon": 6.6526,
+      "lat": 53.2245,
+      "soort": "dorp"
+    },
+    {
+      "tekst": "Glimmen",
+      "lon": 6.6286,
+      "lat": 53.1394,
+      "soort": "dorp"
+    },
+    {
+      "tekst": "Noordlaren",
+      "lon": 6.6653,
+      "lat": 53.1207,
+      "soort": "dorp"
+    },
+    {
+      "tekst": "Onnen",
+      "lon": 6.6408,
+      "lat": 53.1574,
+      "soort": "dorp"
+    },
+    {
+      "tekst": "Garmerwolde",
+      "lon": 6.66,
+      "lat": 53.251,
+      "soort": "dorp"
+    },
+    {
+      "tekst": "Thesinge",
+      "lon": 6.6529,
+      "lat": 53.2741,
+      "soort": "dorp"
+    },
+    {
+      "tekst": "Harkstede",
+      "lon": 6.6811,
+      "lat": 53.2196,
+      "soort": "dorp"
+    }
+  ]
+}

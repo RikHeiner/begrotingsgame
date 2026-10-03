@@ -1,0 +1,28 @@
+{
+  "begrotingsjaar": 2026,
+  "toelichting": "Tarieven van de lokale heffingen voor het paneel 'Wat betekent het voor mij?' (opdracht 8.11). Alleen posten waarvan het tarief bekend is. De parkeervergunningen staan in parkeren-2026.json. Gecontroleerd op 2 oktober 2026 met het raadsvoorstel Belastingtarieven 2027 (registratienummer 274695-2026), dat de tarieven van 2026 ter vergelijking noemt (p. 2 en 3).",
+  "bron": "Gemeente Groningen, raadsvoorstel Belastingtarieven 2027 (tarieven 2026 ter vergelijking, p. 2-3)",
+  "bron_url": "https://gemeenteraad.groningen.nl/Documenten/Belastingtarieven-2027.pdf",
+  "status": "feit",
+  "ozb_woning_eigenaar_pct": 0.1473,
+  "afvalstoffenheffing": {
+    "een_persoon": 283.08,
+    "twee_personen": 331.2,
+    "drie_of_meer": 402.12
+  },
+  "rioolheffing_eigenaar": 178.69,
+  "kwijtschelding": {
+    "belastingen": [
+      "afvalstoffenheffing",
+      "rioolheffing",
+      "ozb"
+    ],
+    "toelichting": "Met een inkomen rond het sociaal minimum kun je kwijtschelding aanvragen. Vanaf 2026 kan dat bij de gemeente Groningen ook voor de rioolheffing en de OZB van je woning. Of je het krijgt, hangt ook af van je vermogen."
+  },
+  "hondenbelasting": {
+    "kaart": "k_hond",
+    "tarief": 133,
+    "jaar": 2021,
+    "bron": "Laatste tarief van de gemeente Groningen (2021), RTV Noord 6 juli 2021. Afgeschaft per 2022."
+  }
+}

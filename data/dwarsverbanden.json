@@ -73,24 +73,22 @@
   {
    "id": "kd_leges_omgeving",
    "categorie": "Kostendekkende heffingen",
-   "naam": "Vergunningverleners en leges",
+   "naam": "Ambtenaren wonen en gebiedsontwikkeling, en het bouwtempo",
    "van": [
-    "w8",
     "e10",
     "w4"
    ],
    "naar": [
-    "baten:w8",
     "grootheid:bouw_tempo"
    ],
-   "mechanisme": "Minder vergunningverleners betekent minder afgehandelde aanvragen, dus minder leges. Omdat de leges hoger zijn dan de directe lasten (17,9 tegenover 10,5 mln), kost bezuinigen hier netto geld. Bovendien vertraagt woningbouw.",
-   "formule": "delta_baten = pct * baten_leges * elasticiteit_capaciteit; bij pct < -20: bouw_tempo -= (|pct|-20)/100",
+   "mechanisme": "De bouwleges (omgevingsvergunningen, w8) moeten 100% kostendekkend zijn en zitten daarom vast, net als de doelbelastingen. Minder ambtenaren voor wonen (w4) en gebiedsontwikkeling (e10) vertraagt wel de woningbouw.",
+   "formule": "bij pct < -drempel_pct: bouw_tempo -= (|pct| - drempel_pct)/100",
    "parameters": {
-    "elasticiteit_capaciteit": {
-     "waarde": 1.0,
-     "eenheid": "fractie",
+    "drempel_pct": {
+     "waarde": 20,
+     "eenheid": "procent",
      "status": "aanname",
-     "toelichting": "Aanname: leges dalen evenredig met capaciteit."
+     "toelichting": "Toegevoegd uit de formule (bij pct < -20): vanaf deze bezuiniging loopt de woningbouw vertraging op."
     }
    },
    "vertraging_jaren": 0,
@@ -99,7 +97,7 @@
     "werk": "-",
     "wonen": "-"
    },
-   "melding": "Minder vergunningverleners: je mist leges, dus dit kost netto geld. Woningbouw loopt vertraging op.",
+   "melding": "Minder ambtenaren voor wonen en gebiedsontwikkeling: de woningbouw loopt vertraging op.",
    "bron": "Begroting 2026 deelprogramma 1.3"
   },
   {
@@ -153,15 +151,15 @@
   {
    "id": "kd_werkplaats",
    "categorie": "Kostendekkende heffingen",
-   "naam": "Autowerkplaats voor derden",
+   "naam": "Zakelijke dienstverlening Stadsbeheer (o.a. werkplaats voor derden)",
    "van": [
-    "o5"
+    "o4"
    ],
    "naar": [
-    "baten:o5",
+    "baten:o4",
     "h1"
    ],
-   "mechanisme": "Kosten en inkomsten zijn gelijk (0,9 mln). Stoppen levert netto niets op, behalve als er ook overhead of ruimte vrijkomt.",
+   "mechanisme": "Kosten en inkomsten zijn gelijk (0,9 mln). Stoppen levert netto niets op, behalve als er ook overhead of ruimte vrijkomt. Vanaf 2027 zit de werkplaats voor derden in de post Zakelijke dienstverlening Stadsbeheer (o4).",
    "formule": "delta_saldo = aandeel_overheadvrijval * 0.9",
    "parameters": {
     "aandeel_overheadvrijval": {
@@ -197,7 +195,9 @@
      "waarde": -0.4,
      "eenheid": "prijselasticiteit",
      "status": "aanname",
-     "toelichting": "Literatuur over vrijetijdsvoorzieningen: -0,2 tot -0,6."
+     "toelichting": "Literatuur over vrijetijdsvoorzieningen: -0,2 tot -0,6.",
+     "laag": -0.2,
+     "hoog": -0.6
     }
    },
    "vertraging_jaren": 0,
@@ -315,32 +315,44 @@
     "grootheid:gemeentefonds"
    ],
    "mechanisme": "De algemene uitkering (825,8 mln) wordt deels verdeeld op maatstaven zoals inwoners, woonruimten, huishoudens met een laag inkomen en bijstand. Meer woningen levert zo meer gemeentefonds op. Minder bijstandshuishoudens levert via deze maatstaf iets minder op: een klein tegeneffect.",
-   "formule": "delta_gemeentefonds = extra_woningen * bedrag_per_woonruimte + extra_inwoners * bedrag_per_inwoner - minder_bijstand * bedrag_per_bijstandshuishouden",
+   "formule": "delta_gemeentefonds[t] = (extra_woningen[t-1] * bedrag_per_woonruimte + extra_woningen[t-1] * inwoners_per_woning * bedrag_per_inwoner + delta_bijstand[t-1] * bedrag_per_bijstandshuishouden) * uitkeringsfactor",
    "parameters": {
     "bedrag_per_woonruimte": {
-     "waarde": null,
-     "eenheid": "euro",
-     "status": "te onderzoeken",
-     "toelichting": "Uit de meicirculaire gemeentefonds halen."
+     "waarde": 11.55,
+     "eenheid": "euro per woonruimte (in basis, × uitkeringsfactor)",
+     "status": "feit",
+     "toelichting": "Meicirculaire gemeentefonds 2026, bijlage 2.1.1 (p. 54), stand mei 2026: maatstaf woonruimten. Daarin zit al de verrekening van de OZB-capaciteit (−62,09 per woonruimte). De maatstaf 'woonruimten bodemfactor woonkern' (52,99) telt alleen voor woningen op slappe bodem en rekent niet mee."
     },
     "bedrag_per_inwoner": {
-     "waarde": null,
-     "eenheid": "euro",
-     "status": "te onderzoeken",
-     "toelichting": "Idem."
+     "waarde": 374.88,
+     "eenheid": "euro per inwoner (in basis, × uitkeringsfactor)",
+     "status": "feit",
+     "toelichting": "Meicirculaire gemeentefonds 2026, bijlage 2.1.1 (p. 54), stand mei 2026: maatstaf inwoners."
     },
     "bedrag_per_bijstandshuishouden": {
-     "waarde": null,
-     "eenheid": "euro",
-     "status": "te onderzoeken",
-     "toelichting": "Idem."
+     "waarde": 5136.7,
+     "eenheid": "euro per bijstandshuishouden (in basis, × uitkeringsfactor)",
+     "status": "feit",
+     "toelichting": "Meicirculaire gemeentefonds 2026, bijlage 2.1.1 (p. 54), stand mei 2026: maatstaf bijstandsontvangers (huishoudens met een bijstandsuitkering)."
+    },
+    "uitkeringsfactor": {
+     "waarde": 1.491,
+     "eenheid": "factor",
+     "status": "feit",
+     "toelichting": "Meicirculaire gemeentefonds 2026, tabel 2.5.2-1 (p. 25): uitkeringsfactor 2026. Voor latere jaren loopt de factor op (2027: 1,549); het spel rekent met 2026, zoals de rest van de begroting."
+    },
+    "inwoners_per_woning": {
+     "waarde": 1.93,
+     "eenheid": "inwoners per woning",
+     "status": "aanname",
+     "toelichting": "Gemiddelde in de gemeente: 244.427 inwoners (CBS StatLine 70072ned, 1 januari 2026) / 126.796 woningen (begroting 2026, kerngegevens). Of een nieuwe woning evenveel bewoners heeft, is een aanname."
     }
    },
    "vertraging_jaren": 1,
    "richting": "beide",
    "meters": {},
    "melding": "Meer woningen en inwoners leveren ook meer geld uit het gemeentefonds op.",
-   "bron": "Financiële-verhoudingswet; meicirculaire"
+   "bron": "Financiële-verhoudingswet; meicirculaire gemeentefonds 2026 (bijlage 2.1.1, tabel 2.5.2-1); CBS StatLine 70072ned"
   },
   {
    "id": "rijk_ozb_rekentarief",
@@ -362,32 +374,6 @@
    },
    "melding": "Een lagere OZB betaal je volledig uit eigen middelen.",
    "bron": "Verdeelsystematiek gemeentefonds (inkomstenverevening)"
-  },
-  {
-   "id": "rijk_accres",
-   "categorie": "Gemeentefonds-verdeelmodel",
-   "naam": "Rijksbezuinigingen en het 'ravijnjaar'",
-   "van": [
-    "gebeurtenis:willekeurig"
-   ],
-   "naar": [
-    "grootheid:gemeentefonds"
-   ],
-   "mechanisme": "De hoogte van het gemeentefonds hangt af van rijksbeleid en wordt elk jaar bijgesteld in de mei- en septembercirculaire. In de game een gebeurteniskaart: 'Het Rijk kort op het gemeentefonds'.",
-   "formule": "delta_gemeentefonds = scenario_pct * gemeentefonds",
-   "parameters": {
-    "scenario_pct": {
-     "waarde": -0.01,
-     "eenheid": "fractie",
-     "status": "aanname",
-     "toelichting": "Scenario, geen voorspelling."
-    }
-   },
-   "vertraging_jaren": 0,
-   "richting": "gebeurtenis",
-   "meters": {},
-   "melding": "Het Rijk kort op het gemeentefonds. Je moet extra bezuinigen.",
-   "bron": "Spelontwerp"
   },
   {
    "id": "wia_reintegratie",
@@ -726,7 +712,9 @@
      "waarde": 0.3,
      "eenheid": "euro per euro",
      "status": "aanname",
-     "toelichting": "Bewijs wisselt per interventie: als bandbreedte 0,1 tot 0,5 tonen."
+     "toelichting": "Bewijs wisselt per interventie: als bandbreedte 0,1 tot 0,5 tonen.",
+     "laag": 0.1,
+     "hoog": 0.5
     },
     "ingroei": {
      "waarde": [
@@ -755,7 +743,6 @@
     "z8",
     "z9",
     "k2",
-    "k3",
     "g3"
    ],
    "naar": [
@@ -1121,7 +1108,9 @@
      "waarde": 1.5,
      "eenheid": "euro later per bespaarde euro nu",
      "status": "aanname",
-     "toelichting": "Vakliteratuur (CROW) noemt forse meerkosten; bandbreedte 1,2 tot 2,0."
+     "toelichting": "Vakliteratuur (CROW) noemt forse meerkosten; bandbreedte 1,2 tot 2,0.",
+     "laag": 1.2,
+     "hoog": 2.0
     }
    },
    "vertraging_jaren": 3,
@@ -1227,7 +1216,9 @@
      "waarde": -0.3,
      "eenheid": "prijselasticiteit parkeervraag",
      "status": "aanname",
-     "toelichting": "Literatuur: -0,1 tot -0,6."
+     "toelichting": "Literatuur: -0,1 tot -0,6.",
+     "laag": -0.1,
+     "hoog": -0.6
     },
     "factor_binnenstad": {
      "waarde": 10,
@@ -1242,7 +1233,7 @@
     "portemonnee": "+ bij verlaging",
     "schoon": "- bij verlaging (meer auto's)"
    },
-   "melding": "Goedkoper parkeren: meer bezoekers in de binnenstad, maar ook meer autoverkeer.",
+   "melding": "Ander parkeertarief: goedkoper geeft meer bezoekers in de binnenstad en meer autoverkeer, duurder het omgekeerde.",
    "bron": "Aanname; KiM-onderzoek naar parkeerbeleid als bron"
   },
   {
@@ -1401,36 +1392,45 @@
   {
    "id": "wg_woningbouw",
    "categorie": "Wonen, groei en grond",
-   "naam": "Sneller bouwen: meer OZB, leges en gemeentefonds",
+   "naam": "Sneller bouwen: meer OZB en gemeentefonds",
    "van": [
     "k_bouw",
-    "w1",
-    "w2",
     "w4",
-    "w8"
+    "e10"
    ],
    "naar": [
     "t1",
-    "baten:w8",
     "grootheid:gemeentefonds",
     "verband:or_areaal",
     "d1",
     "z3"
    ],
-   "mechanisme": "Meer woningen leveren meer OZB, meer leges en meer gemeentefonds op. Maar nieuwe inwoners gebruiken ook scholen, sport, zorg en openbare ruimte. Het netto-effect is positief, maar pas na enkele jaren.",
-   "formule": "per_extra_woning: +ozb_per_woning +gemeentefonds_per_woning -onderhoud_per_woning -voorzieningen_per_woning",
+   "mechanisme": "Meer woningen leveren meer OZB en meer gemeentefonds op. De bouwleges zijn kostendekkend en leveren netto niets op. Maar nieuwe inwoners gebruiken ook scholen, sport, zorg en openbare ruimte. Het netto-effect is positief, maar pas na enkele jaren. Ook meer ambtenaren voor wonen (w4) en gebiedsontwikkeling (e10) levert extra woningen op; daarvoor staat nog geen getal in de data.",
+   "formule": "extra_woningen[t] = (fonds_mln * extra_woningen_per_mln_fonds + extra_mln_ro * extra_woningen_per_mln_ro) * max(0, t - vertraging + 1); delta_ozb = extra_woningen * ozb_tarief * gemiddelde_woz * woz_factor_nieuwbouw",
    "parameters": {
     "ozb_per_woning": {
-     "waarde": 0.0003,
+     "waarde": null,
      "eenheid": "mln per jaar",
-     "status": "aanname",
-     "toelichting": "Uit het OZB-tarief en de gemiddelde WOZ van 340.000 berekenen."
+     "status": "te onderzoeken",
+     "toelichting": "Niet nodig zolang tarieven-JJJJ.json er is: de game rekent dan met het OZB-tarief voor woningen x de gemiddelde WOZ-waarde uit de kerngegevens x woz_factor_nieuwbouw (2026: 0,1473% x 340.000 x 1,32 = 661 euro), met de OZB-keuze van de speler. Eerder stond hier 0,0003 (300 euro) als aanname."
     },
     "extra_woningen_per_mln_fonds": {
      "waarde": 20,
      "eenheid": "woningen per jaar",
      "status": "aanname",
-     "toelichting": ""
+     "toelichting": "Aanname: elk miljoen per jaar in het Sneller-bouwenfonds levert 20 extra woningen per jaar op, vanaf 2 jaar na de start."
+    },
+    "woz_factor_nieuwbouw": {
+     "waarde": 1.32,
+     "eenheid": "factor op de gemiddelde WOZ-waarde",
+     "status": "aanname",
+     "toelichting": "Afgeleid uit CBS Kerncijfers wijken en buurten 2025 (86165NED), 115 buurten van de gemeente Groningen: gemiddelde WOZ-waarde tegen het aandeel woningen met bouwjaar in de afgelopen tien jaar, gewogen naar het aantal woningen. Een buurt met alleen nieuwbouw komt uit op 412 duizend euro, tegen 313 duizend gemiddeld (factor 1,32). Buurten met minstens 50% nieuwbouw geven 407 duizend. Er is geen CBS-tabel met de WOZ-waarde naar bouwjaar; daarom een aanname."
+    },
+    "extra_woningen_per_mln_ro": {
+     "waarde": null,
+     "eenheid": "woningen per jaar per extra mln per jaar",
+     "status": "te onderzoeken",
+     "toelichting": "Hoeveel extra woningen per jaar levert elk extra miljoen per jaar voor ambtenaren wonen (w4) of gebiedsontwikkeling (e10) op? Nog geen bron; tot dan rekent dit deel niet mee."
     }
    },
    "vertraging_jaren": 2,
@@ -1600,7 +1600,9 @@
      "waarde": 0.05,
      "eenheid": "per jaar",
      "status": "aanname",
-     "toelichting": "Natuurlijk verloop bij gemeenten: 4 tot 7%."
+     "toelichting": "Natuurlijk verloop bij gemeenten: 4 tot 7%.",
+     "laag": 0.04,
+     "hoog": 0.07
     },
     "frictie_factor": {
      "waarde": 1.0,
@@ -1609,10 +1611,10 @@
      "toelichting": ""
     },
     "personeelskosten": {
-     "waarde": null,
+     "waarde": 357.948,
      "eenheid": "mln",
-     "status": "te onderzoeken",
-     "toelichting": "Uit het overzicht van de gemeentelijke organisatie halen."
+     "status": "feit",
+     "toelichting": "Totaal loonsom personeel in dienst, primitieve begroting 2027 (3.681 fte), boekwerk 2027 p. 355."
     }
    },
    "vertraging_jaren": 0,
@@ -1638,7 +1640,14 @@
    ],
    "mechanisme": "Minder overhead en ambtenaren betekent dat investeringen en projecten trager gaan. Dat geeft in het eerste jaar lagere kapitaallasten ('onderbesteding'), maar vertraagt resultaten.",
    "formule": "tempo_projecten *= (1 + 0.5 * pct_apparaat/100)",
-   "parameters": {},
+   "parameters": {
+    "factor_tempo": {
+     "waarde": 0.5,
+     "eenheid": "fractie",
+     "status": "aanname",
+     "toelichting": "Toegevoegd uit de formule (tempo_projecten *= 1 + 0,5 * pct_apparaat/100), zodat de rekenmotor het getal uit de data leest."
+    }
+   },
    "vertraging_jaren": 0,
    "richting": "bezuiniging",
    "meters": {},
@@ -1804,16 +1813,22 @@
    "formule": "ratio = weerstandscapaciteit / benodigde_capaciteit",
    "parameters": {
     "algemene_reserve": {
-     "waarde": 81.1,
+     "waarde": 86.532,
      "eenheid": "mln",
      "status": "feit",
-     "toelichting": "Kerngegevens begroting 2026."
+     "toelichting": "Kerngegevens begroting 2027 (p. 5)."
     },
-    "ratio_2026": {
-     "waarde": 1.61,
+    "ondergrens_ratio": {
+     "waarde": 1.0,
+     "eenheid": "fractie",
+     "status": "aanname",
+     "toelichting": "Toegevoegd uit het mechanisme: een weerstandsvermogen onder 100% is een waarschuwingssignaal. Spelregel."
+    },
+    "ratio_2027": {
+     "waarde": 1.52,
      "eenheid": "",
      "status": "feit",
-     "toelichting": ""
+     "toelichting": "Kerngegevens begroting 2027 (p. 5): 152%."
     }
    },
    "vertraging_jaren": 0,
@@ -1841,25 +1856,6 @@
    "meters": {},
    "melding": "",
    "bron": "Treasuryparagraaf"
-  },
-  {
-   "id": "fin_onvoorzien",
-   "categorie": "Financiering, reserves en tijd",
-   "naam": "Tegenvallers: gebeurteniskaarten",
-   "van": [
-    "gebeurtenis:willekeurig"
-   ],
-   "naar": [
-    "saldo:structureel"
-   ],
-   "mechanisme": "Laat tijdens het spel gebeurtenissen voorkomen, zoals een stijging van de jeugdzorgkosten, een hogere cao, een strenge winter (gladheidsbestrijding), een meicirculaire of een aardbevingsschade-regeling. De speler moet dan bijsturen. Een reserve of post onvoorzien vangt ze op.",
-   "formule": "",
-   "parameters": {},
-   "vertraging_jaren": 0,
-   "richting": "gebeurtenis",
-   "meters": {},
-   "melding": "",
-   "bron": "Spelontwerp"
   },
   {
    "id": "jur_subsidies",
@@ -1977,7 +1973,6 @@
    "set:": "een verzameling maatregelen",
    "verband:<id>": "verwijzing naar een ander dwarsverband",
    "regel:": "een spelregel",
-   "gebeurtenis:": "een gebeurteniskaart",
    "nieuw:": "een post of schuif die nog aan de begrotingsdata moet worden toegevoegd (zie 'nieuw')"
   },
   "nieuw": {

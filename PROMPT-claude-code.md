@@ -6,7 +6,7 @@ Je bent Claude Code. In deze map vind je alles wat je nodig hebt om een echte, g
 
 ## 1. Context en doel
 
-**Opdrachtgever:** Rik Heiner, fractievoorzitter van de VVD Groningen-Haren in de gemeenteraad van Groningen.
+**Opdrachtgever:** Rik Heiner, fractievoorzitter van de VVD Groningen in de gemeenteraad van Groningen.
 
 **Doel:** inwoners laten ervaren hoe een gemeentebegroting werkt, en wat de gevolgen zijn als je keuzes maakt. Elke euro kan maar één keer worden uitgegeven. Wie ergens geld weghaalt, ziet wat de gemeente dan niet meer doet. Wie investeert, moet dat eerst ergens anders vrijmaken. Aan het eind rolt er automatisch een complete, eigen tegenbegroting uit de game, in de vorm van de tegenbegroting die de fractie zelf indient. De fractie haalt zo input op voor bezuinigingen en investeringen.
 
@@ -432,7 +432,7 @@ Een optioneel paneel waarin de speler een paar vragen beantwoordt, zonder dat ie
 - **Knoppen:** dik en tastbaar, met een 3D-rand die indrukt. Minimaal 44×44 pixels.
 - **HUD bovenaan, altijd zichtbaar:** geldpotje met slot, saldo structureel, saldo eenmalig, blije inwoners, en een missiebalk met de knop Indienen.
 - **Paneel:** een bottom sheet op mobiel, een zijpaneel op desktop.
-- Een duidelijk colofon: "Een initiatief van de VVD-fractie Groningen-Haren", met de bronnen en de uitleg over aannames.
+- Een duidelijk colofon: "Een initiatief van VVD Groningen", met de bronnen en de uitleg over aannames.
 
 ---
 

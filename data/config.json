@@ -1,0 +1,18 @@
+{
+  "actiefJaar": 2027,
+  "begroting": "begroting-2027.json",
+  "vergelijking": [],
+  "meerjarenHorizon": [
+    2027,
+    2028,
+    2029,
+    2030
+  ],
+  "scenario": "midden",
+  "vergelijkingTonen": true,
+  "tarieven": "tarieven-2027.json",
+  "parkeren": "parkeren-2027.json",
+  "woonlasten": "woonlasten-2026.json",
+  "uitgaven": "uitgaven-gemeenten-2026.json",
+  "belastingenNederland": "belastingen-nederland-2026.json"
+}
