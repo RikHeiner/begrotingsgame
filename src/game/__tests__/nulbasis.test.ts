@@ -84,13 +84,10 @@ describe('beginnen bij nul', () => {
 });
 
 describe('bij nul geen frictiegeld', () => {
-  it("eenmalig kosten alleen de lopende programma's, geen frictie", async () => {
+  it("eenmalig nul: geen frictie, de eenmalige programma's staan stil", async () => {
     const actief = await actieveData();
     const r = bereken(actief, nulbasisKeuzes(actief));
     expect(r.effecten.some((e) => e.verband === 'org_frictie')).toBe(false);
-    const programmas = [...actief.index.programmas.values()]
-      .filter((p) => p.structureel_of_incidenteel === 'I')
-      .reduce((s, p) => s + p.bedrag_mln * 1e6, 0);
-    expect(r.perJaar[actief.jaren[0] as number]?.incidenteel ?? 0).toBeCloseTo(-programmas, -3);
+    for (const j of actief.jaren) expect(r.perJaar[j]?.incidenteel ?? 0).toBeCloseTo(0, -3);
   });
 });

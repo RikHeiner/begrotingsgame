@@ -79,10 +79,12 @@ export function nulbasisKeuzes(data: Data): Keuzes {
     const g = grensOnderdeel(o);
     if (g.min < 0 && !houden.has(o.id)) onderdelen[o.id] = g.min;
   }
-  // De programma's in het Beleidshuis lopen, zoals de gemeente ze nu uitvoert: hun geld blijft in
-  // de post (structureel) of komt eenmalig in het eerste jaar (zie rekenen.ts). De speler kan ze
-  // stopzetten.
+  // De structurele programma's in het Beleidshuis lopen, zoals de gemeente ze nu uitvoert: hun
+  // geld blijft in de post. De eenmalige programma's staan stil, zodat er bij nul geen eenmalige
+  // kosten zijn; de speler kan ze aanzetten (zie rekenen.ts).
+  const gestopt: string[] = [];
   for (const p of data.index.programmas.values()) {
+    if (p.structureel_of_incidenteel === 'I') gestopt.push(p.id);
     if (p.structureel_of_incidenteel !== 'S' || onderdelen[p.post] === undefined) continue;
     onderdelen[p.post] =
       Math.round(((onderdelen[p.post] ?? 0) + programmaPct(data, p)) * 1e4) / 1e4;
@@ -91,6 +93,7 @@ export function nulbasisKeuzes(data: Data): Keuzes {
     ...collegeKeuzes(data),
     ...belastingenOpMinimum(data),
     onderdelen,
+    ...(gestopt.length ? { gestopt: gestopt.sort() } : {}),
     nulbasis: true,
   };
   cache.set(data, k);

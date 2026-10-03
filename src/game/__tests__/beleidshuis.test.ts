@@ -39,14 +39,15 @@ describe('Beleidshuis', () => {
     expect(eenmalig(k1, 1) - eenmalig(k0, 1)).toBeCloseTo(0, -3);
   });
 
-  it("bij nul lopen de programma's, zoals nu; stopzetten scheelt het bedrag", () => {
+  it("bij nul lopen de structurele programma's; de eenmalige staan stil", () => {
     const n = nulbasisKeuzes(data);
     expect(isGestopt(n, 'p_vitamine_g')).toBe(false);
     const p = data.index.programmas.get('p_preventiefonds_jeugd');
     expect(p && stilDoorMinimum(data, n, p)).toBe(false);
-    // Een eenmalig programma stopzetten scheelt eenmalig het bedrag.
-    const stop = wisselProgramma(data, n, 'p_preventiefonds_jeugd');
-    expect(eenmalig(stop) - eenmalig(n)).toBeCloseTo((p?.bedrag_mln ?? 0) * 1e6, -3);
+    expect(isGestopt(n, 'p_preventiefonds_jeugd')).toBe(true);
+    // Een eenmalig programma aanzetten kost eenmalig het bedrag.
+    const aan = wisselProgramma(data, n, 'p_preventiefonds_jeugd');
+    expect(eenmalig(n) - eenmalig(aan)).toBeCloseTo((p?.bedrag_mln ?? 0) * 1e6, -3);
     // Een structureel programma stopzetten scheelt elk jaar het bedrag.
     const uit = wisselProgramma(data, n, 'p_vitamine_g');
     expect(saldo(uit) - saldo(n)).toBeCloseTo(0.5e6, -3);

@@ -49,14 +49,16 @@ test.describe('bij nul', () => {
     },
   });
 
-  test("programma's lopen zoals nu; stopzetten scheelt geld", async ({ page }) => {
+  test("structurele programma's lopen zoals nu; stopzetten scheelt geld", async ({ page }) => {
     await page.goto('/');
     const voor = await page.getByTestId('saldo').textContent();
     const lijst = await openBeleidshuis(page);
     const groen = lijst.getByTestId('programma-p_vitamine_g');
     await expect(groen).toHaveAttribute('aria-pressed', 'true');
-    // Ook een eenmalig programma loopt en kun je stopzetten.
-    await expect(lijst.getByTestId('programma-p_preventiefonds_jeugd')).toBeEnabled();
+    // Een eenmalig programma staat stil (geen eenmalige kosten bij nul); je kunt het aanzetten.
+    const fonds = lijst.getByTestId('programma-p_preventiefonds_jeugd');
+    await expect(fonds).toBeEnabled();
+    await expect(fonds).toHaveAttribute('aria-pressed', 'false');
     await groen.click();
     await expect(groen).toHaveAttribute('aria-pressed', 'false');
     await expect(page.getByTestId('saldo')).not.toHaveText(voor ?? '');
