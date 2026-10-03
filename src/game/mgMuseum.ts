@@ -28,6 +28,8 @@ export type MuseumKaart = {
   categorie: Categorie;
   /** de reden van het minimum, als die er is */
   reden?: string;
+  /** betaald uit een heffing die precies de kosten dekt (afval, riool) */
+  kostendekkend?: boolean;
 };
 
 export function isVerplicht(o: Onderdeel): boolean {
@@ -38,6 +40,10 @@ export function isVerplicht(o: Onderdeel): boolean {
 
 /** De categorie van een post, of undefined als hij in geen enkele categorie past. */
 export function categorieVan(o: Onderdeel): Categorie | undefined {
+  // Afval en riool: de heffing mag hooguit de kosten dekken (ook overhead en kwijtschelding, die
+  // elders in de begroting staan). Er blijft dus niets over, ook al zijn de inkomsten bij de post
+  // hoger dan de uitgaven. De taak zelf is verplicht.
+  if (o.doorgeefluik_heffing) return 'verplicht';
   if (o.gekoppelde_baten_mln > o.lasten_mln) return 'geld';
   if (isVerplicht(o)) return 'verplicht';
   if (grensOnderdeel(o).min <= -100 && !o.minimum) return 'keuze';
@@ -61,6 +67,7 @@ export function kaartVanPost(o: Onderdeel): MuseumKaart | undefined {
     batenMln: o.gekoppelde_baten_mln,
     categorie,
     ...(reden ? { reden } : {}),
+    ...(o.doorgeefluik_heffing ? { kostendekkend: true } : {}),
   };
 }
 

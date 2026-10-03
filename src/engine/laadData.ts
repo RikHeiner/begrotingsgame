@@ -27,6 +27,8 @@ import {
   type Minigame,
   type Gevolgen,
   belastingenNederlandSchema,
+  apparaatSchema,
+  type Apparaat,
   type Route,
   type BelastingenNederland,
   type ParkerenData,
@@ -78,6 +80,8 @@ export type Data = {
   uitgaven?: Uitgaven;
   /** landelijke gemiddelden van de gemeentebelastingen, als config.json ze noemt */
   belastingenNederland?: BelastingenNederland;
+  /** het ambtenarenapparaat en andere gemeenten, als config.json het noemt */
+  apparaat?: Apparaat;
   /** de route langs de gebouwen bij nul: eerst de belasting, dan de rest in een vaste volgorde */
   route: Route;
   /** wat de speler merkt van een keuze, ten opzichte van nu */
@@ -155,6 +159,7 @@ export type RuweData = {
   woonlasten?: { bestand: string; inhoud: unknown };
   uitgaven?: { bestand: string; inhoud: unknown };
   belastingenNederland?: { bestand: string; inhoud: unknown };
+  apparaat?: { bestand: string; inhoud: unknown };
   vergelijking: { bestand: string; inhoud: unknown }[];
 };
 
@@ -341,6 +346,13 @@ export function maakData(ruw: RuweData): Data {
         ruw.belastingenNederland.bestand,
       )
     : undefined;
+  const apparaat = ruw.apparaat
+    ? valideer(apparaatSchema, ruw.apparaat.inhoud, ruw.apparaat.bestand)
+    : undefined;
+  if (ruw.apparaat && apparaat && apparaat.begrotingsjaar !== config.actiefJaar)
+    throw new DataFout(ruw.apparaat.bestand, [
+      `dit is het apparaat van ${apparaat.begrotingsjaar}, maar config.json verwacht ${config.actiefJaar}`,
+    ]);
   if (ruw.belastingenNederland && belastingenNederland) {
     const fout: string[] = [];
     if (
@@ -377,6 +389,7 @@ export function maakData(ruw: RuweData): Data {
     ...(woonlasten ? { woonlasten } : {}),
     ...(uitgaven ? { uitgaven } : {}),
     ...(belastingenNederland ? { belastingenNederland } : {}),
+    ...(apparaat ? { apparaat } : {}),
     route,
     gevolgen,
     minigames,
@@ -426,6 +439,7 @@ export async function laadData(haal: HaalJson): Promise<Data> {
     woonlasten,
     uitgaven,
     belastingenNederland,
+    apparaat,
   ] = await Promise.all([
     haal(config.begroting),
     haal('dwarsverbanden.json'),
@@ -436,6 +450,7 @@ export async function laadData(haal: HaalJson): Promise<Data> {
     config.woonlasten ? haal(config.woonlasten) : Promise.resolve(undefined),
     config.uitgaven ? haal(config.uitgaven) : Promise.resolve(undefined),
     config.belastingenNederland ? haal(config.belastingenNederland) : Promise.resolve(undefined),
+    config.apparaat ? haal(config.apparaat) : Promise.resolve(undefined),
   ]);
   const spelData = Object.fromEntries(spelSleutels.map((k, i) => [k, spel[i]])) as Record<
     keyof typeof SPEL_BESTANDEN,
@@ -460,6 +475,7 @@ export async function laadData(haal: HaalJson): Promise<Data> {
           },
         }
       : {}),
+    ...(config.apparaat ? { apparaat: { bestand: config.apparaat, inhoud: apparaat } } : {}),
     vergelijking: config.vergelijking.map((bestand, i) => ({ bestand, inhoud: vergelijking[i] })),
   });
 }

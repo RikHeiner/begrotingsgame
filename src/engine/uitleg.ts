@@ -2,6 +2,7 @@
  * De knop "Waarom?": elk bedrag op het scherm is terug te voeren op een lijst Effect-regels.
  * Deze functies filteren en beschrijven die regels in gewone taal.
  */
+import { EIGEN_PREFIX } from './types';
 import { formatMln } from './format';
 import type { Data } from './laadData';
 import { parkeerPostVan } from './parkeren';
@@ -39,7 +40,8 @@ export function naamVan(data: Data, bron: string): string | undefined {
     data.index.onderdelen.get(bron)?.naam ??
     data.index.belastingen.get(bron)?.naam ??
     data.index.kaarten.get(bron)?.naam ??
-    parkeerPostVan(data, bron)?.naam
+    parkeerPostVan(data, bron)?.naam ??
+    (bron.startsWith(EIGEN_PREFIX) ? 'Eigen voorstel' : undefined)
   );
 }
 

@@ -91,5 +91,86 @@
     ],
     "bedankt": "Bedankt! Je begroting is ingestuurd naar de fractie.",
     "idee_waarschuwing": "Je idee lijkt persoonsgegevens of een scheldwoord te bevatten. Laat namen, adressen en telefoonnummers weg. De fractie leest elk idee voordat het ergens wordt gebruikt."
+  },
+  "document": {
+    "toelichting": "De opbouw en de huisstijl volgen de tegenbegroting van VVD Groningen ('Het kan en moet anders'). Elk kopje noemt de thema's van de game die eronder vallen; het laatste kopje van een hoofdstuk krijgt de rest.",
+    "slogan": "Het kan en moet anders.",
+    "ondertitel": "Voor een veilige, ondernemende en financieel verstandige gemeente.",
+    "soort": "Tegenbegroting",
+    "opgesteld_door": "Opgesteld door",
+    "makers": "Gemaakt met de Begrotingsgame van VVD Groningen.",
+    "besparingen": {
+      "titel": "Besparingen",
+      "intro": "De gemeente Groningen staat voor grote financiële uitdagingen. Deze tegenbegroting kiest voor een slankere en doelmatigere gemeente: minder bureaucratie, minder taken die de markt beter kan doen, en meer focus op veiligheid, onderhoud en een nette leefomgeving.",
+      "kopjes": [
+        {
+          "titel": "Een slanke en efficiënte gemeente",
+          "intro": "De gemeente moet zich richten op haar kerntaken: veilige straten, goed onderhoud en lage lasten. Daarom wordt er gesneden in de organisatie, stopt de gemeente met taken die niet bij haar horen en verkoopt ze bezit dat ze niet nodig heeft.",
+          "themas": [
+            "Bestuur en organisatie",
+            "Economie",
+            "Losse maatregelen",
+            "Eigen voorstellen",
+            "Eenmalige acties",
+            "Programma's en plannen",
+            "Financiën",
+            "Niet in de game"
+          ]
+        },
+        {
+          "titel": "Werken moet lonen",
+          "intro": "Een baan is de beste sociale voorziening. Het verschil tussen werken en een uitkering moet groter worden, zodat werken meer loont.",
+          "themas": [
+            "Werk en inkomen",
+            "Zorg",
+            "Wijken en welzijn"
+          ]
+        },
+        {
+          "titel": "Realistische keuzes in ruimte, cultuur en duurzaamheid",
+          "intro": "Een nuchtere aanpak van grote projecten: geen dure prestigeprojecten, wel haalbare plannen met direct nut voor inwoners. Culturele instellingen staan meer op eigen benen en de energietransitie moet betaalbaar blijven.",
+          "themas": []
+        }
+      ]
+    },
+    "investeringen": {
+      "titel": "Investeringen",
+      "intro": "Deze tegenbegroting investeert in een sterke, veilige en toekomstgerichte gemeente. Lagere lasten geven inwoners en ondernemers meer ruimte. Tegelijk gaat er geld naar een schone en veilige leefomgeving en goed onderhoud.",
+      "kopjes": [
+        {
+          "titel": "Lagere lasten voor inwoners en ondernemers",
+          "intro": "Lagere gemeentelijke lasten betekenen dat inwoners en ondernemers meer overhouden in hun eigen portemonnee. Dat versterkt de lokale economie.",
+          "themas": [
+            "Belastingen"
+          ]
+        },
+        {
+          "titel": "Investeren in een veilige en leefbare gemeente",
+          "intro": "Veiligheid en een goed onderhouden openbare ruimte zijn de basis van een prettige gemeente. Daarom gaat er geld naar zichtbare handhaving, onderhoud en schone, hele en veilige wijken.",
+          "themas": [
+            "Veiligheid",
+            "Openbare ruimte",
+            "Wijken en welzijn",
+            "Zorg",
+            "Verkeer en parkeren"
+          ]
+        },
+        {
+          "titel": "Investeren in de toekomst van Groningen",
+          "intro": "Een financieel gezonde gemeente kan investeren in de toekomst, zoals sneller bouwen, goede sportvoorzieningen en een slimme dienstverlening.",
+          "themas": []
+        }
+      ]
+    },
+    "financieel": {
+      "titel": "Financieel overzicht",
+      "intro": "Dit overzicht brengt de financiële keuzes van deze tegenbegroting samen. Het laat zien waar wordt bespaard, welke opbrengsten dat oplevert en hoe die middelen worden ingezet."
+    }
+  },
+  "fout_melden": {
+    "tekst": "Wij doen ons best om alle bedragen en uitleg goed te krijgen. Toch kan er een fout in zitten. Aan de bedragen en uitkomsten van deze game kun je geen rechten ontlenen.",
+    "vraag": "Zie je een fout? Meld het ons, dan passen we het aan.",
+    "email": "vvdgroningenstad@gmail.com",
+    "onderwerp": "Fout in de Begrotingsgame"
   }
 }

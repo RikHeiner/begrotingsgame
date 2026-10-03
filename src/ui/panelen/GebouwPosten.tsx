@@ -7,14 +7,17 @@ import {
   formatPct,
   grensBelasting,
   grensOnderdeel,
+  verkoopPerJaarMln,
   type Data,
   type Resultaat,
 } from '../../engine';
 import { PARKEER_PREFIX, parkeerPosten, type ParkeerPost } from '../../engine/parkeren';
-import type { Gebouw, Minimum, Programma } from '../../engine/schema';
+import type { Actiekaart, Gebouw, Minimum, Programma } from '../../engine/schema';
 import { isGestopt, stilDoorMinimum } from '../../game/beleidshuis';
 import { gevolgVan } from '../../game/gevolg';
 import { huidigJaar, useSpel } from '../../game/state/store';
+import { Apparaat } from './Apparaat';
+import { EigenVoorstellen } from './EigenVoorstellen';
 import { Schuif } from './Schuif';
 
 function directBedrag(r: Resultaat, bron: string, jaar: number): number {
@@ -116,6 +119,49 @@ function GevolgRegel({ data, id, pct }: { data: Data; id: string; pct: number })
   );
 }
 
+/**
+ * Wat een verkoop oplevert: de opbrengst, de boekwinst (eenmalig vrij geld) en wat het elk jaar
+ * scheelt of kost (minder rente min de inkomsten die wegvallen).
+ */
+function VerkoopBedragen({ data, kaart }: { data: Data; kaart: Actiekaart }) {
+  const v = kaart.verkoop;
+  if (!v) return null;
+  const jaarlijks = verkoopPerJaarMln(data, v);
+  const mln = (x: number, teken = false) => formatMln(x * 1e6, { decimalen: 2, teken });
+  return (
+    <span className="verkoop-bedragen">
+      <span>
+        Verkoop: ongeveer {mln(v.opbrengst_mln)} (boekwaarde {mln(v.boekwaarde_mln)})
+      </span>
+      <span className={kaart.bedrag_mln > 0 ? 'positief' : undefined}>
+        Eenmalig vrij geld (boekwinst): {mln(kaart.bedrag_mln, kaart.bedrag_mln > 0)}
+      </span>
+      <span
+        className={jaarlijks > 0.005 ? 'positief' : jaarlijks < -0.005 ? 'negatief' : undefined}
+      >
+        Elk jaar daarna: {mln(jaarlijks, true)}
+        {v.derving_mln
+          ? ` (minder rente, maar ${mln(v.derving_mln)} minder inkomsten)`
+          : ' (minder rente)'}
+      </span>
+    </span>
+  );
+}
+
+/** "Wat is dit?": wat de post is en doet (spel/gevolgen.json). */
+function PostInfo({ data, id }: { data: Data; id: string }) {
+  const info = data.gevolgen.posten[id]?.info;
+  if (!info) return null;
+  return (
+    <details className="post-info" data-testid={`info-${id}`}>
+      <summary>
+        <span aria-hidden="true">ⓘ</span> Wat is dit?
+      </summary>
+      <p>{info}</p>
+    </details>
+  );
+}
+
 /** Bij nul: bedragen in plaats van percentages (die zijn ten opzichte van het college). */
 const mlnTekst = (x: number) => formatMln(x * 1e6, { decimalen: 2 });
 
@@ -208,6 +254,14 @@ function ParkeerSchuiven({
   const posten = parkeerPosten(data);
   const keuzes = resultaat.keuzes.parkeren ?? {};
   const id = data.parkeren?.opbrengst.belasting ?? '';
+  // Kortparkeren: het uurtarief op straat per zone (de opbrengst schuift mee met het tarief).
+  const zones = (data.parkeren?.parkeerzones ?? []).flatMap((z) =>
+    z.uurtarief ? [{ naam: z.naam, ...z.uurtarief }] : [],
+  );
+  const uurBinnenstad = zones[0];
+  const uurNu = zones
+    .map((z) => `${z.naam.replace(/ \(.*\)$/, '')}: ${euro(z.bedrag)} (${z.prijspeil})`)
+    .join(', ');
   return (
     <section className="parkeren" aria-labelledby={`${gebouw.id}-parkeren`} data-post="parkeren">
       <h3 id={`${gebouw.id}-parkeren`}>Parkeertarieven</h3>
@@ -236,6 +290,14 @@ function ParkeerSchuiven({
                   p.tarief !== undefined && pct
                     ? `Nieuw tarief: ${euro(p.tarief * (1 + pct / 100))} per jaar.`
                     : null;
+                // Het tarief van nu, ook bij nul: zo weet de speler wat een vergunning nu kost.
+                const uur = p.groep === 'kortparkeren' ? uurBinnenstad : undefined;
+                const nu =
+                  p.tarief !== undefined
+                    ? `Nu: ${euro(p.tarief)} per jaar.`
+                    : uur
+                      ? `Nu per uur op straat: ${uurNu}.`
+                      : null;
                 return (
                   <li key={p.id} data-post={`parkeren:${p.id}`}>
                     <Schuif
@@ -247,14 +309,25 @@ function ParkeerSchuiven({
                       bedrag={
                         p.tarief !== undefined
                           ? { basis: p.tarief, eenheid: 'euro', soort: 'Tarief' }
-                          : { basis: p.basis / 1e6, eenheid: 'mln', soort: 'Opbrengst' }
+                          : uur
+                            ? {
+                                basis: uur.bedrag,
+                                eenheid: 'euro',
+                                soort: 'Uurtarief binnenstad',
+                                per: 'per uur',
+                              }
+                            : { basis: p.basis / 1e6, eenheid: 'mln', soort: 'Opbrengst' }
                       }
-                      beschrijving={[p.uitleg, nul ? null : nieuw].filter(Boolean).join(' ')}
+                      beschrijving={[p.uitleg, nu, nul ? null : nieuw].filter(Boolean).join(' ')}
                       collegeKnop={!nul}
                       {...(nul
                         ? {
                             toonBedrag: (x: number) =>
-                              p.tarief !== undefined ? `${euro(x)} per jaar` : mlnTekst(x),
+                              p.tarief !== undefined
+                                ? `${euro(x)} per jaar`
+                                : uur
+                                  ? `${euro(x)} per uur`
+                                  : mlnTekst(x),
                           }
                         : {})}
                       onChange={(v) => zet(p.id, v)}
@@ -290,6 +363,7 @@ function ParkeerSchuiven({
  */
 function Programmas({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
   const wissel = useSpel((s) => s.wisselProgramma);
+  const basis = useSpel((s) => s.basis);
   const jaar = huidigJaar(data);
   const perPost = new Map<string, Programma[]>();
   for (const p of data.index.programmas.values())
@@ -297,9 +371,10 @@ function Programmas({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
   return (
     <section aria-labelledby="programmas-kop">
       <h3 id="programmas-kop">Programma's van de gemeente</h3>
-      <p className="klein">
-        Zet een programma stop, of zet het weer aan. Het geld gaat van de post af of komt erbij; dat
-        zie je ook bij de schuif van die post.
+      <p className="klein beleid-legenda">
+        Dit doet de gemeente nu al. <strong>✅ Loopt</strong>: het gebeurt en het kost geld.{' '}
+        <strong>⏸ Gestopt</strong> of <strong>staat stil</strong>: het gebeurt niet. Tik op een
+        kaart om te wisselen. Bij elke kaart staat waarom hij zo staat.
       </p>
       {[...perPost].map(([post, lijst]) => {
         const o = data.index.onderdelen.get(post);
@@ -311,6 +386,21 @@ function Programmas({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
                 const minimum = stilDoorMinimum(data, resultaat.keuzes, p);
                 const loopt = !isGestopt(resultaat.keuzes, p.id) && !minimum;
                 const eenmalig = p.structureel_of_incidenteel === 'I';
+                const bedrag = `${formatMln(p.bedrag_mln * 1e6, { decimalen: 2 })}${eenmalig ? ` in ${jaar}` : ' per jaar'}`;
+                // Zo stond het aan het begin; anders heeft de speler het zelf veranderd.
+                const standaardLoopt = !isGestopt(basis, p.id);
+                const zelf = loopt !== standaardLoopt;
+                const waarom = minimum
+                  ? 'Staat stil: de schuif van deze post staat op zijn minimum. Zet die schuif hoger om dit programma te laten lopen.'
+                  : loopt
+                    ? zelf
+                      ? `Je hebt dit aangezet. Dat kost ${bedrag}.`
+                      : `Zo doet de gemeente het nu. Stopzetten scheelt ${bedrag}.`
+                    : zelf
+                      ? `Je hebt dit stopgezet. Dat scheelt ${bedrag}.`
+                      : eenmalig
+                        ? `Dit eenmalige programma staat bij nul stil, zodat je zelf kiest. Aanzetten kost ${bedrag}.`
+                        : `Dit gebeurt nu niet. Aanzetten kost ${bedrag}.`;
                 return (
                   <li key={p.id} data-post={p.id}>
                     <button
@@ -321,24 +411,35 @@ function Programmas({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
                       data-testid={`programma-${p.id}`}
                       onClick={() => wissel(p.id)}
                     >
-                      <span className="actiekaart-soort">
-                        {loopt ? 'Loopt' : 'Staat stil'} ·{' '}
-                        {eenmalig ? `alleen ${jaar}` : 'elk jaar'}
+                      <span className={`actiekaart-stand${loopt ? ' loopt' : ''}`}>
+                        {loopt
+                          ? '✅ Loopt'
+                          : minimum
+                            ? '⏸ Staat stil'
+                            : zelf
+                              ? '⏸ Gestopt'
+                              : '⏸ Staat stil'}
+                        <span className="actiekaart-soort">
+                          {' · '}
+                          {eenmalig ? `eenmalig, ${jaar}` : 'elk jaar'}
+                        </span>
                       </span>
                       <strong>
                         {p.zekerheid !== 'feit' ? '⚠︎ ' : ''}
-                        {p.naam}
+                        {p.programma ?? p.naam}
                       </strong>
-                      <span>{p.uitleg}</span>
-                      <span>
-                        {formatMln(p.bedrag_mln * 1e6, { decimalen: 2 })}
-                        {eenmalig ? ` in ${jaar}` : ' per jaar'} ·{' '}
-                        {minimum
-                          ? 'staat stil: de post staat op zijn minimum'
-                          : loopt
-                            ? 'tik om stop te zetten'
-                            : 'tik om weer aan te zetten'}
+                      {p.wat && <span>{p.wat}</span>}
+                      <span className="klein">
+                        <em>Zonder dit programma:</em> {p.uitleg}
                       </span>
+                      <span className="actiekaart-waarom" data-testid={`waarom-${p.id}`}>
+                        {waarom}
+                      </span>
+                      {!minimum && (
+                        <span className="actiekaart-actie" aria-hidden="true">
+                          {loopt ? '⏹ Tik om stop te zetten' : '▶ Tik om aan te zetten'}
+                        </span>
+                      )}
                     </button>
                   </li>
                 );
@@ -447,16 +548,45 @@ export function GebouwPosten({
                 aria-pressed={aan}
                 onClick={() => wisselKaart(kaart.id)}
               >
-                <span className="actiekaart-soort">
-                  {kaart.structureel_of_incidenteel === 'S' ? 'Elk jaar' : 'Eenmalig'}
+                <span className={`actiekaart-stand${aan ? ' loopt' : ''}`}>
+                  {aan
+                    ? kaart.verkoop
+                      ? '✅ Je verkoopt dit'
+                      : '✅ Je voert dit plan uit'
+                    : kaart.verkoop
+                      ? 'Nu van de gemeente'
+                      : 'Nieuw plan · staat uit'}
+                  <span className="actiekaart-soort">
+                    {' · '}
+                    {kaart.verkoop
+                      ? 'verkoop'
+                      : kaart.structureel_of_incidenteel === 'S'
+                        ? 'elk jaar'
+                        : 'eenmalig'}
+                  </span>
                 </span>
                 <strong>
                   {kaart.zekerheid && kaart.zekerheid !== 'feit' ? '⚠︎ ' : ''}
                   {kaart.naam}
                 </strong>
                 <span>{kaart.uitleg}</span>
-                <span className={kaart.bedrag_mln >= 0 ? 'positief' : 'negatief'}>
-                  {formatMln(kaart.bedrag_mln * 1e6, { decimalen: 2, teken: true })}
+                {kaart.verkoop ? (
+                  <VerkoopBedragen data={data} kaart={kaart} />
+                ) : (
+                  <span className={kaart.bedrag_mln >= 0 ? 'positief' : 'negatief'}>
+                    {kaart.bedrag_mln === 0
+                      ? 'Kost niets'
+                      : formatMln(kaart.bedrag_mln * 1e6, { decimalen: 2, teken: true })}
+                  </span>
+                )}
+                <span className="actiekaart-actie" aria-hidden="true">
+                  {aan
+                    ? kaart.verkoop
+                      ? '⏹ Tik om toch niet te verkopen'
+                      : '⏹ Tik om het plan uit te zetten'
+                    : kaart.verkoop
+                      ? '▶ Tik om te verkopen'
+                      : '▶ Tik om het plan uit te voeren'}
                 </span>
               </button>
             </li>
@@ -464,16 +594,34 @@ export function GebouwPosten({
         })}
       </ul>
     );
-    if (gebouw.soort === 'veilinghuis') return lijst;
+    if (gebouw.soort === 'veilinghuis')
+      return (
+        <>
+          <p className="klein beleid-legenda">
+            Hier verkoop je bezit van de gemeente, en staan losse maatregelen. Tik op een kaart om
+            hem aan te zetten. Let op bij verkopen: alleen wat boven de boekwaarde wordt verdiend
+            (boekwinst) is eenmalig vrij geld. De rest gaat naar minder lenen; dat scheelt elk jaar
+            rente.
+          </p>
+          {lijst}
+          <EigenVoorstellen plek="veiling" resultaat={resultaat} />
+        </>
+      );
     return (
       <>
         <Programmas data={data} resultaat={resultaat} />
+        <Apparaat data={data} />
         {kaarten.length > 0 && (
           <section aria-labelledby={`${gebouw.id}-plannen`}>
             <h3 id={`${gebouw.id}-plannen`}>Nieuwe plannen</h3>
+            <p className="klein beleid-legenda">
+              Dit doet de gemeente nu nog niet; daarom staan de plannen uit. Zet een plan aan als je
+              het wilt uitvoeren.
+            </p>
             {lijst}
           </section>
         )}
+        <EigenVoorstellen plek="beleid" resultaat={resultaat} />
       </>
     );
   }
@@ -524,6 +672,7 @@ export function GebouwPosten({
                 onChange={(v) => zetOnderdeel(id, v)}
               />
               {!vergrendeld && <GevolgRegel data={data} id={id} pct={pct} />}
+              <PostInfo data={data} id={id} />
               {!nul && <Bedrag euro={directBedrag(resultaat, id, jaar)} />}
               <OokEffect data={data} resultaat={resultaat} id={id} />
             </li>

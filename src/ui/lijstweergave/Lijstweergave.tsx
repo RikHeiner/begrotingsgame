@@ -18,6 +18,7 @@ export function Lijstweergave({
 }) {
   const gebied = new Map(data.gebieden.gebieden.map((g) => [g.id, g.naam]));
   const openMinigame = useSpel((s) => s.openMinigame);
+  const gespeeld = useSpel((s) => s.gespeeld);
   return (
     <section aria-labelledby="lijst-kop" className="lijst" data-testid="lijstweergave">
       <h2 id="lijst-kop">Alle gebouwen en posten</h2>
@@ -48,6 +49,7 @@ export function Lijstweergave({
           <li key={m.id}>
             <button type="button" className="knop" onClick={() => openMinigame(m.id)}>
               {m.icoon} {m.naam}: {m.spel}
+              {gespeeld.includes(m.id) && <span className="klein"> · ✓ al gespeeld</span>}
             </button>
           </li>
         ))}

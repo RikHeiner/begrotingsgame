@@ -1,0 +1,105 @@
+{
+  "begrotingsjaar": 2027,
+  "toelichting": "Het ambtenarenapparaat van de gemeente Groningen, uit de ontwerpbegroting 2027, en de verplichte indicatoren van andere grote gemeenten uit hun eigen begroting. Bij elk getal staat het jaar. Van Tilburg, Enschede, Leeuwarden en Maastricht zijn de cijfers nog niet gevonden.",
+  "bron": {
+    "titel": "Ontwerpbegroting 2027 gemeente Groningen, Personeelskosten (p. 355) en Wettelijke indicatoren (p. 283)",
+    "status": "feit"
+  },
+  "groningen": {
+    "fte": 3681,
+    "loonsom_x1000": 357948,
+    "externe_inhuur_x1000": 14041,
+    "formatie_per_1000": [
+      {
+        "jaar": 2022,
+        "waarde": 12.3,
+        "soort": "behaald"
+      },
+      {
+        "jaar": 2023,
+        "waarde": 13.1,
+        "soort": "behaald"
+      },
+      {
+        "jaar": 2024,
+        "waarde": 13.8,
+        "soort": "behaald"
+      },
+      {
+        "jaar": 2025,
+        "waarde": 14.7,
+        "soort": "behaald"
+      },
+      {
+        "jaar": 2027,
+        "waarde": 13.1,
+        "soort": "beoogd"
+      }
+    ],
+    "apparaatskosten_per_inwoner": [
+      {
+        "jaar": 2022,
+        "waarde": 1243,
+        "soort": "behaald"
+      },
+      {
+        "jaar": 2023,
+        "waarde": 1400,
+        "soort": "behaald"
+      },
+      {
+        "jaar": 2024,
+        "waarde": 1494,
+        "soort": "behaald"
+      },
+      {
+        "jaar": 2025,
+        "waarde": 1580,
+        "soort": "behaald"
+      },
+      {
+        "jaar": 2027,
+        "waarde": 1200,
+        "soort": "beoogd"
+      }
+    ]
+  },
+  "andere": [
+    {
+      "naam": "Eindhoven",
+      "jaar": 2026,
+      "soort": "beoogd",
+      "formatie_per_1000": 9.8,
+      "apparaatskosten_per_inwoner": 1286,
+      "bron": "Begroting 2026 gemeente Eindhoven, Samenvatting, tabel BBV-indicatoren",
+      "url": "https://eindhoven.begroting-2026.nl/p22621/samenvatting"
+    },
+    {
+      "naam": "Zwolle",
+      "jaar": 2026,
+      "soort": "beoogd",
+      "formatie_per_1000": 7.5,
+      "apparaatskosten_per_inwoner": 828,
+      "bron": "Begroting 2026 gemeente Zwolle, Paragraaf Bedrijfsvoering, Indicatoren",
+      "url": "https://zwolle.begroting-2026.nl/p50787/indicatoren"
+    },
+    {
+      "naam": "Utrecht",
+      "jaar": 2025,
+      "soort": "behaald",
+      "formatie_per_1000": 15.12,
+      "apparaatskosten_per_inwoner": 1816,
+      "bron": "Begroting 2027 gemeente Utrecht, Overzicht verplichte BBV-indicatoren (kolom 2025)",
+      "url": "https://utrecht.begroting-2027.nl/p84156/overzicht-verplichte-bbv-indicatoren"
+    },
+    {
+      "naam": "Nijmegen",
+      "jaar": 2025,
+      "soort": "behaald",
+      "formatie_per_1000": 9.0,
+      "apparaatskosten_per_inwoner": 996,
+      "bron": "Stadsbegroting 2027 gemeente Nijmegen, Indicatoren basisset BBV (kolom 2025)",
+      "url": "https://nijmegen.begroting-2027.nl/p64126/indicatoren"
+    }
+  ]
+}

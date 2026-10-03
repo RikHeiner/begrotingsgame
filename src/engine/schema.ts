@@ -34,6 +34,8 @@ export const configSchema = z
     uitgaven: bestandsnaam.optional(),
     /** landelijke gemiddelden van de gemeentebelastingen (bij het belastingloket), optioneel */
     belastingenNederland: bestandsnaam.optional(),
+    /** het ambtenarenapparaat, met andere gemeenten (in het Beleidshuis), optioneel */
+    apparaat: bestandsnaam.optional(),
   })
   .strict()
   .refine((c) => c.meerjarenHorizon.every((j, i) => j === c.actiefJaar + i), {
@@ -144,8 +146,31 @@ export const actiekaartSchema = z
     gebouw: z.string().optional(),
     /** zekerheid van het bedrag (standaard feit) */
     zekerheid: z.enum(['feit', 'aanname', 'te onderzoeken']).optional(),
+    /**
+     * Een verkoop van bezit. Volgens de regels voor gemeenten (BBV) is alleen de boekwinst
+     * (opbrengst min boekwaarde) eenmalig vrij geld: dat is `bedrag_mln`. Het geld ter hoogte van de
+     * boekwaarde gaat naar minder lenen; dat scheelt elk jaar rente. Daar gaat af wat de gemeente
+     * daarna mist (huur, canon, dividend min de kosten die ook wegvallen), vanaf het jaar erna.
+     */
+    verkoop: z
+      .object({
+        opbrengst_mln: z.number().nonnegative(),
+        boekwaarde_mln: z.number().nonnegative(),
+        derving_mln: z.number().nonnegative(),
+      })
+      .strict()
+      .optional(),
   })
   .strict()
+  .refine(
+    (k) =>
+      !k.verkoop ||
+      Math.abs(k.verkoop.opbrengst_mln - k.verkoop.boekwaarde_mln - k.bedrag_mln) < 0.001,
+    {
+      message: 'bij een verkoop is bedrag_mln de boekwinst: opbrengst min boekwaarde',
+      path: ['bedrag_mln'],
+    },
+  )
   .refine((k) => (k.soort === 'opbrengst' ? k.bedrag_mln >= 0 : k.bedrag_mln <= 0), {
     message: 'een opbrengst heeft een positief bedrag, een uitgave een negatief bedrag',
     path: ['bedrag_mln'],
@@ -159,9 +184,14 @@ export type Actiekaart = z.infer<typeof actiekaartSchema>;
 export const programmaSchema = z
   .object({
     id: z.string().min(1),
+    /** wat je doet als je het stopzet, bijvoorbeeld "Stoppen met cameratoezicht" */
     naam: z.string().min(1),
-    /** wat merkt een inwoner (B1) */
+    /** wat merkt een inwoner als het stopt (B1) */
     uitleg: z.string(),
+    /** het programma zelf, bijvoorbeeld "Cameratoezicht" (de titel in het Beleidshuis) */
+    programma: z.string().min(1).optional(),
+    /** wat het programma nu doet, in één zin */
+    wat: z.string().optional(),
     /** de post waar het programma in zit */
     post: z.string().min(1),
     /** lasten per jaar */
@@ -544,6 +574,19 @@ export type BadgesData = z.infer<typeof badgesSchema>;
 
 // ---------- spel/teksten.json ----------
 
+const documentHoofdstuk = z
+  .object({
+    titel: z.string(),
+    intro: z.string(),
+    /** kopjes in de volgorde van het document; het laatste krijgt de thema's die nergens staan */
+    kopjes: z
+      .array(
+        z.object({ titel: z.string(), intro: z.string(), themas: z.array(z.string()) }).strict(),
+      )
+      .min(1),
+  })
+  .strict();
+
 export const tekstenSchema = z
   .object({
     toelichting: z.string(),
@@ -590,6 +633,30 @@ export const tekstenSchema = z
         privacy: z.array(z.string()).min(1),
         bedankt: z.string(),
         idee_waarschuwing: z.string(),
+      })
+      .strict(),
+    /** waarschuwing: fouten zijn mogelijk, je kunt ze melden, geen rechten aan te ontlenen */
+    fout_melden: z
+      .object({
+        tekst: z.string(),
+        vraag: z.string(),
+        /** waar een melding heen gaat; leeg = nog geen adres, dan zonder link */
+        email: z.string().email().or(z.literal('')),
+        onderwerp: z.string(),
+      })
+      .strict(),
+    /** de tegenbegroting als document, in de huisstijl en opbouw van VVD Groningen */
+    document: z
+      .object({
+        toelichting: z.string(),
+        slogan: z.string(),
+        ondertitel: z.string(),
+        soort: z.string(),
+        opgesteld_door: z.string(),
+        makers: z.string(),
+        besparingen: documentHoofdstuk,
+        investeringen: documentHoofdstuk,
+        financieel: z.object({ titel: z.string(), intro: z.string() }).strict(),
       })
       .strict(),
   })
@@ -923,6 +990,8 @@ export const gevolgenSchema = z
       z
         .object({
           categorie: z.string().optional(),
+          /** wat de post is en doet, voor het knopje "Wat is dit?" */
+          info: z.string().optional(),
           /** een aantal dat de speler ziet, zoals het aantal boa's nu */
           eenheid: z
             .object({
@@ -1101,3 +1170,48 @@ export const idMappingSchema = z
   })
   .strict();
 export type IdMapping = z.infer<typeof idMappingSchema>;
+
+// ---------- apparaat-JJJJ.json ----------
+
+const indicatorJaar = z
+  .object({
+    jaar: z.number().int(),
+    waarde: z.number().nonnegative(),
+    soort: z.enum(['behaald', 'beoogd']),
+  })
+  .strict();
+
+export const apparaatSchema = z
+  .object({
+    begrotingsjaar: z.number().int(),
+    toelichting: z.string(),
+    bron: z.object({ titel: z.string(), status: zekerheidSchema }).strict(),
+    groningen: z
+      .object({
+        fte: z.number().positive(),
+        loonsom_x1000: z.number().positive(),
+        externe_inhuur_x1000: z.number().nonnegative(),
+        /** verplichte indicator: formatie in fte per 1.000 inwoners */
+        formatie_per_1000: z.array(indicatorJaar).min(1),
+        /** verplichte indicator: apparaatskosten per inwoner */
+        apparaatskosten_per_inwoner: z.array(indicatorJaar).min(1),
+      })
+      .strict(),
+    /** dezelfde indicatoren van andere gemeenten, uit hun eigen begroting */
+    andere: z.array(
+      z
+        .object({
+          naam: z.string(),
+          jaar: z.number().int(),
+          /** beoogd (uit de begroting voor dat jaar) of behaald (achteraf) */
+          soort: z.enum(['behaald', 'beoogd']),
+          formatie_per_1000: z.number().nonnegative().nullable(),
+          apparaatskosten_per_inwoner: z.number().nonnegative().nullable(),
+          bron: z.string(),
+          url: z.string().url(),
+        })
+        .strict(),
+    ),
+  })
+  .strict();
+export type Apparaat = z.infer<typeof apparaatSchema>;

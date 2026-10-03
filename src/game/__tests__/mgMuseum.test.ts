@@ -22,13 +22,22 @@ describe('Museum: moet of mag?', () => {
   it('levert geld op gaat voor verplicht, verplicht gaat voor eigen keuze', () => {
     for (const o of data.begroting.onderdelen) {
       const c = categorieVan(o);
-      if (o.gekoppelde_baten_mln > o.lasten_mln) expect(c, o.id).toBe('geld');
+      // Afval en riool: kostendekkende heffing, er blijft niets over (boekwerk 2027 p. 272 en 277).
+      if (o.doorgeefluik_heffing) expect(c, o.id).toBe('verplicht');
+      else if (o.gekoppelde_baten_mln > o.lasten_mln) expect(c, o.id).toBe('geld');
       else if (o.wettelijke_taak || o.vergrendeld) expect(c, o.id).toBe('verplicht');
       if (c === 'keuze') {
         expect(grensOnderdeel(o).min, o.id).toBeLessThanOrEqual(-100);
         expect(o.minimum, o.id).toBeUndefined();
       }
     }
+  });
+
+  it('afvalinzameling levert niets op: verplicht en kostendekkend', () => {
+    const o3 = data.index.onderdelen.get('o3');
+    if (!o3) throw new Error('geen o3');
+    expect(o3.gekoppelde_baten_mln).toBeGreaterThan(o3.lasten_mln);
+    expect(categorieVan(o3)).toBe('verplicht');
   });
 
   it('alle belastingen zijn "levert geld op"', () => {

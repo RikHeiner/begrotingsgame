@@ -8,10 +8,11 @@ import { useSpel } from '../../game/state/store';
 import { Geldpotje } from './Geldpotje';
 import { InstellingenDialoog } from './InstellingenDialoog';
 import { InwonersDialoog } from './InwonersDialoog';
+import { OpslaanDialoog } from './OpslaanDialoog';
 import { VoorMijDialoog } from './VoorMijDialoog';
 import { WaaromDialoog } from './WaaromDialoog';
 
-type Open = 'waarom' | 'inwoners' | 'instellingen' | 'voormij' | undefined;
+type Open = 'waarom' | 'inwoners' | 'instellingen' | 'voormij' | 'opslaan' | undefined;
 
 export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
   const [open, setOpen] = useState<Open>();
@@ -89,6 +90,15 @@ export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
         >
           ⚙︎
         </button>
+        <button
+          type="button"
+          className="knop hud-opslaan"
+          aria-label="Opslaan en later verder"
+          data-testid="opslaan"
+          onClick={() => setOpen('opslaan')}
+        >
+          💾<span className="wissel-tekst"> Opslaan</span>
+        </button>
         <button type="button" className="knop-indienen" data-testid="indienen" onClick={indienen}>
           Indienen
         </button>
@@ -109,6 +119,12 @@ export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
       />
       <VoorMijDialoog
         open={open === 'voormij'}
+        onSluit={() => setOpen(undefined)}
+        data={data}
+        resultaat={resultaat}
+      />
+      <OpslaanDialoog
+        open={open === 'opslaan'}
         onSluit={() => setOpen(undefined)}
         data={data}
         resultaat={resultaat}

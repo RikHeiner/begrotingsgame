@@ -8,6 +8,7 @@
 import { useEffect, useRef } from 'react';
 import type { Data } from '../../engine';
 import type { Beginpunt } from '../../game/nulbasis';
+import { FoutMelden } from '../algemeen/FoutMelden';
 
 const vul = (tekst: string, waarden: Record<string, string>) =>
   tekst.replace(/\{(\w+)\}/g, (m, k: string) => waarden[k] ?? m);
@@ -103,6 +104,7 @@ export function Startscherm({
           </>
         )}
         <p className="klein start-noot">{vul(t.noot, waarden)}</p>
+        <FoutMelden data={data} />
       </div>
     </dialog>
   );

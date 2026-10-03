@@ -23,7 +23,14 @@ import {
   weerstandPerJaar,
 } from './regels';
 import type { Zekerheid } from './schema';
-import type { Effect, JaarResultaat, Keuzes, Melding, Resultaat } from './types';
+import {
+  EIGEN_PREFIX,
+  type Effect,
+  type JaarResultaat,
+  type Keuzes,
+  type Melding,
+  type Resultaat,
+} from './types';
 
 export const OVERIG = 'overig';
 
@@ -178,6 +185,23 @@ function directeEffecten(data: Data, keuzes: Keuzes): Effect[] {
       for (const e of effecten) if (e.bron === id) e.zekerheid = p.zekerheid;
   }
 
+  // Eigen voorstellen: het bedrag is een eigen schatting van de speler.
+  for (const v of keuzes.eigen ?? []) {
+    const bedrag = vanMln(v.bedrag_mln);
+    const voor = effecten.length;
+    voegToe(
+      {
+        bron: `${EIGEN_PREFIX}${v.id}`,
+        doel: `${EIGEN_PREFIX}${v.id}`,
+        soort: v.soort,
+        kant: v.plek === 'veiling' ? 'baten' : 'lasten',
+        uitleg: `Eigen voorstel "${v.naam}": ${v.soort === 'S' ? 'elk jaar' : 'eenmalig'} ${formatMln(bedrag)}. Het bedrag is een eigen schatting.`,
+      },
+      perJaar(jaren.length, (j) => (v.soort === 'S' ? bedrag : j === 0 ? bedrag : 0)),
+    );
+    for (const e of effecten.slice(voor)) e.zekerheid = 'aanname';
+  }
+
   const rente = renteVoorInvesteringen(data);
   for (const id of keuzes.kaarten) {
     const k = data.index.kaarten.get(id);
@@ -216,9 +240,30 @@ function directeEffecten(data: Data, keuzes: Keuzes): Effect[] {
         structureel ? bedrag * ingroei(k.ingroeipad, j) : j === 0 ? bedrag : 0,
       ),
     );
+    if (k.verkoop) {
+      const jaarlijks = vanMln(verkoopPerJaarMln(data, k.verkoop));
+      voegToe(
+        {
+          bron: id,
+          doel: id,
+          soort: 'S',
+          kant: 'baten',
+          uitleg: `${k.naam}: de gemeente hoeft ${formatMln(vanMln(k.verkoop.boekwaarde_mln))} minder te lenen (minder rente)${k.verkoop.derving_mln ? `, maar mist ${formatMln(vanMln(k.verkoop.derving_mln))} per jaar aan inkomsten` : ''}. Samen ${formatMln(jaarlijks, { teken: true })} per jaar.`,
+        },
+        perJaar(jaren.length, (j) => (j === 0 ? 0 : jaarlijks)),
+      );
+    }
     if (k.zekerheid) for (const e of effecten.slice(voor)) e.zekerheid = k.zekerheid;
   }
   return effecten;
+}
+
+/** Wat een verkoop elk jaar scheelt (+) of kost (−): rente over de boekwaarde min de derving. */
+export function verkoopPerJaarMln(
+  data: Data,
+  v: { boekwaarde_mln: number; derving_mln: number },
+): number {
+  return renteVoorInvesteringen(data) * v.boekwaarde_mln - v.derving_mln;
 }
 
 function renteVoorInvesteringen(data: Data): number {

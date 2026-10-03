@@ -56,6 +56,7 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
   const kies = useSpel((s) => s.kiesGebouw);
   const openMinigame = useSpel((s) => s.openMinigame);
   const nul = useSpel((s) => s.beginpunt === 'nul');
+  const gespeeld = useSpel((s) => s.gespeeld);
   const routeStap = useSpel((s) => s.routeStap);
   const laatste = useRef({ resultaat, standen });
   useEffect(() => {
@@ -296,14 +297,14 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
                 <button
                   type="button"
                   // Ver uitgezoomd (zoals op een telefoon) alleen het icoon, anders "Speel" erbij.
-                  className={`kaart-minigame${camera.schaal < MINIGAME_KLEIN ? ' klein' : ''}`}
+                  className={`kaart-minigame${camera.schaal < MINIGAME_KLEIN ? ' klein' : ''}${gespeeld.includes(m.id) ? ' gespeeld' : ''}`}
                   data-minigame={m.id}
                   style={{ transform: `translate(${x}px, ${y}px) translate(-50%, -100%)` }}
-                  aria-label={`Minigame in de ${m.naam}: ${m.spel}. ${m.kort}`}
+                  aria-label={`Minigame in de ${m.naam}: ${m.spel}. ${m.kort}${gespeeld.includes(m.id) ? ' Al gespeeld.' : ''}`}
                   onFocus={() => kaart.current?.toonGebouw(m.id)}
                   onClick={() => openMinigame(m.id)}
                 >
-                  <span aria-hidden="true">{m.icoon}</span>
+                  <span aria-hidden="true">{gespeeld.includes(m.id) ? '✓' : m.icoon}</span>
                   <span className="kaart-minigame-tekst">Speel</span>
                 </button>
               </li>
