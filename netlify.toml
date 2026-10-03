@@ -2,9 +2,10 @@
 [build]
   command = "npm run build"
   publish = "dist"
-  # Alleen publiceren als de fractie erom vraagt: dan staat [netlify] in het commitbericht.
-  # Anders slaat Netlify de build over (exit 0 = overslaan). Zo kost elke wijziging geen tegoed.
-  ignore = "git log -1 --pretty=%B | grep -qF '[netlify]' && exit 1 || exit 0"
+  # Alleen publiceren als de fractie erom vraagt: dan staat [netlify] in een van de nieuwe
+  # commitberichten (zie scripts/netlify-overslaan.sh). Anders slaat Netlify de build over, zodat
+  # niet elke wijziging tegoed kost. Met de hand gestart in Netlify bouwt hij altijd.
+  ignore = "sh scripts/netlify-overslaan.sh"
 
 [build.environment]
   # Het adres van de site, voor de deellinks en de afbeelding bij delen (WhatsApp, LinkedIn).
