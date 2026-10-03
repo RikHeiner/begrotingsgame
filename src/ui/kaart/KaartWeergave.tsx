@@ -1,6 +1,6 @@
 /**
  * De gemeentekaart in 3D (three.js) met daarover: onzichtbare knoppen op de gebouwen (voor
- * toetsenbord en schermlezer), knoppen om te zoomen, draaien en kantelen, en de tekstballonnen van
+ * toetsenbord en schermlezer), knoppen om te zoomen en te kantelen, en de tekstballonnen van
  * de inwoners. De kaartcode wordt pas geladen als de kaart in beeld komt. Werkt 3D niet op het
  * apparaat, dan speel je met de lijst.
  */
@@ -421,14 +421,6 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
             onClick={() => kaart.current?.herstel()}
           >
             ⤢
-          </button>
-          <button
-            type="button"
-            className="knop-rond"
-            aria-label="Kaart draaien"
-            onClick={() => kaart.current?.draai(Math.PI / 4)}
-          >
-            ↻
           </button>
           <button
             type="button"
