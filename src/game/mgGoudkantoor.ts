@@ -1,5 +1,5 @@
 /**
- * Goudkantoor, "Goudzoeker": een grijper zwaait boven de grond. Het goud zijn eenmalige uitgaven
+ * Goudkantoor, "Geldzoeker": een grijper zwaait boven de grond. Het goud zijn eenmalige uitgaven
  * uit de begroting die VVD Groningen wil schrappen (met een zin uit het verkiezingsprogramma). De
  * stenen zijn kerntaken die de VVD juist wil houden. De lijst staat in spel/minigames.json; namen
  * en bedragen komen uit de begroting zelf.

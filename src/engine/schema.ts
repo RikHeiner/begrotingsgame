@@ -858,7 +858,7 @@ export const minigamesSchema = z
             /** wat je ervan leert */
             leerdoel: z.string(),
             /**
-             * Alleen bij de goudzoeker: het goud (eenmalige uitgaven die VVD Groningen wil
+             * Alleen bij de geldzoeker: het goud (eenmalige uitgaven die VVD Groningen wil
              * schrappen, met een zin uit het verkiezingsprogramma) en de stenen (kerntaken die de
              * VVD juist wil houden). Bedragen en namen komen uit de begroting.
              */

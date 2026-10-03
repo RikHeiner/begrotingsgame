@@ -15,6 +15,8 @@ import { GebouwPaneel } from '../ui/panelen/GebouwPaneel';
 import { MinigameDialoog } from '../ui/minigames/MinigameDialoog';
 import { RouteKaart } from '../ui/route/RouteKaart';
 import { Startscherm } from '../ui/start/Startscherm';
+import { WelkomTerug } from '../ui/start/WelkomTerug';
+import { bewaarVoortgang, leesVoortgang, wisVoortgang, type Voortgang } from '../game/voortgang';
 import { Documentweergave } from '../ui/tegenbegroting/Documentweergave';
 import { Tutorial } from '../ui/tutorial/Tutorial';
 import './spel.css';
@@ -34,6 +36,8 @@ export function Spel({ data }: { data: Data }) {
   const begin = useSpel((s) => s.begin);
   const beginpunt = useSpel((s) => s.beginpunt);
   const gekozenGebouw = useSpel((s) => s.gekozenGebouw);
+  const basis = useSpel((s) => s.basis);
+  const routeStap = useSpel((s) => s.routeStap);
   const [kaartFout, setKaartFout] = useState<string>();
   const [gelezen] = useState(() => leesUitUrl(window.location.href));
   const zelfdeJaar = gelezen?.jaar === data.config.actiefJaar;
@@ -44,6 +48,25 @@ export function Spel({ data }: { data: Data }) {
         ? 'Je bekijkt een gedeelde begroting. Je kunt hem verder aanpassen.'
         : `Deze link hoort bij de begroting ${gelezen.jaar}. Nu staat de begroting ${data.config.actiefJaar} in de game, dus je begint opnieuw.`,
   );
+
+  // Was je al bezig met je eigen begroting (op dit apparaat)? Dan kies je: verder of opnieuw.
+  const [terug, setTerug] = useState<Voortgang | undefined>(() => {
+    if (gelezen || useSpel.getState().startscherm) return undefined;
+    const v = leesVoortgang();
+    return v?.jaar === data.config.actiefJaar ? v : undefined;
+  });
+
+  // Je begroting onthouden, zodat je later verder kunt (niet zolang je nog moet kiezen).
+  useEffect(() => {
+    if (!resultaat || terug) return;
+    const jaar = data.config.actiefJaar;
+    const t = window.setTimeout(() => {
+      const zoalsBegin = codeer(keuzes, jaar, beginpunt) === codeer(basis, jaar, beginpunt);
+      if (zoalsBegin && routeStap === 0) wisVoortgang();
+      else bewaarVoortgang(keuzes, jaar, beginpunt, routeStap);
+    }, 300);
+    return () => window.clearTimeout(t);
+  }, [keuzes, basis, beginpunt, routeStap, resultaat, terug, data]);
 
   // Een gedeelde link opent direct de begroting, zonder startscherm.
   useEffect(() => {
@@ -135,15 +158,33 @@ export function Spel({ data }: { data: Data }) {
           <GebouwPaneel data={data} resultaat={resultaat} standen={standen} />
         )}
         {/* Bij nul de route langs de gebouwen op de kaart; niet over een open gebouw heen. */}
-        {beginpunt === 'nul' && weergave === 'kaart' && !gekozenGebouw && !startscherm && (
-          <RouteKaart data={data} resultaat={resultaat} />
-        )}
+        {beginpunt === 'nul' &&
+          weergave === 'kaart' &&
+          !gekozenGebouw &&
+          !startscherm &&
+          !terug && <RouteKaart data={data} resultaat={resultaat} />}
       </main>
       <MinigameDialoog data={data} />
       <Feedback data={data} />
       <p className="toast" role="status" aria-live="polite" data-testid="melding">
         {melding && <span>🔒 {melding}</span>}
       </p>
+      {terug && (
+        <WelkomTerug
+          stap={terug.routeStap + 1}
+          stappen={data.route.stappen.length}
+          onVerder={() => {
+            start(data, terug.keuzes, terug.beginpunt);
+            useSpel.setState({ routeStap: terug.routeStap });
+            setTerug(undefined);
+          }}
+          onOpnieuw={() => {
+            wisVoortgang();
+            begin('nul', data);
+            setTerug(undefined);
+          }}
+        />
+      )}
       {startscherm && !(gelezen && startscherm === 'eerste') ? (
         <Startscherm
           data={data}

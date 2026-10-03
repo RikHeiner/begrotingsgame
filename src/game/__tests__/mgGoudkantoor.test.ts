@@ -8,7 +8,7 @@ beforeAll(async () => {
   data = await actieveData();
 });
 
-describe('Goudkantoor: goudzoeker', () => {
+describe('Goudkantoor: geldzoeker', () => {
   it('goud zijn eenmalige uitgaven uit de begroting, stenen zijn posten', () => {
     const v = vondsten(data);
     const goud = v.filter((x) => x.soort === 'goud');

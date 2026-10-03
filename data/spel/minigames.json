@@ -139,14 +139,14 @@
     {
       "id": "goudkantoor",
       "naam": "Goudkantoor",
-      "spel": "Goudzoeker",
+      "spel": "Geldzoeker",
       "vorm": "goudkantoor",
       "icoon": "⛏️",
       "positie": {
         "lon": 6.5669,
         "lat": 53.2183
       },
-      "kort": "Graaf naar goud: tijdelijke uitgaven die VVD Groningen wil schrappen. Laat de kerntaken liggen.",
+      "kort": "Graaf naar geld: tijdelijke uitgaven die VVD Groningen wil schrappen. Laat de kerntaken liggen.",
       "leerdoel": "Waar tijdelijk geld heen gaat, en welke uitgaven VVD Groningen liever niet doet.",
       "goud": {
         "bron": "Verkiezingsprogramma VVD Groningen 2026-2030 (B1-versie)",

@@ -2383,3 +2383,25 @@
     padding: 0.25rem 0.2rem;
   }
 }
+
+/* Welkom terug: verder met je eigen begroting of opnieuw beginnen */
+.welkom-terug {
+  width: min(28rem, calc(100% - 1.5rem));
+}
+
+.welkom-terug h2 {
+  margin-top: 0;
+  color: var(--blauw);
+}
+
+.welkom-knoppen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.welkom-knoppen button {
+  min-height: 48px;
+  flex: 1 1 12rem;
+}

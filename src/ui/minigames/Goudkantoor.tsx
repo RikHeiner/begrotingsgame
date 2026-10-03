@@ -1,5 +1,5 @@
 /**
- * Goudkantoor: "Goudzoeker". Een grijper zwaait heen en weer; druk op Graaf en hij schiet de
+ * Goudkantoor: "Geldzoeker". Een grijper zwaait heen en weer; druk op Graaf en hij schiet de
  * grond in. Goud is een eenmalige uitgave die VVD Groningen wil schrappen, een steen is een
  * kerntaak die de VVD juist houdt. Bij minder beweging staat de grijper stil en richt je zelf.
  */
