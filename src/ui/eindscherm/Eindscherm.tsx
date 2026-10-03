@@ -19,7 +19,6 @@ import {
 import { kaartFoto } from '../../game/kaartFoto';
 import { useSpel } from '../../game/state/store';
 import { insturenMogelijk } from '../../inzending/opslag';
-import { VoorMijDialoog } from '../hud/VoorMijDialoog';
 import { CollegeVergelijking } from './CollegeVergelijking';
 import { InstuurDialoog } from './InstuurDialoog';
 import { SaldoGrafiek, VergelijkGrafiek } from './grafieken';
@@ -60,7 +59,6 @@ export function Eindscherm({ data, resultaat }: { data: Data; resultaat: Resulta
   const [gedeeld, setGedeeld] = useState<string>();
   const [toonVergelijking, setToonVergelijking] = useState(true);
   const [insturen, setInsturen] = useState(false);
-  const [voorMij, setVoorMij] = useState(false);
   const kanInsturen = insturenMogelijk();
   const alIngestuurd = useSpel((s) => s.ingestuurd === JSON.stringify(s.keuzes));
 
@@ -175,11 +173,6 @@ export function Eindscherm({ data, resultaat }: { data: Data; resultaat: Resulta
 
       <section className="eind-blok">
         <h2>Wat merken de inwoners?</h2>
-        {data.tarieven && (
-          <button type="button" className="knop" onClick={() => setVoorMij(true)}>
-            👤 Wat betekent het voor mij?
-          </button>
-        )}
         <ul className="inwoners">
           {personaZinnen(data, resultaat).map((p) => (
             <li key={p.id}>{p.zin}</li>
@@ -295,12 +288,6 @@ export function Eindscherm({ data, resultaat }: { data: Data; resultaat: Resulta
         {data.teksten.colofon} <a href="/privacy.html">Privacyverklaring</a> ·{' '}
         <a href="/toegankelijkheid.html">Toegankelijkheid</a>
       </footer>
-      <VoorMijDialoog
-        open={voorMij}
-        onSluit={() => setVoorMij(false)}
-        data={data}
-        resultaat={resultaat}
-      />
       {kanInsturen && (
         <InstuurDialoog
           data={data}

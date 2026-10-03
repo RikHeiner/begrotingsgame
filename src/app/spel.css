@@ -916,6 +916,41 @@
   letter-spacing: 0.04em;
 }
 
+/* De stand van een kaart (loopt of staat stil), waarom, en wat een tik doet. */
+.actiekaart-stand {
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--gedempt);
+}
+
+.actiekaart-stand.loopt {
+  color: var(--positief);
+}
+
+.actiekaart-stand .actiekaart-soort {
+  font-weight: 400;
+}
+
+.actiekaart-waarom {
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.actiekaart-actie {
+  justify-self: start;
+  margin-top: 0.25rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--blauw) 10%, var(--paneel));
+  color: var(--blauw);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.beleid-legenda {
+  margin: 0.25rem 0 0.75rem;
+}
+
 /* ---------- Lijst ---------- */
 
 .lijst {
@@ -2499,4 +2534,11 @@
 
 .opslaan-link {
   overflow-wrap: anywhere;
+}
+
+/* Verkoop in het Veilinghuis: opbrengst, boekwinst en het effect per jaar */
+.verkoop-bedragen {
+  display: grid;
+  gap: 0.15rem;
+  font-size: 0.85rem;
 }

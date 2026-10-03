@@ -1,6 +1,13 @@
 /** Publieke ingang van de rekenmotor. */
 export * from './types';
-export { bereken, magWijzigen, deelprogrammaVan, OVERIG, type Toestemming } from './rekenen';
+export {
+  bereken,
+  magWijzigen,
+  deelprogrammaVan,
+  OVERIG,
+  verkoopPerJaarMln,
+  type Toestemming,
+} from './rekenen';
 export {
   laadData,
   maakData,

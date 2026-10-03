@@ -146,8 +146,31 @@ export const actiekaartSchema = z
     gebouw: z.string().optional(),
     /** zekerheid van het bedrag (standaard feit) */
     zekerheid: z.enum(['feit', 'aanname', 'te onderzoeken']).optional(),
+    /**
+     * Een verkoop van bezit. Volgens de regels voor gemeenten (BBV) is alleen de boekwinst
+     * (opbrengst min boekwaarde) eenmalig vrij geld: dat is `bedrag_mln`. Het geld ter hoogte van de
+     * boekwaarde gaat naar minder lenen; dat scheelt elk jaar rente. Daar gaat af wat de gemeente
+     * daarna mist (huur, canon, dividend min de kosten die ook wegvallen), vanaf het jaar erna.
+     */
+    verkoop: z
+      .object({
+        opbrengst_mln: z.number().nonnegative(),
+        boekwaarde_mln: z.number().nonnegative(),
+        derving_mln: z.number().nonnegative(),
+      })
+      .strict()
+      .optional(),
   })
   .strict()
+  .refine(
+    (k) =>
+      !k.verkoop ||
+      Math.abs(k.verkoop.opbrengst_mln - k.verkoop.boekwaarde_mln - k.bedrag_mln) < 0.001,
+    {
+      message: 'bij een verkoop is bedrag_mln de boekwinst: opbrengst min boekwaarde',
+      path: ['bedrag_mln'],
+    },
+  )
   .refine((k) => (k.soort === 'opbrengst' ? k.bedrag_mln >= 0 : k.bedrag_mln <= 0), {
     message: 'een opbrengst heeft een positief bedrag, een uitgave een negatief bedrag',
     path: ['bedrag_mln'],
@@ -161,9 +184,14 @@ export type Actiekaart = z.infer<typeof actiekaartSchema>;
 export const programmaSchema = z
   .object({
     id: z.string().min(1),
+    /** wat je doet als je het stopzet, bijvoorbeeld "Stoppen met cameratoezicht" */
     naam: z.string().min(1),
-    /** wat merkt een inwoner (B1) */
+    /** wat merkt een inwoner als het stopt (B1) */
     uitleg: z.string(),
+    /** het programma zelf, bijvoorbeeld "Cameratoezicht" (de titel in het Beleidshuis) */
+    programma: z.string().min(1).optional(),
+    /** wat het programma nu doet, in één zin */
+    wat: z.string().optional(),
     /** de post waar het programma in zit */
     post: z.string().min(1),
     /** lasten per jaar */

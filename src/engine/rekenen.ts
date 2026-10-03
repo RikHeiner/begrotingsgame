@@ -216,9 +216,30 @@ function directeEffecten(data: Data, keuzes: Keuzes): Effect[] {
         structureel ? bedrag * ingroei(k.ingroeipad, j) : j === 0 ? bedrag : 0,
       ),
     );
+    if (k.verkoop) {
+      const jaarlijks = vanMln(verkoopPerJaarMln(data, k.verkoop));
+      voegToe(
+        {
+          bron: id,
+          doel: id,
+          soort: 'S',
+          kant: 'baten',
+          uitleg: `${k.naam}: de gemeente hoeft ${formatMln(vanMln(k.verkoop.boekwaarde_mln))} minder te lenen (minder rente)${k.verkoop.derving_mln ? `, maar mist ${formatMln(vanMln(k.verkoop.derving_mln))} per jaar aan inkomsten` : ''}. Samen ${formatMln(jaarlijks, { teken: true })} per jaar.`,
+        },
+        perJaar(jaren.length, (j) => (j === 0 ? 0 : jaarlijks)),
+      );
+    }
     if (k.zekerheid) for (const e of effecten.slice(voor)) e.zekerheid = k.zekerheid;
   }
   return effecten;
+}
+
+/** Wat een verkoop elk jaar scheelt (+) of kost (−): rente over de boekwaarde min de derving. */
+export function verkoopPerJaarMln(
+  data: Data,
+  v: { boekwaarde_mln: number; derving_mln: number },
+): number {
+  return renteVoorInvesteringen(data) * v.boekwaarde_mln - v.derving_mln;
 }
 
 function renteVoorInvesteringen(data: Data): number {
