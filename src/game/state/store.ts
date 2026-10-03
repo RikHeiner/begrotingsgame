@@ -241,7 +241,8 @@ export const useSpel = create<Spel>((set, get) => {
       getoond.clear();
       basisResultaat =
         beginpunt === 'nul' ? bereken(data, beginKeuzes(data, beginpunt)) : undefined;
-      const uit = reken(data, keuzes ?? beginKeuzes(data, beginpunt));
+      const begin = keuzes ?? beginKeuzes(data, beginpunt);
+      const uit = reken(data, beginpunt === 'nul' ? { ...begin, nulbasis: true } : begin);
       set({
         data,
         ...uit,

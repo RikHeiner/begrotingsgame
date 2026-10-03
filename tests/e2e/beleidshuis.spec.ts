@@ -49,16 +49,16 @@ test.describe('bij nul', () => {
     },
   });
 
-  test("programma's staan stil; aanzetten kost geld", async ({ page }) => {
+  test("programma's lopen zoals nu; stopzetten scheelt geld", async ({ page }) => {
     await page.goto('/');
     const voor = await page.getByTestId('saldo').textContent();
     const lijst = await openBeleidshuis(page);
     const groen = lijst.getByTestId('programma-p_vitamine_g');
-    await expect(groen).toHaveAttribute('aria-pressed', 'false');
-    // Een eenmalig programma in een post op zijn minimum staat vanzelf stil.
-    await expect(lijst.getByTestId('programma-p_preventiefonds_jeugd')).toBeDisabled();
-    await groen.click();
     await expect(groen).toHaveAttribute('aria-pressed', 'true');
+    // Ook een eenmalig programma loopt en kun je stopzetten.
+    await expect(lijst.getByTestId('programma-p_preventiefonds_jeugd')).toBeEnabled();
+    await groen.click();
+    await expect(groen).toHaveAttribute('aria-pressed', 'false');
     await expect(page.getByTestId('saldo')).not.toHaveText(voor ?? '');
   });
 });

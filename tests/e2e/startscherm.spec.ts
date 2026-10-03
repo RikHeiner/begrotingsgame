@@ -101,13 +101,13 @@ test('de route: eerst de belasting met het gemiddelde van Nederland, dan veiligh
   // Ook bij de posten bedragen in plaats van percentages.
   const boas = paneel.getByRole('slider', { name: /Boa's/ });
   await expect(paneel.locator(`output[for="${await boas.getAttribute('id')}"]`)).toHaveText(
-    '€ 0,37 mln',
+    '€ 0,77 mln',
   );
   // Wat merk je ervan: onveiliger dan nu, met het aantal boa's nu en met jouw keuze.
   const gevolg = paneel.getByTestId('gevolg-v2');
   await expect(gevolg).toContainText('Veel onveiliger dan nu');
   await expect(gevolg).toContainText("Nu ongeveer 49 boa's");
-  await expect(gevolg).toContainText("met jouw keuze ongeveer 5 boa's");
+  await expect(gevolg).toContainText("met jouw keuze ongeveer 10 boa's");
   await paneel.getByRole('button', { name: 'Paneel sluiten' }).click();
   await expect(page.locator('[data-route="1"]')).toHaveText('✓');
   await expect(page.locator('.route-nummer.huidig')).toHaveText('2');

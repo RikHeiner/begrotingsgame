@@ -167,6 +167,14 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
 
 65. **Wat merk je ervan, ten opzichte van nu? (besluit 3 oktober 2026)** Onder elke schuif staat nu een regel als "🛡️ Onveiliger dan nu", "🤝 Meer hulp dan nu" of "👛 Inwoners en ondernemers betalen minder dan nu"; vanaf 50% verschil met "veel" erbij (`spel/gevolgen.json`). "Nu" is de begroting van de gemeente als er niets verandert. Bij de boa's staat ook het aantal: nu ongeveer 49 en met jouw keuze. Dat aantal is een **schatting** (⚠︎): € 3,7 mln gedeeld door ongeveer € 75.000 per boa per jaar. Het echte aantal staat niet in de begroting; de fractie levert het aan. Andere aantallen (wijkagenten zijn van het Rijk; wel bijvoorbeeld zwembaden, buurthuizen, bibliotheekvestigingen) kunnen er op dezelfde manier bij.
 
+66. **Minigames en effecten (3 oktober 2026).** Tien minigames in bekende gebouwen (`spel/minigames.json`), met echte bedragen uit de begroting; spelregels en voorbeeldbedragen staan er in het spel bij. Op de kaart: openingsshot, gebouwen die reageren, muntjes, dag en nacht naar het saldo, fietsers en een bus; vuurwerk en een foto van jouw gemeente op het eindscherm en de deelafbeelding.
+
+67. **Bijsturing fractie (3 oktober 2026).**
+    - **Eenmalig bij nul:** de −€ 49 mln eenmalig bij nul was frictiegeld (`org_frictie`): het spel rekende alsof de speler zelf de hele organisatie had wegbezuinigd. Bij nul begint de gemeente leeg, dus geen frictie (`nulbasis` in de keuzes).
+    - **Beleidshuis:** de programma's lopen bij nul, zoals de gemeente ze nu uitvoert; de speler kan ze stopzetten. Structurele programma's zitten in de post, eenmalige kosten eenmalig in 2027 (samen ongeveer € 9 mln eenmalig).
+    - **Opmerkingen van inwoners:** geen klaagzinnen meer over het stoppen van subsidies en programma's (zoals de basisbaan) en geen "mijn huis wacht op versterking". De zinnen laten indirect zien wat telt: lage lasten, veiligheid, sport, sneller bouwen, minder regels, kerntaken.
+    - **Tegenbegroting:** "Wat merken de inwoners?" staat niet meer in het document en het Word-bestand.
+
 ## Besluiten (1 oktober 2026)
 
 | Punt | Besluit | Verwerkt |

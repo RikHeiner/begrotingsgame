@@ -15,7 +15,7 @@ import {
   type Resultaat,
 } from '../engine';
 import { parkeerPosten } from '../engine/parkeren';
-import { gestoptBijMinimum } from './beleidshuis';
+import { programmaPct } from './beleidshuis';
 import { themaVan, THEMA_BELASTINGEN, THEMA_KAARTEN } from './score';
 
 /** Waar de speler begint: bij nul, of met de begroting van het college. */
@@ -79,12 +79,19 @@ export function nulbasisKeuzes(data: Data): Keuzes {
     const g = grensOnderdeel(o);
     if (g.min < 0 && !houden.has(o.id)) onderdelen[o.id] = g.min;
   }
-  const gestopt = gestoptBijMinimum(data, onderdelen);
+  // De programma's in het Beleidshuis lopen, zoals de gemeente ze nu uitvoert: hun geld blijft in
+  // de post (structureel) of komt eenmalig in het eerste jaar (zie rekenen.ts). De speler kan ze
+  // stopzetten.
+  for (const p of data.index.programmas.values()) {
+    if (p.structureel_of_incidenteel !== 'S' || onderdelen[p.post] === undefined) continue;
+    onderdelen[p.post] =
+      Math.round(((onderdelen[p.post] ?? 0) + programmaPct(data, p)) * 1e4) / 1e4;
+  }
   const k = {
     ...collegeKeuzes(data),
     ...belastingenOpMinimum(data),
     onderdelen,
-    ...(gestopt.length ? { gestopt } : {}),
+    nulbasis: true,
   };
   cache.set(data, k);
   return k;

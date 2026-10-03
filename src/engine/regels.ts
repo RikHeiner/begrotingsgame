@@ -157,6 +157,7 @@ export function normaliseer(data: Data, keuzes: Keuzes): { keuzes: Keuzes; corre
       onderdelen,
       belastingen,
       ...(parkeren && Object.keys(parkeren).length ? { parkeren } : {}),
+      ...(keuzes.nulbasis ? { nulbasis: true } : {}),
       kaarten,
       scenario: keuzes.scenario,
       ...normaliseerReserve(keuzes.reserve, correcties),

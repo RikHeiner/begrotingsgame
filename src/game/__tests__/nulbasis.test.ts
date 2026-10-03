@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from 'vitest';
 import { bereken, magWijzigen, type Data } from '../../engine';
-import { echteData, keuzes } from '../../engine/__tests__/hulp';
+import { actieveData, echteData, keuzes } from '../../engine/__tests__/hulp';
 import { beginKeuzes, nulbasisKeuzes, postenDieOpleveren, vergelijkMetCollege } from '../nulbasis';
 import { THEMA_BELASTINGEN } from '../score';
 
@@ -12,7 +12,13 @@ beforeAll(async () => {
 describe('beginnen bij nul', () => {
   it('elke post op zijn minimum; vaste posten en wettelijke taken blijven', () => {
     const k = nulbasisKeuzes(data);
-    expect(k.onderdelen.c2).toBe(-100); // cultuursubsidies naar nul
+    // cultuursubsidies naar nul, behalve het Groninger Museum (een lopend programma, zoals nu)
+    const museum = data.index.programmas.get('p_groninger_museum');
+    const c2 = data.index.onderdelen.get('c2');
+    expect(k.onderdelen.c2).toBeCloseTo(
+      -100 + ((museum?.bedrag_mln ?? 0) / (c2?.lasten_mln ?? 1)) * 100,
+      3,
+    );
     expect(k.onderdelen.z1).toBe(-20); // jeugdzorg: wettelijk minimum
     expect(k.onderdelen.s4).toBeUndefined(); // loonkostensubsidie: wettelijk recht, zit vast
     expect(k.onderdelen.s1).toBeUndefined(); // bijstand zit vast
@@ -74,5 +80,17 @@ describe('beginnen bij nul', () => {
     const rijen = vergelijkMetCollege(data, bereken(data, keuzes({ belastingen: { t1: 10 } })));
     const b = rijen.find((r) => r.thema === THEMA_BELASTINGEN);
     expect((b?.jij ?? 0) - (b?.college ?? 0)).toBeCloseTo(12.53e6, -3);
+  });
+});
+
+describe('bij nul geen frictiegeld', () => {
+  it("eenmalig kosten alleen de lopende programma's, geen frictie", async () => {
+    const actief = await actieveData();
+    const r = bereken(actief, nulbasisKeuzes(actief));
+    expect(r.effecten.some((e) => e.verband === 'org_frictie')).toBe(false);
+    const programmas = [...actief.index.programmas.values()]
+      .filter((p) => p.structureel_of_incidenteel === 'I')
+      .reduce((s, p) => s + p.bedrag_mln * 1e6, 0);
+    expect(r.perJaar[actief.jaren[0] as number]?.incidenteel ?? 0).toBeCloseTo(-programmas, -3);
   });
 });

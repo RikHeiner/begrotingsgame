@@ -898,6 +898,8 @@ export const IMPLEMENTATIES: Record<string, Implementatie> = {
       const ids = c.verband.van.filter((id) => c.p(id) < 0);
       if (!ids.length) return;
       c.meter('dienstverlening', gemiddeldeP(c, ids));
+      // Bij nul begint de gemeente leeg: er zijn geen ambtenaren die weg moeten, dus geen frictie.
+      if (c.keuzes.nulbasis) return;
       // Via natuurlijk verloop gaat elk jaar verloop_pct van de personeelskosten vrij. Wat de speler
       // sneller wil, kost tijdelijk geld: de besparing komt nog niet binnen (eenmalig, frictie).
       const capaciteit = c.param('verloop_pct') * vanMln(c.param('personeelskosten'));

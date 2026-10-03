@@ -216,29 +216,6 @@ export function Documentweergave({ data, resultaat }: { data: Data; resultaat: R
           <p>Geen eigen ideeën ingevuld.</p>
         )}
 
-        <h2>Wat merken de inwoners?</h2>
-        <p className="klein">{tb.gevolgen.uitleg}</p>
-        <div className="doc-scroll">
-          <table className="doc-tabel">
-            <thead>
-              <tr>
-                <th scope="col">Inwoner</th>
-                <th scope="col" className="links">
-                  Wat merkt hij of zij?
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {tb.gevolgen.inwoners.map((x) => (
-                <tr key={x.naam}>
-                  <td>{x.naam}</td>
-                  <td className="links">{x.zin}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
         <h2>Financieel overzicht</h2>
         <div className="doc-scroll">
           <GeldTabel

@@ -25,6 +25,11 @@ export type Keuzes = {
    * al in de schuif van de post.
    */
   gestopt?: string[];
+  /**
+   * Begonnen bij nul: de gemeente begint leeg, dus de beginstand kost geen frictiegeld (geen
+   * ambtenaren die in één keer weg moeten). Zie org_frictie.
+   */
+  nulbasis?: boolean;
 };
 
 export const GEEN_KEUZES: Keuzes = {

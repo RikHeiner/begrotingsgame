@@ -114,15 +114,15 @@ describe('tegenbegroting van een speler', () => {
       'Kettingeffecten',
       'Mijn eigen ideeën',
       'Meer bankjes.',
-      'Wat merken de inwoners?',
       'Financieel overzicht',
       'Meerjarig',
       'Bronnen en uitleg',
-      'Peter en Tineke',
       '⚠︎',
     ]) {
       expect(tekst, s).toContain(s);
     }
+    // "Wat merken de inwoners?" staat niet meer in de tegenbegroting (besluit fractie).
+    expect(tekst).not.toContain('Wat merken de inwoners?');
   });
 
   it('zonder titel krijgt de tegenbegroting een standaardtitel; bestandsnaam uit de titel', () => {

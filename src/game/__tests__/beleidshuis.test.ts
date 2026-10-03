@@ -39,17 +39,17 @@ describe('Beleidshuis', () => {
     expect(eenmalig(k1, 1) - eenmalig(k0, 1)).toBeCloseTo(0, -3);
   });
 
-  it("bij nul staan de programma's stil, zonder dubbeltelling", () => {
+  it("bij nul lopen de programma's, zoals nu; stopzetten scheelt het bedrag", () => {
     const n = nulbasisKeuzes(data);
-    expect(isGestopt(n, 'p_vitamine_g')).toBe(true);
+    expect(isGestopt(n, 'p_vitamine_g')).toBe(false);
     const p = data.index.programmas.get('p_preventiefonds_jeugd');
-    expect(p && stilDoorMinimum(data, n, p)).toBe(true);
-    // Een eenmalig programma stopzetten als de post al op zijn minimum staat, scheelt niets.
-    const extra = { ...n, gestopt: [...(n.gestopt ?? []), 'p_preventiefonds_jeugd'].sort() };
-    expect(eenmalig(extra) - eenmalig(n)).toBeCloseTo(0, -3);
-    // Aanzetten bij nul kost het bedrag.
-    const aan = wisselProgramma(data, n, 'p_vitamine_g');
-    expect(saldo(n) - saldo(aan)).toBeCloseTo(0.5e6, -3);
+    expect(p && stilDoorMinimum(data, n, p)).toBe(false);
+    // Een eenmalig programma stopzetten scheelt eenmalig het bedrag.
+    const stop = wisselProgramma(data, n, 'p_preventiefonds_jeugd');
+    expect(eenmalig(stop) - eenmalig(n)).toBeCloseTo((p?.bedrag_mln ?? 0) * 1e6, -3);
+    // Een structureel programma stopzetten scheelt elk jaar het bedrag.
+    const uit = wisselProgramma(data, n, 'p_vitamine_g');
+    expect(saldo(uit) - saldo(n)).toBeCloseTo(0.5e6, -3);
   });
 
   it("programma's per post passen boven de ondergrens; plannen staan in het Beleidshuis", () => {

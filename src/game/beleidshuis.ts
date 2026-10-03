@@ -22,7 +22,8 @@ export function isGestopt(keuzes: Keuzes, id: string): boolean {
 /** Staat de post van een eenmalig programma op zijn minimum? Dan staat het programma al stil. */
 export function stilDoorMinimum(data: Data, keuzes: Keuzes, p: Programma): boolean {
   const o = data.index.onderdelen.get(p.post);
-  if (!o || p.structureel_of_incidenteel !== 'I') return false;
+  // Bij nul loopt een eenmalig programma los van de post (zie rekenen.ts).
+  if (!o || p.structureel_of_incidenteel !== 'I' || keuzes.nulbasis) return false;
   return (keuzes.onderdelen[p.post] ?? 0) <= grensOnderdeel(o).min;
 }
 

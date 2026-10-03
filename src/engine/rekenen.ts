@@ -135,8 +135,27 @@ function directeEffecten(data: Data, keuzes: Keuzes): Effect[] {
   // Eenmalige programma's in het Beleidshuis: stopzetten scheelt in het eerste jaar, zolang de post
   // nog boven zijn minimum zit (anders staat het programma al stil). Structurele programma's zitten
   // al in de schuif van de post (zie game/beleidshuis.ts).
+  // Bij nul zit een eenmalig programma niet in de post (die staat op zijn minimum). Loopt het, zoals
+  // nu, dan kost het eenmalig geld in het eerste jaar; stopzetten haalt die kosten weg.
+  if (keuzes.nulbasis) {
+    for (const p of data.index.programmas.values()) {
+      if (p.structureel_of_incidenteel !== 'I' || (keuzes.gestopt ?? []).includes(p.id)) continue;
+      voegToe(
+        {
+          bron: p.id,
+          doel: p.post,
+          soort: 'I',
+          kant: 'lasten',
+          uitleg: `${p.naam}: dit programma loopt, zoals nu. Dat kost eenmalig ${formatMln(vanMln(p.bedrag_mln))}.`,
+        },
+        perJaar(jaren.length, (j) => (j === 0 ? -vanMln(p.bedrag_mln) : 0)),
+      );
+      if (p.zekerheid !== 'feit')
+        for (const e of effecten) if (e.bron === p.id) e.zekerheid = p.zekerheid;
+    }
+  }
   const ruimte = new Map<string, number>();
-  for (const id of keuzes.gestopt ?? []) {
+  for (const id of keuzes.nulbasis ? [] : (keuzes.gestopt ?? [])) {
     const p = data.index.programmas.get(id);
     const o = p && data.index.onderdelen.get(p.post);
     if (!p || !o || p.structureel_of_incidenteel !== 'I' || o.min_pct === null) continue;
