@@ -10,6 +10,10 @@ const POORT = 4173;
 
 export default defineConfig({
   testDir: 'tests/e2e',
+  // De kaart is 3D (WebGL). In de testbrowser rekent de processor dat uit, zonder videokaart: dat
+  // duurt langer dan op een echte telefoon. Daarom wat meer tijd per controle.
+  expect: { timeout: 12_000 },
+  timeout: 60_000,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,

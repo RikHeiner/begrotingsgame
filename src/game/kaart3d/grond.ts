@@ -42,10 +42,7 @@ export function maakGrond(
   const groep = new Group();
 
   // De kaart als textuur, zo scherp als het apparaat aankan.
-  const max = Math.min(
-    renderer.capabilities.maxTextureSize,
-    window.innerWidth >= 1200 ? 6144 : 4096,
-  );
+  const max = Math.min(renderer.capabilities.maxTextureSize, 4096);
   const resolutie = max / (Math.max(geo.breedte, geo.hoogte) + 2 * RAND);
   const doek = document.createElement('canvas');
   tekenVasteLaag(doek, geo, data, kleuren, resolutie);

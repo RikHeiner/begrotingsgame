@@ -251,7 +251,7 @@ export class GemeenteKaart3D {
     this.scene.add(this.hemel);
     this.zon.castShadow = true;
     const groot = window.innerWidth >= 900;
-    this.zon.shadow.mapSize.set(groot ? 4096 : 2048, groot ? 4096 : 2048);
+    this.zon.shadow.mapSize.set(groot ? 3072 : 2048, groot ? 3072 : 2048);
     this.zon.shadow.bias = -0.0004;
     this.zon.shadow.normalBias = 0.4;
     this.zetZon(midden.x, midden.z, Math.max(geo.breedte, geo.hoogte) * 0.6);
