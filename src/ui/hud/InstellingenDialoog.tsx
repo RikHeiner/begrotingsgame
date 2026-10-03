@@ -4,6 +4,7 @@ import type { Scenario } from '../../engine/schema';
 import { SCENARIO_NAMEN } from '../../engine/scenario';
 import { useSpel } from '../../game/state/store';
 import { Dialoog } from '../algemeen/Dialoog';
+import { FoutMelden } from '../algemeen/FoutMelden';
 
 /** Scenario voor aannames, storting in de reserve, geluid en het colofon. */
 export function InstellingenDialoog({
@@ -140,6 +141,7 @@ export function InstellingenDialoog({
           Geluiden aan
         </label>
       </fieldset>
+      <FoutMelden data={data} />
       <p className="klein">
         {data.teksten.colofon} Bron:{' '}
         <a href={data.begroting.bron_url} rel="noopener noreferrer">

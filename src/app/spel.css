@@ -2804,3 +2804,13 @@
   color: var(--negatief);
   font-weight: 700;
 }
+
+/* Waarschuwing: er kan een fout in zitten; meld het */
+.fout-melden {
+  margin: 1rem 0 0;
+  padding: 0.5rem 0.7rem;
+  border-left: 4px solid var(--oranje);
+  border-radius: 0.4rem;
+  background: color-mix(in srgb, var(--oranje) 8%, var(--paneel));
+  color: var(--inkt);
+}

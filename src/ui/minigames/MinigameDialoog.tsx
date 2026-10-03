@@ -6,6 +6,7 @@ import { Suspense, useState } from 'react';
 import type { Data } from '../../engine';
 import { useSpel } from '../../game/state/store';
 import { Dialoog } from '../algemeen/Dialoog';
+import { FoutMelden } from '../algemeen/FoutMelden';
 import { MINIGAMES } from './register';
 import { bewaarBeste } from './scores';
 
@@ -78,6 +79,7 @@ export function MinigameDialoog({ data }: { data: Data }) {
           </div>
         )}
       </div>
+      <FoutMelden data={data} />
     </Dialoog>
   );
 }

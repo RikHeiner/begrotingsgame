@@ -298,7 +298,8 @@ export function maakTegenbegroting(data: Data, r: Resultaat, meta: Meta): Tegenb
     aanname:
       'S = structureel: elk jaar. I = incidenteel: eenmalig. Bedragen uit de begroting zijn feiten. Kettingeffecten (⚠︎) zijn aannames of spelregels; ze zijn berekend met het scenario "' +
       k.scenario +
-      '".',
+      '". ' +
+      data.teksten.fout_melden.tekst,
   };
 }
 

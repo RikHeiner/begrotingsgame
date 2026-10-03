@@ -3,6 +3,7 @@
  * wat je terugkrijgt, de gevoeligheid voor aannames, de vergelijking met een tegenbegroting, en de
  * velden en knoppen voor de tegenbegroting.
  */
+import { FoutMelden } from '../algemeen/FoutMelden';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { formatMln, type Data, type Resultaat } from '../../engine';
 import { maakLink } from '../../game/deellink';
@@ -284,6 +285,7 @@ export function Eindscherm({ data, resultaat }: { data: Data; resultaat: Resulta
           {gedeeld}
         </p>
       </section>
+      <FoutMelden data={data} />
       <footer className="colofon">
         {data.teksten.colofon} <a href="/privacy.html">Privacyverklaring</a> ·{' '}
         <a href="/toegankelijkheid.html">Toegankelijkheid</a>

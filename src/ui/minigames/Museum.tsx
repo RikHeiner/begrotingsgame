@@ -16,6 +16,8 @@ function waarom(k: MuseumKaart): string {
     if (k.belasting) return `Dit is een belasting. Het brengt de gemeente ${mln(k.bedragMln)} op.`;
     return `De gemeente krijgt hier ${mln(k.batenMln)} binnen en geeft ${mln(k.bedragMln)} uit. Er blijft geld over.${k.reden ? ` Let op: ook dit moet. ${k.reden}` : ''}`;
   }
+  if (k.categorie === 'verplicht' && k.kostendekkend)
+    return `De gemeente moet dit van de wet doen. Het wordt helemaal betaald uit een heffing die precies de kosten dekt. Bij de post staat ${mln(k.batenMln)} aan inkomsten tegen ${mln(k.bedragMln)} uitgaven; het verschil dekt kosten die elders in de begroting staan, zoals overhead en kwijtschelding. Er blijft dus niets over.`;
   if (k.categorie === 'verplicht')
     return k.reden ?? 'Dit is een taak die de gemeente van de wet moet doen.';
   return 'De gemeente kiest dit zelf. Geen wet verplicht het. Je kunt deze post helemaal schrappen.';

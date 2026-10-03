@@ -635,6 +635,16 @@ export const tekstenSchema = z
         idee_waarschuwing: z.string(),
       })
       .strict(),
+    /** waarschuwing: fouten zijn mogelijk, je kunt ze melden, geen rechten aan te ontlenen */
+    fout_melden: z
+      .object({
+        tekst: z.string(),
+        vraag: z.string(),
+        /** waar een melding heen gaat; leeg = nog geen adres, dan zonder link */
+        email: z.string().email().or(z.literal('')),
+        onderwerp: z.string(),
+      })
+      .strict(),
     /** de tegenbegroting als document, in de huisstijl en opbouw van VVD Groningen */
     document: z
       .object({
