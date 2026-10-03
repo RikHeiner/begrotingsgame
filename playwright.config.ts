@@ -6,7 +6,8 @@ const lokaleChromium = '/opt/pw-browsers/chromium';
 const launchOptions =
   !process.env.CI && existsSync(lokaleChromium) ? { executablePath: lokaleChromium } : {};
 
-const POORT = 4173;
+// Een andere poort met PW_POORT, als er al een testserver draait (bijvoorbeeld in een tweede map).
+const POORT = Number(process.env.PW_POORT ?? 4173);
 
 export default defineConfig({
   testDir: 'tests/e2e',
