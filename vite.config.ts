@@ -148,7 +148,7 @@ export default defineConfig({
         name: 'Begrotingsgame gemeente Groningen',
         short_name: 'Begrotingsgame',
         description:
-          'Maak de begroting van de gemeente Groningen. Een initiatief van de VVD-fractie Groningen-Haren.',
+          'Maak de begroting van de gemeente Groningen. Een initiatief van VVD Groningen.',
         lang: 'nl',
         start_url: '.',
         display: 'standalone',

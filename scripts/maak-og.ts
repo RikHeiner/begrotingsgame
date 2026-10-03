@@ -54,7 +54,7 @@ try {
       <h1>Maak de begroting van de gemeente Groningen</h1>
       <p>Waar bezuinig jij, en waar investeer je in? Speel met de echte begroting.</p>
     </div>
-    <p class="colofon">Een initiatief van de VVD-fractie Groningen-Haren</p>
+    <p class="colofon">Een initiatief van VVD Groningen</p>
   </body></html>`);
   await blad.evaluate(() => document.fonts.ready);
   await blad.screenshot({ path: resolve(WORTEL, 'public/og-afbeelding.png') });

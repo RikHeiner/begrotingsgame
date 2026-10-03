@@ -11,13 +11,13 @@ WhatsApp. De video laat zien wat de speler met de begroting van de gemeente heef
 
 ### Storyboard
 
-| Tijd      | Scène                | Wat je ziet                                                                                                                                  |
-| --------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0 – 3 s   | Intro                | Videofragment van Rik (aan te leveren), met ondertitels.                                                                                     |
-| 3 – 8 s   | De gemeente          | De gemeentekaart van bovenaf. De gebouwen veranderen één voor één (dicht, versoberd, beter, bloeiend), zoals in de game.                     |
-| 8 – 17 s  | Drie grootste keuzes | Per keuze 3 seconden: het gebouw zoomt in, met de naam en het bedrag dat optelt ("Overhead −10%: + € 12,3 mln per jaar").                    |
-| 17 – 21 s | Saldo                | Het geldpotje met het slot, het saldo per jaar en de sterren.                                                                                |
-| 21 – 24 s | Outro                | Videofragment van Rik, daarna "Maak je eigen begroting" met de link (en een QR-code) en "Een initiatief van de VVD-fractie Groningen-Haren". |
+| Tijd      | Scène                | Wat je ziet                                                                                                                 |
+| --------- | -------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| 0 – 3 s   | Intro                | Videofragment van Rik (aan te leveren), met ondertitels.                                                                    |
+| 3 – 8 s   | De gemeente          | De gemeentekaart van bovenaf. De gebouwen veranderen één voor één (dicht, versoberd, beter, bloeiend), zoals in de game.    |
+| 8 – 17 s  | Drie grootste keuzes | Per keuze 3 seconden: het gebouw zoomt in, met de naam en het bedrag dat optelt ("Overhead −10%: + € 12,3 mln per jaar").   |
+| 17 – 21 s | Saldo                | Het geldpotje met het slot, het saldo per jaar en de sterren.                                                               |
+| 21 – 24 s | Outro                | Videofragment van Rik, daarna "Maak je eigen begroting" met de link (en een QR-code) en "Een initiatief van VVD Groningen". |
 
 Alle tekst staat in beeld (ondertitels zijn ingebrand), zodat de video ook zonder geluid werkt. Er
 zijn geen flitsende effecten. Muziek staat standaard uit; als die er wel komt, is een licentie

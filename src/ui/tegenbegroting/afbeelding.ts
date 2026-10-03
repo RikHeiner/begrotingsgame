@@ -108,7 +108,7 @@ export async function maakAfbeelding(
   const kortLink = link.replace(/^https?:\/\//, '').split('?')[0] ?? link;
   ctx.fillText(kortLink, 72, H - 72);
   ctx.font = '400 24px Asap, sans-serif';
-  ctx.fillText('Een initiatief van de VVD-fractie Groningen-Haren', 72, H - 32);
+  ctx.fillText('Een initiatief van VVD Groningen', 72, H - 32);
 
   return new Promise((klaar, fout) =>
     c.toBlob((b) => (b ? klaar(b) : fout(new Error('Geen afbeelding.'))), 'image/png'),

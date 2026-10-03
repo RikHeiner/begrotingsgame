@@ -260,7 +260,7 @@ export function maakTegenbegroting(data: Data, r: Resultaat, meta: Meta): Tegenb
     bronnen: [
       `${data.begroting.document}: ${data.begroting.bron_url}`,
       ...data.vergelijking.map((v) => `${v.tegenbegroting.titel}: ${v.tegenbegroting.bron_url}`),
-      'Gemaakt met de Begrotingsgame, een initiatief van de VVD-fractie Groningen-Haren.',
+      'Gemaakt met de Begrotingsgame, een initiatief van VVD Groningen.',
     ],
     aanname:
       'S = structureel: elk jaar. I = incidenteel: eenmalig. Bedragen uit de begroting zijn feiten. Kettingeffecten (⚠︎) zijn aannames of spelregels; ze zijn berekend met het scenario "' +

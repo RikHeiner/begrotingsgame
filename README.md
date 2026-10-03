@@ -1,7 +1,7 @@
 # Begrotingsgame gemeente Groningen
 
 Een game waarin inwoners hun eigen tegenbegroting maken voor de gemeente Groningen.
-Een initiatief van de VVD-fractie Groningen-Haren. De volledige opdracht staat in
+Een initiatief van VVD Groningen. De volledige opdracht staat in
 [`PROMPT-claude-code.md`](PROMPT-claude-code.md).
 
 Stand: **fase 8 (klaar voor de lancering, op een paar in te vullen punten na)**. De game is speelbaar (kaart, HUD, panelen met schuif én bedrag, tutorial, inwoners, "Wat betekent het voor mij?", eindscherm, deellink, geluid, offline). De tegenbegroting gaat naar Word, PDF en een afbeelding. Spelers kunnen hun begroting met toestemming insturen; de fractie ziet alles in een afgeschermd dashboard (`/dashboard.html`). Wat er nog moet gebeuren voor de lancering, staat in [docs/LANCERING.md](docs/LANCERING.md). De debugpagina van de rekenmotor staat op `/#debug`.
