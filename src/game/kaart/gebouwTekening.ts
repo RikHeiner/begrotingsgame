@@ -10,7 +10,15 @@ import type { Toestand } from '../toestand';
 
 import { GEBOUW_B, GEBOUW_H } from './maten';
 
-export { BOVEN_DAK, GEBOUW_B, GEBOUW_H, GEBOUW_SCHAAL } from './maten';
+export {
+  BOVEN_DAK,
+  BOVEN_MINIGAME,
+  GEBOUW_B,
+  GEBOUW_H,
+  GEBOUW_SCHAAL,
+  MINIGAME_SCHAAL,
+  TEKST_SCHAAL,
+} from './maten';
 /** Ruimte om een gebouw heen (toren, kraan, molen, vlag en schaduw), in wereldeenheden. */
 export const GEBOUW_KADER = { links: 45, rechts: 70, boven: 60, onder: 30 };
 

@@ -43,6 +43,12 @@ export function RouteKaart({ data, resultaat }: { data: Data; resultaat: Resulta
         <>
           <h2 id="route-kop">{route.intro.kop}</h2>
           <p data-testid="nul-melding">{route.intro.tekst.replace('{vrij}', vrij)}</p>
+          {data.minigames.length > 0 && (
+            <p className="route-minigames" data-testid="route-minigames">
+              <span aria-hidden="true">🎮</span> Tussendoor: speel {data.minigames.length} minigames
+              bij bekende gebouwen, zoals de Martinitoren. Tik op een oranje label <em>Speel</em>.
+            </p>
+          )}
         </>
       )}
       {routeStap > 0 && stap && (

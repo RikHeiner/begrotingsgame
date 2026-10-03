@@ -26,6 +26,9 @@ import {
   GEBOUW_H,
   GEBOUW_KADER,
   GEBOUW_SCHAAL,
+  BOVEN_MINIGAME,
+  MINIGAME_SCHAAL,
+  TEKST_SCHAAL,
   tekenBezienswaardigheid,
   tekenGebouw,
   type TekenOpties,
@@ -109,9 +112,6 @@ export type KaartOpties = {
   onTikMinigame: (minigameId: string) => void;
   onCamera: (c: Camera) => void;
 };
-
-/** De bekende gebouwen met een minigame zijn iets kleiner dan de gebouwen van de begroting. */
-const MINIGAME_SCHAAL = GEBOUW_SCHAAL * 0.68;
 
 type Wandelaar = {
   persona: string;
@@ -594,27 +594,28 @@ export class GemeenteKaart {
         t.gebouw.naam,
         t.plek.x,
         t.plek.y + (GEBOUW_H / 2 + 6) * G,
-        10 * G * n,
+        10 * TEKST_SCHAAL * n,
         this.o.kleuren.label,
       );
       if (t.bedrag)
         this.tekst(
           t.bedrag,
           t.plek.x,
-          t.plek.y + (GEBOUW_H / 2 + 6 + 11 * n) * G,
-          8 * G * n,
+          t.plek.y + (GEBOUW_H / 2 + 6) * G + 11 * TEKST_SCHAAL * n,
+          8 * TEKST_SCHAAL * n,
           t.bedragKleur,
         );
     }
 
-    // De namen van de bekende gebouwen pas als je inzoomt; van ver zie je alleen het icoon.
+    // De namen van de bekende gebouwen pas als je inzoomt; van ver zie je alleen het label
+    // "Speel" erboven (een knop in KaartWeergave).
     const ingezoomd = c.schaal > pas(this.wereldMaat(), this.scherm).schaal * 1.3;
-    for (const m of [...this.bezienswaardigheden, ...this.namenBij]) {
+    for (const m of ingezoomd ? [...this.bezienswaardigheden, ...this.namenBij] : []) {
       this.tekst(
-        ingezoomd ? `${m.minigame.icoon} ${m.minigame.naam}` : m.minigame.icoon,
+        m.minigame.naam,
         m.plek.x,
         m.plek.y + (GEBOUW_H / 2 + 5) * MINIGAME_SCHAAL,
-        8.5 * G * n,
+        8.5 * TEKST_SCHAAL * n,
         this.o.kleuren.minigame,
       );
     }
@@ -965,7 +966,11 @@ export class GemeenteKaart {
     }
     let besteMinigame: { id: string; d: number } | undefined;
     for (const [id, p] of Object.entries(this.o.geo.minigames)) {
-      const d = Math.hypot(p.x - w.x, p.y + 4 * MINIGAME_SCHAAL - w.y);
+      // Op het gebouw zelf of op het label "Speel" erboven.
+      const d = Math.min(
+        Math.hypot(p.x - w.x, p.y + 4 * MINIGAME_SCHAAL - w.y),
+        Math.hypot(p.x - w.x, p.y - BOVEN_MINIGAME - 8 - w.y) * 1.4,
+      );
       if (d < straal * 0.85 && (!besteMinigame || d < besteMinigame.d)) besteMinigame = { id, d };
     }
     const nu = performance.now();

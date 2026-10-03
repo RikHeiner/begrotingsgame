@@ -7,7 +7,10 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { formatMln, type Data, type Resultaat } from '../../engine';
 import type { Camera } from '../../game/kaart/camera';
 import type { GemeenteKaart } from '../../game/kaart/GemeenteKaart';
-import { BOVEN_DAK } from '../../game/kaart/maten';
+import { BOVEN_DAK, BOVEN_MINIGAME } from '../../game/kaart/maten';
+
+/** Onder deze zoom is het label van een minigame alleen een rond icoon. */
+const MINIGAME_KLEIN = 0.4;
 import type { BuurtGeo, KaartGeometrie } from '../../game/kaart/geometrie';
 import { doelVanVoorwaarde, type Doel } from '../../game/naarPost';
 import { maakLezer } from '../../game/reacties/context';
@@ -285,19 +288,24 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
           {data.minigames.map((m) => {
             const p = geo.minigames[m.id];
             if (!p) return null;
+            // Een duidelijk label boven het bekende gebouw: hier kun je een minigame spelen.
+            const x = p.x * camera.schaal + camera.x;
+            const y = (p.y - BOVEN_MINIGAME) * camera.schaal + camera.y;
             return (
               <li key={m.id}>
                 <button
                   type="button"
-                  className="kaart-minigame"
+                  // Ver uitgezoomd (zoals op een telefoon) alleen het icoon, anders "Speel" erbij.
+                  className={`kaart-minigame${camera.schaal < MINIGAME_KLEIN ? ' klein' : ''}`}
                   data-minigame={m.id}
-                  style={{
-                    transform: `translate(${p.x * camera.schaal + camera.x}px, ${p.y * camera.schaal + camera.y}px) translate(-50%, -50%)`,
-                  }}
+                  style={{ transform: `translate(${x}px, ${y}px) translate(-50%, -100%)` }}
                   aria-label={`Minigame in de ${m.naam}: ${m.spel}. ${m.kort}`}
                   onFocus={() => kaart.current?.toonGebouw(m.id)}
                   onClick={() => openMinigame(m.id)}
-                />
+                >
+                  <span aria-hidden="true">{m.icoon}</span>
+                  <span className="kaart-minigame-tekst">Speel</span>
+                </button>
               </li>
             );
           })}

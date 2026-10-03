@@ -374,16 +374,73 @@
   pointer-events: none;
 }
 
+/* Het label boven een bekend gebouw met een minigame: een kleine knop met een pijltje omlaag. */
 .kaart-minigame {
   position: absolute;
   top: 0;
   left: 0;
-  width: 40px;
-  height: 40px;
-  border: 0;
-  border-radius: 10px;
-  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  min-height: 26px;
+  padding: 0.15rem 0.55rem 0.15rem 0.4rem;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  background: var(--oranje);
+  color: #15193a;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+  /* De kaart vangt de tik (ook op het label), zodat een gebouw eronder bereikbaar blijft. */
   pointer-events: none;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.3);
+  animation: minigame-hup 2.4s ease-in-out infinite;
+}
+
+.kaart-minigame::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -7px;
+  translate: -50% 0;
+  border: 5px solid transparent;
+  border-top-color: var(--oranje);
+  border-bottom: 0;
+}
+
+.kaart-minigame.klein {
+  min-height: 0;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  justify-content: center;
+  font-size: 0.75rem;
+}
+
+.kaart-minigame.klein .kaart-minigame-tekst {
+  display: none;
+}
+
+@keyframes minigame-hup {
+  0%,
+  70%,
+  100% {
+    margin-top: 0;
+  }
+  80% {
+    margin-top: -5px;
+  }
+  90% {
+    margin-top: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kaart-minigame {
+    animation: none;
+  }
 }
 
 .kaart-minigame:focus-visible,
@@ -2115,6 +2172,12 @@
 
 .paneel .route-knop {
   margin-top: 1.25rem;
+}
+
+.route-minigames {
+  margin: 0.4rem 0 0;
+  font-size: 0.88rem;
+  color: var(--gedempt);
 }
 
 .route-nummer {

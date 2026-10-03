@@ -38,6 +38,11 @@ test('eerste bezoek: uitleg van VVD Groningen, dan bij nul beginnen; daarna niet
   const route = page.getByTestId('route');
   await expect(route).toContainText('De gemeente heeft geld nodig');
   await expect(page.getByTestId('nul-melding')).toContainText('per jaar te verdelen');
+  await expect(page.getByTestId('route-minigames')).toContainText('10 minigames');
+  // Boven elk bekend gebouw met een minigame een oranje label (op een telefoon alleen het icoon).
+  await expect(page.locator('.kaart-minigame')).toHaveCount(10);
+  if (!testInfo.project.name.startsWith('mobiel'))
+    await expect(page.locator('.kaart-minigame').first()).toContainText('Speel');
   await expect(page.getByTestId('saldo')).toContainText('+');
   // Geen coachmarks: de route wijst de weg.
   await expect(page.getByTestId('tutorial')).toHaveCount(0);
