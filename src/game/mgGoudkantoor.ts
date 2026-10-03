@@ -87,7 +87,6 @@ export const LEVELS = [
   },
 ] as const;
 
-
 /** Al het goud: programma (bedragen begroting 2027) en tegenbegroting VVD 2026 (bedragen 2026). */
 export function schatten(data: Data): Schat[] {
   const mg = data.minigames.find((m) => m.goud);
