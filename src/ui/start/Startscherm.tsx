@@ -1,9 +1,9 @@
 /**
- * Startscherm als pop-up over de gemeente: jij bent gemeenteraadslid. Wie betaalt meer of minder,
+ * Startscherm als pop-up over de gemeente: de gemeente heeft geld nodig. Wie betaalt meer of minder,
  * wat gaat de gemeente doen, wat kan minder of later, en sluit je begroting? De kaart blijft
- * erachter zichtbaar. Bij het eerste bezoek kies je waar je begint: bij nul (de standaard) of met
- * de begroting van het college. Later (vanuit Instellingen) is het alleen uitleg, zodat je keuzes
- * niet per ongeluk verdwijnen. De teksten staan in spel/teksten.json.
+ * erachter zichtbaar. Je begint altijd bij nul; wat het college koos, zie je pas aan het eind.
+ * Later (vanuit Instellingen) is het alleen uitleg, zodat je keuzes niet per ongeluk verdwijnen.
+ * De teksten staan in spel/teksten.json.
  */
 import { useEffect, useRef } from 'react';
 import type { Data } from '../../engine';
@@ -54,6 +54,9 @@ export function Startscherm({
       }}
     >
       <div className="start-inhoud">
+        <p className="start-afzender" data-testid="afzender">
+          {t.afzender}
+        </p>
         <p className="start-boven">{data.teksten.titel}</p>
         {/* De focus begint bij de kop, zodat de pop-up bovenaan opent. */}
         <h2 id="start-kop" tabIndex={-1} autoFocus>
@@ -95,14 +98,6 @@ export function Startscherm({
               onClick={() => onBegin('nul')}
             >
               {t.knop}
-            </button>
-            <button
-              type="button"
-              className="knop start-knop start-knop-college"
-              data-testid="begin-college"
-              onClick={() => onBegin('college')}
-            >
-              {t.knop_college}
             </button>
             <p className="klein start-keuze-uitleg">{t.keuze_uitleg}</p>
           </>

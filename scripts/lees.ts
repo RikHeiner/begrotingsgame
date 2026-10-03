@@ -63,6 +63,14 @@ export function laadDataNode(begrotingBestand?: string): Data {
     ...(typeof config.woonlasten === 'string'
       ? { woonlasten: { bestand: config.woonlasten, inhoud: leesJson(config.woonlasten) } }
       : {}),
+    ...(typeof config.belastingenNederland === 'string'
+      ? {
+          belastingenNederland: {
+            bestand: config.belastingenNederland,
+            inhoud: leesJson(config.belastingenNederland),
+          },
+        }
+      : {}),
     ...(typeof config.uitgaven === 'string'
       ? { uitgaven: { bestand: config.uitgaven, inhoud: leesJson(config.uitgaven) } }
       : {}),

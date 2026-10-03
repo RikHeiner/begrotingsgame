@@ -23,6 +23,11 @@ export type SchuifProps = {
   bedrag?: SchuifBedrag;
   /** een knopje op de schuif bij 0%: terug naar de begroting van het college */
   collegeKnop?: boolean;
+  /**
+   * Toon het bedrag in plaats van het percentage (bij nul: het percentage is ten opzichte van de
+   * begroting van het college, en die zie je pas aan het eind). `toonBedrag` maakt de tekst.
+   */
+  toonBedrag?: (bedrag: number) => string;
   onChange: (waarde: number) => void;
 };
 
@@ -98,8 +103,11 @@ export function Schuif({
   beschrijving,
   bedrag,
   collegeKnop,
+  toonBedrag,
   onChange,
 }: SchuifProps) {
+  const alsBedrag =
+    toonBedrag && bedrag ? toonBedrag(bedrag.basis * (1 + waarde / 100)) : undefined;
   const uitleg = beschrijving ? `${id}-uitleg` : undefined;
   // Zonder maximum loopt de schuif tot +100%; meer kun je als bedrag typen.
   const schuifMax = Number.isFinite(max) ? max : Math.max(SCHUIF_MAX, waarde);
@@ -107,7 +115,7 @@ export function Schuif({
   const collegeDeel = min < 0 && schuifMax > 0 ? -min / (schuifMax - min) : undefined;
   const toonCollege = collegeKnop && !vergrendeld && collegeDeel !== undefined && waarde !== 0;
   return (
-    <div className="schuif">
+    <div className={`schuif${alsBedrag ? ' als-bedrag' : ''}`}>
       <label htmlFor={id}>{label}</label>
       <div className={`schuif-baan${toonCollege ? ' met-college' : ''}`}>
         <input
@@ -118,7 +126,7 @@ export function Schuif({
           step={stap}
           value={waarde}
           disabled={vergrendeld}
-          aria-valuetext={formatPct(waarde)}
+          aria-valuetext={alsBedrag ?? formatPct(waarde)}
           aria-describedby={uitleg}
           onChange={(e) => onChange(Number(e.target.value))}
         />
@@ -136,7 +144,7 @@ export function Schuif({
           </button>
         )}
       </div>
-      <output htmlFor={id}>{formatPct(waarde)}</output>
+      <output htmlFor={id}>{alsBedrag ?? formatPct(waarde)}</output>
       {bedrag && !vergrendeld && bedrag.basis > 0 && (
         <Bedrag id={id} label={label} waarde={waarde} bedrag={bedrag} onChange={onChange} />
       )}

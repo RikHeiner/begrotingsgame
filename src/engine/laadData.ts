@@ -21,6 +21,10 @@ import {
   woonlastenSchema,
   uitgavenSchema,
   type Uitgaven,
+  routeSchema,
+  belastingenNederlandSchema,
+  type Route,
+  type BelastingenNederland,
   type ParkerenData,
   type Woonlasten,
   type Tarieven,
@@ -68,6 +72,10 @@ export type Data = {
   woonlasten?: Woonlasten;
   /** uitgaven per inwoner van andere gemeenten, als config.json ze noemt */
   uitgaven?: Uitgaven;
+  /** landelijke gemiddelden van de gemeentebelastingen, als config.json ze noemt */
+  belastingenNederland?: BelastingenNederland;
+  /** de route langs de gebouwen bij nul: eerst de belasting, dan de rest in een vaste volgorde */
+  route: Route;
   vergelijking: { bestand: string; tegenbegroting: Tegenbegroting }[];
   /** Jaren van de meerjarenraming, bijvoorbeeld [2026, 2027, 2028, 2029]. */
   jaren: number[];
@@ -94,6 +102,7 @@ export const SPEL_BESTANDEN = {
   badges: 'spel/badges.json',
   teksten: 'spel/teksten.json',
   personas: 'spel/personas.json',
+  route: 'spel/route.json',
 } as const;
 
 export class DataFout extends Error {
@@ -128,10 +137,12 @@ export type RuweData = {
   badges: unknown;
   teksten: unknown;
   personas: unknown;
+  route: unknown;
   tarieven?: { bestand: string; inhoud: unknown };
   parkeren?: { bestand: string; inhoud: unknown };
   woonlasten?: { bestand: string; inhoud: unknown };
   uitgaven?: { bestand: string; inhoud: unknown };
+  belastingenNederland?: { bestand: string; inhoud: unknown };
   vergelijking: { bestand: string; inhoud: unknown }[];
 };
 
@@ -269,6 +280,37 @@ export function maakData(ruw: RuweData): Data {
         if (g.lasten_x1000[t] === undefined) fout.push(`${g.naam}: geen bedrag voor thema "${t}"`);
     if (fout.length) throw new DataFout(ruw.uitgaven.bestand, fout);
   }
+  const route = valideer(routeSchema, ruw.route, SPEL_BESTANDEN.route);
+  {
+    const fout: string[] = [];
+    const gezien = new Set<string>();
+    for (const st of route.stappen) {
+      if (!gebouwen.some((g) => g.id === st.gebouw)) fout.push(`onbekend gebouw "${st.gebouw}"`);
+      if (gezien.has(st.gebouw)) fout.push(`gebouw "${st.gebouw}" staat er twee keer in`);
+      gezien.add(st.gebouw);
+    }
+    if (fout.length) throw new DataFout(SPEL_BESTANDEN.route, fout);
+  }
+  const belastingenNederland = ruw.belastingenNederland
+    ? valideer(
+        belastingenNederlandSchema,
+        ruw.belastingenNederland.inhoud,
+        ruw.belastingenNederland.bestand,
+      )
+    : undefined;
+  if (ruw.belastingenNederland && belastingenNederland) {
+    const fout: string[] = [];
+    if (
+      belastingenNederland.jaar > config.actiefJaar ||
+      belastingenNederland.jaar < config.actiefJaar - 3
+    )
+      fout.push(
+        `dit zijn cijfers van ${belastingenNederland.jaar}, maar config.json verwacht ${config.actiefJaar} of hooguit drie jaar eerder`,
+      );
+    for (const id of Object.keys(belastingenNederland.belastingen))
+      if (!begroting.belastingen.some((b) => b.id === id)) fout.push(`onbekende belasting "${id}"`);
+    if (fout.length) throw new DataFout(ruw.belastingenNederland.bestand, fout);
+  }
   const vergelijking = ruw.vergelijking.map(({ bestand, inhoud }) => ({
     bestand,
     tegenbegroting: valideer(tegenbegrotingSchema, inhoud, bestand),
@@ -291,6 +333,8 @@ export function maakData(ruw: RuweData): Data {
     ...(parkeren ? { parkeren } : {}),
     ...(woonlasten ? { woonlasten } : {}),
     ...(uitgaven ? { uitgaven } : {}),
+    ...(belastingenNederland ? { belastingenNederland } : {}),
+    route,
     vergelijking,
     jaren: [...config.meerjarenHorizon],
     index: maakIndex(begroting, dwarsverbanden, meters),
@@ -327,17 +371,27 @@ export async function laadData(haal: HaalJson): Promise<Data> {
   const ruweConfig = await haal('config.json');
   const config = valideer(configSchema, ruweConfig, 'config.json');
   const spelSleutels = Object.keys(SPEL_BESTANDEN) as (keyof typeof SPEL_BESTANDEN)[];
-  const [begroting, dwarsverbanden, spel, vergelijking, tarieven, parkeren, woonlasten, uitgaven] =
-    await Promise.all([
-      haal(config.begroting),
-      haal('dwarsverbanden.json'),
-      Promise.all(spelSleutels.map((k) => haal(SPEL_BESTANDEN[k]))),
-      Promise.all(config.vergelijking.map((b) => haal(b))),
-      config.tarieven ? haal(config.tarieven) : Promise.resolve(undefined),
-      config.parkeren ? haal(config.parkeren) : Promise.resolve(undefined),
-      config.woonlasten ? haal(config.woonlasten) : Promise.resolve(undefined),
-      config.uitgaven ? haal(config.uitgaven) : Promise.resolve(undefined),
-    ]);
+  const [
+    begroting,
+    dwarsverbanden,
+    spel,
+    vergelijking,
+    tarieven,
+    parkeren,
+    woonlasten,
+    uitgaven,
+    belastingenNederland,
+  ] = await Promise.all([
+    haal(config.begroting),
+    haal('dwarsverbanden.json'),
+    Promise.all(spelSleutels.map((k) => haal(SPEL_BESTANDEN[k]))),
+    Promise.all(config.vergelijking.map((b) => haal(b))),
+    config.tarieven ? haal(config.tarieven) : Promise.resolve(undefined),
+    config.parkeren ? haal(config.parkeren) : Promise.resolve(undefined),
+    config.woonlasten ? haal(config.woonlasten) : Promise.resolve(undefined),
+    config.uitgaven ? haal(config.uitgaven) : Promise.resolve(undefined),
+    config.belastingenNederland ? haal(config.belastingenNederland) : Promise.resolve(undefined),
+  ]);
   const spelData = Object.fromEntries(spelSleutels.map((k, i) => [k, spel[i]])) as Record<
     keyof typeof SPEL_BESTANDEN,
     unknown
@@ -353,6 +407,14 @@ export async function laadData(haal: HaalJson): Promise<Data> {
       ? { woonlasten: { bestand: config.woonlasten, inhoud: woonlasten } }
       : {}),
     ...(config.uitgaven ? { uitgaven: { bestand: config.uitgaven, inhoud: uitgaven } } : {}),
+    ...(config.belastingenNederland
+      ? {
+          belastingenNederland: {
+            bestand: config.belastingenNederland,
+            inhoud: belastingenNederland,
+          },
+        }
+      : {}),
     vergelijking: config.vergelijking.map((bestand, i) => ({ bestand, inhoud: vergelijking[i] })),
   });
 }

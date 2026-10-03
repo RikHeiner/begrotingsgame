@@ -11,6 +11,7 @@ import type { BuurtGeo, KaartGeometrie } from '../../game/kaart/geometrie';
 import { doelVanVoorwaarde, type Doel } from '../../game/naarPost';
 import { maakLezer } from '../../game/reacties/context';
 import { compileer, kiesReactie } from '../../game/reacties/kies';
+import { routeNummer } from '../../game/route';
 import { useSpel } from '../../game/state/store';
 import { TOESTAND_NAAM, type GebouwStand } from '../../game/toestand';
 import { haalJson } from '../../app/haalJson';
@@ -48,6 +49,8 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
   const vastgehouden = useRef(false);
   const ballonEl = useRef<HTMLElement | null>(null);
   const kies = useSpel((s) => s.kiesGebouw);
+  const nul = useSpel((s) => s.beginpunt === 'nul');
+  const routeStap = useSpel((s) => s.routeStap);
   const laatste = useRef({ resultaat, standen });
   useEffect(() => {
     laatste.current = { resultaat, standen };
@@ -186,14 +189,36 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
             const y = p.y * camera.schaal + camera.y;
             const bedrag =
               s && Math.abs(s.bedrag) >= 50_000 ? `, ${formatMln(s.bedrag, { teken: true })}` : '';
+            // Bij nul: het nummer op de route, een vinkje als de stap klaar is.
+            const nr = nul ? routeNummer(data, g.id) : undefined;
+            const routeKlasse =
+              nr === undefined
+                ? ''
+                : nr - 1 < routeStap
+                  ? ' klaar'
+                  : nr - 1 === routeStap
+                    ? ' huidig'
+                    : '';
             return (
               <li key={g.id}>
+                {nr !== undefined && (
+                  <span
+                    className={`route-nummer${routeKlasse}`}
+                    data-route={nr}
+                    aria-hidden="true"
+                    style={{
+                      transform: `translate(${x}px, ${y - 34}px) translate(-50%, -50%)`,
+                    }}
+                  >
+                    {nr - 1 < routeStap ? '✓' : nr}
+                  </span>
+                )}
                 <button
                   type="button"
                   className="kaart-gebouw"
                   data-gebouw={g.id}
                   style={{ transform: `translate(${x}px, ${y}px) translate(-50%, -50%)` }}
-                  aria-label={`${g.naam}: ${g.omschrijving}. ${s ? TOESTAND_NAAM[s.toestand] : ''}${bedrag}`}
+                  aria-label={`${nr !== undefined ? `Stap ${nr}${nr - 1 < routeStap ? ' (klaar)' : ''}: ` : ''}${g.naam}: ${g.omschrijving}. ${s ? TOESTAND_NAAM[s.toestand] : ''}${bedrag}`}
                   onFocus={() => kaart.current?.toonGebouw(g.id)}
                   onClick={() => kies(g.id)}
                 />

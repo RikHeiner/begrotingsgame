@@ -13,5 +13,6 @@
   "tarieven": "tarieven-2027.json",
   "parkeren": "parkeren-2027.json",
   "woonlasten": "woonlasten-2026.json",
-  "uitgaven": "uitgaven-gemeenten-2026.json"
+  "uitgaven": "uitgaven-gemeenten-2026.json",
+  "belastingenNederland": "belastingen-nederland-2026.json"
 }

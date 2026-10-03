@@ -1,6 +1,7 @@
 /** De Playwright-scenario's uit opdracht 12. */
 import { expect, test, type Page } from '@playwright/test';
 import { codeer } from '../../src/game/deellink';
+import { collegeLink } from './hulp';
 
 const zonderTutorial = (page: Page) =>
   page.addInitScript(() => localStorage.setItem('begrotingsgame:tutorial', 'klaar'));
@@ -21,7 +22,7 @@ async function schuif(page: Page, label: RegExp, stappen: number) {
 }
 
 test('eerste bezoek: de tutorial in drie stappen, daarna niet meer', async ({ page }, testInfo) => {
-  await page.goto('/');
+  await page.goto(collegeLink());
   const coach = page.getByTestId('tutorial');
   await expect(coach).toContainText('Dit is jouw gemeente. Tik op een gebouw.');
   await page.screenshot({ path: testInfo.outputPath('tutorial-1.png') });
@@ -40,7 +41,7 @@ test('eerste bezoek: de tutorial in drie stappen, daarna niet meer', async ({ pa
 
 test('het slot van de pot: zonder vrijgemaakt geld kan er niets bij', async ({ page }) => {
   await zonderTutorial(page);
-  await page.goto('/');
+  await page.goto(collegeLink());
   await tikOpGebouw(page, 'zwembad');
   const sport = await schuif(page, /Sporthallen/, 1);
   await expect(page.getByTestId('melding')).toContainText('structurele dekking nodig');
@@ -52,7 +53,7 @@ test('bezuinigen en daarna investeren; een kettingeffect geeft een melding', asy
   page,
 }, testInfo) => {
   await zonderTutorial(page);
-  await page.goto('/');
+  await page.goto(collegeLink());
   await tikOpGebouw(page, 'stadhuis');
   await schuif(page, /Overhead/, -2);
   await expect(page.getByTestId('saldo')).toContainText('+ € 13,2 mln');
@@ -69,7 +70,7 @@ test('bezuinigen en daarna investeren; een kettingeffect geeft een melding', asy
 
 test('een bedrag invullen in plaats van een percentage', async ({ page }, testInfo) => {
   await zonderTutorial(page);
-  await page.goto('/');
+  await page.goto(collegeLink());
   await tikOpGebouw(page, 'stadhuis');
   const paneel = page.getByTestId('paneel');
   const veld = paneel.getByRole('textbox', { name: /Budget voor .*Overhead/ });
@@ -99,7 +100,7 @@ test('een bedrag invullen in plaats van een percentage', async ({ page }, testIn
 
 test('parkeertarieven per vergunning en zone bij de parkeergarage', async ({ page }, testInfo) => {
   await zonderTutorial(page);
-  await page.goto('/');
+  await page.goto(collegeLink());
   await tikOpGebouw(page, 'parkeer');
   const paneel = page.getByTestId('paneel');
   await expect(paneel.getByRole('heading', { name: 'Parkeertarieven' })).toBeVisible();

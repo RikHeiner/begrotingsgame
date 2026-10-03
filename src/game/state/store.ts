@@ -56,17 +56,21 @@ type Spel = {
   weergave: Weergave;
   fase: Fase;
   /**
-   * Het beginpunt: bij nul (de standaard: alleen wat de wet vraagt) of de begroting van het
-   * college. De game onthoudt de keuze.
+   * Het beginpunt: altijd bij nul (alleen wat de wet vraagt). Alleen een gedeelde link uit de tijd
+   * dat je ook met de begroting van het college kon beginnen, opent nog op 'college'.
    */
   beginpunt: Beginpunt;
+  /**
+   * Waar de speler is op de route (spel/route.json): het nummer van de stap die nu aan de beurt
+   * is, vanaf 0. Gelijk aan het aantal stappen als de route klaar is. Alleen bij nul.
+   */
+  routeStap: number;
+  /** stap `vanaf` is klaar: ga door naar de volgende en open dat gebouw */
+  volgendeStap(vanaf: number): void;
   /** de keuzes waarmee de speler begon (bij nul: alle posten op hun minimum) */
   basis: Keuzes;
   /** begin opnieuw vanaf het gekozen beginpunt */
   begin(beginpunt: Beginpunt, data?: Data): void;
-  /** uitleg na beginnen bij nul */
-  nulMelding: boolean;
-  wisNulMelding(): void;
   /**
    * Het startscherm: bij het eerste bezoek met de keuze waar je begint ('eerste'), of later
    * vanuit Instellingen alleen als uitleg ('uitleg').
@@ -123,7 +127,6 @@ function schrijfOpslag(sleutel: string, waarde: string): void {
 
 export const OPSLAG_GELUID = 'begrotingsgame:geluid';
 export const OPSLAG_START = 'begrotingsgame:start';
-export const OPSLAG_BEGINPUNT = 'begrotingsgame:beginpunt';
 
 /** Het gebouw waar een effect landt: het gebouw van de post, of het loket en het veilinghuis. */
 export function gebouwVanDoel(data: Data, doel: string): string | undefined {
@@ -175,12 +178,15 @@ export function huidigJaar(data: Data): number {
 }
 
 export const useSpel = create<Spel>((set, get) => {
+  // Bij nul: het resultaat van het beginpunt, zodat de bedragen bij de gebouwen laten zien wat de
+  // speler zelf veranderde.
+  let basisResultaat: Resultaat | undefined;
   const reken = (data: Data, keuzes: Keuzes) => {
     const resultaat = bereken(data, keuzes);
     return {
       keuzes: resultaat.keuzes,
       resultaat,
-      standen: gebouwStanden(data, data.kaart, resultaat),
+      standen: gebouwStanden(data, data.kaart, resultaat, undefined, basisResultaat),
     };
   };
   const getoond = new Set<string>();
@@ -193,17 +199,25 @@ export const useSpel = create<Spel>((set, get) => {
     standen: {},
     weergave: 'kaart',
     fase: 'spelen',
-    beginpunt: leesOpslag(OPSLAG_BEGINPUNT) === 'college' ? 'college' : 'nul',
+    beginpunt: 'nul',
     basis: GEEN_KEUZES,
     begin(beginpunt, data = get().data) {
       if (!data) return;
-      schrijfOpslag(OPSLAG_BEGINPUNT, beginpunt);
       get().start(data, beginKeuzes(data, beginpunt), beginpunt);
-      set({ nulMelding: beginpunt === 'nul' });
     },
-    nulMelding: false,
-    wisNulMelding() {
-      set({ nulMelding: false });
+    routeStap: 0,
+    volgendeStap(vanaf) {
+      const { data, routeStap } = get();
+      if (!data) return;
+      const volgende = Math.max(routeStap, vanaf + 1);
+      const gebouw = data.route.stappen[vanaf + 1]?.gebouw;
+      set({
+        routeStap: volgende,
+        gekozenGebouw: gebouw,
+        weergave: 'kaart',
+        melding: undefined,
+        ...(gebouw ? { ooitGekozen: true } : {}),
+      });
     },
     // Bij het eerste bezoek de uitleg; een gedeelde link opent direct de begroting (zie Spel).
     startscherm: leesOpslag(OPSLAG_START) !== 'gezien' ? 'eerste' : false,
@@ -219,13 +233,15 @@ export const useSpel = create<Spel>((set, get) => {
     },
     start(data, keuzes, beginpunt = get().beginpunt) {
       getoond.clear();
+      basisResultaat =
+        beginpunt === 'nul' ? bereken(data, beginKeuzes(data, beginpunt)) : undefined;
       const uit = reken(data, keuzes ?? beginKeuzes(data, beginpunt));
       set({
         data,
         ...uit,
         basis: uit.keuzes,
         beginpunt,
-        nulMelding: false,
+        routeStap: 0,
         melding: undefined,
         actie: undefined,
         fase: 'spelen',

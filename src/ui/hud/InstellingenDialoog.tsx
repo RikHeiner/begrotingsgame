@@ -48,8 +48,9 @@ export function InstellingenDialoog({
       <fieldset className="veldgroep">
         <legend>Opnieuw beginnen</legend>
         <p className="klein">
-          Je begon {beginpunt === 'nul' ? 'bij nul' : 'met de begroting van het college'}. Opnieuw
-          beginnen wist je keuzes.
+          {beginpunt === 'nul'
+            ? 'Opnieuw beginnen wist je keuzes. Je begint weer bij nul.'
+            : 'Je bekijkt een begroting die begon bij die van het college. Opnieuw beginnen wist je keuzes; je begint dan bij nul.'}
         </p>
         <p className="knoppen-rij">
           <button
@@ -61,18 +62,7 @@ export function InstellingenDialoog({
               onSluit();
             }}
           >
-            Bij nul: alleen wat de wet vraagt
-          </button>
-          <button
-            type="button"
-            className="knop"
-            data-testid="opnieuw-college"
-            onClick={() => {
-              begin('college');
-              onSluit();
-            }}
-          >
-            Met de begroting van het college
+            Opnieuw bij nul
           </button>
         </p>
       </fieldset>

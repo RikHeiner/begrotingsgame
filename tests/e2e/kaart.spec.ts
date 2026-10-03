@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { collegeLink } from './hulp';
 
 test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('begrotingsgame:tutorial', 'klaar'));
@@ -19,7 +20,7 @@ test.describe('gemeentekaart', () => {
   test('tik op een gebouw opent het paneel; bezuinigen verandert het gebouw en het saldo', async ({
     page,
   }, testInfo) => {
-    await page.goto('/');
+    await page.goto(collegeLink());
     await expect(page.locator('.kaart-gebouw')).toHaveCount(15);
     // Tik op het zwembad (op de kaart zelf, niet op de onzichtbare knop)
     const knop = page.locator('[data-gebouw="zwembad"]');
@@ -39,7 +40,7 @@ test.describe('gemeentekaart', () => {
   });
 
   test('de lijstweergave werkt met alleen het toetsenbord', async ({ page }) => {
-    await page.goto('/');
+    await page.goto(collegeLink());
     await page.getByRole('button', { name: /Lijst/ }).click();
     const lijst = page.getByTestId('lijstweergave');
     await expect(lijst).toBeVisible();

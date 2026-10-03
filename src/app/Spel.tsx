@@ -3,7 +3,7 @@
  * De keuzes staan in de URL (?b=…), zodat elke begroting als link te delen is.
  */
 import { useCallback, useEffect, useState } from 'react';
-import { formatMln, type Data } from '../engine';
+import type { Data } from '../engine';
 import { codeer, leesUitUrl, PARAM } from '../game/deellink';
 import { useSpel } from '../game/state/store';
 import { Eindscherm } from '../ui/eindscherm/Eindscherm';
@@ -12,6 +12,7 @@ import { Hud } from '../ui/hud/Hud';
 import { KaartWeergave } from '../ui/kaart/KaartWeergave';
 import { Lijstweergave } from '../ui/lijstweergave/Lijstweergave';
 import { GebouwPaneel } from '../ui/panelen/GebouwPaneel';
+import { RouteKaart } from '../ui/route/RouteKaart';
 import { Startscherm } from '../ui/start/Startscherm';
 import { Documentweergave } from '../ui/tegenbegroting/Documentweergave';
 import { Tutorial } from '../ui/tutorial/Tutorial';
@@ -31,8 +32,7 @@ export function Spel({ data }: { data: Data }) {
   const zetStartscherm = useSpel((s) => s.zetStartscherm);
   const begin = useSpel((s) => s.begin);
   const beginpunt = useSpel((s) => s.beginpunt);
-  const nulMelding = useSpel((s) => s.nulMelding);
-  const wisNulMelding = useSpel((s) => s.wisNulMelding);
+  const gekozenGebouw = useSpel((s) => s.gekozenGebouw);
   const [kaartFout, setKaartFout] = useState<string>();
   const [gelezen] = useState(() => leesUitUrl(window.location.href));
   const zelfdeJaar = gelezen?.jaar === data.config.actiefJaar;
@@ -116,17 +116,6 @@ export function Spel({ data }: { data: Data }) {
           De kaart werkt niet op dit apparaat ({kaartFout}). Je kunt gewoon spelen met de lijst.
         </p>
       )}
-      {beginpunt === 'nul' && nulMelding && (
-        <p className="melding-blok" role="status" data-testid="nul-melding">
-          {data.teksten.start.nul_melding.replace(
-            '{vrij}',
-            formatMln(Math.min(...data.jaren.map((j) => resultaat.perJaar[j]?.structureel ?? 0))),
-          )}{' '}
-          <button type="button" className="link-knop" onClick={wisNulMelding}>
-            Oké
-          </button>
-        </p>
-      )}
       {linkMelding && (
         <p className="melding-blok" role="status">
           {linkMelding}{' '}
@@ -144,6 +133,10 @@ export function Spel({ data }: { data: Data }) {
         {weergave === 'kaart' && (
           <GebouwPaneel data={data} resultaat={resultaat} standen={standen} />
         )}
+        {/* Bij nul de route langs de gebouwen op de kaart; niet over een open gebouw heen. */}
+        {beginpunt === 'nul' && weergave === 'kaart' && !gekozenGebouw && !startscherm && (
+          <RouteKaart data={data} resultaat={resultaat} />
+        )}
       </main>
       <Feedback data={data} />
       <p className="toast" role="status" aria-live="polite" data-testid="melding">
@@ -160,8 +153,8 @@ export function Spel({ data }: { data: Data }) {
           }}
         />
       ) : (
-        // Na beginnen bij nul eerst de melding met het geld dat je te verdelen hebt.
-        !(beginpunt === 'nul' && nulMelding) && <Tutorial data={data} resultaat={resultaat} />
+        // Bij nul wijst de route de weg; de tutorial is er voor een gedeelde begroting van het college.
+        beginpunt !== 'nul' && <Tutorial data={data} resultaat={resultaat} />
       )}
     </div>
   );

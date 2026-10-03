@@ -342,6 +342,15 @@
   background: color-mix(in srgb, var(--blauw) 20%, transparent);
 }
 
+/* Bij nul staat er een bedrag naast de schuif in plaats van een percentage. */
+.schuif.als-bedrag {
+  grid-template-columns: 1fr auto;
+}
+
+.schuif.als-bedrag output {
+  white-space: nowrap;
+}
+
 .schuif output {
   align-self: center;
   text-align: right;
@@ -1616,6 +1625,156 @@
   margin: 1rem 0 0.25rem;
 }
 
+/* De route bij nul: een kaart onderin beeld en nummers bij de gebouwen */
+.route-kaart {
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  z-index: 8;
+  max-width: 30rem;
+  margin: 0 auto;
+  padding: 0.9rem 1rem 1rem;
+  border-radius: 1.1rem;
+  background: var(--paneel);
+  color: var(--inkt);
+  box-shadow: 0 6px 24px rgb(10 12 30 / 0.2);
+}
+
+.route-kaart h2 {
+  margin: 0 2.5rem 0.3rem 0;
+  font-size: 1.5rem;
+}
+
+.route-kaart p {
+  margin: 0 0 0.6rem;
+}
+
+.route-kaart.klein {
+  left: auto;
+  right: 0.75rem;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.route-pil {
+  min-height: 44px;
+  padding: 0.4rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--oranje);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgb(10 12 30 / 0.25);
+}
+
+.route-verberg {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
+.route-stap {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--gedempt);
+}
+
+.paneel-stap {
+  margin-bottom: 0.25rem;
+}
+
+.route-vvd {
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.6rem;
+  background: var(--blauw);
+  color: #fff;
+}
+
+.route-knop {
+  width: 100%;
+  min-height: 52px;
+  margin-top: 0.5rem;
+}
+
+.paneel .route-knop {
+  margin-top: 1.25rem;
+}
+
+.route-nummer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--blauw);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.9rem;
+  border: 2px solid #fff;
+  pointer-events: none;
+  box-shadow: 0 2px 6px rgb(10 12 30 / 0.3);
+}
+
+.route-nummer.huidig {
+  background: var(--oranje);
+  width: 34px;
+  height: 34px;
+  font-size: 1.05rem;
+  animation: route-puls 1.6s ease-in-out infinite;
+}
+
+.route-nummer.klaar {
+  background: var(--positief);
+}
+
+@keyframes route-puls {
+  50% {
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--oranje) 30%, transparent);
+  }
+}
+
+@media (max-width: 420px) {
+  .route-kaart {
+    padding: 0.7rem 0.85rem 0.8rem;
+    font-size: 0.92rem;
+  }
+
+  .route-kaart h2 {
+    font-size: 1.25rem;
+  }
+
+  .route-knop {
+    min-height: 46px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-nummer.huidig {
+    animation: none;
+  }
+}
+
+.start-afzender {
+  display: inline-block;
+  margin: 0 0 0.4rem;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  background: var(--blauw);
+  color: #fff;
+  font-weight: 700;
+}
+
 /* Startscherm: pop-up over de gemeente, de kaart blijft erachter zichtbaar */
 .startscherm {
   width: min(40rem, calc(100% - 1.5rem));
@@ -1711,10 +1870,6 @@
 
 .start-noot {
   margin: 0.75rem 0 0;
-}
-
-.start-knop-college {
-  margin-top: 0.6rem;
 }
 
 .start-keuze-uitleg {

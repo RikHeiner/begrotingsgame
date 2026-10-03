@@ -2,8 +2,8 @@
   "toelichting": "Vaste teksten in de game, op B1-niveau. Gebruik 'gemeente', niet 'stad'.",
   "titel": "Maak de begroting van de gemeente Groningen",
   "start": {
-    "kop": "Jij bent gemeenteraadslid",
-    "intro": "Elk jaar beslist de gemeenteraad over de begroting van de gemeente Groningen: ongeveer {bedrag} per jaar. Waar gaat dat geld naartoe, en waar komt het vandaan? Nu beslis jij.",
+    "kop": "De gemeente heeft geld nodig",
+    "intro": "De gemeente Groningen geeft in {jaar} ongeveer {bedrag} uit. Ruim de helft komt van het Rijk. Een deel betalen inwoners en ondernemers zelf, via belasting. Jij beslist: hoeveel belasting vraagt de gemeente, en waar gaat het geld naartoe?",
     "vragen": [
       {
         "icoon": "💶",
@@ -28,17 +28,17 @@
     ],
     "hoe_kop": "Zo speel je",
     "hoe": [
-      "Tik op een gebouw op de kaart, of kies de lijst.",
-      "Schuif naar rechts om iets weer te doen, of meer. Je kunt ook zelf een bedrag typen.",
+      "Volg de nummers op de kaart: eerst het belastingloket, dan veiligheid, ondernemen, sport en de rest.",
+      "Schuif naar rechts om iets te doen, of meer. Je kunt ook zelf een bedrag typen.",
       "Bij elke post zie je waarom hij niet lager kan, bijvoorbeeld omdat de wet het vraagt.",
-      "Klaar? Dien je begroting in. Je ziet dan het verschil met de begroting van het college."
+      "Klaar? Dien je begroting in. Dan zie je ook wat het college heeft gekozen."
     ],
     "knop": "Begin bij nul",
-    "knop_college": "Begin met de begroting van het college",
-    "keuze_uitleg": "Bij nul staat elke post op het minimum: wat de wet vraagt en vaste lasten zoals rente. De rest staat op nul, en de belastingen ook. Begin je met de begroting van het college, dan schuif je vanaf de plannen van het college. Het geldpotje zit dan op slot tot je ergens bezuinigt.",
+    "keuze_uitleg": "Je begint bij nul: elke post staat op het minimum, op wat de wet vraagt en op vaste lasten zoals rente. De rest staat op nul, en de belastingen ook. Wat het college heeft gekozen, zie je pas als je klaar bent.",
     "knop_terug": "Terug naar de game",
     "nul_melding": "Je begint bij nul: alleen wat de wet vraagt staat erin, op het minimum. Ook de belastingen staan op nul, want de wet verplicht geen OZB of parkeergeld. Je hebt {vrij} per jaar te verdelen. Kies wat er weer bij komt, en welke belastingen je heft om dat te betalen.",
-    "noot": "De bedragen komen uit de ontwerpbegroting {jaar} van de gemeente Groningen. Bedragen met ⚠︎ zijn aannames."
+    "noot": "De bedragen komen uit de ontwerpbegroting {jaar} van de gemeente Groningen. Bedragen met ⚠︎ zijn aannames.",
+    "afzender": "Een spel van VVD Groningen"
   },
   "tutorial": [
     {

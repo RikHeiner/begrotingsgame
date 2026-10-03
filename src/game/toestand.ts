@@ -88,6 +88,11 @@ export function gebouwStanden(
   r: Resultaat,
   /** het jaar van het bedrag bij het gebouw */
   jaar = data.jaren[0],
+  /**
+   * Bij nul: het resultaat van het beginpunt. Het bedrag bij een gebouw is dan wat de speler
+   * erbij deed of eraf haalde, niet het verschil met het college (dat zie je pas aan het eind).
+   */
+  basis?: Resultaat,
 ): Record<string, GebouwStand> {
   const uit: Record<string, GebouwStand> = {};
   for (const g of data.gebouwen) {
@@ -101,7 +106,7 @@ export function gebouwStanden(
       id: g.id,
       score,
       toestand: toestandBij(score, kaart.toestanden),
-      bedrag: gebouwBedrag(data, g, r, jaar),
+      bedrag: gebouwBedrag(data, g, r, jaar) - (basis ? gebouwBedrag(data, g, basis, jaar) : 0),
     };
   }
   return uit;

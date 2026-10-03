@@ -32,6 +32,8 @@ export const configSchema = z
     woonlasten: bestandsnaam.optional(),
     /** uitgaven per inwoner van andere gemeenten (vergelijking in de gebouwen), optioneel */
     uitgaven: bestandsnaam.optional(),
+    /** landelijke gemiddelden van de gemeentebelastingen (bij het belastingloket), optioneel */
+    belastingenNederland: bestandsnaam.optional(),
   })
   .strict()
   .refine((c) => c.meerjarenHorizon.every((j, i) => j === c.actiefJaar + i), {
@@ -549,10 +551,11 @@ export const tekstenSchema = z
           .min(1),
         hoe_kop: z.string(),
         hoe: z.array(z.string()).min(1),
-        /** de eerste knop: beginnen bij nul (de standaard) */
+        /** wie de game maakt, boven aan het startscherm */
+        afzender: z.string(),
+        /** de knop om te beginnen (altijd bij nul) */
         knop: z.string(),
-        knop_college: z.string(),
-        /** uitleg onder de knoppen */
+        /** uitleg onder de knop */
         keuze_uitleg: z.string(),
         /** de knop als het startscherm later als uitleg opent */
         knop_terug: z.string(),
@@ -803,6 +806,63 @@ export const woonlastenSchema = z
   })
   .strict();
 export type Woonlasten = z.infer<typeof woonlastenSchema>;
+
+// ---------- spel/route.json ----------
+
+export const routeSchema = z
+  .object({
+    toelichting: z.string(),
+    /** de kaart bij het begin, vóór stap 1; {vrij} wordt ingevuld */
+    intro: z.object({ kop: z.string(), tekst: z.string(), knop: z.string() }).strict(),
+    /** na de laatste stap */
+    klaar: z.object({ kop: z.string(), tekst: z.string() }).strict(),
+    stappen: z
+      .array(
+        z
+          .object({
+            gebouw: z.string(),
+            /** het onderwerp van de stap, zoals "Veiligheid" */
+            thema: z.string(),
+            /** een korte zin over wat je hier kiest */
+            vraag: z.string(),
+            /** het standpunt van VVD Groningen; leeg tot de fractie het aanlevert */
+            vvd: z.string().optional(),
+          })
+          .strict(),
+      )
+      .min(1),
+  })
+  .strict();
+export type Route = z.infer<typeof routeSchema>;
+
+// ---------- belastingen-nederland-JJJJ.json ----------
+
+export const belastingenNederlandSchema = z
+  .object({
+    /** het jaar van de cijfers; de game zegt er altijd bij dat het niet de begroting van de game is */
+    jaar: z.number().int(),
+    toelichting: z.string(),
+    bronnen: z.array(woonlastenBron).min(1),
+    /** inwoners van de eigen gemeente op 1 januari van dat jaar */
+    inwoners: z.number().int().positive(),
+    /** per belasting (id uit de begroting): de gemiddelden in euro per inwoner */
+    belastingen: z.record(
+      z.string(),
+      z
+        .object({
+          nederland: euro,
+          /** gemeenten van dezelfde grootte als de eigen gemeente */
+          grootteklasse: euro.optional(),
+          /** wat de CBS-cijfers meetellen, als dat anders is dan de post in de game */
+          let_op: z.string().optional(),
+        })
+        .strict(),
+    ),
+    /** de grootteklasse in gewone taal, bijvoorbeeld "gemeenten met 150.000 tot 250.000 inwoners" */
+    grootteklasse: z.string(),
+  })
+  .strict();
+export type BelastingenNederland = z.infer<typeof belastingenNederlandSchema>;
 
 // ---------- uitgaven-gemeenten-JJJJ.json ----------
 

@@ -18,6 +18,8 @@ export function GebouwPaneel({
   const gekozen = useSpel((s) => s.gekozenGebouw);
   const kies = useSpel((s) => s.kiesGebouw);
   const focus = useSpel((s) => s.focus);
+  const nul = useSpel((s) => s.beginpunt === 'nul');
+  const volgendeStap = useSpel((s) => s.volgendeStap);
   const kop = useRef<HTMLHeadingElement>(null);
   const paneel = useRef<HTMLElement>(null);
   const gebouw = data.gebouwen.find((g) => g.id === gekozen);
@@ -55,8 +57,18 @@ export function GebouwPaneel({
 
   if (!gebouw) return null;
   const stand = standen[gebouw.id];
+  // Bij nul: welke stap van de route dit gebouw is, en wat de volgende is.
+  const stapNr = nul ? data.route.stappen.findIndex((s) => s.gebouw === gebouw.id) : -1;
+  const stap = data.route.stappen[stapNr];
+  const volgende = data.route.stappen[stapNr + 1];
+  const volgendGebouw = volgende && data.gebouwen.find((g) => g.id === volgende.gebouw);
   return (
     <section ref={paneel} className="paneel" aria-labelledby="paneel-kop" data-testid="paneel">
+      {stap && (
+        <p className="route-stap paneel-stap">
+          Stap {stapNr + 1} van {data.route.stappen.length} · {stap.thema}
+        </p>
+      )}
       <header className="paneel-kop">
         <h2 id="paneel-kop" ref={kop} tabIndex={-1}>
           {gebouw.icoon} {gebouw.naam}
@@ -87,6 +99,11 @@ export function GebouwPaneel({
           </>
         )}
       </p>
+      {stap?.vvd && (
+        <p className="route-vvd">
+          <strong>VVD Groningen vindt:</strong> {stap.vvd}
+        </p>
+      )}
       <GebouwPosten gebouw={gebouw} data={data} resultaat={resultaat} />
       {data.uitgaven && (
         <UitgavenVergelijking
@@ -95,6 +112,18 @@ export function GebouwPaneel({
           gebouw={gebouw.id}
           begrotingsjaar={data.begroting.begrotingsjaar}
         />
+      )}
+      {stap && (
+        <button
+          type="button"
+          className="knop-indienen route-knop"
+          data-testid="volgende-stap"
+          onClick={() => volgendeStap(stapNr)}
+        >
+          {volgende && volgendGebouw
+            ? `Klaar, door naar ${stapNr + 2}: ${volgende.thema}`
+            : 'Klaar met de route'}
+        </button>
       )}
     </section>
   );

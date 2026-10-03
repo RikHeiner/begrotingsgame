@@ -85,6 +85,66 @@ function Bedrag({ euro }: { euro: number }) {
   );
 }
 
+/** Bij nul: bedragen in plaats van percentages (die zijn ten opzichte van het college). */
+const mlnTekst = (x: number) => formatMln(x * 1e6, { decimalen: 2 });
+
+/** Een belastingopbrengst (in miljoenen) per inwoner, als de inwoners bekend zijn. Het bedrag in
+ * miljoenen staat al in het vak "Opbrengst" onder de schuif. */
+function perInwonerTekst(data: Data, mln: number): string {
+  const inwoners = data.belastingenNederland?.inwoners;
+  if (!inwoners) return mlnTekst(mln);
+  const pp = Math.round((mln * 1e6) / inwoners);
+  return `€ ${pp.toLocaleString('nl-NL')} per inwoner`;
+}
+
+/**
+ * Bij nul, bij een belasting: wat gemeenten gemiddeld per inwoner vragen (een eerder jaar, CBS),
+ * met een knop om de belasting op dat gemiddelde te zetten.
+ */
+function GemiddeldeNederland({
+  data,
+  id,
+  opbrengstMln,
+  max,
+  onZet,
+}: {
+  data: Data;
+  id: string;
+  opbrengstMln: number;
+  max: number;
+  onZet?: (pct: number) => void;
+}) {
+  const nl = data.belastingenNederland;
+  const g = nl?.belastingen[id];
+  if (!nl || !g) return null;
+  const doelMln = (g.nederland * nl.inwoners) / 1e6;
+  const pct = Math.min(max, Math.round((doelMln / opbrengstMln - 1) * 10000) / 100);
+  return (
+    <div className="gemiddelde-nl" data-testid={`gemiddelde-${id}`}>
+      <p>
+        <strong>Gemiddeld in Nederland: € {g.nederland.toLocaleString('nl-NL')} per inwoner</strong>{' '}
+        <span className="uitgaven-jaar">{nl.jaar}</span>
+        {g.grootteklasse !== undefined && (
+          <>
+            <br />
+            In {nl.grootteklasse}: € {g.grootteklasse.toLocaleString('nl-NL')} per inwoner.
+          </>
+        )}
+      </p>
+      <p className="klein">
+        Uit de begrotingen {nl.jaar} van alle gemeenten, niet uit de begroting{' '}
+        {data.begroting.begrotingsjaar} van deze game.{g.let_op ? ` ${g.let_op}` : ''} Wat het
+        college kiest, zie je aan het eind.
+      </p>
+      {onZet && (
+        <button type="button" className="knop" onClick={() => onZet(pct)}>
+          Zet op het gemiddelde van Nederland ({formatMln(doelMln * 1e6)})
+        </button>
+      )}
+    </div>
+  );
+}
+
 const euro = (x: number) =>
   `€ ${x.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
@@ -113,6 +173,7 @@ function ParkeerSchuiven({
   jaar: number;
 }) {
   const zet = useSpel((s) => s.zetParkeerpost);
+  const nul = useSpel((s) => s.beginpunt === 'nul');
   const posten = parkeerPosten(data);
   const keuzes = resultaat.keuzes.parkeren ?? {};
   const id = data.parkeren?.opbrengst.belasting ?? '';
@@ -120,9 +181,11 @@ function ParkeerSchuiven({
     <section className="parkeren" aria-labelledby={`${gebouw.id}-parkeren`} data-post="parkeren">
       <h3 id={`${gebouw.id}-parkeren`}>Parkeertarieven</h3>
       <p className="klein">
-        Samen {formatMln(posten.reduce((s, p) => s + p.basis, 0))} per jaar. Je kiest per vergunning
-        en per zone of het tarief omhoog of omlaag gaat.
+        {nul
+          ? 'Bij nul vraagt de gemeente niets voor parkeren. Je kiest per vergunning en per zone het tarief.'
+          : `Samen ${formatMln(posten.reduce((s, p) => s + p.basis, 0))} per jaar. Je kiest per vergunning en per zone of het tarief omhoog of omlaag gaat.`}
       </p>
+      {nul && <GemiddeldeNederland data={data} id={id} opbrengstMln={1} max={0} />}
       {PARKEER_GROEPEN.map((groep) => {
         const lijst = posten.filter(groep.filter);
         if (!lijst.length) return null;
@@ -132,10 +195,12 @@ function ParkeerSchuiven({
             <ul className="posten">
               {lijst.map((p) => {
                 const pct = keuzes[p.id] ?? 0;
-                const label =
-                  p.tarief !== undefined && p.aantal !== undefined
-                    ? `${p.zekerheid !== 'feit' ? '⚠︎ ' : ''}${p.naam} (${euro(p.tarief)} per jaar · ${p.aantal.toLocaleString('nl-NL')} vergunningen)`
-                    : `${p.zekerheid !== 'feit' ? '⚠︎ ' : ''}${p.naam} (${formatMln(p.basis)})`;
+                const waarschuwing = p.zekerheid !== 'feit' ? '⚠︎ ' : '';
+                const label = nul
+                  ? `${waarschuwing}${p.naam}${p.aantal !== undefined ? ` (${p.aantal.toLocaleString('nl-NL')} vergunningen)` : ''}`
+                  : p.tarief !== undefined && p.aantal !== undefined
+                    ? `${waarschuwing}${p.naam} (${euro(p.tarief)} per jaar · ${p.aantal.toLocaleString('nl-NL')} vergunningen)`
+                    : `${waarschuwing}${p.naam} (${formatMln(p.basis)})`;
                 const nieuw =
                   p.tarief !== undefined && pct
                     ? `Nieuw tarief: ${euro(p.tarief * (1 + pct / 100))} per jaar.`
@@ -153,11 +218,19 @@ function ParkeerSchuiven({
                           ? { basis: p.tarief, eenheid: 'euro', soort: 'Tarief' }
                           : { basis: p.basis / 1e6, eenheid: 'mln', soort: 'Opbrengst' }
                       }
-                      beschrijving={[p.uitleg, nieuw].filter(Boolean).join(' ')}
-                      collegeKnop
+                      beschrijving={[p.uitleg, nul ? null : nieuw].filter(Boolean).join(' ')}
+                      collegeKnop={!nul}
+                      {...(nul
+                        ? {
+                            toonBedrag: (x: number) =>
+                              p.tarief !== undefined ? `${euro(x)} per jaar` : mlnTekst(x),
+                          }
+                        : {})}
                       onChange={(v) => zet(p.id, v)}
                     />
-                    <Bedrag euro={directBedrag(resultaat, `${PARKEER_PREFIX}${p.id}`, jaar)} />
+                    {!nul && (
+                      <Bedrag euro={directBedrag(resultaat, `${PARKEER_PREFIX}${p.id}`, jaar)} />
+                    )}
                     {p.opmerkingen.length > 0 && (
                       <details className="parkeer-waarom">
                         <summary>Waarom ⚠︎ of welk jaar?</summary>
@@ -257,6 +330,7 @@ export function GebouwPosten({
   resultaat: Resultaat;
 }) {
   const zetOnderdeel = useSpel((s) => s.zetOnderdeel);
+  const nul = useSpel((s) => s.beginpunt === 'nul');
   const jaar = huidigJaar(data);
   const zetBelasting = useSpel((s) => s.zetBelasting);
   const wisselKaart = useSpel((s) => s.wisselKaart);
@@ -271,12 +345,20 @@ export function GebouwPosten({
             return (
               <li key={b.id} data-post={b.id}>
                 <p className="schuif-uitleg">
-                  {b.naam} ({formatMln(b.opbrengst_mln * 1e6)}): die stel je per vergunning en zone
-                  in bij de {garage?.naam ?? 'parkeergarage'}.
-                  {k.belastingen[b.id]
+                  {nul ? b.naam : `${b.naam} (${formatMln(b.opbrengst_mln * 1e6)})`}: die stel je
+                  per vergunning en zone in bij de {garage?.naam ?? 'parkeergarage'}.
+                  {!nul && k.belastingen[b.id]
                     ? ` Gemiddeld nu ${formatPct(k.belastingen[b.id] ?? 0)}.`
                     : ''}
                 </p>
+                {nul && (
+                  <GemiddeldeNederland
+                    data={data}
+                    id={b.id}
+                    opbrengstMln={b.opbrengst_mln}
+                    max={0}
+                  />
+                )}
               </li>
             );
           }
@@ -285,16 +367,27 @@ export function GebouwPosten({
             <li key={b.id} data-post={b.id}>
               <Schuif
                 id={`${gebouw.id}-${b.id}`}
-                label={`${b.naam} (${formatMln(b.opbrengst_mln * 1e6)})`}
+                label={nul ? b.naam : `${b.naam} (${formatMln(b.opbrengst_mln * 1e6)})`}
                 min={g.min}
                 max={g.max}
                 waarde={k.belastingen[b.id] ?? 0}
                 bedrag={{ basis: b.opbrengst_mln, eenheid: 'mln', soort: 'Opbrengst' }}
-                collegeKnop
+                collegeKnop={!nul}
+                {...(nul ? { toonBedrag: (x: number) => perInwonerTekst(data, x) } : {})}
                 beschrijving={b.uitleg}
                 onChange={(v) => zetBelasting(b.id, v)}
               />
-              <Bedrag euro={directBedrag(resultaat, b.id, jaar)} />
+              {nul ? (
+                <GemiddeldeNederland
+                  data={data}
+                  id={b.id}
+                  opbrengstMln={b.opbrengst_mln}
+                  max={Number.isFinite(g.max) ? g.max : 1000}
+                  onZet={(v) => zetBelasting(b.id, v)}
+                />
+              ) : (
+                <Bedrag euro={directBedrag(resultaat, b.id, jaar)} />
+              )}
               <OokEffect data={data} resultaat={resultaat} id={b.id} />
             </li>
           );
@@ -369,13 +462,19 @@ export function GebouwPosten({
               : pct > 0
                 ? o.tekst_investeren
                 : null;
-          const label = `${vergrendeld ? '🔒 ' : o.wettelijke_taak ? '⚖️ ' : ''}${o.naam} (${o.gekoppelde_baten_mln > 0 ? `uitgaven ${formatMln(o.lasten_mln * 1e6)} · inkomsten ${formatMln(o.gekoppelde_baten_mln * 1e6)}` : formatMln(o.lasten_mln * 1e6)})`;
+          const teken = vergrendeld ? '🔒 ' : o.wettelijke_taak ? '⚖️ ' : '';
+          // Bij nul niet het bedrag van het college in de naam: dat zie je pas aan het eind.
+          const label = nul
+            ? `${teken}${o.naam}${vergrendeld ? ` (${formatMln(o.lasten_mln * 1e6)})` : ''}`
+            : `${teken}${o.naam} (${o.gekoppelde_baten_mln > 0 ? `uitgaven ${formatMln(o.lasten_mln * 1e6)} · inkomsten ${formatMln(o.gekoppelde_baten_mln * 1e6)}` : formatMln(o.lasten_mln * 1e6)})`;
+          const grens = (pct: number) =>
+            nul ? mlnTekst(o.lasten_mln * (1 + pct / 100)) : formatPct(pct);
           // Waarom de post niet lager kan (bij nul staat hij op dit minimum).
           const minimum =
             !vergrendeld && o.minimum && g.minReden
-              ? `${o.minimum.zekerheid === 'aanname' ? '⚠︎ ' : ''}${SOORT_MINIMUM[o.minimum.soort]}: niet lager dan ${formatPct(g.min)}. ${g.minReden}`
+              ? `${o.minimum.zekerheid === 'aanname' ? '⚠︎ ' : ''}${SOORT_MINIMUM[o.minimum.soort]}: niet lager dan ${grens(g.min)}. ${g.minReden}`
               : o.wettelijke_taak && !vergrendeld
-                ? `Wettelijke taak: niet lager dan ${formatPct(g.min)}.`
+                ? `Wettelijke taak: niet lager dan ${grens(g.min)}.`
                 : null;
           return (
             <li key={id} data-post={id}>
@@ -387,11 +486,12 @@ export function GebouwPosten({
                 waarde={pct}
                 vergrendeld={vergrendeld}
                 bedrag={{ basis: o.lasten_mln, eenheid: 'mln', soort: 'Budget' }}
-                collegeKnop
+                collegeKnop={!nul}
+                {...(nul ? { toonBedrag: mlnTekst } : {})}
                 beschrijving={[tekst, minimum].filter(Boolean).join(' ') || undefined}
                 onChange={(v) => zetOnderdeel(id, v)}
               />
-              <Bedrag euro={directBedrag(resultaat, id, jaar)} />
+              {!nul && <Bedrag euro={directBedrag(resultaat, id, jaar)} />}
               <OokEffect data={data} resultaat={resultaat} id={id} />
             </li>
           );

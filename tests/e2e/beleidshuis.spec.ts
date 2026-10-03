@@ -1,6 +1,7 @@
 /** Het Beleidshuis: programma's stopzetten of weer aanzetten, en nieuwe plannen. */
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
+import { collegeLink } from './hulp';
 
 const zonderTutorial = (page: Page) =>
   page.addInitScript(() => localStorage.setItem('begrotingsgame:tutorial', 'klaar'));
@@ -16,7 +17,7 @@ test('met de begroting van het college: een programma stopzetten scheelt geld', 
   page,
 }, testInfo) => {
   await zonderTutorial(page);
-  await page.goto('/');
+  await page.goto(collegeLink());
   const lijst = await openBeleidshuis(page);
   const groen = lijst.getByTestId('programma-p_vitamine_g');
   await expect(groen).toHaveAttribute('aria-pressed', 'true');
