@@ -827,6 +827,7 @@ export const minigameVormen = [
   'academie',
   'sluis',
   'concertzaal',
+  'goudkantoor',
 ] as const;
 
 export const minigamesSchema = z
@@ -856,6 +857,32 @@ export const minigamesSchema = z
             kort: z.string(),
             /** wat je ervan leert */
             leerdoel: z.string(),
+            /**
+             * Alleen bij de goudzoeker: het goud (eenmalige uitgaven die VVD Groningen wil
+             * schrappen, met een zin uit het verkiezingsprogramma) en de stenen (kerntaken die de
+             * VVD juist wil houden). Bedragen en namen komen uit de begroting.
+             */
+            goud: z
+              .object({
+                bron: z.string(),
+                url: z.string().url(),
+                schatten: z
+                  .array(
+                    z
+                      .object({ kaart: z.string(), vvd: z.string(), pagina: z.number().int() })
+                      .strict(),
+                  )
+                  .min(1),
+                stenen: z
+                  .array(
+                    z
+                      .object({ post: z.string(), vvd: z.string(), pagina: z.number().int() })
+                      .strict(),
+                  )
+                  .min(1),
+              })
+              .strict()
+              .optional(),
           })
           .strict(),
       )

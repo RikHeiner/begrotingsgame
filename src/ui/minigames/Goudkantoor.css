@@ -1,0 +1,84 @@
+/* Goudkantoor: goudzoeken in de Groninger klei */
+.mg-goud-grond {
+  display: block;
+  width: 100%;
+  max-width: 30rem;
+  margin: 0.5rem auto 0.75rem;
+  border: 3px solid #8b5a2b;
+  border-radius: 0.8rem;
+}
+
+.mg-goud-lucht {
+  fill: #bfe3f5;
+}
+
+.mg-goud-aarde {
+  fill: #7a5c3e;
+}
+
+.mg-goud-hok {
+  fill: #9c5a3c;
+  stroke: #15193a;
+  stroke-width: 0.6;
+}
+
+.mg-goud-klomp ellipse,
+.mg-goud-vast {
+  fill: #f2c94c;
+  stroke: #b8860b;
+  stroke-width: 0.8;
+}
+
+.mg-goud-glans {
+  fill: #fff6c8;
+}
+
+.mg-goud-steen {
+  fill: #8a93a6;
+  stroke: #4b5070;
+  stroke-width: 0.8;
+}
+
+.mg-goud-touw {
+  stroke: #15193a;
+  stroke-width: 0.9;
+}
+
+.mg-goud-haak path {
+  fill: none;
+  stroke: #15193a;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+}
+
+.mg-goud-knoppen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.mg-goud-graaf {
+  min-width: 9rem;
+  min-height: 48px;
+  font-size: 1.1rem;
+}
+
+.mg-goud-status {
+  margin-top: 0.5rem;
+}
+
+.mg-goud-vvd {
+  margin: 0.5rem 0;
+  padding: 0.5rem 0.75rem;
+  border-left: 4px solid var(--blauw);
+  background: color-mix(in srgb, var(--blauw) 8%, var(--paneel));
+  font-style: italic;
+}
+
+.mg-goud-vvd footer {
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  font-style: normal;
+  color: var(--gedempt);
+}

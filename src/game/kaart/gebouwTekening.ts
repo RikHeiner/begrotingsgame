@@ -13,6 +13,7 @@ import { GEBOUW_B, GEBOUW_H } from './maten';
 export {
   BOVEN_DAK,
   BOVEN_MINIGAME,
+  bovenMinigame,
   GEBOUW_B,
   GEBOUW_H,
   GEBOUW_SCHAAL,
@@ -219,19 +220,49 @@ function tekenKraan(g: Tekenaar, x: number, onder: number, stil: boolean, schaal
   g.rect(x + 16 * s, onder - 28 * s, 5 * s, 4 * s).fill(0x6b4a2b);
 }
 
+/** De witte molen van Ten Post: een witte romp met een donkere kap en wieken met een hekwerk. */
 function tekenMolen(g: Tekenaar, x: number, onder: number): void {
-  g.poly([x - 6, onder, x - 3.5, onder - 22, x + 3.5, onder - 22, x + 6, onder]).fill(0x7a5b3a);
-  g.circle(x, onder - 22, 2).fill(0x15193a);
-  for (const [dx, dy] of [
-    [0, -14],
-    [14, 0],
-    [0, 14],
-    [-14, 0],
-  ] as const) {
-    g.moveTo(x, onder - 22)
-      .lineTo(x + dx, onder - 22 + dy)
-      .stroke({ width: 2.4, color: 0xf6f7fc });
+  const as = onder - 24;
+  // Romp: wit, iets smaller naar boven, met een schaduwkant rechts en een deurtje.
+  g.poly([x - 6.5, onder, x - 3.8, as + 1, x + 3.8, as + 1, x + 6.5, onder])
+    .fill(0xfbfbf7)
+    .stroke(RAND);
+  g.poly([x + 1.5, onder, x + 1, as + 1, x + 3.8, as + 1, x + 6.5, onder]).fill(0xdfe2e6);
+  g.rect(x - 7.5, onder - 9, 15, 1.4).fill(0x6b4a2b);
+  g.roundRect(x - 1.6, onder - 5, 3.2, 5, 1.6).fill(0x2f5d50);
+  g.roundRect(x - 1.1, as + 6, 2.2, 2.6, 1).fill(0x2f5d50);
+  // Kap
+  g.poly([x - 4.6, as + 1.5, x - 3.2, as - 2.5, x + 3.2, as - 2.5, x + 4.6, as + 1.5])
+    .fill(0x3b4252)
+    .stroke(RAND);
+  // Wieken: wit hekwerk op een donkere roede, schuin zoals bij een stilstaande molen.
+  const roeden = [
+    [-11, -11],
+    [11, -11],
+    [11, 11],
+    [-11, 11],
+  ] as const;
+  for (const [dx, dy] of roeden) {
+    g.moveTo(x, as)
+      .lineTo(x + dx, as + dy)
+      .stroke({ width: 1.2, color: 0x3b4252 });
+    // het hekwerk aan één kant van de roede
+    const nx = -dy / 11;
+    const ny = dx / 11;
+    g.poly([
+      x + dx * 0.25,
+      as + dy * 0.25,
+      x + dx,
+      as + dy,
+      x + dx + nx * 3.2,
+      as + dy + ny * 3.2,
+      x + dx * 0.25 + nx * 3.2,
+      as + dy * 0.25 + ny * 3.2,
+    ])
+      .fill({ color: 0xffffff, alpha: 0.95 })
+      .stroke({ width: 0.6, color: 0x9aa0a8 });
   }
+  g.circle(x, as, 1.6).fill(0x15193a);
 }
 
 function tekenBad(g: Tekenaar, x: number, y: number, leeg: boolean): void {
@@ -376,24 +407,37 @@ export function tekenBezienswaardigheid(g: Tekenaar, vorm: MinigameVorm): void {
       return;
     }
     case 'stadion': {
-      // De Euroborg: een ovale tribune in groen en wit met een veld.
-      g.ellipse(6, onder + 2, 34, 9).fill({ color: 0x000000, alpha: 0.18 });
-      g.ellipse(0, onder - 4, 32, 12)
-        .fill(0x0b6b3a)
+      // De Euroborg: een rechthoekig stadion met een zilvergrijze gevel, glazen hoeken, een licht
+      // dak met een opening boven het groene veld, en ernaast het hoge blok.
+      grondSchaduw(g, 66, onder);
+      // Het hoge blok aan de zijkant (bioscoop en kantoren).
+      blok(g, 22, onder - 34, 12, 34, 0x8f98a6, 0.6);
+      for (let r = 0; r < 5; r++)
+        g.rect(24, onder - 31 + r * 6, 8, 2.2).fill({ color: 0xbfe3f5, alpha: 0.9 });
+      // De gevel: voorkant en zijkant van het stadion.
+      g.poly([-32, onder, 22, onder, 22, onder - 15, -32, onder - 15])
+        .fill(0xb4bccb)
         .stroke(RAND);
-      g.ellipse(0, onder - 9, 32, 12)
-        .fill(0x15875a)
+      g.poly([22, onder, 30, onder - 7, 30, onder - 22, 22, onder - 15])
+        .fill(0x8a93a6)
         .stroke(RAND);
-      g.ellipse(0, onder - 9, 26, 8.5).fill(0xffffff);
-      g.ellipse(0, onder - 9, 22, 6.5).fill(0x4fae55);
-      g.moveTo(0, onder - 15.5)
-        .lineTo(0, onder - 2.5)
-        .stroke({ width: 0.8, color: 0xffffff });
-      g.ellipse(0, onder - 9, 3.2, 1.8).stroke({ width: 0.8, color: 0xffffff });
-      for (const lx of [-30, 30]) {
-        g.rect(lx - 0.6, onder - 34, 1.2, 24).fill(0x5b6470);
-        g.rect(lx - 3, onder - 36, 6, 3).fill(0xffe27a);
-      }
+      // Horizontale lamellen en de glazen hoeken.
+      for (let r = 0; r < 3; r++) g.rect(-30, onder - 13 + r * 4, 50, 1.2).fill(0x8a93a6);
+      g.rect(-32, onder - 15, 7, 15).fill({ color: 0xbfe3f5, alpha: 0.95 });
+      g.rect(15, onder - 15, 7, 15).fill({ color: 0xbfe3f5, alpha: 0.95 });
+      // Groene band met de naam (zoals de groene letters op de gevel).
+      g.rect(-22, onder - 6, 34, 3).fill(0x0b6b3a);
+      // Het dak: een lichte rand rondom, met in het midden de opening boven het veld.
+      g.poly([-33, onder - 15, 22, onder - 15, 31, onder - 22, -24, onder - 22])
+        .fill(0xe4e8ee)
+        .stroke(RAND);
+      g.poly([-25, onder - 16.5, 15, onder - 16.5, 22, onder - 20.5, -18, onder - 20.5]).fill(
+        0x0b6b3a,
+      );
+      g.poly([-22, onder - 17, 13, onder - 17, 19, onder - 20, -16, onder - 20]).fill(0x4fae55);
+      g.moveTo(-1.5, onder - 17)
+        .lineTo(1.5, onder - 20)
+        .stroke({ width: 0.6, color: 0xffffff });
       return;
     }
     case 'plantsoen': {
@@ -462,6 +506,56 @@ export function tekenBezienswaardigheid(g: Tekenaar, vorm: MinigameVorm): void {
         .fill(0xd2465e)
         .stroke(RAND);
       g.rect(2, onder - 13, 3, 5).fill(0xffffff);
+      return;
+    }
+    case 'goudkantoor': {
+      // Het Goudkantoor (1635): rode baksteen met witte banden, een trapgevel met een gouden
+      // bekroning, en een kistje goud voor de deur.
+      grondSchaduw(g, 30, onder);
+      blok(g, -14, onder - 24, 28, 24, 0xa8452c, 0.6);
+      g.poly([
+        -14,
+        onder - 24,
+        -14,
+        onder - 30,
+        -10,
+        onder - 30,
+        -10,
+        onder - 36,
+        -5,
+        onder - 36,
+        -5,
+        onder - 42,
+        5,
+        onder - 42,
+        5,
+        onder - 36,
+        10,
+        onder - 36,
+        10,
+        onder - 30,
+        14,
+        onder - 30,
+        14,
+        onder - 24,
+      ])
+        .fill(0xa8452c)
+        .stroke(RAND);
+      for (const y of [onder - 24, onder - 13]) g.rect(-14, y, 28, 1.6).fill(0xf6f0e0);
+      for (const x of [-10, -2.5, 5]) {
+        g.rect(x, onder - 21, 5, 6).fill(0xf6f0e0);
+        g.rect(x + 0.8, onder - 20.2, 3.4, 4.4).fill(0x2f5d50);
+      }
+      g.rect(-2.5, onder - 39, 5, 4).fill(0xf6f0e0);
+      g.circle(0, onder - 45, 2.4)
+        .fill(0xf2c94c)
+        .stroke({ width: 0.8, color: 0xb8860b });
+      g.roundRect(-3, onder - 9, 6, 9, 3).fill(0x3b2a1a);
+      g.rect(8, onder - 5, 7, 5)
+        .fill(0x8b5a2b)
+        .stroke(RAND);
+      g.circle(10, onder - 6, 1.6).fill(0xf2c94c);
+      g.circle(13, onder - 6.4, 1.6).fill(0xf2c94c);
       return;
     }
     case 'concertzaal': {

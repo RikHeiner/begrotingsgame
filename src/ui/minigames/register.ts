@@ -16,4 +16,5 @@ export const MINIGAMES: Record<string, LazyExoticComponent<ComponentType<Minigam
   academie: lazy(() => import('./Academie')),
   sluis: lazy(() => import('./Sluis')),
   oosterpoort: lazy(() => import('./Oosterpoort')),
+  goudkantoor: lazy(() => import('./Goudkantoor')),
 };

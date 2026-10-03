@@ -7,7 +7,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { formatMln, type Data, type Resultaat } from '../../engine';
 import type { Camera } from '../../game/kaart/camera';
 import type { GemeenteKaart } from '../../game/kaart/GemeenteKaart';
-import { BOVEN_DAK, BOVEN_MINIGAME } from '../../game/kaart/maten';
+import { BOVEN_DAK, bovenMinigame } from '../../game/kaart/maten';
 
 /** Onder deze zoom is het label van een minigame alleen een rond icoon. */
 const MINIGAME_KLEIN = 0.4;
@@ -290,7 +290,7 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
             if (!p) return null;
             // Een duidelijk label boven het bekende gebouw: hier kun je een minigame spelen.
             const x = p.x * camera.schaal + camera.x;
-            const y = (p.y - BOVEN_MINIGAME) * camera.schaal + camera.y;
+            const y = (p.y - bovenMinigame(m)) * camera.schaal + camera.y;
             return (
               <li key={m.id}>
                 <button

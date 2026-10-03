@@ -135,6 +135,72 @@
       },
       "kort": "Raad welk deel bezoekers betalen en welk deel de gemeente.",
       "leerdoel": "Hoe subsidie werkt: wie betaalt wat?"
+    },
+    {
+      "id": "goudkantoor",
+      "naam": "Goudkantoor",
+      "spel": "Goudzoeker",
+      "vorm": "goudkantoor",
+      "icoon": "⛏️",
+      "positie": {
+        "lon": 6.5669,
+        "lat": 53.2183
+      },
+      "kort": "Graaf naar goud: tijdelijke uitgaven die VVD Groningen wil schrappen. Laat de kerntaken liggen.",
+      "leerdoel": "Waar tijdelijk geld heen gaat, en welke uitgaven VVD Groningen liever niet doet.",
+      "goud": {
+        "bron": "Verkiezingsprogramma VVD Groningen 2026-2030 (B1-versie)",
+        "url": "https://www.vvd.nl/wp-content/uploads/sites/28/2026/02/Verkiezingsprogramma-VVD-Groningen-2026-2030-in-B1-1-1.pdf",
+        "schatten": [
+          {
+            "kaart": "k_ongedoc",
+            "vvd": "De gemeente moet stoppen met de bed-bad-brood-opvang.",
+            "pagina": 21
+          },
+          {
+            "kaart": "p_energiebedrijf",
+            "vvd": "We stoppen met een eigen energiebedrijf en een eigen ontwikkelbedrijf.",
+            "pagina": 21
+          },
+          {
+            "kaart": "p_wegenfundering_warmtestad",
+            "vvd": "En we onderzoeken of onderdelen van Warmtestad kunnen worden afgestoten. Zo lopen de belastingbetalers geen risico als deze projecten niet lukken.",
+            "pagina": 21
+          },
+          {
+            "kaart": "p_niemeyer",
+            "vvd": "De gemeente moet kritischer kijken naar cultuursubsidies.",
+            "pagina": 50
+          },
+          {
+            "kaart": "p_diversiteit_organisatie",
+            "vvd": "Tegelijkertijd stoppen we dus met de minder belangrijke taken.",
+            "pagina": 21
+          }
+        ],
+        "stenen": [
+          {
+            "post": "v2",
+            "vvd": "Veiligheid is een basisvoorwaarde.",
+            "pagina": 4
+          },
+          {
+            "post": "o1",
+            "vvd": "Dat betekent: schone straten, goed onderhouden groen, veilige wijken en dorpen, en handhaving van regels die echt nut hebben.",
+            "pagina": 4
+          },
+          {
+            "post": "w8",
+            "vvd": "Dat betekent: snelle vergunningen, minder regels en sneller woningen bouwen.",
+            "pagina": 20
+          },
+          {
+            "post": "k1",
+            "vvd": "Daarom investeren we in toegankelijke sportplekken (…).",
+            "pagina": 44
+          }
+        ]
+      }
     }
   ]
 }

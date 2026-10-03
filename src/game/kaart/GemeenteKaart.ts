@@ -26,7 +26,7 @@ import {
   GEBOUW_H,
   GEBOUW_KADER,
   GEBOUW_SCHAAL,
-  BOVEN_MINIGAME,
+  bovenMinigame,
   MINIGAME_SCHAAL,
   TEKST_SCHAAL,
   tekenBezienswaardigheid,
@@ -966,10 +966,11 @@ export class GemeenteKaart {
     }
     let besteMinigame: { id: string; d: number } | undefined;
     for (const [id, p] of Object.entries(this.o.geo.minigames)) {
+      const m = this.o.data.minigames.find((x) => x.id === id);
       // Op het gebouw zelf of op het label "Speel" erboven.
       const d = Math.min(
         Math.hypot(p.x - w.x, p.y + 4 * MINIGAME_SCHAAL - w.y),
-        Math.hypot(p.x - w.x, p.y - BOVEN_MINIGAME - 8 - w.y) * 1.4,
+        Math.hypot(p.x - w.x, p.y - (m ? bovenMinigame(m) : 0) - 8 - w.y) * 1.4,
       );
       if (d < straal * 0.85 && (!besteMinigame || d < besteMinigame.d)) besteMinigame = { id, d };
     }
