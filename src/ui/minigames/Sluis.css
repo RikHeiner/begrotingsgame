@@ -1,0 +1,102 @@
+/* Oostersluis: sluiswachter */
+.mg-sluis {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.mg-sluis-tekst p,
+.mg-sluis-tekst h3 {
+  margin: 0 0 0.5rem;
+}
+
+.mg-sluis-beeld {
+  display: grid;
+  grid-template-columns: 0.6rem 1fr 0.6rem;
+  height: 16rem;
+}
+
+.mg-sluis-deur {
+  background: repeating-linear-gradient(to bottom, #7a5a3a 0 0.9rem, #5e4329 0.9rem 1.1rem);
+  border-radius: 0.2rem;
+}
+
+.mg-sluis-kolk {
+  position: relative;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--gedempt) 18%, var(--paneel));
+  border-bottom: 0.4rem solid #8a8f9c;
+}
+
+.mg-sluis-band {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 2px dashed var(--positief);
+  border-bottom: 2px dashed var(--positief);
+  background: color-mix(in srgb, var(--positief) 14%, transparent);
+  z-index: 1;
+}
+
+.mg-sluis-nul {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px solid var(--gedempt);
+  z-index: 1;
+}
+
+.mg-sluis-water {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: color-mix(in srgb, var(--water-kleur) 75%, var(--paneel));
+  transition: height 0.6s ease;
+}
+
+.mg-sluis-water.gevaar {
+  background: color-mix(in srgb, var(--negatief) 45%, var(--water-kleur));
+}
+
+.mg-sluis-boot {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -80%);
+  font-size: 1.6rem;
+  z-index: 2;
+}
+
+.mg-sluis-peil {
+  font-size: 1.15rem;
+}
+
+.mg-sluis-ok {
+  color: var(--positief);
+  font-weight: 700;
+}
+
+.mg-sluis-mis {
+  color: var(--negatief);
+  font-weight: 700;
+}
+
+@media (max-width: 480px) {
+  .mg-sluis {
+    grid-template-columns: 1fr;
+  }
+
+  .mg-sluis-beeld {
+    width: 8rem;
+    height: 10rem;
+    justify-self: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mg-sluis-water {
+    transition: none;
+  }
+}

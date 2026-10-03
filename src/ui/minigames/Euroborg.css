@@ -1,0 +1,137 @@
+/* Euroborg: penalty's in het groen-wit van FC Groningen */
+.mg-euroborg {
+  --eb-groen: #00843d;
+  --eb-gras: #1f8a3a;
+  --eb-gras-licht: #2a9a46;
+}
+
+.mg-eb-veld {
+  position: relative;
+  height: 9.5rem;
+  margin: 0.5rem 0 0.75rem;
+  overflow: hidden;
+  border: 3px solid var(--eb-groen);
+  border-radius: 0.8rem;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--eb-gras) 0 2.5rem,
+    var(--eb-gras-licht) 2.5rem 5rem
+  );
+}
+
+.mg-eb-doel {
+  position: absolute;
+  top: 0.6rem;
+  left: 50%;
+  width: min(14rem, 70%);
+  height: 4.2rem;
+  transform: translateX(-50%);
+  border: 4px solid #fff;
+  border-bottom: none;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 7px, rgb(255 255 255 / 0.35) 7px 8px),
+    repeating-linear-gradient(90deg, transparent 0 7px, rgb(255 255 255 / 0.35) 7px 8px);
+}
+
+.mg-eb-keeper {
+  position: absolute;
+  bottom: 0.2rem;
+  left: 50%;
+  font-size: 1.8rem;
+  transform: translateX(-50%);
+}
+
+.mg-eb-bal {
+  position: absolute;
+  bottom: 0.8rem;
+  left: 50%;
+  font-size: 1.6rem;
+  transform: translateX(-50%);
+}
+
+.mg-eb-bord {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.4rem;
+  background: #fff;
+  color: var(--eb-groen);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+/* Het schot: de bal vliegt naar de linker- of rechterhoek. */
+.mg-eb-veld.geschoten .mg-eb-bal {
+  animation: mg-eb-schot-links 0.9s ease-out forwards;
+}
+.mg-eb-veld.geschoten.rechts .mg-eb-bal {
+  animation-name: mg-eb-schot-rechts;
+}
+/* Gehouden: de keeper duikt naar de bal. Erin: de keeper duikt de verkeerde kant op. */
+.mg-eb-veld.gehouden.links .mg-eb-keeper,
+.mg-eb-veld.erin.rechts .mg-eb-keeper {
+  animation: mg-eb-duik-links 0.7s ease-out 0.2s forwards;
+}
+.mg-eb-veld.gehouden.rechts .mg-eb-keeper,
+.mg-eb-veld.erin.links .mg-eb-keeper {
+  animation: mg-eb-duik-rechts 0.7s ease-out 0.2s forwards;
+}
+.mg-eb-veld.gehouden .mg-eb-bal {
+  animation-duration: 0.7s;
+}
+
+@keyframes mg-eb-schot-links {
+  to {
+    bottom: 6rem;
+    left: calc(50% - min(5rem, 22%));
+    transform: translateX(-50%) scale(0.7) rotate(-540deg);
+  }
+}
+@keyframes mg-eb-schot-rechts {
+  to {
+    bottom: 6rem;
+    left: calc(50% + min(5rem, 22%));
+    transform: translateX(-50%) scale(0.7) rotate(540deg);
+  }
+}
+@keyframes mg-eb-duik-links {
+  to {
+    left: calc(50% - min(5rem, 22%));
+    transform: translateX(-50%) rotate(-60deg);
+  }
+}
+@keyframes mg-eb-duik-rechts {
+  to {
+    left: calc(50% + min(5rem, 22%));
+    transform: translateX(-50%) rotate(60deg);
+  }
+}
+
+.mg-euroborg .mg-keuze {
+  min-height: 64px;
+}
+
+.mg-euroborg .mg-keuze:not(:disabled):hover,
+.mg-euroborg .mg-keuze:focus-visible {
+  border-color: var(--eb-groen);
+}
+
+.mg-eb-uitleg {
+  padding: 0.6rem 0.8rem;
+  border-left: 5px solid var(--eb-groen);
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, var(--eb-groen) 10%, var(--paneel));
+}
+
+.mg-eb-uitleg p {
+  margin: 0 0 0.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mg-eb-veld.geschoten .mg-eb-bal,
+  .mg-eb-veld.geschoten .mg-eb-keeper {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+  }
+}

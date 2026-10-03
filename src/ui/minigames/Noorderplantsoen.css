@@ -1,0 +1,99 @@
+/* Noorderplantsoen: een parkje van 4 bij 4 tegels */
+.mg-park-kop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.mg-park-kop p {
+  margin: 0;
+}
+
+.mg-park-klok {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.mg-park-veld {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.35rem;
+  width: 100%;
+  max-width: 22rem;
+  margin: 0.75rem auto;
+  padding: 0.5rem;
+  border-radius: 0.8rem;
+  background: color-mix(in srgb, #2f8f3e 30%, var(--paneel));
+}
+
+.mg-park-tegel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--inkt);
+  cursor: pointer;
+}
+
+.mg-park-tegel:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
+.mg-park-tegel.gras {
+  background: color-mix(in srgb, #3fa34d 55%, var(--paneel));
+}
+
+.mg-park-tegel.pad {
+  background: color-mix(in srgb, #c9a46a 60%, var(--paneel));
+}
+
+.mg-park-tegel.lamp {
+  background: color-mix(in srgb, #3fa34d 40%, var(--paneel));
+}
+
+.mg-park-tegel.kapot {
+  border-color: var(--oranje);
+  box-shadow: 0 0 0 2px var(--paneel) inset;
+  animation: mg-park-knipper 0.8s ease-in-out infinite alternate;
+}
+
+.mg-park-tegel.erger {
+  border-color: var(--negatief);
+  border-width: 3px;
+  background: color-mix(in srgb, var(--negatief) 25%, var(--paneel));
+}
+
+.mg-park-tegel:focus-visible {
+  outline: 3px solid var(--blauw);
+  outline-offset: 2px;
+}
+
+@keyframes mg-park-knipper {
+  to {
+    transform: scale(0.94);
+  }
+}
+
+.mg-park-melding {
+  min-height: 1.5em;
+}
+
+.mg-park-uitslag ul {
+  padding-left: 1.2rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mg-park-tegel.kapot {
+    animation: none;
+  }
+}

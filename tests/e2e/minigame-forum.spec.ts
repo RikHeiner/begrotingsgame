@@ -18,7 +18,7 @@ test('Forum: vijf keer schatten met de schuif', async ({ page }) => {
     await page.keyboard.press('ArrowRight');
     await expect(schuif).not.toHaveAttribute('aria-valuetext', voor ?? '');
     await spel.getByTestId('mg-forum-raad').click();
-    await expect(spel.getByRole('status')).toContainText('per inwoner');
+    await expect(spel.locator('div[role="status"]')).toContainText('per inwoner');
     await spel.getByTestId('mg-forum-volgende').click();
   }
   await expect(page.getByTestId('minigame-klaar')).toContainText('van de 100');
