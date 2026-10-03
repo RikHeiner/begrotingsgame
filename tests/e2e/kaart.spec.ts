@@ -61,6 +61,17 @@ test.describe('gemeentekaart', () => {
     await page.locator('[data-gebouw="park"]').focus();
     await page.keyboard.press('Enter');
     await expect(page.getByTestId('paneel').getByRole('heading')).toContainText('Park');
+    // De camera zoomt in op het park: het staat boven het paneel (telefoon) of links ervan.
+    const kaart = (await page.getByTestId('kaart').boundingBox()) ?? {
+      x: 0,
+      y: 0,
+      width: 1,
+      height: 1,
+    };
+    const park = (await page.locator('[data-gebouw="park"]').boundingBox()) ?? kaart;
+    const midden = { x: park.x + park.width / 2 - kaart.x, y: park.y + park.height / 2 - kaart.y };
+    if (kaart.width >= 900) expect(midden.x).toBeLessThan(kaart.width - 400);
+    else expect(midden.y).toBeLessThan(kaart.height * 0.32);
     await page.keyboard.press('Escape');
     await expect(page.getByTestId('paneel')).toHaveCount(0);
   });

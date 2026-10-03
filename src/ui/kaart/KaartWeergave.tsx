@@ -7,6 +7,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { formatMln, type Data, type Resultaat } from '../../engine';
 import type { Camera } from '../../game/kaart/camera';
 import type { GemeenteKaart } from '../../game/kaart/GemeenteKaart';
+import { BOVEN_DAK } from '../../game/kaart/gebouwTekening';
 import type { BuurtGeo, KaartGeometrie } from '../../game/kaart/geometrie';
 import { doelVanVoorwaarde, type Doel } from '../../game/naarPost';
 import { maakLezer } from '../../game/reacties/context';
@@ -101,6 +102,32 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
     };
   }, [data, kies, onFout]);
 
+  // De camera begeleidt de speler: naar het gebouw dat open is (boven het paneel op een telefoon,
+  // links van het paneel op een groot scherm), en terug naar de hele gemeente als het dicht gaat.
+  const gekozen = useSpel((s) => s.gekozenGebouw);
+  const eerder = useRef<string | undefined>(undefined);
+  useEffect(() => {
+    const k = kaart.current;
+    if (!klaar || !k) return;
+    const vak = houder.current?.getBoundingClientRect();
+    const breed = (vak?.width ?? 0) >= 900;
+    if (gekozen && vak) {
+      // Op een groot scherm staat het paneel rechts (25rem); op een telefoon onderin (68% van het
+      // scherm). Het gebouw komt in het midden van wat er van de kaart te zien blijft.
+      const vrij = Math.max(90, window.innerHeight * 0.32 - vak.top);
+      k.vliegNaarGebouw(
+        gekozen,
+        breed ? 1.5 : 1.8,
+        breed
+          ? { x: (vak.width - 400) / 2 / vak.width, y: 0.5 }
+          : { x: 0.5, y: Math.min(0.5, (vrij * 0.5) / vak.height) },
+      );
+    } else if (eerder.current) {
+      k.overzicht();
+    }
+    eerder.current = gekozen;
+  }, [gekozen, klaar]);
+
   // Gebouwen bijwerken na elke keuze
   useEffect(() => {
     kaart.current?.zetStanden(standen, (resultaat.keuzes.onderdelen.k1 ?? 0) <= -50);
@@ -178,6 +205,14 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
   return (
     <div className="kaart" data-testid="kaart">
       <div ref={houder} className="kaart-doek" />
+      {klaar && (
+        // Wolkjes die langzaam over de gemeente drijven, met hun schaduw op de grond (sfeer).
+        <div className="kaart-wolken" aria-hidden="true">
+          <span className="wolk w1" />
+          <span className="wolk w2" />
+          <span className="wolk w3" />
+        </div>
+      )}
       {!klaar && <p className="kaart-laden">De kaart wordt geladen…</p>}
       {klaar && geo && camera && (
         <ul className="kaart-knoppen" aria-label="Gebouwen op de kaart">
@@ -191,6 +226,7 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
               s && Math.abs(s.bedrag) >= 50_000 ? `, ${formatMln(s.bedrag, { teken: true })}` : '';
             // Bij nul: het nummer op de route, een vinkje als de stap klaar is.
             const nr = nul ? routeNummer(data, g.id) : undefined;
+            const boven = { x, y: (p.y - BOVEN_DAK) * camera.schaal + camera.y };
             const routeKlasse =
               nr === undefined
                 ? ''
@@ -207,7 +243,7 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
                     data-route={nr}
                     aria-hidden="true"
                     style={{
-                      transform: `translate(${x}px, ${y - 34}px) translate(-50%, -50%)`,
+                      transform: `translate(${boven.x}px, ${boven.y}px) translate(-50%, -50%)`,
                     }}
                   >
                     {nr - 1 < routeStap ? '✓' : nr}

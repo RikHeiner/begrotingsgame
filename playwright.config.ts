@@ -17,6 +17,9 @@ export default defineConfig({
   use: {
     baseURL: `http://localhost:${POORT}`,
     trace: 'on-first-retry',
+    // De camera vliegt naar een gebouw; met minder beweging gaat dat meteen, zodat een tik in een
+    // test niet op een bewegende kaart valt.
+    contextOptions: { reducedMotion: 'reduce' },
     launchOptions,
     // De tests beginnen in de gemeente, zonder startscherm. De game begint altijd bij nul; tests die
     // met de bedragen van het college rekenen, openen een gedeelde link (zie tests/e2e/hulp.ts).

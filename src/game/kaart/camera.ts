@@ -19,12 +19,18 @@ export function pas(wereld: Maat, scherm: Maat): Camera {
   };
 }
 
-/** Houdt de schaal tussen min en max, en de kaart in beeld. */
+/**
+ * Houdt de schaal tussen min en max, en de kaart in beeld. Ingezoomd mag een rand van de kaart
+ * ver het scherm in schuiven (tot 10% van de andere kant): zo kan de camera elk gebouw boven of
+ * naast een paneel zetten, ook aan de rand van de gemeente.
+ */
 export function klem(c: Camera, wereld: Maat, scherm: Maat, zoomMax: number): Camera {
   const min = pasSchaal(wereld, scherm);
   const schaal = Math.min(min * zoomMax, Math.max(min, c.schaal));
+  const ingezoomd = schaal > min * 1.01;
   const as = (pos: number, wereldMaat: number, schermMaat: number) => {
     const maat = wereldMaat * schaal;
+    if (ingezoomd) return Math.min(schermMaat * 0.9, Math.max(schermMaat * 0.1 - maat, pos));
     if (maat <= schermMaat) return (schermMaat - maat) / 2;
     return Math.min(0, Math.max(schermMaat - maat, pos));
   };

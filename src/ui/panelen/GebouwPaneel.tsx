@@ -32,6 +32,8 @@ export function GebouwPaneel({
       ? paneel.current?.querySelector<HTMLElement>(`[data-post="${CSS.escape(focus.post)}"]`)
       : null;
     if (!regel) {
+      // Een nieuw gebouw begint bovenaan (ook na "Klaar, door naar …").
+      paneel.current?.scrollTo?.({ top: 0 });
       kop.current?.focus();
       return;
     }

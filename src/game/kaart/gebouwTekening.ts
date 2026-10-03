@@ -1,7 +1,8 @@
 /**
  * Tekent een gebouw in een van de vijf toestanden (opdracht 8.3), in wereldeenheden rond (0, 0).
- * Vriendelijk en plat, met een zachte schaduw. Speciale gebouwen: park, zwembad, Stadhuis met
- * Martinitoren, nieuwbouw met kraan, veilinghuis met molen.
+ * Als een blokje in 3D (2,5D): een voorgevel, een zijgevel naar achteren en een schuin dak, met
+ * licht van linksboven en een schaduw naar rechtsachter. Speciale gebouwen: park, zwembad,
+ * Stadhuis met Martinitoren, nieuwbouw met kraan, veilinghuis met molen.
  */
 import type { Tekenaar } from './canvasTekenaar';
 import type { Gebouw } from '../../engine/schema';
@@ -9,10 +10,18 @@ import type { Toestand } from '../toestand';
 
 export const GEBOUW_B = 50;
 export const GEBOUW_H = 32;
+/** Zo veel groter tekent de kaart een gebouw dan in deze tekening (wereldeenheden). */
+export const GEBOUW_SCHAAL = 1.8;
+/** Hoe ver boven het midden van een gebouw het nummer van de route staat (wereldeenheden). */
+export const BOVEN_DAK = (GEBOUW_H / 2 + 22) * GEBOUW_SCHAAL;
 /** Ruimte om een gebouw heen (toren, kraan, molen, vlag en schaduw), in wereldeenheden. */
 export const GEBOUW_KADER = { links: 45, rechts: 70, boven: 60, onder: 30 };
 
 const GRIJS = 0x9aa0a8;
+/** De diepte van een gebouw: zo ver loopt de zijgevel naar rechtsachter (2,5D). */
+const DIEPTE = { x: 11, y: -8 };
+const ZWART = 0x15193a;
+const RAND = { width: 1.6, color: ZWART, alpha: 0.35, join: 'round' as const };
 
 function hex(kleur: string | undefined, standaard: number): number {
   return kleur ? Number.parseInt(kleur.slice(1), 16) : standaard;
@@ -49,26 +58,56 @@ export function tekenGebouw(g: Tekenaar, gebouw: Gebouw, o: TekenOpties): void {
     muur = meng(muur, 0xffffff, 0.25);
   }
 
-  // schaduw
-  g.ellipse(0, y + h + 3, w * 0.6, 6).fill({ color: 0x000000, alpha: 0.16 });
+  const { x: dx, y: dy } = DIEPTE;
+  // schaduw op de grond, naar rechtsachter
+  g.poly([
+    x - 2,
+    y + h + 1,
+    x + w + 2,
+    y + h + 1,
+    x + w + dx + 10,
+    y + h + dy + 4,
+    x + dx + 6,
+    y + h + dy + 4,
+  ]).fill({ color: 0x000000, alpha: 0.18 });
 
   if (gebouw.soort === 'park') {
     tekenPark(g, o.toestand, x, y, w, h);
     return;
   }
 
-  // muur en dak
-  g.roundRect(x, y, w, h, 4).fill(muur).stroke({ width: 2, color: 0x15193a, alpha: 0.3 });
+  // zijgevel (in de schaduw) met twee ramen
+  const zij = meng(muur, ZWART, 0.28);
+  g.poly([x + w, y, x + w + dx, y + dy, x + w + dx, y + h + dy, x + w, y + h])
+    .fill(zij)
+    .stroke(RAND);
+  for (let r = 0; r < 2; r++) {
+    const ry = y + 6 + r * 9;
+    const donker = o.toestand === 'gesloten' || (o.toestand === 'versoberd' && r === 0);
+    g.poly([x + w + 3, ry - 1, x + w + 8, ry - 4.6, x + w + 8, ry + 0.9, x + w + 3, ry + 4.5]).fill(
+      donker ? 0x2c3140 : 0xe8c45f,
+    );
+  }
+  // schuin dak naar achteren, daarna de voorgevel en de geveltop
+  g.poly([0, y - 14, dx, y - 14 + dy, x + w + 4 + dx, y + 2 + dy, x + w + 4, y + 2])
+    .fill(meng(dak, ZWART, 0.22))
+    .stroke(RAND);
+  g.rect(x, y, w, h).fill(muur).stroke(RAND);
+  // licht van links: een smalle lichte rand op de voorgevel
+  g.rect(x + 1, y + 1, 3, h - 2).fill({ color: 0xffffff, alpha: 0.25 });
   g.poly([x - 4, y + 2, 0, y - 14, x + w + 4, y + 2])
     .fill(dak)
-    .stroke({ width: 2, color: 0x15193a, alpha: 0.3, join: 'round' });
+    .stroke(RAND);
+  g.poly([x - 1, y + 1, 0, y - 11, 6, y - 7]).fill({ color: 0xffffff, alpha: 0.18 });
 
-  // ramen: bij versoberd de helft donker, bij gesloten alles donker
+  // ramen: bij versoberd de helft donker, bij gesloten alles donker; met een vensterbank
   for (let r = 0; r < 2; r++) {
     for (let c = 0; c < 4; c++) {
       const i = r * 4 + c;
       const donker = o.toestand === 'gesloten' || (o.toestand === 'versoberd' && i % 2 === 0);
-      g.roundRect(x + 6 + c * 11, y + 6 + r * 9, 7, 5.5, 1.2).fill(donker ? 0x3b4252 : 0xffe27a);
+      g.rect(x + 6 + c * 11, y + 6 + r * 9, 7, 5.5).fill(donker ? 0x3b4252 : 0xffe27a);
+      g.rect(x + 6 + c * 11, y + 6 + r * 9, 7, 1.5).fill({ color: 0x000000, alpha: 0.18 });
+      g.rect(x + 5.5 + c * 11, y + 11.5 + r * 9, 8, 1).fill({ color: 0xffffff, alpha: 0.5 });
     }
   }
   // deur
@@ -112,6 +151,8 @@ function tekenPark(
   h: number,
 ): void {
   const gras = toestand === 'gesloten' ? 0xa7b48f : toestand === 'versoberd' ? 0x8fbf6e : 0x6dbb55;
+  // een plak gras met een aarden rand eronder
+  g.roundRect(x, y + 1, w, h + 4, 10).fill(0x7a5c3e);
   g.roundRect(x, y - 4, w, h + 4, 10)
     .fill(gras)
     .stroke({ width: 2, color: 0x15193a, alpha: 0.2 });
@@ -122,8 +163,13 @@ function tekenPark(
     [x + 22, y + 18, 6.5],
   ];
   for (const [bx, by, r] of bomen) {
+    g.ellipse(bx + 4, by + 7, r * 0.9, 2.2).fill({ color: 0x000000, alpha: 0.2 });
     g.rect(bx - 1.2, by, 2.4, 7).fill(0x6b4a2b);
-    g.circle(bx, by, r).fill(toestand === 'gesloten' ? 0x6f8a55 : 0x2f8a42);
+    g.circle(bx, by, r).fill(toestand === 'gesloten' ? 0x5b7446 : 0x267a38);
+    // licht van linksboven
+    g.circle(bx - r * 0.3, by - r * 0.3, r * 0.6).fill(
+      toestand === 'gesloten' ? 0x7f9a63 : 0x3fa152,
+    );
   }
   if (toestand === 'versoberd' || toestand === 'gesloten') {
     // gaten in de weg en zwerfafval
@@ -142,6 +188,7 @@ function tekenPark(
 }
 
 function tekenMartinitoren(g: Tekenaar, x: number, onder: number): void {
+  g.poly([x + 5, onder - 46, x + 9, onder - 49, x + 9, onder - 3, x + 5, onder]).fill(0x8a6440);
   g.rect(x - 5, onder - 46, 10, 46)
     .fill(0xb98b5e)
     .stroke({ width: 1.5, color: 0x6b4a2b });

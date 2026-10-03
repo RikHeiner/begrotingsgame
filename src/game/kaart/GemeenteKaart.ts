@@ -22,7 +22,13 @@ import {
   type Maat,
 } from './camera';
 import { CanvasTekenaar } from './canvasTekenaar';
-import { GEBOUW_H, GEBOUW_KADER, tekenGebouw, type TekenOpties } from './gebouwTekening';
+import {
+  GEBOUW_H,
+  GEBOUW_KADER,
+  GEBOUW_SCHAAL,
+  tekenGebouw,
+  type TekenOpties,
+} from './gebouwTekening';
 import { buurtOp, gebiedKader, opWeg, type KaartGeometrie, type Weg } from './geometrie';
 import type { Punt } from './projectie';
 import { RAND, tekenVasteLaag } from './vasteLaag';
@@ -78,7 +84,6 @@ const KLEUR_INWONER = [
 const HUID = [0xf2c29b, 0x8d5a3b, 0xe8b48a, 0xc68642, 0xf5d0b0, 0x6b4226, 0xe8b48a, 0x8d5a3b];
 const TIK_STRAAL = 34;
 /** Gebouwen en poppetjes zijn groter dan op schaal, zodat ze op een telefoon goed te zien zijn. */
-const GEBOUW_SCHAAL = 1.8;
 const INWONER_SCHAAL = 1.6;
 const MAX_TEXTUUR = 4096;
 /** Pixels per wereldeenheid in de afbeelding van een gebouw: scherp tot ver ingezoomd. */
@@ -163,7 +168,15 @@ export class GemeenteKaart {
     bewogen: boolean;
   };
   private laatsteTik = 0;
-  private animatie?: { van: Camera; naar: Camera; begin: number };
+  private animatie?: {
+    van: Camera;
+    naar: Camera;
+    begin: number;
+    /** duur in ms */
+    duur: number;
+    /** een vlucht: onderweg even uitzoomen, zoals een drone (alleen bij een grote afstand) */
+    boog: boolean;
+  };
   private opgeruimd: (() => void)[] = [];
   /** vaste lagen (buurten, water, wegen, namen) als één afbeelding */
   private vast?: HTMLCanvasElement;
@@ -308,23 +321,6 @@ export class GemeenteKaart {
 
     const k = GEBOUW_KADER;
     const G = GEBOUW_SCHAAL;
-    // 2,5D: een zachte schaduw onder elk gebouw, schuin naar rechtsonder.
-    if (this.o.geo.dikte > 0) {
-      ctx.fillStyle = 'rgba(10, 12, 30, 0.22)';
-      for (const t of this.gebouwen) {
-        ctx.beginPath();
-        ctx.ellipse(
-          t.plek.x + 6 * G,
-          t.plek.y + (GEBOUW_H / 2) * G,
-          ((k.links + k.rechts) / 2) * G,
-          5 * G,
-          0,
-          0,
-          Math.PI * 2,
-        );
-        ctx.fill();
-      }
-    }
     // Van achter naar voor, zodat een gebouw vooraan over een gebouw erachter valt (2,5D).
     for (const t of [...this.gebouwen].sort((a, b) => a.plek.y - b.plek.y)) {
       ctx.drawImage(
@@ -340,16 +336,24 @@ export class GemeenteKaart {
       ctx.fillText(t.gebouw.icoon, t.plek.x, t.plek.y + (-GEBOUW_H / 2 - 3) * G);
     }
     ctx.textBaseline = 'top';
+    // Namen groeien minder hard mee met de zoom, anders worden ze ingezoomd veel te groot.
+    const n = 1 / Math.sqrt(Math.max(1, c.schaal / pas(this.wereldMaat(), this.scherm).schaal));
     for (const t of this.gebouwen) {
       this.tekst(
         t.gebouw.naam,
         t.plek.x,
         t.plek.y + (GEBOUW_H / 2 + 6) * G,
-        10 * G,
+        10 * G * n,
         this.o.kleuren.label,
       );
       if (t.bedrag)
-        this.tekst(t.bedrag, t.plek.x, t.plek.y + (GEBOUW_H / 2 + 18) * G, 9 * G, t.bedragKleur);
+        this.tekst(
+          t.bedrag,
+          t.plek.x,
+          t.plek.y + (GEBOUW_H / 2 + 6 + 11 * n) * G,
+          8 * G * n,
+          t.bedragKleur,
+        );
     }
 
     for (const w of this.wandelaars) {
@@ -494,9 +498,33 @@ export class GemeenteKaart {
   }
   private laatsteScherm: Maat = { breedte: 1, hoogte: 1 };
 
-  private vlieg(naar: Camera): void {
+  private vlieg(naar: Camera, duur = 350, boog = false): void {
     if (this.o.minderBeweging) this.zetCamera(naar);
-    else this.animatie = { van: this.camera, naar, begin: performance.now() };
+    else this.animatie = { van: this.camera, naar, begin: performance.now(), duur, boog };
+  }
+
+  /**
+   * Vliegt rustig naar een gebouw, zoals een drone: onderweg even uitzoomen, dan inzoomen tot
+   * `zoom` keer de hele gemeente. Het gebouw komt op `focus` (een deel van het scherm, 0 tot 1),
+   * zodat het naast of boven een paneel in beeld blijft.
+   */
+  vliegNaarGebouw(id: string, zoom: number, focus: Punt): void {
+    const p = this.o.geo.gebouwen[id];
+    if (!p) return;
+    const schaal = pas(this.wereldMaat(), this.scherm).schaal * zoom;
+    const naar = {
+      schaal,
+      x: this.scherm.breedte * focus.x - p.x * schaal,
+      y: this.scherm.hoogte * focus.y - p.y * schaal,
+    };
+    const ver =
+      Math.hypot(naar.x - this.camera.x, naar.y - this.camera.y) > this.scherm.breedte / 3;
+    this.vlieg(naar, ver ? 1100 : 700, ver);
+  }
+
+  /** Terug naar de hele gemeente, rustig. */
+  overzicht(): void {
+    this.vlieg(pas(this.wereldMaat(), this.scherm), 800);
   }
 
   zoom(factor: number): void {
@@ -521,15 +549,35 @@ export class GemeenteKaart {
 
   private stap(ms: number): void {
     if (this.animatie) {
-      const t = Math.min(1, (performance.now() - this.animatie.begin) / 350);
-      const e = 1 - Math.pow(1 - t, 3);
-      const { van, naar } = this.animatie;
+      const { van, naar, duur, boog } = this.animatie;
+      const t = Math.min(1, (performance.now() - this.animatie.begin) / duur);
+      // Kort: snel en dan rustig (ease-out). Lang: rustig op gang en rustig landen (ease-in-out).
+      const e =
+        duur > 400
+          ? t < 0.5
+            ? 4 * t * t * t
+            : 1 - Math.pow(-2 * t + 2, 3) / 2
+          : 1 - Math.pow(1 - t, 3);
+      // Het midden van het beeld schuift in een rechte lijn over de wereld; de zoom maakt een boog.
+      const m = this.scherm;
+      const midVan = naarWereld(van, m.breedte / 2, m.hoogte / 2);
+      const midNaar = naarWereld(naar, m.breedte / 2, m.hoogte / 2);
+      const mid = {
+        x: midVan.x + (midNaar.x - midVan.x) * e,
+        y: midVan.y + (midNaar.y - midVan.y) * e,
+      };
+      const schaal =
+        (van.schaal + (naar.schaal - van.schaal) * e) *
+        (boog ? 1 - 0.3 * Math.sin(Math.PI * t) : 1);
       this.zetCamera({
-        schaal: van.schaal + (naar.schaal - van.schaal) * e,
-        x: van.x + (naar.x - van.x) * e,
-        y: van.y + (naar.y - van.y) * e,
+        schaal,
+        x: m.breedte / 2 - mid.x * schaal,
+        y: m.hoogte / 2 - mid.y * schaal,
       });
-      if (t >= 1) this.animatie = undefined;
+      if (t >= 1) {
+        this.zetCamera(naar);
+        this.animatie = undefined;
+      }
     }
     const nu = performance.now();
     const wandelen = !this.o.minderBeweging && this.wandelaars.length > 0 && nu < this.actiefTot;

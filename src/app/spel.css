@@ -97,6 +97,68 @@
   cursor: grab;
 }
 
+/* Wolkjes boven de kaart: alleen sfeer, de klikken gaan erdoorheen. */
+.kaart-wolken {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.wolk {
+  position: absolute;
+  left: -30%;
+  width: 9rem;
+  height: 2.6rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.75);
+  filter: blur(2px);
+  box-shadow:
+    2.2rem -1rem 0 0.3rem rgb(255 255 255 / 0.75),
+    4.5rem -0.4rem 0 0 rgb(255 255 255 / 0.7);
+  animation: wolk-drijft 95s linear infinite;
+}
+
+.wolk.w1 {
+  top: 18%;
+  animation-delay: -10s;
+}
+
+.wolk.w2 {
+  top: 48%;
+  transform: scale(0.7);
+  animation-duration: 130s;
+  animation-delay: -70s;
+}
+
+.wolk.w3 {
+  top: 70%;
+  transform: scale(0.85);
+  animation-duration: 110s;
+  animation-delay: -40s;
+}
+
+@keyframes wolk-drijft {
+  to {
+    left: 120%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kaart-wolken {
+    display: none;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .wolk {
+    background: rgb(200 210 240 / 0.18);
+    box-shadow:
+      2.2rem -1rem 0 0.3rem rgb(200 210 240 / 0.18),
+      4.5rem -0.4rem 0 0 rgb(200 210 240 / 0.16);
+  }
+}
+
 .kaart-laden {
   position: absolute;
   inset: 0;
@@ -1729,8 +1791,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 28px;
-  height: 28px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1738,7 +1800,7 @@
   background: var(--blauw);
   color: #fff;
   font-weight: 800;
-  font-size: 0.9rem;
+  font-size: 0.72rem;
   border: 2px solid #fff;
   pointer-events: none;
   box-shadow: 0 2px 6px rgb(10 12 30 / 0.3);
@@ -1746,9 +1808,9 @@
 
 .route-nummer.huidig {
   background: var(--oranje);
-  width: 34px;
-  height: 34px;
-  font-size: 1.05rem;
+  width: 28px;
+  height: 28px;
+  font-size: 0.9rem;
   animation: route-puls 1.6s ease-in-out infinite;
 }
 
