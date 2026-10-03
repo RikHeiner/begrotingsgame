@@ -449,6 +449,13 @@ export const kaartSchema = z
     centrum: z.object({ lon: z.number(), lat: z.number(), naam: z.string() }).strict(),
     vergroting: z.object({ exponent: z.number().positive().max(1) }).strict(),
     wereld_breedte: z.number().positive(),
+    /**
+     * Kanteling (2,5D): de kaart wordt in de hoogte ingedrukt alsof je er schuin op kijkt, met een
+     * dikke rand eronder. 1 = recht van boven. De gebouwen blijven rechtop staan.
+     */
+    kanteling: z.number().min(0.3).max(1).default(1),
+    /** dikte van de rand onder de gekantelde kaart, in wereldeenheden */
+    dikte: z.number().min(0).max(40).default(0),
     zoom_max: z.number().min(1),
     toestanden: z
       .object({

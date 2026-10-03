@@ -24,6 +24,8 @@ export type ProjectieOpties = {
   exponent: number;
   breedte: number;
   marge: number;
+  /** 2,5D: de hoogte keer deze factor, alsof je schuin op de kaart kijkt (standaard 1) */
+  kanteling?: number;
 };
 
 export function maakProjectie(o: ProjectieOpties): Projectie {
@@ -62,14 +64,15 @@ export function maakProjectie(o: ProjectieOpties): Projectie {
     maxY = Math.max(maxY, p.y);
   }
   const schaal = (o.breedte - 2 * o.marge) / (maxX - minX);
+  const kanteling = o.kanteling ?? 1;
   const naarWereld = (p: Punt): Punt => ({
     x: (p.x - minX) * schaal + o.marge,
-    y: (p.y - minY) * schaal + o.marge,
+    y: (p.y - minY) * schaal * kanteling + o.marge,
   });
   return {
     punt: (ll) => naarWereld(vergroot(basis(ll))),
     breedte: o.breedte,
-    hoogte: (maxY - minY) * schaal + 2 * o.marge,
+    hoogte: (maxY - minY) * schaal * kanteling + 2 * o.marge,
     centrum: naarWereld(c),
   };
 }

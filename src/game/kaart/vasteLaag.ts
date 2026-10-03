@@ -9,6 +9,8 @@ import type { Punt } from './projectie';
 
 export type VasteKleuren = {
   gebieden: number[];
+  /** de zijkant van de gekantelde kaart (2,5D) */
+  zijkant: number;
   buurtlijn: number;
   gebiedslijn: number;
   rand: number;
@@ -51,6 +53,37 @@ export function tekenVasteLaag(
   ctx.lineCap = 'round';
   ctx.lineJoin = 'round';
   const gebiedIndex = new Map(data.gebieden.gebieden.map((g, i) => [g.id, i]));
+
+  // 2,5D: de zijkant van de kaart, als een plak aarde onder de gemeente. Van onder naar boven
+  // dezelfde vorm een stukje lager, met bovenaan een donkerder rand.
+  if (geo.dikte > 0) {
+    const vorm = new Path2D();
+    for (const b of geo.buurten) {
+      const r = b.ringen[0];
+      const [eerste, ...rest] = r ?? [];
+      if (!eerste) continue;
+      vorm.moveTo(eerste.x, eerste.y);
+      for (const q of rest) vorm.lineTo(q.x, q.y);
+      vorm.closePath();
+    }
+    ctx.save();
+    ctx.fillStyle = css(kleuren.zijkant);
+    ctx.strokeStyle = css(kleuren.zijkant);
+    ctx.lineWidth = 7;
+    for (let d = geo.dikte; d > 0; d -= 1.5) {
+      ctx.setTransform(resolutie, 0, 0, resolutie, RAND * resolutie, (RAND + d) * resolutie);
+      ctx.fill(vorm);
+      ctx.stroke(vorm);
+    }
+    // Een schaduw onder de plak, zodat hij op het water lijkt te drijven.
+    ctx.setTransform(resolutie, 0, 0, resolutie, RAND * resolutie, (RAND + geo.dikte) * resolutie);
+    ctx.globalAlpha = 0.25;
+    ctx.lineWidth = 12;
+    ctx.strokeStyle = '#0a0c1e';
+    ctx.stroke(vorm);
+    ctx.restore();
+    ctx.setTransform(resolutie, 0, 0, resolutie, RAND * resolutie, RAND * resolutie);
+  }
 
   // Gemeentegrens: een dikke lijn om alle buurten, de vlakken komen eroverheen.
   ctx.beginPath();

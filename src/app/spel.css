@@ -79,7 +79,12 @@
   flex: 1;
   min-height: calc(100dvh - 9.5rem);
   overflow: hidden;
-  background: color-mix(in srgb, var(--water-kleur) 18%, var(--achtergrond));
+  /* 2,5D: lucht boven, water onder, zodat de gekantelde kaart erin lijkt te liggen. */
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--water-kleur) 8%, var(--achtergrond)) 0%,
+    color-mix(in srgb, var(--water-kleur) 28%, var(--achtergrond)) 100%
+  );
 }
 
 .kaart-doek {
@@ -1642,12 +1647,25 @@
 }
 
 .route-kaart h2 {
-  margin: 0 2.5rem 0.3rem 0;
+  /* Zo hoog als de knop rechtsboven, zodat de tekst eronder er niet achter valt. */
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  margin: 0 2.75rem 0.3rem 0;
   font-size: 1.5rem;
 }
 
 .route-kaart p {
   margin: 0 0 0.6rem;
+}
+
+/* Op een groot scherm linksonder, zodat het midden van de kaart vrij blijft. */
+@media (min-width: 900px) {
+  .route-kaart {
+    right: auto;
+    width: 24rem;
+    margin: 0;
+  }
 }
 
 .route-kaart.klein {

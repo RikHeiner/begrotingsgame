@@ -25,6 +25,8 @@ export type Label = { tekst: string; punt: Punt; soort: 'dorp' | 'gebied' | 'wat
 export type KaartGeometrie = {
   breedte: number;
   hoogte: number;
+  /** dikte van de rand onder de gekantelde kaart (2,5D), in wereldeenheden */
+  dikte: number;
   buurten: Buurt[];
   /** lijnstukken tussen buurten van verschillende gebieden */
   gebiedsgrenzen: [Punt, Punt][];
@@ -56,6 +58,7 @@ export function maakGeometrie(data: Data, geo: BuurtGeo): KaartGeometrie {
     exponent: k.vergroting.exponent,
     breedte: k.wereld_breedte,
     marge: k.wereld_breedte * 0.04,
+    kanteling: k.kanteling,
   });
   const p = (c: readonly number[]) => projectie.punt([c[0] ?? 0, c[1] ?? 0]);
 
@@ -133,7 +136,9 @@ export function maakGeometrie(data: Data, geo: BuurtGeo): KaartGeometrie {
 
   return {
     breedte: projectie.breedte,
-    hoogte: projectie.hoogte,
+    // De rand onder de gekantelde kaart hoort er ook bij.
+    hoogte: projectie.hoogte + k.dikte,
+    dikte: k.dikte,
     buurten,
     gebiedsgrenzen,
     water,

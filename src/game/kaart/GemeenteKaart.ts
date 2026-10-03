@@ -29,6 +29,7 @@ import { RAND, tekenVasteLaag } from './vasteLaag';
 
 export type KaartKleuren = {
   gebieden: number[];
+  zijkant: number;
   buurtlijn: number;
   gebiedslijn: number;
   rand: number;
@@ -43,6 +44,7 @@ export type KaartKleuren = {
 
 export const LICHT: KaartKleuren = {
   gebieden: [0xa9db8a, 0x98d077, 0xb4e09b, 0x8fcb6d, 0xa2d684, 0xbce5a6, 0x9cd27d],
+  zijkant: 0x7a5c3e,
   buurtlijn: 0xffffff,
   gebiedslijn: 0x2e6b2e,
   rand: 0x1233c4,
@@ -57,6 +59,7 @@ export const LICHT: KaartKleuren = {
 
 export const DONKER: KaartKleuren = {
   gebieden: [0x3f6b3a, 0x375f33, 0x46753f, 0x33592f, 0x3d6838, 0x4a7a43, 0x396335],
+  zijkant: 0x3b2d20,
   buurtlijn: 0x9ec79a,
   gebiedslijn: 0xd7f5c9,
   rand: 0x8fa2ff,
@@ -305,7 +308,25 @@ export class GemeenteKaart {
 
     const k = GEBOUW_KADER;
     const G = GEBOUW_SCHAAL;
-    for (const t of this.gebouwen) {
+    // 2,5D: een zachte schaduw onder elk gebouw, schuin naar rechtsonder.
+    if (this.o.geo.dikte > 0) {
+      ctx.fillStyle = 'rgba(10, 12, 30, 0.22)';
+      for (const t of this.gebouwen) {
+        ctx.beginPath();
+        ctx.ellipse(
+          t.plek.x + 6 * G,
+          t.plek.y + (GEBOUW_H / 2) * G,
+          ((k.links + k.rechts) / 2) * G,
+          5 * G,
+          0,
+          0,
+          Math.PI * 2,
+        );
+        ctx.fill();
+      }
+    }
+    // Van achter naar voor, zodat een gebouw vooraan over een gebouw erachter valt (2,5D).
+    for (const t of [...this.gebouwen].sort((a, b) => a.plek.y - b.plek.y)) {
       ctx.drawImage(
         t.beeld,
         t.plek.x - k.links * G,
