@@ -57,3 +57,35 @@ zin terug dat die overeenkomsten er zijn.
 | Dashboard niet in zoekmachines                        | `robots.txt`, `X-Robots-Tag` en `noindex`                        |
 | Toegankelijkheid                                      | automatische tests met axe op alle schermen, licht en donker     |
 | Lighthouse in de testomgeving (mobiel)                | prestaties 97, toegankelijkheid 100, best practices 100, SEO 100 |
+
+## Cookies en privacy (nagelopen 3 oktober 2026)
+
+- **Cookies:** de game zet geen cookies en laadt geen trackers, advertenties of analytics. Er gaat
+  niets naar Google (lettertypes staan op onze eigen server).
+- **Lokale opslag:** alleen wat nodig is om de game te laten werken (uitleg gezien, beginscherm
+  gezien, geluid, je eigen begroting, gespeelde minigames en beste score). Dat is "strikt
+  noodzakelijk" (artikel 11.7a Telecommunicatiewet), dus er is **geen cookiebanner** nodig. Alles
+  staat in `privacy.html`.
+- **Insturen:** alleen na toestemming (AVG artikel 6 lid 1 onder a); e-mailadres apart en los van de
+  begroting; bewaartermijn 2 jaar.
+- **Nog open:**
+  1. Wie is formeel de **verwerkingsverantwoordelijke** (de vereniging VVD Groningen of de
+     fractie)? Zet de juiste naam in `privacy.html`.
+  2. **Verwerkersovereenkomsten** met Supabase en Netlify afsluiten (zie hierboven).
+  3. Netlify houdt serverlogs met IP-adressen bij; dat staat nu in de privacyverklaring.
+
+## App Store en Google Play
+
+De game is een **PWA**: je kunt hem nu al op je beginscherm zetten (iPhone: Deel → Zet op
+beginscherm; Android: Installeren). Om in de winkels te komen:
+
+- **Google Play:** kan als _Trusted Web Activity_ (bijvoorbeeld met Bubblewrap/PWABuilder). Nodig:
+  ontwikkelaarsaccount (eenmalig $ 25), privacybeleid-URL, het formulier _Data safety_,
+  leeftijdsclassificatie, en `assetlinks.json` op het domein.
+- **Apple App Store:** lastiger. Nodig: Apple Developer Program (€ 99 per jaar), een
+  verpakking met Capacitor, privacy-labels en een privacybeleid-URL. Apple wijst apps af die
+  "alleen een website" zijn (richtlijn 4.2): de app moet echt als app werken (offline, goed op
+  iPhone). Politieke inhoud mag, maar alleen als de **partij zelf** de app indient (richtlijn 5.1,
+  eigen account op naam van de organisatie, met D-U-N-S-nummer).
+- **Advies:** eerst als PWA lanceren en delen via een link/QR-code. Een winkelversie kost tijd en
+  geld en voegt voor een game rond de begroting weinig toe.

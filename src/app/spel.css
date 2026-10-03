@@ -457,6 +457,21 @@
   gap: 0.5rem;
 }
 
+/* Op een telefoon staan de kaartknoppen rechtsboven: onderin staan de route en de minigames. */
+@media (max-width: 899px) {
+  .kaart-zoom {
+    top: 0.75rem;
+    bottom: auto;
+    gap: 0.35rem;
+  }
+
+  .kaart-zoom .knop-rond {
+    min-width: 40px;
+    min-height: 40px;
+    font-size: 1rem;
+  }
+}
+
 .knop-rond {
   min-width: 44px;
   min-height: 44px;

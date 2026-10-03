@@ -50,8 +50,16 @@ const sleutel = (a: number[], b: number[]) => {
   return x < y ? `${x}|${y}` : `${y}|${x}`;
 };
 
-export function maakGeometrie(data: Data, geo: BuurtGeo): KaartGeometrie {
-  const k = data.kaart;
+/**
+ * `opties` past de instellingen uit kaart.json aan: de 3D-kaart kantelt met de camera, dus daar is
+ * de kaart plat (kanteling 1) en zonder getekende rand (dikte 0).
+ */
+export function maakGeometrie(
+  data: Data,
+  geo: BuurtGeo,
+  opties: { kanteling?: number; dikte?: number } = {},
+): KaartGeometrie {
+  const k = { ...data.kaart, ...opties };
   const coordinaten: LonLat[] = geo.features.flatMap((f) =>
     ringenVan(f).flatMap((ring) => ring.map((c) => [c[0] ?? 0, c[1] ?? 0] as const)),
   );

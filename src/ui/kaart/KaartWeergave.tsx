@@ -1,13 +1,12 @@
 /**
- * De gemeentekaart (Canvas 2D) met daarover: onzichtbare knoppen op de gebouwen (voor toetsenbord en
- * schermlezer), zoomknoppen en de tekstballonnen van de inwoners. De kaartcode wordt pas geladen
- * als de kaart in beeld komt.
+ * De gemeentekaart in 3D (three.js) met daarover: onzichtbare knoppen op de gebouwen (voor
+ * toetsenbord en schermlezer), knoppen om te zoomen, draaien en kantelen, en de tekstballonnen van
+ * de inwoners. De kaartcode wordt pas geladen als de kaart in beeld komt. Werkt 3D niet op het
+ * apparaat, dan speel je met de lijst.
  */
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { formatMln, type Data, type Resultaat } from '../../engine';
-import type { Camera } from '../../game/kaart/camera';
-import type { GemeenteKaart } from '../../game/kaart/GemeenteKaart';
-import { BOVEN_DAK, bovenMinigame } from '../../game/kaart/maten';
+import type { GemeenteKaart3D, Zicht } from '../../game/kaart3d/GemeenteKaart3D';
 
 /** Onder deze zoom is het label van een minigame alleen een rond icoon. */
 const MINIGAME_KLEIN = 0.4;
@@ -39,9 +38,9 @@ function minderBeweging(): boolean {
 
 export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
   const houder = useRef<HTMLDivElement>(null);
-  const kaart = useRef<GemeenteKaart | undefined>(undefined);
+  const kaart = useRef<GemeenteKaart3D | undefined>(undefined);
   const [geo, setGeo] = useState<KaartGeometrie>();
-  const [camera, setCamera] = useState<Camera>();
+  const [zicht, setZicht] = useState<Zicht>();
   const [klaar, setKlaar] = useState(false);
   const [ballon, setBallon] = useState<{
     persona: string;
@@ -70,22 +69,23 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
     if (!el) return;
     (async () => {
       try {
-        const [{ GemeenteKaart, LICHT, DONKER }, { maakGeometrie }, buurten] = await Promise.all([
-          import('../../game/kaart/GemeenteKaart'),
+        const [{ GemeenteKaart3D, LICHT, DONKER }, { maakGeometrie }, buurten] = await Promise.all([
+          import('../../game/kaart3d/GemeenteKaart3D'),
           import('../../game/kaart/geometrie'),
           haalJson('gemeente-groningen-buurten.geojson'),
         ]);
         if (weg) return;
-        const g = maakGeometrie(data, buurten as BuurtGeo);
+        // In 3D kantelt de camera; de kaart zelf is plat.
+        const g = maakGeometrie(data, buurten as BuurtGeo, { kanteling: 1, dikte: 0 });
         const donker = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const k = await GemeenteKaart.maak(el, {
+        const k = await GemeenteKaart3D.maak(el, {
           data,
           geo: g,
           kleuren: donker ? DONKER : LICHT,
           minderBeweging: minderBeweging(),
           onTik: (id) => kies(id),
           onTikMinigame: (id) => openMinigame(id),
-          onCamera: (c) => setCamera(c),
+          onZicht: (z) => setZicht(z),
         });
         if (weg) {
           k.vernietig();
@@ -221,6 +221,48 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
   // avond boven de gemeente.
   const minSaldo = Math.min(...data.jaren.map((j) => resultaat.perJaar[j]?.structureel ?? 0));
   const lucht = minSaldo < -50_000 ? 'avond' : 'dag';
+  useEffect(() => {
+    if (klaar) kaart.current?.zetLicht(lucht === 'avond');
+  }, [klaar, lucht]);
+
+  // Staat er een kaartje onderin (de route: "De gemeente heeft geld nodig"), dan schuift de kaart
+  // omhoog, zodat de hele gemeente erboven in beeld is.
+  useEffect(() => {
+    const el = houder.current;
+    const inhoud = el?.closest('.spel-inhoud');
+    if (!klaar || !el || !inhoud) return;
+    let gemeten: Element | null = null;
+    const meet = () => {
+      const kaartje = inhoud.querySelector('.route-kaart');
+      const vak = el.getBoundingClientRect();
+      const k = kaartje?.getBoundingClientRect();
+      // Onder het kaartje of ernaast: waar de meeste ruimte overblijft.
+      const onder = k ? Math.max(0, vak.bottom - k.top + 8) : 0;
+      const links = k ? Math.max(0, k.right - vak.left + 8) : 0;
+      const naast = (vak.width - links) * vak.height > vak.width * (vak.height - onder);
+      kaart.current?.zetRuimte(
+        naast ? { links, onder: 0 } : { links: 0, onder: Math.min(onder, vak.height * 0.6) },
+      );
+    };
+    const grootte = new ResizeObserver(meet);
+    const volg = () => {
+      const kaartje = inhoud.querySelector('.route-kaart');
+      if (kaartje !== gemeten) {
+        if (gemeten) grootte.unobserve(gemeten);
+        if (kaartje) grootte.observe(kaartje);
+        gemeten = kaartje;
+      }
+      meet();
+    };
+    const wijziging = new MutationObserver(volg);
+    wijziging.observe(inhoud, { childList: true, subtree: true });
+    grootte.observe(el);
+    volg();
+    return () => {
+      wijziging.disconnect();
+      grootte.disconnect();
+    };
+  }, [klaar]);
 
   return (
     <div className={`kaart kaart-${lucht}`} data-testid="kaart" data-lucht={lucht}>
@@ -239,19 +281,18 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
         </div>
       )}
       {!klaar && <p className="kaart-laden">De kaart wordt geladen…</p>}
-      {klaar && geo && camera && (
+      {klaar && geo && zicht && (
         <ul className="kaart-knoppen" aria-label="Gebouwen op de kaart">
           {data.gebouwen.map((g) => {
-            const p = geo.gebouwen[g.id];
+            const p = zicht.gebouwen[g.id];
             const s = standen[g.id];
             if (!p) return null;
-            const x = p.x * camera.schaal + camera.x;
-            const y = p.y * camera.schaal + camera.y;
+            const { x, y } = p;
             const bedrag =
               s && Math.abs(s.bedrag) >= 50_000 ? `, ${formatMln(s.bedrag, { teken: true })}` : '';
             // Bij nul: het nummer op de route, een vinkje als de stap klaar is.
             const nr = nul ? routeNummer(data, g.id) : undefined;
-            const boven = { x, y: (p.y - BOVEN_DAK) * camera.schaal + camera.y };
+            const boven = zicht.daken[g.id] ?? p;
             const routeKlasse =
               nr === undefined
                 ? ''
@@ -287,17 +328,16 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
             );
           })}
           {data.minigames.map((m) => {
-            const p = geo.minigames[m.id];
+            const p = zicht.minigames[m.id];
             if (!p) return null;
             // Een duidelijk label boven het bekende gebouw: hier kun je een minigame spelen.
-            const x = p.x * camera.schaal + camera.x;
-            const y = (p.y - bovenMinigame(m)) * camera.schaal + camera.y;
+            const { x, y } = p;
             return (
               <li key={m.id}>
                 <button
                   type="button"
                   // Ver uitgezoomd (zoals op een telefoon) alleen het icoon, anders "Speel" erbij.
-                  className={`kaart-minigame${camera.schaal < MINIGAME_KLEIN ? ' klein' : ''}${gespeeld.includes(m.id) ? ' gespeeld' : ''}`}
+                  className={`kaart-minigame${zicht.schaal < MINIGAME_KLEIN ? ' klein' : ''}${gespeeld.includes(m.id) ? ' gespeeld' : ''}`}
                   data-minigame={m.id}
                   style={{ transform: `translate(${x}px, ${y}px) translate(-50%, -100%)` }}
                   aria-label={`Minigame in de ${m.naam}: ${m.spel}. ${m.kort}${gespeeld.includes(m.id) ? ' Al gespeeld.' : ''}`}
@@ -376,6 +416,22 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
             onClick={() => kaart.current?.herstel()}
           >
             ⤢
+          </button>
+          <button
+            type="button"
+            className="knop-rond"
+            aria-label="Kaart draaien"
+            onClick={() => kaart.current?.draai(Math.PI / 4)}
+          >
+            ↻
+          </button>
+          <button
+            type="button"
+            className="knop-rond"
+            aria-label="Schuin of van boven kijken"
+            onClick={() => kaart.current?.kantel()}
+          >
+            ◩
           </button>
         </div>
       )}
