@@ -11,10 +11,10 @@ async function speelEnIndienen(page: Page) {
   await page.addInitScript(() => localStorage.setItem('begrotingsgame:tutorial', 'klaar'));
   const b = codeer(
     { onderdelen: { h1: -10 }, belastingen: { t1: -5 }, kaarten: [], scenario: 'midden' },
-    2026,
+    2027,
   );
   await page.goto(`/?b=${b}`);
-  await expect(page.getByTestId('saldo')).toContainText('+ € 6,1 mln');
+  await expect(page.getByTestId('saldo')).toContainText('+ € 6,2 mln');
   await page.getByTestId('indienen').click();
   await page
     .getByTestId('eindscherm')
@@ -68,7 +68,7 @@ test('insturen vraagt eerst toestemming, daarna staat de inzending in het dashbo
     page.waitForEvent('download'),
     page.getByTestId('csv').click(),
   ]);
-  expect(download.suggestedFilename()).toMatch(/^inzendingen-2026-\d{4}-\d{2}-\d{2}\.csv$/);
+  expect(download.suggestedFilename()).toMatch(/^inzendingen-2027-\d{4}-\d{2}-\d{2}\.csv$/);
   const csv = (await readFile(await download.path(), 'utf8')).replace(/^\uFEFF/, '');
   const [kop = '', rij = '', ...rest] = csv.trimEnd().split('\r\n');
   expect(rest).toHaveLength(0);
@@ -78,7 +78,7 @@ test('insturen vraagt eerst toestemming, daarna staat de inzending in het dashbo
   expect(waarde(/^gebied$/)).toBe('Zuid');
   expect(waarde(/^h1 /)).toBe('-10');
   expect(waarde(/^t1 /)).toBe('-5');
-  expect(waarde(/^saldo structureel/)).toBe('6,059');
+  expect(waarde(/^saldo structureel/)).toBe('6,178');
   expect(waarde(/^sluitend$/)).toBe('ja');
   expect(waarde(/^idee$/)).toBe('Meer bankjes in het park.');
   expect(waarde(/^status idee$/)).toBe('goedgekeurd');
@@ -129,7 +129,7 @@ test('dashboard met veel inzendingen: combinaties, heatmap en zoeken', async ({
     const rijen = Array.from({ length: 40 }, (_, i) => ({
       id: `demo-${i}`,
       aangemaakt: new Date(Date.UTC(2026, 9, 1, 8, i)).toISOString(),
-      begrotingsjaar: 2026,
+      begrotingsjaar: 2027,
       keuzes: {
         onderdelen: { h1: -10 - (i % 3) * 5, ...(i % 2 ? { s3: 10 } : {}) },
         belastingen: i % 4 ? { t1: -5 } : {},

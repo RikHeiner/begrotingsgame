@@ -33,7 +33,7 @@ test.describe('gemeentekaart', () => {
     // De ondergrens is −40%: de gebouwen en de gymzalen voor scholen blijven.
     for (let i = 0; i < 10; i++) await page.keyboard.press('ArrowLeft');
     await expect(sport).toHaveValue('-40');
-    await expect(page.getByTestId('saldo')).toContainText('+ € 10,1 mln');
+    await expect(page.getByTestId('saldo')).toContainText('+ € 10,9 mln');
     await expect(paneel).toContainText('Gesloten');
     await page.screenshot({ path: testInfo.outputPath('paneel.png') });
   });
@@ -51,7 +51,7 @@ test.describe('gemeentekaart', () => {
     await page.keyboard.press('ArrowLeft');
     await page.keyboard.press('ArrowLeft');
     await expect(overhead).toHaveValue('-10');
-    await expect(page.getByTestId('saldo')).toContainText('+ € 12,3 mln');
+    await expect(page.getByTestId('saldo')).toContainText('+ € 13,2 mln');
   });
 
   test('met het toetsenbord naar een gebouw op de kaart', async ({ page }) => {

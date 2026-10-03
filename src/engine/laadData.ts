@@ -221,9 +221,11 @@ export function maakData(ruw: RuweData): Data {
     : undefined;
   if (ruw.woonlasten && woonlasten) {
     const fout: string[] = [];
-    if (woonlasten.jaar !== config.actiefJaar)
+    // De vergelijking van een vorig jaar mag (COELO verschijnt pas in het voorjaar); de game noemt
+    // het jaartal. Een later jaar dan de begroting kan niet.
+    if (woonlasten.jaar > config.actiefJaar || woonlasten.jaar < config.actiefJaar - 1)
       fout.push(
-        `dit zijn de woonlasten van ${woonlasten.jaar}, maar config.json verwacht ${config.actiefJaar}`,
+        `dit zijn de woonlasten van ${woonlasten.jaar}, maar config.json verwacht ${config.actiefJaar} (of het jaar ervoor)`,
       );
     const bronnen = new Set(woonlasten.bronnen.map((b) => b.id));
     const h = woonlasten.handmatig;

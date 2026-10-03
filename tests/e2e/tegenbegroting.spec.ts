@@ -10,7 +10,7 @@ async function naarDocument(page: Page) {
   await zonderTutorial(page);
   const b = codeer(
     { onderdelen: { h1: -10 }, belastingen: { t1: -5 }, kaarten: [], scenario: 'midden' },
-    2026,
+    2027,
   );
   await page.goto(`/?b=${b}`);
   await page.getByTestId('indienen').click();
@@ -30,8 +30,8 @@ test('het document toont de keuzes en het financieel overzicht', async ({ page }
   await expect(doc).toContainText('Overhead');
   await expect(doc).toContainText('Onroerendezaakbelasting');
   await expect(doc).toContainText('Meer bankjes in het park.');
-  // 12,3236 − 6,265 = 6,059
-  await expect(page.getByTestId('doc-saldo-s')).toHaveText('6,059');
+  // 0,1 × (134,9 − 3,4) − 0,05 × 139,441 = 13,150 − 6,972 = 6,178
+  await expect(page.getByTestId('doc-saldo-s')).toHaveText('6,178');
   await page.screenshot({ path: testInfo.outputPath('document.png'), fullPage: true });
   await page.emulateMedia({ media: 'print' });
   await expect(page.getByRole('button', { name: 'Download Word' })).toBeHidden();

@@ -236,7 +236,9 @@ export const IMPLEMENTATIES: Record<string, Implementatie> = {
 
   kd_werkplaats: {
     reken(c) {
-      const p = c.p('o5');
+      // De post met de werkplaats voor derden (2026: o5, vanaf 2027 in o4).
+      const post = c.verband.van[0] ?? 'o4';
+      const p = c.p(post);
       if (p >= 0) return;
       const v = c.verband.vertraging_jaren;
       c.effect({
@@ -244,7 +246,7 @@ export const IMPLEMENTATIES: Record<string, Implementatie> = {
         kant: 'lasten',
         bedragen: perJaar(
           c.n,
-          (j) => -p * c.lasten('o5') * c.param('aandeel_overheadvrijval') * vanaf(v, j),
+          (j) => -p * c.lasten(post) * c.param('aandeel_overheadvrijval') * vanaf(v, j),
         ),
         params: ['aandeel_overheadvrijval'],
         uitleg:
@@ -896,7 +898,20 @@ export const IMPLEMENTATIES: Record<string, Implementatie> = {
       const ids = c.verband.van.filter((id) => c.p(id) < 0);
       if (!ids.length) return;
       c.meter('dienstverlening', gemiddeldeP(c, ids));
-      c.param('personeelskosten');
+      // Via natuurlijk verloop gaat elk jaar verloop_pct van de personeelskosten vrij. Wat de speler
+      // sneller wil, kost tijdelijk geld: de besparing komt nog niet binnen (eenmalig, frictie).
+      const capaciteit = c.param('verloop_pct') * vanMln(c.param('personeelskosten'));
+      const doel = perJaar(c.n, (j) => som(ids.map((id) => besparing(c, id)[j] ?? 0)));
+      const tekort = doel.map((x, j) => Math.max(0, x - capaciteit * (j + 1)));
+      if (!tekort.some((x) => x > 0)) return;
+      c.effect({
+        doel: 'saldo:meerjarig',
+        kant: 'lasten',
+        soort: 'I',
+        bedragen: tekort.map((x) => -x),
+        params: ['verloop_pct', 'personeelskosten'],
+        uitleg: `Zoveel minder ambtenaren lukt niet in één keer via natuurlijk verloop (ongeveer ${formatMln(capaciteit)} per jaar). Tot het zover is, kost het eenmalig frictiegeld.`,
+      });
     },
   },
 

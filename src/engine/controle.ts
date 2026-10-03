@@ -158,7 +158,11 @@ export function controleer({ data, buurtcodes, mappings = [] }: ControleInvoer):
       const verschil = Math.abs(som - totaal);
       if (verschil <= 1) continue;
       const tekst = `${j}: de ${wat} van de deelprogramma's (${som}) wijken ${verschil} (x € 1.000) af van de totalen inclusief reservemutaties (${totaal}).`;
+      const bekend = (b.bekende_afwijkingen ?? []).find(
+        (a) => a.controle === 'totalen_deelprogrammas' && String(a.jaar) === j,
+      );
       if (verschil <= afronding) waarschuw('totalen', `${tekst} Dat past bij afronding.`);
+      else if (bekend) waarschuw('totalen', `${tekst} (bekende afwijking: ${bekend.toelichting})`);
       else fout('totalen', tekst);
     }
     const saldo = baten - lasten;

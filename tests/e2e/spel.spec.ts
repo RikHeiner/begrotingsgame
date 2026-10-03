@@ -55,7 +55,7 @@ test('bezuinigen en daarna investeren; een kettingeffect geeft een melding', asy
   await page.goto('/');
   await tikOpGebouw(page, 'stadhuis');
   await schuif(page, /Overhead/, -2);
-  await expect(page.getByTestId('saldo')).toContainText('+ € 12,3 mln');
+  await expect(page.getByTestId('saldo')).toContainText('+ € 13,2 mln');
   await expect(page.getByTestId('geldpotje')).toHaveAttribute('aria-label', /slot is open/);
   await page.getByTestId('paneel').getByRole('button', { name: 'Paneel sluiten' }).click();
   await tikOpGebouw(page, 'parkeer');
@@ -63,8 +63,8 @@ test('bezuinigen en daarna investeren; een kettingeffect geeft een melding', asy
   await expect(page.getByTestId('kettingmelding')).toContainText('🔗');
   await expect(page.getByTestId('paneel')).toContainText('Dit heeft ook effect op');
   await page.screenshot({ path: testInfo.outputPath('ketting.png') });
-  // 12,3236 − 1,0 (parkeercontrole) − 3,51 (betaalbereidheid, aanname) = 7,8
-  await expect(page.getByTestId('saldo')).toContainText('+ € 7,8 mln');
+  // 13,15 (overhead) + 0,2 (parkeercontrole: 0,2 × (7,3 − 6,3)) − 2,85 (betaalbereidheid, aanname) = 10,5
+  await expect(page.getByTestId('saldo')).toContainText('+ € 10,5 mln');
 });
 
 test('een bedrag invullen in plaats van een percentage', async ({ page }, testInfo) => {
@@ -83,7 +83,7 @@ test('een bedrag invullen in plaats van een percentage', async ({ page }, testIn
   await expect(paneel.locator(`output[for="${await overhead.getAttribute('id')}"]`)).toHaveText(
     '−10%',
   );
-  await expect(page.getByTestId('saldo')).toContainText('+ € 12,3 mln');
+  await expect(page.getByTestId('saldo')).toContainText('+ € 13,2 mln');
   await page.screenshot({ path: testInfo.outputPath('bedrag.png') });
   // Een tarief bij de parkeergarage
   await paneel.getByRole('button', { name: 'Paneel sluiten' }).click();
@@ -91,10 +91,10 @@ test('een bedrag invullen in plaats van een percentage', async ({ page }, testIn
   const tarief = paneel.getByRole('textbox', {
     name: /Tarief voor .*Bewonersvergunning \(tweede zone\)/,
   });
-  await expect(tarief).toHaveValue('135,05');
-  await tarief.fill('148,56');
+  await expect(tarief).toHaveValue('141,24');
+  await tarief.fill('155,36');
   await tarief.press('Enter');
-  await expect(paneel).toContainText('Nieuw tarief: € 148,56 per jaar');
+  await expect(paneel).toContainText('Nieuw tarief: € 155,36 per jaar');
 });
 
 test('parkeertarieven per vergunning en zone bij de parkeergarage', async ({ page }, testInfo) => {
@@ -105,7 +105,7 @@ test('parkeertarieven per vergunning en zone bij de parkeergarage', async ({ pag
   await expect(paneel.getByRole('heading', { name: 'Parkeertarieven' })).toBeVisible();
   const s = await schuif(page, /Bewonersvergunning \(tweede zone\)/, 2);
   await expect(s).toHaveValue('10');
-  await expect(paneel).toContainText('Nieuw tarief: € 148,56 per jaar');
+  await expect(paneel).toContainText('Nieuw tarief: € 155,36 per jaar');
   await paneel.getByRole('heading', { name: 'Parkeertarieven' }).scrollIntoViewIfNeeded();
   await page.screenshot({ path: testInfo.outputPath('parkeren.png') });
   await paneel.getByRole('button', { name: 'Paneel sluiten' }).click();
@@ -126,7 +126,7 @@ test('indienen: het eindscherm, zonder missies en zonder meters', async ({ page 
   await expect(eind).not.toContainText('Meters');
   await expect(eind).toContainText('Saldo per jaar');
   await expect(eind).toContainText('Wat merken de inwoners?');
-  await expect(eind).toContainText('Vergelijking');
+  await expect(eind).toContainText('Jouw begroting naast die van het college');
   await page.screenshot({ path: testInfo.outputPath('eindscherm.png'), fullPage: true });
   await eind.getByRole('button', { name: 'Terug naar de gemeente' }).click();
   await expect(page.getByTestId('saldo')).toBeVisible();
@@ -136,11 +136,11 @@ test('een deellink opent dezelfde begroting', async ({ page }) => {
   await zonderTutorial(page);
   const b = codeer(
     { onderdelen: { h1: -10 }, belastingen: { t1: -5 }, kaarten: [], scenario: 'midden' },
-    2026,
+    2027,
   );
   await page.goto(`/?b=${b}`);
-  // 12,3236 − 6,265 = 6,1
-  await expect(page.getByTestId('saldo')).toContainText('+ € 6,1 mln');
+  // 0,1 × (134,9 − 3,4) − 0,05 × 139,441 = 13,150 − 6,972 = 6,2
+  await expect(page.getByTestId('saldo')).toContainText('+ € 6,2 mln');
   await expect(page.getByText('Je bekijkt een gedeelde begroting')).toBeVisible();
   await page.getByTestId('indienen').click();
   await expect(page.getByTestId('eindscherm')).toContainText('Onroerendezaakbelasting');
@@ -150,7 +150,7 @@ test('waarom-knop en inwoners', async ({ page }, testInfo) => {
   await zonderTutorial(page);
   const b = codeer(
     { onderdelen: { h1: -10, s3: 20 }, belastingen: {}, kaarten: [], scenario: 'midden' },
-    2026,
+    2027,
   );
   await page.goto(`/?b=${b}`);
   await page.getByTestId('saldo').click();
@@ -187,7 +187,7 @@ test('een opmerking van een inwoner brengt je naar de post', async ({ page }) =>
   await zonderTutorial(page);
   const b = codeer(
     { onderdelen: { o1: -20 }, belastingen: {}, kaarten: [], scenario: 'midden' },
-    2026,
+    2027,
   );
   await page.goto(`/?b=${b}`);
   await page.getByRole('button', { name: /Inwoners/ }).click();

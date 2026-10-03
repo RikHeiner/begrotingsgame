@@ -11,10 +11,37 @@ export const haalUitData = async (pad: string): Promise<unknown> =>
 export const leesJson = (pad: string): unknown =>
   JSON.parse(readFileSync(resolve(DATA_MAP, pad), 'utf8'));
 
+/**
+ * De rekentests rekenen met de begroting 2026: vaste bedragen, zodat een nieuwe begroting de
+ * verwachtingen niet verandert. De actieve begroting (config.json) testen data.test.ts en
+ * begroting-2027.test.ts.
+ */
+export const CONFIG_2026 = {
+  actiefJaar: 2026,
+  begroting: 'begroting-2026.json',
+  vergelijking: ['tegenbegroting-vvd-2026.json'],
+  meerjarenHorizon: [2026, 2027, 2028, 2029],
+  scenario: 'midden',
+  vergelijkingTonen: true,
+  tarieven: 'tarieven-2026.json',
+  parkeren: 'parkeren-2026.json',
+  woonlasten: 'woonlasten-2026.json',
+};
+
+export const haalUitData2026 = async (pad: string): Promise<unknown> =>
+  pad === 'config.json' ? structuredClone(CONFIG_2026) : haalUitData(pad);
+
 let cache: Promise<Data> | undefined;
 export function echteData(): Promise<Data> {
-  cache ??= laadData(haalUitData);
+  cache ??= laadData(haalUitData2026);
   return cache;
+}
+
+let actief: Promise<Data> | undefined;
+/** De begroting die de game nu gebruikt (config.json). */
+export function actieveData(): Promise<Data> {
+  actief ??= laadData(haalUitData);
+  return actief;
 }
 
 export function keuzes(deel: Partial<Keuzes> = {}): Keuzes {

@@ -20,7 +20,7 @@ test('eerste bezoek: uitleg, dan bij nul beginnen; daarna niet meer', async ({
   const start = page.getByTestId('startscherm');
   await expect(start).toBeVisible();
   await expect(page.getByRole('dialog', { name: 'Jij bent gemeenteraadslid' })).toBeVisible();
-  await expect(start).toContainText('€ 1.482 miljoen');
+  await expect(start).toContainText('€ 1.586 miljoen');
   await expect(start).toContainText('Wie betaalt meer, wie minder?');
   await expect(start).toContainText('Wat kan minder, of later?');
   await expect(page.getByTestId('begin')).toHaveText('Begin bij nul');
@@ -78,7 +78,7 @@ test('met de begroting van het college beginnen; de game onthoudt dat', async ({
 test('een gedeelde link opent direct de begroting', async ({ page }) => {
   const b = codeer(
     { onderdelen: { h1: -10 }, belastingen: {}, kaarten: [], scenario: 'midden' },
-    2026,
+    2027,
   );
   await page.goto(`/?b=${b}`);
   await expect(page.getByTestId('saldo')).toBeVisible();

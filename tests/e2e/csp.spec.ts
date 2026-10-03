@@ -24,7 +24,7 @@ test.beforeEach(async ({ page }) => {
 test('de CSP staat in de pagina en blokkeert niets in de game', async ({ page }) => {
   const b = codeer(
     { onderdelen: { h1: -10 }, belastingen: { t1: -5 }, kaarten: [], scenario: 'midden' },
-    2026,
+    2027,
   );
   await page.goto(`/?b=${b}`);
   const csp = await page

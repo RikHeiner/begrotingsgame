@@ -1,0 +1,542 @@
+{
+  "van_jaar": 2026,
+  "naar_jaar": 2027,
+  "posten": [
+    {
+      "oud": "e1",
+      "nieuw": "e1",
+      "oude_naam": "Economische agenda",
+      "nieuwe_naam": "Economische Agenda"
+    },
+    {
+      "oud": "e2",
+      "nieuw": "e2",
+      "oude_naam": "Ambtenaren economische zaken",
+      "nieuwe_naam": "Personele inzet economische ontwikkeling"
+    },
+    {
+      "oud": "e3",
+      "nieuw": "e3",
+      "oude_naam": "Citymarketing en economische activiteiten",
+      "nieuwe_naam": "Reguliere activiteiten economische ontwikkeling"
+    },
+    {
+      "oud": "e4",
+      "nieuw": "e4",
+      "oude_naam": "Akkoord van Groningen (RUG, Hanze, UMCG)",
+      "nieuwe_naam": "Akkoord van Groningen"
+    },
+    {
+      "oud": "e5",
+      "nieuw": "e5",
+      "oude_naam": "Markten, havens en brugbediening",
+      "nieuwe_naam": "Markt- en havenwezen"
+    },
+    {
+      "oud": "e6",
+      "nieuw": "e6",
+      "oude_naam": "Bedrijventerreinen en winkelcentra",
+      "nieuwe_naam": "Intensiveringsmiddelen Ruimtelijke economie"
+    },
+    {
+      "oud": "e7",
+      "nieuw": "e7",
+      "oude_naam": "Strategisch bezit (panden en grond)",
+      "nieuwe_naam": "Strategisch bezit"
+    },
+    {
+      "oud": "e8",
+      "nieuw": "e8",
+      "oude_naam": "Suikerzijde (gebiedsontwikkeling)",
+      "nieuwe_naam": "Suikerzijde"
+    },
+    {
+      "oud": "e9",
+      "nieuw": "e9",
+      "oude_naam": "Regio Groningen-Assen",
+      "nieuwe_naam": "Bijdrage aan Regio Groningen-Assen"
+    },
+    {
+      "oud": "e10",
+      "nieuw": "e10",
+      "oude_naam": "Ambtenaren gebiedsontwikkeling",
+      "nieuwe_naam": "Personele inzet en bedrijfsvoering Stadsontwikkeling"
+    },
+    {
+      "oud": "e11",
+      "nieuw": "e11",
+      "oude_naam": "Rente en afschrijving (o.a. Meerstad)",
+      "nieuwe_naam": "Kapitaallasten (ruimtelijk-economische projecten/activa en bovenwijkse voorzieningen Meerstad)"
+    },
+    {
+      "oud": "m2",
+      "nieuw": "m2",
+      "oude_naam": "Parkeercontrole",
+      "nieuwe_naam": "Parkeerhandhaving"
+    },
+    {
+      "oud": "m3",
+      "nieuw": "m3",
+      "oude_naam": "Extra geld mobiliteit",
+      "nieuwe_naam": "Intensiveringsmiddelen Mobiliteit"
+    },
+    {
+      "oud": "m4",
+      "nieuw": "m4",
+      "oude_naam": "Uitvoering mobiliteitsvisie",
+      "nieuwe_naam": "Uitvoeringsprogramma's Mobiliteitsvisie"
+    },
+    {
+      "oud": "m5",
+      "nieuw": "m5",
+      "oude_naam": "Fietsenstallingen centrum",
+      "nieuwe_naam": "Stallingen centrum"
+    },
+    {
+      "oud": "m6",
+      "nieuw": "m6",
+      "oude_naam": "Binnenstadsprogramma",
+      "nieuwe_naam": "SIF-middelen voor projecten: Binnenstadsprogramma"
+    },
+    {
+      "oud": "m7",
+      "nieuw": "m7",
+      "oude_naam": "Stationsgebied",
+      "nieuwe_naam": "SIF-middelen voor projecten: Stationsgebied"
+    },
+    {
+      "oud": "m9",
+      "nieuw": "m9",
+      "oude_naam": "Oosterhamrikzone",
+      "nieuwe_naam": "SIF-middelen voor projecten: Oosterhamrikzone"
+    },
+    {
+      "oud": "m11",
+      "nieuw": "m11",
+      "oude_naam": "Ambtenaren mobiliteit",
+      "nieuwe_naam": "Personele inzet programma Mobiliteit"
+    },
+    {
+      "oud": "m10",
+      "nieuw": "m10",
+      "oude_naam": "Rente en afschrijving wegen",
+      "nieuwe_naam": "Kapitaallasten"
+    },
+    {
+      "oud": "w1",
+      "nieuw": "w1",
+      "oude_naam": "Extra geld wonen",
+      "nieuwe_naam": "Intensiveringsmiddelen Wonen"
+    },
+    {
+      "oud": "w2",
+      "nieuw": "w2",
+      "oude_naam": "Meer betaalbare woningen",
+      "nieuwe_naam": "Meer betaalbare woningen"
+    },
+    {
+      "oud": "w3",
+      "nieuw": "w3",
+      "oude_naam": "Goed verhuurderschap",
+      "nieuwe_naam": "Woontoezicht"
+    },
+    {
+      "oud": "w4",
+      "nieuw": "w4",
+      "oude_naam": "Ambtenaren wonen",
+      "nieuwe_naam": "Personele inzet programma Wonen"
+    },
+    {
+      "oud": "w6",
+      "nieuw": "w6",
+      "oude_naam": "Energiesubsidies",
+      "nieuwe_naam": "Diverse subsidies programma Energie"
+    },
+    {
+      "oud": "w7",
+      "nieuw": "w7",
+      "oude_naam": "Extra geld energietransitie",
+      "nieuwe_naam": "Intensiveringsmiddelen Energie"
+    },
+    {
+      "oud": "w8",
+      "nieuw": "w8",
+      "oude_naam": "Omgevingsvergunningen",
+      "nieuwe_naam": "Leges omgevingsvergunning"
+    },
+    {
+      "oud": "w10",
+      "nieuw": "w10",
+      "oude_naam": "Toezicht op bouwen",
+      "nieuwe_naam": "Toezicht en handhaving"
+    },
+    {
+      "oud": "w11",
+      "nieuw": "w11",
+      "oude_naam": "Verduurzamen gemeentegebouwen",
+      "nieuwe_naam": "Verduurzaming maatschappelijk vastgoed"
+    },
+    {
+      "oud": "o1",
+      "nieuw": "o1",
+      "oude_naam": "Onderhoud straten, groen en speeltuinen",
+      "nieuwe_naam": "Onderhoud en beheer openbare ruimte"
+    },
+    {
+      "oud": "o3",
+      "nieuw": "o3",
+      "oude_naam": "Afvalinzameling huishoudens",
+      "nieuwe_naam": "Afvalstoffenheffing"
+    },
+    {
+      "oud": "o2",
+      "nieuw": "o2",
+      "oude_naam": "Riolering",
+      "nieuwe_naam": "Rioolheffing"
+    },
+    {
+      "oud": "o4",
+      "nieuw": "o4",
+      "oude_naam": "Bedrijfsafval inzamelen",
+      "nieuwe_naam": "Zakelijke dienstverlening Stadsbeheer",
+      "samengevoegd_uit": ["o4", "o5"]
+    },
+    {
+      "oud": "o5",
+      "nieuw": "o4",
+      "oude_naam": "Autowerkplaats voor derden",
+      "toelichting": "Opgegaan in 'Zakelijke dienstverlening Stadsbeheer' (o4), p. 62."
+    },
+    {
+      "oud": "o6",
+      "nieuw": "o6",
+      "oude_naam": "Leefkwaliteit (groen en spelen in wijken)",
+      "nieuwe_naam": "Meerjarenprogramma Leefkwaliteit (incl. bodembeheer)"
+    },
+    {
+      "oud": "o8",
+      "nieuw": "o8",
+      "oude_naam": "Geo en data",
+      "nieuwe_naam": "GEO & Data"
+    },
+    {
+      "oud": "v2",
+      "nieuw": "v2",
+      "oude_naam": "Boa's en toezicht op straat",
+      "nieuwe_naam": "Toezicht en handhaving in de openbare ruimte"
+    },
+    {
+      "oud": "v3",
+      "nieuw": "v3",
+      "oude_naam": "Openbare orde en veiligheid",
+      "nieuwe_naam": "Openbare orde en veiligheid (OOV)"
+    },
+    {
+      "oud": "v4",
+      "nieuw": "v4",
+      "oude_naam": "Ondermijning (drugs en criminele geldstromen)",
+      "nieuwe_naam": "Ondermijning"
+    },
+    {
+      "oud": "v5",
+      "nieuw": "v5",
+      "oude_naam": "Jeugd en veiligheid",
+      "nieuwe_naam": "Jeugd en Veiligheid"
+    },
+    {
+      "oud": "v6",
+      "nieuw": "v6",
+      "oude_naam": "Zorg- en Veiligheidshuis",
+      "nieuwe_naam": "Zorg- en Veiligheidshuis Groningen"
+    },
+    {
+      "oud": "v9",
+      "nieuw": "v9",
+      "oude_naam": "Reclamezuilen op straat",
+      "nieuwe_naam": "Reclamedragend straatmeubilair"
+    },
+    {
+      "oud": "v1",
+      "nieuw": "v1",
+      "oude_naam": "Brandweer en ambulancezorg (Veiligheidsregio)",
+      "nieuwe_naam": "Veiligheidsregio Groningen"
+    },
+    {
+      "oud": "v8",
+      "nieuw": "v8",
+      "oude_naam": "Omgevingsdienst",
+      "nieuwe_naam": "Deelnemersbijdrage Omgevingsdienst"
+    },
+    {
+      "oud": "s3",
+      "nieuw": "s3",
+      "oude_naam": "Begeleiding naar werk",
+      "nieuwe_naam": "Participatie en re-integratie"
+    },
+    {
+      "oud": "s1",
+      "nieuw": "s1",
+      "oude_naam": "Bijstandsuitkeringen",
+      "nieuwe_naam": "BUIG"
+    },
+    {
+      "oud": "s2",
+      "nieuw": "s2",
+      "oude_naam": "Sociale werkvoorziening (Iederz)",
+      "nieuwe_naam": "Sociale Werkvoorziening en Nieuw Beschut"
+    },
+    {
+      "oud": "s4",
+      "nieuw": "s4",
+      "oude_naam": "Loonkostensubsidie",
+      "nieuwe_naam": "Loonkostensubsidie"
+    },
+    {
+      "oud": "s5",
+      "nieuw": "s5",
+      "oude_naam": "Werk in Zicht",
+      "nieuwe_naam": "Werk in Zicht"
+    },
+    {
+      "oud": "s6",
+      "nieuw": "s6",
+      "oude_naam": "Basisbanen",
+      "nieuwe_naam": "Basisbanen"
+    },
+    {
+      "oud": "s8",
+      "nieuw": "s8",
+      "oude_naam": "Afspraakbanen",
+      "nieuwe_naam": "Afspraakbanen"
+    },
+    {
+      "oud": "s9",
+      "nieuw": "s9",
+      "oude_naam": "Schuldhulpverlening",
+      "nieuwe_naam": "Schuldhulpverlening"
+    },
+    {
+      "oud": "s10",
+      "nieuw": "s10",
+      "oude_naam": "Armoede- en minimaregelingen",
+      "nieuwe_naam": "Armoede- en minimaregelingen"
+    },
+    {
+      "oud": "s11",
+      "nieuw": "s11",
+      "oude_naam": "Bijzondere bijstand",
+      "nieuwe_naam": "Bijzondere bijstand"
+    },
+    {
+      "oud": "s12",
+      "nieuw": "s12",
+      "oude_naam": "Individuele inkomenstoeslag",
+      "nieuwe_naam": "Individuele inkomenstoeslag"
+    },
+    {
+      "oud": "s7",
+      "nieuw": "s7",
+      "oude_naam": "Inburgering",
+      "nieuwe_naam": "Inburgering"
+    },
+    {
+      "oud": "z1",
+      "nieuw": "z1",
+      "oude_naam": "Jeugdzorg",
+      "nieuwe_naam": "Jeugd"
+    },
+    {
+      "oud": "z2",
+      "nieuw": "z2",
+      "oude_naam": "Beschermd wonen",
+      "nieuwe_naam": "Beschermd Wonen"
+    },
+    {
+      "oud": "z3",
+      "nieuw": "z3",
+      "oude_naam": "Wmo (huishoudelijke hulp, hulpmiddelen)",
+      "nieuwe_naam": "WMO"
+    },
+    {
+      "oud": "z4",
+      "nieuw": "z4",
+      "oude_naam": "WIJ-teams in de wijk",
+      "nieuwe_naam": "WIJ"
+    },
+    {
+      "oud": "z5",
+      "nieuw": "z5",
+      "oude_naam": "Daklozen- en vrouwenopvang",
+      "nieuwe_naam": "Maatschappelijke opvang en Vrouwenopvang"
+    },
+    {
+      "oud": "z6",
+      "nieuw": "z6",
+      "oude_naam": "Gezondheid (GGD)",
+      "nieuwe_naam": "Gezondheidszorg"
+    },
+    {
+      "oud": "z7",
+      "nieuw": "z7",
+      "oude_naam": "Huiselijk geweld en kindermishandeling",
+      "nieuwe_naam": "Huiselijk geweld en kindermishandeling"
+    },
+    {
+      "oud": "z8",
+      "nieuw": "z8",
+      "oude_naam": "Welzijnsinstellingen en buurthuizen",
+      "nieuwe_naam": "Sociaal-culturele en welzijnsinstellingen"
+    },
+    {
+      "oud": "z9",
+      "nieuw": "z9",
+      "oude_naam": "Sociale samenhang in wijken",
+      "nieuwe_naam": "Bevorderen sociale samenhang en leefbaarheid"
+    },
+    {
+      "oud": "z10",
+      "nieuw": "z10",
+      "oude_naam": "Diversiteit en inclusie",
+      "nieuwe_naam": "Diversiteit en inclusie"
+    },
+    {
+      "oud": "z11",
+      "nieuw": "z11",
+      "oude_naam": "Opvang vluchtelingen en asielzoekers",
+      "nieuwe_naam": "Opvang vluchtelingen en asielzoekers"
+    },
+    {
+      "oud": "d1",
+      "nieuw": "d1",
+      "oude_naam": "Schoolgebouwen",
+      "nieuwe_naam": "Onderwijshuisvesting"
+    },
+    {
+      "oud": "d2",
+      "nieuw": "d2",
+      "oude_naam": "Onderwijskansen",
+      "nieuwe_naam": "Onderwijskansen"
+    },
+    {
+      "oud": "d4",
+      "nieuw": "d4",
+      "oude_naam": "Voortijdig schoolverlaten",
+      "nieuwe_naam": "Voortijdig schoolverlaten (VSV)"
+    },
+    {
+      "oud": "d5",
+      "nieuw": "d5",
+      "oude_naam": "Leerlingenvervoer",
+      "nieuwe_naam": "Leerlingenvervoer"
+    },
+    {
+      "oud": "d6",
+      "nieuw": "d6",
+      "oude_naam": "Natuur- en duurzaamheidseducatie",
+      "nieuwe_naam": "Natuur- en duurzaamheidseducatie"
+    },
+    {
+      "oud": "k1",
+      "nieuw": "k1",
+      "oude_naam": "Sporthallen, zwembaden en ijsbaan",
+      "nieuwe_naam": "Sportaccommodaties en zwemvoorzieningen"
+    },
+    {
+      "oud": "k2",
+      "nieuw": "k2",
+      "oude_naam": "Sportstimulering",
+      "nieuwe_naam": "Sportstimulering, talentontwikkeling en participatie"
+    },
+    {
+      "oud": "k3",
+      "nieuw": null,
+      "oude_naam": "Recreatiegebieden en bewegen",
+      "vervallen": true,
+      "toelichting": "Meerschap Paterswolde naar 2.1 (in o1, p. 61 en 129); bewegen in de openbare ruimte naar k2."
+    },
+    {
+      "oud": "c1",
+      "nieuw": "c1",
+      "oude_naam": "Stadsschouwburg en Oosterpoort",
+      "nieuwe_naam": "Stadsschouwburg en Oosterpoort (SPOT)"
+    },
+    {
+      "oud": "c2",
+      "nieuw": "c2",
+      "oude_naam": "Culturele instellingen en subsidies",
+      "nieuwe_naam": "Cultuurnota"
+    },
+    {
+      "oud": "c3",
+      "nieuw": "c3",
+      "oude_naam": "Overal cultuur (o.a. Forum, broedplaatsen)",
+      "nieuwe_naam": "Cultuur- en evenementenbeleid"
+    },
+    {
+      "oud": "c4",
+      "nieuw": "c4",
+      "oude_naam": "Groninger Archieven",
+      "nieuwe_naam": "Groninger Archieven"
+    },
+    {
+      "oud": "g1",
+      "nieuw": "g1",
+      "oude_naam": "College van burgemeester en wethouders",
+      "nieuwe_naam": "College van B&W"
+    },
+    {
+      "oud": "g2",
+      "nieuw": "g2",
+      "oude_naam": "Gemeenteraad en griffie",
+      "nieuwe_naam": "Raad, griffie en rekenkamer"
+    },
+    {
+      "oud": "g3",
+      "nieuw": "g3",
+      "oude_naam": "Wijkbudgetten",
+      "nieuwe_naam": "Wijkontwikkeling"
+    },
+    {
+      "oud": "g4",
+      "nieuw": "g4",
+      "oude_naam": "Wijkvernieuwing (o.a. Selwerd, De Wijert, Beijum)",
+      "nieuwe_naam": "Wijkvernieuwing"
+    },
+    {
+      "oud": "g5",
+      "nieuw": "g5",
+      "oude_naam": "Samenwerkingsverbanden",
+      "nieuwe_naam": "Deelname aan diverse samenwerkingsverbanden"
+    },
+    {
+      "oud": "g7",
+      "nieuw": "g7",
+      "oude_naam": "Concernposten",
+      "nieuwe_naam": "Concernposten"
+    },
+    {
+      "oud": "b1",
+      "nieuw": "b1",
+      "oude_naam": "Burgerzaken (paspoort, rijbewijs)",
+      "nieuwe_naam": "Burgerzaken"
+    },
+    {
+      "oud": "b2",
+      "nieuw": "b2",
+      "oude_naam": "Klantcontactcentrum",
+      "nieuwe_naam": "Klant Contactcentrum (KCC)"
+    },
+    {
+      "oud": "b3",
+      "nieuw": "b3",
+      "oude_naam": "Uitvoering belastingen",
+      "nieuwe_naam": "Belastingen"
+    },
+    {
+      "oud": "h1",
+      "nieuw": "h1",
+      "oude_naam": "Overhead (staf, ICT, huisvesting, HR)",
+      "nieuwe_naam": "Overhead"
+    }
+  ]
+}

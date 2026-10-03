@@ -59,7 +59,7 @@ describe('data laden en valideren', () => {
   it('geeft een leesbare fout met het pad in het bestand', async () => {
     const haal = async (pad: string): Promise<unknown> => {
       const inhoud = await haalUitData(pad);
-      if (pad !== 'begroting-2026.json') return inhoud;
+      if (pad !== 'begroting-2027.json') return inhoud;
       const b = structuredClone(inhoud) as { onderdelen: { lasten_mln: unknown }[] };
       const eerste = b.onderdelen[0];
       if (eerste) eerste.lasten_mln = 'veel';

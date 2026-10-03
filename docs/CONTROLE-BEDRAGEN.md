@@ -1,76 +1,88 @@
-# Controle van alle bedragen (begroting 2026)
+# Controle van alle bedragen (begroting 2027)
 
-Gemaakt met `npm run bedragen:controle` op 2026-10-02. Dit bestand wordt
+Gemaakt met `npm run bedragen:controle` op 2026-10-03. Dit bestand wordt
 elke keer opnieuw gemaakt; zet vinkjes en opmerkingen dus in een kopie, of in BEVINDINGEN.md.
 
-Bedragen in miljoenen euro's, tenzij anders vermeld. Bron: [Ontwerpbegroting 2026 gemeente Groningen (boekwerk, bijlage 2)](https://gemeenteraad.groningen.nl/Documenten/Bijlage-2-Ontwerpbegroting-2026-boekwerk.pdf).
+Bedragen in miljoenen euro's, tenzij anders vermeld. Bron: [Ontwerpbegroting 2027 gemeente Groningen (boekwerk)](https://gemeenteraad.groningen.nl/).
 
 ## 1. Automatische controles
 
-- `data:check`: **0 fouten, 6 waarschuwingen** ✓
+- `data:check`: **0 fouten, 19 waarschuwingen** ✓
 
 | Controle | Uitkomst | Toelichting |
 | --- | --- | --- |
-| OZB (schuif t1) en kengetal OZB | ✓ klopt | 125,300 tegenover 125,336 mln |
-| Toeristenbelasting (t2) en kengetal logiesbelasting | ✓ klopt | 2,900 tegenover 2,903 mln |
-| Reclamebelasting (t3) en kengetal | ✓ klopt | 0,700 tegenover 0,700 mln |
-| Precariobelasting (t4) en kengetal | ✓ klopt | 1,800 tegenover 1,784 mln |
-| Parkeerposten samen en schuif t5 | ✓ klopt | 35,100 tegenover 35,100 mln |
-| Parkeerposten zonder garages en kengetal parkeerbelasting | ✓ klopt | 26,325 tegenover 26,325 mln |
+| OZB (schuif t1) en kengetal OZB | ✓ klopt | 139,441 tegenover 139,441 mln |
+| Toeristenbelasting (t2) en kengetal logiesbelasting | ✓ klopt | 2,998 tegenover 2,998 mln |
+| Reclamebelasting (t3) en kengetal | ✓ klopt | 0,980 tegenover 0,980 mln |
+| Precariobelasting (t4) en kengetal | ✓ klopt | 1,866 tegenover 1,866 mln |
+| Parkeerposten samen en schuif t5 | ✓ klopt | 36,299 tegenover 36,299 mln |
+| Parkeerposten zonder garages en kengetal parkeerbelasting | ✓ klopt | 27,524 tegenover 27,524 mln |
 | Zonder keuzes is het saldo in elk jaar € 0 | ✓ klopt | het saldo telt ten opzichte van de begroting |
-| Het kan en moet anders. Tegenbegroting VVD Groningen op de ontwerpbegroting 2026: saldo structureel in de game = tabel van de fractie | ✓ klopt | −0,059 tegenover −0,059 mln |
 
 ```
-⚠︎ [deelprogramma] De onderdelen van 2.1 (Kwaliteit leefomgeving) tellen op tot 139.800 mln; het deelprogramma heeft 139.531 mln lasten in 2026. (bekende afwijking)
-⚠︎ [totalen] 2026: de baten van de deelprogramma's (1514976) wijken 2 (x € 1.000) af van de totalen inclusief reservemutaties (1514978). Dat past bij afronding.
-⚠︎ [totalen] 2028: de baten van de deelprogramma's (1525034) wijken 3 (x € 1.000) af van de totalen inclusief reservemutaties (1525031). Dat past bij afronding.
-⚠︎ [parkeren] Uurtarief Zone 3 (onder andere Paddepoel, Selwerd, Helpman, De Linie): tarief van 2023 en geen indexatie naar 2026. Vervang het tarief of vul "indexatie" aan.
-⚠︎ [parkeren] Uurtarief Zone 4 (Hoornse Meer, De Wijert-Zuid, Stadspark, Oosterhoogebrug): tarief van 2023 en geen indexatie naar 2026. Vervang het tarief of vul "indexatie" aan.
+⚠︎ [deelprogramma] De onderdelen van 2.1 (Kwaliteit leefomgeving) tellen op tot 152.200 mln; het deelprogramma heeft 150.898 mln lasten in 2027. (bekende afwijking)
+⚠︎ [deelprogramma] De gekoppelde baten van 3.4 tellen op tot 12.100 mln; het deelprogramma heeft 12.096 mln baten.
+⚠︎ [onderdelen] e7: staat op "controleren".
+⚠︎ [onderdelen] w12: staat op "controleren".
+⚠︎ [onderdelen] o4: staat op "controleren".
+⚠︎ [onderdelen] o6: staat op "controleren".
+⚠︎ [onderdelen] c2: staat op "controleren".
+⚠︎ [onderdelen] c3: staat op "controleren".
+⚠︎ [onderdelen] c5: staat op "controleren".
+⚠︎ [onderdelen] g2: staat op "controleren".
+⚠︎ [totalen] 2028: de baten van de deelprogramma's (1586047) wijken 2 (x € 1.000) af van de totalen inclusief reservemutaties (1586049). Dat past bij afronding.
+⚠︎ [totalen] 2029: de lasten van de deelprogramma's (1595663) wijken 81 (x € 1.000) af van de totalen inclusief reservemutaties (1595582). (bekende afwijking: In het boekwerk zelf (p. 352-353) zijn de deelprogramma's samen 81 duizend euro hoger dan de regel 'Lasten totaal' en 'Baten totaal'. Het saldo is gelijk; het verschil staat zo in de begroting.)
+⚠︎ [totalen] 2029: de baten van de deelprogramma's (1587837) wijken 80 (x € 1.000) af van de totalen inclusief reservemutaties (1587757). (bekende afwijking: In het boekwerk zelf (p. 352-353) zijn de deelprogramma's samen 81 duizend euro hoger dan de regel 'Lasten totaal' en 'Baten totaal'. Het saldo is gelijk; het verschil staat zo in de begroting.)
+⚠︎ [totalen] 2030: de lasten van de deelprogramma's (1641269) wijken 82 (x € 1.000) af van de totalen inclusief reservemutaties (1641187). (bekende afwijking: In het boekwerk zelf (p. 352-353) zijn de deelprogramma's samen 81 duizend euro hoger dan de regel 'Lasten totaal' en 'Baten totaal'. Het saldo is gelijk; het verschil staat zo in de begroting.)
+⚠︎ [totalen] 2030: de baten van de deelprogramma's (1631139) wijken 81 (x € 1.000) af van de totalen inclusief reservemutaties (1631058). (bekende afwijking: In het boekwerk zelf (p. 352-353) zijn de deelprogramma's samen 81 duizend euro hoger dan de regel 'Lasten totaal' en 'Baten totaal'. Het saldo is gelijk; het verschil staat zo in de begroting.)
+⚠︎ [parkeren] Uurtarief Zone 3 (onder andere Paddepoel, Selwerd, Helpman, De Linie): tarief van 2023 en geen indexatie naar 2027. Vervang het tarief of vul "indexatie" aan.
+⚠︎ [parkeren] Uurtarief Zone 4 (Hoornse Meer, De Wijert-Zuid, Stadspark, Oosterhoogebrug): tarief van 2023 en geen indexatie naar 2027. Vervang het tarief of vul "indexatie" aan.
+⚠︎ [parkeren] De aantallen vergunningen zijn van 2025; er zijn nieuwere cijfers nodig voor 2027.
 ⚠︎ [parkeren] bedrijven: de gebieden tellen op tot 2215, de bron noemt 2216 (verschil -1).
 
-0 fouten, 6 waarschuwingen, 0 meldingen.
+0 fouten, 19 waarschuwingen, 0 meldingen.
 ```
 
 ## 2. Totalen en kengetallen
 
-| Wat | 2026 | 2027 | 2028 | 2029 | Bron |
+| Wat | 2027 | 2028 | 2029 | 2030 | Bron |
 | --- | --- | --- | --- | --- | --- |
-| Lasten (excl. reserves) | 1.481,991 | 1.479,934 | 1.494,460 | 1.536,595 | boekwerk p. 353 |
-| Baten (excl. reserves) | 1.481,492 | 1.496,806 | 1.514,749 | 1.554,150 | boekwerk p. 353 |
+| Lasten (excl. reserves) | 1.585,643 | 1.557,302 | 1.573,318 | 1.621,629 | boekwerk p. 353 |
+| Baten (excl. reserves) | 1.562,953 | 1.553,000 | 1.575,050 | 1.626,032 | boekwerk p. 353 |
 
 | Kengetal | Waarde | Bron |
 | --- | --- | --- |
-| gemeentefonds_x1000 | 825.768 | boekwerk p. 4 (kerngegevens) |
-| opbrengst_belastingen_totaal_x1000 | 157.189 | boekwerk p. 4 (kerngegevens) |
-| ozb_x1000 | 125.336 | boekwerk p. 4 (kerngegevens) |
-| algemene_reserve_x1000 | 81.138 | boekwerk p. 4 (kerngegevens) |
-| ratio_weerstandsvermogen | 1,61 | boekwerk p. 4 (kerngegevens) |
-| aantal_woningen | 126.796 | boekwerk p. 4 (kerngegevens) |
-| gemiddelde_woz | 340.000 | boekwerk p. 4 (kerngegevens) |
-| parkeerbelasting_x1000 | 26.325 | boekwerk p. 4 (kerngegevens) |
-| reclamebelasting_x1000 | 700 | boekwerk p. 4 (kerngegevens) |
-| logiesbelasting_x1000 | 2.903 | boekwerk p. 4 (kerngegevens) |
-| precariobelasting_x1000 | 1.784 | boekwerk p. 4 (kerngegevens) |
-| roerende_zaakbelasting_x1000 | 141 | boekwerk p. 4 (kerngegevens) |
+| gemeentefonds_x1000 | 868.652 | boekwerk p. 5 (kerngegevens) |
+| opbrengst_belastingen_totaal_x1000 | 172.964 | boekwerk p. 5 (kerngegevens) |
+| ozb_x1000 | 139.441 | boekwerk p. 5 (kerngegevens) |
+| algemene_reserve_x1000 | 86.532 | boekwerk p. 5 (kerngegevens) |
+| ratio_weerstandsvermogen | 1,52 | boekwerk p. 5 (kerngegevens) |
+| aantal_woningen | 127.816 | boekwerk p. 5 (kerngegevens) |
+| gemiddelde_woz | 360.000 | boekwerk p. 5 (kerngegevens) |
+| parkeerbelasting_x1000 | 27.524 | boekwerk p. 5 (kerngegevens) |
+| reclamebelasting_x1000 | 980 | boekwerk p. 5 (kerngegevens) |
+| logiesbelasting_x1000 | 2.998 | boekwerk p. 5 (kerngegevens) |
+| precariobelasting_x1000 | 1.866 | boekwerk p. 5 (kerngegevens) |
+| roerende_zaakbelasting_x1000 | 155 | boekwerk p. 5 (kerngegevens) |
 
 ## 3. Deelprogramma's
 
-| Code | Naam | Lasten 2026 | Baten 2026 | Som van de posten (lasten) | Bron |
+| Code | Naam | Lasten 2027 | Baten 2027 | Som van de posten (lasten) | Bron |
 | --- | --- | --- | --- | --- | --- |
-| 1.1 | Economie en werkgelegenheid | 48,504 | 11,791 | 44,585 | boekwerk p. 352-353 |
-| 1.2 | Mobiliteit | 53,828 | 41,830 | 24,778 | boekwerk p. 352-353 |
-| 1.3 | Wonen | 46,678 | 30,849 | 37,000 | boekwerk p. 352-353 |
-| 2.1 | Kwaliteit leefomgeving | 139,531 | 81,144 | 139,800 | boekwerk p. 352-353 |
-| 2.2 | Veiligheid | 49,178 | 7,512 | 42,847 | boekwerk p. 352-353 |
-| 3.1 | Werk en inkomen | 335,448 | 219,163 | 330,900 | boekwerk p. 352-353 |
-| 3.2 | Onderwijs | 52,034 | 22,096 | 39,500 | boekwerk p. 352-353 |
-| 3.3 | Welzijn, gezondheid, zorg en diversiteit | 427,869 | 41,937 | 387,958 | boekwerk p. 352-353 |
-| 3.4 | Sport en bewegen | 43,124 | 12,368 | 39,800 | boekwerk p. 352-353 |
-| 3.5 | Cultuur en evenementen | 77,293 | 22,409 | 73,100 | boekwerk p. 352-353 |
-| 4.1 | Dienstverlening | 20,483 | 5,959 | 14,200 | boekwerk p. 352-353 |
-| 4.2 | College, raad, wijkontwikkeling en wijkvernieuwing | 72,420 | 44,997 | 25,420 | boekwerk p. 352-353 |
-| 4.3 | Algemene inkomsten en post onvoorzien | 8,462 | 962,731 | – | boekwerk p. 352-353 |
-| 4.4 | Overhead en ondersteuning organisatie | 140,125 | 10,190 | 129,180 | boekwerk p. 352-353 |
+| 1.1 | Economie en werkgelegenheid | 54,749 | 15,517 | 41,150 | boekwerk p. 351-352 |
+| 1.2 | Mobiliteit | 61,193 | 45,948 | 28,708 | boekwerk p. 351-352 |
+| 1.3 | Wonen | 50,773 | 21,358 | 38,375 | boekwerk p. 351-352 |
+| 2.1 | Kwaliteit leefomgeving | 150,898 | 87,594 | 152,200 | boekwerk p. 351-352 |
+| 2.2 | Veiligheid | 52,196 | 7,042 | 46,600 | boekwerk p. 351-352 |
+| 3.1 | Werk en inkomen | 355,432 | 232,936 | 350,800 | boekwerk p. 351-352 |
+| 3.2 | Onderwijs | 59,593 | 26,150 | 43,700 | boekwerk p. 351-352 |
+| 3.3 | Welzijn, gezondheid, zorg en diversiteit | 456,414 | 46,895 | 409,900 | boekwerk p. 351-352 |
+| 3.4 | Sport en bewegen | 44,170 | 12,096 | 41,200 | boekwerk p. 351-352 |
+| 3.5 | Cultuur en evenementen | 89,722 | 27,486 | 83,300 | boekwerk p. 351-352 |
+| 4.1 | Dienstverlening | 21,782 | 6,339 | 14,900 | boekwerk p. 351-352 |
+| 4.2 | College, raad, wijkontwikkeling en wijkvernieuwing | 66,004 | 56,399 | 25,150 | boekwerk p. 351-352 |
+| 4.3 | Algemene inkomsten en post onvoorzien | 3,786 | 1.020,282 | – | boekwerk p. 351-352 |
+| 4.4 | Overhead en ondersteuning organisatie | 147,205 | 7,875 | 134,900 | boekwerk p. 351-352 |
 
 ## 4. Posten (schuiven)
 
@@ -78,105 +90,105 @@ Lasten en meebewegende baten per post. ✓ = gecontroleerd tegen het boekwerk (i
 
 | ✓ | Id | Post | Dp. | Lasten | Baten | Grenzen | Bron |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| ☐ | e1 | Economische agenda | 1.1 | 1,400 | – | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | e2 | Ambtenaren economische zaken | 1.1 | 2,900 | – | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | e3 | Citymarketing en economische activiteiten | 1.1 | 2,250 | – | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | e4 | Akkoord van Groningen (RUG, Hanze, UMCG) | 1.1 | 1,250 | 0,750 | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | e5 | Markten, havens en brugbediening | 1.1 | 2,500 | 1,300 | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | e6 | Bedrijventerreinen en winkelcentra | 1.1 | 1,545 | – | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | e7 | Strategisch bezit (panden en grond) | 1.1 | 9,800 | 5,900 | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | e8 | Suikerzijde (gebiedsontwikkeling) | 1.1 | 3,840 | – | -65% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | e9 | Regio Groningen-Assen | 1.1 | 1,600 | – | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | e10 | Ambtenaren gebiedsontwikkeling | 1.1 | 6,800 | – | -75% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | e11 | Rente en afschrijving (o.a. Meerstad) | 1.1 | 10,700 | – | 🔒 vast | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | m2 | Parkeercontrole | 1.2 | 5,000 | 6,000 | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | m3 | Extra geld mobiliteit | 1.2 | 5,280 | – | -50% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | m4 | Uitvoering mobiliteitsvisie | 1.2 | 1,500 | – | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | m5 | Fietsenstallingen centrum | 1.2 | 0,500 | – | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | m6 | Binnenstadsprogramma | 1.2 | 2,060 | – | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | m7 | Stationsgebied | 1.2 | 0,988 | – | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | m9 | Oosterhamrikzone | 1.2 | 0,250 | – | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | m11 | Ambtenaren mobiliteit | 1.2 | 3,100 | – | -75% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | m10 | Rente en afschrijving wegen | 1.2 | 6,100 | – | 🔒 vast | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | w1 | Extra geld wonen | 1.3 | 1,775 | – | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | w2 | Meer betaalbare woningen | 1.3 | 1,200 | – | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | w3 | Goed verhuurderschap | 1.3 | 1,250 | 0,500 | -80% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | w4 | Ambtenaren wonen | 1.3 | 4,600 | – | -75% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | w6 | Energiesubsidies | 1.3 | 12,000 | 11,700 | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | w7 | Extra geld energietransitie | 1.3 | 2,275 | – | -90% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | w8 | Omgevingsvergunningen | 1.3 | 10,500 | 17,900 | 🔒 vast | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | w10 | Toezicht op bouwen | 1.3 | 2,100 | – | -60% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | w11 | Verduurzamen gemeentegebouwen | 1.3 | 1,300 | – | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | o1 | Onderhoud straten, groen en speeltuinen | 2.1 | 66,400 | 1,900 | -50% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | o3 | Afvalinzameling huishoudens | 2.1 | 36,800 | 41,400 | 🔒 vast | Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | o2 | Riolering | 2.1 | 22,500 | 23,700 | 🔒 vast | Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | o4 | Bedrijfsafval inzamelen | 2.1 | 7,600 | 9,100 | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | o5 | Autowerkplaats voor derden | 2.1 | 0,900 | 0,900 | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | o6 | Leefkwaliteit (groen en spelen in wijken) | 2.1 | 4,500 | – | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | o8 | Geo en data | 2.1 | 1,100 | – | -50% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | v2 | Boa's en toezicht op straat | 2.2 | 3,400 | 0,100 | -90% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | v3 | Openbare orde en veiligheid | 2.2 | 3,800 | – | -75% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | v4 | Ondermijning (drugs en criminele geldstromen) | 2.2 | 1,500 | 0,200 | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | v5 | Jeugd en veiligheid | 2.2 | 4,000 | 1,900 | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | v6 | Zorg- en Veiligheidshuis | 2.2 | 2,200 | 1,200 | -90% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | v9 | Reclamezuilen op straat | 2.2 | 0,500 | 1,200 | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | v1 | Brandweer en ambulancezorg (Veiligheidsregio) | 2.2 | 25,700 | – | 🔒 vast | Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | v8 | Omgevingsdienst | 2.2 | 1,747 | – | 🔒 vast | Ontwerpbegroting 2026, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | s3 | Begeleiding naar werk | 3.1 | 20,700 | – | -70% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | s1 | Bijstandsuitkeringen | 3.1 | 199,000 | 186,800 | 🔒 vast | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | s2 | Sociale werkvoorziening (Iederz) | 3.1 | 38,400 | 5,500 | -10% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | s4 | Loonkostensubsidie | 3.1 | 11,800 | 11,300 | 🔒 vast | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | s5 | Werk in Zicht | 3.1 | 9,400 | 6,700 | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | s6 | Basisbanen | 3.1 | 9,400 | 2,900 | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | s8 | Afspraakbanen | 3.1 | 3,400 | – | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | s9 | Schuldhulpverlening | 3.1 | 11,300 | 1,100 | -60% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | s10 | Armoede- en minimaregelingen | 3.1 | 12,200 | – | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | s11 | Bijzondere bijstand | 3.1 | 6,100 | 0,500 | -25% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | s12 | Individuele inkomenstoeslag | 3.1 | 4,200 | – | -75% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | s7 | Inburgering | 3.1 | 5,000 | 3,000 | -20% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | z1 | Jeugdzorg | 3.3 | 118,800 | 1,400 | -20% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | z2 | Beschermd wonen | 3.3 | 84,400 | 1,400 | -15% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | z3 | Wmo (huishoudelijke hulp, hulpmiddelen) | 3.3 | 64,700 | 1,900 | -20% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | z4 | WIJ-teams in de wijk | 3.3 | 44,200 | – | -60% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | z5 | Daklozen- en vrouwenopvang | 3.3 | 28,600 | 3,600 | -25% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | z6 | Gezondheid (GGD) | 3.3 | 18,800 | 6,600 | -30% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | z7 | Huiselijk geweld en kindermishandeling | 3.3 | 10,200 | 3,600 | -20% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | z8 | Welzijnsinstellingen en buurthuizen | 3.3 | 8,200 | 0,250 | -95% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | z9 | Sociale samenhang in wijken | 3.3 | 7,900 | – | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | z10 | Diversiteit en inclusie | 3.3 | 1,200 | – | -85% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | z11 | Opvang vluchtelingen en asielzoekers | 3.3 | 0,958 | – | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | d1 | Schoolgebouwen | 3.2 | 19,800 | 4,000 | -20% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | d2 | Onderwijskansen | 3.2 | 12,300 | 4,700 | -40% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | d4 | Voortijdig schoolverlaten | 3.2 | 3,500 | 2,400 | -40% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | d5 | Leerlingenvervoer | 3.2 | 2,600 | – | -10% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | d6 | Natuur- en duurzaamheidseducatie | 3.2 | 1,300 | – | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | k1 | Sporthallen, zwembaden en ijsbaan | 3.4 | 36,500 | 11,200 | -40% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.4 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | k2 | Sportstimulering | 3.4 | 2,200 | 1,100 | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.4 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | k3 | Recreatiegebieden en bewegen | 3.4 | 1,100 | – | -30% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.4 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | c1 | Stadsschouwburg en Oosterpoort | 3.5 | 26,100 | 16,600 | -90% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.5 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | c2 | Culturele instellingen en subsidies | 3.5 | 30,200 | – | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.5 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | c3 | Overal cultuur (o.a. Forum, broedplaatsen) | 3.5 | 14,000 | 4,900 | -85% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.5 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | c4 | Groninger Archieven | 3.5 | 2,800 | – | -25% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 3.5 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | g1 | College van burgemeester en wethouders | 4.2 | 2,534 | – | -64% tot +12.5% | Ontwerpbegroting 2026, financiële toelichting deelprogramma 4.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | g2 | Gemeenteraad en griffie | 4.2 | 3,733 | – | -43% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 4.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | g3 | Wijkbudgetten | 4.2 | 4,250 | – | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 4.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | g4 | Wijkvernieuwing (o.a. Selwerd, De Wijert, Beijum) | 4.2 | 8,150 | – | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 4.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | g5 | Samenwerkingsverbanden | 4.2 | 1,753 | – | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 4.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | g7 | Concernposten | 4.2 | 5,000 | – | -100% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 4.2 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | b1 | Burgerzaken (paspoort, rijbewijs) | 4.1 | 5,400 | – | -25% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 4.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | b2 | Klantcontactcentrum | 4.1 | 3,800 | – | -75% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 4.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | b3 | Uitvoering belastingen | 4.1 | 5,000 | – | -25% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 4.1 ('Waar gaat het geld voornamelijk naar toe') |
-| ☐ | h1 | Overhead (staf, ICT, huisvesting, HR) | 4.4 | 129,180 | 5,944 | -40% tot geen maximum | Ontwerpbegroting 2026, financiële toelichting deelprogramma 4.4 ('Waar gaat het geld voornamelijk naar toe') |
+| ☐ | e1 | Economische agenda | 1.1 | 1,400 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe'), p. 23: Economische Agenda 1.400 |
+| ☐ | e2 | Ambtenaren economische zaken | 1.1 | 3,200 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe'), p. 23: Personele inzet economische ontwikkeling 3.200 |
+| ☐ | e3 | Citymarketing en economische activiteiten | 1.1 | 2,250 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe'), p. 23: Reguliere activiteiten economische ontwikkeling 2.250 |
+| ☐ | e4 | Akkoord van Groningen (RUG, Hanze, UMCG) | 1.1 | 1,250 | 0,750 | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe'), p. 23: Akkoord van Groningen 1.250 / 750 |
+| ☐ | e5 | Markten, havens en brugbediening | 1.1 | 2,800 | 1,300 | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe'), p. 23: Markt- en havenwezen 2.800 / 1.300 |
+| ☐ | e6 | Bedrijventerreinen en winkelcentra | 1.1 | 1,550 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe'), p. 23: Intensiveringsmiddelen Ruimtelijke economie 1.550 |
+| ☐ | e7 | Strategisch bezit (panden en grond) | 1.1 | 4,700 | 4,300 | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe'), p. 23: Strategisch bezit 4.700 / 4.300 |
+| ☐ | e8 | Suikerzijde (gebiedsontwikkeling) | 1.1 | 4,300 | – | -65% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe'), p. 23: Suikerzijde 4.300 |
+| ☐ | e9 | Regio Groningen-Assen | 1.1 | 1,100 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe'), p. 23: Bijdrage aan Regio Groningen-Assen 1.100 |
+| ☐ | e10 | Ambtenaren gebiedsontwikkeling | 1.1 | 7,100 | 0,100 | -75% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe'), p. 23: Personele inzet en bedrijfsvoering Stadsontwikkeling 7.100 / 100 |
+| ☐ | e11 | Rente en afschrijving (o.a. Meerstad) | 1.1 | 11,500 | – | 🔒 vast | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe'), p. 23: Kapitaallasten ruimtelijk-economische projecten/activa 7.500 + Kapitaallasten bovenwijkse voorzieningen Meerstad 4.000 |
+| ☐ | m2 | Parkeercontrole | 1.2 | 7,300 | 6,300 | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe'), p. 35: Parkeerhandhaving |
+| ☐ | m3 | Extra geld mobiliteit | 1.2 | 5,570 | – | -50% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe'), p. 35: Intensiveringsmiddelen Mobiliteit |
+| ☐ | m4 | Uitvoering mobiliteitsvisie | 1.2 | 1,560 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe'), p. 35: Uitvoeringsprogramma's Mobiliteitsvisie |
+| ☐ | m5 | Fietsenstallingen centrum | 1.2 | 1,000 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe'), p. 35: Stallingen centrum |
+| ☐ | m6 | Binnenstadsprogramma | 1.2 | 2,240 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe'), p. 35: SIF-middelen voor projecten - Binnenstadsprogramma |
+| ☐ | m7 | Stationsgebied | 1.2 | 0,988 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe'), p. 35: SIF-middelen voor projecten - Stationsgebied |
+| ☐ | m9 | Oosterhamrikzone | 1.2 | 0,250 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe'), p. 35: SIF-middelen voor projecten - Oosterhamrikzone |
+| ☐ | m11 | Ambtenaren mobiliteit | 1.2 | 3,300 | – | -75% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe'), p. 35: Personele inzet programma Mobiliteit |
+| ☐ | m10 | Rente en afschrijving wegen | 1.2 | 6,500 | – | 🔒 vast | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe'), p. 35: Kapitaallasten |
+| ☐ | w1 | Extra geld wonen | 1.3 | 1,775 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe'), p. 44: Intensiveringsmiddelen Wonen (1.775) |
+| ☐ | w2 | Meer betaalbare woningen | 1.3 | 1,200 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe'), p. 44: Meer betaalbare woningen (1.200) |
+| ☐ | w3 | Goed verhuurderschap | 1.3 | 0,900 | 0,500 | -80% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe'), p. 44: Woontoezicht (900 / 500) |
+| ☐ | w4 | Ambtenaren wonen | 1.3 | 4,900 | – | -75% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe'), p. 44: Personele inzet programma Wonen (4.900) |
+| ☐ | w6 | Energiesubsidies | 1.3 | 4,300 | 3,300 | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe'), p. 45: Diverse subsidies programma Energie (4.300 / 3.300) |
+| ☐ | w7 | Extra geld energietransitie | 1.3 | 2,300 | – | -90% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe'), p. 45: Intensiveringsmiddelen Energie (2.300) |
+| ☐ | w8 | Omgevingsvergunningen | 1.3 | 9,000 | 16,500 | 🔒 vast | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe'), p. 45: Leges omgevingsvergunning (9.000 / 16.500) |
+| ☐ | w10 | Toezicht op bouwen | 1.3 | 2,000 | – | -60% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe'), p. 45: Toezicht en handhaving (2.000) |
+| ☐ | w11 | Verduurzamen gemeentegebouwen | 1.3 | 1,100 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe'), p. 44: Verduurzaming maatschappelijk vastgoed (1.100) |
+| ☐ | w12 | Klimaat- en energiebeleid (CDOKE) | 1.3 | 10,900 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.3, p. 45: Capaciteit decentrale overheden klimaat- en energiebeleid (CDOKE) 10.900 |
+| ☐ | o1 | Onderhoud straten, groen en speeltuinen | 2.1 | 72,400 | 2,100 | -50% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe'), p. 61: Onderhoud en beheer openbare ruimte 72.400 / 2.100 |
+| ☐ | o3 | Afvalinzameling huishoudens | 2.1 | 39,700 | 45,000 | 🔒 vast | Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe'), p. 62: Afvalstoffenheffing 39.700 / 45.000 |
+| ☐ | o2 | Riolering | 2.1 | 24,400 | 25,800 | 🔒 vast | Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe'), p. 61: Rioolheffing 24.400 / 25.800 |
+| ☐ | o4 | Zakelijke dienstverlening (bedrijfsafval, werkplaats) | 2.1 | 9,900 | 11,100 | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe'), p. 62: Zakelijke dienstverlening Stadsbeheer 9.900 / 11.100 |
+| ☐ | o6 | Leefkwaliteit (groen en spelen in wijken) | 2.1 | 4,000 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe'), p. 62: Meerjarenprogramma Leefkwaliteit 3.200 / 0 + Bodembeheer 800 / 0 |
+| ☐ | o8 | Geo en data | 2.1 | 1,800 | – | -50% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe'), p. 63: GEO & Data 1.800 / 0 |
+| ☐ | v2 | Boa's en toezicht op straat | 2.2 | 3,700 | – | -90% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe'), p. 72: Toezicht en handhaving in de openbare ruimte 3.700 / - |
+| ☐ | v3 | Openbare orde en veiligheid | 2.2 | 5,700 | – | -75% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe'), p. 72: Openbare orde en veiligheid (OOV) 5.700 / - |
+| ☐ | v4 | Ondermijning (drugs en criminele geldstromen) | 2.2 | 1,400 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe'), p. 71: Ondermijning 1.400 / - |
+| ☐ | v5 | Jeugd en veiligheid | 2.2 | 4,300 | 1,500 | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe'), p. 71: Jeugd en Veiligheid 4.300 / 1.500 |
+| ☐ | v6 | Zorg- en Veiligheidshuis | 2.2 | 2,300 | 1,300 | -90% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe'), p. 71: Zorg- en Veiligheidshuis Groningen 2.300 / 1.300 |
+| ☐ | v9 | Reclamezuilen op straat | 2.2 | 0,500 | 1,500 | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe'), p. 72: Reclamedragend straatmeubilair 500 / 1.500 |
+| ☐ | v1 | Brandweer en ambulancezorg (Veiligheidsregio) | 2.2 | 26,900 | – | 🔒 vast | Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe'), p. 72: Veiligheidsregio Groningen 26.900 / - |
+| ☐ | v8 | Omgevingsdienst | 2.2 | 1,800 | – | 🔒 vast | Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe'), p. 72: Deelnemersbijdrage Omgevingsdienst 1.800 / - |
+| ☐ | s3 | Begeleiding naar werk | 3.1 | 23,800 | – | -70% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe'), p. 89: Participatie en re-integratie |
+| ☐ | s1 | Bijstandsuitkeringen | 3.1 | 205,100 | 194,400 | 🔒 vast | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe'), p. 90: BUIG |
+| ☐ | s2 | Sociale werkvoorziening (Iederz) | 3.1 | 40,000 | 5,700 | -10% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe'), p. 89: Sociale Werkvoorziening en Nieuw Beschut |
+| ☐ | s4 | Loonkostensubsidie | 3.1 | 13,400 | 13,100 | 🔒 vast | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe'), p. 90: Loonkostensubsidie |
+| ☐ | s5 | Werk in Zicht | 3.1 | 11,600 | 9,800 | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe'), p. 90: Werk in Zicht |
+| ☐ | s6 | Basisbanen | 3.1 | 9,400 | 2,700 | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe'), p. 90: Basisbanen |
+| ☐ | s8 | Afspraakbanen | 3.1 | 3,600 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe'), p. 90: Afspraakbanen |
+| ☐ | s9 | Schuldhulpverlening | 3.1 | 11,600 | 0,700 | -60% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe'), p. 91: Schuldhulpverlening |
+| ☐ | s10 | Armoede- en minimaregelingen | 3.1 | 15,500 | 1,600 | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe'), p. 91: Armoede- en minimaregelingen |
+| ☐ | s11 | Bijzondere bijstand | 3.1 | 5,900 | 0,460 | -25% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe'), p. 91: Bijzondere bijstand |
+| ☐ | s12 | Individuele inkomenstoeslag | 3.1 | 4,200 | – | -75% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe'), p. 91: Individuele inkomenstoeslag |
+| ☐ | s7 | Inburgering | 3.1 | 6,700 | 3,500 | -20% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe'), p. 90: Inburgering |
+| ☐ | z1 | Jeugdzorg | 3.3 | 127,700 | 1,800 | -20% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe'), p. 120: Jeugd |
+| ☐ | z2 | Beschermd wonen | 3.3 | 88,100 | 1,400 | -15% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe'), p. 120: Beschermd Wonen |
+| ☐ | z3 | Wmo (huishoudelijke hulp, hulpmiddelen) | 3.3 | 70,800 | 2,000 | -20% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe'), p. 120: WMO |
+| ☐ | z4 | WIJ-teams in de wijk | 3.3 | 46,300 | – | -60% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe'), p. 121: WIJ |
+| ☐ | z5 | Daklozen- en vrouwenopvang | 3.3 | 34,200 | 6,000 | -25% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe'), p. 121: Maatschappelijke opvang en Vrouwenopvang |
+| ☐ | z6 | Gezondheid (GGD) | 3.3 | 12,000 | – | -30% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe'), p. 121: Gezondheidszorg |
+| ☐ | z7 | Huiselijk geweld en kindermishandeling | 3.3 | 11,900 | 7,300 | -20% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe'), p. 121: Huiselijk geweld en kindermishandeling |
+| ☐ | z8 | Welzijnsinstellingen en buurthuizen | 3.3 | 8,700 | 0,246 | -95% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe'), p. 122: Sociaal-culturele en welzijnsinstellingen |
+| ☐ | z9 | Sociale samenhang in wijken | 3.3 | 7,600 | 0,500 | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe'), p. 122: Bevorderen sociale samenhang en leefbaarheid |
+| ☐ | z10 | Diversiteit en inclusie | 3.3 | 1,400 | – | -85% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe'), p. 123: Diversiteit en inclusie |
+| ☐ | z11 | Opvang vluchtelingen en asielzoekers | 3.3 | 1,200 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe'), p. 123: Opvang vluchtelingen en asielzoekers |
+| ☐ | d1 | Schoolgebouwen | 3.2 | 22,600 | 4,400 | -20% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.2 ('Waar gaat het geld voornamelijk naar toe'), p. 100: Onderwijshuisvesting (22.600 / 4.400) |
+| ☐ | d2 | Onderwijskansen | 3.2 | 12,400 | 4,700 | -40% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.2 ('Waar gaat het geld voornamelijk naar toe'), p. 100: Onderwijskansen (12.400 / 4.700) |
+| ☐ | d4 | Voortijdig schoolverlaten | 3.2 | 4,400 | 2,400 | -40% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.2 ('Waar gaat het geld voornamelijk naar toe'), p. 100: Voortijdig schoolverlaten (VSV) (4.400 / 2.400) |
+| ☐ | d5 | Leerlingenvervoer | 3.2 | 2,900 | – | -10% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.2 ('Waar gaat het geld voornamelijk naar toe'), p. 101: Leerlingenvervoer (2.900 / -) |
+| ☐ | d6 | Natuur- en duurzaamheidseducatie | 3.2 | 1,400 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.2 ('Waar gaat het geld voornamelijk naar toe'), p. 101: Natuur- en duurzaamheidseducatie (1.400 / -) |
+| ☐ | k1 | Sporthallen, zwembaden en ijsbaan | 3.4 | 39,400 | 12,100 | -40% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.4 ('Waar gaat het geld voornamelijk naar toe'), p. 129: Sportaccommodaties en zwemvoorzieningen (39.400 / 12.100) |
+| ☐ | k2 | Sportstimulering | 3.4 | 1,800 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.4 ('Waar gaat het geld voornamelijk naar toe'), p. 129: Sportstimulering, talentontwikkeling en participatie (1.800 / -) |
+| ☐ | c1 | Stadsschouwburg en Oosterpoort | 3.5 | 28,900 | 18,200 | -90% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.5 ('Waar gaat het geld voornamelijk naar toe'), p. 139: Stadsschouwburg en Oosterpoort (SPOT) 28.900 / 18.200 |
+| ☐ | c2 | Culturele instellingen en subsidies | 3.5 | 29,000 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.5 ('Waar gaat het geld voornamelijk naar toe'), p. 139: Cultuurnota 29.000 / 0 |
+| ☐ | c3 | Cultuur- en evenementenbeleid (o.a. bibliotheek, media, evenementen) | 3.5 | 10,500 | 0,500 | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.5 ('Waar gaat het geld voornamelijk naar toe'), p. 139: Cultuur- en evenementenbeleid 10.500 / 500 |
+| ☐ | c4 | Groninger Archieven | 3.5 | 3,400 | – | -25% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.5 ('Waar gaat het geld voornamelijk naar toe'), p. 139: Groninger Archieven 3.400 / 0 |
+| ☐ | c5 | Cultureel vastgoed (Martiniplaza, Forum, Oosterpoort) | 3.5 | 11,500 | 8,100 | -25% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.5, p. 139: Cultureel vastgoed en ontwikkeling 11.500 / 8.100 |
+| ☐ | g1 | College van burgemeester en wethouders | 4.2 | 2,400 | – | -64% tot +12.5% | Ontwerpbegroting 2027, financiële toelichting deelprogramma 4.2 ('Waar gaat het geld voornamelijk naar toe'), p. 151: College van B&W 2.400 |
+| ☐ | g2 | Gemeenteraad en griffie | 4.2 | 4,350 | – | -43% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 4.2 ('Waar gaat het geld voornamelijk naar toe'), p. 151: Raad 2.800 + Griffie 1.300 + Rekenkamer 250 |
+| ☐ | g3 | Wijkbudgetten | 4.2 | 4,250 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 4.2 ('Waar gaat het geld voornamelijk naar toe'), p. 151: Wijkontwikkeling 4.250 |
+| ☐ | g4 | Wijkvernieuwing (o.a. Selwerd, De Wijert, Beijum) | 4.2 | 6,150 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 4.2 ('Waar gaat het geld voornamelijk naar toe'), p. 151: Wijkvernieuwing 6.150 |
+| ☐ | g5 | Samenwerkingsverbanden | 4.2 | 2,100 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 4.2 ('Waar gaat het geld voornamelijk naar toe'), p. 151: Deelname aan diverse samenwerkingsverbanden 2.100 |
+| ☐ | g7 | Concernposten | 4.2 | 5,900 | – | -100% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 4.2 ('Waar gaat het geld voornamelijk naar toe'), p. 151: Concernposten 5.900 |
+| ☐ | b1 | Burgerzaken (paspoort, rijbewijs) | 4.1 | 5,900 | – | -25% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 4.1 ('Waar gaat het geld voornamelijk naar toe'), p. 147: Burgerzaken |
+| ☐ | b2 | Klantcontactcentrum | 4.1 | 4,100 | – | -75% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 4.1 ('Waar gaat het geld voornamelijk naar toe'), p. 147: Klant Contactcentrum (KCC) |
+| ☐ | b3 | Uitvoering belastingen | 4.1 | 4,900 | – | -25% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 4.1 ('Waar gaat het geld voornamelijk naar toe'), p. 147: Belastingen |
+| ☐ | h1 | Overhead (staf, ICT, huisvesting, HR) | 4.4 | 134,900 | 3,400 | -40% tot geen maximum | Ontwerpbegroting 2027, financiële toelichting deelprogramma 4.4 ('Waar gaat het geld voornamelijk naar toe'), p. 156: Overhead |
 
 ## 5. Belastingen
 
 | ✓ | Id | Belasting | Opbrengst | Grenzen |
 | --- | --- | --- | --- | --- |
-| ☐ | t1 | Onroerendezaakbelasting (OZB) | 125,300 | -100% tot geen maximum |
-| ☐ | t5 | Parkeertarieven | 35,100 | -100% tot geen maximum |
-| ☐ | t2 | Toeristenbelasting | 2,900 | -100% tot geen maximum |
-| ☐ | t4 | Precariobelasting | 1,800 | -100% tot geen maximum |
-| ☐ | t3 | Reclamebelasting | 0,700 | -100% tot geen maximum |
+| ☐ | t1 | Onroerendezaakbelasting (OZB) | 139,441 | -100% tot geen maximum |
+| ☐ | t5 | Parkeertarieven | 36,299 | -100% tot geen maximum |
+| ☐ | t2 | Toeristenbelasting | 2,998 | -100% tot geen maximum |
+| ☐ | t4 | Precariobelasting | 1,866 | -100% tot geen maximum |
+| ☐ | t3 | Reclamebelasting | 0,980 | -100% tot geen maximum |
 
 ## 6. Actiekaarten
 
@@ -278,7 +290,6 @@ Parameters met status "aanname" of "te onderzoeken". Deze bedragen staan in de g
 | en_opwek | gemiste_opbrengst | null | te onderzoeken | Uit de businesscase halen. |
 | org_frictie | verloop_pct | 0.05 | aanname | Natuurlijk verloop bij gemeenten: 4 tot 7%. |
 | org_frictie | frictie_factor | 1 | aanname |  |
-| org_frictie | personeelskosten | null | te onderzoeken | Uit het overzicht van de gemeentelijke organisatie halen. |
 | org_capaciteit | factor_tempo | 0.5 | aanname | Toegevoegd uit de formule (tempo_projecten *= 1 + 0,5 * pct_apparaat/100), zodat de rekenmotor het getal uit de data leest. |
 | org_ai | rendement | 0.5 | aanname |  |
 | org_ai | ingroei | [0,0.3,0.7,1] | aanname |  |
@@ -288,35 +299,35 @@ Parameters met status "aanname" of "te onderzoeken". Deze bedragen staan in de g
 | fin_reserves | ondergrens_ratio | 1 | aanname | Toegevoegd uit het mechanisme: een weerstandsvermogen onder 100% is een waarschuwingssignaal. Spelregel. |
 | jur_subsidies | ingroei | [0.25,1] | aanname |  |
 
-## 8. Tarieven (te controleren)
+## 8. Tarieven (feit)
 
-Bron: [Gemeente Groningen, raadsvoorstel Belastingtarieven 2026](https://gemeenteraad.groningen.nl/Documenten/Belastingtarieven-2026.pdf).
+Bron: [Gemeente Groningen, raadsvoorstel Belastingtarieven 2027 (p. 1-3)](https://gemeenteraad.groningen.nl/Documenten/Belastingtarieven-2027.pdf).
 
 | ✓ | Tarief | Bedrag |
 | --- | --- | --- |
-| ☐ | OZB woningen, eigenaar | 0,147% van de WOZ-waarde |
-| ☐ | Afvalstoffenheffing, 1 persoon | € 283,08 |
-| ☐ | Afvalstoffenheffing, 2 personen | € 331,2 |
-| ☐ | Afvalstoffenheffing, 3 of meer | € 402,12 |
-| ☐ | Rioolheffing, eigenaar | € 178,69 |
+| ☐ | OZB woningen, eigenaar | 0,15% van de WOZ-waarde |
+| ☐ | Afvalstoffenheffing, 1 persoon | € 310,8 |
+| ☐ | Afvalstoffenheffing, 2 personen | € 363,72 |
+| ☐ | Afvalstoffenheffing, 3 of meer | € 441,6 |
+| ☐ | Rioolheffing, eigenaar | € 193,18 |
 
 ## 9. Parkeren per vergunning en zone
 
-De schuif Parkeertarieven (35,100 mln) is verdeeld in posten. Samen: 35,100 mln. Vergunningen: aantal × tarief. Kortparkeren: de parkeerbelasting uit de kerngegevens min de vergunningen. Garages: de rest.
+De schuif Parkeertarieven (36,299 mln) is verdeeld in posten. Samen: 36,299 mln. Vergunningen: aantal × tarief. Kortparkeren: de parkeerbelasting uit de kerngegevens min de vergunningen. Garages: de rest.
 
-Bronnen: [Voortgang pakket parkeermaatregelen, technisch rapport (september 2025)](https://gemeenteraad.groningen.nl/Documenten/Bijlage-Voortgang-pakket-parkeermaatregelen-technisch-rapport.pdf) (2025-09, feit); [Gemeente Groningen, raadsvoorstel Belastingtarieven 2026 (via zoekresultaten, document zelf nog niet ingezien)](https://gemeenteraad.groningen.nl/Documenten/Belastingtarieven-2026.pdf) (2025-11, te controleren); [Ontwerpbegroting 2026 (kerngegevens en schuif t5)](https://gemeenteraad.groningen.nl/Documenten/Bijlage-2-Ontwerpbegroting-2026-boekwerk.pdf) (2025-09, feit).
+Bronnen: [Voortgang pakket parkeermaatregelen, technisch rapport (september 2025)](https://gemeenteraad.groningen.nl/Documenten/Bijlage-Voortgang-pakket-parkeermaatregelen-technisch-rapport.pdf) (2025-09, feit); [Gemeente Groningen, raadsvoorstel Belastingtarieven 2026 (via zoekresultaten, document zelf nog niet ingezien)](https://gemeenteraad.groningen.nl/Documenten/Belastingtarieven-2026.pdf) (2025-11, te controleren); [Ontwerpbegroting 2026 (kerngegevens en schuif t5)](https://gemeenteraad.groningen.nl/Documenten/Bijlage-2-Ontwerpbegroting-2026-boekwerk.pdf) (2025-09, feit); [Gemeente Groningen, raadsvoorstel Belastingtarieven 2027 (registratienummer 274695-2026), p. 6-7](https://gemeenteraad.groningen.nl/Documenten/Belastingtarieven-2027.pdf) (2026-09, feit); [Ontwerpbegroting 2027 (kerngegevens p. 5, lokale heffingen p. 275)](https://gemeenteraad.groningen.nl) (2026-09, feit).
 
 | ✓ | Post | Tarief (bron, jaar) | Aantal (jaar) | Opbrengst (mln) | Status |
 | --- | --- | --- | --- | --- | --- |
-| ☐ | Bewonersvergunning (binnenstad) | € 394,20 (2026) | 765 (2025) | 0,302 | ⚠︎ aanname |
-| ☐ | Bewonersvergunning (tweede zone) | € 135,05 (2026) | 9.275 (2025) | 1,253 | ⚠︎ aanname |
-| ☐ | Bewonersvergunning (derde tot en met vijfde zone) | € 62,05 (2026) | 17.710 (2025) | 1,099 | ⚠︎ aanname |
-| ☐ | Tweede bewonersvergunning (tweede zone) | € 408,80 (2026) | 336 (2025) | 0,137 | ⚠︎ aanname |
-| ☐ | Bezoekersvergunning | € 25,00 (2026) | 24.621 (2025) | 0,616 | ⚠︎ aanname |
-| ☐ | Bedrijfsvergunning | € 135,05 (2026) | 2.215 (2025) | 0,299 | ⚠︎ aanname |
-| ☐ | Mantelzorgvergunning | € 26,02 (2026) | 247 (2025) | 0,006 | ⚠︎ aanname |
-| ☐ | Maatschappelijke parkeervergunning | € 65,70 (2026) | 110 (2025) | 0,007 | feit |
-| ☐ | Kortparkeren (uurtarief) en overige parkeerbelasting | afgeleid |  | 22,606 | ⚠︎ aanname |
+| ☐ | Bewonersvergunning (binnenstad) | € 394,20 (2026), geïndexeerd € 412,25 | 765 (2025) | 0,315 | ⚠︎ aanname |
+| ☐ | Bewonersvergunning (tweede zone) | € 135,05 (2026), geïndexeerd € 141,24 | 9.275 (2025) | 1,310 | ⚠︎ aanname |
+| ☐ | Bewonersvergunning (derde tot en met vijfde zone) | € 62,05 (2026), geïndexeerd € 64,89 | 17.710 (2025) | 1,149 | ⚠︎ aanname |
+| ☐ | Tweede bewonersvergunning (tweede zone) | € 408,80 (2026), geïndexeerd € 427,52 | 336 (2025) | 0,144 | ⚠︎ aanname |
+| ☐ | Bezoekersvergunning | € 25,00 (2026), geïndexeerd € 26,15 | 24.621 (2025) | 0,644 | ⚠︎ aanname |
+| ☐ | Bedrijfsvergunning | € 135,05 (2026), geïndexeerd € 141,24 | 2.215 (2025) | 0,313 | ⚠︎ aanname |
+| ☐ | Mantelzorgvergunning | € 26,02 (2026), geïndexeerd € 27,21 | 247 (2025) | 0,007 | ⚠︎ aanname |
+| ☐ | Maatschappelijke parkeervergunning | € 65,70 (2026), geïndexeerd € 68,71 | 110 (2025) | 0,008 | feit |
+| ☐ | Kortparkeren (uurtarief) en overige parkeerbelasting | afgeleid |  | 23,635 | ⚠︎ aanname |
 | ☐ | Parkeergarages | afgeleid |  | 8,775 | ⚠︎ aanname |
 
 Uurtarieven kortparkeren (alleen ter informatie; de game heeft één schuif voor kortparkeren):

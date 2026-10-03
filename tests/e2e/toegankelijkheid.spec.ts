@@ -21,7 +21,7 @@ async function controleer(page: Page, naam: string) {
 }
 
 const deellink = () =>
-  `/?b=${codeer({ onderdelen: { h1: -10 }, belastingen: { t1: -5 }, kaarten: [], scenario: 'midden' }, 2026)}`;
+  `/?b=${codeer({ onderdelen: { h1: -10 }, belastingen: { t1: -5 }, kaarten: [], scenario: 'midden' }, 2027)}`;
 
 test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('begrotingsgame:tutorial', 'klaar'));

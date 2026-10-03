@@ -3,12 +3,15 @@ import { controleer, heeftFouten } from '../controle';
 import type { Data } from '../laadData';
 import { alsMarkdown, vergelijk } from '../verschil';
 import { alsGezamenlijkeKeuzes, narekenen } from '../vvd';
-import { echteData, leesJson, metAangepasteBegroting } from './hulp';
+import { actieveData, echteData, leesJson, metAangepasteBegroting } from './hulp';
 
+// De datacontrole kijkt naar de actieve begroting; de verschil- en VVD-tests rekenen met 2026.
 let data: Data;
+let data2026: Data;
 let buurtcodes: string[];
 beforeAll(async () => {
-  data = await echteData();
+  data = await actieveData();
+  data2026 = await echteData();
   const geo = leesJson('gemeente-groningen-buurten.geojson') as {
     features: { properties: { code: string } }[];
   };
@@ -94,7 +97,7 @@ describe('data-check', () => {
 
 describe('data-diff', () => {
   it('ziet nieuwe, vervallen, hernoemde en gewijzigde posten, ook via de mapping', () => {
-    const nieuw = structuredClone(data.begroting);
+    const nieuw = structuredClone(data2026.begroting);
     nieuw.begrotingsjaar = 2027;
     nieuw.onderdelen = nieuw.onderdelen.filter((o) => o.id !== 'e1');
     const e2 = nieuw.onderdelen.find((o) => o.id === 'e2');
@@ -104,7 +107,7 @@ describe('data-diff', () => {
     }
     const e3 = nieuw.onderdelen.find((o) => o.id === 'e3');
     if (e3) e3.id = 'e12';
-    const v = vergelijk(data.begroting, nieuw, {
+    const v = vergelijk(data2026.begroting, nieuw, {
       van_jaar: 2026,
       naar_jaar: 2027,
       posten: [{ oud: 'e3', nieuw: 'e12' }],
@@ -115,7 +118,7 @@ describe('data-diff', () => {
     expect(
       v.gewijzigd.map((g) => [g.nieuw.id, Math.round(g.verschilLasten * 1000) / 1000]),
     ).toEqual([['e2', 1.5]]);
-    const md = alsMarkdown(data.begroting, nieuw);
+    const md = alsMarkdown(data2026.begroting, nieuw);
     expect(md).toContain('# Verschillen begroting 2026 → 2027');
     expect(md).toContain('`e12`'); // zonder mapping is e12 een nieuwe post
   });
@@ -123,9 +126,9 @@ describe('data-diff', () => {
 
 describe('vvd-check', () => {
   it('vertaalt posten naar percentages en kaarten', () => {
-    const tb = data.vergelijking[0]?.tegenbegroting;
+    const tb = data2026.vergelijking[0]?.tegenbegroting;
     if (!tb) throw new Error('geen tegenbegroting');
-    const regels = narekenen(data, tb);
+    const regels = narekenen(data2026, tb);
     const ozb = regels.find((r) => r.koppeling === 't1');
     // 10 mln op 125,3 mln OZB = −7,98%
     expect(ozb?.pct).toBeCloseTo((-10 / 125.3) * 100, 9);
@@ -134,7 +137,7 @@ describe('vvd-check', () => {
     expect(precario?.binnenGrenzen).toBe(false);
     expect(regels.filter((r) => r.type === 'geen').length).toBe(13);
     // drie parkeerposten op dezelfde schuif tellen op
-    const k = alsGezamenlijkeKeuzes(data, tb);
+    const k = alsGezamenlijkeKeuzes(data2026, tb);
     expect(k.belastingen.t5).toBeCloseTo((-6.4 / 35.1) * 100, 9);
   });
 });

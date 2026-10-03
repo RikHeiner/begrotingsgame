@@ -76,7 +76,7 @@
       "icoon": "🏊",
       "soort": "gebouw",
       "omschrijving": "Sport en bewegen",
-      "onderdelen": ["k1", "k2", "k3"],
+      "onderdelen": ["k1", "k2"],
       "buurt": "BU00141207",
       "gebied": "oost",
       "positie": {
@@ -144,7 +144,7 @@
       "icoon": "🎭",
       "soort": "gebouw",
       "omschrijving": "Cultuur",
-      "onderdelen": ["c1", "c2", "c3", "c4"],
+      "onderdelen": ["c1", "c2", "c3", "c4", "c5"],
       "buurt": "BU00140101",
       "gebied": "zuid",
       "positie": {
@@ -178,7 +178,7 @@
       "icoon": "🌳",
       "soort": "park",
       "omschrijving": "Straten, groen, afval en riolering",
-      "onderdelen": ["o1", "o3", "o2", "o4", "o5", "o6", "o8"],
+      "onderdelen": ["o1", "o3", "o2", "o4", "o6", "o8"],
       "buurt": "BU00140108",
       "gebied": "zuid",
       "positie": {
@@ -195,7 +195,7 @@
       "icoon": "🏗️",
       "soort": "gebouw",
       "omschrijving": "Wonen, bouwen en energie",
-      "onderdelen": ["w1", "w2", "w3", "w4", "w6", "w7", "w8", "w10", "w11"],
+      "onderdelen": ["w1", "w2", "w3", "w4", "w6", "w7", "w8", "w10", "w11", "w12"],
       "buurt": "BU00141400",
       "gebied": "oost",
       "positie": {

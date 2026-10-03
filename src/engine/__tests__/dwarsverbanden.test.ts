@@ -94,9 +94,10 @@ const GEVALLEN: Record<string, Geval> = {
   },
   // 1 × 0,9 × 0,1 = 0,09 overheadvrijval, vanaf jaar 2
   kd_werkplaats: {
-    keuzes: { onderdelen: { o5: -100 } },
+    keuzes: { onderdelen: { o4: -100 } },
     status: 'doorgerekend',
-    bedragen: [0, 0.09, 0.09, 0.09],
+    // vanaf 2027 zit de werkplaats in o4: 0,1 × 7,6 overhead valt vrij
+    bedragen: [0, 0.76, 0.76, 0.76],
   },
   kd_zwembad_tarief: { keuzes: {}, status: 'wacht op nieuwe post' },
   // −0,2 × 0,05 × 2,9 = −0,029 toeristenbelasting, vanaf jaar 2
@@ -163,9 +164,9 @@ const GEVALLEN: Record<string, Geval> = {
   },
   // k3 −100%: 1,1 bespaard; −1,1 × 0,2 × ingroei (0 / 0,5 / 1 / 1)
   zp_preventie_wmo: {
-    keuzes: { onderdelen: { k3: -30 } },
+    keuzes: { onderdelen: { k2: -100 } },
     status: 'doorgerekend',
-    bedragen: [0, -0.033, -0.066, -0.066],
+    bedragen: [0, -0.11, -0.22, -0.22],
   },
   // z2 −10%: 0,1 × (84,4 − 1,4) = 8,3 bespaard; × 0,1 overlast
   zp_beschermd_opvang: {
@@ -254,10 +255,16 @@ const GEVALLEN: Record<string, Geval> = {
   en_warmtestad: { keuzes: { kaarten: ['k_warm'] }, status: 'nog niet doorgerekend' },
   en_opwek: { keuzes: { kaarten: ['k_zon'] }, status: 'nog niet doorgerekend' },
   en_dividenden: { keuzes: {}, status: 'wacht op nieuwe post' },
+  // Overhead −40%: 0,4 × (129,18 − 5,944) = 49,3 mln; verloop 5% × 357,9 = 17,9 mln per jaar.
+  // Tekort: 49,3 − 17,9 = 31,4 (eerste jaar), 49,3 − 35,8 = 13,5, daarna 0. Eenmalig.
   org_frictie: {
-    keuzes: { onderdelen: { e2: -20 } },
-    status: 'nog niet doorgerekend',
-    controle: (r) => expect(r.meters.dienstverlening).toBe(48),
+    keuzes: { onderdelen: { h1: -40 } },
+    status: 'doorgerekend',
+    bedragen: [-31.397, -13.4996, 0, 0],
+    controle: (r) =>
+      expect(
+        r.effecten.filter((e) => e.verband === 'org_frictie').every((e) => e.soort === 'I'),
+      ).toBe(true),
   },
   // 1 + 0,5 × −0,1 = 0,95
   org_capaciteit: {

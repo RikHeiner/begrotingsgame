@@ -1,0 +1,3260 @@
+{
+ "schema_versie": "1.0",
+ "begrotingsjaar": 2027,
+ "document": "Ontwerpbegroting 2027 gemeente Groningen (boekwerk)",
+ "bron_url": "https://gemeenteraad.groningen.nl/",
+ "eenheid": "miljoen euro tenzij anders vermeld",
+ "totalen": {
+  "lasten_excl_reserves_x1000": {
+   "2027": 1585643,
+   "2028": 1557302,
+   "2029": 1573318,
+   "2030": 1621629
+  },
+  "baten_excl_reserves_x1000": {
+   "2027": 1562953,
+   "2028": 1553000,
+   "2029": 1575050,
+   "2030": 1626032
+  },
+  "toevoegingen_reserves_x1000": {
+   "2027": 28273,
+   "2028": 28747,
+   "2029": 22264,
+   "2030": 19558
+  },
+  "onttrekkingen_reserves_x1000": {
+   "2027": 50963,
+   "2028": 33049,
+   "2029": 12707,
+   "2030": 5026
+  },
+  "saldo_x1000": {
+   "2027": 0,
+   "2028": 0,
+   "2029": -7825,
+   "2030": -10129
+  },
+  "bron": "boekwerk p. 353"
+ },
+ "programmas": [
+  {
+   "code": "1",
+   "naam": "Economie en Ruimte"
+  },
+  {
+   "code": "2",
+   "naam": "Leefomgeving en Veiligheid"
+  },
+  {
+   "code": "3",
+   "naam": "Vitaal en Sociaal"
+  },
+  {
+   "code": "4",
+   "naam": "Dienstverlening en bestuur"
+  }
+ ],
+ "deelprogrammas": [
+  {
+   "code": "1.1",
+   "programma": "1",
+   "naam": "Economie en werkgelegenheid",
+   "lasten_x1000": {
+    "2027": 54749,
+    "2028": 54267,
+    "2029": 54981,
+    "2030": 56352
+   },
+   "baten_x1000": {
+    "2027": 15517,
+    "2028": 15515,
+    "2029": 15513,
+    "2030": 15513
+   },
+   "bron": "boekwerk p. 351-352"
+  },
+  {
+   "code": "1.2",
+   "programma": "1",
+   "naam": "Mobiliteit",
+   "lasten_x1000": {
+    "2027": 61193,
+    "2028": 60953,
+    "2029": 64345,
+    "2030": 66874
+   },
+   "baten_x1000": {
+    "2027": 45948,
+    "2028": 46850,
+    "2029": 49277,
+    "2030": 51001
+   },
+   "bron": "boekwerk p. 351-352"
+  },
+  {
+   "code": "1.3",
+   "programma": "1",
+   "naam": "Wonen",
+   "lasten_x1000": {
+    "2027": 50773,
+    "2028": 36647,
+    "2029": 37541,
+    "2030": 38360
+   },
+   "baten_x1000": {
+    "2027": 21358,
+    "2028": 21214,
+    "2029": 21207,
+    "2030": 21207
+   },
+   "bron": "boekwerk p. 351-352"
+  },
+  {
+   "code": "2.1",
+   "programma": "2",
+   "naam": "Kwaliteit leefomgeving",
+   "lasten_x1000": {
+    "2027": 150898,
+    "2028": 154794,
+    "2029": 157957,
+    "2030": 161907
+   },
+   "baten_x1000": {
+    "2027": 87594,
+    "2028": 87916,
+    "2029": 87941,
+    "2030": 87978
+   },
+   "bron": "boekwerk p. 351-352"
+  },
+  {
+   "code": "2.2",
+   "programma": "2",
+   "naam": "Veiligheid",
+   "lasten_x1000": {
+    "2027": 52196,
+    "2028": 53470,
+    "2029": 55841,
+    "2030": 56574
+   },
+   "baten_x1000": {
+    "2027": 7042,
+    "2028": 5458,
+    "2029": 5458,
+    "2030": 5458
+   },
+   "bron": "boekwerk p. 351-352"
+  },
+  {
+   "code": "3.1",
+   "programma": "3",
+   "naam": "Werk en inkomen",
+   "lasten_x1000": {
+    "2027": 355432,
+    "2028": 346793,
+    "2029": 345247,
+    "2030": 349708
+   },
+   "baten_x1000": {
+    "2027": 232936,
+    "2028": 229015,
+    "2029": 227322,
+    "2030": 231252
+   },
+   "bron": "boekwerk p. 351-352"
+  },
+  {
+   "code": "3.2",
+   "programma": "3",
+   "naam": "Onderwijs",
+   "lasten_x1000": {
+    "2027": 59593,
+    "2028": 60066,
+    "2029": 62037,
+    "2030": 62231
+   },
+   "baten_x1000": {
+    "2027": 26150,
+    "2028": 22089,
+    "2029": 16176,
+    "2030": 16255
+   },
+   "bron": "boekwerk p. 351-352"
+  },
+  {
+   "code": "3.3",
+   "programma": "3",
+   "naam": "Welzijn, gezondheid, zorg en diversiteit",
+   "lasten_x1000": {
+    "2027": 456414,
+    "2028": 453814,
+    "2029": 447393,
+    "2030": 459622
+   },
+   "baten_x1000": {
+    "2027": 46895,
+    "2028": 54402,
+    "2029": 54458,
+    "2030": 54319
+   },
+   "bron": "boekwerk p. 351-352"
+  },
+  {
+   "code": "3.4",
+   "programma": "3",
+   "naam": "Sport en bewegen",
+   "lasten_x1000": {
+    "2027": 44170,
+    "2028": 42412,
+    "2029": 43341,
+    "2030": 44379
+   },
+   "baten_x1000": {
+    "2027": 12096,
+    "2028": 12114,
+    "2029": 12122,
+    "2030": 12135
+   },
+   "bron": "boekwerk p. 351-352"
+  },
+  {
+   "code": "3.5",
+   "programma": "3",
+   "naam": "Cultuur en evenementen",
+   "lasten_x1000": {
+    "2027": 89722,
+    "2028": 89223,
+    "2029": 91925,
+    "2030": 97456
+   },
+   "baten_x1000": {
+    "2027": 27486,
+    "2028": 25702,
+    "2029": 25778,
+    "2030": 25982
+   },
+   "bron": "boekwerk p. 351-352"
+  },
+  {
+   "code": "4.1",
+   "programma": "4",
+   "naam": "Dienstverlening",
+   "lasten_x1000": {
+    "2027": 21782,
+    "2028": 21145,
+    "2029": 20357,
+    "2030": 20605
+   },
+   "baten_x1000": {
+    "2027": 6339,
+    "2028": 5774,
+    "2029": 4344,
+    "2030": 3618
+   },
+   "bron": "boekwerk p. 351-352"
+  },
+  {
+   "code": "4.2",
+   "programma": "4",
+   "naam": "College, raad, wijkontwikkeling en wijkvernieuwing",
+   "lasten_x1000": {
+    "2027": 66004,
+    "2028": 67470,
+    "2029": 71689,
+    "2030": 83051
+   },
+   "baten_x1000": {
+    "2027": 56399,
+    "2028": 34574,
+    "2029": 21710,
+    "2030": 13506
+   },
+   "bron": "boekwerk p. 351-352"
+  },
+  {
+   "code": "4.3",
+   "programma": "4",
+   "naam": "Algemene inkomsten en post onvoorzien",
+   "lasten_x1000": {
+    "2027": 3786,
+    "2028": -6338,
+    "2029": -13295,
+    "2030": -17379
+   },
+   "baten_x1000": {
+    "2027": 1020282,
+    "2028": 1017620,
+    "2029": 1038676,
+    "2030": 1084975
+   },
+   "bron": "boekwerk p. 351-352"
+  },
+  {
+   "code": "4.4",
+   "programma": "4",
+   "naam": "Overhead en ondersteuning organisatie",
+   "lasten_x1000": {
+    "2027": 147205,
+    "2028": 151333,
+    "2029": 156304,
+    "2030": 161529
+   },
+   "baten_x1000": {
+    "2027": 7875,
+    "2028": 7804,
+    "2029": 7855,
+    "2030": 7940
+   },
+   "bron": "boekwerk p. 351-352"
+  }
+ ],
+ "onderdelen": [
+  {
+   "id": "e1",
+   "naam": "Economische agenda",
+   "deelprogramma": "1.1",
+   "gebouw": "winkel",
+   "lasten_mln": 1.4,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "w": 0.5
+   },
+   "tekst_bezuinigen": "Minder projecten en evenementen om bedrijven te helpen en aan te trekken.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe'), p. 23: Economische Agenda 1.400"
+  },
+  {
+   "id": "e2",
+   "naam": "Ambtenaren economische zaken",
+   "deelprogramma": "1.1",
+   "gebouw": "winkel",
+   "lasten_mln": 3.2,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "w": 0.3
+   },
+   "tekst_bezuinigen": "Minder mensen die bedrijven helpen bij vestiging en groei.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe'), p. 23: Personele inzet economische ontwikkeling 3.200"
+  },
+  {
+   "id": "e3",
+   "naam": "Citymarketing en economische activiteiten",
+   "deelprogramma": "1.1",
+   "gebouw": "winkel",
+   "lasten_mln": 2.25,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "w": 0.3
+   },
+   "tekst_bezuinigen": "Minder promotie van Groningen, o.a. via Marketing Groningen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe'), p. 23: Reguliere activiteiten economische ontwikkeling 2.250"
+  },
+  {
+   "id": "e4",
+   "naam": "Akkoord van Groningen (RUG, Hanze, UMCG)",
+   "deelprogramma": "1.1",
+   "gebouw": "winkel",
+   "lasten_mln": 1.25,
+   "gekoppelde_baten_mln": 0.75,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "w": 0.3
+   },
+   "tekst_bezuinigen": "De gemeente stapt (deels) uit de samenwerking met kennisinstellingen. Partners betalen dan ook niet meer mee.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe'), p. 23: Akkoord van Groningen 1.250 / 750"
+  },
+  {
+   "id": "e5",
+   "naam": "Markten, havens en brugbediening",
+   "deelprogramma": "1.1",
+   "gebouw": "winkel",
+   "lasten_mln": 2.8,
+   "gekoppelde_baten_mln": 1.3,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "w": 0.2
+   },
+   "tekst_bezuinigen": "Minder markten en kortere bedieningstijden van bruggen. Je mist ook marktgelden.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe'), p. 23: Markt- en havenwezen 2.800 / 1.300"
+  },
+  {
+   "id": "e6",
+   "naam": "Bedrijventerreinen en winkelcentra",
+   "deelprogramma": "1.1",
+   "gebouw": "winkel",
+   "lasten_mln": 1.55,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "w": 0.4
+   },
+   "tekst_bezuinigen": "Minder geld om bedrijventerreinen en wijkwinkelcentra op te knappen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe'), p. 23: Intensiveringsmiddelen Ruimtelijke economie 1.550"
+  },
+  {
+   "id": "e7",
+   "naam": "Strategisch bezit (panden en grond)",
+   "deelprogramma": "1.1",
+   "gebouw": "winkel",
+   "lasten_mln": 4.7,
+   "gekoppelde_baten_mln": 4.3,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "De gemeente houdt minder panden aan. Minder kosten, maar ook minder huurinkomsten.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe'), p. 23: Strategisch bezit 4.700 / 4.300",
+   "controleren": true
+  },
+  {
+   "id": "e8",
+   "naam": "Suikerzijde (gebiedsontwikkeling)",
+   "deelprogramma": "1.1",
+   "gebouw": "winkel",
+   "lasten_mln": 4.3,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -65,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "minimum": {
+    "soort": "vast",
+    "reden": "De gemeente heeft de grond van de Suikerzijde al gekocht. De rente daarover en het veilig beheer van het terrein blijven, ook als de ontwikkeling stopt.",
+    "wet": "BW 6:174 (aansprakelijkheid opstallen) voor minimaal beheer",
+    "bron": "https://groningen.begroting-2026.nl/p43728",
+    "zekerheid": "aanname",
+    "berekening": "De begroting zegt: 3,84 mln is voor 'structurele dekking van beheer- en rentelasten' Suikerzijde. Boekwaarde grond was in 2021 ca. 42 mln (Kadernota weerstandsvermogen); inmiddels hoger, aanname 50-60 mln. Rente ca. 1,5-2% = ca. 0,8-1,0 mln. Minimaal beheer (veiligheid, afzetting, opstallen) aanname ca. 0,2-0,3 mln. Samen ca. 1,1-1,2 mln = ca. 30% van 3,84 mln. Dus min ca. -70%. Tegenlezer: Opbouw klopt: de begroting zegt dat 3,84 mln SIF is voor 'structurele dekking van beheer- en rentelasten'. Boekwaarde grond ca. 42 mln (Kadernota weerstandsvermogen) plus 15 mln storting in het eigen vermogen van De Suikerzijde BV (rente daarop 232.500 euro, ca. 1,55%). Rente op ca. 42-57 mln tegen ca. 1,5-2% = 0,65-1,1 mln, plus minimaal beheer 0,2-0,3 mln = ca. 0,9-1,3 mln = 23-34% van 3,84. 'Lager kan niet' moet kloppen, dus de bovenkant (ca. 35%) nemen: min -65 in plaats van -70. De rente valt alleen weg bij verkoop van de grond; dat zit niet in deze post. Geen overgangskosten dubbel geteld."
+   },
+   "meters": {},
+   "tekst_bezuinigen": "De ontwikkeling van de Suikerzijde gaat langzamer.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe'), p. 23: Suikerzijde 4.300"
+  },
+  {
+   "id": "e9",
+   "naam": "Regio Groningen-Assen",
+   "deelprogramma": "1.1",
+   "gebouw": "winkel",
+   "lasten_mln": 1.1,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Groningen doet minder mee aan de regionale samenwerking.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe'), p. 23: Bijdrage aan Regio Groningen-Assen 1.100"
+  },
+  {
+   "id": "e10",
+   "naam": "Ambtenaren gebiedsontwikkeling",
+   "deelprogramma": "1.1",
+   "gebouw": "winkel",
+   "lasten_mln": 7.1,
+   "gekoppelde_baten_mln": 0.1,
+   "min_pct": -75,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "De gemeente moet een omgevingsvisie en een omgevingsplan hebben. Ook lopende bouwprojecten met afspraken met bouwers moeten worden afgemaakt. Daarvoor zijn ambtenaren nodig.",
+    "wet": "Omgevingswet art. 2.4 (omgevingsplan) en art. 3.1 (omgevingsvisie); afd. 13.6 (kostenverhaal)",
+    "bron": "https://wetten.overheid.nl/BWBR0037885/2026-01-01",
+    "zekerheid": "aanname",
+    "berekening": "6,8 mln = personeel en bedrijfsvoering Stadsontwikkeling (ca. 60-65 fte). De wet vraagt dat omgevingsplan en omgevingsvisie er zijn en bijgehouden worden, niet hoeveel mensen. Aanname: ca. 25% (ca. 1,7 mln, ca. 15 fte) voor het wettelijke ruimtelijke werk en lopende contracten in grondexploitaties (Meerstad, Suikerzijde, Stadshavens). Dus min -75%. Tegenlezer: Percentage -75 is redelijk en gelijk aan m11 (ook ambtenaren met een wettelijke kern). Alleen soort aangepast naar 'wet' voor consistentie met m11: het omgevingsplan (art. 2.4: de raad stelt één omgevingsplan vast) en de omgevingsvisie (art. 3.1) zijn zelf wettelijke taken. Let op: 0,5 mln van de 6,8 is verschoven bedrijfsvoering uit 4.4; en uren voor grondexploitaties worden deels in de grex geboekt. De 25% is niet uit een document af te leiden, dus aanname. Frictie via org_frictie, niet dubbel."
+   },
+   "meters": {},
+   "tekst_bezuinigen": "Minder mensen voor grote bouwprojecten en gebiedsontwikkeling.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe'), p. 23: Personele inzet en bedrijfsvoering Stadsontwikkeling 7.100 / 100"
+  },
+  {
+   "id": "e11",
+   "naam": "Rente en afschrijving (o.a. Meerstad)",
+   "deelprogramma": "1.1",
+   "gebouw": "winkel",
+   "lasten_mln": 11.5,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": null,
+   "max_pct": null,
+   "vergrendeld": true,
+   "reden_vergrendeld": "Dit zijn vaste kosten van investeringen die al gedaan zijn. Die kun je niet meer schrappen.",
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "minimum": {
+    "soort": "vast",
+    "reden": "Dit zijn rente en afschrijving van investeringen die al gedaan zijn. Die kosten liggen vast.",
+    "wet": "Besluit begroting en verantwoording provincies en gemeenten (BBV), regels voor activa en afschrijving",
+    "bron": "https://groningen.begroting-2026.nl/p43728",
+    "zekerheid": "feit",
+    "berekening": "10,7 mln = kapitaallasten ruimtelijk-economische projecten/activa 6,7 mln + kapitaallasten bovenwijkse voorzieningen Meerstad 4,0 mln. Het afschrijvingsschema volgt uit het BBV; de rente volgt uit lopende leningen. De gemeente kan dit niet zelf verlagen."
+   },
+   "meters": {},
+   "tekst_bezuinigen": null,
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.1 ('Waar gaat het geld voornamelijk naar toe'), p. 23: Kapitaallasten ruimtelijk-economische projecten/activa 7.500 + Kapitaallasten bovenwijkse voorzieningen Meerstad 4.000"
+  },
+  {
+   "id": "m2",
+   "naam": "Parkeercontrole",
+   "deelprogramma": "1.2",
+   "gebouw": "parkeer",
+   "lasten_mln": 7.3,
+   "gekoppelde_baten_mln": 6.3,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "v": 0.2
+   },
+   "tekst_bezuinigen": "Minder controle. Let op: je mist dan ook naheffingen, dus dit kost je geld.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe'), p. 35: Parkeerhandhaving"
+  },
+  {
+   "id": "m3",
+   "naam": "Extra geld mobiliteit",
+   "deelprogramma": "1.2",
+   "gebouw": "parkeer",
+   "lasten_mln": 5.57,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -50,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "minimum": {
+    "soort": "vast",
+    "reden": "Een groot deel van dit geld betaalt rente en afschrijving van verkeersprojecten die al gebouwd zijn. Dat deel blijft.",
+    "bron": "https://groningen.begroting-2026.nl/p43731",
+    "zekerheid": "aanname",
+    "berekening": "De begroting zegt: 'Een belangrijk deel van deze middelen dient ter dekking van de kapitaallasten van projecten.' Bedrag van dat deel staat er niet. Aanname: ca. de helft van 5,28 mln (ca. 2,6 mln) is kapitaallasten van al uitgevoerde projecten. Dus min -50%."
+   },
+   "meters": {
+    "s": 0.2
+   },
+   "tekst_bezuinigen": "Minder nieuwe fietspaden, oversteekplaatsen en verkeersmaatregelen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe'), p. 35: Intensiveringsmiddelen Mobiliteit"
+  },
+  {
+   "id": "m4",
+   "naam": "Uitvoering mobiliteitsvisie",
+   "deelprogramma": "1.2",
+   "gebouw": "parkeer",
+   "lasten_mln": 1.56,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "De plannen uit de mobiliteitsvisie gaan langzamer.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe'), p. 35: Uitvoeringsprogramma's Mobiliteitsvisie"
+  },
+  {
+   "id": "m5",
+   "naam": "Fietsenstallingen centrum",
+   "deelprogramma": "1.2",
+   "gebouw": "parkeer",
+   "lasten_mln": 1,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "s": 0.2
+   },
+   "tekst_bezuinigen": "Kortere openingstijden van fietsenstallingen.",
+   "tekst_investeren": "Langer open, eventueel 24/7.",
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe'), p. 35: Stallingen centrum"
+  },
+  {
+   "id": "m6",
+   "naam": "Binnenstadsprogramma",
+   "deelprogramma": "1.2",
+   "gebouw": "parkeer",
+   "lasten_mln": 2.24,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "s": 0.2
+   },
+   "tekst_bezuinigen": "Minder vernieuwing van straten en pleinen in het centrum.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe'), p. 35: SIF-middelen voor projecten - Binnenstadsprogramma"
+  },
+  {
+   "id": "m7",
+   "naam": "Stationsgebied",
+   "deelprogramma": "1.2",
+   "gebouw": "parkeer",
+   "lasten_mln": 0.988,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "De plannen voor het stationsgebied gaan langzamer.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe'), p. 35: SIF-middelen voor projecten - Stationsgebied"
+  },
+  {
+   "id": "m9",
+   "naam": "Oosterhamrikzone",
+   "deelprogramma": "1.2",
+   "gebouw": "parkeer",
+   "lasten_mln": 0.25,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Stoppen met planvorming; de busbaan wordt niet verlegd.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe'), p. 35: SIF-middelen voor projecten - Oosterhamrikzone"
+  },
+  {
+   "id": "m11",
+   "naam": "Ambtenaren mobiliteit",
+   "deelprogramma": "1.2",
+   "gebouw": "parkeer",
+   "lasten_mln": 3.3,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -75,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "De gemeente beheert de eigen wegen. Verkeersbesluiten en wegbeheer zijn wettelijk verplicht. Daarvoor zijn altijd een paar ambtenaren nodig.",
+    "wet": "Wegenverkeerswet 1994 art. 18 lid 1 sub d (verkeersbesluiten door B&W); Wegenwet art. 15 (onderhoudsplicht wegbeheerder); BW 6:174",
+    "bron": "https://wetten.overheid.nl/BWBR0006622/2026-01-01",
+    "zekerheid": "aanname",
+    "berekening": "3,1 mln personeel programma Mobiliteit (ca. 28-30 fte). De wet vraagt dat B&W verkeersbesluiten nemen voor gemeentewegen en dat de wegbeheerder zorgt voor veilige wegen, niet hoeveel mensen. Aanname: ca. 25% (ca. 0,8 mln, ca. 7 fte) voor verkeersbesluiten, ontheffingen, verkeersveiligheid en advies bij wegbeheer. Dus min -75%."
+   },
+   "meters": {},
+   "tekst_bezuinigen": "Minder mensen voor verkeersplannen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe'), p. 35: Personele inzet programma Mobiliteit"
+  },
+  {
+   "id": "m10",
+   "naam": "Rente en afschrijving wegen",
+   "deelprogramma": "1.2",
+   "gebouw": "parkeer",
+   "lasten_mln": 6.5,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": null,
+   "max_pct": null,
+   "vergrendeld": true,
+   "reden_vergrendeld": "Vaste kosten van eerder aangelegde wegen en bruggen.",
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "minimum": {
+    "soort": "vast",
+    "reden": "Dit zijn rente en afschrijving van wegen en bruggen die al zijn aangelegd. Die kosten liggen vast.",
+    "wet": "Besluit begroting en verantwoording provincies en gemeenten (BBV), regels voor activa en afschrijving",
+    "bron": "https://groningen.begroting-2026.nl/p43731",
+    "zekerheid": "feit",
+    "berekening": "6,1 mln kapitaallasten deelprogramma 1.2. Afschrijving volgt uit het BBV, rente uit lopende leningen. De gemeente kan dit niet zelf verlagen."
+   },
+   "meters": {},
+   "tekst_bezuinigen": null,
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.2 ('Waar gaat het geld voornamelijk naar toe'), p. 35: Kapitaallasten"
+  },
+  {
+   "id": "w1",
+   "naam": "Extra geld wonen",
+   "deelprogramma": "1.3",
+   "gebouw": "bouw",
+   "lasten_mln": 1.775,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "w": 0.1
+   },
+   "tekst_bezuinigen": "Minder extra inzet op woningbouw.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe'), p. 44: Intensiveringsmiddelen Wonen (1.775)"
+  },
+  {
+   "id": "w2",
+   "naam": "Meer betaalbare woningen",
+   "deelprogramma": "1.3",
+   "gebouw": "bouw",
+   "lasten_mln": 1.2,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Minder steun voor betaalbare huur- en koopwoningen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe'), p. 44: Meer betaalbare woningen (1.200)"
+  },
+  {
+   "id": "w3",
+   "naam": "Goed verhuurderschap",
+   "deelprogramma": "1.3",
+   "gebouw": "bouw",
+   "lasten_mln": 0.9,
+   "gekoppelde_baten_mln": 0.5,
+   "min_pct": -80,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "De wet zegt dat de gemeente een meldpunt moet hebben voor klachten over verhuurders. Die klachten moeten ook worden afgehandeld.",
+    "wet": "Wet goed verhuurderschap art. 4 lid 1 (meldpunt verplicht) en lid 2 (afwikkelen klachten); art. 2 (algemene regels), beginselplicht tot handhaving bij verzoeken",
+    "bron": "https://wetten.overheid.nl/BWBR0048028",
+    "zekerheid": "aanname",
+    "berekening": "Wet verplicht alleen een meldpunt (art. 4); toezicht, handhaving en verhuurvergunning zijn bevoegdheden. Meldpunt geschat op ca. 0,1-0,15 mln van 1,25 mln (ca. 1-1,5 fte plus systeem) ≈ 10%. min_pct −90. Tegenlezer: Art. 4 lid 1 gecontroleerd: 'Burgemeester en wethouders stellen een meldpunt in'; lid 2 spreekt over het afwikkelen van klachten. Ondergrens is terecht, maar 10% (alleen een loket) is krap en niet consequent met w10: daar houdt de onderzoeker 40% aan voor de beginselplicht bij handhavingsverzoeken. Klachten bij het meldpunt leiden ook hier tot verzoeken om op te treden tegen overtreding van de algemene regels (art. 2). Ik stel 20% voor (ca. 0,25 mln: meldpunt plus afhandeling en minimale opvolging). Dat blijft een schatting. De gekoppelde baten (0,5) vervallen naar rato via de motor, dus er wordt niets dubbel geteld."
+   },
+   "meters": {
+    "v": 0.1
+   },
+   "tekst_bezuinigen": "Minder controle op huisjesmelkers.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe'), p. 44: Woontoezicht (900 / 500)"
+  },
+  {
+   "id": "w4",
+   "naam": "Ambtenaren wonen",
+   "deelprogramma": "1.3",
+   "gebouw": "bouw",
+   "lasten_mln": 4.9,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -75,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "De gemeente moet volgens de wet een volkshuisvestingsprogramma maken en een urgentieregeling hebben. Daar zijn altijd ambtenaren voor nodig.",
+    "wet": "Wet versterking regie volkshuisvesting (in werking 1-7-2026; volkshuisvestingsprogramma uiterlijk 1-7-2027); Huisvestingswet 2014 (verplichte urgentieregeling); Woningwet art. 44 (prestatieafspraken)",
+    "bron": "https://www.volkshuisvestingnederland.nl/actueel/nieuws/2026/06/24/wet-versterking-regie-volkshuisvesting-van-kracht-vanaf-1-juli",
+    "zekerheid": "aanname",
+    "berekening": "Wettelijke kern: programma opstellen en bijhouden, urgentieregeling, prestatieafspraken met corporaties. Geschat ca. 8-10 fte ≈ 1,1-1,2 mln van 4,6 mln ≈ 25%. min_pct −75."
+   },
+   "meters": {},
+   "tekst_bezuinigen": "Minder mensen voor woningbouwprojecten.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe'), p. 44: Personele inzet programma Wonen (4.900)"
+  },
+  {
+   "id": "w6",
+   "naam": "Energiesubsidies",
+   "deelprogramma": "1.3",
+   "gebouw": "bouw",
+   "lasten_mln": 4.3,
+   "gekoppelde_baten_mln": 3.3,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Minder subsidies voor isolatie en verduurzaming. Het meeste geld komt van het Rijk, dus je bespaart maar weinig.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe'), p. 45: Diverse subsidies programma Energie (4.300 / 3.300)"
+  },
+  {
+   "id": "w7",
+   "naam": "Extra geld energietransitie",
+   "deelprogramma": "1.3",
+   "gebouw": "bouw",
+   "lasten_mln": 2.3,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -90,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "Vanaf 2027 moet de gemeente volgens de wet een warmteprogramma maken. Een klein deel van dit geld blijft daarvoor nodig.",
+    "wet": "Wet gemeentelijke instrumenten warmtetransitie (verwacht in werking 1-1-2027; warmteprogramma uiterlijk 31-12-2027, via Omgevingswet)",
+    "bron": "https://iplo.nl/regelgeving/instrumenten/programma/verplichte-programma-s/warmteprogramma/",
+    "zekerheid": "aanname",
+    "berekening": "Projecten zelf zijn niet verplicht; alleen het warmteprogramma wordt een plicht. Geschat ca. 0,2 mln (1,5-2 fte) van 2,275 mln ≈ 10%. min_pct −90."
+   },
+   "meters": {},
+   "tekst_bezuinigen": "Minder gemeentelijke projecten voor de energietransitie.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe'), p. 45: Intensiveringsmiddelen Energie (2.300)"
+  },
+  {
+   "id": "w8",
+   "naam": "Omgevingsvergunningen",
+   "deelprogramma": "1.3",
+   "gebouw": "bouw",
+   "lasten_mln": 9,
+   "gekoppelde_baten_mln": 16.5,
+   "min_pct": null,
+   "max_pct": null,
+   "vergrendeld": true,
+   "reden_vergrendeld": "Wordt betaald uit de bouwleges. Die moeten 100% kostendekkend zijn: de leges mogen niet meer opbrengen dan de vergunningverlening kost (inclusief overhead). Minder doen levert de begroting dus niets op; alleen de leges gaan omlaag.",
+   "doorgeefluik_heffing": true,
+   "wettelijke_taak": false,
+   "minimum": {
+    "soort": "wet",
+    "reden": "De gemeente moet beslissen op elke aanvraag voor een vergunning. De bouwleges betalen dit werk, dus minder doen levert niets op.",
+    "wet": "Omgevingswet art. 5.1 (vergunningplicht) en art. 16.64 (beslistermijn); Gemeentewet art. 229b (leges niet meer dan de kosten)",
+    "bron": "https://wetten.overheid.nl/BWBR0037885",
+    "zekerheid": "feit",
+    "berekening": "Beslissen op aanvragen is verplicht en het volume hangt af van de aanvragen, niet van de gemeente. Leges (17,9) zijn begrensd op de kosten (incl. overhead elders). Vergrendeld op 0."
+   },
+   "meters": {},
+   "tekst_bezuinigen": null,
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe'), p. 45: Leges omgevingsvergunning (9.000 / 16.500)"
+  },
+  {
+   "id": "w10",
+   "naam": "Toezicht op bouwen",
+   "deelprogramma": "1.3",
+   "gebouw": "bouw",
+   "lasten_mln": 2,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -60,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "De gemeente moet toezicht houden en optreden bij gevaarlijke of illegale bouw. Ook moet ze genoeg geld en mensen hebben voor haar handhavingsplan.",
+    "wet": "Omgevingswet hoofdstuk 18 (handhaving); Omgevingsbesluit art. 13.5 (handhavingsstrategie) en art. 13.10 (middelen borgen); beginselplicht tot handhaving (jurisprudentie)",
+    "bron": "https://wetten.overheid.nl/jci1.3:c:BWBR0041278&artikel=13.6",
+    "zekerheid": "aanname",
+    "berekening": "Wet vraagt een handhavingsstrategie met voldoende middelen, en de beginselplicht dwingt tot optreden bij handhavingsverzoeken en gevaar. Geen vast niveau. Kern (verzoeken, klachten, gevaarlijke situaties, Wkb-meldingen) geschat op 40% van 2,1 mln ≈ 0,85 mln. min_pct −60."
+   },
+   "meters": {
+    "v": 0.2
+   },
+   "tekst_bezuinigen": "Minder controle op bouwplaatsen en illegale bouw.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe'), p. 45: Toezicht en handhaving (2.000)"
+  },
+  {
+   "id": "w11",
+   "naam": "Verduurzamen gemeentegebouwen",
+   "deelprogramma": "1.3",
+   "gebouw": "bouw",
+   "lasten_mln": 1.1,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Gemeentegebouwen worden langzamer verduurzaamd.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.3 ('Waar gaat het geld voornamelijk naar toe'), p. 44: Verduurzaming maatschappelijk vastgoed (1.100)"
+  },
+  {
+   "id": "w12",
+   "naam": "Klimaat- en energiebeleid (CDOKE)",
+   "deelprogramma": "1.3",
+   "gebouw": "bouw",
+   "lasten_mln": 10.9,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Minder mensen en geld voor de aanpak van klimaat en energie, zoals de routekaart CO₂-neutraal en de warmtetransitie.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 1.3, p. 45: Capaciteit decentrale overheden klimaat- en energiebeleid (CDOKE) 10.900",
+   "voorstel": true,
+   "controleren": true
+  },
+  {
+   "id": "o1",
+   "naam": "Onderhoud straten, groen en speeltuinen",
+   "deelprogramma": "2.1",
+   "gebouw": "park",
+   "lasten_mln": 72.4,
+   "gekoppelde_baten_mln": 2.1,
+   "min_pct": -50,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "De gemeente moet wegen, bruggen en speeltoestellen veilig houden. Gebeurt er een ongeluk door slecht onderhoud, dan moet de gemeente betalen.",
+    "wet": "Wegenwet art. 15 (onderhoudsplicht openbare wegen); BW art. 6:174 (aansprakelijkheid wegbeheerder); Warenwetbesluit attractie- en speeltoestellen",
+    "bron": "https://wetten.overheid.nl/BWBR0001948",
+    "zekerheid": "aanname",
+    "berekening": "Geen vast niveau in de wet, wel veilig onderhoud. Aanname: ca. 20% kapitaallasten van eerdere investeringen (vast) plus ca. 30% voor veiligheidsminimum (wegen en bruggen repareren, boomveiligheid, gladheid, veilige speeltoestellen of weghalen). Samen 50% van 66,4 mln. Maaien buiten zichtlijnen, vegen en extra groen kunnen naar nul. min_pct −50."
+   },
+   "meters": {
+    "s": 1
+   },
+   "tekst_bezuinigen": "Minder maaien, vegen en repareren. Wie te lang wacht, betaalt later meer.",
+   "tekst_investeren": "Een beter onderhouden openbare ruimte in alle wijken.",
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe'), p. 61: Onderhoud en beheer openbare ruimte 72.400 / 2.100"
+  },
+  {
+   "id": "o3",
+   "naam": "Afvalinzameling huishoudens",
+   "deelprogramma": "2.1",
+   "gebouw": "park",
+   "lasten_mln": 39.7,
+   "gekoppelde_baten_mln": 45,
+   "min_pct": null,
+   "max_pct": null,
+   "vergrendeld": true,
+   "reden_vergrendeld": "Wordt volledig betaald uit de afvalstoffenheffing. Minder doen levert de begroting niets op; alleen de heffing gaat omlaag.",
+   "doorgeefluik_heffing": true,
+   "wettelijke_taak": false,
+   "minimum": {
+    "soort": "wet",
+    "reden": "De gemeente moet huisvuil minstens één keer per week ophalen. De afvalstoffenheffing betaalt dit, dus minder doen levert niets op.",
+    "wet": "Wet milieubeheer art. 10.21 lid 1 (wekelijkse inzameling bij elk perceel); art. 15.33 (afvalstoffenheffing)",
+    "bron": "https://wetten.overheid.nl/BWBR0003245",
+    "zekerheid": "feit",
+    "berekening": "Inzameling verplicht; kosten gedekt door heffing (41,4 tegen 36,8 lasten, verschil is overhead/btw elders). Vergrendeld op 0."
+   },
+   "meters": {},
+   "tekst_bezuinigen": null,
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe'), p. 62: Afvalstoffenheffing 39.700 / 45.000"
+  },
+  {
+   "id": "o2",
+   "naam": "Riolering",
+   "deelprogramma": "2.1",
+   "gebouw": "park",
+   "lasten_mln": 24.4,
+   "gekoppelde_baten_mln": 25.8,
+   "min_pct": null,
+   "max_pct": null,
+   "vergrendeld": true,
+   "reden_vergrendeld": "Wordt volledig betaald uit de rioolheffing.",
+   "doorgeefluik_heffing": true,
+   "wettelijke_taak": false,
+   "minimum": {
+    "soort": "wet",
+    "reden": "De gemeente moet afvalwater, regenwater en grondwater goed regelen. De rioolheffing betaalt dit, dus minder doen levert niets op.",
+    "wet": "Omgevingswet art. 2.16 lid 1 onder a (zorgplichten stedelijk afvalwater, hemelwater, grondwater); Gemeentewet art. 228a (rioolheffing)",
+    "bron": "https://wetten.overheid.nl/BWBR0037885",
+    "zekerheid": "feit",
+    "berekening": "Zorgplicht en volledige dekking uit rioolheffing (23,7 tegen 22,5). Vergrendeld op 0."
+   },
+   "meters": {},
+   "tekst_bezuinigen": null,
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe'), p. 61: Rioolheffing 24.400 / 25.800"
+  },
+  {
+   "id": "o4",
+   "naam": "Zakelijke dienstverlening (bedrijfsafval, werkplaats)",
+   "deelprogramma": "2.1",
+   "gebouw": "park",
+   "lasten_mln": 9.9,
+   "gekoppelde_baten_mln": 11.1,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "De gemeente stopt met bedrijfsafval; ondernemers kiezen een eigen inzamelaar. Je mist de inkomsten, dus dit kost geld.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe'), p. 62: Zakelijke dienstverlening Stadsbeheer 9.900 / 11.100",
+   "controleren": true
+  },
+  {
+   "id": "o6",
+   "naam": "Leefkwaliteit (groen en spelen in wijken)",
+   "deelprogramma": "2.1",
+   "gebouw": "park",
+   "lasten_mln": 4,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "s": 0.5
+   },
+   "tekst_bezuinigen": "Minder nieuw groen en minder nieuwe speelplekken.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe'), p. 62: Meerjarenprogramma Leefkwaliteit 3.200 / 0 + Bodembeheer 800 / 0",
+   "controleren": true
+  },
+  {
+   "id": "o8",
+   "naam": "Geo en data",
+   "deelprogramma": "2.1",
+   "gebouw": "park",
+   "lasten_mln": 1.8,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -50,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "De gemeente moet volgens de wet de landelijke kaart (BGT) van haar eigen gebied bijhouden. Dat werk blijft altijd nodig.",
+    "wet": "Wet basisregistratie grootschalige topografie art. 11, 13 en 14 (bronhouder houdt gegevens bij, actueel en volgens kwaliteitseisen)",
+    "bron": "https://wetten.overheid.nl/BWBR0034026",
+    "zekerheid": "aanname",
+    "berekening": "Bijhouden van de BGT is verplicht, de rest (data-analyse, extra kaarten) niet. BGT-bijhouding geschat op ca. 4 fte ≈ 0,55 mln van 1,1 mln ≈ 50%. min_pct −50."
+   },
+   "meters": {},
+   "tekst_bezuinigen": "Minder kaarten en data over de gemeente.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.1 ('Waar gaat het geld voornamelijk naar toe'), p. 63: GEO & Data 1.800 / 0"
+  },
+  {
+   "id": "v2",
+   "naam": "Boa's en toezicht op straat",
+   "deelprogramma": "2.2",
+   "gebouw": "politie",
+   "lasten_mln": 3.7,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -90,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "De burgemeester moet toezicht houden op de regels voor alcohol en horeca. Een klein team toezichthouders blijft dus nodig.",
+    "wet": "Alcoholwet art. 41 (toezicht door door de burgemeester aangewezen ambtenaren)",
+    "bron": "https://wetten.overheid.nl/BWBR0002458",
+    "zekerheid": "aanname",
+    "berekening": "Geen wet die een aantal boa's voorschrijft. Alleen het toezicht op de Alcoholwet is verplicht (art. 41). Aanname: dat toezicht is ongeveer 10% van 3,4 mln = 0,34 mln. Dus min -90%."
+   },
+   "meters": {
+    "v": 1
+   },
+   "tekst_bezuinigen": "Minder boa's op straat.",
+   "tekst_investeren": "Meer boa's op straat, ook tegen opgevoerde fatbikes.",
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe'), p. 72: Toezicht en handhaving in de openbare ruimte 3.700 / -"
+  },
+  {
+   "id": "v3",
+   "naam": "Openbare orde en veiligheid",
+   "deelprogramma": "2.2",
+   "gebouw": "politie",
+   "lasten_mln": 5.7,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -75,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "De burgemeester moet de openbare orde handhaven. Daarvoor zijn een paar ambtenaren nodig, bijvoorbeeld voor huisverboden en besluiten bij crisis. Camera's en extra aanpak van overlast zijn een keuze.",
+    "wet": "Gemeentewet art. 172 en 174",
+    "bron": "https://wetten.overheid.nl/BWBR0005416",
+    "zekerheid": "aanname",
+    "berekening": "De wet zegt dat de taak er moet zijn, niet hoeveel. Aanname: een kernteam voor de wettelijke bevoegdheden van de burgemeester (besluiten, huisverboden, crisismaatregelen, evenementenadvies) is ongeveer 25% van 3,8 mln = 0,95 mln. Dus min -75%. Tegenlezer: Percentage -75 is redelijk en consequent met v2, maar de reden moet anders. 'Sluiten van drugspanden' (Opiumwet art. 13b) is een bevoegdheid ('kan'); bij v4 wordt diezelfde regel terecht als geen plicht gezien. Dat botst. Ook Wet tijdelijk huisverbod art. 2 en Wvggz art. 7:1 zijn 'kan'-bevoegdheden; de echte plicht is Gemeentewet art. 172 (burgemeester belast met handhaving openbare orde). Let op overlap met v6 (Wvggz): tel de Wvggz-taken niet in beide posten. Het getal 25% (0,95 mln van 3,8) blijft een aanname."
+   },
+   "meters": {
+    "v": 0.7
+   },
+   "tekst_bezuinigen": "Minder aanpak van overlast en minder cameratoezicht.",
+   "tekst_investeren": "Meer cameratoezicht en aanpak van overlast.",
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe'), p. 72: Openbare orde en veiligheid (OOV) 5.700 / -"
+  },
+  {
+   "id": "v4",
+   "naam": "Ondermijning (drugs en criminele geldstromen)",
+   "deelprogramma": "2.2",
+   "gebouw": "politie",
+   "lasten_mln": 1.4,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "v": 0.7
+   },
+   "tekst_bezuinigen": "Minder aanpak van criminaliteit achter gewone bedrijfjes.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe'), p. 71: Ondermijning 1.400 / -"
+  },
+  {
+   "id": "v5",
+   "naam": "Jeugd en veiligheid",
+   "deelprogramma": "2.2",
+   "gebouw": "politie",
+   "lasten_mln": 4.3,
+   "gekoppelde_baten_mln": 1.5,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "v": 0.5,
+    "z": 0.3
+   },
+   "tekst_bezuinigen": "Minder aanpak van jeugdoverlast en jonge criminelen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe'), p. 71: Jeugd en Veiligheid 4.300 / 1.500"
+  },
+  {
+   "id": "v6",
+   "naam": "Zorg- en Veiligheidshuis",
+   "deelprogramma": "2.2",
+   "gebouw": "politie",
+   "lasten_mln": 2.3,
+   "gekoppelde_baten_mln": 1.3,
+   "min_pct": -90,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "Bij een melding over iemand die verplichte ggz-zorg nodig kan hebben, moet de gemeente dat onderzoeken. Die kleine taak blijft.",
+    "wet": "Wet verplichte ggz art. 5:1 en 5:2 (verkennend onderzoek na melding)",
+    "bron": "https://wetten.overheid.nl/BWBR0040635",
+    "zekerheid": "aanname",
+    "berekening": "Het Zorg- en Veiligheidshuis zelf is een landelijke afspraak, geen wettelijke plicht. Alleen het verkennend onderzoek Wvggz is verplicht. Aanname: als dat in deze post zit, ongeveer 10% van 2,2 mln = 0,22 mln. Dus min -90%."
+   },
+   "meters": {
+    "v": 0.5,
+    "z": 0.5
+   },
+   "tekst_bezuinigen": "Minder samenwerking tussen politie, zorg en justitie rond verwarde personen en veelplegers.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe'), p. 71: Zorg- en Veiligheidshuis Groningen 2.300 / 1.300"
+  },
+  {
+   "id": "v9",
+   "naam": "Reclamezuilen op straat",
+   "deelprogramma": "2.2",
+   "gebouw": "politie",
+   "lasten_mln": 0.5,
+   "gekoppelde_baten_mln": 1.5,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Minder reclamezuilen. Je mist dan reclame-inkomsten, dus dit kost geld.",
+   "tekst_investeren": "Meer reclamezuilen: dit levert juist geld op.",
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe'), p. 72: Reclamedragend straatmeubilair 500 / 1.500"
+  },
+  {
+   "id": "v1",
+   "naam": "Brandweer en ambulancezorg (Veiligheidsregio)",
+   "deelprogramma": "2.2",
+   "gebouw": "politie",
+   "lasten_mln": 26.9,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": null,
+   "max_pct": null,
+   "vergrendeld": true,
+   "reden_vergrendeld": "Vaste bijdrage aan de Veiligheidsregio. Die bepaalt de gemeente niet alleen.",
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "minimum": {
+    "soort": "gr",
+    "reden": "Elke gemeente moet meedoen in de Veiligheidsregio en betaalt een bijdrage. Het bestuur van de regio stelt die vast, niet de gemeente alleen.",
+    "wet": "Wet veiligheidsregio's art. 9 en 10; Wet gemeenschappelijke regelingen",
+    "bron": "https://wetten.overheid.nl/BWBR0027466",
+    "zekerheid": "feit",
+    "berekening": "Verplichte deelname en bijdrage volgens de verdeelsleutel van de regio. Gemeente kan dit niet alleen verlagen. Vergrendeld, 0%."
+   },
+   "meters": {
+    "v": 1
+   },
+   "tekst_bezuinigen": null,
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe'), p. 72: Veiligheidsregio Groningen 26.900 / -"
+  },
+  {
+   "id": "v8",
+   "naam": "Omgevingsdienst",
+   "deelprogramma": "2.2",
+   "gebouw": "politie",
+   "lasten_mln": 1.8,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": null,
+   "max_pct": null,
+   "vergrendeld": true,
+   "reden_vergrendeld": "Vaste bijdrage aan de Omgevingsdienst Groningen.",
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "minimum": {
+    "soort": "gr",
+    "reden": "De gemeente moet de wettelijke milieutaken laten doen door de Omgevingsdienst. De bijdrage ligt vast in de regeling.",
+    "wet": "Omgevingswet art. 18.21; Omgevingsbesluit (basistakenpakket); Wet gemeenschappelijke regelingen",
+    "bron": "https://wetten.overheid.nl/BWBR0037885",
+    "zekerheid": "aanname",
+    "berekening": "Deelname en basistaken zijn verplicht. Vergrendeld, 0%."
+   },
+   "meters": {},
+   "tekst_bezuinigen": null,
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 2.2 ('Waar gaat het geld voornamelijk naar toe'), p. 72: Deelnemersbijdrage Omgevingsdienst 1.800 / -"
+  },
+  {
+   "id": "s3",
+   "naam": "Begeleiding naar werk",
+   "deelprogramma": "3.1",
+   "gebouw": "werk",
+   "lasten_mln": 23.8,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -70,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "Mensen in de bijstand hebben volgens de wet recht op hulp naar werk. Ook moet de gemeente voor ieder een plan maken en mensen daarbij begeleiden. Hoeveel hulp, bepaalt de gemeente deels zelf.",
+    "wet": "Participatiewet art. 7 lid 1 sub a, art. 10 lid 1 (aanspraak op ondersteuning), art. 10da, art. 8a, art. 44a",
+    "bron": "https://wetten.overheid.nl/BWBR0015703/2026-07-01",
+    "zekerheid": "aanname",
+    "berekening": "Wet vraagt ondersteuning 'indien het college dat noodzakelijk acht' (art. 7) plus een plan van aanpak per bijstandsgerechtigde (art. 44a) en een verordening (art. 8a). Geen niveau of bedrag. Aanname: 20% van 20,7 mln (ca. 4,1 mln) is nodig voor de wettelijke kern: klantmanagers voor plan van aanpak, verplichte voorzieningen voor de doelgroep, indicaties beschut werk. Dus -80%. Tegenlezer: De grondslag is sterker dan het voorstel zegt. Het voorstel leunt op art. 7 ('indien het college dat noodzakelijk acht'). Maar in de versie van 1-7-2026 geeft art. 10 lid 1 bijstandsgerechtigden, nabestaanden en niet-uitkeringsgerechtigden een eigen AANSPRAAK op ondersteuning bij arbeidsinschakeling en op de noodzakelijke voorziening (zoals persoonlijke ondersteuning/jobcoach), volgens de verordening van art. 8a. Daarnaast geeft art. 10da de doelgroep loonkostensubsidie aanspraak op begeleiding op de werkplek, en verplicht art. 44a lid 2 het college om te begeleiden bij het plan van aanpak en dat plan periodiek te evalueren. Een bedrag noemt de wet niet; de 20% van het voorstel is een schatting. Omdat er een individuele aanspraak is (geen gunst) en jobcoaching voor de LKS-doelgroep waarschijnlijk in deze post zit, stel ik 30% als kern voor (ca. 6,2 mln): -70. Het percentage blijft een aanname, want de begroting splitst de post niet uit. Art. 7a (jongeren onder 27) is een 'kan'-bepaling en telt niet mee."
+   },
+   "meters": {
+    "w": 1
+   },
+   "tekst_bezuinigen": "Minder begeleiding naar werk. ⚠︎ Daardoor blijven meer mensen in de bijstand.",
+   "tekst_investeren": "Meer coaching naar werk. ⚠︎ Daardoor stromen mensen sneller uit de bijstand.",
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe'), p. 89: Participatie en re-integratie"
+  },
+  {
+   "id": "s1",
+   "naam": "Bijstandsuitkeringen",
+   "deelprogramma": "3.1",
+   "gebouw": "werk",
+   "lasten_mln": 205.1,
+   "gekoppelde_baten_mln": 194.4,
+   "min_pct": null,
+   "max_pct": null,
+   "vergrendeld": true,
+   "reden_vergrendeld": "Iedereen heeft wettelijk recht op bijstand. Deze post daalt alleen als meer mensen werk vinden: stop meer geld in begeleiding naar werk.",
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "minimum": {
+    "soort": "wet",
+    "reden": "Iedereen die er recht op heeft krijgt bijstand. De hoogte staat in de wet. De gemeente kan dit bedrag niet zelf verlagen.",
+    "wet": "Participatiewet art. 7 lid 1 sub b, art. 11, art. 21-22 (normen)",
+    "bron": "https://wetten.overheid.nl/BWBR0015703/2026-01-01",
+    "zekerheid": "feit",
+    "berekening": "Recht op bijstand (art. 11) en landelijke normen (art. 21-22, gekoppeld aan minimumloon via art. 37-38). Bedrag = aantal rechthebbenden x norm. 186,8 mln van 199 mln komt via BUIG van het Rijk. Gemeente bepaalt norm en recht niet; vergrendeld blijft juist."
+   },
+   "meters": {
+    "z": 1
+   },
+   "tekst_bezuinigen": null,
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe'), p. 90: BUIG"
+  },
+  {
+   "id": "s2",
+   "naam": "Sociale werkvoorziening (Iederz)",
+   "deelprogramma": "3.1",
+   "gebouw": "werk",
+   "lasten_mln": 40,
+   "gekoppelde_baten_mln": 5.7,
+   "min_pct": -10,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "minimum": {
+    "soort": "vast",
+    "reden": "Mensen met een Wsw-baan hebben een vast contract bij de gemeente. Ook moet de gemeente een vast aantal plekken beschut werk bieden. Alleen op de organisatie kan wat af.",
+    "wet": "Wet sociale werkvoorziening art. 2 (bestaande dienstbetrekkingen, cao SW); Participatiewet art. 10b lid 1 en 4 (beschut werk, taakstelling per ministeriële regeling)",
+    "bron": "https://wetten.overheid.nl/BWBR0008903",
+    "zekerheid": "aanname",
+    "berekening": "Sinds 2015 geen nieuwe Wsw-instroom, maar zittende werknemers houden hun dienstbetrekking (cao SW). Beschut werk: Groningen moet minstens ca. 165 fte realiseren (art. 10b lid 4; Groningen haalde 172). Loonkosten Wsw en beschut werk zijn dus vast. Aanname: ca. 90% van 38,4 mln is loon en begeleiding van deze groepen; 10% bedrijfsvoering/overhead kan omlaag. Dus -10%."
+   },
+   "meters": {
+    "w": 0.6,
+    "z": 0.3
+   },
+   "tekst_bezuinigen": "Efficiënter werken bij Iederz. Het is een wettelijke taak, dus veel meer bezuinigen kan niet.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe'), p. 89: Sociale Werkvoorziening en Nieuw Beschut"
+  },
+  {
+   "id": "s4",
+   "naam": "Loonkostensubsidie",
+   "deelprogramma": "3.1",
+   "gebouw": "werk",
+   "lasten_mln": 13.4,
+   "gekoppelde_baten_mln": 13.1,
+   "min_pct": null,
+   "max_pct": null,
+   "vergrendeld": true,
+   "reden_vergrendeld": "Neemt een werkgever iemand met een beperking aan, dan moet de gemeente loonkostensubsidie geven. De hoogte staat in de wet.",
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "minimum": {
+    "soort": "wet",
+    "reden": "Neemt een werkgever iemand met een beperking aan, dan moet de gemeente loonkostensubsidie geven. De hoogte staat in de wet.",
+    "wet": "Participatiewet art. 10d lid 1, 2 en 4; art. 10b lid 9",
+    "bron": "https://wetten.overheid.nl/BWBR0015703/2026-01-01",
+    "zekerheid": "feit",
+    "berekening": "Art. 10d: het college 'verleent' loonkostensubsidie als een werkgever een dienstbetrekking aangaat met iemand uit de doelgroep; hoogte = verschil minimumloon en loonwaarde (lid 4). Geen ruimte om te weigeren of te verlagen. 11,3 van 11,8 mln komt via BUIG; netto 0,5 mln. Daarom vergrendeld."
+   },
+   "meters": {
+    "w": 0.5
+   },
+   "tekst_bezuinigen": "Minder werkgevers krijgen subsidie om iemand met een beperking aan te nemen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe'), p. 90: Loonkostensubsidie"
+  },
+  {
+   "id": "s5",
+   "naam": "Werk in Zicht",
+   "deelprogramma": "3.1",
+   "gebouw": "werk",
+   "lasten_mln": 11.6,
+   "gekoppelde_baten_mln": 9.8,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "w": 0.5
+   },
+   "tekst_bezuinigen": "Minder werkervaringsplekken.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe'), p. 90: Werk in Zicht"
+  },
+  {
+   "id": "s6",
+   "naam": "Basisbanen",
+   "deelprogramma": "3.1",
+   "gebouw": "werk",
+   "lasten_mln": 9.4,
+   "gekoppelde_baten_mln": 2.7,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "w": 0.5
+   },
+   "tekst_bezuinigen": "Minder of geen gemeentelijke basisbanen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe'), p. 90: Basisbanen"
+  },
+  {
+   "id": "s8",
+   "naam": "Afspraakbanen",
+   "deelprogramma": "3.1",
+   "gebouw": "werk",
+   "lasten_mln": 3.6,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "w": 0.4
+   },
+   "tekst_bezuinigen": "Minder banen bij de gemeente voor mensen met een arbeidsbeperking.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe'), p. 90: Afspraakbanen"
+  },
+  {
+   "id": "s9",
+   "naam": "Schuldhulpverlening",
+   "deelprogramma": "3.1",
+   "gebouw": "werk",
+   "lasten_mln": 11.6,
+   "gekoppelde_baten_mln": 0.7,
+   "min_pct": -60,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "De wet zegt dat de gemeente schuldhulp moet geven, snel een eerste gesprek moet voeren en signalen over achterstanden moet oppakken. Hoeveel hulp, bepaalt de gemeente zelf.",
+    "wet": "Wet gemeentelijke schuldhulpverlening art. 2, 3 lid 1 en 4",
+    "bron": "https://wetten.overheid.nl/BWBR0031331/",
+    "zekerheid": "aanname",
+    "berekening": "Wgs art. 3: college 'heeft tot taak' schuldhulp te geven en bij signalen van schuldeisers een gesprek aan te bieden (vroegsignalering); art. 4: eerste gesprek binnen 4 weken, bij dreigende ontruiming of afsluiting binnen 3 werkdagen; art. 2: plan door de raad. Geen niveau. Aanname: 40% van 11,3 mln (ca. 4,5 mln) is nodig voor intake binnen de termijnen, vroegsignalering en minnelijke schuldregeling. Dus -60%."
+   },
+   "meters": {
+    "z": 0.7
+   },
+   "tekst_bezuinigen": "Minder hulp bij schulden. ⚠︎ Meer mensen komen in de problemen en vragen bijzondere bijstand aan.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe'), p. 91: Schuldhulpverlening"
+  },
+  {
+   "id": "s10",
+   "naam": "Armoede- en minimaregelingen",
+   "deelprogramma": "3.1",
+   "gebouw": "werk",
+   "lasten_mln": 15.5,
+   "gekoppelde_baten_mln": 1.6,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "z": 0.8
+   },
+   "tekst_bezuinigen": "Minder regelingen voor mensen met een laag inkomen, zoals kortingen en vergoedingen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe'), p. 91: Armoede- en minimaregelingen"
+  },
+  {
+   "id": "s11",
+   "naam": "Bijzondere bijstand",
+   "deelprogramma": "3.1",
+   "gebouw": "werk",
+   "lasten_mln": 5.9,
+   "gekoppelde_baten_mln": 0.46,
+   "min_pct": -25,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "Mensen hebben wettelijk recht op bijzondere bijstand voor noodzakelijke kosten. De gemeente kan de regels wat strenger maken, maar niet stoppen.",
+    "wet": "Participatiewet art. 35 lid 1 en 2",
+    "bron": "https://wetten.overheid.nl/BWBR0015703/2026-01-01",
+    "zekerheid": "aanname",
+    "berekening": "Art. 35 lid 1: 'heeft recht op' bijzondere bijstand voor noodzakelijke kosten; een budgetplafond mag niet. Wel mag de gemeente weigeren onder EUR 176 per jaar (lid 2) en strengere beleidsregels maken. Een groot deel zijn vaste kosten zoals bewindvoering (tarieven landelijk vastgesteld). Aanname: ca. 75% van 6,1 mln is wettelijk recht; 25% is ruim beleid. Dus -25%."
+   },
+   "meters": {
+    "z": 0.6
+   },
+   "tekst_bezuinigen": "Strengere regels voor vergoeding van onverwachte, noodzakelijke kosten.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe'), p. 91: Bijzondere bijstand"
+  },
+  {
+   "id": "s12",
+   "naam": "Individuele inkomenstoeslag",
+   "deelprogramma": "3.1",
+   "gebouw": "werk",
+   "lasten_mln": 4.2,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -75,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "De gemeente moet een regeling hebben voor mensen die lang een laag inkomen hebben. De raad bepaalt zelf hoe hoog de toeslag is.",
+    "wet": "Participatiewet art. 8 lid 1 sub b en lid 2, art. 36",
+    "bron": "https://wetten.overheid.nl/BWBR0015703/2026-01-01",
+    "zekerheid": "aanname",
+    "berekening": "Art. 8: de raad moet een verordening maken over de individuele inkomenstoeslag, inclusief de hoogte; art. 36 geeft de grondslag. De wet noemt geen minimumbedrag, dus naar nul kan niet, maar de hoogte is vrij. Aanname: een sobere toeslag van ongeveer een kwart van het huidige niveau (ca. 1,0 van 4,2 mln) blijft nodig. Dus -75%."
+   },
+   "meters": {
+    "z": 0.4
+   },
+   "tekst_bezuinigen": "Een lagere toeslag voor mensen die lang van een minimuminkomen leven.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe'), p. 91: Individuele inkomenstoeslag"
+  },
+  {
+   "id": "s7",
+   "naam": "Inburgering",
+   "deelprogramma": "3.1",
+   "gebouw": "werk",
+   "lasten_mln": 6.7,
+   "gekoppelde_baten_mln": 3.5,
+   "min_pct": -20,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "De gemeente moet statushouders een brede intake, een plan, een taalcursus en begeleiding geven. Alleen wat de gemeente extra doet kan eraf.",
+    "wet": "Wet inburgering 2021 art. 13, 14, 15 en 16",
+    "bron": "https://wetten.overheid.nl/BWBR0044770",
+    "zekerheid": "aanname",
+    "berekening": "Wet vraagt: maatschappelijke begeleiding (art. 13), brede intake (art. 14), persoonlijk plan (art. 15) en tijdig een cursus die past bij de leerroute (art. 16). Het aantal statushouders bepaalt het Rijk (taakstelling). Lasten 5,0 mln, waarvan 3,0 mln rijksgeld. Aanname: ca. 80% is de wettelijke kern; 20% is eigen extra aanbod of efficiency. Dus -20%."
+   },
+   "meters": {},
+   "tekst_bezuinigen": "Efficiënter werken bij inburgering. Het is een wettelijke taak.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.1 ('Waar gaat het geld voornamelijk naar toe'), p. 90: Inburgering"
+  },
+  {
+   "id": "z1",
+   "naam": "Jeugdzorg",
+   "deelprogramma": "3.3",
+   "gebouw": "zorg",
+   "lasten_mln": 127.7,
+   "gekoppelde_baten_mln": 1.8,
+   "min_pct": -20,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "Kinderen en ouders hebben recht op jeugdhulp als ze die nodig hebben. Ook maatregelen van de rechter, zoals voogdij, moet de gemeente betalen.",
+    "wet": "Jeugdwet art. 2.3 lid 1, art. 2.4 lid 2, art. 2.6 lid 1",
+    "bron": "https://wetten.overheid.nl/BWBR0034925/2026-01-01",
+    "zekerheid": "aanname",
+    "berekening": "De wet legt geen bedrag vast. Art. 2.3 geeft een open recht op hulp ('indien jeugdhulp nodig'), art. 2.4 lid 2 maakt de gemeente verantwoordelijk voor de uitvoering van kinderbeschermingsmaatregelen, jeugdreclassering en hulp die de rechter oplegt (de gemeente kan dat niet beperken), en art. 2.6 lid 1a eist een 'kwalitatief en kwantitatief toereikend aanbod'. De gemeente stuurt alleen via toegang, verordening, tarieven en lichte hulp naar algemene voorzieningen. De Hervormingsagenda Jeugd rekent landelijk met een blijvende besparing van ongeveer €1 mld op circa €6 mld (ongeveer 15-17%) door strengere afbakening en sturing. Groningen geeft per inwoner meer uit dan gemiddeld (circa €485 tegen ongeveer €360 landelijk), deels door de centrumfunctie. Aanname: blijvend minimum ongeveer 80% van de begroting van het college (-20%). Netto besparing bij -20%: 0,2 x (118,8 - 1,4) = €23,5 mln."
+   },
+   "meters": {
+    "z": 1
+   },
+   "tekst_bezuinigen": "Strakker sturen op jeugdzorg. Kinderen hebben wettelijk recht op hulp, dus veel meer dan 10% kan niet.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe'), p. 120: Jeugd"
+  },
+  {
+   "id": "z2",
+   "naam": "Beschermd wonen",
+   "deelprogramma": "3.3",
+   "gebouw": "zorg",
+   "lasten_mln": 88.1,
+   "gekoppelde_baten_mln": 1.4,
+   "min_pct": -15,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "Mensen met ernstige psychische problemen hebben recht op beschermd wonen. Groningen regelt dit ook voor andere gemeenten in de provincie.",
+    "wet": "Wmo 2015 art. 1.2.1 onder b, art. 2.3.5 lid 1b en lid 4",
+    "bron": "https://wetten.overheid.nl/BWBR0035362/2026-01-01",
+    "zekerheid": "aanname",
+    "berekening": "De Wmo geeft iedere ingezetene van Nederland die zich bij de gemeente meldt recht op beschermd wonen als hij dat nodig heeft (art. 1.2.1 b, art. 2.3.5 lid 1b en 4). Er is geen vast bedrag. De gemeente kan besparen door meer ambulante begeleiding in plaats van intramuraal wonen (beweging van Beschermd wonen naar Beschermd thuis), door scherpere indicaties en door tarieven. Het grootste deel betreft mensen die echt niet zelfstandig kunnen wonen. Aanname: blijvend minimum circa 85% (-15%). Netto besparing bij -15%: 0,15 x (84,4 - 1,4) = €12,5 mln."
+   },
+   "meters": {
+    "z": 1
+   },
+   "tekst_bezuinigen": "Strakker sturen op beschermd wonen. Het is een wettelijke taak.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe'), p. 120: Beschermd Wonen"
+  },
+  {
+   "id": "z3",
+   "naam": "Wmo (huishoudelijke hulp, hulpmiddelen)",
+   "deelprogramma": "3.3",
+   "gebouw": "zorg",
+   "lasten_mln": 70.8,
+   "gekoppelde_baten_mln": 2,
+   "min_pct": -20,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "Wie niet zelfredzaam is, heeft recht op hulp, zoals een rolstoel of een aangepaste woning. De gemeente bepaalt wel hoe ruim ze toetst.",
+    "wet": "Wmo 2015 art. 2.1.1, art. 2.3.1, art. 2.3.5 lid 3",
+    "bron": "https://wetten.overheid.nl/BWBR0035362/2026-01-01",
+    "zekerheid": "aanname",
+    "berekening": "Art. 2.3.1 en 2.3.5 lid 3 verplichten de gemeente een maatwerkvoorziening te geven als iemand zijn beperking niet zelf, met mantelzorg of met algemene voorzieningen kan oplossen. Er is geen bedrag. Ruimte: huishoudelijke hulp kan deels een algemene voorziening worden (dat mag volgens de rechtspraak onder voorwaarden), strenger kijken naar eigen kracht en wat gebruikelijk is, en goedkopere hulpmiddelen (herverstrekking). Hulpmiddelen, woonaanpassingen en hulp bij persoonlijke beperking blijven verplicht. De eigen bijdrage is landelijk gemaximeerd (abonnementstarief), dus via die weg is weinig te halen. Aanname: blijvend minimum circa 80% (-20%). Netto besparing bij -20%: 0,2 x (64,7 - 1,9) = €12,6 mln."
+   },
+   "meters": {
+    "z": 1
+   },
+   "tekst_bezuinigen": "Strakker toetsen bij aanvragen voor hulp en hulpmiddelen. Het is een wettelijke taak.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe'), p. 120: WMO"
+  },
+  {
+   "id": "z4",
+   "naam": "WIJ-teams in de wijk",
+   "deelprogramma": "3.3",
+   "gebouw": "zorg",
+   "lasten_mln": 46.3,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -60,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "De gemeente moet een loket hebben dat hulpvragen onderzoekt en mensen naar jeugdhulp en Wmo leidt. Ook gratis cliëntondersteuning is verplicht.",
+    "wet": "Wmo 2015 art. 2.3.2 en 2.2.4; Jeugdwet art. 2.3 lid 1 en 2.6 lid 1b-c",
+    "bron": "https://wetten.overheid.nl/BWBR0035362/2026-01-01",
+    "zekerheid": "aanname",
+    "berekening": "De WIJ-teams doen in Groningen de wettelijke toegang: het onderzoek na een Wmo-melding binnen zes weken (Wmo art. 2.3.2), cliëntondersteuning (art. 2.2.4) en 'deskundige toeleiding naar, advisering over, bepaling van en het inzetten van' jeugdhulp (Jeugdwet art. 2.3), plus een laagdrempelige, altijd bereikbare jeugdhulp en advies aan professionals (art. 2.6 lid 1b-c). De lichte hulp en het preventiewerk van de teams zijn niet verplicht. Aanname: de wettelijke toegangsfunctie kost ongeveer 40% van het budget (circa €17,7 mln van €44,2 mln; bij grofweg €90.000 per fte is dat circa 200 van de ongeveer 490 fte). Dus min_pct -60%."
+   },
+   "meters": {
+    "z": 0.8
+   },
+   "tekst_bezuinigen": "Minder hulpverleners in de wijk; langere wachttijden.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe'), p. 121: WIJ"
+  },
+  {
+   "id": "z5",
+   "naam": "Daklozen- en vrouwenopvang",
+   "deelprogramma": "3.3",
+   "gebouw": "zorg",
+   "lasten_mln": 34.2,
+   "gekoppelde_baten_mln": 6,
+   "min_pct": -25,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "Wie dakloos is of thuis niet veilig is, heeft recht op opvang. Extra opvang zonder plicht, zoals voor mensen zonder verblijfsvergunning, kan wel weg.",
+    "wet": "Wmo 2015 art. 1.2.1 onder c, art. 2.3.5 lid 1b en lid 4",
+    "bron": "https://wetten.overheid.nl/BWBR0035362/2026-01-01",
+    "zekerheid": "aanname",
+    "berekening": "Opvang (daklozen- en vrouwenopvang) is een recht voor iedere ingezetene van Nederland die zich meldt (art. 1.2.1 c, art. 2.3.5 lid 1b). Groningen is centrumgemeente. Er is geen vast niveau. Niet verplicht: opvang en begeleiding van ongedocumenteerden (geen ingezetenen in de zin van de Wmo, zie zp_ongedocumenteerden), plaatsen boven de echte vraag en extra programma's. Aanname: daarvoor gaat ongeveer 25% van het budget. Dus min_pct -25%. Bij -25% vervalt ook een kwart van de baten van €3,6 mln. Netto besparing: 0,25 x (28,6 - 3,6) = €6,25 mln."
+   },
+   "meters": {
+    "z": 0.7,
+    "v": 0.2
+   },
+   "tekst_bezuinigen": "Minder opvangplekken. Het is grotendeels een wettelijke taak.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe'), p. 121: Maatschappelijke opvang en Vrouwenopvang"
+  },
+  {
+   "id": "z6",
+   "naam": "Gezondheid (GGD)",
+   "deelprogramma": "3.3",
+   "gebouw": "zorg",
+   "lasten_mln": 12,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -30,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "minimum": {
+    "soort": "gr",
+    "reden": "De GGD is verplicht en de gemeente betaalt mee via een regeling met andere gemeenten. Jeugdgezondheidszorg en de bestrijding van infectieziekten moeten blijven.",
+    "wet": "Wet publieke gezondheid art. 2, 5, 6 en 14; Wet gemeenschappelijke regelingen",
+    "bron": "https://wetten.overheid.nl/BWBR0024705/2026-01-01",
+    "zekerheid": "aanname",
+    "berekening": "Art. 14 Wpg verplicht gemeenten via een gemeenschappelijke regeling een GGD in stand te houden. Art. 5 (jeugdgezondheidszorg, wettelijk basispakket), art. 6 (infectieziektebestrijding) en art. 2 (epidemiologie, monitor) zijn verplicht. De bijdrage voor deze basistaken stelt het GGD-bestuur vast; Groningen kan die niet alleen verlagen. Niet verplicht: eigen preventie- en gezondheidsprogramma's en extra opdrachten aan de GGD. Aanname: dat is ongeveer 30% van het budget. Deels zijn die programma's betaald met rijksgeld (baten €6,6 mln, zoals de GALA-uitkering), dat dan naar rato vervalt. Netto besparing bij -30%: 0,3 x (18,8 - 6,6) = €3,7 mln."
+   },
+   "meters": {
+    "z": 0.4
+   },
+   "tekst_bezuinigen": "Minder preventie en gezondheidsprogramma's.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe'), p. 121: Gezondheidszorg"
+  },
+  {
+   "id": "z7",
+   "naam": "Huiselijk geweld en kindermishandeling",
+   "deelprogramma": "3.3",
+   "gebouw": "zorg",
+   "lasten_mln": 11.9,
+   "gekoppelde_baten_mln": 7.3,
+   "min_pct": -20,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "De gemeente moet een Veilig Thuis hebben waar je huiselijk geweld en kindermishandeling kunt melden. Die meldingen moeten ook worden onderzocht.",
+    "wet": "Wmo 2015 art. 4.1.1; Jeugdwet art. 2.6 lid 1d",
+    "bron": "https://wetten.overheid.nl/BWBR0035362/2026-01-01",
+    "zekerheid": "aanname",
+    "berekening": "Art. 4.1.1 Wmo verplicht een Veilig Thuis-organisatie met vaste taken: meldpunt, onderzoek, beoordelen en doorverwijzen. Jeugdwet art. 2.6 lid 1d vraagt maatregelen tegen kindermishandeling. Veilig Thuis wordt regionaal georganiseerd; het aantal meldingen bepaalt de werklast. Niet verplicht: extra preventie- en aanpakprogramma's. Aanname: ongeveer 20% kan weg. Netto besparing bij -20%: 0,2 x (10,2 - 3,6) = €1,3 mln."
+   },
+   "meters": {
+    "z": 0.5,
+    "v": 0.3
+   },
+   "tekst_bezuinigen": "Minder capaciteit bij Veilig Thuis. Het is een wettelijke taak.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe'), p. 121: Huiselijk geweld en kindermishandeling"
+  },
+  {
+   "id": "z8",
+   "naam": "Welzijnsinstellingen en buurthuizen",
+   "deelprogramma": "3.3",
+   "gebouw": "buurt",
+   "lasten_mln": 8.7,
+   "gekoppelde_baten_mln": 0.246,
+   "min_pct": -95,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "Buurthuizen en welzijnswerk zijn niet verplicht. Alleen een klein deel moet blijven: de gemeente moet mantelzorgers wat steunen en ze elk jaar waarderen.",
+    "wet": "Wmo 2015 art. 2.2.2 lid 1 en art. 2.1.6",
+    "bron": "https://wetten.overheid.nl/BWBR0035362/2026-01-01",
+    "zekerheid": "aanname",
+    "berekening": "Wmo art. 2.1.1 zegt alleen dat de gemeente zorgt voor maatschappelijke ondersteuning, zonder niveau. Algemene voorzieningen zoals buurthuizen zijn niet verplicht. Aanname: verplichte cliëntondersteuning (art. 2.2.4) zit bij de WIJ-teams (z4), niet in deze post. Gebouwen van buurthuizen staan waarschijnlijk in de vastgoedbegroting. -100% blijft. Tegenlezer: Dat 'geen wet' van toepassing is, klopt niet helemaal. Art. 2.2.2 lid 1 Wmo: het college 'bevordert en treft de algemene maatregelen ... ter ondersteuning van mantelzorgers en vrijwilligers' die nodig zijn voor het eigen beleidsplan. Art. 2.1.6: de verordening bepaalt hoe het college zorgt voor 'een jaarlijkse blijk van waardering voor de mantelzorgers'. De gemeente bepaalt zelf hoeveel, maar nul is juridisch kwetsbaar als die mantelzorgsteun in deze post zit (via welzijnsinstellingen). Buurthuizen en algemeen welzijnswerk zijn wel volledig vrij. Mijn voorstel: -95%, dus ongeveer €0,4 mln voor mantelzorgsteun en waardering. Dat bedrag is een aanname. Zit de mantelzorgsteun bij de WIJ-teams (z4) of bij de Wmo (z3), dan kan deze post naar -100%."
+   },
+   "meters": {
+    "z": 0.4,
+    "c": 0.2
+   },
+   "tekst_bezuinigen": "Minder buurthuizen en welzijnswerk.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe'), p. 122: Sociaal-culturele en welzijnsinstellingen"
+  },
+  {
+   "id": "z9",
+   "naam": "Sociale samenhang in wijken",
+   "deelprogramma": "3.3",
+   "gebouw": "buurt",
+   "lasten_mln": 7.6,
+   "gekoppelde_baten_mln": 0.5,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "z": 0.3,
+    "s": 0.2
+   },
+   "tekst_bezuinigen": "Minder bewonersinitiatieven en buurtactiviteiten.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe'), p. 122: Bevorderen sociale samenhang en leefbaarheid"
+  },
+  {
+   "id": "z10",
+   "naam": "Diversiteit en inclusie",
+   "deelprogramma": "3.3",
+   "gebouw": "zorg",
+   "lasten_mln": 1.4,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -85,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "Inwoners moeten bij een meldpunt discriminatie terecht kunnen. Dat is wettelijk verplicht. De rest van het diversiteitsbeleid kan weg.",
+    "wet": "Wet gemeentelijke antidiscriminatievoorzieningen art. 1 en 2",
+    "bron": "https://wetten.overheid.nl/BWBR0026168/",
+    "zekerheid": "aanname",
+    "berekening": "De Wga verplicht het college om inwoners toegang te geven tot een antidiscriminatievoorziening (onafhankelijke hulp bij klachten en registratie). Overig diversiteits- en inclusiebeleid is niet verplicht. Aanname: het meldpunt (regionaal ingekocht) kost voor Groningen ongeveer €0,15 à €0,2 mln van €1,2 mln (ongeveer 15%). Dus min_pct -85%."
+   },
+   "meters": {},
+   "tekst_bezuinigen": "De gemeente stopt (deels) met haar diversiteitsbeleid.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe'), p. 123: Diversiteit en inclusie"
+  },
+  {
+   "id": "z11",
+   "naam": "Opvang vluchtelingen en asielzoekers",
+   "deelprogramma": "3.3",
+   "gebouw": "zorg",
+   "lasten_mln": 1.2,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Minder gemeentelijk geld voor opvang.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.3 ('Waar gaat het geld voornamelijk naar toe'), p. 123: Opvang vluchtelingen en asielzoekers"
+  },
+  {
+   "id": "d1",
+   "naam": "Schoolgebouwen",
+   "deelprogramma": "3.2",
+   "gebouw": "school",
+   "lasten_mln": 22.6,
+   "gekoppelde_baten_mln": 4.4,
+   "min_pct": -20,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "minimum": {
+    "soort": "vast",
+    "reden": "De gemeente moet zorgen voor schoolgebouwen. Bovendien lopen rente en afschrijving van gebouwde scholen nog jaren door.",
+    "wet": "WPO art. 92 e.v.; WEC art. 92 e.v.; WVO 2020 hoofdstuk 4 (huisvesting)",
+    "bron": "https://wetten.overheid.nl/BWBR0003420",
+    "zekerheid": "aanname",
+    "berekening": "Aanname: ongeveer 60% van 19,8 mln is kapitaallasten van bestaande scholen (blijft), plus 20% voor wettelijk nodige voorzieningen (nieuwbouw bij groei, herstel, gymlokalen). Samen 80% blijft: min -20%."
+   },
+   "meters": {
+    "c": 0.2
+   },
+   "tekst_bezuinigen": "Nieuwbouw en renovatie van scholen gaan langzamer. Het is een wettelijke taak.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.2 ('Waar gaat het geld voornamelijk naar toe'), p. 100: Onderwijshuisvesting (22.600 / 4.400)"
+  },
+  {
+   "id": "d2",
+   "naam": "Onderwijskansen",
+   "deelprogramma": "3.2",
+   "gebouw": "school",
+   "lasten_mln": 12.4,
+   "gekoppelde_baten_mln": 4.7,
+   "min_pct": -40,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "De gemeente moet zorgen voor genoeg plekken voorschoolse educatie voor peuters met een taalachterstand. Extra lessen daarnaast zijn een keuze.",
+    "wet": "WPO art. 159 lid 1 en 160; Wet kinderopvang art. 1.50b (960 uur voorschoolse educatie)",
+    "bron": "https://wetten.overheid.nl/BWBR0003420",
+    "zekerheid": "aanname",
+    "berekening": "Wet vraagt voldoende plekken voorschoolse educatie (960 uur per doelgroeppeuter), niet de rest (zomerscholen, schakelklassen, extra lestijd). Aanname: VVE is ongeveer 60% van 12,3 mln. Dus min -40%."
+   },
+   "meters": {
+    "z": 0.3
+   },
+   "tekst_bezuinigen": "Minder voorschool en extra lessen voor kinderen met een achterstand.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.2 ('Waar gaat het geld voornamelijk naar toe'), p. 100: Onderwijskansen (12.400 / 4.700)"
+  },
+  {
+   "id": "d4",
+   "naam": "Voortijdig schoolverlaten",
+   "deelprogramma": "3.2",
+   "gebouw": "school",
+   "lasten_mln": 4.4,
+   "gekoppelde_baten_mln": 2.4,
+   "min_pct": -40,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "De gemeente moet leerplichtambtenaren hebben en jongeren zonder diploma registreren en volgen. Extra projecten zijn een keuze.",
+    "wet": "Leerplichtwet 1969 art. 16 en 18a; WEB art. 8.3.1 (RMC-functie)",
+    "bron": "https://wetten.overheid.nl/BWBR0002628",
+    "zekerheid": "aanname",
+    "berekening": "Wettelijke kern: leerplichttoezicht en RMC-registratie en -melding. Aanname: dat is ongeveer 60% van 3,5 mln = 2,1 mln. Extra trajecten en projecten (40%) kunnen weg. Min -40%."
+   },
+   "meters": {
+    "w": 0.2
+   },
+   "tekst_bezuinigen": "Minder aanpak van jongeren die zonder diploma stoppen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.2 ('Waar gaat het geld voornamelijk naar toe'), p. 100: Voortijdig schoolverlaten (VSV) (4.400 / 2.400)"
+  },
+  {
+   "id": "d5",
+   "naam": "Leerlingenvervoer",
+   "deelprogramma": "3.2",
+   "gebouw": "school",
+   "lasten_mln": 2.9,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -10,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "Kinderen die niet zelf naar school kunnen, hebben recht op vervoer. De gemeente kan de regels wel iets strenger maken, bijvoorbeeld met een eigen bijdrage.",
+    "wet": "WPO art. 4; WEC art. 4; WVO 2020 (leerlingenvervoer)",
+    "bron": "https://wetten.overheid.nl/BWBR0003420",
+    "zekerheid": "aanname",
+    "berekening": "WPO art. 4 lid 1 verplicht vergoeding; de raad stelt de verordening vast. Lid 7-9: eigen bijdrage boven inkomen (ca. €17.700 geindexeerd) tot de afstand van max. 6 km, afstandsgrens, en beperking tot ov voor oudere leerlingen. Vervoer moet 'passend' zijn (lid 4), dus aangepast vervoer blijft. Aanname: maximaal 15% van 2,6 mln te besparen. Min -15%. Tegenlezer: WPO art. 4 gecontroleerd. Lid 1: de raad stelt een regeling vast en het college vergoedt. Lid 4: het vervoer moet passend zijn. Lid 7: een eigen bijdrage mag alleen bij een inkomen boven ongeveer 17.700 euro, en alleen tot de kosten van openbaar vervoer over hooguit 6 km. Het grootste deel van 2,6 mln is waarschijnlijk aangepast vervoer voor kinderen in het speciaal onderwijs. Daar is weinig ruimte, en de eigen bijdrage helpt daar nauwelijks. Veel gemeenten gebruiken die ruimte al. Daarom -10 in plaats van -15 (aanname). Ontgrendelen is goed. Het later ingaan van een nieuw contract zit in jur_contracten; niet dubbel tellen. Noem in de wet een echt artikel van WVO 2020, niet 'art. 4.?'."
+   },
+   "meters": {},
+   "tekst_bezuinigen": null,
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.2 ('Waar gaat het geld voornamelijk naar toe'), p. 101: Leerlingenvervoer (2.900 / -)"
+  },
+  {
+   "id": "d6",
+   "naam": "Natuur- en duurzaamheidseducatie",
+   "deelprogramma": "3.2",
+   "gebouw": "school",
+   "lasten_mln": 1.4,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Minder lessen over natuur en duurzaamheid op scholen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.2 ('Waar gaat het geld voornamelijk naar toe'), p. 101: Natuur- en duurzaamheidseducatie (1.400 / -)"
+  },
+  {
+   "id": "k1",
+   "naam": "Sporthallen, zwembaden en ijsbaan",
+   "deelprogramma": "3.4",
+   "gebouw": "zwembad",
+   "lasten_mln": 39.4,
+   "gekoppelde_baten_mln": 12.1,
+   "min_pct": -40,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "minimum": {
+    "soort": "vast",
+    "reden": "Ook als sporthallen en zwembaden dichtgaan, blijven de rente en afschrijving van de gebouwen. En scholen hebben gymzalen nodig voor de gymles.",
+    "wet": "WPO art. 92 e.v. (gymlokalen als onderwijshuisvesting)",
+    "bron": "https://wetten.overheid.nl/BWBR0003420",
+    "zekerheid": "aanname",
+    "berekening": "Aanname: kapitaallasten van sportgebouwen ongeveer 35% van 36,5 mln en gymzalen voor scholen ongeveer 10%. Samen 45% blijft: min -55%. Entreegelden (baten 11,2 mln) vervallen naar rato. Tegenlezer: Rekenfout in combinatie met de motor. Het voorstel zegt dat 45% van de lasten blijft (16,4 mln kapitaallasten en gymzalen). Maar de motor laat de baten naar rato meegaan: bij -55% houdt de post ook 45% van de entreegelden (5,0 mln). Een dicht zwembad heeft geen entreegeld. Netto blijft in de game dan 0,45 x 25,3 = 11,4 mln, terwijl echt ongeveer 16,4 mln blijft. De speler bespaart dan 5 mln te veel, en 'lager kan niet' klopt niet meer. Om netto ongeveer 16,4 mln te houden: 16,4 / 25,3 = 65%, dus -35%. Een deel van de baten blijft wel bestaan (huur gymzalen door scholen en clubs). Daarom -40. Tel gymzalen niet ook in d1. De percentages zijn aannames; de echte kapitaallasten staan in de paragraaf onderhoud kapitaalgoederen."
+   },
+   "meters": {
+    "c": 1
+   },
+   "tekst_bezuinigen": "Minder onderhoud en kortere openingstijden. Bij grote bezuinigingen moet er een zwembad dicht.",
+   "tekst_investeren": "Sneller nieuwe en betere sportaccommodaties.",
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.4 ('Waar gaat het geld voornamelijk naar toe'), p. 129: Sportaccommodaties en zwemvoorzieningen (39.400 / 12.100)"
+  },
+  {
+   "id": "k2",
+   "naam": "Sportstimulering",
+   "deelprogramma": "3.4",
+   "gebouw": "zwembad",
+   "lasten_mln": 1.8,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "c": 0.5
+   },
+   "tekst_bezuinigen": "Minder sportcoaches en sportactiviteiten in de wijk.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.4 ('Waar gaat het geld voornamelijk naar toe'), p. 129: Sportstimulering, talentontwikkeling en participatie (1.800 / -)"
+  },
+  {
+   "id": "c1",
+   "naam": "Stadsschouwburg en Oosterpoort",
+   "deelprogramma": "3.5",
+   "gebouw": "theater",
+   "lasten_mln": 28.9,
+   "gekoppelde_baten_mln": 18.2,
+   "min_pct": -90,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "minimum": {
+    "soort": "vast",
+    "reden": "Geen wet verplicht een schouwburg. Stopt de gemeente, dan blijven de kosten van de gebouwen nog een tijd doorlopen.",
+    "zekerheid": "aanname",
+    "berekening": "Geen wettelijke plicht. Wat blijft zijn de kapitaallasten en het onderhoud van de gemeentelijke gebouwen (Stadsschouwburg, Oosterpoort) tot ze verkocht of gesloopt zijn. Aanname: ongeveer 10% van de lasten van 26,1 mln = ca. 2,6 mln -> min_pct -90. De kaartverkoop (16,6 mln) valt naar rato weg; daar zorgt de motor al voor."
+   },
+   "meters": {
+    "c": 0.8
+   },
+   "tekst_bezuinigen": "Minder voorstellingen. Je mist ook kaartverkoop, dus je bespaart minder dan je denkt.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.5 ('Waar gaat het geld voornamelijk naar toe'), p. 139: Stadsschouwburg en Oosterpoort (SPOT) 28.900 / 18.200"
+  },
+  {
+   "id": "c2",
+   "naam": "Culturele instellingen en subsidies",
+   "deelprogramma": "3.5",
+   "gebouw": "theater",
+   "lasten_mln": 29,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "c": 1
+   },
+   "tekst_bezuinigen": "Minder subsidie voor musea, podia, festivals en kunstenaars.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.5 ('Waar gaat het geld voornamelijk naar toe'), p. 139: Cultuurnota 29.000 / 0",
+   "controleren": true
+  },
+  {
+   "id": "c3",
+   "naam": "Cultuur- en evenementenbeleid (o.a. bibliotheek, media, evenementen)",
+   "deelprogramma": "3.5",
+   "gebouw": "theater",
+   "lasten_mln": 10.5,
+   "gekoppelde_baten_mln": 0.5,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "c": 0.6
+   },
+   "tekst_bezuinigen": "Minder cultuurprogramma's en broedplaatsen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.5 ('Waar gaat het geld voornamelijk naar toe'), p. 139: Cultuur- en evenementenbeleid 10.500 / 500",
+   "controleren": true
+  },
+  {
+   "id": "c4",
+   "naam": "Groninger Archieven",
+   "deelprogramma": "3.5",
+   "gebouw": "theater",
+   "lasten_mln": 3.4,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -25,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "De wet verplicht de gemeente om haar archief te bewaren en open te stellen. Er moet een archiefgebouw en een archivaris zijn.",
+    "wet": "Archiefwet 1995, art. 30, 31, 32 en 17",
+    "bron": "https://wetten.overheid.nl/BWBR0007376/",
+    "zekerheid": "aanname",
+    "berekening": "Art. 30: het college zorgt voor het archief, en de kosten zijn voor de gemeente. Art. 31: de gemeente wijst een archiefbewaarplaats aan. Art. 32: een gemeentearchivaris beheert die. Art. 17: de stukken moeten te raadplegen zijn. De wet noemt geen bedrag. Het depot (gebouw, klimaat) en de kerntaken (bewaren, overbrengen, inzage geven) zijn het grootste deel van de 2,8 mln. Aanname: alleen openingstijden en publieksactiviteiten (ca. 25%) kunnen eraf -> -25."
+   },
+   "meters": {},
+   "tekst_bezuinigen": "Kortere openingstijden van het archief.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.5 ('Waar gaat het geld voornamelijk naar toe'), p. 139: Groninger Archieven 3.400 / 0"
+  },
+  {
+   "id": "c5",
+   "naam": "Cultureel vastgoed (Martiniplaza, Forum, Oosterpoort)",
+   "deelprogramma": "3.5",
+   "gebouw": "theater",
+   "lasten_mln": 11.5,
+   "gekoppelde_baten_mln": 8.1,
+   "min_pct": -25,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "minimum": {
+    "soort": "vast",
+    "reden": "Dit zijn vooral kapitaallasten, onderhoud en belastingen van de culturele gebouwen van de gemeente. Die blijven, ook als er minder gebeurt.",
+    "zekerheid": "aanname",
+    "berekening": "Aanname: ongeveer 75% van de lasten is vast (kapitaallasten, energie, onderhoud, verzekeringen en belastingen); de plankosten voor Martiniplaza en de Oosterpoort kunnen weg. Na te rekenen met de investeringsstaat."
+   },
+   "meters": {},
+   "tekst_bezuinigen": "Minder geld voor de plannen voor Martiniplaza en de Oosterpoort, en zuiniger beheer van de culturele gebouwen.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 3.5, p. 139: Cultureel vastgoed en ontwikkeling 11.500 / 8.100",
+   "voorstel": true,
+   "controleren": true
+  },
+  {
+   "id": "g1",
+   "naam": "College van burgemeester en wethouders",
+   "deelprogramma": "4.2",
+   "gebouw": "stadhuis",
+   "lasten_mln": 2.4,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -64,
+   "max_pct": 12.5,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "De wet vraagt een burgemeester en minstens twee wethouders. Het Rijk bepaalt hoeveel zij verdienen.",
+    "wet": "Gemeentewet art. 36 lid 1, art. 44 en 66; Rechtspositiebesluit decentrale politieke ambtsdragers",
+    "bron": "https://wetten.overheid.nl/BWBR0005416/2026-01-01",
+    "zekerheid": "aanname",
+    "berekening": "Art. 36 lid 1: 'niet minder dan twee wethouders'. Het salaris ligt vast in het Rechtspositiebesluit (klasse 150.001-375.000 inwoners). Een burgemeester kost ongeveer 1,4 keer een wethouder (11.432 tegenover 8.113 euro per maand in de tabel van een eerder jaar). Nu: 1 burgemeester + 8 wethouders = 9,4 eenheden. Minimum: 1 + 2 wethouders = 3,4 eenheden = 36% -> min_pct -64."
+   },
+   "meters": {},
+   "tekst_bezuinigen": "Minder wethouders.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 4.2 ('Waar gaat het geld voornamelijk naar toe'), p. 151: College van B&W 2.400",
+   "max_reden": "De Gemeentewet (art. 36) staat maximaal 20% van het aantal raadsleden als wethouder toe: bij 45 raadsleden zijn dat er 9. Groningen heeft er nu 8, dus er kan er nog één bij (ongeveer +12,5%)."
+  },
+  {
+   "id": "g2",
+   "naam": "Gemeenteraad en griffie",
+   "deelprogramma": "4.2",
+   "gebouw": "stadhuis",
+   "lasten_mln": 4.35,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -43,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "De wet schrijft 45 raadsleden voor, en het Rijk bepaalt hun vergoeding. Ook een griffier en een rekenkamer zijn verplicht.",
+    "wet": "Gemeentewet art. 8 lid 1, 33, 81a, 95 en 100; Rechtspositiebesluit decentrale politieke ambtsdragers",
+    "bron": "https://wetten.overheid.nl/BWBR0005416/2026-01-01",
+    "zekerheid": "aanname",
+    "berekening": "Art. 8: boven 200.000 inwoners heeft de raad 45 leden. De vergoeding in 2026 (klasse 150.001-375.000 inwoners) is 2.628,44 euro per maand plus 215,94 euro onkosten. 45 x 2.844,38 x 12 = 1,54 mln (feit). Daarbij komen een griffier en een kleine griffie (art. 100, aanname 0,3 mln), een rekenkamer (art. 81a, aanname 0,1 mln) en het recht op fractieondersteuning (art. 33 lid 2, de wet noemt geen bedrag, aanname 0,05 mln). Samen ca. 2,0 mln van 3,733 mln = 53% -> -47, afgerond -45. Tegenlezer: De wetsartikelen kloppen. Art. 8: '45 leden in een gemeente boven de 200 000 inwoners'. Art. 81a: 'De raad stelt een rekenkamer in'. Art. 100: in elke gemeente is een griffier. Art. 33: recht op ambtelijke bijstand en fractieondersteuning, zonder bedrag. Art. 95: de vergoeding wordt bij AMvB vastgesteld. De vergoeding van 2.628,44 euro per maand in 2026 klopt (EW). De onkostenvergoeding is volgens EW 223,50 euro en niet 215,94. Ook zijn er wettelijke extra's: één maand vergoeding per jaar als voorziening voor arbeidsongeschiktheid en ouderdom, en een toeslag voor fractievoorzitters. Per raadslid is dat ongeveer 2.628,44 x 13 + 223,50 x 12 + 137 = ca. 37.000 euro. Keer 45 is dat ca. 1,68 mln. Met griffie (0,3), rekenkamer (0,1) en ondersteuning (0,05) wordt het samen ca. 2,13 mln van 3,733 mln = 57%. Dat geeft -43. Het verschil met -45 is klein. De bedragen voor griffie en rekenkamer zijn geschat."
+   },
+   "meters": {},
+   "tekst_bezuinigen": "Minder ondersteuning voor de gemeenteraad.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 4.2 ('Waar gaat het geld voornamelijk naar toe'), p. 151: Raad 2.800 + Griffie 1.300 + Rekenkamer 250",
+   "controleren": true
+  },
+  {
+   "id": "g3",
+   "naam": "Wijkbudgetten",
+   "deelprogramma": "4.2",
+   "gebouw": "buurt",
+   "lasten_mln": 4.25,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "s": 0.3
+   },
+   "tekst_bezuinigen": "Minder geld dat wijken zelf mogen besteden.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 4.2 ('Waar gaat het geld voornamelijk naar toe'), p. 151: Wijkontwikkeling 4.250"
+  },
+  {
+   "id": "g4",
+   "naam": "Wijkvernieuwing (o.a. Selwerd, De Wijert, Beijum)",
+   "deelprogramma": "4.2",
+   "gebouw": "buurt",
+   "lasten_mln": 6.15,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {
+    "s": 0.4,
+    "z": 0.2
+   },
+   "tekst_bezuinigen": "Wijkvernieuwing gaat langzamer.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 4.2 ('Waar gaat het geld voornamelijk naar toe'), p. 151: Wijkvernieuwing 6.150"
+  },
+  {
+   "id": "g5",
+   "naam": "Samenwerkingsverbanden",
+   "deelprogramma": "4.2",
+   "gebouw": "stadhuis",
+   "lasten_mln": 2.1,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Groningen stapt uit samenwerkingsverbanden met andere overheden.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 4.2 ('Waar gaat het geld voornamelijk naar toe'), p. 151: Deelname aan diverse samenwerkingsverbanden 2.100"
+  },
+  {
+   "id": "g7",
+   "naam": "Concernposten",
+   "deelprogramma": "4.2",
+   "gebouw": "stadhuis",
+   "lasten_mln": 5.9,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -100,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "meters": {},
+   "tekst_bezuinigen": "Minder algemene reservepotjes binnen de organisatie.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 4.2 ('Waar gaat het geld voornamelijk naar toe'), p. 151: Concernposten 5.900"
+  },
+  {
+   "id": "b1",
+   "naam": "Burgerzaken (paspoort, rijbewijs)",
+   "deelprogramma": "4.1",
+   "gebouw": "stadhuis",
+   "lasten_mln": 5.9,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -25,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "De gemeente moet de inwoners bijhouden en paspoorten, ID-kaarten en rijbewijzen uitgeven. Elke aanvraag moet behandeld worden.",
+    "wet": "Wet BRP art. 1.2; Paspoortwet art. 26; Wegenverkeerswet 1994 art. 107; BW Boek 1 art. 16 (burgerlijke stand)",
+    "bron": "https://wetten.overheid.nl/BWBR0033715/",
+    "zekerheid": "aanname",
+    "berekening": "De wet verplicht de taak, niet een niveau. De kosten hangen vooral af van het aantal aanvragen, aangiften en verhuizingen, en dat bepaalt de gemeente niet zelf. Alleen openingstijden, service en wachttijd zijn te kiezen. Aanname: ca. 25% -> -25 (gelijk aan nu)."
+   },
+   "meters": {},
+   "tekst_bezuinigen": "Langere wachttijden voor een paspoort of rijbewijs.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 4.1 ('Waar gaat het geld voornamelijk naar toe'), p. 147: Burgerzaken"
+  },
+  {
+   "id": "b2",
+   "naam": "Klantcontactcentrum",
+   "deelprogramma": "4.1",
+   "gebouw": "stadhuis",
+   "lasten_mln": 4.1,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -75,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "minimum": {
+    "soort": "nodig",
+    "reden": "Een klantcontactcentrum staat niet in de wet. Maar mensen moeten de gemeente kunnen bereiken, bijvoorbeeld om zorg of hulp aan te vragen.",
+    "zekerheid": "aanname",
+    "berekening": "Geen wettelijke plicht voor een KCC. Wel moeten inwoners meldingen en aanvragen kunnen doen (Wmo 2015 art. 2.3.2, Jeugdwet, Wet BRP, Participatiewet). Daarvoor is één basisnummer met beperkte bezetting nodig. Aanname: 25% van 3,8 mln -> -75."
+   },
+   "meters": {},
+   "tekst_bezuinigen": "De gemeente is minder goed bereikbaar.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 4.1 ('Waar gaat het geld voornamelijk naar toe'), p. 147: Klant Contactcentrum (KCC)"
+  },
+  {
+   "id": "b3",
+   "naam": "Uitvoering belastingen",
+   "deelprogramma": "4.1",
+   "gebouw": "stadhuis",
+   "lasten_mln": 4.9,
+   "gekoppelde_baten_mln": 0,
+   "min_pct": -25,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": true,
+   "minimum": {
+    "soort": "wet",
+    "reden": "De wet verplicht de gemeente om elk jaar de WOZ-waarde van alle huizen en gebouwen vast te stellen. Zonder dit werk komen ook de belastingen niet binnen.",
+    "wet": "Wet WOZ art. 1 en 22; Wet WOZ art. 30 en Awb (bezwaar)",
+    "bron": "https://wetten.overheid.nl/BWBR0007119/",
+    "zekerheid": "aanname",
+    "berekening": "Het college moet elk jaar de WOZ-waarde van alle onroerende zaken bepalen, onder toezicht van de Waarderingskamer, en bezwaren behandelen. Ook OZB, afvalstoffenheffing en rioolheffing moeten geïnd worden, anders mis je inkomsten. Het aantal objecten en aanslagen ligt vast. Aanname: ca. 25% efficiency is mogelijk -> -25 (gelijk aan nu)."
+   },
+   "meters": {},
+   "tekst_bezuinigen": "Minder mensen voor aanslagen en bezwaren.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 4.1 ('Waar gaat het geld voornamelijk naar toe'), p. 147: Belastingen"
+  },
+  {
+   "id": "h1",
+   "naam": "Overhead (staf, ICT, huisvesting, HR)",
+   "deelprogramma": "4.4",
+   "gebouw": "stadhuis",
+   "lasten_mln": 134.9,
+   "gekoppelde_baten_mln": 3.4,
+   "min_pct": -40,
+   "max_pct": null,
+   "vergrendeld": false,
+   "reden_vergrendeld": null,
+   "doorgeefluik_heffing": false,
+   "wettelijke_taak": false,
+   "minimum": {
+    "soort": "nodig",
+    "reden": "Ook een kleine gemeente heeft kantoren, ICT, salarisadministratie, een boekhouding en een accountant nodig. Dat is nodig voor de taken die de wet vraagt.",
+    "wet": "Gemeentewet art. 212 en 213; AVG art. 37 (functionaris gegevensbescherming); Archiefwet 1995 art. 30",
+    "bron": "https://wetten.overheid.nl/BWBR0005416/2026-01-01",
+    "zekerheid": "aanname",
+    "berekening": "Vaste lasten: de kapitaallasten van het stadhuis en de kantoren en de ICT-contracten (aanname ca. 20-25 mln, ca. 18%). Wettelijke kern: financiële administratie (art. 212), accountantscontrole (art. 213), FG (AVG), informatiebeveiliging en archief. Daarnaast is ondersteuning nodig voor de wettelijke taken die blijven: uitkeringen, Wmo/jeugd, belastingen, burgerzaken en vergunningen. Aanname: ca. 60% van 129,2 mln blijft -> -40."
+   },
+   "meters": {},
+   "tekst_bezuinigen": "Minder ondersteunend personeel en minder kantoorruimte.",
+   "tekst_investeren": null,
+   "bron": "Ontwerpbegroting 2027, financiële toelichting deelprogramma 4.4 ('Waar gaat het geld voornamelijk naar toe'), p. 156: Overhead"
+  }
+ ],
+ "belastingen": [
+  {
+   "id": "t1",
+   "naam": "Onroerendezaakbelasting (OZB)",
+   "deelprogramma": "4.3",
+   "opbrengst_mln": 139.441,
+   "min_pct": -100,
+   "max_pct": null,
+   "voelbaarheid_portemonnee": 1,
+   "uitleg": "Betalen alle huiseigenaren en bedrijven. Huurders betalen indirect mee via de huur. De wet verplicht de gemeente niet om OZB te heffen (Gemeentewet art. 220): op −100% is er geen OZB.",
+   "bron": "boekwerk p. 5 (kerngegevens) en p. 275 (paragraaf lokale heffingen)"
+  },
+  {
+   "id": "t5",
+   "naam": "Parkeertarieven",
+   "deelprogramma": "1.2",
+   "opbrengst_mln": 36.299,
+   "min_pct": -100,
+   "max_pct": null,
+   "voelbaarheid_portemonnee": 0.6,
+   "uitleg": "Parkeergeld en vergunningen. Op −100% is parkeren overal gratis.",
+   "bron": "Parkeerbelasting 27,524 mln (boekwerk p. 5 en 275) plus de parkeergarages en vergunningen zoals in parkeren-2027.json; nog na te lopen"
+  },
+  {
+   "id": "t2",
+   "naam": "Toeristenbelasting",
+   "deelprogramma": "4.3",
+   "opbrengst_mln": 2.998,
+   "min_pct": -100,
+   "max_pct": null,
+   "voelbaarheid_portemonnee": 0.05,
+   "uitleg": "Betalen hotelgasten. Groningers merken er weinig van.",
+   "bron": "boekwerk p. 5 (kerngegevens) en p. 275 (paragraaf lokale heffingen)"
+  },
+  {
+   "id": "t4",
+   "naam": "Precariobelasting",
+   "deelprogramma": "2.2",
+   "opbrengst_mln": 1.866,
+   "min_pct": -100,
+   "max_pct": null,
+   "voelbaarheid_portemonnee": 0.2,
+   "uitleg": "Betaal je voor spullen op straat, zoals een container of steiger bij een verbouwing.",
+   "bron": "boekwerk p. 5 (kerngegevens) en p. 275 (paragraaf lokale heffingen)"
+  },
+  {
+   "id": "t3",
+   "naam": "Reclamebelasting",
+   "deelprogramma": "4.3",
+   "opbrengst_mln": 0.98,
+   "min_pct": -100,
+   "max_pct": null,
+   "voelbaarheid_portemonnee": 0.15,
+   "uitleg": "Betalen ondernemers voor reclame aan de gevel.",
+   "bron": "boekwerk p. 5 (kerngegevens) en p. 275 (paragraaf lokale heffingen)"
+  }
+ ],
+ "actiekaarten": [
+  {
+   "id": "k_vast",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 2,
+   "naam": "Gemeentelijk vastgoed verkopen",
+   "uitleg": "Onder andere het Vapiano-pand en de Glaudé-panden.",
+   "meter_effect_punten": {},
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_warm",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 4.9,
+   "naam": "Minderheidsbelang WarmteStad verkopen",
+   "uitleg": "De gemeente houdt de meerderheid, zoals de wet voorschrijft.",
+   "meter_effect_punten": {},
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_zon",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 4,
+   "naam": "Zonnepark Meerstad-Noord niet aanleggen",
+   "uitleg": "Het zonnepark komt er niet.",
+   "meter_effect_punten": {},
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_wind",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 1.762,
+   "naam": "Windpark Roodehaan stoppen",
+   "uitleg": "Geen windmolens bij Roodehaan.",
+   "meter_effect_punten": {},
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_laad",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 0.74,
+   "naam": "Laadpalen aan de markt laten",
+   "uitleg": "De gemeente stopt met haar eigen laadpalenbedrijf.",
+   "meter_effect_punten": {},
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_eiw",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 0.7,
+   "naam": "Stoppen met de eiwittransitie",
+   "uitleg": "Geen gemeentelijk programma meer voor voedsel- en eiwittransitie.",
+   "meter_effect_punten": {},
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_cas",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 0.6,
+   "naam": "Casinolocatie aan de markt laten",
+   "uitleg": "De gemeente betaalt niet meer voor de tijdelijke invulling.",
+   "meter_effect_punten": {},
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_kwijt",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": 4.2,
+   "naam": "Kwijtschelding gemeentelijke belastingen schrappen",
+   "uitleg": "Ongeveer 14.000 huishoudens betalen voortaan zelf hun gemeentelijke belastingen.",
+   "meter_effect_punten": {
+    "z": -8
+   },
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_ongedoc",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": 3.5,
+   "naam": "Stoppen met opvang ongedocumenteerden",
+   "uitleg": "De gemeente betaalt deze opvang niet meer zelf, nu het Rijk ermee stopt.",
+   "meter_effect_punten": {
+    "z": -3
+   },
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_brug",
+   "soort": "uitgave",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": -5,
+   "naam": "Bruggenfonds",
+   "uitleg": "Een tijdelijke verbinding tijdens de bouw van de Gerrit Krolbrug.",
+   "meter_effect_punten": {
+    "s": 3
+   },
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_fc",
+   "soort": "uitgave",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": -2,
+   "naam": "Trainingscomplex FC Groningen",
+   "uitleg": "De eerste stap, zodat er op sportpark Corpus ruimte komt voor amateurs.",
+   "meter_effect_punten": {
+    "c": 4
+   },
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_licht",
+   "soort": "uitgave",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": -1,
+   "naam": "Betere straatverlichting",
+   "uitleg": "Meer licht op onveilige plekken, ook na middernacht.",
+   "meter_effect_punten": {
+    "v": 4
+   },
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_res",
+   "soort": "uitgave",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": -6.971,
+   "naam": "Reserves aanvullen",
+   "uitleg": "Een grotere buffer, zodat een tegenvaller niet meteen tot bezuinigingen leidt.",
+   "meter_effect_punten": {},
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders', post 'Verbeteren financiële positie van de gemeente' (6,971 mln I)"
+  },
+  {
+   "id": "k_smr",
+   "soort": "uitgave",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": -0.5,
+   "naam": "Onderzoek kleine kerncentrale (SMR)",
+   "uitleg": "Onderzoeken wat een SMR in Groningen kan betekenen.",
+   "meter_effect_punten": {},
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_bouw",
+   "soort": "uitgave",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": -5,
+   "naam": "Sneller-bouwenfonds",
+   "uitleg": "Sneller grond bouwrijp maken, zodat er meer woningen komen.",
+   "meter_effect_punten": {
+    "w": 2
+   },
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_ai",
+   "soort": "uitgave",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": -2,
+   "naam": "Investeren in AI",
+   "uitleg": "Slimmere gemeentelijke dienstverlening.",
+   "meter_effect_punten": {},
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders'"
+  },
+  {
+   "id": "k_hond",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": 1.015,
+   "naam": "Hondenbelasting weer invoeren",
+   "uitleg": "Groningen schafte de hondenbelasting per 2022 af. Weer invoeren levert ongeveer € 1 mln per jaar op (€ 133 per hond), vanaf 2027: eerst moet er een nieuwe verordening komen.",
+   "meter_effect_punten": {},
+   "bron": "Opbrengst 2021 (€ 1,015 mln) en tarief (€ 133 per hond): RTV Noord, 6 juli 2021, en de raadsbrief over de afschaffing. Bedrag van 2021, niet geïndexeerd; het aantal honden kan veranderd zijn.",
+   "ingroeipad": [
+    0,
+    1
+   ],
+   "zekerheid": "aanname"
+  },
+  {
+   "id": "p_young_professionals",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": 0.678,
+   "naam": "Stoppen met het Young Professional Programma",
+   "uitleg": "De gemeente neemt geen jonge trainees meer aan. Er beginnen minder jonge mensen bij de gemeente.",
+   "meter_effect_punten": {},
+   "bron": "https://groningen.begroting-2026.nl/p43761 (deelprogramma 4.2 Financiën, 'Waar gaat het geld voornamelijk naar toe': Young Professional Programma 678)",
+   "gebouw": "beleid"
+  },
+  {
+   "id": "p_ombudsman",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": 0.535,
+   "naam": "Eigen ombudsman stoppen, naar de Nationale ombudsman",
+   "uitleg": "Klachten over de gemeente gaan voortaan naar de Nationale ombudsman. Inwoners kunnen nog steeds klagen, maar niet meer bij een eigen ombudsman van de gemeente.",
+   "meter_effect_punten": {},
+   "bron": "https://groningen.begroting-2026.nl/p43761 (deelprogramma 4.2 Financiën: Ombudsman 535); Gemeentewet art. 81p (https://wetten.overheid.nl/BWBR0005416/2026-01-01); Awb art. 9:17 (https://wetten.overheid.nl/BWBR0005537/2026-01-01)",
+   "gebouw": "beleid",
+   "zekerheid": "aanname"
+  },
+  {
+   "id": "p_diversiteit_organisatie",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 0.205,
+   "naam": "Stoppen met het diversiteitsplan voor eigen personeel",
+   "uitleg": "De gemeente stopt met extra activiteiten voor diversiteit binnen de eigen organisatie, zoals themadagen en bijeenkomsten. Inwoners merken hier weinig van.",
+   "meter_effect_punten": {},
+   "bron": "https://groningen.begroting-2026.nl/p43767 (4.4 Financiën, intensivering 58 'Uitvoering plan van aanpak diversiteit' 205 I) en https://groningen.begroting-2026.nl/p43769 (toelichting intensivering 58)",
+   "gebouw": "beleid"
+  },
+  {
+   "id": "p_internationale_solidariteit",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": 0.05,
+   "naam": "Stoppen met het budget internationale solidariteit",
+   "uitleg": "De gemeente geeft geen geld meer aan internationale solidariteit. Inwoners merken hier bijna niets van.",
+   "meter_effect_punten": {},
+   "bron": "https://groningen.begroting-2026.nl/p43728 (1.1 Financiën, tabel intensiveringen en dekkingsbronnen: 'Amendement Internationale solidariteit 50 S')",
+   "gebouw": "beleid"
+  },
+  {
+   "id": "p_fonds_ondernemend",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": 3.343,
+   "naam": "Bijdrage aan Fonds Ondernemend Groningen stoppen",
+   "uitleg": "Ondernemers krijgen geen geld meer uit het fonds voor gezamenlijke activiteiten, zoals in winkelgebieden. Bedrijven betalen wel dezelfde OZB als nu.",
+   "meter_effect_punten": {},
+   "bron": "https://groningen.begroting-2026.nl/p43764 (4.3 Financiën, regel Onroerendezaakbelasting: lasten 3.343, 'De lasten bestaan uit de bijdrage aan het Fonds Ondernemend Groningen is 3,3 miljoen euro')",
+   "gebouw": "beleid"
+  },
+  {
+   "id": "p_mobiliteitsfonds",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": 4,
+   "naam": "Niet meer sparen in het Mobiliteitsfonds",
+   "uitleg": "De gemeente zet niet langer elk jaar 4 miljoen van de parkeerwinst opzij voor nieuwe parkeergarages en fietsenstallingen. Dat geld gaat naar andere taken. Grote nieuwe garages of stallingen moet de gemeente later uit de gewone begroting betalen.",
+   "meter_effect_punten": {},
+   "bron": "https://groningen.begroting-2026.nl/p43731 (1.2 Financiën: tabel 'Financieel overzicht lasten en baten', reservemutaties 'Totaal toevoegingen 4.000' in 2026, 2027, 2028 en 2029; tabel 'Intensiveringen en dekkingsbronnen', 'Reserve Mobiliteitsfonds 4.000 I'); https://groningen.begroting-2026.nl/p43708 (Reserves, 'Mobiliteitsfonds')",
+   "gebouw": "beleid"
+  },
+  {
+   "id": "p_campus_camera",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": 0.1,
+   "naam": "Geen geld voor Campus Camera",
+   "uitleg": "De gemeente betaalt niet meer mee aan de nieuwe invulling van de oude Camerabioscoop aan het Hereplein, met onderwijs van het Noorderpoort, amateurkunst en horeca. Het plan gaat dan niet door met geld van de gemeente.",
+   "meter_effect_punten": {},
+   "bron": "https://groningen.begroting-2026.nl/p43728 (1.1 Financiën, intensivering 3 'Huisvesting onderwijs en cultuur in Camera-bioscoop 100 S'); https://groningen.begroting-2026.nl/p43769 (Intensiveringen, punt 3: -100 in 2026 t/m 2029)",
+   "gebouw": "beleid"
+  },
+  {
+   "id": "p_bag_kamers",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 0.06,
+   "naam": "Geen extra controleur voor illegale kamers",
+   "uitleg": "De gemeente neemt geen extra controleur aan voor adressen zonder vergunning, zoals woningen die zonder vergunning in kamers zijn verdeeld. De wachtlijst van zo'n 150 adressen blijft dan langer liggen.",
+   "meter_effect_punten": {},
+   "bron": "https://groningen.begroting-2026.nl/p43734 (1.3 Financiën, intensivering 5 'Toezichthouder BAG meldingen 50 I'); https://groningen.begroting-2026.nl/p43769 (Intensiveringen, punt 5: -50 en overhead -10 in 2026 en 2027)",
+   "gebouw": "beleid"
+  },
+  {
+   "id": "p_emissieloos_wagenpark",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": 0.172,
+   "naam": "Elektrisch maken van gemeenteauto's uitstellen",
+   "uitleg": "De gemeente koopt voorlopig weer gewone auto's en busjes in plaats van elektrische. Dat is goedkoper, maar de gemeente stoot meer CO2 uit.",
+   "meter_effect_punten": {},
+   "bron": "https://groningen.begroting-2026.nl/p43769 (Intensiveringen begroting 2026, nr. 9 'Emissieloos wagenpark', deelprogramma 2.1, S: 2026 -172, 2027 -565, 2028 -858, 2029 -858 duizend euro)",
+   "gebouw": "beleid"
+  },
+  {
+   "id": "p_wegenfundering_warmtestad",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 0.45,
+   "naam": "Niet meer betalen voor wegfundering warmtenet",
+   "uitleg": "De gemeente betaalt niet meer mee aan het weghalen van vervuilde wegfundering voor het warmtenet. WarmteStad moet die kosten zelf dragen.",
+   "meter_effect_punten": {},
+   "bron": "https://groningen.begroting-2026.nl/p43769 (Intensiveringen begroting 2026, nr. 1 'Verwijderen wegenfundering Warmtestad', deelprogramma 1.1, I: 2026 -450, 2027 -450 duizend euro)",
+   "gebouw": "beleid"
+  },
+  {
+   "id": "p_energiebedrijf",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 0.201,
+   "naam": "Stoppen met het Energiebedrijf Groningen",
+   "uitleg": "De gemeente betaalt niet meer voor de organisatie van haar eigen energiebedrijf. Nieuwe grote zonne- en windprojecten laat ze aan de markt over.",
+   "meter_effect_punten": {},
+   "bron": "https://groningen.begroting-2026.nl/p43769 (Intensiveringen begroting 2026, nr. 7 'Organisatiekosten Energiebedrijf Groningen', deelprogramma 1.3, I: 2026 -201 / dekking organisatiekosten programma energie +201 duizend euro)",
+   "gebouw": "beleid",
+   "zekerheid": "aanname"
+  },
+  {
+   "id": "p_prullenbakken",
+   "soort": "uitgave",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": -0.5,
+   "naam": "Meer prullenbakken op straat",
+   "uitleg": "Er komen meer prullenbakken in de gemeente. Er ligt minder afval op straat, maar het legen kost elk jaar geld.",
+   "meter_effect_punten": {},
+   "bron": "VVD-tegenbegroting 2026 'Het kan en moet anders', uitgave 'Prullenbakken openbare ruimte' 0,5 mln S (data/tegenbegroting-vvd-2026.json, game_koppeling null; docs/OPTIES-KOPPELING.md bij optie 143; data/dwarsverbanden.json nieuw:prullenbakken)",
+   "gebouw": "beleid",
+   "zekerheid": "aanname"
+  },
+  {
+   "id": "p_gele_loper",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 1.205,
+   "naam": "Stoppen met de aanpak Gele Loper",
+   "uitleg": "De extra aanpak van overlast en onveiligheid bij de Gele Loper (bij het station) stopt: minder handhavers, geen wijkhub en geen extra camera's daar.",
+   "meter_effect_punten": {},
+   "bron": "https://groningen.begroting-2026.nl/p43740 (2.2, tabel intensiveringen: '17. Implementatie en uitvoering Integrale Aanpak Gele Loper 1.055 I' en '19. Verplaatsingseffecten 150 I'); toelichting in https://groningen.begroting-2026.nl/p43769 (Intensiveringen, punt 17/18/19/23: 1,495 mln in 2026)",
+   "gebouw": "beleid"
+  },
+  {
+   "id": "p_veilig_uitgaan",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 0.59,
+   "naam": "Stoppen met actieprogramma Veilig Uitgaan",
+   "uitleg": "Er komt geen extra aanpak om het uitgaan 's nachts veiliger te maken, zoals horecastewards, extra controles en een collectief horecaverbod.",
+   "meter_effect_punten": {},
+   "bron": "https://groningen.begroting-2026.nl/p43740 (2.2, tabel intensiveringen: '21. Veilig uitgaan 590 I'); toelichting in https://groningen.begroting-2026.nl/p43769 (punt 21/22)",
+   "gebouw": "beleid"
+  },
+  {
+   "id": "p_woonoverlast",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 0.1,
+   "naam": "Geen woonoverlast-coördinator",
+   "uitleg": "Er komt geen vaste persoon die de aanpak van overlast door buren of bewoners regelt. Klachten worden minder snel opgepakt.",
+   "meter_effect_punten": {},
+   "bron": "https://groningen.begroting-2026.nl/p43740 (2.2, tabel intensiveringen: '20. Woonoverlast coördinator 100 I'); toelichting in https://groningen.begroting-2026.nl/p43769 (punt 20)",
+   "gebouw": "beleid"
+  },
+  {
+   "id": "p_pandenbrigade",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": 0.692,
+   "naam": "Stoppen met de pandenbrigade",
+   "uitleg": "De gemeente stopt met het speciale team dat misstanden bij verhuur en vastgoed opspoort, zoals huisjesmelkers en criminelen.",
+   "meter_effect_punten": {},
+   "bron": "https://groningen.begroting-2026.nl/p43740 (2.2, regel 'Aanpak misstanden vastgoedsector 566: Inzet van de pandenbrigade' en tabel intensiveringen '11. Aanpak misstanden vastgoedsector (pandenbrigade) 126 S' en '12. Incidentele inzet vastgoedsector 602 I'); toelichting in https://groningen.begroting-2026.nl/p43769 (punt 11/12)",
+   "gebouw": "beleid"
+  },
+  {
+   "id": "p_niemeyer",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 0.25,
+   "naam": "Schrappen cultuurprogramma Niemeyer",
+   "uitleg": "De gemeente stopt met de plannen voor kunst, cultuur en broedplaatsen in haar deel van de oude tabaksfabriek Niemeijer.",
+   "meter_effect_punten": {},
+   "bron": "https://groningen.begroting-2026.nl/p43755 (3.5, tabel intensiveringen: '51. Cultuurprogramma Niemeyer 250 I'); toelichting in https://groningen.begroting-2026.nl/p43769 (punt 51: plankosten en businesscase voor het gemeentelijk deel van Niemeyer)",
+   "gebouw": "beleid"
+  },
+  {
+   "id": "p_plankosten_muziekcentrum",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 1,
+   "naam": "Pauze plannen nieuw muziekcentrum en Martiniplaza",
+   "uitleg": "De gemeente stopt een jaar met het maken van plannen voor een nieuw muziekcentrum en een nieuw Martiniplaza. De bouw komt dan later.",
+   "meter_effect_punten": {},
+   "bron": "https://groningen.begroting-2026.nl/p43755 (3.5, regel 'Overig 2.000': 'Daarnaast geven we 1 miljoen euro uit aan plankosten voor de ontwikkeling van het nieuwe muziekcentrum en voor de nieuwbouw Martiniplaza')",
+   "gebouw": "beleid",
+   "zekerheid": "aanname"
+  },
+  {
+   "id": "p_huur_sport",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": 0.43,
+   "naam": "Sportclubs 10% meer huur laten betalen",
+   "uitleg": "Sportverenigingen betalen 10% meer voor het huren van sporthallen, velden en clubhuizen van de gemeente.",
+   "meter_effect_punten": {},
+   "bron": "https://groningen.begroting-2026.nl/p43752 (3.4, regel Sportaccommodaties: baten 'voor de overige sportaccommodaties (5,4 miljoen euro)', 'met name huuropbrengsten, entree- en lesgelden en doorberekende kosten')",
+   "gebouw": "beleid",
+   "zekerheid": "aanname"
+  },
+  {
+   "id": "p_positief_opgroeien",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": 1.7,
+   "naam": "Stoppen met Positief Opgroeien (en School als Wijk)",
+   "uitleg": "De gemeente stopt met haar eigen programma voor gezond en veilig opgroeien, zoals School als Wijk. Activiteiten voor kinderen en jongeren op school en in de wijk vallen weg.",
+   "meter_effect_punten": {},
+   "bron": "https://groningen.begroting-2026.nl/p43749 (deelprogramma 3.3, 'Waar gaat het geld voornamelijk naar toe', Positief opgroeien: lasten 2.800, baten 1.100; 'We hebben hiervoor (inclusief School als Wijk) 2,8 miljoen euro begroot. We ontvangen hiervoor diverse bijdragen, onder meer 0,7 miljoen euro uit de regio voor School als Wijk')",
+   "gebouw": "beleid",
+   "zekerheid": "aanname"
+  },
+  {
+   "id": "p_preventie_scholen",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 0.554,
+   "naam": "Geen extra geld voor preventie op scholen",
+   "uitleg": "Het rijk geeft minder geld voor schoolmaatschappelijk werk en preventie op scholen. De gemeente vult dat in 2026 dan niet zelf aan. Er is dan minder hulp en minder sport en bewegen op scholen.",
+   "meter_effect_punten": {},
+   "bron": "https://groningen.begroting-2026.nl/p43769 (Intensiveringen, nr. 40 'Uitname DU Jeugd - Grote Stedenbeleid', 3.2, I, -554 in 2026, met toelichting 'We stellen in 2026 554 duizend euro incidenteel beschikbaar om de activiteiten te continueren') en https://groningen.begroting-2026.nl/p43746 (tabel intensiveringen 3.2)",
+   "gebouw": "beleid"
+  }
+ ],
+ "beleidsprogrammas": [
+  {
+   "id": "p_sia_museum_a",
+   "naam": "Museum aan de A niet bouwen",
+   "uitleg": "Het Noordelijk Scheepvaartmuseum wordt niet omgebouwd tot het nieuwe Museum aan de A. Het geld dat de gemeente hiervoor opzij zet, komt vrij.",
+   "post": "g7",
+   "bedrag_mln": 0.618,
+   "structureel_of_incidenteel": "S",
+   "opties": [
+    278
+   ],
+   "bron": "https://groningen.begroting-2026.nl/p43829 (SIA, tabel 'Financiële reservering SIA', regel 4 Museum aan de A - structureel: -618 in 2026) en https://groningen.begroting-2026.nl/p43761 (Concernposten 5.000 = budget SIA)",
+   "zekerheid": "feit",
+   "berekening": "De Concernposten (g7, 5,0 mln) bevatten het budget voor de Strategische investeringsagenda. Reservering Museum aan de A: 618 duizend in 2026, oplopend tot 1.207 duizend vanaf 2029 (investering ca. 23 mln, plus hogere subsidie aan MadA). Niet overgeheveld naar een ander deelprogramma (geen *), dus zit in g7. Geen wettelijke taak. Som van de programma's in g7: 0,618 + 0,686 + 0,150 = 1,454 mln, onder de ruimte van 5,0 mln (min_pct -100)."
+  },
+  {
+   "id": "p_sia_warmtenet",
+   "naam": "Geen extra gemeentegeld meer voor het warmtenet",
+   "uitleg": "De gemeente stort geen extra geld meer in warmtebedrijf WarmteStad. Dan kan het warmtenet in onder meer Paddepoel, Selwerd en Vinkhuizen misschien niet worden afgemaakt.",
+   "post": "g7",
+   "bedrag_mln": 0.686,
+   "structureel_of_incidenteel": "S",
+   "opties": [
+    278
+   ],
+   "bron": "https://groningen.begroting-2026.nl/p43829 (SIA, tabel 'Financiële reservering SIA', regel 6 Warmtenet: -686 in 2026; toelichting bij 6. Warmtenet)",
+   "zekerheid": "feit",
+   "berekening": "Reservering Warmtenet in de SIA: 686 duizend in 2026, oplopend tot 1.106 duizend vanaf 2030. Volgens de toelichting is dit voor een extra kapitaalstorting om fase 1 en 2a af te ronden (raadsvoorstel 195800-2025) en voor de overname van de aandelen van het Waterbedrijf (raadsvoorstel 253994-2025). Geen *, dus nog in g7. Niet hetzelfde als kaart k_warm (verkoop minderheidsbelang WarmteStad, eenmalig 4,9 mln): die levert eenmalig geld op, dit zijn jaarlijkse lasten. Beide kunnen naast elkaar, al hangen ze inhoudelijk samen (minder aandelen kopen en een belang verkopen)."
+  },
+  {
+   "id": "p_sia_ontwikkelbedrijf",
+   "naam": "Stoppen met het gemeentelijk ontwikkelbedrijf",
+   "uitleg": "De gemeente begint geen eigen bedrijf dat panden koopt en opknapt. Projecten blijven bij marktpartijen en de bestaande afdelingen.",
+   "post": "g7",
+   "bedrag_mln": 0.15,
+   "structureel_of_incidenteel": "S",
+   "opties": [
+    278
+   ],
+   "bron": "https://groningen.begroting-2026.nl/p43829 (SIA, tabel 'Financiële reservering SIA', regel 11 Gemeentelijk ontwikkelbedrijf: -150 per jaar 2026-2031)",
+   "zekerheid": "feit",
+   "berekening": "Reservering 150 duizend euro structureel in de SIA (g7) voor het ontwikkelbedrijf in oprichting. Geen *, dus nog in g7. De incidentele 0,5 mln uit de begroting 2025 telt niet mee. Optie 292 (meer inkomsten uit vastgoed) weggehaald: stoppen met het ontwikkelbedrijf is daar eerder het tegenovergestelde van."
+  },
+  {
+   "id": "p_foutparkeren",
+   "naam": "Stoppen met controle op fout parkeren",
+   "uitleg": "Boa's controleren niet meer op fout parkeren, bijvoorbeeld op de stoep of op een invalidenplek. De controle op betaald parkeren blijft, dus de gemeente krijgt nog steeds het geld van de naheffingen.",
+   "post": "m2",
+   "bedrag_mln": 0.8,
+   "structureel_of_incidenteel": "S",
+   "opties": [
+    70
+   ],
+   "bron": "https://groningen.begroting-2026.nl/p43731 (1.2 Financiën, 'Waar gaat het geld voornamelijk naar toe', regel 'Parkeerhandhaving 5.000 / 6.000')",
+   "zekerheid": "feit",
+   "berekening": "Letterlijk in de begroting: 'Voor handhaving op betaald parkeren bedragen de begrote lasten ca. 4,2 miljoen euro. Voor handhaving op foutparkeren is dat ca. 0,8 miljoen euro. De baten bestaan uit begrote opbrengsten naheffingsaanslagen parkeren (6 miljoen euro).' De baten horen dus bij betaald parkeren; boetes voor fout parkeren (Wahv) gaan naar het Rijk. Post m2: lasten 5,0, min_pct -100, ruimte 5,0; dit is het enige programma in m2 (0,8 ≤ 5,0). Geen wettelijke plicht. Let op voor de motor: bij dit programma mogen de gekoppelde baten van m2 (6,0) en het kettingeffect vh_parkeerhandhaving (naheffingen en betaalbereidheid t5) NIET meedalen. Optie 70 vraagt juist méér controle en loopt al via de schuif m2; dit programma is de stop-variant van alleen het foutparkeer-deel, dat de schuif niet apart kan."
+  },
+  {
+   "id": "p_vitamine_g",
+   "naam": "Groenplan Vitamine G stoppen",
+   "uitleg": "Er komt minder nieuw groen in de wijken, zoals bomen en geveltuinen. Wijken worden minder koel en groen.",
+   "post": "o6",
+   "bedrag_mln": 0.5,
+   "structureel_of_incidenteel": "S",
+   "opties": [
+    147,
+    153
+   ],
+   "bron": "https://groningen.begroting-2026.nl/p43737 (2.1 Financiën, 'Waar gaat het geld voornamelijk naar toe', regel Meerjarenprogramma Leefkwaliteit 4.500: 'het groenplan Vitamine G (500 duizend euro)')",
+   "zekerheid": "feit",
+   "berekening": "Bedrag letterlijk gecontroleerd in de toelichting bij Meerjarenprogramma Leefkwaliteit (4.500 duizend euro = post o6, lasten 4,5 mln, min_pct -100, dus ruimte 4,5 mln). Som van de programma's in o6: 0,5 + 0,25 + 0,65 + 1,0 = 2,4 mln, dat past. Optie 147 loopt nu via de schuif o6; dit programma maakt een deel van o6 herkenbaar en verlaagt o6, het komt er dus niet bovenop."
+  },
+  {
+   "id": "p_herwinnen_groen",
+   "naam": "Stoppen met stenen eruit, groen erin",
+   "uitleg": "De gemeente haalt geen tegels en asfalt meer weg om er groen voor terug te leggen. Er blijft meer steen in de wijken.",
+   "post": "o6",
+   "bedrag_mln": 0.25,
+   "structureel_of_incidenteel": "S",
+   "opties": [
+    147,
+    153
+   ],
+   "bron": "https://groningen.begroting-2026.nl/p43737 (2.1 Financiën, regel Meerjarenprogramma Leefkwaliteit: 'het herwinnen van groen in de openbare ruimte (250 duizend euro)')",
+   "zekerheid": "feit",
+   "berekening": "Bedrag letterlijk gecontroleerd in de toelichting bij post o6. Past binnen de ruimte van o6 (som programma's 2,4 van 4,5 mln)."
+  },
+  {
+   "id": "p_stadspark",
+   "naam": "Plannen voor het Stadspark stoppen",
+   "uitleg": "De gemeente stopt met de plannen en investeringen voor de vernieuwing van het Stadspark. Het park blijft zoals het nu is.",
+   "post": "o6",
+   "bedrag_mln": 0.65,
+   "structureel_of_incidenteel": "S",
+   "bron": "https://groningen.begroting-2026.nl/p43737 (2.1 Financiën, regel Meerjarenprogramma Leefkwaliteit: 'plan- en investeringskosten Stadspark (650 duizend euro)')",
+   "zekerheid": "feit",
+   "berekening": "Bedrag letterlijk gecontroleerd bij post o6. Geen directe optie in de lijst. Gewoon onderhoud van het park zit in o1 en blijft. Past binnen de ruimte van o6."
+  },
+  {
+   "id": "p_fietsparkeeroverlast",
+   "naam": "Extra aanpak fietsparkeeroverlast stoppen",
+   "uitleg": "De tijdelijke extra maatregelen tegen fout gestalde fietsen stoppen. Op drukke plekken staan dan vaker fietsen in de weg.",
+   "post": "o6",
+   "bedrag_mln": 1,
+   "structureel_of_incidenteel": "I",
+   "bron": "https://groningen.begroting-2026.nl/p43737 (2.1 Financiën, regel Meerjarenprogramma Leefkwaliteit: 'middelen voor de tijdelijke maatregelen om de overlast van het fietsparkeren terug te dringen (1 miljoen euro)')",
+   "zekerheid": "feit",
+   "berekening": "Bedrag letterlijk gecontroleerd bij post o6. De begroting noemt het 'tijdelijke maatregelen', daarom I. Staat los van de fietsenstallingen (m5, 0,5 mln). Past binnen de ruimte van o6 (som 2,4 van 4,5 mln). Bodembeheer (0,8 mln) in dezelfde regel is bewust niet opgenomen: dat hangt aan wettelijke bodemtaken."
+  },
+  {
+   "id": "p_jeugdboas",
+   "naam": "Stoppen met jeugdboa's",
+   "uitleg": "Er lopen geen speciale boa's meer rond voor jongeren. Overlast door groepen jongeren wordt minder snel aangepakt.",
+   "post": "v5",
+   "bedrag_mln": 0.8,
+   "structureel_of_incidenteel": "S",
+   "opties": [
+    207,
+    218
+   ],
+   "bron": "https://groningen.begroting-2026.nl/p43740 (2.2 Veiligheid, Financiën, 'Waar gaat het geld voornamelijk naar toe', regel Jeugd en Veiligheid 4.000: 'Jeugdboa's (0,8 miljoen euro)')",
+   "zekerheid": "feit",
+   "berekening": "Bedrag staat letterlijk in de begroting: 0,8 mln binnen Jeugd en Veiligheid (4,0 mln = post v5). Ruimte boven de ondergrens van v5: 4,0 x 100% = 4,0 mln. Samen met p_jeugdgroepen 1,6 mln: past. Let op voor de motor: de baten van v5 (1,9 mln) horen alleen bij Preventie met Gezag (rijksgeld). Ze mogen niet naar rato meedalen als dit programma stopt. Wettelijk verplicht is het niet."
+  },
+  {
+   "id": "p_jeugdgroepen",
+   "naam": "Stoppen met aanpak problematische jeugdgroepen",
+   "uitleg": "De gemeente stopt de extra aanpak van groepen jongeren die overlast geven of in de criminaliteit dreigen te raken.",
+   "post": "v5",
+   "bedrag_mln": 0.8,
+   "structureel_of_incidenteel": "S",
+   "opties": [
+    218
+   ],
+   "bron": "https://groningen.begroting-2026.nl/p43740 (2.2 Veiligheid, Financiën, regel Jeugd en Veiligheid: 'Problematische jeugdgroepen (0,8 miljoen euro)')",
+   "zekerheid": "feit",
+   "berekening": "Bedrag staat letterlijk in de begroting: 0,8 mln. Som in v5 met p_jeugdboas: 1,6 mln, ruimte 4,0 mln: past. Ook zonder Preventie met Gezag (1,9 mln, helemaal betaald door het Rijk, daarom geen programma) blijft het past: 4,0 - 1,9 = 2,1 mln. De aanpak van jeugdgroepen in het Zorg- en Veiligheidshuis (v6) is een ander budget, dus niet dubbel."
+  },
+  {
+   "id": "p_cameratoezicht",
+   "naam": "Stoppen met cameratoezicht",
+   "uitleg": "De camera's van de gemeente op straat gaan uit. Er kijkt niemand meer mee op drukke en onveilige plekken.",
+   "post": "v2",
+   "bedrag_mln": 0.4,
+   "structureel_of_incidenteel": "S",
+   "opties": [
+    209
+   ],
+   "bron": "https://groningen.begroting-2026.nl/p43740 (2.2 Veiligheid, Financiën, regel 'Toezicht en handhaving in de openbare ruimte' 3.400: 'waaronder middelen voor cameratoezicht (400 duizend euro)')",
+   "zekerheid": "feit",
+   "berekening": "0,4 mln staat in de begroting binnen toezicht en handhaving (3,4 mln = post v2, niet v3 zoals OPTIES-KOPPELING en de tekst van v3 zeggen). Ruimte boven de ondergrens van v2: 3,4 x 90% = 3,06 mln: past. De ondergrens van v2 gaat over Alcoholwet-toezicht, niet over camera's. Opties alleen 209 (verminderen); 208 en 210 gaan over meer camera's. De extra camera's bij de Gele Loper zitten niet hierin maar in p_gele_loper."
+  },
+  {
+   "id": "p_ondermijning_regio",
+   "naam": "Stoppen met bijdrage aan regionale aanpak ondermijning",
+   "uitleg": "De gemeente betaalt niet meer mee aan de samenwerking in de regio tegen criminaliteit achter gewone bedrijven.",
+   "post": "v4",
+   "bedrag_mln": 0.2,
+   "structureel_of_incidenteel": "S",
+   "opties": [
+    216,
+    217
+   ],
+   "bron": "https://groningen.begroting-2026.nl/p43740 (2.2 Veiligheid, Financiën, regel Ondermijning 1.500: 'Inclusief een bijdrage voor de regionale aanpak van ondermijning (ca. 0,2 miljoen euro)')",
+   "zekerheid": "feit",
+   "berekening": "Ca. 0,2 mln volgens de begroting, binnen Ondermijning (1,5 mln = post v4, min -100%). Ruimte 1,5 mln: past. Geen wettelijke plicht en geen gemeenschappelijke regeling."
+  },
+  {
+   "id": "p_bewegende_stad",
+   "naam": "Stoppen met 'bewegende stad'",
+   "uitleg": "Er komen geen nieuwe uitdagende sport- en speelplekken in de buitenruimte.",
+   "post": "k2",
+   "bedrag_mln": 0.2,
+   "structureel_of_incidenteel": "S",
+   "opties": [
+    195
+   ],
+   "bron": "https://groningen.begroting-2026.nl/p43752 (3.4 Sport en bewegen, Financiën, regel 'Recreatiegebieden en bewegende stad' 1.100: 'Daarnaast zetten we 0,2 miljoen euro in voor de bewegende stad ten behoeve van het realiseren van uitdagende sport- en speelplekken en een beweegvriendelijke openbare ruimte')",
+   "zekerheid": "feit",
+   "berekening": "0,2 mln staat in de begroting. Ruimte boven de ondergrens van k3: 1,1 x 30% = 0,33 mln (de rest is vooral de vaste bijdrage aan het Meerschap): 0,2 past. Optie 195 is een benadering (uitbreiden sportvoorzieningen)."
+  },
+  {
+   "id": "p_groninger_museum",
+   "naam": "Stoppen met subsidie Groninger Museum",
+   "uitleg": "Het Groninger Museum krijgt geen geld meer van de gemeente. Het museum moet dan veel kleiner worden of dicht.",
+   "post": "c2",
+   "bedrag_mln": 4.3,
+   "structureel_of_incidenteel": "S",
+   "opties": [
+    177,
+    178
+   ],
+   "bron": "Openbaar subsidieregister gemeente Groningen 2024, https://gemeente.groningen.nl/file/subsidieregister-2024 (regel Groninger Museum, 25-7-2024, 03.5 Cultuur en evenementen: € 4.316.397). Het register zelf geeft 403 (geblokkeerd); het bedrag komt uit het zoekresultaat. De begroting (https://groningen.begroting-2026.nl/p43755, regel 'Culturele instellingen en activiteiten' 30.200) noemt het museum bij de 27,5 mln meerjarige subsidies, zonder eigen bedrag.",
+   "zekerheid": "aanname",
+   "berekening": "Subsidie 2024 volgens subsidieregister 4,32 mln, afgerond 4,3 mln (2026 door indexatie waarschijnlijk iets hoger). Ruimte in c2: 30,2 mln (min -100%): past. Afbouw kost tijd door subsidieregels (jur_subsidies). Bedrag nog controleren in het subsidieregister zelf; het kon niet worden geopend."
+  },
+  {
+   "id": "p_preventiefonds_jeugd",
+   "naam": "Stoppen met het preventiefonds jeugd",
+   "uitleg": "De gemeente stopt met het extra fonds om problemen bij kinderen en gezinnen vroeg aan te pakken. Dat scheelt nu geld, maar later kan er meer zware jeugdzorg nodig zijn.",
+   "post": "z1",
+   "bedrag_mln": 4.509,
+   "structureel_of_incidenteel": "I",
+   "opties": [
+    223,
+    225
+   ],
+   "bron": "https://groningen.begroting-2026.nl/p43701 (Intensiveringen voorgaande jaren, tabel 'Openstaande opgaven begroting 2025', nr. 27 Preventie en transformatie jeugdzorg, 3.3, I, 2026: -4.509); toelichting https://groningen.begroting-2025.nl/p42578 nr. 27 ('in 2026 4,509 miljoen euro beschikbaar ... één meerjarig fonds')",
+   "zekerheid": "aanname",
+   "berekening": "Bedrag is feit: 4,509 mln incidenteel in 2026 (laatste jaar van het fonds, 2025 was 4,343 mln). Aanname: het zit in post z1 (Jeugd 118,8 mln, deelprogramma 3.3); de post Positief opgroeien (2,8 mln) is te klein, en deelprogramma 3.3 heeft in 2026 geen toevoeging aan een reserve (0), dus het geld staat in de lasten. Ruimte z1: 118,8 x 0,20 = 23,76 mln; past. Let op: het kettingeffect zp_preventie_jeugd heeft als bron z4, z8, d2, k2, z9 en v5, niet z1. Stoppen met dit fonds zet dat effect dus niet vanzelf aan; overwegen om dit programma als bron toe te voegen."
+  },
+  {
+   "id": "p_werkprogramma",
+   "naam": "Stoppen met het werkprogramma bijstand",
+   "uitleg": "De extra hulp naar werk uit het Werk- en Ontwikkelprogramma stopt. Mensen in de bijstand krijgen minder begeleiding. Let op: de gemeente rekent erop dat dit programma zorgt voor minder uitkeringen.",
+   "post": "s3",
+   "bedrag_mln": 1.05,
+   "structureel_of_incidenteel": "I",
+   "opties": [
+    238,
+    237
+   ],
+   "bron": "https://groningen.begroting-2026.nl/p43743 (tabel 'Intensiveringen en dekkingsbronnen 2026' 3.1, nr. 37 Borgen werkprogramma, 1.050, I); toelichting https://groningen.begroting-2026.nl/p43769 nr. 37",
+   "zekerheid": "aanname",
+   "berekening": "Bedrag is feit: 1,05 mln in 2026 (daarna 0,85 mln per jaar in 2027-2029), voor 9,55 fte. De 267 duizend euro overhead staat in deelprogramma 4.4 en hoort dus niet bij s3; niet meegeteld. Aanname: het zit in post s3 (Participatie en re-integratie 20,7 mln; toelichting noemt 'tijdelijke formatie-uitbreiding'). Ruimte s3: 20,7 x 0,70 = 14,49 mln; programma's in s3 samen 1,05 + 0,35 = 1,40 mln, past. Geen wettelijk verplicht deel: het is extra inzet boven de basis van de Participatiewet. De begroting zegt dat het programma de uitkeringskosten verlaagt; als de motor het kettingeffect wia_reintegratie (s3 naar s1) ook op programma's toepast, is dat effect hier terecht."
+  },
+  {
+   "id": "p_route_arbeid_plus",
+   "naam": "Route Arbeid+ niet uitbreiden",
+   "uitleg": "Route Arbeid+ helpt jongeren uit het praktijkonderwijs en speciaal onderwijs op weg naar werk. De 50 jongeren die nu hulp krijgen, houden die. Er kunnen geen extra jongeren bij.",
+   "post": "s3",
+   "bedrag_mln": 0.35,
+   "structureel_of_incidenteel": "I",
+   "opties": [
+    238
+   ],
+   "bron": "https://groningen.begroting-2026.nl/p43743 (tabel intensiveringen 3.1, nr. 39 Route Arbeid+, 350, I); toelichting https://groningen.begroting-2026.nl/p43769 nr. 39",
+   "zekerheid": "aanname",
+   "berekening": "Bedrag is feit: 350 duizend euro in 2026 (en ook in 2027). Volgens de toelichting is er tot en met 2027 al geld voor 50 jongeren. Er is een aanmeldstop, en deze 350 duizend euro is extra, 'om de route te kunnen blijven ontwikkelen'. Stoppen raakt dus de uitbreiding, niet de huidige 50 jongeren; de tekst is daarop aangepast. Aanname: het zit in post s3. Ruimte s3 14,49 mln; samen met het werkprogramma 1,40 mln, past."
+  },
+  {
+   "id": "p_schuldhulp_doelgroepen",
+   "naam": "Geen extra schuldhulp voor speciale groepen",
+   "uitleg": "De extra schuldhulp voor zelfstandigen, daklozen, ex-gedetineerden en jongeren stopt. Zij kunnen nog wel naar de gewone schuldhulp.",
+   "post": "s9",
+   "bedrag_mln": 0.646,
+   "structureel_of_incidenteel": "I",
+   "opties": [
+    228
+   ],
+   "bron": "https://groningen.begroting-2026.nl/p43743 (tabel intensiveringen 3.1, nr. 35 Schuldhulpverlening, 646, I); toelichting https://groningen.begroting-2026.nl/p43769 nr. 35",
+   "zekerheid": "feit",
+   "berekening": "646 duizend euro in 2026 voor de coördinatie en voor schuldhulp aan bijzondere doelgroepen (1,5 fte), uit het plan schuldhulpverlening 2024-2028. De 42 duizend euro overhead staat in 4.4 en is niet meegeteld. Zit in post s9 (Schuldhulpverlening 11,3 mln; toelichting noemt 'tijdelijke formatie-uitbreiding'). Ruimte s9: 11,3 x 0,60 = 6,78 mln, past. Geen wettelijk deel: de Wgs verplicht schuldhulp, maar niet deze extra inzet voor speciale groepen; de gewone schuldhulp blijft."
+  },
+  {
+   "id": "p_woonzorg_daklozen",
+   "naam": "Geen extra woon-zorgplekken voor daklozen",
+   "uitleg": "De gemeente betaalt niet meer extra voor zorg en begeleiding op nieuwe soorten woon- en opvangplekken voor dak- en thuislozen. De gewone opvang blijft.",
+   "post": "z5",
+   "bedrag_mln": 1.05,
+   "structureel_of_incidenteel": "I",
+   "opties": [
+    240,
+    241
+   ],
+   "bron": "https://groningen.begroting-2026.nl/p43749 (tabel intensiveringen 3.3, nr. 45 Passende woon-zorg oplossingen, 1.050, I); toelichting https://groningen.begroting-2026.nl/p43769 nr. 45",
+   "zekerheid": "aanname",
+   "berekening": "Bedrag is feit: 1,05 mln incidenteel in 2026 (850 duizend euro in 2027). Aanname: valt in post z5 (Maatschappelijke opvang en vrouwenopvang 28,6 mln), omdat het om dak- en thuislozen gaat; de kleinere begrotingspost 'Algemene zorg en veiligheid' (3,3 mln, met woonopvang) is geen eigen post in de game. Ruimte z5: 28,6 x 0,25 = 7,15 mln. Die ruimte is ook bedoeld voor de opvang van ongedocumenteerden (3,506 mln, kaart k_ongedoc); samen 4,556 mln, past nog. Geen wettelijk deel: de wettelijke opvang blijft, dit is extra zorg op nieuwe soorten plekken."
+  },
+  {
+   "id": "p_armoede_rijksgat",
+   "naam": "Korting van het Rijk op armoedegeld niet zelf aanvullen",
+   "uitleg": "Het Rijk gaf minder geld voor de aanpak van armoede en schulden. De gemeente vult dat gat niet meer zelf aan. Daardoor gebeurt er minder in de armoede-aanpak.",
+   "post": "s10",
+   "bedrag_mln": 0.444,
+   "structureel_of_incidenteel": "I",
+   "opties": [
+    235,
+    236
+   ],
+   "bron": "https://groningen.begroting-2026.nl/p43743 (tabel intensiveringen 3.1, nr. 36 Rijksmiddelen armoede en schulden (enveloppe), 444, I); toelichting https://groningen.begroting-2026.nl/p43769 nr. 36",
+   "zekerheid": "feit",
+   "berekening": "444 duizend euro in 2026 om rijksgeld te vervangen dat de gemeente niet krijgt (in 2027 nog 304 duizend euro; vanaf 2028 moet het binnen het armoedebudget worden opgelost). Hoort bij post s10 (Armoede- en minimaregelingen 12,2 mln; de toelichting noemt het plan Brede Aanpak Armoede en Schulden en 'minder rijksmiddelen voor aanpak van armoede en schulden'). Ruimte s10: 12,2 x 1,00 = 12,2 mln, past. Geen wettelijk deel."
+  },
+  {
+   "id": "p_verlengde_schooldag",
+   "naam": "Geen uitbreiding verlengde schooldag",
+   "uitleg": "De extra uren les en activiteiten na school voor kinderen met een achterstand groeien niet verder. Scholen die nu meedoen, houden hun verlengde schooldag.",
+   "post": "d2",
+   "bedrag_mln": 0.6,
+   "structureel_of_incidenteel": "S",
+   "opties": [
+    244,
+    254,
+    255
+   ],
+   "bron": "https://groningen.begroting-2026.nl/p43746 (deelprogramma 3.2, 'Waar gaat het geld voornamelijk naar toe', Onderwijskansen 12.300 / 4.700: 'Voor de Verlengde Schooldag nemen de lasten conform coalitieakkoord met 0,6 miljoen euro toe')",
+   "zekerheid": "feit",
+   "berekening": "Extra geld uit het coalitieakkoord: 0,6 mln per jaar binnen Onderwijskansen (d2, 12,3 mln). Het totaal voor de verlengde schooldag staat niet apart in de begroting, daarom alleen de uitbreiding. De baten van d2 (4,7 mln) zijn rijksgeld voor voorschoolse educatie en taalinterventies, niet voor de verlengde schooldag, dus 0,6 mln is netto. Dat het elk jaar is (S) is een aanname: het is een coalitieafspraak in bestaand beleid, geen eenmalige intensivering. Ruimte in d2: 12,3 x 0,40 = 4,92 mln. De ondergrens dekt de wettelijke voorschoolse educatie; de verlengde schooldag valt daarbuiten en is geen wettelijke taak."
+  }
+ ],
+ "opmerkingen": [
+  "De onderdelen per deelprogramma zijn de posten uit 'Waar gaat het geld voornamelijk naar toe'. Ze dekken niet 100% van de lasten per deelprogramma; het restant is 'overige posten' en is in de game niet aanpasbaar.",
+  "Parkeertarieven in de game gebruiken de baten van het parkeerbedrijf (35,1 mln, incl. vergunningen en garages); de kerngegevens noemen 26,3 mln parkeerbelasting.",
+  "Meters, min/max-percentages, teksten en vergrendelingen zijn spelontwerp, geen begrotingsgegevens.",
+  "Begroting 2027 ingelezen op 2 oktober 2026 (zie data/WIJZIGINGEN-2027.md). De spelinstellingen (ondergrenzen, teksten, meters) zijn van 2026 overgenomen."
+ ],
+ "kengetallen_2027": {
+  "gemeentefonds_x1000": 868652,
+  "opbrengst_belastingen_totaal_x1000": 172964,
+  "ozb_x1000": 139441,
+  "parkeerbelasting_x1000": 27524,
+  "reclamebelasting_x1000": 980,
+  "logiesbelasting_x1000": 2998,
+  "precariobelasting_x1000": 1866,
+  "roerende_zaakbelasting_x1000": 155,
+  "algemene_reserve_x1000": 86532,
+  "ratio_weerstandsvermogen": 1.52,
+  "aantal_woningen": 127816,
+  "gemiddelde_woz": 360000,
+  "bron": "boekwerk p. 5 (kerngegevens)"
+ },
+ "bekende_afwijkingen": [
+  {
+   "controle": "onderdelen_binnen_deelprogramma",
+   "deelprogramma": "2.1",
+   "toelichting": "De onderdelen van 2.1 tellen op tot 152,2 mln; het deelprogramma heeft 150,898 mln lasten (1,3 mln minder). Ook in 2026 waren de regels samen hoger dan het deelprogramma. Waarschijnlijk zit een deel van de overhead of een dekking in de regels afval en riool; nog uit te zoeken (zie WIJZIGINGEN-2027.md)."
+  },
+  {
+   "controle": "totalen_deelprogrammas",
+   "jaar": 2029,
+   "toelichting": "In het boekwerk zelf (p. 352-353) zijn de deelprogramma's samen 81 duizend euro hoger dan de regel 'Lasten totaal' en 'Baten totaal'. Het saldo is gelijk; het verschil staat zo in de begroting."
+  },
+  {
+   "controle": "totalen_deelprogrammas",
+   "jaar": 2030,
+   "toelichting": "In het boekwerk zelf (p. 352-353) zijn de deelprogramma's samen 81 duizend euro hoger dan de regel 'Lasten totaal' en 'Baten totaal'. Het saldo is gelijk; het verschil staat zo in de begroting."
+  }
+ ]
+}

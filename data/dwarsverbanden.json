@@ -151,15 +151,15 @@
   {
    "id": "kd_werkplaats",
    "categorie": "Kostendekkende heffingen",
-   "naam": "Autowerkplaats voor derden",
+   "naam": "Zakelijke dienstverlening Stadsbeheer (o.a. werkplaats voor derden)",
    "van": [
-    "o5"
+    "o4"
    ],
    "naar": [
-    "baten:o5",
+    "baten:o4",
     "h1"
    ],
-   "mechanisme": "Kosten en inkomsten zijn gelijk (0,9 mln). Stoppen levert netto niets op, behalve als er ook overhead of ruimte vrijkomt.",
+   "mechanisme": "Kosten en inkomsten zijn gelijk (0,9 mln). Stoppen levert netto niets op, behalve als er ook overhead of ruimte vrijkomt. Vanaf 2027 zit de werkplaats voor derden in de post Zakelijke dienstverlening Stadsbeheer (o4).",
    "formule": "delta_saldo = aandeel_overheadvrijval * 0.9",
    "parameters": {
     "aandeel_overheadvrijval": {
@@ -743,7 +743,6 @@
     "z8",
     "z9",
     "k2",
-    "k3",
     "g3"
    ],
    "naar": [
@@ -1612,10 +1611,10 @@
      "toelichting": ""
     },
     "personeelskosten": {
-     "waarde": null,
+     "waarde": 357.948,
      "eenheid": "mln",
-     "status": "te onderzoeken",
-     "toelichting": "Uit het overzicht van de gemeentelijke organisatie halen."
+     "status": "feit",
+     "toelichting": "Totaal loonsom personeel in dienst, primitieve begroting 2027 (3.681 fte), boekwerk 2027 p. 355."
     }
    },
    "vertraging_jaren": 0,
@@ -1814,22 +1813,22 @@
    "formule": "ratio = weerstandscapaciteit / benodigde_capaciteit",
    "parameters": {
     "algemene_reserve": {
-     "waarde": 81.1,
+     "waarde": 86.532,
      "eenheid": "mln",
      "status": "feit",
-     "toelichting": "Kerngegevens begroting 2026."
-    },
-    "ratio_2026": {
-     "waarde": 1.61,
-     "eenheid": "",
-     "status": "feit",
-     "toelichting": ""
+     "toelichting": "Kerngegevens begroting 2027 (p. 5)."
     },
     "ondergrens_ratio": {
      "waarde": 1.0,
      "eenheid": "fractie",
      "status": "aanname",
      "toelichting": "Toegevoegd uit het mechanisme: een weerstandsvermogen onder 100% is een waarschuwingssignaal. Spelregel."
+    },
+    "ratio_2027": {
+     "waarde": 1.52,
+     "eenheid": "",
+     "status": "feit",
+     "toelichting": "Kerngegevens begroting 2027 (p. 5): 152%."
     }
    },
    "vertraging_jaren": 0,

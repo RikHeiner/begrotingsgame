@@ -8,8 +8,8 @@ test('debugpagina: bezuinigen vult de pot, daarna kan er geïnvesteerd worden', 
   page,
 }, testInfo) => {
   await page.goto('/#debug');
-  const saldo2026 = page.getByTestId('saldo-tabel').getByRole('row', { name: /^2026/ });
-  await expect(saldo2026).toContainText('€ 0,000 mln');
+  const saldoEerste = page.getByTestId('saldo-tabel').getByRole('row', { name: /^2027/ });
+  await expect(saldoEerste).toContainText('€ 0,000 mln');
 
   // Het slot: zonder vrijgemaakt geld kan de OZB niet omlaag.
   await page.getByText('💶 Belastingloket').click();
@@ -26,13 +26,13 @@ test('debugpagina: bezuinigen vult de pot, daarna kan er geïnvesteerd worden', 
   await page.keyboard.press('ArrowLeft');
   await page.keyboard.press('ArrowLeft');
   await expect(overhead).toHaveValue('-10');
-  await expect(saldo2026).toContainText('+ € 12,324 mln');
+  await expect(saldoEerste).toContainText('+ € 13,150 mln');
 
   // Nu mag de OZB wel omlaag.
   await ozb.focus();
   await page.keyboard.press('ArrowLeft');
   await expect(ozb).toHaveValue('-5');
-  await expect(saldo2026).toContainText('+ € 6,059 mln');
+  await expect(saldoEerste).toContainText('+ € 6,178 mln');
 
   await expect(page.getByTestId('effecten')).toContainText('Overhead');
   await page.screenshot({ path: testInfo.outputPath('debug.png'), fullPage: true });

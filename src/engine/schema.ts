@@ -102,6 +102,8 @@ export const belastingSchema = z
     naam: z.string().min(1),
     deelprogramma: z.string(),
     opbrengst_mln: z.number().nonnegative(),
+    /** waar de opbrengst staat (pagina in het boekwerk) */
+    bron: z.string().optional(),
     min_pct: z.number().min(-100).max(0),
     /** null = geen maximum */
     max_pct: z.number().min(0).nullable(),
@@ -190,6 +192,8 @@ export const bekendeAfwijkingSchema = z
   .object({
     controle: z.string(),
     deelprogramma: z.string().optional(),
+    /** bij een afwijking in de totalen: het jaar */
+    jaar: z.number().int().optional(),
     id: z.string().optional(),
     toelichting: z.string(),
   })

@@ -253,7 +253,8 @@ export function weerstandBasis(data: Data): {
     getal('algemene_reserve') !== null
       ? vanMln(getal('algemene_reserve') ?? 0)
       : vanDuizend(data.kengetallen.algemene_reserve_x1000);
-  const ratio = getal('ratio_2026') ?? data.kengetallen.ratio_weerstandsvermogen;
+  const ratio =
+    getal(`ratio_${data.begroting.begrotingsjaar}`) ?? data.kengetallen.ratio_weerstandsvermogen;
   return { reserve, ratio, benodigd: reserve / ratio, ondergrens: getal('ondergrens_ratio') ?? 1 };
 }
 

@@ -8,7 +8,7 @@ test('Wat betekent het voor mij: een lagere OZB scheelt de eigenaar geld', async
   await page.addInitScript(() => localStorage.setItem('begrotingsgame:tutorial', 'klaar'));
   const b = codeer(
     { onderdelen: { h1: -10 }, belastingen: { t1: -10 }, kaarten: [], scenario: 'midden' },
-    2026,
+    2027,
   );
   await page.goto(`/?b=${b}`);
   await page.getByTestId('inwoners').click();
@@ -22,16 +22,16 @@ test('Wat betekent het voor mij: een lagere OZB scheelt de eigenaar geld', async
   await inwoners.getByTestId('open-voor-mij').click();
   const d = page.getByRole('dialog', { name: 'Wat betekent het voor mij?' });
   const tabel = d.getByTestId('voor-mij-tabel');
-  // 0,1473% van € 340.000 = € 501; met −10% € 451
-  await expect(tabel.locator('[data-heffing="OZB"]')).toContainText('€ 501');
-  await expect(tabel.locator('[data-heffing="OZB"]')).toContainText('€ 451');
-  await expect(d.getByTestId('voor-mij-verschil')).toHaveText('− € 50');
+  // 2027: 0,1501% van € 360.000 = € 540; met −10% € 486
+  await expect(tabel.locator('[data-heffing="OZB"]')).toContainText('€ 540');
+  await expect(tabel.locator('[data-heffing="OZB"]')).toContainText('€ 486');
+  await expect(d.getByTestId('voor-mij-verschil')).toHaveText('− € 54');
 
   // Peter en Tineke: Oosterpoort, twee vergunningen
   await d.getByLabel(/parkeervergunning voor bewoners/).selectOption('tweede');
   await d.getByLabel('Aantal vergunningen').selectOption('2');
-  await expect(tabel.locator('[data-heffing="Parkeervergunning"]')).toContainText('€ 135');
-  await expect(tabel.locator('[data-heffing="Tweede parkeervergunning"]')).toContainText('€ 409');
+  await expect(tabel.locator('[data-heffing="Parkeervergunning"]')).toContainText('€ 141');
+  await expect(tabel.locator('[data-heffing="Tweede parkeervergunning"]')).toContainText('€ 428');
   await page.screenshot({ path: testInfo.outputPath('voor-mij.png'), fullPage: true });
   await tabel.scrollIntoViewIfNeeded();
   await page.screenshot({ path: testInfo.outputPath('voor-mij-tabel.png') });
@@ -50,7 +50,7 @@ test('Wat betekent het voor mij: woonlasten vergeleken met andere gemeenten', as
   await page.addInitScript(() => localStorage.setItem('begrotingsgame:tutorial', 'klaar'));
   const b = codeer(
     { onderdelen: {}, belastingen: { t1: -10 }, kaarten: [], scenario: 'midden' },
-    2026,
+    2027,
   );
   await page.goto(`/?b=${b}`);
   await page.getByTestId('inwoners').click();
