@@ -107,5 +107,5 @@ test('document in de opbouw van de tegenbegroting van VVD Groningen', async ({ p
     doc.getByRole('heading', { name: 'Ombuigingen en opbrengsten (x1 miljoen)' }),
   ).toBeVisible();
   await expect(doc.getByRole('heading', { name: 'Uitgaven (x1 miljoen)' })).toBeVisible();
-  await expect(doc.locator('th', { hasText: 'Structureel/incidenteel' }).first()).toBeVisible();
+  await expect(doc.locator('th', { hasText: 'Structureel/ incidenteel' }).first()).toBeVisible();
 });
