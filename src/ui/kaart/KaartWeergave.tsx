@@ -144,8 +144,13 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
   }, [gekozen, klaar]);
 
   // Gebouwen bijwerken na elke keuze
+  // Even wachten tot de speler klaar is met schuiven: een gebouw opnieuw opbouwen kost wat tijd.
   useEffect(() => {
-    kaart.current?.zetStanden(standen, (resultaat.keuzes.onderdelen.k1 ?? 0) <= -50);
+    const t = window.setTimeout(
+      () => kaart.current?.zetStanden(standen, (resultaat.keuzes.onderdelen.k1 ?? 0) <= -50),
+      150,
+    );
+    return () => window.clearTimeout(t);
   }, [standen, resultaat, klaar]);
 
   // Kettingeffecten: lijn tussen gebouwen
