@@ -30,7 +30,29 @@ export type Keuzes = {
    * ambtenaren die in één keer weg moeten). Zie org_frictie.
    */
   nulbasis?: boolean;
+  /**
+   * Eigen voorstellen van de speler, met een eigen bedrag: iets wat de gemeente niet meer hoeft te
+   * doen (Beleidshuis) of kan verkopen (Veilinghuis). Het bedrag is altijd een eigen schatting.
+   */
+  eigen?: EigenVoorstel[];
 };
+
+/** Een eigen voorstel; zie Keuzes.eigen. */
+export type EigenVoorstel = {
+  id: string;
+  /** beleid: niet meer doen (minder lasten); veiling: verkopen (opbrengst) */
+  plek: 'beleid' | 'veiling';
+  naam: string;
+  /** wat het oplevert, in miljoenen (positief) */
+  bedrag_mln: number;
+  /** S: elk jaar; I: eenmalig in het eerste jaar */
+  soort: 'S' | 'I';
+};
+
+/** Grenzen voor eigen voorstellen, zodat de game geen onzinbedragen accepteert. */
+export const EIGEN = { max: 12, maxMln: 50, naamMin: 3, naamMax: 120 } as const;
+
+export const EIGEN_PREFIX = 'eigen:';
 
 export const GEEN_KEUZES: Keuzes = {
   onderdelen: {},

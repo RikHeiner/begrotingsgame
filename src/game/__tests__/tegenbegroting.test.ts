@@ -5,7 +5,9 @@ import { bereken, metExtraKaarten, type Data } from '../../engine';
 import { alsKaarten } from '../../engine/tegenbegroting';
 import { echteData, keuzes, mln } from '../../engine/__tests__/hulp';
 import { bestandsnaam, maakTegenbegroting, STANDAARD_TITEL } from '../tegenbegroting/document';
-import { maakWord } from '../tegenbegroting/word';
+import { BEELD_BESTANDEN, maakWord } from '../tegenbegroting/word';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 
 let data: Data;
 beforeAll(async () => {
@@ -52,14 +54,11 @@ describe('tegenbegroting: de VVD-testcase', () => {
     // En precies zo in het Word-bestand
     const tekst = await wordTekst(maakWord(doc));
     for (const s of [
-      'Ombuigingen en opbrengsten (x € 1 miljoen)',
-      'Uitgaven (x € 1 miljoen)',
-      '53,970',
-      '15,602',
-      '54,029',
-      '15,971',
+      'Ombuigingen en opbrengsten (x1 miljoen)',
+      'Uitgaven (x1 miljoen)',
+      // Zoals de fractie: alleen een totaal per tabel (69,6 en 70,0), en het saldo
       '69,572',
-      '70,000',
+      'Totaal70,0',
       '−0,059',
       '−0,369',
     ]) {
@@ -85,7 +84,13 @@ describe('tegenbegroting van een speler', () => {
       naam: 'Anne',
       idee: 'Meer bankjes.\nEn bomen.',
     });
-    expect(doc.ondertitel).toBe('Op de ontwerpbegroting 2026 van de gemeente Groningen');
+    expect(doc.ondertitel).toBe('Ontwerpbegroting 2026 Gemeente Groningen');
+    // Kopjes zoals in de tegenbegroting van de fractie, met een inleiding.
+    expect(doc.besparingen.map((g) => g.thema)).toContain('Een slanke en efficiënte gemeente');
+    expect(doc.investeringen.map((g) => g.thema)).toContain(
+      'Lagere lasten voor inwoners en ondernemers',
+    );
+    expect(doc.besparingen.every((g) => g.intro.length > 20)).toBe(true);
     expect(doc.besparingen.flatMap((g) => g.regels.map((x) => x.id))).toEqual(
       expect.arrayContaining(['h1', 'k_warm']),
     );
@@ -104,25 +109,53 @@ describe('tegenbegroting van een speler', () => {
     expect(doc.inleiding[0]).toMatch(/Overhead/);
 
     const tekst = await wordTekst(maakWord(doc));
+    // De opbouw van de tegenbegroting van VVD Groningen
     for (const s of [
-      'Tegenbegroting',
+      'Tegenbegroting Anne',
       'Groningen kan het',
-      'Anne',
-      'Inleiding',
-      'Besparingen en opbrengsten',
-      'Investeringen en lastenverlichting',
+      'Voor een veilige, ondernemende en financieel verstandige gemeente.',
+      'Inhoudsopgave',
+      'Opgesteld door',
+      'Besparingen',
+      'Een slanke en efficiënte gemeente',
+      'Investeringen',
+      'Lagere lasten voor inwoners en ondernemers',
       'Kettingeffecten',
       'Mijn eigen ideeën',
       'Meer bankjes.',
       'Financieel overzicht',
+      'Ombuigingen en opbrengsten (x1 miljoen)',
+      'Uitgaven (x1 miljoen)',
+      'Structureel/incidenteel',
       'Meerjarig',
       'Bronnen en uitleg',
+      '▶',
       '⚠︎',
     ]) {
       expect(tekst, s).toContain(s);
     }
     // "Wat merken de inwoners?" staat niet meer in de tegenbegroting (besluit fractie).
     expect(tekst).not.toContain('Wat merken de inwoners?');
+  });
+
+  it("Word met de foto's en pijlen van de huisstijl", async () => {
+    const lees = (naam: string) =>
+      new Uint8Array(readFileSync(resolve(import.meta.dirname, '../../../public/huisstijl', naam)));
+    const doc = maakTegenbegroting(data, bereken(data, keuzes({ onderdelen: { h1: -10 } })), meta);
+    const word = maakWord(doc, {
+      pijltje: lees(BEELD_BESTANDEN.pijltje),
+      pijl: lees(BEELD_BESTANDEN.pijl),
+      voorblad: BEELD_BESTANDEN.voorblad.map(lees),
+      tussenbladen: {
+        besparingen: lees(BEELD_BESTANDEN.tussenbladen.besparingen),
+        investeringen: lees(BEELD_BESTANDEN.tussenbladen.investeringen),
+        financieel: lees(BEELD_BESTANDEN.tussenbladen.financieel),
+      },
+    });
+    const zip = await JSZip.loadAsync(await Packer.toBuffer(word));
+    const media = Object.keys(zip.files).filter((x) => x.startsWith('word/media/'));
+    expect(media.length).toBeGreaterThanOrEqual(8);
+    expect(await wordTekst(word)).toContain(STANDAARD_TITEL);
   });
 
   it('zonder titel krijgt de tegenbegroting een standaardtitel; bestandsnaam uit de titel', () => {

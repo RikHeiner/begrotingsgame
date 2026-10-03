@@ -24,12 +24,22 @@ type Compact = {
   n?: 1;
   /** programma's in het Beleidshuis die stilstaan */
   g?: string[];
+  /** eigen voorstellen: [id, plek (b of v), naam, bedrag in duizenden, soort (S of I)] */
+  e?: [string, 'b' | 'v', string, number, 'S' | 'I'][];
 };
 
 export function codeer(keuzes: Keuzes, jaar: number, beginpunt: Beginpunt = 'college'): string {
   const c: Compact = { v: VERSIE, j: jaar };
   if (beginpunt === 'nul') c.n = 1;
   if (keuzes.gestopt?.length) c.g = keuzes.gestopt;
+  if (keuzes.eigen?.length)
+    c.e = keuzes.eigen.map((x) => [
+      x.id,
+      x.plek === 'veiling' ? 'v' : 'b',
+      x.naam,
+      Math.round(x.bedrag_mln * 1000),
+      x.soort,
+    ]);
   if (Object.keys(keuzes.onderdelen).length) c.o = keuzes.onderdelen;
   if (Object.keys(keuzes.belastingen).length) c.t = keuzes.belastingen;
   if (keuzes.parkeren && Object.keys(keuzes.parkeren).length) c.p = keuzes.parkeren;
@@ -78,6 +88,19 @@ export function decodeer(tekst: string): Gelezen | undefined {
         ...(r ? { reserve: { structureel: r[0] * 1000, eenmalig: r[1] * 1000 } } : {}),
         ...(Array.isArray(c.g) && c.g.length
           ? { gestopt: c.g.filter((x): x is string => typeof x === 'string') }
+          : {}),
+        ...(Array.isArray(c.e) && c.e.length
+          ? {
+              eigen: c.e
+                .filter((x) => Array.isArray(x) && x.length === 5)
+                .map(([id, plek, naam, bedrag, soort]) => ({
+                  id: String(id),
+                  plek: plek === 'v' ? ('veiling' as const) : ('beleid' as const),
+                  naam: String(naam),
+                  bedrag_mln: Number(bedrag) / 1000,
+                  soort: soort === 'I' ? ('I' as const) : ('S' as const),
+                })),
+            }
           : {}),
       },
     };

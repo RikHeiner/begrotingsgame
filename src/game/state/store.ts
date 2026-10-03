@@ -7,9 +7,11 @@
 import { create } from 'zustand';
 import {
   bereken,
+  EIGEN,
   GEEN_KEUZES,
   magWijzigen,
   type Data,
+  type EigenVoorstel,
   type Keuzes,
   type Melding,
   type Resultaat,
@@ -100,6 +102,9 @@ type Spel = {
   wisselKaart(id: string): boolean;
   /** een programma in het Beleidshuis stopzetten of weer aanzetten */
   wisselProgramma(id: string): boolean;
+  /** een eigen voorstel toevoegen (met eigen bedrag) of weghalen */
+  voegEigenToe(v: Omit<EigenVoorstel, 'id'>): boolean;
+  verwijderEigen(id: string): boolean;
   zetReserve(reserve: { structureel: number; eenmalig: number }): boolean;
   zetScenario(s: Scenario): void;
   kiesGebouw(id?: string): void;
@@ -346,6 +351,25 @@ export const useSpel = create<Spel>((set, get) => {
         wisselProgramma(data, k, id),
         data.gebouwen.find((g) => g.soort === 'beleidshuis')?.id,
       );
+    },
+    voegEigenToe(v) {
+      const { keuzes: k, data } = get();
+      if (!data) return false;
+      const lijst = k.eigen ?? [];
+      if (lijst.length >= EIGEN.max) {
+        set({ melding: `Je kunt hooguit ${EIGEN.max} eigen voorstellen maken.` });
+        return false;
+      }
+      const id = `e${Date.now().toString(36)}`;
+      return get().probeer({ ...k, eigen: [...lijst, { ...v, id }] }, v.plek);
+    },
+    verwijderEigen(id) {
+      const { keuzes: k } = get();
+      const eigen = (k.eigen ?? []).filter((x) => x.id !== id);
+      const uit: Keuzes = { ...k, eigen };
+      if (!eigen.length) delete uit.eigen;
+      const plek = k.eigen?.find((x) => x.id === id)?.plek;
+      return get().probeer(uit, plek);
     },
     zetReserve(reserve) {
       const k = get().keuzes;

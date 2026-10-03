@@ -6,7 +6,7 @@
  * Bedragen in euro's; + is gunstig voor de gemeente. In de tabellen staan ze als positieve bedragen
  * in de tabel waar ze horen (ombuigingen en opbrengsten, of uitgaven).
  */
-import { formatPct, parkeerPostVan, type Data, type Resultaat } from '../../engine';
+import { EIGEN_PREFIX, formatPct, parkeerPostVan, type Data, type Resultaat } from '../../engine';
 import type { Zekerheid } from '../../engine/schema';
 import { personaZinnen, themaVan } from '../score';
 import type { Meta } from '../state/store';
@@ -27,11 +27,17 @@ export type Regel = {
   kettingeffect: boolean;
 };
 
-export type ThemaGroep = { thema: string; regels: Regel[] };
+/** Een kopje in een hoofdstuk (zoals "Werken moet lonen"), met de maatregelen eronder. */
+export type ThemaGroep = { thema: string; intro: string; regels: Regel[] };
+
+/** De vaste teksten van het document (spel/teksten.json, onderdeel document). */
+export type DocumentTeksten = Data['teksten']['document'];
 
 export type TabelRij = { omschrijving: string; bedrag: number; soort: 'S' | 'I'; aanname: boolean };
 
 export type Tegenbegroting = {
+  /** de vaste teksten: slogan, hoofdstukken en hun inleidingen */
+  teksten: DocumentTeksten;
   titel: string;
   naam: string;
   begrotingsjaar: number;
@@ -63,7 +69,8 @@ export type Tegenbegroting = {
   aanname: string;
 };
 
-export const STANDAARD_TITEL = 'Mijn tegenbegroting';
+/** Zonder eigen titel: de slogan van de tegenbegroting van VVD Groningen. */
+export const STANDAARD_TITEL = 'Het kan en moet anders.';
 
 const nlMln = (euro: number) =>
   (Math.abs(euro) / 1e6).toLocaleString('nl-NL', {
@@ -136,6 +143,16 @@ export function maakTegenbegroting(data: Data, r: Resultaat, meta: Meta): Tegenb
         wijziging: kaart.structureel_of_incidenteel === 'S' ? 'elk jaar' : 'eenmalig',
         toelichting: kaart.uitleg,
       };
+    } else if (id.startsWith(EIGEN_PREFIX)) {
+      const v = k.eigen?.find((x) => `${EIGEN_PREFIX}${x.id}` === id);
+      info = {
+        naam: v?.naam ?? 'Eigen voorstel',
+        wijziging: item.soort === 'S' ? 'elk jaar' : 'eenmalig',
+        toelichting:
+          v?.plek === 'veiling'
+            ? 'Eigen voorstel: de gemeente verkoopt dit. Het bedrag is een eigen schatting.'
+            : 'Eigen voorstel: de gemeente doet dit niet meer. Het bedrag is een eigen schatting.',
+      };
     } else if (id === 'reserve') {
       info = {
         naam: 'Geld in de reserve storten',
@@ -167,18 +184,33 @@ export function maakTegenbegroting(data: Data, r: Resultaat, meta: Meta): Tegenb
 
   const opBedrag = (a: Regel, b: Regel) =>
     Math.abs(b.bedrag) - Math.abs(a.bedrag) || a.naam.localeCompare(b.naam);
-  const groepeer = (lijst: Regel[]): ThemaGroep[] => {
-    const m = new Map<string, Regel[]>();
-    for (const x of [...lijst].sort(opBedrag)) m.set(x.thema, [...(m.get(x.thema) ?? []), x]);
-    return [...m]
-      .map(([thema, rs]) => ({ thema, regels: rs }))
-      .sort((a, b) => a.thema.localeCompare(b.thema, 'nl'));
+  // De kopjes van het document (zoals "Werken moet lonen"): elk kopje noemt zijn thema's; het
+  // laatste kopje van een hoofdstuk krijgt de rest.
+  const doc = data.teksten.document;
+  const groepeer = (lijst: Regel[], kopjes: DocumentTeksten['besparingen']['kopjes']) => {
+    const plek = (thema: string) => {
+      const i = kopjes.findIndex((kop) => kop.themas.includes(thema));
+      return i >= 0 ? i : kopjes.length - 1;
+    };
+    return kopjes
+      .map((kop, i) => ({
+        thema: kop.titel,
+        intro: kop.intro,
+        regels: [...lijst].filter((x) => plek(x.thema) === i).sort(opBedrag),
+      }))
+      .filter((g) => g.regels.length > 0);
   };
   const maatregelen = regels.filter((x) => !x.kettingeffect);
   // Een maatregel die pas later iets oplevert (bijvoorbeeld door een ingroeipad), telt naar het teken van het laatste jaar.
   const teken = (x: Regel) => (x.bedrag !== 0 ? x.bedrag : (x.perJaar.find((y) => y !== 0) ?? 0));
-  const besparingen = groepeer(maatregelen.filter((x) => teken(x) > 0));
-  const investeringen = groepeer(maatregelen.filter((x) => teken(x) < 0));
+  const besparingen = groepeer(
+    maatregelen.filter((x) => teken(x) > 0),
+    doc.besparingen.kopjes,
+  );
+  const investeringen = groepeer(
+    maatregelen.filter((x) => teken(x) < 0),
+    doc.investeringen.kopjes,
+  );
   const kettingeffecten = regels.filter((x) => x.kettingeffect).sort(opBedrag);
 
   // Financieel overzicht: eerste jaar, alle regels die in dat jaar iets doen
@@ -233,10 +265,11 @@ export function maakTegenbegroting(data: Data, r: Resultaat, meta: Meta): Tegenb
 
   const titel = meta.titel.trim() || STANDAARD_TITEL;
   return {
+    teksten: doc,
     titel,
     naam: meta.naam.trim(),
     begrotingsjaar: data.begroting.begrotingsjaar,
-    ondertitel: `Op de ontwerpbegroting ${data.begroting.begrotingsjaar} van de gemeente Groningen`,
+    ondertitel: `Ontwerpbegroting ${data.begroting.begrotingsjaar} Gemeente Groningen`,
     inleiding,
     besparingen,
     investeringen,
@@ -269,10 +302,13 @@ export function maakTegenbegroting(data: Data, r: Resultaat, meta: Meta): Tegenb
   };
 }
 
-/** Bedrag in miljoenen met drie decimalen, zoals in de tabellen van de fractie, met een echt minteken. */
+/**
+ * Bedrag in miljoenen zoals in de tabellen van de fractie (16,4 · 0,25 · 1,625): hooguit drie
+ * decimalen, zonder overbodige nullen, met een echt minteken.
+ */
 export const mlnTabel = (euro: number) =>
   (euro / 1e6)
-    .toLocaleString('nl-NL', { minimumFractionDigits: 3, maximumFractionDigits: 3 })
+    .toLocaleString('nl-NL', { minimumFractionDigits: 1, maximumFractionDigits: 3 })
     .replace('-', '−');
 
 /** Bestandsnaam op basis van de titel. */

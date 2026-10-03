@@ -4,6 +4,7 @@
  */
 import {
   bereken,
+  EIGEN_PREFIX,
   formatMln,
   formatPct,
   PARKEER_PREFIX,
@@ -230,6 +231,7 @@ export function gevoeligheid(
 export const THEMA_BELASTINGEN = 'Belastingen';
 export const THEMA_KAARTEN = 'Losse maatregelen';
 export const THEMA_OVERIG = 'Niet in de game';
+export const THEMA_EIGEN = 'Eigen voorstellen';
 
 export function themaVan(data: Data, id: string | null): string {
   if (!id) return THEMA_OVERIG;
@@ -237,6 +239,7 @@ export function themaVan(data: Data, id: string | null): string {
   if (o) return data.gebouwen.find((g) => g.id === o.gebouw)?.thema ?? THEMA_OVERIG;
   if (data.index.belastingen.has(id) || id.startsWith(PARKEER_PREFIX)) return THEMA_BELASTINGEN;
   if (data.index.kaarten.has(id)) return THEMA_KAARTEN;
+  if (id.startsWith(EIGEN_PREFIX)) return THEMA_EIGEN;
   return THEMA_OVERIG;
 }
 

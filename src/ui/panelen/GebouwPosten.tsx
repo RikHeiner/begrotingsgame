@@ -17,6 +17,7 @@ import { isGestopt, stilDoorMinimum } from '../../game/beleidshuis';
 import { gevolgVan } from '../../game/gevolg';
 import { huidigJaar, useSpel } from '../../game/state/store';
 import { Apparaat } from './Apparaat';
+import { EigenVoorstellen } from './EigenVoorstellen';
 import { Schuif } from './Schuif';
 
 function directBedrag(r: Resultaat, bron: string, jaar: number): number {
@@ -603,6 +604,7 @@ export function GebouwPosten({
             rente.
           </p>
           {lijst}
+          <EigenVoorstellen plek="veiling" resultaat={resultaat} />
         </>
       );
     return (
@@ -619,6 +621,7 @@ export function GebouwPosten({
             {lijst}
           </section>
         )}
+        <EigenVoorstellen plek="beleid" resultaat={resultaat} />
       </>
     );
   }

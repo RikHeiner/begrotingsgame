@@ -23,7 +23,14 @@ import {
   weerstandPerJaar,
 } from './regels';
 import type { Zekerheid } from './schema';
-import type { Effect, JaarResultaat, Keuzes, Melding, Resultaat } from './types';
+import {
+  EIGEN_PREFIX,
+  type Effect,
+  type JaarResultaat,
+  type Keuzes,
+  type Melding,
+  type Resultaat,
+} from './types';
 
 export const OVERIG = 'overig';
 
@@ -176,6 +183,23 @@ function directeEffecten(data: Data, keuzes: Keuzes): Effect[] {
     );
     if (p.zekerheid !== 'feit')
       for (const e of effecten) if (e.bron === id) e.zekerheid = p.zekerheid;
+  }
+
+  // Eigen voorstellen: het bedrag is een eigen schatting van de speler.
+  for (const v of keuzes.eigen ?? []) {
+    const bedrag = vanMln(v.bedrag_mln);
+    const voor = effecten.length;
+    voegToe(
+      {
+        bron: `${EIGEN_PREFIX}${v.id}`,
+        doel: `${EIGEN_PREFIX}${v.id}`,
+        soort: v.soort,
+        kant: v.plek === 'veiling' ? 'baten' : 'lasten',
+        uitleg: `Eigen voorstel "${v.naam}": ${v.soort === 'S' ? 'elk jaar' : 'eenmalig'} ${formatMln(bedrag)}. Het bedrag is een eigen schatting.`,
+      },
+      perJaar(jaren.length, (j) => (v.soort === 'S' ? bedrag : j === 0 ? bedrag : 0)),
+    );
+    for (const e of effecten.slice(voor)) e.zekerheid = 'aanname';
   }
 
   const rente = renteVoorInvesteringen(data);

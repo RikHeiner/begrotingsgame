@@ -60,3 +60,52 @@ test('indienen: geen "Wat betekent het voor mij?" op het eindscherm', async ({ p
   await expect(eind).toBeVisible();
   await expect(eind.getByRole('button', { name: /Wat betekent het voor mij/ })).toHaveCount(0);
 });
+
+test('zelf iets inbrengen in het Beleidshuis en het Veilinghuis, met een eigen bedrag', async ({
+  page,
+}) => {
+  await page.goto('/');
+  let paneel = await open(page, 'beleid');
+  const beleid = paneel.getByTestId('eigen-beleid');
+  const voor = await page.getByTestId('saldo').textContent();
+  await beleid
+    .getByLabel('Wat hoeft de gemeente niet meer te doen?')
+    .fill('Stoppen met het magazine');
+  await beleid.getByLabel(/Dat scheelt/).fill('0,4');
+  await beleid.getByRole('button', { name: 'Voeg toe' }).click();
+  await expect(beleid).toContainText('Stoppen met het magazine');
+  await expect(beleid).toContainText('eigen schatting');
+  await expect(page.getByTestId('saldo')).not.toHaveText(voor ?? '');
+  // Zonder bedrag kan niet.
+  await beleid.getByLabel('Wat hoeft de gemeente niet meer te doen?').fill('Iets anders');
+  await beleid.getByRole('button', { name: 'Voeg toe' }).click();
+  await expect(beleid.getByRole('alert')).toContainText('bedrag');
+  await paneel.getByRole('button', { name: 'Paneel sluiten' }).click();
+
+  paneel = await open(page, 'veiling');
+  const veiling = paneel.getByTestId('eigen-veiling');
+  await veiling.getByLabel('Wat kan de gemeente verkopen?').fill('Het oude pand aan de Kade');
+  await veiling.getByLabel(/Opbrengst/).fill('1,5');
+  await veiling.getByRole('button', { name: 'Voeg toe' }).click();
+  await expect(veiling).toContainText('eenmalig');
+  await veiling.getByRole('button', { name: 'Het oude pand aan de Kade weghalen' }).click();
+  await expect(veiling).not.toContainText('Het oude pand aan de Kade');
+});
+
+test('document in de opbouw van de tegenbegroting van VVD Groningen', async ({ page }) => {
+  await page.goto('/');
+  await page.getByTestId('indienen').click();
+  await page.getByTestId('maak-tegenbegroting').click();
+  const doc = page.getByTestId('document');
+  await expect(doc.getByRole('heading', { level: 1 })).toHaveText('Het kan en moet anders.');
+  await expect(doc).toContainText(
+    'Voor een veilige, ondernemende en financieel verstandige gemeente.',
+  );
+  for (const kop of ['Inhoudsopgave', 'Opgesteld door', 'Besparingen', 'Investeringen'])
+    await expect(doc.getByRole('heading', { level: 2, name: kop })).toBeVisible();
+  await expect(
+    doc.getByRole('heading', { name: 'Ombuigingen en opbrengsten (x1 miljoen)' }),
+  ).toBeVisible();
+  await expect(doc.getByRole('heading', { name: 'Uitgaven (x1 miljoen)' })).toBeVisible();
+  await expect(doc.locator('th', { hasText: 'Structureel/incidenteel' }).first()).toBeVisible();
+});

@@ -2,7 +2,7 @@
  * De tegenbegroting als document in de app, met export naar Word, PDF (printen) en afbeelding.
  * Word en de afbeelding worden pas gemaakt als de speler op de knop drukt.
  */
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { formatMln, type Data, type Resultaat } from '../../engine';
 import { maakLink } from '../../game/deellink';
 import { sterren } from '../../game/score';
@@ -17,50 +17,66 @@ import {
 
 const tabelGetal = mlnTabel;
 
+/** De beelden van de huisstijl (public/huisstijl), ook als de site in een submap staat. */
+const beeld = (naam: string) => `${import.meta.env.BASE_URL}huisstijl/${naam}`;
+
+/** Het oranje-blauwe pijltje voor elke hoofdkop, zoals in de tegenbegroting van de fractie. */
+function Kop1({ children, id }: { children: ReactNode; id?: string }) {
+  return (
+    <h2 className="doc-kop1" id={id}>
+      <img src={beeld('pijltje.png')} alt="" width={20} height={23} />
+      {children}
+    </h2>
+  );
+}
+
+/** Een tussenblad: een foto over de hele pagina, met de titel van het hoofdstuk in een pijl. */
+function Tussenblad({ titel, foto }: { titel: string; foto: string }) {
+  return (
+    <section className="doc-blad doc-tussenblad" aria-hidden="true">
+      <img className="doc-tussenblad-foto" src={beeld(foto)} alt="" />
+      <span className="doc-tussenblad-pijl">
+        <span>{titel}</span>
+      </span>
+    </section>
+  );
+}
+
 function Maatregelen({ groepen, leeg }: { groepen: ThemaGroep[]; leeg: string }) {
   if (!groepen.length) return <p>{leeg}</p>;
   return (
     <>
       {groepen.map((g) => (
-        <section key={g.thema}>
-          <h3>{g.thema}</h3>
-          <ul className="doc-maatregelen">
-            {g.regels.map((r) => (
-              <li key={r.id}>
-                <strong>
-                  {r.naam}
-                  {r.wijziging ? ` (${r.wijziging})` : ''}.
-                </strong>{' '}
-                {r.toelichting}
-              </li>
-            ))}
-          </ul>
+        <section key={g.thema} className="doc-kopje">
+          <h3 className="doc-kop2">{g.thema}</h3>
+          <p>{g.intro}</p>
+          {g.regels.map((r) => (
+            <p key={r.id} className="doc-punt">
+              <span className="doc-pijl" aria-hidden="true">
+                ▶
+              </span>
+              <strong>
+                {r.zekerheid !== 'feit' ? '⚠︎ ' : ''}
+                {r.naam}
+                {r.wijziging ? ` (${r.wijziging})` : ''}.
+              </strong>{' '}
+              {r.toelichting}
+            </p>
+          ))}
         </section>
       ))}
     </>
   );
 }
 
-function GeldTabel({
-  titel,
-  rijen,
-  jaar,
-  s,
-  i,
-}: {
-  titel: string;
-  rijen: TabelRij[];
-  jaar: number;
-  s: number;
-  i: number;
-}) {
+function GeldTabel({ rijen, jaar, totaal }: { rijen: TabelRij[]; jaar: number; totaal: number }) {
   return (
     <table className="doc-tabel">
       <thead>
         <tr>
-          <th scope="col">{titel}</th>
+          <th scope="col">Omschrijving</th>
           <th scope="col">{jaar}</th>
-          <th scope="col">S/I</th>
+          <th scope="col">Structureel/incidenteel</th>
         </tr>
       </thead>
       <tbody>
@@ -77,18 +93,8 @@ function GeldTabel({
       </tbody>
       <tfoot>
         <tr>
-          <th scope="row">Totaal structureel</th>
-          <td>{tabelGetal(s)}</td>
-          <td>S</td>
-        </tr>
-        <tr>
-          <th scope="row">Totaal incidenteel</th>
-          <td>{tabelGetal(i)}</td>
-          <td>I</td>
-        </tr>
-        <tr>
           <th scope="row">Totaal</th>
-          <td>{tabelGetal(s + i)}</td>
+          <td>{tabelGetal(totaal)}</td>
           <td />
         </tr>
       </tfoot>
@@ -104,6 +110,7 @@ export function Documentweergave({ data, resultaat }: { data: Data; resultaat: R
   const tb = useMemo(() => maakTegenbegroting(data, resultaat, meta), [data, resultaat, meta]);
   const f = tb.financieel;
   const t = f.totalen;
+  const d = tb.teksten;
 
   useEffect(() => {
     kop.current?.focus();
@@ -113,12 +120,30 @@ export function Documentweergave({ data, resultaat }: { data: Data; resultaat: R
   const word = async () => {
     setStatus('Het Word-bestand wordt gemaakt…');
     try {
-      const [{ maakWord }, { Packer }, { download }] = await Promise.all([
+      const [{ maakWord, BEELD_BESTANDEN: B }, { Packer }, { download }] = await Promise.all([
         import('../../game/tegenbegroting/word'),
         import('docx'),
         import('./afbeelding'),
       ]);
-      download(await Packer.toBlob(maakWord(tb)), bestandsnaam(tb.titel, 'docx'));
+      // De foto's en pijlen van de huisstijl; lukt dat niet, dan een Word-bestand zonder beelden.
+      const haal = async (naam: string) =>
+        new Uint8Array(await (await fetch(beeld(naam))).arrayBuffer());
+      const beelden = await Promise.all([
+        haal(B.pijltje),
+        haal(B.pijl),
+        Promise.all(B.voorblad.map(haal)),
+        haal(B.tussenbladen.besparingen),
+        haal(B.tussenbladen.investeringen),
+        haal(B.tussenbladen.financieel),
+      ])
+        .then(([pijltje, pijl, voorblad, besparingen, investeringen, financieel]) => ({
+          pijltje,
+          pijl,
+          voorblad,
+          tussenbladen: { besparingen, investeringen, financieel },
+        }))
+        .catch(() => undefined);
+      download(await Packer.toBlob(maakWord(tb, beelden)), bestandsnaam(tb.titel, 'docx'));
       setStatus('Het Word-bestand is gedownload.');
     } catch {
       setStatus('Het Word-bestand kon niet worden gemaakt.');
@@ -171,118 +196,153 @@ export function Documentweergave({ data, resultaat }: { data: Data; resultaat: R
         </p>
       </div>
       <article className="document" data-testid="document">
-        <header className="doc-voorblad">
-          <p className="doc-soort">Tegenbegroting</p>
-          <h1 ref={kop} tabIndex={-1}>
-            {tb.titel}
-          </h1>
-          <p>{tb.ondertitel}</p>
-          {tb.naam && <p className="doc-naam">{tb.naam}</p>}
-        </header>
-
-        <h2>Inleiding</h2>
-        {tb.inleiding.map((x) => (
-          <p key={x}>{x}</p>
-        ))}
-
-        <h2>Besparingen en opbrengsten</h2>
-        <Maatregelen groepen={tb.besparingen} leeg="Geen besparingen." />
-
-        <h2>Investeringen en lastenverlichting</h2>
-        <Maatregelen groepen={tb.investeringen} leeg="Geen investeringen." />
-
-        <h2>Kettingeffecten</h2>
-        {tb.kettingeffecten.length ? (
-          <>
-            <p className="klein">
-              ⚠︎ Deze bedragen zijn aannames of spelregels, geen getallen uit de begroting.
+        {/* 1. Voorblad */}
+        <section className="doc-blad doc-voorblad">
+          <div className="doc-voorblad-boven">
+            <h1 ref={kop} tabIndex={-1}>
+              {tb.titel}
+            </h1>
+            <p className="doc-slogan">{d.ondertitel}</p>
+          </div>
+          <div className="doc-pijlen" aria-hidden="true">
+            <img src={beeld('pijl.png')} alt="" />
+            <img src={beeld('voorblad-straat.png')} alt="" />
+            <img src={beeld('voorblad-sportcentrum.png')} alt="" />
+            <img src={beeld('voorblad-martinitoren.png')} alt="" />
+          </div>
+          <div className="doc-voorblad-onder">
+            <p className="doc-soort">
+              {d.soort}
+              {tb.naam ? ` ${tb.naam}` : ''}
             </p>
-            <ul className="doc-maatregelen">
+            <p className="doc-onder">{tb.ondertitel}</p>
+          </div>
+        </section>
+
+        {/* 2. Inhoudsopgave en wie het opstelde */}
+        <section className="doc-blad">
+          <Kop1>Inhoudsopgave</Kop1>
+          <ol className="doc-inhoud">
+            <li>{d.besparingen.titel}</li>
+            <li>{d.investeringen.titel}</li>
+            <li>{d.financieel.titel}</li>
+          </ol>
+          <Kop1>{d.opgesteld_door}</Kop1>
+          {tb.naam && <p className="doc-naam">{tb.naam}</p>}
+          <p>{d.makers}</p>
+        </section>
+
+        {/* 3. Besparingen */}
+        <Tussenblad titel={d.besparingen.titel} foto="tussenblad-besparingen.jpg" />
+        <section className="doc-blad">
+          <Kop1>{d.besparingen.titel}</Kop1>
+          <p>{d.besparingen.intro}</p>
+          <Maatregelen groepen={tb.besparingen} leeg="Geen besparingen." />
+        </section>
+
+        {/* 4. Investeringen */}
+        <Tussenblad titel={d.investeringen.titel} foto="tussenblad-investeringen.jpg" />
+        <section className="doc-blad">
+          <Kop1>{d.investeringen.titel}</Kop1>
+          <p>{d.investeringen.intro}</p>
+          <Maatregelen groepen={tb.investeringen} leeg="Geen investeringen." />
+          {tb.ideeen && (
+            <section className="doc-kopje">
+              <h3 className="doc-kop2">Mijn eigen ideeën</h3>
+              {tb.ideeen.split(/\n+/).map((x) => (
+                <p key={x}>{x}</p>
+              ))}
+            </section>
+          )}
+        </section>
+
+        {/* 5. Financieel overzicht */}
+        <Tussenblad titel={d.financieel.titel} foto="tussenblad-financieel.jpg" />
+        <section className="doc-blad">
+          <Kop1>{d.financieel.titel}</Kop1>
+          <p>{d.financieel.intro}</p>
+          {tb.inleiding.map((x) => (
+            <p key={x}>{x}</p>
+          ))}
+          <div className="doc-scroll">
+            <h3 className="doc-kop2">Ombuigingen en opbrengsten (x1 miljoen)</h3>
+            <GeldTabel
+              rijen={f.ombuigingen}
+              jaar={f.jaar}
+              totaal={t.ombuigingenS + t.ombuigingenI}
+            />
+            <h3 className="doc-kop2">Uitgaven (x1 miljoen)</h3>
+            <GeldTabel rijen={f.uitgaven} jaar={f.jaar} totaal={t.uitgavenS + t.uitgavenI} />
+            <h3 className="doc-kop2">Saldo (x1 miljoen)</h3>
+            <table className="doc-tabel">
+              <tbody>
+                <tr>
+                  <th scope="row">Structureel (elk jaar)</th>
+                  <td data-testid="doc-saldo-s">{tabelGetal(t.saldoS)}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Incidenteel (eenmalig)</th>
+                  <td>{tabelGetal(t.saldoI)}</td>
+                </tr>
+              </tbody>
+            </table>
+            <h3 className="doc-kop2">Meerjarig (x1 miljoen)</h3>
+            <table className="doc-tabel">
+              <thead>
+                <tr>
+                  <th scope="col">Saldo</th>
+                  {f.meerjarig.map((m) => (
+                    <th scope="col" key={m.jaar}>
+                      {m.jaar}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Structureel</th>
+                  {f.meerjarig.map((m) => (
+                    <td key={m.jaar}>{tabelGetal(m.structureel)}</td>
+                  ))}
+                </tr>
+                <tr>
+                  <th scope="row">Incidenteel</th>
+                  {f.meerjarig.map((m) => (
+                    <td key={m.jaar}>{tabelGetal(m.incidenteel)}</td>
+                  ))}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          {tb.kettingeffecten.length > 0 && (
+            <section className="doc-kopje">
+              <h3 className="doc-kop2">Kettingeffecten</h3>
+              <p className="klein">
+                ⚠︎ Deze bedragen zijn aannames of spelregels, geen getallen uit de begroting.
+              </p>
               {tb.kettingeffecten.map((r) => (
-                <li key={r.id}>
+                <p key={r.id} className="doc-punt">
+                  <span className="doc-pijl" aria-hidden="true">
+                    ▶
+                  </span>
                   <strong>⚠︎ {r.naam}.</strong> {r.toelichting}
-                </li>
+                </p>
+              ))}
+            </section>
+          )}
+          <section className="doc-kopje doc-bronnen-blok">
+            <h3 className="doc-kop2">Bronnen en uitleg</h3>
+            <p className="klein">{tb.aanname}</p>
+            <ul className="doc-bronnen">
+              {tb.bronnen.map((b) => (
+                <li key={b}>{b}</li>
               ))}
             </ul>
-          </>
-        ) : (
-          <p>Geen kettingeffecten.</p>
-        )}
-
-        <h2>Mijn eigen ideeën</h2>
-        {tb.ideeen ? (
-          tb.ideeen.split(/\n+/).map((x) => <p key={x}>{x}</p>)
-        ) : (
-          <p>Geen eigen ideeën ingevuld.</p>
-        )}
-
-        <h2>Financieel overzicht</h2>
-        <div className="doc-scroll">
-          <GeldTabel
-            titel="Ombuigingen en opbrengsten (x € 1 miljoen)"
-            rijen={f.ombuigingen}
-            jaar={f.jaar}
-            s={t.ombuigingenS}
-            i={t.ombuigingenI}
-          />
-          <GeldTabel
-            titel="Uitgaven (x € 1 miljoen)"
-            rijen={f.uitgaven}
-            jaar={f.jaar}
-            s={t.uitgavenS}
-            i={t.uitgavenI}
-          />
-          <table className="doc-tabel">
-            <tbody>
-              <tr>
-                <th scope="row">Saldo structureel</th>
-                <td data-testid="doc-saldo-s">{tabelGetal(t.saldoS)}</td>
-              </tr>
-              <tr>
-                <th scope="row">Saldo eenmalig</th>
-                <td>{tabelGetal(t.saldoI)}</td>
-              </tr>
-            </tbody>
-          </table>
-          <h3>Meerjarig</h3>
-          <table className="doc-tabel">
-            <thead>
-              <tr>
-                <th scope="col">Saldo (x € 1 miljoen)</th>
-                {f.meerjarig.map((m) => (
-                  <th scope="col" key={m.jaar}>
-                    {m.jaar}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">Structureel</th>
-                {f.meerjarig.map((m) => (
-                  <td key={m.jaar}>{tabelGetal(m.structureel)}</td>
-                ))}
-              </tr>
-              <tr>
-                <th scope="row">Eenmalig</th>
-                {f.meerjarig.map((m) => (
-                  <td key={m.jaar}>{tabelGetal(m.incidenteel)}</td>
-                ))}
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h2>Bronnen en uitleg</h2>
-        <p>{tb.aanname}</p>
-        <ul className="doc-bronnen">
-          {tb.bronnen.map((b) => (
-            <li key={b}>{b}</li>
-          ))}
-        </ul>
-        <p className="klein geen-print">
-          Saldo in de HUD: {formatMln(t.saldoS, { teken: true })} per jaar.
-        </p>
+          </section>
+          <p className="klein geen-print">
+            Saldo in de HUD: {formatMln(t.saldoS, { teken: true })} per jaar.
+          </p>
+        </section>
       </article>
     </div>
   );

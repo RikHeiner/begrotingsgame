@@ -173,7 +173,7 @@ export default defineConfig({
         skipWaiting: true,
         navigateFallbackDenylist: [/^\/data\//, /^\/dashboard/],
         // Het dashboard hoort niet bij de offline-versie van de game.
-        globIgnores: ['dashboard.html', 'og-afbeelding.png'],
+        globIgnores: ['dashboard.html', 'og-afbeelding.png', 'huisstijl/**'],
       },
     }),
   ],

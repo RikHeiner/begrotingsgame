@@ -1,13 +1,15 @@
 /**
- * Word-export (.docx) van de tegenbegroting, met echte koppen en tabellen: oranje koppen en een
- * blauwe titel, zoals de tegenbegroting van de fractie. Wordt in de browser pas geladen als de speler
- * op de knop drukt; werkt ook in Node (voor de tests).
+ * Word-export (.docx) van de tegenbegroting, in de huisstijl en opbouw van de tegenbegroting van VVD
+ * Groningen ('Het kan en moet anders'): voorblad met de pijlen, inhoudsopgave, tussenbladen met een
+ * foto, Besparingen en Investeringen met kopjes en ▶-punten, en het financieel overzicht met twee
+ * tabellen (x1 miljoen). Wordt in de browser pas geladen als de speler op de knop drukt; werkt ook in
+ * Node zonder beelden (voor de tests).
  */
 import {
   AlignmentType,
   BorderStyle,
   Document,
-  HeadingLevel,
+  ImageRun,
   PageBreak,
   Paragraph,
   ShadingType,
@@ -19,115 +21,178 @@ import {
 } from 'docx';
 import { mlnTabel, type TabelRij, type Tegenbegroting, type ThemaGroep } from './document';
 
-const BLAUW = '1233C4';
-const ORANJE = 'FF6A00';
-const INKT = '15193A';
-const LETTER = 'Calibri';
+const BLAUW = '0A2CCA';
+const ORANJE = 'FF6400';
+const ORANJE_TEKST = 'C44D00';
+const INKT = '242424';
+const LETTER = 'Lucida Sans Unicode';
+const KOPLETTER = 'Trebuchet MS';
 
-const p = (tekst: string, opties: { vet?: boolean; klein?: boolean; cursief?: boolean } = {}) =>
+/** De beelden van de huisstijl (public/huisstijl), als ze er zijn. */
+export type Beelden = {
+  pijltje: Uint8Array;
+  pijl: Uint8Array;
+  voorblad: Uint8Array[];
+  tussenbladen: { besparingen: Uint8Array; investeringen: Uint8Array; financieel: Uint8Array };
+};
+
+/** Bestandsnamen in public/huisstijl, voor het ophalen in de browser. */
+export const BEELD_BESTANDEN = {
+  pijltje: 'pijltje.png',
+  pijl: 'pijl.png',
+  voorblad: ['voorblad-straat.png', 'voorblad-sportcentrum.png', 'voorblad-martinitoren.png'],
+  tussenbladen: {
+    besparingen: 'tussenblad-besparingen.jpg',
+    investeringen: 'tussenblad-investeringen.jpg',
+    financieel: 'tussenblad-financieel.jpg',
+  },
+} as const;
+
+const run = (
+  tekst: string,
+  o: { vet?: boolean; kleur?: string; grootte?: number; letter?: string; cursief?: boolean } = {},
+) =>
+  new TextRun({
+    text: tekst,
+    bold: o.vet,
+    italics: o.cursief,
+    color: o.kleur ?? INKT,
+    size: o.grootte ?? 21,
+    font: o.letter ?? LETTER,
+  });
+
+const p = (tekst: string, o: { klein?: boolean; cursief?: boolean; vet?: boolean } = {}) =>
   new Paragraph({
-    spacing: { after: 120 },
+    spacing: { after: 160, line: 300 },
     children: [
-      new TextRun({
-        text: tekst,
-        bold: opties.vet,
-        italics: opties.cursief,
-        size: opties.klein ? 18 : 22,
-        font: LETTER,
-        color: INKT,
+      run(tekst, {
+        grootte: o.klein ? 17 : 21,
+        cursief: o.cursief,
+        vet: o.vet,
+        kleur: o.klein ? '4B5070' : INKT,
       }),
     ],
   });
 
-const kop = (tekst: string, niveau: 1 | 2 = 1) =>
+const paginaEinde = () => new Paragraph({ children: [new PageBreak()] });
+
+/** Kop 1: het oranje-blauwe pijltje en de titel in VVD-blauw, groot. */
+const kop1 = (tekst: string, b?: Beelden) =>
   new Paragraph({
-    heading: niveau === 1 ? HeadingLevel.HEADING_1 : HeadingLevel.HEADING_2,
-    spacing: { before: niveau === 1 ? 360 : 240, after: 120 },
+    spacing: { before: 240, after: 240 },
+    keepNext: true,
     children: [
-      new TextRun({
-        text: tekst,
-        bold: true,
-        color: niveau === 1 ? ORANJE : BLAUW,
-        size: niveau === 1 ? 32 : 26,
-        font: LETTER,
-      }),
+      ...(b
+        ? [
+            new ImageRun({
+              type: 'png',
+              data: b.pijltje,
+              transformation: { width: 26, height: 30 },
+              altText: { name: 'pijltje', description: '', title: '' },
+            }),
+            run('  ', { grootte: 60 }),
+          ]
+        : []),
+      run(tekst, { vet: true, kleur: BLAUW, grootte: 60, letter: KOPLETTER }),
     ],
   });
 
-const rand = { style: BorderStyle.SINGLE, size: 4, color: 'B8BCD8' };
-const randen = { top: rand, bottom: rand, left: rand, right: rand };
+/** Kop 2: oranje. */
+const kop2 = (tekst: string) =>
+  new Paragraph({
+    spacing: { before: 280, after: 120 },
+    keepNext: true,
+    children: [run(tekst, { vet: true, kleur: ORANJE_TEKST, grootte: 28, letter: KOPLETTER })],
+  });
+
+/** Een maatregel: ▶ Titel. Toelichting */
+const punt = (titel: string, toelichting: string) =>
+  new Paragraph({
+    spacing: { after: 140, line: 300 },
+    indent: { left: 360, hanging: 360 },
+    children: [
+      run('▶\t', { kleur: ORANJE }),
+      run(titel, { vet: true }),
+      run(toelichting ? ` ${toelichting}` : ''),
+    ],
+  });
+
+function maatregelen(groepen: ThemaGroep[], leeg: string): Paragraph[] {
+  if (!groepen.length) return [p(leeg)];
+  return groepen.flatMap((g) => [
+    kop2(g.thema),
+    p(g.intro),
+    ...g.regels.map((r) =>
+      punt(
+        `${r.zekerheid !== 'feit' ? '⚠︎ ' : ''}${r.naam}${r.wijziging ? ` (${r.wijziging})` : ''}.`,
+        r.toelichting,
+      ),
+    ),
+  ]);
+}
+
+const rand = { style: BorderStyle.SINGLE, size: 4, color: 'C9CEE6' };
+const geen = { style: BorderStyle.NONE, size: 0, color: 'FFFFFF' };
+const randen = { top: geen, bottom: rand, left: geen, right: geen };
 
 function cel(
   tekst: string,
-  opties: { vet?: boolean; rechts?: boolean; kop?: boolean; breedte?: number } = {},
+  o: {
+    vet?: boolean;
+    uitlijning?: 'links' | 'rechts' | 'midden';
+    kop?: boolean;
+    breedte?: number;
+  } = {},
 ) {
   return new TableCell({
     borders: randen,
-    ...(opties.breedte ? { width: { size: opties.breedte, type: WidthType.PERCENTAGE } } : {}),
-    ...(opties.kop ? { shading: { type: ShadingType.CLEAR, color: 'auto', fill: BLAUW } } : {}),
+    ...(o.breedte ? { width: { size: o.breedte, type: WidthType.PERCENTAGE } } : {}),
+    ...(o.kop ? { shading: { type: ShadingType.CLEAR, color: 'auto', fill: BLAUW } } : {}),
+    margins: { top: 60, bottom: 60, left: 100, right: 100 },
     children: [
       new Paragraph({
-        alignment: opties.rechts ? AlignmentType.RIGHT : AlignmentType.LEFT,
+        alignment:
+          o.uitlijning === 'rechts'
+            ? AlignmentType.RIGHT
+            : o.uitlijning === 'midden'
+              ? AlignmentType.CENTER
+              : AlignmentType.LEFT,
         children: [
-          new TextRun({
-            text: tekst,
-            bold: opties.vet || opties.kop,
-            color: opties.kop ? 'FFFFFF' : INKT,
-            size: 20,
-            font: LETTER,
-          }),
+          run(tekst, { vet: o.vet || o.kop, kleur: o.kop ? 'FFFFFF' : INKT, grootte: 19 }),
         ],
       }),
     ],
   });
 }
 
-function geldTabel(
-  titel: string,
-  rijen: TabelRij[],
-  jaar: number,
-  totaalS: number,
-  totaalI: number,
-): Table {
+/** De tabel van de fractie: Omschrijving | jaar | Structureel/incidenteel, met een totaal. */
+function geldTabel(rijen: TabelRij[], jaar: number, totaal: number): Table {
   return new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
     rows: [
       new TableRow({
         tableHeader: true,
         children: [
-          cel(titel, { kop: true, breedte: 70 }),
-          cel(String(jaar), { kop: true, rechts: true, breedte: 18 }),
-          cel('S/I', { kop: true, breedte: 12 }),
+          cel('Omschrijving', { kop: true, breedte: 64 }),
+          cel(String(jaar), { kop: true, uitlijning: 'rechts', breedte: 14 }),
+          cel('Structureel/incidenteel', { kop: true, uitlijning: 'midden', breedte: 22 }),
         ],
       }),
       ...rijen.map(
         (r) =>
           new TableRow({
+            cantSplit: true,
             children: [
               cel(`${r.aanname ? '⚠︎ ' : ''}${r.omschrijving}`),
-              cel(mlnTabel(r.bedrag), { rechts: true }),
-              cel(r.soort),
+              cel(mlnTabel(r.bedrag), { uitlijning: 'rechts' }),
+              cel(r.soort, { uitlijning: 'midden' }),
             ],
           }),
       ),
       new TableRow({
         children: [
-          cel('Totaal structureel', { vet: true }),
-          cel(mlnTabel(totaalS), { vet: true, rechts: true }),
-          cel('S', { vet: true }),
-        ],
-      }),
-      new TableRow({
-        children: [
-          cel('Totaal incidenteel', { vet: true }),
-          cel(mlnTabel(totaalI), { vet: true, rechts: true }),
-          cel('I', { vet: true }),
-        ],
-      }),
-      new TableRow({
-        children: [
           cel('Totaal', { vet: true }),
-          cel(mlnTabel(totaalS + totaalI), { vet: true, rechts: true }),
+          cel(mlnTabel(totaal), { vet: true, uitlijning: 'rechts' }),
           cel(''),
         ],
       }),
@@ -135,154 +200,178 @@ function geldTabel(
   });
 }
 
-function maatregelen(groepen: ThemaGroep[], leeg: string): Paragraph[] {
-  if (!groepen.length) return [p(leeg)];
-  return groepen.flatMap((g) => [
-    kop(g.thema, 2),
-    ...g.regels.map(
-      (r) =>
-        new Paragraph({
-          spacing: { after: 100 },
-          children: [
-            new TextRun({ text: '▶ ', color: ORANJE, font: LETTER, size: 22 }),
-            new TextRun({
-              text: `${r.naam}${r.wijziging ? ` (${r.wijziging})` : ''}.`,
-              bold: true,
-              font: LETTER,
-              size: 22,
-              color: INKT,
-            }),
-            new TextRun({
-              text: r.toelichting ? ` ${r.toelichting}` : '',
-              font: LETTER,
-              size: 22,
-              color: INKT,
-            }),
-          ],
-        }),
-    ),
-  ]);
+/** Een tussenblad: een foto (staand bijgesneden) en de titel in een oranje balk. */
+function tussenblad(titel: string, foto: Uint8Array | undefined): Paragraph[] {
+  return [
+    ...(foto
+      ? [
+          new Paragraph({
+            children: [
+              new ImageRun({
+                type: 'jpg',
+                data: foto,
+                transformation: { width: 600, height: 760 },
+                crop: { left: 22, right: 22, top: 0, bottom: 0 },
+                altText: { name: titel, description: '', title: '' },
+              }),
+            ],
+          }),
+        ]
+      : []),
+    new Paragraph({
+      spacing: { before: 120 },
+      shading: { type: ShadingType.CLEAR, color: 'auto', fill: ORANJE },
+      children: [run(` ${titel}`, { vet: true, kleur: 'FFFFFF', grootte: 64, letter: KOPLETTER })],
+    }),
+    paginaEinde(),
+  ];
 }
 
-export function maakWord(tb: Tegenbegroting): Document {
+export function maakWord(tb: Tegenbegroting, b?: Beelden): Document {
+  const d = tb.teksten;
   const f = tb.financieel;
   const t = f.totalen;
   const kinderen = [
     // 1. Voorblad
     new Paragraph({
-      spacing: { before: 2400, after: 200 },
-      children: [
-        new TextRun({ text: 'Tegenbegroting', bold: true, size: 64, color: ORANJE, font: LETTER }),
-      ],
+      spacing: { before: 600, after: 200 },
+      children: [run(tb.titel, { vet: true, kleur: BLAUW, grootte: 72, letter: KOPLETTER })],
     }),
     new Paragraph({
-      spacing: { after: 200 },
-      children: [new TextRun({ text: tb.titel, bold: true, size: 48, color: BLAUW, font: LETTER })],
+      spacing: { after: 480 },
+      children: [run(d.ondertitel, { vet: true, kleur: ORANJE_TEKST, grootte: 28 })],
     }),
-    p(tb.ondertitel),
-    ...(tb.naam ? [p(tb.naam, { vet: true })] : []),
-    new Paragraph({ children: [new PageBreak()] }),
-    // 2. Inleiding
-    kop('Inleiding'),
-    ...tb.inleiding.map((x) => p(x)),
-    // 3 en 4. Maatregelen
-    kop('Besparingen en opbrengsten'),
-    ...maatregelen(tb.besparingen, 'Geen besparingen.'),
-    kop('Investeringen en lastenverlichting'),
-    ...maatregelen(tb.investeringen, 'Geen investeringen.'),
-    // 5. Kettingeffecten
-    kop('Kettingeffecten'),
-    ...(tb.kettingeffecten.length
+    ...(b
       ? [
-          p('⚠︎ Deze bedragen zijn aannames of spelregels, geen getallen uit de begroting.', {
-            cursief: true,
+          new Paragraph({
+            spacing: { after: 720 },
+            children: [b.pijl, ...b.voorblad].map(
+              (data, i) =>
+                new ImageRun({
+                  type: 'png',
+                  data,
+                  transformation: { width: i === 0 ? 132 : 150, height: i === 0 ? 150 : 177 },
+                  altText: { name: `voorblad ${i + 1}`, description: '', title: '' },
+                }),
+            ),
           }),
-          ...tb.kettingeffecten.map(
-            (r) =>
-              new Paragraph({
-                spacing: { after: 100 },
-                children: [
-                  new TextRun({ text: '▶ ', color: ORANJE, font: LETTER, size: 22 }),
-                  new TextRun({
-                    text: `⚠︎ ${r.naam}.`,
-                    bold: true,
-                    font: LETTER,
-                    size: 22,
-                    color: INKT,
-                  }),
-                  new TextRun({ text: ` ${r.toelichting}`, font: LETTER, size: 22, color: INKT }),
-                ],
-              }),
-          ),
         ]
-      : [p('Geen kettingeffecten.')]),
-    // 6. Eigen ideeën
-    kop('Mijn eigen ideeën'),
-    ...(tb.ideeen ? tb.ideeen.split(/\n+/).map((x) => p(x)) : [p('Geen eigen ideeën ingevuld.')]),
-    // 7. Financieel overzicht
-    kop('Financieel overzicht'),
-    geldTabel(
-      'Ombuigingen en opbrengsten (x € 1 miljoen)',
-      f.ombuigingen,
-      f.jaar,
-      t.ombuigingenS,
-      t.ombuigingenI,
+      : []),
+    new Paragraph({
+      spacing: { before: 1200 },
+      border: { top: { style: BorderStyle.SINGLE, size: 36, color: ORANJE, space: 12 } },
+      children: [
+        run(`${d.soort}${tb.naam ? ` ${tb.naam}` : ''}`, {
+          vet: true,
+          kleur: BLAUW,
+          grootte: 36,
+          letter: KOPLETTER,
+        }),
+      ],
+    }),
+    new Paragraph({ children: [run(tb.ondertitel, { vet: true, kleur: ORANJE_TEKST })] }),
+    paginaEinde(),
+    // 2. Inhoudsopgave en wie het opstelde
+    kop1('Inhoudsopgave', b),
+    ...[d.besparingen.titel, d.investeringen.titel, d.financieel.titel].map(
+      (x, i) =>
+        new Paragraph({
+          spacing: { after: 120 },
+          children: [run(`${i + 1}  `, { vet: true, kleur: ORANJE_TEKST }), run(x, { vet: true })],
+        }),
     ),
-    p(''),
-    geldTabel('Uitgaven (x € 1 miljoen)', f.uitgaven, f.jaar, t.uitgavenS, t.uitgavenI),
-    p(''),
+    kop1(d.opgesteld_door, b),
+    ...(tb.naam ? [p(tb.naam, { vet: true })] : []),
+    p(d.makers),
+    paginaEinde(),
+    // 3. Besparingen
+    ...tussenblad(d.besparingen.titel, b?.tussenbladen.besparingen),
+    kop1(d.besparingen.titel, b),
+    p(d.besparingen.intro),
+    ...maatregelen(tb.besparingen, 'Geen besparingen.'),
+    paginaEinde(),
+    // 4. Investeringen
+    ...tussenblad(d.investeringen.titel, b?.tussenbladen.investeringen),
+    kop1(d.investeringen.titel, b),
+    p(d.investeringen.intro),
+    ...maatregelen(tb.investeringen, 'Geen investeringen.'),
+    ...(tb.ideeen ? [kop2('Mijn eigen ideeën'), ...tb.ideeen.split(/\n+/).map((x) => p(x))] : []),
+    paginaEinde(),
+    // 5. Financieel overzicht
+    ...tussenblad(d.financieel.titel, b?.tussenbladen.financieel),
+    kop1(d.financieel.titel, b),
+    p(d.financieel.intro),
+    ...tb.inleiding.map((x) => p(x)),
+    kop2('Ombuigingen en opbrengsten (x1 miljoen)'),
+    geldTabel(f.ombuigingen, f.jaar, t.ombuigingenS + t.ombuigingenI),
+    kop2('Uitgaven (x1 miljoen)'),
+    geldTabel(f.uitgaven, f.jaar, t.uitgavenS + t.uitgavenI),
+    kop2('Saldo (x1 miljoen)'),
     new Table({
       width: { size: 100, type: WidthType.PERCENTAGE },
       rows: [
         new TableRow({
           children: [
-            cel('Saldo structureel', { vet: true, breedte: 70 }),
-            cel(mlnTabel(t.saldoS), { vet: true, rechts: true, breedte: 30 }),
+            cel('Structureel (elk jaar)', { vet: true, breedte: 78 }),
+            cel(mlnTabel(t.saldoS), { vet: true, uitlijning: 'rechts', breedte: 22 }),
           ],
         }),
         new TableRow({
           children: [
-            cel('Saldo eenmalig', { vet: true }),
-            cel(mlnTabel(t.saldoI), { vet: true, rechts: true }),
+            cel('Incidenteel (eenmalig)', { vet: true }),
+            cel(mlnTabel(t.saldoI), { vet: true, uitlijning: 'rechts' }),
           ],
         }),
       ],
     }),
-    kop('Meerjarig', 2),
+    kop2('Meerjarig (x1 miljoen)'),
     new Table({
       width: { size: 100, type: WidthType.PERCENTAGE },
       rows: [
         new TableRow({
           tableHeader: true,
           children: [
-            cel('Saldo (x € 1 miljoen)', { kop: true, breedte: 40 }),
-            ...f.meerjarig.map((m) => cel(String(m.jaar), { kop: true, rechts: true })),
+            cel('Saldo', { kop: true, breedte: 32 }),
+            ...f.meerjarig.map((m) => cel(String(m.jaar), { kop: true, uitlijning: 'rechts' })),
           ],
         }),
         new TableRow({
           children: [
             cel('Structureel'),
-            ...f.meerjarig.map((m) => cel(mlnTabel(m.structureel), { rechts: true })),
+            ...f.meerjarig.map((m) => cel(mlnTabel(m.structureel), { uitlijning: 'rechts' })),
           ],
         }),
         new TableRow({
           children: [
-            cel('Eenmalig'),
-            ...f.meerjarig.map((m) => cel(mlnTabel(m.incidenteel), { rechts: true })),
+            cel('Incidenteel'),
+            ...f.meerjarig.map((m) => cel(mlnTabel(m.incidenteel), { uitlijning: 'rechts' })),
           ],
         }),
       ],
     }),
-    // 9. Bronnen
-    kop('Bronnen en uitleg'),
-    p(tb.aanname),
-    ...tb.bronnen.map((b) => p(b, { klein: true })),
+    ...(tb.kettingeffecten.length
+      ? [
+          kop2('Kettingeffecten'),
+          p('⚠︎ Deze bedragen zijn aannames of spelregels, geen getallen uit de begroting.', {
+            klein: true,
+          }),
+          ...tb.kettingeffecten.map((r) => punt(`⚠︎ ${r.naam}.`, r.toelichting)),
+        ]
+      : []),
+    kop2('Bronnen en uitleg'),
+    p(tb.aanname, { klein: true }),
+    ...tb.bronnen.map((x) => p(x, { klein: true })),
   ];
   return new Document({
-    creator: 'Begrotingsgame gemeente Groningen',
-    title: `Tegenbegroting: ${tb.titel}`,
+    creator: 'Begrotingsgame van VVD Groningen',
+    title: `${d.soort}: ${tb.titel}`,
     description: tb.ondertitel,
-    styles: { default: { document: { run: { font: LETTER, size: 22, color: INKT } } } },
-    sections: [{ children: kinderen }],
+    styles: { default: { document: { run: { font: LETTER, size: 21, color: INKT } } } },
+    sections: [
+      {
+        properties: { page: { margin: { top: 1134, bottom: 1134, left: 1134, right: 1134 } } },
+        children: kinderen,
+      },
+    ],
   });
 }

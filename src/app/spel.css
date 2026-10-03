@@ -1679,7 +1679,12 @@
 }
 
 /* ---------- Tegenbegroting als document ---------- */
-/* Het document is altijd een wit vel papier, ook in donkere modus, zodat scherm en print gelijk zijn. */
+/*
+ * Huisstijl en opbouw van de tegenbegroting van VVD Groningen ('Het kan en moet anders'): VVD-blauw
+ * #0A2CCA, oranje #FF6400, tekst #242424, Lucida Sans, foto's in een pijlvorm, tussenbladen met een
+ * foto over de hele pagina. Het document is altijd wit papier, ook in donkere modus. Op het scherm
+ * staan de pagina's onder elkaar; bij afdrukken is elke pagina een A4.
+ */
 .document-scherm {
   min-height: 100dvh;
   padding: 0 16px 48px;
@@ -1706,77 +1711,215 @@
 }
 
 .document {
-  --doc-inkt: #15193a;
-  --doc-blauw: #1233c4;
-  --doc-oranje: #c24d00;
-  --doc-lijn: #b8bcd8;
+  --vvd-blauw: #0a2cca;
+  --vvd-oranje: #ff6400;
+  /* oranje voor tekst op wit: donkerder voor genoeg contrast */
+  --vvd-oranje-tekst: #c44d00;
+  --vvd-inkt: #242424;
+  --doc-lijn: #c9cee6;
   max-width: 820px;
   margin: 0 auto;
-  padding: clamp(20px, 5vw, 56px);
+  color: var(--vvd-inkt);
+  font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Asap, system-ui, sans-serif;
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+.doc-blad {
+  position: relative;
+  margin: 0 0 24px;
+  padding: clamp(24px, 6vw, 64px) clamp(20px, 6vw, 64px);
   background: #ffffff;
-  color: var(--doc-inkt);
-  border-radius: 8px;
+  border-radius: 4px;
   box-shadow: 0 2px 16px rgb(0 0 0 / 0.12);
-  line-height: 1.5;
+  overflow: hidden;
 }
 
 .document h1 {
-  margin: 0 0 8px;
-  color: var(--doc-blauw);
-  font-size: clamp(1.8rem, 6vw, 2.6rem);
-  line-height: 1.15;
+  margin: 0;
+  color: var(--vvd-blauw);
+  font-size: clamp(2.2rem, 8vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1.05;
 }
 
 .document h1:focus {
   outline: none;
 }
 
-.document h2 {
-  margin: 2em 0 0.5em;
-  color: var(--doc-oranje);
-  font-size: 1.45rem;
+.doc-kop1 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 0.6em;
+  color: var(--vvd-blauw);
+  font-size: clamp(1.8rem, 6vw, 2.6rem);
+  line-height: 1.1;
   break-after: avoid;
 }
 
-.document h3 {
-  margin: 1.2em 0 0.4em;
-  color: var(--doc-blauw);
-  font-size: 1.1rem;
+.doc-blad .doc-kop1:not(:first-child) {
+  margin-top: 1.4em;
+}
+
+.doc-kop1 img {
+  flex: none;
+  width: 0.62em;
+  height: auto;
+}
+
+.doc-kop2 {
+  margin: 1.6em 0 0.4em;
+  color: var(--vvd-oranje-tekst);
+  font-size: 1.25rem;
   break-after: avoid;
 }
 
 .document .klein {
   color: #4b5070;
+  font-size: 0.85rem;
 }
 
+/* Voorblad */
 .doc-voorblad {
-  padding-bottom: 24px;
-  border-bottom: 4px solid var(--doc-oranje);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  min-height: min(1100px, 140vw);
+}
+
+.doc-slogan {
+  margin: 0.6em 0 0;
+  color: var(--vvd-oranje-tekst);
+  font-size: clamp(1.05rem, 3.5vw, 1.35rem);
+  font-weight: 700;
+}
+
+.doc-pijlen {
+  position: relative;
+  height: clamp(180px, 46vw, 380px);
+  margin: 0 -8px;
+}
+
+/* Vier pijlen naast elkaar die elkaar overlappen, zoals op de voorkant van de fractie. */
+.doc-pijlen img {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: auto;
+}
+
+.doc-pijlen img:nth-child(1) {
+  left: 0;
+  height: 95%;
+  top: 5%;
+}
+
+.doc-pijlen img:nth-child(2) {
+  left: 18%;
+}
+
+.doc-pijlen img:nth-child(3) {
+  left: 41%;
+}
+
+.doc-pijlen img:nth-child(4) {
+  left: 64%;
+}
+
+.doc-voorblad-onder {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 6px solid var(--vvd-oranje);
 }
 
 .doc-soort {
   margin: 0;
-  color: var(--doc-oranje);
+  color: var(--vvd-blauw);
+  font-size: clamp(1.3rem, 4.5vw, 1.8rem);
   font-weight: 700;
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+}
+
+.doc-onder {
+  margin: 0.2em 0 0;
+  color: var(--vvd-oranje-tekst);
+  font-weight: 700;
+}
+
+/* Inhoudsopgave */
+.doc-inhoud {
+  margin: 0 0 1em;
+  padding: 0;
+  list-style: none;
+  counter-reset: hoofdstuk;
+}
+
+.doc-inhoud li {
+  counter-increment: hoofdstuk;
+  padding: 0.45em 0;
+  border-bottom: 1px solid var(--doc-lijn);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.doc-inhoud li::before {
+  content: counter(hoofdstuk) '  ';
+  color: var(--vvd-oranje-tekst);
 }
 
 .doc-naam {
+  font-size: 1.15rem;
   font-weight: 700;
 }
 
-.doc-maatregelen {
-  padding-left: 1.2em;
+/* Tussenblad: een foto over de hele pagina met de titel in een oranje pijl */
+.doc-tussenblad {
+  min-height: clamp(320px, 90vw, 1100px);
+  padding: 0;
+  background: var(--vvd-blauw);
 }
 
-.doc-maatregelen li {
-  margin-bottom: 0.5em;
+.doc-tussenblad-foto {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.doc-maatregelen li::marker {
-  color: var(--doc-oranje);
+.doc-tussenblad-pijl {
+  position: absolute;
+  left: 8%;
+  bottom: 10%;
+  display: flex;
+  align-items: center;
+  width: min(70%, 460px);
+  aspect-ratio: 1 / 1;
+  padding: 0 18% 0 8%;
+  /* Iets donkerder dan VVD-oranje: witte tekst heeft dan genoeg contrast (3:1). */
+  background: #e85a00;
+  clip-path: polygon(0 0, 62% 0, 100% 50%, 62% 100%, 0 100%);
+  box-shadow: 14px 14px 0 var(--vvd-blauw);
+}
+
+.doc-tussenblad-pijl span {
+  color: #ffffff;
+  font-size: clamp(1.6rem, 6vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+/* Maatregelen: ▶ Titel. Toelichting */
+.doc-punt {
+  position: relative;
+  margin: 0 0 0.7em;
+  padding-left: 1.4em;
+}
+
+.doc-pijl {
+  position: absolute;
+  left: 0;
+  color: var(--vvd-oranje);
 }
 
 .doc-scroll {
@@ -1785,37 +1928,52 @@
 
 .doc-tabel {
   width: 100%;
-  margin: 12px 0;
+  margin: 8px 0 12px;
   border-collapse: collapse;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   font-variant-numeric: tabular-nums;
+}
+
+.doc-tabel tr {
   break-inside: avoid;
+}
+
+/* Bedrag en S/I: smal en op één regel */
+.doc-tabel td:not(:first-child),
+.doc-tabel th:not(:first-child) {
+  width: 1%;
+  white-space: nowrap;
 }
 
 .doc-tabel th,
 .doc-tabel td {
   overflow-wrap: anywhere;
-  padding: 5px 8px;
-  border: 1px solid var(--doc-lijn);
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--doc-lijn);
   text-align: right;
   vertical-align: top;
 }
 
 .doc-tabel th:first-child,
-.doc-tabel td:first-child,
-.doc-tabel .links {
+.doc-tabel td:first-child {
   text-align: left;
 }
 
+.doc-tabel td:nth-child(3),
+.doc-tabel th:nth-child(3) {
+  text-align: center;
+}
+
 .doc-tabel thead th {
-  background: var(--doc-blauw);
+  background: var(--vvd-blauw);
   color: #ffffff;
 }
 
 .doc-tabel tfoot th,
 .doc-tabel tfoot td {
   font-weight: 700;
-  background: #eef0fb;
+  border-top: 2px solid var(--vvd-blauw);
+  background: #eef1fd;
 }
 
 .doc-tabel abbr {
@@ -1825,13 +1983,14 @@
 .doc-bronnen {
   padding-left: 1.2em;
   overflow-wrap: anywhere;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 @media print {
+  /* Geen marge van de printer: dan zet de browser er ook geen adres en datum bij. */
   @page {
     size: A4;
-    margin: 18mm 16mm;
+    margin: 0;
   }
 
   body {
@@ -1849,22 +2008,50 @@
 
   .document {
     max-width: none;
-    padding: 0;
-    box-shadow: none;
-    border-radius: 0;
-    font-size: 11pt;
+    font-size: 10.5pt;
   }
 
-  .doc-voorblad {
-    min-height: 60vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  .doc-blad {
+    margin: 0;
+    padding: 20mm 18mm;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
     break-after: page;
+    /* Loopt een hoofdstuk over meer pagina's, dan krijgt elke pagina dezelfde witruimte. */
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+
+  .doc-voorblad,
+  .doc-tussenblad {
+    height: 297mm;
+    min-height: 0;
+    overflow: hidden;
+    break-inside: avoid;
+  }
+
+  .doc-tussenblad {
+    padding: 0;
+  }
+
+  .doc-pijlen {
+    height: 95mm;
   }
 
   .doc-scroll {
     overflow: visible;
+  }
+
+  /* Het totaal alleen onder de tabel, niet op elke pagina. */
+  .doc-tabel tfoot {
+    display: table-row-group;
+  }
+
+  html,
+  .document-scherm,
+  .spel {
+    background: #ffffff !important;
   }
 
   .document * {
@@ -2541,4 +2728,79 @@
   display: grid;
   gap: 0.15rem;
   font-size: 0.85rem;
+}
+
+/* Eigen voorstellen in het Beleidshuis en het Veilinghuis */
+.eigen {
+  margin: 1.25rem 0 0.5rem;
+  padding: 0.75rem 0.9rem;
+  border: 2px dashed color-mix(in srgb, var(--blauw) 45%, transparent);
+  border-radius: 0.8rem;
+}
+
+.eigen h3 {
+  margin-top: 0;
+}
+
+.eigen-lijst {
+  list-style: none;
+  margin: 0 0 0.75rem;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.eigen-lijst li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.6rem;
+  background: color-mix(in srgb, var(--oranje) 12%, var(--paneel));
+}
+
+.eigen-form {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.eigen-form input[type='text'] {
+  min-height: 44px;
+  padding: 0 0.6rem;
+  border: 2px solid color-mix(in srgb, var(--inkt) 30%, transparent);
+  border-radius: 0.5rem;
+  font: inherit;
+}
+
+.eigen-rij {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.eigen-rij input[type='text'] {
+  width: 7rem;
+  text-align: right;
+}
+
+.eigen-soort {
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.eigen-soort label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-height: 44px;
+}
+
+.eigen-fout {
+  margin: 0;
+  color: var(--negatief);
+  font-weight: 700;
 }

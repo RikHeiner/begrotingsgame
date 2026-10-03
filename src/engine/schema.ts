@@ -574,6 +574,19 @@ export type BadgesData = z.infer<typeof badgesSchema>;
 
 // ---------- spel/teksten.json ----------
 
+const documentHoofdstuk = z
+  .object({
+    titel: z.string(),
+    intro: z.string(),
+    /** kopjes in de volgorde van het document; het laatste krijgt de thema's die nergens staan */
+    kopjes: z
+      .array(
+        z.object({ titel: z.string(), intro: z.string(), themas: z.array(z.string()) }).strict(),
+      )
+      .min(1),
+  })
+  .strict();
+
 export const tekstenSchema = z
   .object({
     toelichting: z.string(),
@@ -620,6 +633,20 @@ export const tekstenSchema = z
         privacy: z.array(z.string()).min(1),
         bedankt: z.string(),
         idee_waarschuwing: z.string(),
+      })
+      .strict(),
+    /** de tegenbegroting als document, in de huisstijl en opbouw van VVD Groningen */
+    document: z
+      .object({
+        toelichting: z.string(),
+        slogan: z.string(),
+        ondertitel: z.string(),
+        soort: z.string(),
+        opgesteld_door: z.string(),
+        makers: z.string(),
+        besparingen: documentHoofdstuk,
+        investeringen: documentHoofdstuk,
+        financieel: z.object({ titel: z.string(), intro: z.string() }).strict(),
       })
       .strict(),
   })

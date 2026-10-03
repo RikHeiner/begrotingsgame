@@ -8,7 +8,7 @@ import { formatMln, formatPct } from './format';
 import type { Data } from './laadData';
 import type { Belasting, Onderdeel } from './schema';
 import { vanMln as mln } from './eenheden';
-import type { Keuzes } from './types';
+import { EIGEN, type EigenVoorstel, type Keuzes } from './types';
 
 export type Grens = {
   min: number;
@@ -152,6 +152,8 @@ export function normaliseer(data: Data, keuzes: Keuzes): { keuzes: Keuzes; corre
   }
   kaarten.sort();
 
+  const eigen = normaliseerEigen(keuzes.eigen, correcties);
+
   return {
     keuzes: {
       onderdelen,
@@ -162,9 +164,42 @@ export function normaliseer(data: Data, keuzes: Keuzes): { keuzes: Keuzes; corre
       scenario: keuzes.scenario,
       ...normaliseerReserve(keuzes.reserve, correcties),
       ...(gestopt.length ? { gestopt } : {}),
+      ...(eigen.length ? { eigen } : {}),
     },
     correcties,
   };
+}
+
+/** Eigen voorstellen: een naam, een bedrag binnen de grenzen, en niet meer dan EIGEN.max. */
+function normaliseerEigen(lijst: Keuzes['eigen'], correcties: string[]): EigenVoorstel[] {
+  const uit: EigenVoorstel[] = [];
+  const ids = new Set<string>();
+  for (const v of lijst ?? []) {
+    const naam = String(v.naam ?? '')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, EIGEN.naamMax);
+    const bedrag = Number(v.bedrag_mln);
+    if (naam.length < EIGEN.naamMin || !Number.isFinite(bedrag) || bedrag <= 0) {
+      correcties.push('Een eigen voorstel zonder naam of bedrag is overgeslagen.');
+      continue;
+    }
+    if (uit.length >= EIGEN.max) {
+      correcties.push(`Meer dan ${EIGEN.max} eigen voorstellen kan niet.`);
+      break;
+    }
+    let id = String(v.id || `e${uit.length + 1}`).slice(0, 24);
+    while (ids.has(id)) id = `${id}x`;
+    ids.add(id);
+    uit.push({
+      id,
+      plek: v.plek === 'veiling' ? 'veiling' : 'beleid',
+      naam,
+      bedrag_mln: Math.round(Math.min(bedrag, EIGEN.maxMln) * 1000) / 1000,
+      soort: v.soort === 'I' ? 'I' : 'S',
+    });
+  }
+  return uit;
 }
 
 function normaliseerReserve(

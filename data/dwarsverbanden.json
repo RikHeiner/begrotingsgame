@@ -314,7 +314,7 @@
    "naar": [
     "grootheid:gemeentefonds"
    ],
-   "mechanisme": "De algemene uitkering (825,8 mln) wordt deels verdeeld op maatstaven zoals inwoners, woonruimten, huishoudens met een laag inkomen en bijstand. Meer woningen levert zo meer gemeentefonds op. Minder bijstandshuishoudens levert via deze maatstaf iets minder op: een klein tegeneffect.",
+   "mechanisme": "De algemene uitkering wordt deels verdeeld op maatstaven zoals inwoners, woonruimten, huishoudens met een laag inkomen en bijstand. Meer woningen levert zo meer gemeentefonds op. Minder bijstandshuishoudens levert via deze maatstaf iets minder op: een klein tegeneffect.",
    "formule": "delta_gemeentefonds[t] = (extra_woningen[t-1] * bedrag_per_woonruimte + extra_woningen[t-1] * inwoners_per_woning * bedrag_per_inwoner + delta_bijstand[t-1] * bedrag_per_bijstandshuishouden) * uitkeringsfactor",
    "parameters": {
     "bedrag_per_woonruimte": {
@@ -705,7 +705,7 @@
    "naar": [
     "z1"
    ],
-   "mechanisme": "WIJ-teams, welzijn, onderwijskansen, sportstimulering en jeugdwerk voorkomen dat problemen escaleren. Bezuinigen op preventie bespaart nu, maar laat de jeugdzorg (118,8 mln) na enkele jaren stijgen.",
+   "mechanisme": "WIJ-teams, welzijn, onderwijskansen, sportstimulering en jeugdwerk voorkomen dat problemen escaleren. Bezuinigen op preventie bespaart nu, maar laat de jeugdzorg na enkele jaren stijgen.",
    "formule": "delta_jeugdzorg_jaar_t = -sum(bezuiniging_preventie) * factor_escalatie * ingroei[t]",
    "parameters": {
     "factor_escalatie": {
