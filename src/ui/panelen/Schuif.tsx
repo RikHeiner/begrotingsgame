@@ -9,6 +9,8 @@ export type SchuifBedrag = {
   eenheid: 'mln' | 'euro';
   /** bijvoorbeeld "Budget", "Opbrengst" of "Tarief" */
   soort: string;
+  /** standaard "per jaar"; bij een uurtarief "per uur" */
+  per?: string;
 };
 
 export type SchuifProps = {
@@ -64,7 +66,8 @@ function Bedrag({
     const pct = pctVoorBedrag(nieuw, bedrag.basis);
     if (pct !== waarde) onChange(pct);
   };
-  const eenheid = bedrag.eenheid === 'mln' ? 'mln per jaar' : 'per jaar';
+  const per = bedrag.per ?? 'per jaar';
+  const eenheid = bedrag.eenheid === 'mln' ? `mln ${per}` : per;
   return (
     <label className="schuif-bedrag" htmlFor={`${id}-bedrag`}>
       <span>{bedrag.soort}: €</span>
@@ -73,7 +76,7 @@ function Bedrag({
         type="text"
         inputMode="decimal"
         value={getypt ?? huidig}
-        aria-label={`${bedrag.soort} voor ${label}, in ${bedrag.eenheid === 'mln' ? 'miljoen euro' : 'euro'} per jaar`}
+        aria-label={`${bedrag.soort} voor ${label}, in ${bedrag.eenheid === 'mln' ? 'miljoen euro' : 'euro'} ${per}`}
         onChange={(e) => setGetypt(e.target.value)}
         onBlur={bevestig}
         onKeyDown={(e) => {

@@ -13,6 +13,7 @@ import { KaartWeergave } from '../ui/kaart/KaartWeergave';
 import { Lijstweergave } from '../ui/lijstweergave/Lijstweergave';
 import { GebouwPaneel } from '../ui/panelen/GebouwPaneel';
 import { MinigameDialoog } from '../ui/minigames/MinigameDialoog';
+import { TussendoorAanbod } from '../ui/minigames/TussendoorAanbod';
 import { RouteKaart } from '../ui/route/RouteKaart';
 import { Startscherm } from '../ui/start/Startscherm';
 import { WelkomTerug } from '../ui/start/WelkomTerug';
@@ -165,6 +166,7 @@ export function Spel({ data }: { data: Data }) {
           !terug && <RouteKaart data={data} resultaat={resultaat} />}
       </main>
       <MinigameDialoog data={data} />
+      <TussendoorAanbod data={data} />
       <Feedback data={data} />
       <p className="toast" role="status" aria-live="polite" data-testid="melding">
         {melding && <span>🔒 {melding}</span>}

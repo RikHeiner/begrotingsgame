@@ -34,6 +34,8 @@ export const configSchema = z
     uitgaven: bestandsnaam.optional(),
     /** landelijke gemiddelden van de gemeentebelastingen (bij het belastingloket), optioneel */
     belastingenNederland: bestandsnaam.optional(),
+    /** het ambtenarenapparaat, met andere gemeenten (in het Beleidshuis), optioneel */
+    apparaat: bestandsnaam.optional(),
   })
   .strict()
   .refine((c) => c.meerjarenHorizon.every((j, i) => j === c.actiefJaar + i), {
@@ -1103,3 +1105,48 @@ export const idMappingSchema = z
   })
   .strict();
 export type IdMapping = z.infer<typeof idMappingSchema>;
+
+// ---------- apparaat-JJJJ.json ----------
+
+const indicatorJaar = z
+  .object({
+    jaar: z.number().int(),
+    waarde: z.number().nonnegative(),
+    soort: z.enum(['behaald', 'beoogd']),
+  })
+  .strict();
+
+export const apparaatSchema = z
+  .object({
+    begrotingsjaar: z.number().int(),
+    toelichting: z.string(),
+    bron: z.object({ titel: z.string(), status: zekerheidSchema }).strict(),
+    groningen: z
+      .object({
+        fte: z.number().positive(),
+        loonsom_x1000: z.number().positive(),
+        externe_inhuur_x1000: z.number().nonnegative(),
+        /** verplichte indicator: formatie in fte per 1.000 inwoners */
+        formatie_per_1000: z.array(indicatorJaar).min(1),
+        /** verplichte indicator: apparaatskosten per inwoner */
+        apparaatskosten_per_inwoner: z.array(indicatorJaar).min(1),
+      })
+      .strict(),
+    /** dezelfde indicatoren van andere gemeenten, uit hun eigen begroting */
+    andere: z.array(
+      z
+        .object({
+          naam: z.string(),
+          jaar: z.number().int(),
+          /** beoogd (uit de begroting voor dat jaar) of behaald (achteraf) */
+          soort: z.enum(['behaald', 'beoogd']),
+          formatie_per_1000: z.number().nonnegative().nullable(),
+          apparaatskosten_per_inwoner: z.number().nonnegative().nullable(),
+          bron: z.string(),
+          url: z.string().url(),
+        })
+        .strict(),
+    ),
+  })
+  .strict();
+export type Apparaat = z.infer<typeof apparaatSchema>;

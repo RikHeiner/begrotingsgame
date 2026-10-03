@@ -2746,13 +2746,31 @@
    "id": "k_minder_bouwregels",
    "soort": "opbrengst",
    "structureel_of_incidenteel": "S",
-   "bedrag_mln": 0,
+   "bedrag_mln": 0.49,
    "naam": "Minder bouwregels: welstandsvrij bouwen",
-   "uitleg": "De welstandscommissie krijgt minder macht. Er komt één welstandsnota met zo min mogelijk regels, en nieuwe wijken worden vaker welstandsvrij. Dat kost de gemeente niets en versnelt de bouw. Meer woningen betalen ook OZB.",
+   "uitleg": "De welstandscommissie krijgt minder macht. Er komt één welstandsnota met zo min mogelijk regels, en nieuwe wijken worden vaker welstandsvrij. Dan zijn er ook minder ambtenaren voor wonen nodig: dat scheelt geld. En het versnelt de bouw, dus komen er meer woningen die OZB betalen.",
    "meter_effect_punten": {
     "h": 2
    },
-   "bron": "Verkiezingsprogramma VVD Groningen 2026-2030, p. 16 ('De welstandscommissie krijgt minder macht (...) Dat versnelt de bouw'). Het aantal extra woningen is een aanname (dwarsverband wg_woningbouw).",
+   "bron": "Verkiezingsprogramma VVD Groningen 2026-2030, p. 16 ('De welstandscommissie krijgt minder macht (...) Dat versnelt de bouw'). Bedrag: aanname, 10% van de ambtenaren wonen (w4, € 4,9 mln in de ontwerpbegroting 2027). Het aantal extra woningen is ook een aanname (dwarsverband wg_woningbouw).",
+   "gebouw": "beleid",
+   "zekerheid": "aanname"
+  },
+  {
+   "id": "k_apparaat_5",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": 17.897,
+   "naam": "5% minder ambtenaren in de hele organisatie",
+   "uitleg": "De gemeente krimpt de hele ambtelijke organisatie met 5%, vooral door vertrekkende mensen niet te vervangen (natuurlijk verloop). Dat gaat geleidelijk: de helft in het eerste jaar, de rest daarna. Dit komt bovenop wat je met de schuiven doet.",
+   "meter_effect_punten": {
+    "d": -2
+   },
+   "bron": "Ontwerpbegroting 2027, Personeelskosten p. 355: loonsom ambtelijk personeel in dienst 357.948 (x 1.000 euro), 3.681 fte. 5% daarvan is 17,9 mln. Ingroei via natuurlijk verloop: aanname.",
+   "ingroeipad": [
+    0.5,
+    1
+   ],
    "gebouw": "beleid",
    "zekerheid": "aanname"
   }

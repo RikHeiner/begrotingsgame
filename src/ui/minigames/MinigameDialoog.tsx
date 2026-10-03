@@ -7,27 +7,7 @@ import type { Data } from '../../engine';
 import { useSpel } from '../../game/state/store';
 import { Dialoog } from '../algemeen/Dialoog';
 import { MINIGAMES } from './register';
-
-const OPSLAG = 'begrotingsgame:minigames';
-
-function leesBeste(): Record<string, number> {
-  try {
-    return JSON.parse(localStorage.getItem(OPSLAG) ?? '{}') as Record<string, number>;
-  } catch {
-    return {};
-  }
-}
-
-function bewaarBeste(id: string, score: number): number {
-  const beste = leesBeste();
-  const nieuw = Math.max(beste[id] ?? 0, score);
-  try {
-    localStorage.setItem(OPSLAG, JSON.stringify({ ...beste, [id]: nieuw }));
-  } catch {
-    // geen opslag: dan onthouden we de beste score niet
-  }
-  return nieuw;
-}
+import { bewaarBeste } from './scores';
 
 export function MinigameDialoog({ data }: { data: Data }) {
   const id = useSpel((s) => s.minigame);

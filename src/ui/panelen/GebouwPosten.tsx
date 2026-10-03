@@ -15,6 +15,7 @@ import type { Gebouw, Minimum, Programma } from '../../engine/schema';
 import { isGestopt, stilDoorMinimum } from '../../game/beleidshuis';
 import { gevolgVan } from '../../game/gevolg';
 import { huidigJaar, useSpel } from '../../game/state/store';
+import { Apparaat } from './Apparaat';
 import { Schuif } from './Schuif';
 
 function directBedrag(r: Resultaat, bron: string, jaar: number): number {
@@ -222,6 +223,14 @@ function ParkeerSchuiven({
   const posten = parkeerPosten(data);
   const keuzes = resultaat.keuzes.parkeren ?? {};
   const id = data.parkeren?.opbrengst.belasting ?? '';
+  // Kortparkeren: het uurtarief op straat per zone (de opbrengst schuift mee met het tarief).
+  const zones = (data.parkeren?.parkeerzones ?? []).flatMap((z) =>
+    z.uurtarief ? [{ naam: z.naam, ...z.uurtarief }] : [],
+  );
+  const uurBinnenstad = zones[0];
+  const uurNu = zones
+    .map((z) => `${z.naam.replace(/ \(.*\)$/, '')}: ${euro(z.bedrag)} (${z.prijspeil})`)
+    .join(', ');
   return (
     <section className="parkeren" aria-labelledby={`${gebouw.id}-parkeren`} data-post="parkeren">
       <h3 id={`${gebouw.id}-parkeren`}>Parkeertarieven</h3>
@@ -250,6 +259,14 @@ function ParkeerSchuiven({
                   p.tarief !== undefined && pct
                     ? `Nieuw tarief: ${euro(p.tarief * (1 + pct / 100))} per jaar.`
                     : null;
+                // Het tarief van nu, ook bij nul: zo weet de speler wat een vergunning nu kost.
+                const uur = p.groep === 'kortparkeren' ? uurBinnenstad : undefined;
+                const nu =
+                  p.tarief !== undefined
+                    ? `Nu: ${euro(p.tarief)} per jaar.`
+                    : uur
+                      ? `Nu per uur op straat: ${uurNu}.`
+                      : null;
                 return (
                   <li key={p.id} data-post={`parkeren:${p.id}`}>
                     <Schuif
@@ -261,14 +278,25 @@ function ParkeerSchuiven({
                       bedrag={
                         p.tarief !== undefined
                           ? { basis: p.tarief, eenheid: 'euro', soort: 'Tarief' }
-                          : { basis: p.basis / 1e6, eenheid: 'mln', soort: 'Opbrengst' }
+                          : uur
+                            ? {
+                                basis: uur.bedrag,
+                                eenheid: 'euro',
+                                soort: 'Uurtarief binnenstad',
+                                per: 'per uur',
+                              }
+                            : { basis: p.basis / 1e6, eenheid: 'mln', soort: 'Opbrengst' }
                       }
-                      beschrijving={[p.uitleg, nul ? null : nieuw].filter(Boolean).join(' ')}
+                      beschrijving={[p.uitleg, nu, nul ? null : nieuw].filter(Boolean).join(' ')}
                       collegeKnop={!nul}
                       {...(nul
                         ? {
                             toonBedrag: (x: number) =>
-                              p.tarief !== undefined ? `${euro(x)} per jaar` : mlnTekst(x),
+                              p.tarief !== undefined
+                                ? `${euro(x)} per jaar`
+                                : uur
+                                  ? `${euro(x)} per uur`
+                                  : mlnTekst(x),
                           }
                         : {})}
                       onChange={(v) => zet(p.id, v)}
@@ -484,6 +512,7 @@ export function GebouwPosten({
     return (
       <>
         <Programmas data={data} resultaat={resultaat} />
+        <Apparaat data={data} />
         {kaarten.length > 0 && (
           <section aria-labelledby={`${gebouw.id}-plannen`}>
             <h3 id={`${gebouw.id}-plannen`}>Nieuwe plannen</h3>

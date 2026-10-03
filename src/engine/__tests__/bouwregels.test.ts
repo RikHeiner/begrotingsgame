@@ -8,9 +8,10 @@ beforeAll(async () => {
 });
 
 describe('minder bouwregels: sneller bouwen, meer OZB', () => {
-  it('het plan kost niets en levert na twee jaar OZB van extra woningen op', () => {
+  it('het plan scheelt ambtenaren (aanname) en levert na twee jaar OZB van extra woningen op', () => {
     const k = data.begroting.actiekaarten.find((x) => x.id === 'k_minder_bouwregels');
-    expect(k?.bedrag_mln).toBe(0);
+    expect(k?.bedrag_mln).toBeCloseTo(0.49, 2);
+    expect(k?.zekerheid).toBe('aanname');
     expect(k?.gebouw).toBe('beleid');
     const zonder = bereken(data, GEEN_KEUZES);
     const met = bereken(data, { ...GEEN_KEUZES, kaarten: ['k_minder_bouwregels'] });

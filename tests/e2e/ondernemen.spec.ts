@@ -22,13 +22,16 @@ test('ondernemen: gevolgen die passen bij de post, met uitleg', async ({ page })
   await expect(info).toContainText('provincies Groningen en Drenthe');
 });
 
-test('Beleidshuis: minder bouwregels kost niets en levert later OZB op', async ({ page }) => {
+test('Beleidshuis: minder bouwregels scheelt ambtenaren en levert later OZB op', async ({
+  page,
+}) => {
   await page.goto('/');
   await expect(page.locator('.kaart-gebouw')).toHaveCount(15);
   await page.locator('[data-gebouw="beleid"]').focus();
   await page.keyboard.press('Enter');
   const kaart = page.getByTestId('paneel').locator('[data-post="k_minder_bouwregels"] button');
-  await expect(kaart).toContainText('Kost niets');
+  await expect(kaart).toContainText('0,49');
+  await expect(kaart).toContainText('minder ambtenaren');
   await kaart.click();
   await expect(kaart).toHaveAttribute('aria-pressed', 'true');
 });

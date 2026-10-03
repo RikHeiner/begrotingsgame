@@ -131,6 +131,21 @@
    "meer": "Meer overleg en plannen met de regio dan nu",
    "minder": "Minder overleg en plannen met de regio dan nu",
    "gelijk": "Evenveel samenwerking met de regio als nu"
+  },
+  "kerntaken": {
+   "icoon": "🎯",
+   "meer": "De gemeente doet meer als bedrijf dan nu",
+   "minder": "De gemeente richt zich meer op haar kerntaken, maar mist ook inkomsten",
+   "gelijk": "Zoals nu: de gemeente haalt ook bedrijfsafval op",
+   "veel_minder": "De gemeente richt zich op haar kerntaken, maar mist ook de inkomsten"
+  },
+  "mobiliteitsvisie": {
+   "icoon": "🚦",
+   "meer": "Sneller de doelen uit de mobiliteitsvisie halen, zoals 30 in plaats van 50 km per uur",
+   "minder": "Langzamer de doelen uit de mobiliteitsvisie halen, zoals 30 in plaats van 50 km per uur",
+   "gelijk": "De mobiliteitsvisie gaat in hetzelfde tempo als nu",
+   "veel_meer": "Veel sneller de doelen uit de mobiliteitsvisie halen, zoals 30 in plaats van 50 km per uur",
+   "veel_minder": "Veel langzamer de doelen uit de mobiliteitsvisie halen, zoals 30 in plaats van 50 km per uur"
   }
  },
  "posten": {
@@ -162,7 +177,8 @@
    "categorie": "schoon"
   },
   "o4": {
-   "categorie": "schoon"
+   "categorie": "kerntaken",
+   "info": "De gemeente haalt ook afval op bij bedrijven en heeft een werkplaats. Daar betalen bedrijven voor; de inkomsten zijn iets hoger dan de kosten. Stopt de gemeente hiermee, dan kiezen ondernemers een eigen inzamelaar en richt de gemeente zich op haar kerntaken. Maar de inkomsten vallen dan ook weg, dus het levert niets op."
   },
   "v8": {
    "categorie": "schoon"
@@ -196,7 +212,8 @@
    "categorie": "bereikbaarheid"
   },
   "m4": {
-   "categorie": "bereikbaarheid"
+   "categorie": "mobiliteitsvisie",
+   "info": "Geld om de plannen uit de mobiliteitsvisie van de gemeente uit te voeren, zoals op meer wegen 30 in plaats van 50 km per uur en meer ruimte voor fietsers en voetgangers. Minder geld betekent dat die doelen langzamer worden gehaald."
   },
   "m7": {
    "categorie": "bereikbaarheid"

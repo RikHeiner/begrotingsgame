@@ -71,6 +71,9 @@ export function laadDataNode(begrotingBestand?: string): Data {
           },
         }
       : {}),
+    ...(typeof config.apparaat === 'string'
+      ? { apparaat: { bestand: config.apparaat, inhoud: leesJson(config.apparaat) } }
+      : {}),
     ...(typeof config.uitgaven === 'string'
       ? { uitgaven: { bestand: config.uitgaven, inhoud: leesJson(config.uitgaven) } }
       : {}),

@@ -65,6 +65,9 @@ type Spel = {
    * is, vanaf 0. Gelijk aan het aantal stappen als de route klaar is. Alleen bij nul.
    */
   routeStap: number;
+  /** na een paar stappen van de route: tussendoor een minigame aanbieden */
+  tussendoor: boolean;
+  zetTussendoor(aan: boolean): void;
   /** de minigame die open is (spel/minigames.json) */
   minigame?: string;
   openMinigame(id?: string): void;
@@ -212,12 +215,24 @@ export const useSpel = create<Spel>((set, get) => {
       set({ minigame: id, ...(id ? { gekozenGebouw: undefined } : {}) });
     },
     routeStap: 0,
+    tussendoor: false,
+    zetTussendoor(aan) {
+      set({ tussendoor: aan });
+    },
     volgendeStap(vanaf) {
       const { data, routeStap } = get();
       if (!data) return;
       const volgende = Math.max(routeStap, vanaf + 1);
       const gebouw = data.route.stappen[vanaf + 1]?.gebouw;
+      // Na elke drie stappen (en niet na de laatste): even pauze met een minigame?
+      const nr = vanaf + 1;
+      const pauze =
+        nr > routeStap &&
+        nr % 3 === 0 &&
+        nr < data.route.stappen.length &&
+        data.minigames.length > 0;
       set({
+        ...(pauze ? { tussendoor: true } : {}),
         routeStap: volgende,
         gekozenGebouw: gebouw,
         weergave: 'kaart',
@@ -249,6 +264,7 @@ export const useSpel = create<Spel>((set, get) => {
         basis: uit.keuzes,
         beginpunt,
         routeStap: 0,
+        tussendoor: false,
         melding: undefined,
         actie: undefined,
         fase: 'spelen',
