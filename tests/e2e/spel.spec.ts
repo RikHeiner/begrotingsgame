@@ -8,7 +8,16 @@ const zonderTutorial = (page: Page) =>
 
 async function tikOpGebouw(page: Page, id: string) {
   await expect(page.locator('.kaart-gebouw')).toHaveCount(15);
-  const vak = await page.locator(`[data-gebouw="${id}"]`).boundingBox();
+  // Wacht tot de kaart stilstaat (na het sluiten van een paneel zoomt hij uit).
+  const knop = page.locator(`[data-gebouw="${id}"]`);
+  let vak = await knop.boundingBox();
+  for (let i = 0; i < 20; i++) {
+    await page.waitForTimeout(150);
+    const nu = await knop.boundingBox();
+    const stil = vak && nu && Math.abs(nu.x - vak.x) < 1 && Math.abs(nu.y - vak.y) < 1;
+    vak = nu;
+    if (stil) break;
+  }
   if (!vak) throw new Error(id);
   await page.mouse.click(vak.x + vak.width / 2, vak.y + vak.height / 2);
 }
@@ -60,8 +69,18 @@ test('bezuinigen en daarna investeren; een kettingeffect geeft een melding', asy
   await expect(page.getByTestId('geldpotje')).toHaveAttribute('aria-label', /slot is open/);
   await page.getByTestId('paneel').getByRole('button', { name: 'Paneel sluiten' }).click();
   await tikOpGebouw(page, 'parkeer');
+  // De melding staat zes seconden; op een drukke testcomputer duurt schuiven soms langer. Daarom
+  // onthouden we of hij verscheen.
+  await page.evaluate(() => {
+    const w = window as unknown as { kettingGezien: boolean };
+    w.kettingGezien = false;
+    new MutationObserver(() => {
+      if (document.querySelector('[data-testid="kettingmelding"]')?.textContent?.includes('🔗'))
+        w.kettingGezien = true;
+    }).observe(document.body, { subtree: true, childList: true, characterData: true });
+  });
   await schuif(page, /Parkeercontrole/, -20);
-  await expect(page.getByTestId('kettingmelding')).toContainText('🔗');
+  await page.waitForFunction(() => (window as unknown as { kettingGezien: boolean }).kettingGezien);
   await expect(page.getByTestId('paneel')).toContainText('Dit heeft ook effect op');
   await page.screenshot({ path: testInfo.outputPath('ketting.png') });
   // 13,15 (overhead) + 0,2 (parkeercontrole: 0,2 × (7,3 − 6,3)) − 2,85 (betaalbereidheid, aanname) = 10,5
