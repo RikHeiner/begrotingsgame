@@ -2405,3 +2405,26 @@
   min-height: 48px;
   flex: 1 1 12rem;
 }
+
+/* "Wat is dit?" bij een post */
+.post-info {
+  margin: 0.25rem 0 0;
+  font-size: 0.88rem;
+}
+
+.post-info summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  min-height: 32px;
+  color: var(--blauw);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.post-info p {
+  margin: 0.25rem 0 0.4rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, var(--blauw) 7%, var(--paneel));
+}

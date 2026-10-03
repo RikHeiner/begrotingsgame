@@ -792,17 +792,24 @@ export const IMPLEMENTATIES: Record<string, Implementatie> = {
       // Meer RO-ambtenaren (wonen, gebiedsontwikkeling) moet ook meer woningen opleveren, maar
       // daarvoor staat nog geen getal in de data. Bezuinigen remt het bouwen: zie kd_leges_omgeving.
       const roMln =
-        (['w4', 'e10'] as const).reduce((som, id) => som + Math.max(0, c.p(id)) * c.lasten(id), 0) /
-        vanMln(1);
+        (['w4', 'e10', 'e8'] as const).reduce(
+          (som, id) => som + Math.max(0, c.p(id)) * c.lasten(id),
+          0,
+        ) / vanMln(1);
       const roPerMln = c.verband.parameters.extra_woningen_per_mln_ro?.waarde;
       const roTekst =
-        'Meer ambtenaren voor wonen en gebiedsontwikkeling levert ook extra woningen op, maar hoeveel per miljoen staat nog niet in de data.';
+        'Meer geld voor wonen, gebiedsontwikkeling en de Suikerzijde levert ook extra woningen op, maar hoeveel per miljoen staat nog niet in de data.';
       const fonds = c.kaart('k_bouw');
-      if (!fonds && roMln <= 0) return;
-      if (!fonds && typeof roPerMln !== 'number') c.nogNiet(roTekst);
+      // Minder bouwregels (welstandsvrij bouwen): sneller bouwen zonder dat het de gemeente geld kost.
+      const regels = c.kaart('k_minder_bouwregels');
+      if (!fonds && !regels && roMln <= 0) return;
+      if (!fonds && !regels && typeof roPerMln !== 'number') c.nogNiet(roTekst);
       const fondsMln = fonds ? Math.abs(c.kaartBedrag('k_bouw')) / vanMln(1) : 0;
       const ro = typeof roPerMln === 'number' ? roMln * roPerMln : 0;
-      const perJaarExtra = (fonds ? fondsMln * c.param('extra_woningen_per_mln_fonds') : 0) + ro;
+      const perJaarExtra =
+        (fonds ? fondsMln * c.param('extra_woningen_per_mln_fonds') : 0) +
+        (regels ? c.param('extra_woningen_minder_regels') : 0) +
+        ro;
       const v = c.verband.vertraging_jaren;
       const voorraad = perJaar(c.n, (j) => perJaarExtra * Math.max(0, j - v + 1));
       c.zetGrootheid(
@@ -821,6 +828,7 @@ export const IMPLEMENTATIES: Record<string, Implementatie> = {
       const nieuwWoz = Math.round((woz * factor) / 1000).toLocaleString('nl-NL');
       const params = [
         ...(fonds ? ['extra_woningen_per_mln_fonds'] : []),
+        ...(regels ? ['extra_woningen_minder_regels'] : []),
         ...(ro ? ['extra_woningen_per_mln_ro'] : []),
         ...(uitTarief ? ['woz_factor_nieuwbouw'] : ['ozb_per_woning']),
       ];
@@ -829,7 +837,7 @@ export const IMPLEMENTATIES: Record<string, Implementatie> = {
         kant: 'baten',
         bedragen: voorraad.map((w) => w * perWoning),
         params,
-        uitleg: `${fonds ? 'Het fonds levert' : 'Dit levert'} ongeveer ${Math.round(perJaarExtra)} extra woningen per jaar op, vanaf ${c.data.jaren[v] ?? 'na de meerjarenraming'}. Elke nieuwe woning betaalt ongeveer € ${euro} OZB per jaar${uitTarief ? ` (${t?.ozb_woning_eigenaar_pct.toLocaleString('nl-NL')}% van een WOZ-waarde van ongeveer € ${nieuwWoz} duizend voor nieuwbouw${c.t('t1') ? ', met jouw OZB-keuze' : ''})` : ''}.`,
+        uitleg: `${fonds ? 'Het fonds levert' : regels ? 'Minder bouwregels levert' : 'Dit levert'} ongeveer ${Math.round(perJaarExtra)} extra woningen per jaar op, vanaf ${c.data.jaren[v] ?? 'na de meerjarenraming'}. Elke nieuwe woning betaalt ongeveer € ${euro} OZB per jaar${uitTarief ? ` (${t?.ozb_woning_eigenaar_pct.toLocaleString('nl-NL')}% van een WOZ-waarde van ongeveer € ${nieuwWoz} duizend voor nieuwbouw${c.t('t1') ? ', met jouw OZB-keuze' : ''})` : ''}.`,
       });
       c.meter('wonen', 1);
       c.deelsNiet(

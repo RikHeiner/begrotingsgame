@@ -923,6 +923,8 @@ export const gevolgenSchema = z
       z
         .object({
           categorie: z.string().optional(),
+          /** wat de post is en doet, voor het knopje "Wat is dit?" */
+          info: z.string().optional(),
           /** een aantal dat de speler ziet, zoals het aantal boa's nu */
           eenheid: z
             .object({

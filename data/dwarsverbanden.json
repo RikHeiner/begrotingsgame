@@ -1396,7 +1396,9 @@
    "van": [
     "k_bouw",
     "w4",
-    "e10"
+    "e10",
+    "k_minder_bouwregels",
+    "e8"
    ],
    "naar": [
     "t1",
@@ -1405,7 +1407,7 @@
     "d1",
     "z3"
    ],
-   "mechanisme": "Meer woningen leveren meer OZB en meer gemeentefonds op. De bouwleges zijn kostendekkend en leveren netto niets op. Maar nieuwe inwoners gebruiken ook scholen, sport, zorg en openbare ruimte. Het netto-effect is positief, maar pas na enkele jaren. Ook meer ambtenaren voor wonen (w4) en gebiedsontwikkeling (e10) levert extra woningen op; daarvoor staat nog geen getal in de data.",
+   "mechanisme": "Meer woningen leveren meer OZB en meer gemeentefonds op. De bouwleges zijn kostendekkend en leveren netto niets op. Maar nieuwe inwoners gebruiken ook scholen, sport, zorg en openbare ruimte. Het netto-effect is positief, maar pas na enkele jaren. Ook meer ambtenaren voor wonen (w4) en gebiedsontwikkeling (e10), meer geld voor de Suikerzijde (e8) en minder bouwregels (k_minder_bouwregels) leveren extra woningen op. Voor minder bouwregels staat een aanname in de data; voor w4, e10 en e8 nog geen getal.",
    "formule": "extra_woningen[t] = (fonds_mln * extra_woningen_per_mln_fonds + extra_mln_ro * extra_woningen_per_mln_ro) * max(0, t - vertraging + 1); delta_ozb = extra_woningen * ozb_tarief * gemiddelde_woz * woz_factor_nieuwbouw",
    "parameters": {
     "ozb_per_woning": {
@@ -1430,7 +1432,13 @@
      "waarde": null,
      "eenheid": "woningen per jaar per extra mln per jaar",
      "status": "te onderzoeken",
-     "toelichting": "Hoeveel extra woningen per jaar levert elk extra miljoen per jaar voor ambtenaren wonen (w4) of gebiedsontwikkeling (e10) op? Nog geen bron; tot dan rekent dit deel niet mee."
+     "toelichting": "Hoeveel extra woningen per jaar levert elk extra miljoen per jaar voor ambtenaren wonen (w4), gebiedsontwikkeling (e10) of de Suikerzijde (e8) op? Nog geen bron; tot dan rekent dit deel niet mee."
+    },
+    "extra_woningen_minder_regels": {
+     "waarde": 25,
+     "eenheid": "woningen per jaar",
+     "status": "aanname",
+     "toelichting": "Aanname: minder bouwregels en welstandsvrij bouwen in nieuwe wijken (plan k_minder_bouwregels) leveren 25 extra woningen per jaar op, vanaf 2 jaar na de start. Dat is ongeveer 1 tot 2% van wat er nu per jaar wordt gebouwd. Er is geen onderzoek dat dit getal geeft; de fractie kan het aanpassen."
     }
    },
    "vertraging_jaren": 2,

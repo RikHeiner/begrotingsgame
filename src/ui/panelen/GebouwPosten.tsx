@@ -116,6 +116,20 @@ function GevolgRegel({ data, id, pct }: { data: Data; id: string; pct: number })
   );
 }
 
+/** "Wat is dit?": wat de post is en doet (spel/gevolgen.json). */
+function PostInfo({ data, id }: { data: Data; id: string }) {
+  const info = data.gevolgen.posten[id]?.info;
+  if (!info) return null;
+  return (
+    <details className="post-info" data-testid={`info-${id}`}>
+      <summary>
+        <span aria-hidden="true">ⓘ</span> Wat is dit?
+      </summary>
+      <p>{info}</p>
+    </details>
+  );
+}
+
 /** Bij nul: bedragen in plaats van percentages (die zijn ten opzichte van het college). */
 const mlnTekst = (x: number) => formatMln(x * 1e6, { decimalen: 2 });
 
@@ -456,7 +470,9 @@ export function GebouwPosten({
                 </strong>
                 <span>{kaart.uitleg}</span>
                 <span className={kaart.bedrag_mln >= 0 ? 'positief' : 'negatief'}>
-                  {formatMln(kaart.bedrag_mln * 1e6, { decimalen: 2, teken: true })}
+                  {kaart.bedrag_mln === 0
+                    ? 'Kost niets'
+                    : formatMln(kaart.bedrag_mln * 1e6, { decimalen: 2, teken: true })}
                 </span>
               </button>
             </li>
@@ -524,6 +540,7 @@ export function GebouwPosten({
                 onChange={(v) => zetOnderdeel(id, v)}
               />
               {!vergrendeld && <GevolgRegel data={data} id={id} pct={pct} />}
+              <PostInfo data={data} id={id} />
               {!nul && <Bedrag euro={directBedrag(resultaat, id, jaar)} />}
               <OokEffect data={data} resultaat={resultaat} id={id} />
             </li>

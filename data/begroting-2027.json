@@ -2741,6 +2741,20 @@
    "meter_effect_punten": {},
    "bron": "https://groningen.begroting-2026.nl/p43769 (Intensiveringen, nr. 40 'Uitname DU Jeugd - Grote Stedenbeleid', 3.2, I, -554 in 2026, met toelichting 'We stellen in 2026 554 duizend euro incidenteel beschikbaar om de activiteiten te continueren') en https://groningen.begroting-2026.nl/p43746 (tabel intensiveringen 3.2)",
    "gebouw": "beleid"
+  },
+  {
+   "id": "k_minder_bouwregels",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": 0,
+   "naam": "Minder bouwregels: welstandsvrij bouwen",
+   "uitleg": "De welstandscommissie krijgt minder macht. Er komt één welstandsnota met zo min mogelijk regels, en nieuwe wijken worden vaker welstandsvrij. Dat kost de gemeente niets en versnelt de bouw. Meer woningen betalen ook OZB.",
+   "meter_effect_punten": {
+    "h": 2
+   },
+   "bron": "Verkiezingsprogramma VVD Groningen 2026-2030, p. 16 ('De welstandscommissie krijgt minder macht (...) Dat versnelt de bouw'). Het aantal extra woningen is een aanname (dwarsverband wg_woningbouw).",
+   "gebouw": "beleid",
+   "zekerheid": "aanname"
   }
  ],
  "beleidsprogrammas": [
