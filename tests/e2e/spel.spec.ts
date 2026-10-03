@@ -145,7 +145,7 @@ test('indienen: het eindscherm, zonder missies en zonder meters', async ({ page 
   await expect(eind.getByRole('img', { name: /van de 3 sterren/ })).toBeVisible();
   await expect(eind).not.toContainText('Meters');
   await expect(eind).toContainText('Saldo per jaar');
-  await expect(eind).toContainText('Wat merken de inwoners?');
+  await expect(eind).not.toContainText('Wat merken de inwoners?');
   await expect(eind).toContainText('Jouw begroting naast die van het college');
   await page.screenshot({ path: testInfo.outputPath('eindscherm.png'), fullPage: true });
   await eind.getByRole('button', { name: 'Terug naar de gemeente' }).click();

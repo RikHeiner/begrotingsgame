@@ -12,7 +12,6 @@ import {
   gevoeligheid,
   lezerVoor,
   maatregelen,
-  personaZinnen,
   sterren,
   vergelijkPerThema,
   type Maatregel,
@@ -171,16 +170,6 @@ export function Eindscherm({ data, resultaat }: { data: Data; resultaat: Resulta
           </ul>
         </section>
       )}
-
-      <section className="eind-blok">
-        <h2>Wat merken de inwoners?</h2>
-        <ul className="inwoners">
-          {personaZinnen(data, resultaat).map((p) => (
-            <li key={p.id}>{p.zin}</li>
-          ))}
-        </ul>
-        <p className="klein">{data.teksten.inwoners_uitleg}</p>
-      </section>
 
       <Lijst
         titel="Dit doet de gemeente niet meer"

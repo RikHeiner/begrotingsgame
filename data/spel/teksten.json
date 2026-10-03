@@ -93,7 +93,7 @@
     "idee_waarschuwing": "Je idee lijkt persoonsgegevens of een scheldwoord te bevatten. Laat namen, adressen en telefoonnummers weg. De fractie leest elk idee voordat het ergens wordt gebruikt."
   },
   "document": {
-    "toelichting": "De opbouw en de huisstijl volgen de tegenbegroting van VVD Groningen ('Het kan en moet anders'). Elk kopje noemt de thema's van de game die eronder vallen; het laatste kopje van een hoofdstuk krijgt de rest.",
+    "toelichting": "De opbouw en de huisstijl volgen de tegenbegroting van VVD Groningen ('Het kan en moet anders'). Elk kopje noemt de thema's van de game die eronder vallen; het laatste kopje van een hoofdstuk krijgt de rest. Met 'intro_anders' verandert de inleiding als de keuzes de andere kant op gaan (vooral hogere lasten, of geen lagere lasten).",
     "slogan": "Het kan en moet anders.",
     "ondertitel": "Voor een veilige, ondernemende en financieel verstandige gemeente.",
     "soort": "Tegenbegroting",
@@ -127,11 +127,28 @@
           ]
         },
         {
+          "titel": "Minder geld voor veiligheid, onderhoud en verkeer",
+          "intro": "Ook op veiligheid, het onderhoud van straten en groen en op verkeer wordt bezuinigd. Dat scheelt geld, maar inwoners merken het op straat.",
+          "themas": [
+            "Veiligheid",
+            "Openbare ruimte",
+            "Verkeer en parkeren"
+          ]
+        },
+        {
+          "titel": "Hogere lasten voor inwoners en ondernemers",
+          "intro": "Deze tegenbegroting verhoogt gemeentelijke belastingen of tarieven. Inwoners en ondernemers houden daardoor minder over in hun eigen portemonnee; de gemeente krijgt meer inkomsten.",
+          "themas": [
+            "Belastingen"
+          ]
+        },
+        {
           "titel": "Realistische keuzes in ruimte, cultuur en duurzaamheid",
           "intro": "Een nuchtere aanpak van grote projecten: geen dure prestigeprojecten, wel haalbare plannen met direct nut voor inwoners. Culturele instellingen staan meer op eigen benen en de energietransitie moet betaalbaar blijven.",
           "themas": []
         }
-      ]
+      ],
+      "intro_anders": "De gemeente Groningen staat voor grote financiële uitdagingen. Deze tegenbegroting dekt de plannen vooral met hogere gemeentelijke lasten: inwoners en ondernemers betalen meer, zodat de gemeente haar uitgaven kan betalen."
     },
     "investeringen": {
       "titel": "Investeringen",
@@ -156,11 +173,22 @@
           ]
         },
         {
+          "titel": "Meer geld voor werk, inkomen en bestuur",
+          "intro": "Er gaat meer geld naar werk en inkomen en naar de gemeentelijke organisatie. Dat kost geld dat elders gevonden moet worden.",
+          "themas": [
+            "Werk en inkomen",
+            "Bestuur en organisatie",
+            "Economie",
+            "Programma's en plannen"
+          ]
+        },
+        {
           "titel": "Investeren in de toekomst van Groningen",
           "intro": "Een financieel gezonde gemeente kan investeren in de toekomst, zoals sneller bouwen, goede sportvoorzieningen en een slimme dienstverlening.",
           "themas": []
         }
-      ]
+      ],
+      "intro_anders": "Deze tegenbegroting investeert in een sterke, veilige en toekomstgerichte gemeente. Het geld gaat naar een schone en veilige leefomgeving, goed onderhoud en de voorzieningen die inwoners belangrijk vinden."
     },
     "financieel": {
       "titel": "Financieel overzicht",

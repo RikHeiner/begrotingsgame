@@ -578,6 +578,11 @@ const documentHoofdstuk = z
   .object({
     titel: z.string(),
     intro: z.string(),
+    /**
+     * een andere inleiding als de keuzes de andere kant op gaan: bij Besparingen als die vooral uit
+     * hogere lasten komen, bij Investeringen als de lasten niet omlaag gaan
+     */
+    intro_anders: z.string().optional(),
     /** kopjes in de volgorde van het document; het laatste krijgt de thema's die nergens staan */
     kopjes: z
       .array(
