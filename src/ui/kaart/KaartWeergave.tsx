@@ -7,7 +7,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { formatMln, type Data, type Resultaat } from '../../engine';
 import type { Camera } from '../../game/kaart/camera';
 import type { GemeenteKaart } from '../../game/kaart/GemeenteKaart';
-import { BOVEN_DAK } from '../../game/kaart/gebouwTekening';
+import { BOVEN_DAK } from '../../game/kaart/maten';
 import type { BuurtGeo, KaartGeometrie } from '../../game/kaart/geometrie';
 import { doelVanVoorwaarde, type Doel } from '../../game/naarPost';
 import { maakLezer } from '../../game/reacties/context';
@@ -50,6 +50,7 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
   const vastgehouden = useRef(false);
   const ballonEl = useRef<HTMLElement | null>(null);
   const kies = useSpel((s) => s.kiesGebouw);
+  const openMinigame = useSpel((s) => s.openMinigame);
   const nul = useSpel((s) => s.beginpunt === 'nul');
   const routeStap = useSpel((s) => s.routeStap);
   const laatste = useRef({ resultaat, standen });
@@ -78,6 +79,7 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
           kleuren: donker ? DONKER : LICHT,
           minderBeweging: minderBeweging(),
           onTik: (id) => kies(id),
+          onTikMinigame: (id) => openMinigame(id),
           onCamera: (c) => setCamera(c),
         });
         if (weg) {
@@ -100,7 +102,7 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
       kaart.current?.vernietig();
       kaart.current = undefined;
     };
-  }, [data, kies, onFout]);
+  }, [data, kies, openMinigame, onFout]);
 
   // De camera begeleidt de speler: naar het gebouw dat open is (boven het paneel op een telefoon,
   // links van het paneel op een groot scherm), en terug naar de hele gemeente als het dicht gaat.
@@ -257,6 +259,25 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
                   aria-label={`${nr !== undefined ? `Stap ${nr}${nr - 1 < routeStap ? ' (klaar)' : ''}: ` : ''}${g.naam}: ${g.omschrijving}. ${s ? TOESTAND_NAAM[s.toestand] : ''}${bedrag}`}
                   onFocus={() => kaart.current?.toonGebouw(g.id)}
                   onClick={() => kies(g.id)}
+                />
+              </li>
+            );
+          })}
+          {data.minigames.map((m) => {
+            const p = geo.minigames[m.id];
+            if (!p) return null;
+            return (
+              <li key={m.id}>
+                <button
+                  type="button"
+                  className="kaart-minigame"
+                  data-minigame={m.id}
+                  style={{
+                    transform: `translate(${p.x * camera.schaal + camera.x}px, ${p.y * camera.schaal + camera.y}px) translate(-50%, -50%)`,
+                  }}
+                  aria-label={`Minigame in de ${m.naam}: ${m.spel}. ${m.kort}`}
+                  onFocus={() => kaart.current?.toonGebouw(m.id)}
+                  onClick={() => openMinigame(m.id)}
                 />
               </li>
             );

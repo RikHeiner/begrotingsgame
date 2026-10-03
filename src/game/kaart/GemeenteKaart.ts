@@ -9,7 +9,7 @@
  */
 import type { Data } from '../../engine';
 import { formatMln } from '../../engine/format';
-import type { Gebouw } from '../../engine/schema';
+import type { Gebouw, Minigame } from '../../engine/schema';
 import type { GebouwStand } from '../toestand';
 import {
   klem,
@@ -26,6 +26,7 @@ import {
   GEBOUW_H,
   GEBOUW_KADER,
   GEBOUW_SCHAAL,
+  tekenBezienswaardigheid,
   tekenGebouw,
   type TekenOpties,
 } from './gebouwTekening';
@@ -36,6 +37,8 @@ import { RAND, tekenVasteLaag } from './vasteLaag';
 export type KaartKleuren = {
   gebieden: number[];
   zijkant: number;
+  /** de namen van de bekende gebouwen met een minigame */
+  minigame: number;
   buurtlijn: number;
   gebiedslijn: number;
   rand: number;
@@ -51,6 +54,7 @@ export type KaartKleuren = {
 export const LICHT: KaartKleuren = {
   gebieden: [0xa9db8a, 0x98d077, 0xb4e09b, 0x8fcb6d, 0xa2d684, 0xbce5a6, 0x9cd27d],
   zijkant: 0x7a5c3e,
+  minigame: 0xb34700,
   buurtlijn: 0xffffff,
   gebiedslijn: 0x2e6b2e,
   rand: 0x1233c4,
@@ -66,6 +70,7 @@ export const LICHT: KaartKleuren = {
 export const DONKER: KaartKleuren = {
   gebieden: [0x3f6b3a, 0x375f33, 0x46753f, 0x33592f, 0x3d6838, 0x4a7a43, 0x396335],
   zijkant: 0x3b2d20,
+  minigame: 0xffb07a,
   buurtlijn: 0x9ec79a,
   gebiedslijn: 0xd7f5c9,
   rand: 0x8fa2ff,
@@ -100,8 +105,13 @@ export type KaartOpties = {
   kleuren: KaartKleuren;
   minderBeweging: boolean;
   onTik: (gebouwId: string) => void;
+  /** een tik op een bekend gebouw met een minigame */
+  onTikMinigame: (minigameId: string) => void;
   onCamera: (c: Camera) => void;
 };
+
+/** De bekende gebouwen met een minigame zijn iets kleiner dan de gebouwen van de begroting. */
+const MINIGAME_SCHAAL = GEBOUW_SCHAAL * 0.68;
 
 type Wandelaar = {
   persona: string;
@@ -122,6 +132,8 @@ type GetekendGebouw = {
   bedrag: string;
   bedragKleur: number;
 };
+
+type Bezienswaardigheid = { minigame: Minigame; plek: Punt; beeld: HTMLCanvasElement };
 
 type Lijn = { weg: Weg; kleur: number; begin: number };
 
@@ -147,6 +159,26 @@ function gebouwBeeld(g: Gebouw, opties: TekenOpties): HTMLCanvasElement {
   return canvas;
 }
 
+function bezienswaardigheidBeeld(m: Minigame): HTMLCanvasElement {
+  const k = GEBOUW_KADER;
+  const canvas = document.createElement('canvas');
+  canvas.width = (k.links + k.rechts) * GEBOUW_RESOLUTIE;
+  canvas.height = (k.boven + k.onder) * GEBOUW_RESOLUTIE;
+  const ctx = canvas.getContext('2d');
+  if (ctx) {
+    ctx.setTransform(
+      GEBOUW_RESOLUTIE,
+      0,
+      0,
+      GEBOUW_RESOLUTIE,
+      k.links * GEBOUW_RESOLUTIE,
+      k.boven * GEBOUW_RESOLUTIE,
+    );
+    tekenBezienswaardigheid(new CanvasTekenaar(ctx), m.vorm);
+  }
+  return canvas;
+}
+
 export class GemeenteKaart {
   private canvas = document.createElement('canvas');
   private ctx: CanvasRenderingContext2D;
@@ -155,6 +187,9 @@ export class GemeenteKaart {
   private scherm: Maat = { breedte: 1, hoogte: 1 };
   /** gebouwen van boven naar beneden, zodat ze netjes overlappen */
   private gebouwen: GetekendGebouw[] = [];
+  private bezienswaardigheden: Bezienswaardigheid[] = [];
+  /** minigames op een gebouw (zonder eigen tekening): alleen hun naam */
+  private namenBij: { minigame: Minigame; plek: Punt }[] = [];
   private wandelaars: Wandelaar[] = [];
   private lijnen: Lijn[] = [];
   private wijzers = new Map<number, { x: number; y: number }>();
@@ -256,6 +291,15 @@ export class GemeenteKaart {
 
   private maakGebouwen(): void {
     const { geo, data, kleuren } = this.o;
+    // Een spel "bij" een gebouw (de Martinitoren bij het Stadhuis) heeft geen eigen tekening.
+    this.bezienswaardigheden = data.minigames.flatMap((m) => {
+      const plek = geo.minigames[m.id];
+      return plek && !m.bij ? [{ minigame: m, plek, beeld: bezienswaardigheidBeeld(m) }] : [];
+    });
+    this.namenBij = data.minigames.flatMap((m) => {
+      const plek = geo.minigames[m.id];
+      return plek && m.bij ? [{ minigame: m, plek }] : [];
+    });
     this.gebouwen = [...data.gebouwen]
       .sort((a, b) => (geo.gebouwen[a.id]?.y ?? 0) - (geo.gebouwen[b.id]?.y ?? 0))
       .flatMap((g) => {
@@ -321,8 +365,25 @@ export class GemeenteKaart {
 
     const k = GEBOUW_KADER;
     const G = GEBOUW_SCHAAL;
-    // Van achter naar voor, zodat een gebouw vooraan over een gebouw erachter valt (2,5D).
-    for (const t of [...this.gebouwen].sort((a, b) => a.plek.y - b.plek.y)) {
+    // Van achter naar voor, zodat een gebouw vooraan over een gebouw erachter valt (2,5D). De
+    // bekende gebouwen met een minigame staan ertussen, iets kleiner.
+    const alles = [
+      ...this.gebouwen.map((t) => ({ y: t.plek.y, t, m: undefined })),
+      ...this.bezienswaardigheden.map((m) => ({ y: m.plek.y, t: undefined, m })),
+    ].sort((a, b) => a.y - b.y);
+    for (const { t, m } of alles) {
+      if (m) {
+        const M = MINIGAME_SCHAAL;
+        ctx.drawImage(
+          m.beeld,
+          m.plek.x - k.links * M,
+          m.plek.y - k.boven * M,
+          (k.links + k.rechts) * M,
+          (k.boven + k.onder) * M,
+        );
+        continue;
+      }
+      if (!t) continue;
       ctx.drawImage(
         t.beeld,
         t.plek.x - k.links * G,
@@ -354,6 +415,18 @@ export class GemeenteKaart {
           8 * G * n,
           t.bedragKleur,
         );
+    }
+
+    // De namen van de bekende gebouwen pas als je inzoomt; van ver zie je alleen het icoon.
+    const ingezoomd = c.schaal > pas(this.wereldMaat(), this.scherm).schaal * 1.3;
+    for (const m of [...this.bezienswaardigheden, ...this.namenBij]) {
+      this.tekst(
+        ingezoomd ? `${m.minigame.icoon} ${m.minigame.naam}` : m.minigame.icoon,
+        m.plek.x,
+        m.plek.y + (GEBOUW_H / 2 + 5) * MINIGAME_SCHAAL,
+        8.5 * G * n,
+        this.o.kleuren.minigame,
+      );
     }
 
     for (const w of this.wandelaars) {
@@ -537,7 +610,7 @@ export class GemeenteKaart {
 
   /** Zoomt in op een gebouw (bijvoorbeeld bij focus via het toetsenbord). */
   toonGebouw(id: string): void {
-    const p = this.o.geo.gebouwen[id];
+    const p = this.o.geo.gebouwen[id] ?? this.o.geo.minigames[id];
     if (!p) return;
     const schaal = Math.max(this.camera.schaal, pas(this.wereldMaat(), this.scherm).schaal * 2);
     this.vlieg({
@@ -695,7 +768,17 @@ export class GemeenteKaart {
       const d = Math.hypot(p.x - w.x, p.y + 4 * GEBOUW_SCHAAL - w.y);
       if (d < straal && (!beste || d < beste.d)) beste = { id, d };
     }
+    let besteMinigame: { id: string; d: number } | undefined;
+    for (const [id, p] of Object.entries(this.o.geo.minigames)) {
+      const d = Math.hypot(p.x - w.x, p.y + 4 * MINIGAME_SCHAAL - w.y);
+      if (d < straal * 0.85 && (!besteMinigame || d < besteMinigame.d)) besteMinigame = { id, d };
+    }
     const nu = performance.now();
+    if (besteMinigame && (!beste || besteMinigame.d < beste.d)) {
+      this.laatsteTik = 0;
+      this.o.onTikMinigame(besteMinigame.id);
+      return;
+    }
     if (beste) {
       this.laatsteTik = 0;
       this.o.onTik(beste.id);

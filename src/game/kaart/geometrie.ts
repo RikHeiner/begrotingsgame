@@ -3,6 +3,7 @@
  * buurten met hun gebied, gebiedsgrenzen, water, wegen van het Stadhuis naar elk gebouw, labels.
  */
 import type { Data } from '../../engine';
+import { GEBOUW_SCHAAL } from './maten';
 import { maakProjectie, type LonLat, type Punt, type Projectie } from './projectie';
 
 export type BuurtGeo = {
@@ -33,6 +34,8 @@ export type KaartGeometrie = {
   water: Water[];
   wegen: Weg[];
   gebouwen: Record<string, Punt>;
+  /** de bekende gebouwen met een minigame (Martinitoren, Forum, …) */
+  minigames: Record<string, Punt>;
   labels: Label[];
   projectie: Projectie;
 };
@@ -108,6 +111,27 @@ export function maakGeometrie(data: Data, geo: BuurtGeo): KaartGeometrie {
 
   spreid(gebouwen, MIN_AFSTAND, 'stadhuis', REK);
 
+  // De minigames: kleiner, dus dichter op elkaar; de gebouwen blijven staan.
+  // Ze blijven binnen de gemeente. Een spel "bij" een gebouw staat vast op dat gebouw.
+  const minigames: Record<string, Punt> = {};
+  for (const m of data.minigames)
+    if (!m.bij) minigames[m.id] = projectie.punt([m.positie.lon, m.positie.lat]);
+  const binnen = (q: Punt) => buurten.some((b) => b.ringen[0] && inRing(q, b.ringen[0]));
+  spreidRond(
+    minigames,
+    Object.values(gebouwen),
+    MIN_AFSTAND * 0.8,
+    MIN_AFSTAND * 0.6,
+    REK,
+    200,
+    binnen,
+  );
+  for (const m of data.minigames) {
+    const g = m.bij && gebouwen[m.bij.gebouw];
+    if (m.bij && g)
+      minigames[m.id] = { x: g.x + m.bij.dx * GEBOUW_SCHAAL, y: g.y + m.bij.dy * GEBOUW_SCHAAL };
+  }
+
   // Wegen: van het Stadhuis naar elk gebouw, licht gebogen, om en om naar links en rechts.
   const hub = gebouwen.stadhuis ?? projectie.centrum;
   const wegen: Weg[] = data.gebouwen
@@ -144,6 +168,7 @@ export function maakGeometrie(data: Data, geo: BuurtGeo): KaartGeometrie {
     water,
     wegen,
     gebouwen,
+    minigames,
     labels,
     projectie,
   };
@@ -159,6 +184,56 @@ export const REK = 1.7;
  * (horizontaal gemeten als afstand / rek).
  * Deterministisch; het vaste gebouw (het Stadhuis) blijft staan.
  */
+/**
+ * Schuift losse punten weg van vaste punten (minstens `minVast`) en van elkaar (minstens
+ * `minLos`). De vaste punten bewegen niet. `rek` werkt zoals bij `spreid`.
+ */
+export function spreidRond(
+  los: Record<string, Punt>,
+  vast: Punt[],
+  minVast: number,
+  minLos: number,
+  rek = 1,
+  rondes = 200,
+  /** mag een punt hier staan? Een duw die erbuiten komt, gaat niet door */
+  binnen: (p: Punt) => boolean = () => true,
+): void {
+  const ids = Object.keys(los).sort();
+  const duw = (a: Punt, b: Punt, min: number, deel: number): boolean => {
+    let dx = (a.x - b.x) / rek;
+    let dy = a.y - b.y;
+    let d = Math.hypot(dx, dy);
+    if (d >= min) return false;
+    if (d < 1e-6) {
+      dx = 0;
+      dy = 1;
+      d = 1;
+    }
+    const f = ((min - d) / d) * deel;
+    const nieuw = { x: a.x + dx * f * rek, y: a.y + dy * f };
+    if (!binnen(nieuw)) return false;
+    a.x = nieuw.x;
+    a.y = nieuw.y;
+    return true;
+  };
+  for (let r = 0; r < rondes; r++) {
+    let verschoven = false;
+    for (const id of ids) {
+      const a = los[id] as Punt;
+      for (const v of vast) verschoven = duw(a, v, minVast, 1) || verschoven;
+      for (const ander of ids) {
+        if (ander <= id) continue;
+        const b = los[ander] as Punt;
+        if (duw(a, b, minLos, 0.5)) {
+          duw(b, a, minLos, 0.5);
+          verschoven = true;
+        }
+      }
+    }
+    if (!verschoven) return;
+  }
+}
+
 export function spreid(
   posities: Record<string, Punt>,
   min: number,

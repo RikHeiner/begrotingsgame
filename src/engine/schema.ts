@@ -814,6 +814,57 @@ export const woonlastenSchema = z
   .strict();
 export type Woonlasten = z.infer<typeof woonlastenSchema>;
 
+// ---------- spel/minigames.json ----------
+
+export const minigameVormen = [
+  'toren',
+  'markt',
+  'station',
+  'forum',
+  'stadion',
+  'plantsoen',
+  'museum',
+  'academie',
+  'sluis',
+  'concertzaal',
+] as const;
+
+export const minigamesSchema = z
+  .object({
+    toelichting: z.string(),
+    minigames: z
+      .array(
+        z
+          .object({
+            id: z.string().regex(/^[a-z]+$/),
+            /** het gebouw, bijvoorbeeld "Martinitoren" */
+            naam: z.string(),
+            /** de naam van het spel */
+            spel: z.string(),
+            vorm: z.enum(minigameVormen),
+            icoon: z.string(),
+            positie: z.object({ lon: z.number(), lat: z.number() }).strict(),
+            /**
+             * Op een gebouw van de begroting, verschoven in tekeneenheden van dat gebouw (zoals de
+             * Martinitoren naast het Stadhuis). Dan geen eigen tekening.
+             */
+            bij: z
+              .object({ gebouw: z.string(), dx: z.number(), dy: z.number() })
+              .strict()
+              .optional(),
+            /** wat je doet, in één zin */
+            kort: z.string(),
+            /** wat je ervan leert */
+            leerdoel: z.string(),
+          })
+          .strict(),
+      )
+      .min(1),
+  })
+  .strict();
+export type Minigames = z.infer<typeof minigamesSchema>;
+export type Minigame = Minigames['minigames'][number];
+
 // ---------- spel/gevolgen.json ----------
 
 const gevolgZinnen = z

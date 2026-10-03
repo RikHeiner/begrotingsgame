@@ -185,6 +185,19 @@
   pointer-events: none;
 }
 
+.kaart-minigame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  pointer-events: none;
+}
+
+.kaart-minigame:focus-visible,
 .kaart-gebouw:focus-visible {
   outline: 3px solid var(--oranje);
   outline-offset: 2px;
@@ -407,6 +420,100 @@
 .schuif-college:hover,
 .schuif-college:focus-visible {
   background: color-mix(in srgb, var(--blauw) 20%, transparent);
+}
+
+/* Minigames */
+.minigame {
+  min-height: 12rem;
+}
+
+.minigame-kort {
+  font-size: 1.1rem;
+}
+
+.minigame-start {
+  width: 100%;
+  min-height: 52px;
+  margin-top: 0.75rem;
+}
+
+.minigame-score {
+  font-size: 1.3rem;
+}
+
+/* Gedeelde stijl voor de minigames */
+.mg-keuzes {
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  margin: 0.75rem 0;
+}
+
+.mg-keuze {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-height: 64px;
+  padding: 0.75rem;
+  border: 2px solid var(--blauw);
+  border-radius: 0.8rem;
+  background: var(--paneel);
+  color: var(--inkt);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mg-keuze.goed {
+  border-color: var(--positief);
+  background: color-mix(in srgb, var(--positief) 14%, var(--paneel));
+}
+
+.mg-keuze.fout {
+  border-color: var(--negatief);
+  background: color-mix(in srgb, var(--negatief) 12%, var(--paneel));
+}
+
+.mg-keuze:disabled {
+  cursor: default;
+}
+
+.mg-uitslag {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+/* Martinitoren */
+.mg-toren {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.mg-toren-beeld {
+  display: flex;
+  justify-content: center;
+}
+
+.mg-toren-schacht {
+  position: relative;
+  width: 2.6rem;
+  min-height: 16rem;
+  border-radius: 0.4rem 0.4rem 0 0;
+  background: repeating-linear-gradient(to top, #c89b6d 0 1.4rem, #b98b5e 1.4rem 1.6rem);
+  clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 100%);
+}
+
+.mg-toren-klimmer {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  font-size: 1.6rem;
+  transition: bottom 0.6s ease;
 }
 
 /* Wat merk je ervan, ten opzichte van nu */

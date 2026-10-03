@@ -23,6 +23,8 @@ import {
   type Uitgaven,
   routeSchema,
   gevolgenSchema,
+  minigamesSchema,
+  type Minigame,
   type Gevolgen,
   belastingenNederlandSchema,
   type Route,
@@ -80,6 +82,8 @@ export type Data = {
   route: Route;
   /** wat de speler merkt van een keuze, ten opzichte van nu */
   gevolgen: Gevolgen;
+  /** minigames over geld, in bekende gebouwen van de gemeente */
+  minigames: Minigame[];
   vergelijking: { bestand: string; tegenbegroting: Tegenbegroting }[];
   /** Jaren van de meerjarenraming, bijvoorbeeld [2026, 2027, 2028, 2029]. */
   jaren: number[];
@@ -108,6 +112,7 @@ export const SPEL_BESTANDEN = {
   personas: 'spel/personas.json',
   route: 'spel/route.json',
   gevolgen: 'spel/gevolgen.json',
+  minigames: 'spel/minigames.json',
 } as const;
 
 export class DataFout extends Error {
@@ -144,6 +149,7 @@ export type RuweData = {
   personas: unknown;
   route: unknown;
   gevolgen: unknown;
+  minigames: unknown;
   tarieven?: { bestand: string; inhoud: unknown };
   parkeren?: { bestand: string; inhoud: unknown };
   woonlasten?: { bestand: string; inhoud: unknown };
@@ -315,6 +321,19 @@ export function maakData(ruw: RuweData): Data {
     }
     if (fout.length) throw new DataFout(SPEL_BESTANDEN.gevolgen, fout);
   }
+  const minigames = valideer(minigamesSchema, ruw.minigames, SPEL_BESTANDEN.minigames).minigames;
+  {
+    const ids = new Set<string>();
+    const fout: string[] = [];
+    for (const m of minigames) {
+      if (ids.has(m.id) || gebouwen.some((g) => g.id === m.id))
+        fout.push(`id "${m.id}" is niet uniek (ook gebouwen tellen mee)`);
+      ids.add(m.id);
+      if (m.bij && !gebouwen.some((g) => g.id === m.bij?.gebouw))
+        fout.push(`${m.id}: onbekend gebouw "${m.bij.gebouw}"`);
+    }
+    if (fout.length) throw new DataFout(SPEL_BESTANDEN.minigames, fout);
+  }
   const belastingenNederland = ruw.belastingenNederland
     ? valideer(
         belastingenNederlandSchema,
@@ -360,6 +379,7 @@ export function maakData(ruw: RuweData): Data {
     ...(belastingenNederland ? { belastingenNederland } : {}),
     route,
     gevolgen,
+    minigames,
     vergelijking,
     jaren: [...config.meerjarenHorizon],
     index: maakIndex(begroting, dwarsverbanden, meters),

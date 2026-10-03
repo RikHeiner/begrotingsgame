@@ -12,6 +12,7 @@ import { Hud } from '../ui/hud/Hud';
 import { KaartWeergave } from '../ui/kaart/KaartWeergave';
 import { Lijstweergave } from '../ui/lijstweergave/Lijstweergave';
 import { GebouwPaneel } from '../ui/panelen/GebouwPaneel';
+import { MinigameDialoog } from '../ui/minigames/MinigameDialoog';
 import { RouteKaart } from '../ui/route/RouteKaart';
 import { Startscherm } from '../ui/start/Startscherm';
 import { Documentweergave } from '../ui/tegenbegroting/Documentweergave';
@@ -138,6 +139,7 @@ export function Spel({ data }: { data: Data }) {
           <RouteKaart data={data} resultaat={resultaat} />
         )}
       </main>
+      <MinigameDialoog data={data} />
       <Feedback data={data} />
       <p className="toast" role="status" aria-live="polite" data-testid="melding">
         {melding && <span>🔒 {melding}</span>}

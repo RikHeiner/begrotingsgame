@@ -65,6 +65,9 @@ type Spel = {
    * is, vanaf 0. Gelijk aan het aantal stappen als de route klaar is. Alleen bij nul.
    */
   routeStap: number;
+  /** de minigame die open is (spel/minigames.json) */
+  minigame?: string;
+  openMinigame(id?: string): void;
   /** stap `vanaf` is klaar: ga door naar de volgende en open dat gebouw */
   volgendeStap(vanaf: number): void;
   /** de keuzes waarmee de speler begon (bij nul: alle posten op hun minimum) */
@@ -204,6 +207,9 @@ export const useSpel = create<Spel>((set, get) => {
     begin(beginpunt, data = get().data) {
       if (!data) return;
       get().start(data, beginKeuzes(data, beginpunt), beginpunt);
+    },
+    openMinigame(id) {
+      set({ minigame: id, ...(id ? { gekozenGebouw: undefined } : {}) });
     },
     routeStap: 0,
     volgendeStap(vanaf) {
