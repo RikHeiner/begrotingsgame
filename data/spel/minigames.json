@@ -146,8 +146,8 @@
         "lon": 6.5669,
         "lat": 53.2183
       },
-      "kort": "Graaf naar geld: tijdelijke uitgaven die VVD Groningen wil schrappen. Laat de kerntaken liggen.",
-      "leerdoel": "Waar tijdelijk geld heen gaat, en welke uitgaven VVD Groningen liever niet doet.",
+      "kort": "Graaf goud op om uit het tekort te komen: uitgaven die VVD Groningen wil schrappen. Laat de kerntaken liggen, en let op de tijd.",
+      "leerdoel": "Welke uitgaven VVD Groningen liever niet doet, eenmalig en elk jaar, en hoe je zo een tekort wegwerkt.",
       "goud": {
         "bron": "Verkiezingsprogramma VVD Groningen 2026-2030 (B1-versie)",
         "url": "https://www.vvd.nl/wp-content/uploads/sites/28/2026/02/Verkiezingsprogramma-VVD-Groningen-2026-2030-in-B1-1-1.pdf",
@@ -199,7 +199,119 @@
             "vvd": "Daarom investeren we in toegankelijke sportplekken (…).",
             "pagina": 44
           }
-        ]
+        ],
+        "tegenbegroting": {
+          "bron": "Tegenbegroting VVD Groningen 2026: Het kan en moet anders",
+          "url": "https://gemeenteraad.groningen.nl/Vergaderingen/gemeenteraad/2025/12-november/15:00/A-01-Tegenbegroting-Het-kan-en-moet-anders-VVD/A-01-1-Bijlage-Tegenbegroting-Het-kan-en-moet-anders-VVD.pdf",
+          "jaar": 2026,
+          "posten": [
+            {
+              "naam": "Besparingen op het ambtenarenapparaat 5% (niet beheer openbare ruimte en veiligheid)",
+              "bedrag_mln": 16.4,
+              "soort": "S"
+            },
+            {
+              "naam": "Schrappen kwijtscheldingen gemeentelijke heffingen en belastingen",
+              "bedrag_mln": 4.2,
+              "soort": "S"
+            },
+            {
+              "naam": "Aanpak Oosterhamrikzone",
+              "bedrag_mln": 0.25,
+              "soort": "S"
+            },
+            {
+              "naam": "Diverse subsidies programma energie",
+              "bedrag_mln": 0.3,
+              "soort": "S"
+            },
+            {
+              "naam": "Besparing overhead 5%",
+              "bedrag_mln": 7.0,
+              "soort": "S"
+            },
+            {
+              "naam": "Taakstelling 20% individuele inkomenstoeslag",
+              "bedrag_mln": 0.84,
+              "soort": "S"
+            },
+            {
+              "naam": "Taakstelling cultuur 20%",
+              "bedrag_mln": 15.2,
+              "soort": "S"
+            },
+            {
+              "naam": "Taakstelling armoede en minimaregeling 20%",
+              "bedrag_mln": 2.4,
+              "soort": "S"
+            },
+            {
+              "naam": "Bijzondere bijstand 10%",
+              "bedrag_mln": 0.6,
+              "soort": "S"
+            },
+            {
+              "naam": "Schrappen Gemeentelijk Ontwikkelbedrijf",
+              "bedrag_mln": 0.15,
+              "soort": "S"
+            },
+            {
+              "naam": "Gefaseerd schrappen basisbanen in 4 jaar",
+              "bedrag_mln": 1.625,
+              "soort": "S"
+            },
+            {
+              "naam": "Minder wethouders in 2026",
+              "bedrag_mln": 0.2,
+              "soort": "S"
+            },
+            {
+              "naam": "Zakelijke werkplaats Stadsbeheer",
+              "bedrag_mln": 0.9,
+              "soort": "S"
+            },
+            {
+              "naam": "Meer reclamedragend straatmeubilair (ondergrondse fietsenstalling)",
+              "bedrag_mln": 0.2,
+              "soort": "S"
+            },
+            {
+              "naam": "Verkopen van minderheidsbelang WarmteStad",
+              "bedrag_mln": 4.9,
+              "soort": "I"
+            },
+            {
+              "naam": "Windmolens Roodehaan",
+              "bedrag_mln": 1.762,
+              "soort": "I"
+            },
+            {
+              "naam": "Tijdelijke invulling Casinolocatie aan de markt laten",
+              "bedrag_mln": 0.6,
+              "soort": "I"
+            },
+            {
+              "naam": "Verkoop gemeentelijk vastgoed zoals Vapiano-pand en Glaudé-panden",
+              "bedrag_mln": 2.0,
+              "soort": "I"
+            },
+            {
+              "naam": "Schrappen laadpalenbedrijf",
+              "bedrag_mln": 0.74,
+              "soort": "I"
+            },
+            {
+              "naam": "Stoppen aanleg Zonnepark Meerstad Noord",
+              "bedrag_mln": 4.0,
+              "soort": "I"
+            },
+            {
+              "naam": "Schrappen voedsel- en eiwittransitie landelijk gebied",
+              "bedrag_mln": 0.7,
+              "soort": "I"
+            }
+          ]
+        }
       }
     }
   ]

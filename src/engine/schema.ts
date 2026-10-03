@@ -947,6 +947,26 @@ export const minigamesSchema = z
                       .strict(),
                   )
                   .min(1),
+                /** posten uit een eerdere tegenbegroting van VVD Groningen, met hun eigen jaar */
+                tegenbegroting: z
+                  .object({
+                    bron: z.string(),
+                    url: z.string().url(),
+                    jaar: z.number().int(),
+                    posten: z
+                      .array(
+                        z
+                          .object({
+                            naam: z.string(),
+                            bedrag_mln: z.number().positive(),
+                            soort: z.enum(['S', 'I']),
+                          })
+                          .strict(),
+                      )
+                      .min(1),
+                  })
+                  .strict()
+                  .optional(),
               })
               .strict()
               .optional(),

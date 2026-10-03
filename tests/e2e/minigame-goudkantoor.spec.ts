@@ -4,37 +4,42 @@ test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('begrotingsgame:tutorial', 'klaar'));
 });
 
-test('Goudkantoor: richten en graven; goud met een zin uit het VVD-programma', async ({ page }) => {
+test('Geldzoeker: uit het tekort graven, met levels; goud met bron en jaar', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('.kaart-gebouw')).toHaveCount(15);
   await page.locator('[data-minigame="goudkantoor"]').focus();
   await page.keyboard.press('Enter');
   await page.getByTestId('minigame-start').click();
   const spel = page.getByTestId('minigame-goudkantoor');
-  await expect(spel.getByTestId('mg-goud-stand')).toContainText('Beurt 1 van 7');
-  // Met minder beweging staat de grijper stil: helemaal naar links richten, dan steeds een stukje
-  // naar rechts en graven. Zo kom je alle richtingen langs.
-  for (let i = 0; i < 11; i++) await spel.getByRole('button', { name: /Richt links/ }).click();
+  await spel.getByRole('button', { name: 'Start level 1' }).click();
+  const stand = spel.getByTestId('mg-goud-stand');
+  await expect(stand).toContainText('Level 1');
+  // Met minder beweging telt de tijd niet: je hebt beurten en richt zelf.
+  await expect(stand).toContainText('Beurten 9');
+  await expect(stand).toContainText('−');
+  // Helemaal naar links richten, dan steeds een stukje naar rechts en graven.
+  for (let i = 0; i < 12; i++) await spel.getByRole('button', { name: /Richt links/ }).click();
   let goud = false;
-  for (let beurt = 1; beurt <= 7; beurt++) {
+  for (let beurt = 0; beurt < 9; beurt++) {
+    if (await spel.getByTestId('mg-goud-einde').isVisible()) break;
     await spel.getByRole('button', { name: /Graaf/ }).click();
     const status = spel.locator('div[role="status"]');
-    await expect(status).toContainText(/Goud|steen|Niets geraakt/);
-    if ((await status.textContent())?.includes('Goud:')) {
+    if (((await status.textContent()) ?? '').includes('💰')) {
       goud = true;
-      await expect(status).toContainText('Verkiezingsprogramma VVD Groningen 2026-2030, p.');
-      await expect(status).toContainText('eenmalig in de begroting 2027');
+      await expect(status).toContainText(/begroting 2027|tegenbegroting VVD 2026/);
     }
-    const knop = status.getByRole('button');
-    if ((await knop.textContent())?.includes('Wat heb ik gevonden')) {
-      await knop.click();
-      break;
+    for (let i = 0; i < 3; i++) {
+      const rechts = spel.getByRole('button', { name: /Richt rechts/ });
+      if ((await rechts.count()) && (await rechts.isEnabled())) await rechts.click();
     }
-    await knop.click();
-    for (let i = 0; i < 3; i++) await spel.getByRole('button', { name: /Richt rechts/ }).click();
   }
   expect(goud).toBe(true);
-  await expect(spel.getByTestId('mg-goud-uitslag')).toContainText('wil schrappen');
-  await spel.getByRole('button', { name: 'Naar de uitslag' }).click();
+  const einde = spel.getByTestId('mg-goud-einde');
+  await expect(einde).toContainText(/Level 1 gehaald|nog een tekort/);
+  await einde.getByRole('button', { name: /Stoppen|Bekijk/ }).click();
+  const uitslag = spel.getByTestId('mg-goud-uitslag');
+  await expect(uitslag).toContainText('levels');
+  await expect(uitslag).toContainText('Tegenbegroting VVD Groningen 2026');
+  await uitslag.getByRole('button', { name: 'Naar de uitslag' }).click();
   await expect(page.getByTestId('minigame-klaar')).toBeVisible();
 });
