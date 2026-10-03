@@ -19,6 +19,8 @@ import {
   tarievenSchema,
   parkerenSchema,
   woonlastenSchema,
+  uitgavenSchema,
+  type Uitgaven,
   type ParkerenData,
   type Woonlasten,
   type Tarieven,
@@ -64,6 +66,8 @@ export type Data = {
   parkeren?: ParkerenData;
   /** woonlasten per gemeente, als config.json ze noemt */
   woonlasten?: Woonlasten;
+  /** uitgaven per inwoner van andere gemeenten, als config.json ze noemt */
+  uitgaven?: Uitgaven;
   vergelijking: { bestand: string; tegenbegroting: Tegenbegroting }[];
   /** Jaren van de meerjarenraming, bijvoorbeeld [2026, 2027, 2028, 2029]. */
   jaren: number[];
@@ -127,6 +131,7 @@ export type RuweData = {
   tarieven?: { bestand: string; inhoud: unknown };
   parkeren?: { bestand: string; inhoud: unknown };
   woonlasten?: { bestand: string; inhoud: unknown };
+  uitgaven?: { bestand: string; inhoud: unknown };
   vergelijking: { bestand: string; inhoud: unknown }[];
 };
 
@@ -237,6 +242,33 @@ export function maakData(ruw: RuweData): Data {
     }
     if (fout.length) throw new DataFout(ruw.woonlasten.bestand, fout);
   }
+  const uitgaven = ruw.uitgaven
+    ? valideer(uitgavenSchema, ruw.uitgaven.inhoud, ruw.uitgaven.bestand)
+    : undefined;
+  if (ruw.uitgaven && uitgaven) {
+    const fout: string[] = [];
+    // Cijfers van andere gemeenten zijn er pas later dan de eigen begroting. Ouder dan drie jaar
+    // zeggen ze te weinig; nieuwer dan de begroting kan niet.
+    if (uitgaven.jaar > config.actiefJaar || uitgaven.jaar < config.actiefJaar - 3)
+      fout.push(
+        `dit zijn cijfers van ${uitgaven.jaar}, maar config.json verwacht ${config.actiefJaar} of hooguit drie jaar eerder`,
+      );
+    const gebouwIds = new Set(gebouwen.map((g) => g.id));
+    const themaIds = new Set<string>();
+    for (const t of uitgaven.themas) {
+      if (themaIds.has(t.id)) fout.push(`thema "${t.id}" staat er twee keer in`);
+      themaIds.add(t.id);
+      for (const g of t.gebouwen)
+        if (!gebouwIds.has(g)) fout.push(`thema "${t.id}": onbekend gebouw "${g}"`);
+    }
+    const codes = new Set(uitgaven.gemeenten.map((g) => g.code));
+    for (const c of [uitgaven.gemeente, ...uitgaven.vergelijk_met])
+      if (!codes.has(c)) fout.push(`gemeente "${c}" staat niet in de lijst`);
+    for (const g of uitgaven.gemeenten)
+      for (const t of themaIds)
+        if (g.lasten_x1000[t] === undefined) fout.push(`${g.naam}: geen bedrag voor thema "${t}"`);
+    if (fout.length) throw new DataFout(ruw.uitgaven.bestand, fout);
+  }
   const vergelijking = ruw.vergelijking.map(({ bestand, inhoud }) => ({
     bestand,
     tegenbegroting: valideer(tegenbegrotingSchema, inhoud, bestand),
@@ -258,6 +290,7 @@ export function maakData(ruw: RuweData): Data {
     ...(tarieven ? { tarieven } : {}),
     ...(parkeren ? { parkeren } : {}),
     ...(woonlasten ? { woonlasten } : {}),
+    ...(uitgaven ? { uitgaven } : {}),
     vergelijking,
     jaren: [...config.meerjarenHorizon],
     index: maakIndex(begroting, dwarsverbanden, meters),
@@ -294,7 +327,7 @@ export async function laadData(haal: HaalJson): Promise<Data> {
   const ruweConfig = await haal('config.json');
   const config = valideer(configSchema, ruweConfig, 'config.json');
   const spelSleutels = Object.keys(SPEL_BESTANDEN) as (keyof typeof SPEL_BESTANDEN)[];
-  const [begroting, dwarsverbanden, spel, vergelijking, tarieven, parkeren, woonlasten] =
+  const [begroting, dwarsverbanden, spel, vergelijking, tarieven, parkeren, woonlasten, uitgaven] =
     await Promise.all([
       haal(config.begroting),
       haal('dwarsverbanden.json'),
@@ -303,6 +336,7 @@ export async function laadData(haal: HaalJson): Promise<Data> {
       config.tarieven ? haal(config.tarieven) : Promise.resolve(undefined),
       config.parkeren ? haal(config.parkeren) : Promise.resolve(undefined),
       config.woonlasten ? haal(config.woonlasten) : Promise.resolve(undefined),
+      config.uitgaven ? haal(config.uitgaven) : Promise.resolve(undefined),
     ]);
   const spelData = Object.fromEntries(spelSleutels.map((k, i) => [k, spel[i]])) as Record<
     keyof typeof SPEL_BESTANDEN,
@@ -318,6 +352,7 @@ export async function laadData(haal: HaalJson): Promise<Data> {
     ...(config.woonlasten
       ? { woonlasten: { bestand: config.woonlasten, inhoud: woonlasten } }
       : {}),
+    ...(config.uitgaven ? { uitgaven: { bestand: config.uitgaven, inhoud: uitgaven } } : {}),
     vergelijking: config.vergelijking.map((bestand, i) => ({ bestand, inhoud: vergelijking[i] })),
   });
 }

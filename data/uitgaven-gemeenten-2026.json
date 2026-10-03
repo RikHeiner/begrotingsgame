@@ -1,0 +1,938 @@
+{
+ "jaar": 2026,
+ "verslagsoort": "begroting",
+ "toelichting": "Uitgaven per thema van de gemeenten met 100.000 inwoners of meer, uit hun begroting 2026. Gemaakt met npm run uitgaven:ophalen.",
+ "definitie": "Lasten op de taakvelden van het thema (Iv3), zonder reserves en interne verrekeningen, gedeeld door het aantal inwoners op 1 januari. Inkomsten zoals heffingen en geld van het Rijk zijn er niet vanaf gehaald.",
+ "bronnen": [
+  {
+   "id": "iv3",
+   "titel": "CBS, Gemeenten 2026 onbewerkte Iv3-data (45078NED), begroting 2026",
+   "url": "https://dataderden.cbs.nl/ODataApi/OData/45078NED",
+   "pagina": "https://iv3statline.cbs.nl/#/IV3/nl/dataset/45078NED/table",
+   "opgehaald": "2026-10-03",
+   "status": "feit"
+  },
+  {
+   "id": "cbs",
+   "titel": "CBS StatLine 70072ned, Regionale kerncijfers: bevolking op 1 januari 2026",
+   "url": "https://opendata.cbs.nl/statline/#/CBS/nl/dataset/70072ned/table",
+   "opgehaald": "2026-10-03",
+   "status": "feit"
+  }
+ ],
+ "gemeente": "0014",
+ "vergelijk_met": [
+  "0344",
+  "0772",
+  "0855",
+  "0268",
+  "0193",
+  "0080",
+  "0153",
+  "0935"
+ ],
+ "groep": "gemeenten met 100.000 inwoners of meer",
+ "themas": [
+  {
+   "id": "bestuur",
+   "naam": "Bestuur en burgerzaken",
+   "gebouwen": [
+    "stadhuis"
+   ],
+   "taakvelden": [
+    "0.1",
+    "0.2"
+   ]
+  },
+  {
+   "id": "overhead",
+   "naam": "Overhead (staf, ICT, huisvesting, HR)",
+   "gebouwen": [
+    "stadhuis"
+   ],
+   "taakvelden": [
+    "0.4"
+   ],
+   "let_op": "Gemeenten boeken overhead niet allemaal op dezelfde manier. Sommige zetten bijna alles onder overhead, andere verdelen het over de andere taken. Kijk daarom vooral naar de middelste gemeente."
+  },
+  {
+   "id": "economie",
+   "naam": "Economie",
+   "gebouwen": [
+    "winkel"
+   ],
+   "taakvelden": [
+    "3.1",
+    "3.2",
+    "3.3",
+    "3.4"
+   ]
+  },
+  {
+   "id": "verkeer",
+   "naam": "Verkeer, parkeren en openbaar vervoer",
+   "gebouwen": [
+    "parkeer"
+   ],
+   "taakvelden": [
+    "2.1",
+    "2.2",
+    "2.5"
+   ],
+   "let_op": "Hieronder valt ook het onderhoud van straten en wegen. Dat staat in de game bij het Park."
+  },
+  {
+   "id": "werk",
+   "naam": "Werk en inkomen (met de bijstand)",
+   "gebouwen": [
+    "werk"
+   ],
+   "taakvelden": [
+    "6.3",
+    "6.4",
+    "6.5"
+   ],
+   "let_op": "Groningen heeft veel inwoners met een bijstandsuitkering. Het Rijk betaalt de uitkeringen grotendeels terug; dat geld is hier niet van afgehaald."
+  },
+  {
+   "id": "sport",
+   "naam": "Sport",
+   "gebouwen": [
+    "zwembad"
+   ],
+   "taakvelden": [
+    "5.1",
+    "5.2"
+   ]
+  },
+  {
+   "id": "sociaal",
+   "naam": "Zorg, jeugdhulp en welzijn",
+   "gebouwen": [
+    "zorg",
+    "buurt"
+   ],
+   "taakvelden": [
+    "6.1",
+    "6.21",
+    "6.22",
+    "6.23",
+    "6.60",
+    "6.711",
+    "6.712",
+    "6.713",
+    "6.714",
+    "6.751",
+    "6.752",
+    "6.753",
+    "6.761",
+    "6.762",
+    "6.763",
+    "6.791",
+    "6.792",
+    "6.811",
+    "6.812",
+    "6.821",
+    "6.822",
+    "6.91",
+    "6.92"
+   ],
+   "let_op": "Groningen regelt beschermd wonen en de opvang van dak- en thuislozen voor de hele provincie. Daar krijgt de gemeente geld van het Rijk voor. Daardoor zijn de uitgaven per inwoner hoger. Wijkteams, welzijn, Wmo en jeugdhulp staan hier samen, omdat gemeenten ze verschillend boeken."
+  },
+  {
+   "id": "gezondheid",
+   "naam": "Gezondheid (GGD)",
+   "gebouwen": [
+    "zorg"
+   ],
+   "taakvelden": [
+    "7.1"
+   ]
+  },
+  {
+   "id": "veiligheid",
+   "naam": "Brandweer en veiligheid",
+   "gebouwen": [
+    "politie"
+   ],
+   "taakvelden": [
+    "1.1",
+    "1.2"
+   ]
+  },
+  {
+   "id": "cultuur",
+   "naam": "Cultuur",
+   "gebouwen": [
+    "theater"
+   ],
+   "taakvelden": [
+    "5.3",
+    "5.4",
+    "5.5",
+    "5.6"
+   ]
+  },
+  {
+   "id": "onderwijs",
+   "naam": "Onderwijs en schoolgebouwen",
+   "gebouwen": [
+    "school"
+   ],
+   "taakvelden": [
+    "4.1",
+    "4.2",
+    "4.3"
+   ]
+  },
+  {
+   "id": "groen",
+   "naam": "Groen en recreatie",
+   "gebouwen": [
+    "park"
+   ],
+   "taakvelden": [
+    "5.7"
+   ]
+  },
+  {
+   "id": "riolering",
+   "naam": "Riolering",
+   "gebouwen": [
+    "park"
+   ],
+   "taakvelden": [
+    "7.2"
+   ]
+  },
+  {
+   "id": "afval",
+   "naam": "Afval",
+   "gebouwen": [
+    "park"
+   ],
+   "taakvelden": [
+    "7.3"
+   ]
+  },
+  {
+   "id": "ruimte",
+   "naam": "Wonen, bouwen, ruimte en milieu",
+   "gebouwen": [
+    "bouw"
+   ],
+   "taakvelden": [
+    "7.4",
+    "8.1",
+    "8.3"
+   ],
+   "let_op": "Klimaat en energie boeken gemeenten soms bij milieu en soms bij wonen; daarom staan ze samen."
+  }
+ ],
+ "gemeenten": [
+  {
+   "code": "0363",
+   "naam": "Amsterdam",
+   "inwoners": 941927,
+   "lasten_x1000": {
+    "bestuur": 127839,
+    "overhead": 610604,
+    "economie": 305177,
+    "verkeer": 716030,
+    "werk": 1301458,
+    "sport": 109521,
+    "sociaal": 1390618,
+    "gezondheid": 133982,
+    "veiligheid": 317677,
+    "cultuur": 277071,
+    "onderwijs": 297862,
+    "groen": 143042,
+    "riolering": 99111,
+    "afval": 186108,
+    "ruimte": 350464
+   }
+  },
+  {
+   "code": "0599",
+   "naam": "Rotterdam",
+   "inwoners": 673804,
+   "lasten_x1000": {
+    "bestuur": 116838,
+    "overhead": 614089,
+    "economie": 32362,
+    "verkeer": 305004,
+    "werk": 951861,
+    "sport": 84432,
+    "sociaal": 1253878,
+    "gezondheid": 60358,
+    "veiligheid": 229965,
+    "cultuur": 196451,
+    "onderwijs": 180747,
+    "groen": 86093,
+    "riolering": 80466,
+    "afval": 108417,
+    "ruimte": 303770
+   }
+  },
+  {
+   "code": "0518",
+   "naam": "'s-Gravenhage",
+   "inwoners": 569468,
+   "lasten_x1000": {
+    "bestuur": 83287,
+    "overhead": 304873,
+    "economie": 61398,
+    "verkeer": 324379,
+    "werk": 790453,
+    "sport": 78334,
+    "sociaal": 837922,
+    "gezondheid": 107818,
+    "veiligheid": 137930,
+    "cultuur": 163031,
+    "onderwijs": 149878,
+    "groen": 69621,
+    "riolering": 52109,
+    "afval": 101198,
+    "ruimte": 156002
+   }
+  },
+  {
+   "code": "0344",
+   "naam": "Utrecht",
+   "inwoners": 378121,
+   "lasten_x1000": {
+    "bestuur": 22029,
+    "overhead": 619738,
+    "economie": 28039,
+    "verkeer": 101033,
+    "werk": 257116,
+    "sport": 36028,
+    "sociaal": 463138,
+    "gezondheid": 19351,
+    "veiligheid": 47211,
+    "cultuur": 95861,
+    "onderwijs": 84978,
+    "groen": 27711,
+    "riolering": 35180,
+    "afval": 29190,
+    "ruimte": 94114
+   }
+  },
+  {
+   "code": "0772",
+   "naam": "Eindhoven",
+   "inwoners": 249783,
+   "lasten_x1000": {
+    "bestuur": 35321,
+    "overhead": 137556,
+    "economie": 26813,
+    "verkeer": 68234,
+    "werk": 245029,
+    "sport": 41649,
+    "sociaal": 345100,
+    "gezondheid": 19553,
+    "veiligheid": 47569,
+    "cultuur": 57823,
+    "onderwijs": 59818,
+    "groen": 27893,
+    "riolering": 23745,
+    "afval": 29419,
+    "ruimte": 96247
+   }
+  },
+  {
+   "code": "0014",
+   "naam": "Groningen",
+   "inwoners": 244427,
+   "lasten_x1000": {
+    "bestuur": 24315,
+    "overhead": 136167,
+    "economie": 21293,
+    "verkeer": 75108,
+    "werk": 340410,
+    "sport": 40089,
+    "sociaal": 416362,
+    "gezondheid": 17569,
+    "veiligheid": 38884,
+    "cultuur": 70230,
+    "onderwijs": 40875,
+    "groen": 39087,
+    "riolering": 17922,
+    "afval": 37251,
+    "ruimte": 86817
+   }
+  },
+  {
+   "code": "0034",
+   "naam": "Almere",
+   "inwoners": 232619,
+   "lasten_x1000": {
+    "bestuur": 22845,
+    "overhead": 111265,
+    "economie": 25756,
+    "verkeer": 85615,
+    "werk": 168734,
+    "sport": 20936,
+    "sociaal": 325419,
+    "gezondheid": 16854,
+    "veiligheid": 31407,
+    "cultuur": 38807,
+    "onderwijs": 53765,
+    "groen": 43131,
+    "riolering": 30954,
+    "afval": 33645,
+    "ruimte": 84607
+   }
+  },
+  {
+   "code": "0855",
+   "naam": "Tilburg",
+   "inwoners": 230746,
+   "lasten_x1000": {
+    "bestuur": 26561,
+    "overhead": 119662,
+    "economie": 60618,
+    "verkeer": 68665,
+    "werk": 239985,
+    "sport": 35628,
+    "sociaal": 375723,
+    "gezondheid": 16682,
+    "veiligheid": 42677,
+    "cultuur": 49034,
+    "onderwijs": 43857,
+    "groen": 29952,
+    "riolering": 14185,
+    "afval": 27080,
+    "ruimte": 41372
+   }
+  },
+  {
+   "code": "0758",
+   "naam": "Breda",
+   "inwoners": 190204,
+   "lasten_x1000": {
+    "bestuur": 23016,
+    "overhead": 111721,
+    "economie": 22359,
+    "verkeer": 49843,
+    "werk": 154461,
+    "sport": 18552,
+    "sociaal": 276540,
+    "gezondheid": 16872,
+    "veiligheid": 32523,
+    "cultuur": 35627,
+    "onderwijs": 39036,
+    "groen": 25254,
+    "riolering": 11786,
+    "afval": 39629,
+    "ruimte": 48421
+   }
+  },
+  {
+   "code": "0268",
+   "naam": "Nijmegen",
+   "inwoners": 189871,
+   "lasten_x1000": {
+    "bestuur": 4458,
+    "overhead": 2220,
+    "economie": 5654,
+    "verkeer": 56898,
+    "werk": 198740,
+    "sport": 18987,
+    "sociaal": 285403,
+    "gezondheid": 14496,
+    "veiligheid": 20384,
+    "cultuur": 38254,
+    "onderwijs": 35030,
+    "groen": 16771,
+    "riolering": 9087,
+    "afval": 16858,
+    "ruimte": 21217
+   }
+  },
+  {
+   "code": "0202",
+   "naam": "Arnhem",
+   "inwoners": 171822,
+   "lasten_x1000": {
+    "bestuur": 17207,
+    "overhead": 98012,
+    "economie": 9378,
+    "verkeer": 41322,
+    "werk": 238797,
+    "sport": 26502,
+    "sociaal": 286293,
+    "gezondheid": 11977,
+    "veiligheid": 30386,
+    "cultuur": 43045,
+    "onderwijs": 50774,
+    "groen": 29555,
+    "riolering": 11812,
+    "afval": 25230,
+    "ruimte": 56196
+   }
+  },
+  {
+   "code": "0200",
+   "naam": "Apeldoorn",
+   "inwoners": 169212,
+   "lasten_x1000": {
+    "bestuur": 19115,
+    "overhead": 90467,
+    "economie": 20677,
+    "verkeer": 28765,
+    "werk": 133437,
+    "sport": 18463,
+    "sociaal": 270241,
+    "gezondheid": 8124,
+    "veiligheid": 23379,
+    "cultuur": 26423,
+    "onderwijs": 34319,
+    "groen": 25008,
+    "riolering": 10218,
+    "afval": 23534,
+    "ruimte": 36989
+   }
+  },
+  {
+   "code": "0392",
+   "naam": "Haarlem",
+   "inwoners": 168898,
+   "lasten_x1000": {
+    "bestuur": 16486,
+    "overhead": 97499,
+    "economie": 6521,
+    "verkeer": 60286,
+    "werk": 119812,
+    "sport": 22384,
+    "sociaal": 217256,
+    "gezondheid": 12226,
+    "veiligheid": 46237,
+    "cultuur": 43595,
+    "onderwijs": 28774,
+    "groen": 17716,
+    "riolering": 11031,
+    "afval": 26498,
+    "ruimte": 44826
+   }
+  },
+  {
+   "code": "0394",
+   "naam": "Haarlemmermeer",
+   "inwoners": 166978,
+   "lasten_x1000": {
+    "bestuur": 12373,
+    "overhead": 82684,
+    "economie": 8242,
+    "verkeer": 34761,
+    "werk": 59146,
+    "sport": 21331,
+    "sociaal": 164688,
+    "gezondheid": 9771,
+    "veiligheid": 25472,
+    "cultuur": 24071,
+    "onderwijs": 18884,
+    "groen": 20735,
+    "riolering": 8113,
+    "afval": 22841,
+    "ruimte": 29624
+   }
+  },
+  {
+   "code": "0479",
+   "naam": "Zaanstad",
+   "inwoners": 165201,
+   "lasten_x1000": {
+    "bestuur": 16562,
+    "overhead": 80124,
+    "economie": 5349,
+    "verkeer": 41643,
+    "werk": 115829,
+    "sport": 11916,
+    "sociaal": 223590,
+    "gezondheid": 7615,
+    "veiligheid": 31004,
+    "cultuur": 19027,
+    "onderwijs": 38967,
+    "groen": 15493,
+    "riolering": 21884,
+    "afval": 23113,
+    "ruimte": 44280
+   }
+  },
+  {
+   "code": "0307",
+   "naam": "Amersfoort",
+   "inwoners": 163764,
+   "lasten_x1000": {
+    "bestuur": 19028,
+    "overhead": 81054,
+    "economie": 9427,
+    "verkeer": 37774,
+    "werk": 120045,
+    "sport": 17745,
+    "sociaal": 204028,
+    "gezondheid": 9524,
+    "veiligheid": 20384,
+    "cultuur": 35772,
+    "onderwijs": 40020,
+    "groen": 27278,
+    "riolering": 12496,
+    "afval": 20390,
+    "ruimte": 36113
+   }
+  },
+  {
+   "code": "0153",
+   "naam": "Enschede",
+   "inwoners": 162683,
+   "lasten_x1000": {
+    "bestuur": 18162,
+    "overhead": 90043,
+    "economie": 8599,
+    "verkeer": 32653,
+    "werk": 212207,
+    "sport": 13334,
+    "sociaal": 319418,
+    "gezondheid": 12561,
+    "veiligheid": 25250,
+    "cultuur": 28202,
+    "onderwijs": 31747,
+    "groen": 19262,
+    "riolering": 18957,
+    "afval": 28685,
+    "ruimte": 46071
+   }
+  },
+  {
+   "code": "0796",
+   "naam": "'s-Hertogenbosch",
+   "inwoners": 162295,
+   "lasten_x1000": {
+    "bestuur": 22628,
+    "overhead": 64845,
+    "economie": 9595,
+    "verkeer": 53989,
+    "werk": 172868,
+    "sport": 24440,
+    "sociaal": 228064,
+    "gezondheid": 15660,
+    "veiligheid": 25929,
+    "cultuur": 38579,
+    "onderwijs": 48468,
+    "groen": 15830,
+    "riolering": 8986,
+    "afval": 63231,
+    "ruimte": 20300
+   }
+  },
+  {
+   "code": "0193",
+   "naam": "Zwolle",
+   "inwoners": 134147,
+   "lasten_x1000": {
+    "bestuur": 19645,
+    "overhead": 72434,
+    "economie": 6520,
+    "verkeer": 33012,
+    "werk": 126512,
+    "sport": 9234,
+    "sociaal": 255872,
+    "gezondheid": 6956,
+    "veiligheid": 20467,
+    "cultuur": 23846,
+    "onderwijs": 28384,
+    "groen": 16441,
+    "riolering": 6814,
+    "afval": 15481,
+    "ruimte": 18823
+   }
+  },
+  {
+   "code": "0637",
+   "naam": "Zoetermeer",
+   "inwoners": 130836,
+   "lasten_x1000": {
+    "bestuur": 12968,
+    "overhead": 62688,
+    "economie": 6224,
+    "verkeer": 22139,
+    "werk": 101621,
+    "sport": 15868,
+    "sociaal": 157723,
+    "gezondheid": 14810,
+    "veiligheid": 21396,
+    "cultuur": 15332,
+    "onderwijs": 25035,
+    "groen": 15952,
+    "riolering": 6783,
+    "afval": 14764,
+    "ruimte": 29878
+   }
+  },
+  {
+   "code": "0546",
+   "naam": "Leiden",
+   "inwoners": 130328,
+   "lasten_x1000": {
+    "bestuur": 18941,
+    "overhead": 105213,
+    "economie": 12832,
+    "verkeer": 58231,
+    "werk": 133967,
+    "sport": 19043,
+    "sociaal": 175004,
+    "gezondheid": 12107,
+    "veiligheid": 19784,
+    "cultuur": 29237,
+    "onderwijs": 29901,
+    "groen": 17236,
+    "riolering": 8460,
+    "afval": 17757,
+    "ruimte": 30011
+   }
+  },
+  {
+   "code": "0080",
+   "naam": "Leeuwarden",
+   "inwoners": 130162,
+   "lasten_x1000": {
+    "bestuur": 10361,
+    "overhead": 72705,
+    "economie": 8609,
+    "verkeer": 40772,
+    "werk": 163466,
+    "sport": 17479,
+    "sociaal": 234535,
+    "gezondheid": 7802,
+    "veiligheid": 21171,
+    "cultuur": 17954,
+    "onderwijs": 25976,
+    "groen": 19262,
+    "riolering": 9023,
+    "afval": 18691,
+    "ruimte": 32687
+   }
+  },
+  {
+   "code": "0935",
+   "naam": "Maastricht",
+   "inwoners": 126026,
+   "lasten_x1000": {
+    "bestuur": 15139,
+    "overhead": 87069,
+    "economie": 11339,
+    "verkeer": 37181,
+    "werk": 114332,
+    "sport": 14318,
+    "sociaal": 180585,
+    "gezondheid": 8745,
+    "veiligheid": 24762,
+    "cultuur": 30801,
+    "onderwijs": 16034,
+    "groen": 13415,
+    "riolering": 10700,
+    "afval": 22830,
+    "ruimte": 27384
+   }
+  },
+  {
+   "code": "0228",
+   "naam": "Ede",
+   "inwoners": 125331,
+   "lasten_x1000": {
+    "bestuur": 11385,
+    "overhead": 50152,
+    "economie": 10406,
+    "verkeer": 22954,
+    "werk": 65136,
+    "sport": 11845,
+    "sociaal": 157849,
+    "gezondheid": 10637,
+    "veiligheid": 16617,
+    "cultuur": 16991,
+    "onderwijs": 17623,
+    "groen": 14070,
+    "riolering": 10139,
+    "afval": 14514,
+    "ruimte": 25711
+   }
+  },
+  {
+   "code": "0505",
+   "naam": "Dordrecht",
+   "inwoners": 122991,
+   "lasten_x1000": {
+    "bestuur": 17469,
+    "overhead": 102360,
+    "economie": 25482,
+    "verkeer": 32563,
+    "werk": 140964,
+    "sport": 15632,
+    "sociaal": 196252,
+    "gezondheid": 8806,
+    "veiligheid": 46619,
+    "cultuur": 28189,
+    "onderwijs": 29397,
+    "groen": 18748,
+    "riolering": 10709,
+    "afval": 19896,
+    "ruimte": 28897
+   }
+  },
+  {
+   "code": "1783",
+   "naam": "Westland",
+   "inwoners": 118874,
+   "lasten_x1000": {
+    "bestuur": 13308,
+    "overhead": 56065,
+    "economie": 4675,
+    "verkeer": 21413,
+    "werk": 48662,
+    "sport": 7926,
+    "sociaal": 100713,
+    "gezondheid": 2166,
+    "veiligheid": 15356,
+    "cultuur": 8908,
+    "onderwijs": 12598,
+    "groen": 19003,
+    "riolering": 13345,
+    "afval": 15133,
+    "ruimte": 25021
+   }
+  },
+  {
+   "code": "0484",
+   "naam": "Alphen aan den Rijn",
+   "inwoners": 117284,
+   "lasten_x1000": {
+    "bestuur": 11047,
+    "overhead": 61529,
+    "economie": 7597,
+    "verkeer": 34199,
+    "werk": 77438,
+    "sport": 12190,
+    "sociaal": 121720,
+    "gezondheid": 6719,
+    "veiligheid": 12402,
+    "cultuur": 10598,
+    "onderwijs": 17824,
+    "groen": 10045,
+    "riolering": 14629,
+    "afval": 13503,
+    "ruimte": 19646
+   }
+  },
+  {
+   "code": "0361",
+   "naam": "Alkmaar",
+   "inwoners": 113196,
+   "lasten_x1000": {
+    "bestuur": 12280,
+    "overhead": 33875,
+    "economie": 11328,
+    "verkeer": 32027,
+    "werk": 92214,
+    "sport": 18339,
+    "sociaal": 149613,
+    "gezondheid": 5538,
+    "veiligheid": 21650,
+    "cultuur": 23903,
+    "onderwijs": 22791,
+    "groen": 13988,
+    "riolering": 8594,
+    "afval": 17501,
+    "ruimte": 31491
+   }
+  },
+  {
+   "code": "0503",
+   "naam": "Delft",
+   "inwoners": 110089,
+   "lasten_x1000": {
+    "bestuur": 14023,
+    "overhead": 60422,
+    "economie": 7938,
+    "verkeer": 27823,
+    "werk": 118725,
+    "sport": 6367,
+    "sociaal": 156775,
+    "gezondheid": 6444,
+    "veiligheid": 18236,
+    "cultuur": 20078,
+    "onderwijs": 18107,
+    "groen": 9006,
+    "riolering": 14186,
+    "afval": 15823,
+    "ruimte": 28773
+   }
+  },
+  {
+   "code": "0114",
+   "naam": "Emmen",
+   "inwoners": 109881,
+   "lasten_x1000": {
+    "bestuur": 10227,
+    "overhead": 54138,
+    "economie": 14425,
+    "verkeer": 25215,
+    "werk": 121926,
+    "sport": 15941,
+    "sociaal": 152151,
+    "gezondheid": 11992,
+    "veiligheid": 13055,
+    "cultuur": 11762,
+    "onderwijs": 16905,
+    "groen": 14331,
+    "riolering": 7351,
+    "afval": 13181,
+    "ruimte": 25599
+   }
+  },
+  {
+   "code": "0150",
+   "naam": "Deventer",
+   "inwoners": 105111,
+   "lasten_x1000": {
+    "bestuur": 12515,
+    "overhead": 50826,
+    "economie": 10017,
+    "verkeer": 28838,
+    "werk": 96208,
+    "sport": 10276,
+    "sociaal": 138783,
+    "gezondheid": 8223,
+    "veiligheid": 18361,
+    "cultuur": 23359,
+    "onderwijs": 14365,
+    "groen": 12762,
+    "riolering": 7927,
+    "afval": 15415,
+    "ruimte": 20506
+   }
+  },
+  {
+   "code": "0983",
+   "naam": "Venlo",
+   "inwoners": 104195,
+   "lasten_x1000": {
+    "bestuur": 23916,
+    "overhead": 55166,
+    "economie": 11273,
+    "verkeer": 25718,
+    "werk": 93505,
+    "sport": 11890,
+    "sociaal": 202458,
+    "gezondheid": 8252,
+    "veiligheid": 17227,
+    "cultuur": 17787,
+    "onderwijs": 19758,
+    "groen": 12662,
+    "riolering": 8268,
+    "afval": 12873,
+    "ruimte": 24041
+   }
+  }
+ ]
+}

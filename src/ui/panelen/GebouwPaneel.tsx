@@ -3,6 +3,7 @@ import { formatMln, type Data, type Resultaat } from '../../engine';
 import { TOESTAND_NAAM, type GebouwStand } from '../../game/toestand';
 import { useSpel } from '../../game/state/store';
 import { GebouwPosten } from './GebouwPosten';
+import { UitgavenVergelijking } from './UitgavenVergelijking';
 
 /** Paneel met de posten van het gekozen gebouw: een bottom sheet op mobiel, een zijpaneel op desktop. */
 export function GebouwPaneel({
@@ -87,6 +88,14 @@ export function GebouwPaneel({
         )}
       </p>
       <GebouwPosten gebouw={gebouw} data={data} resultaat={resultaat} />
+      {data.uitgaven && (
+        <UitgavenVergelijking
+          key={gebouw.id}
+          uitgaven={data.uitgaven}
+          gebouw={gebouw.id}
+          begrotingsjaar={data.begroting.begrotingsjaar}
+        />
+      )}
     </section>
   );
 }

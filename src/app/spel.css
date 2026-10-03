@@ -1577,6 +1577,45 @@
   );
 }
 
+/* Uitgaven per inwoner vergeleken met andere gemeenten (onderaan een gebouw) */
+.uitgaven {
+  margin-top: 1rem;
+  padding-top: 0.5rem;
+  border-top: 2px solid color-mix(in srgb, var(--inkt) 15%, transparent);
+}
+
+.uitgaven summary {
+  min-height: 44px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 0.5rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.uitgaven-jaar {
+  padding: 0.05rem 0.5rem;
+  border-radius: 999px;
+  background: var(--pot);
+  color: var(--inkt);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.uitgaven-let-op {
+  margin: 0.5rem 0;
+  padding: 0.6rem 0.75rem;
+  border-left: 4px solid var(--oranje);
+  border-radius: 0.4rem;
+  background: var(--pot);
+  color: var(--inkt);
+}
+
+.uitgaven-thema h4 {
+  margin: 1rem 0 0.25rem;
+}
+
 /* Startscherm: pop-up over de gemeente, de kaart blijft erachter zichtbaar */
 .startscherm {
   width: min(40rem, calc(100% - 1.5rem));

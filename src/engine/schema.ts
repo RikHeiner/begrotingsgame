@@ -30,6 +30,8 @@ export const configSchema = z
     parkeren: bestandsnaam.optional(),
     /** woonlasten per gemeente (vergelijking in "Wat betekent het voor mij?"), optioneel */
     woonlasten: bestandsnaam.optional(),
+    /** uitgaven per inwoner van andere gemeenten (vergelijking in de gebouwen), optioneel */
+    uitgaven: bestandsnaam.optional(),
   })
   .strict()
   .refine((c) => c.meerjarenHorizon.every((j, i) => j === c.actiefJaar + i), {
@@ -801,6 +803,57 @@ export const woonlastenSchema = z
   })
   .strict();
 export type Woonlasten = z.infer<typeof woonlastenSchema>;
+
+// ---------- uitgaven-gemeenten-JJJJ.json ----------
+
+const taakveld = z.string().regex(/^\d\.\d+$/, 'een taakveld zoals "5.1" (Iv3)');
+
+export const uitgavenSchema = z
+  .object({
+    /** het jaar van de cijfers; de game zegt er altijd bij dat het niet het jaar van de begroting is */
+    jaar: z.number().int(),
+    /** uit welk soort stuk de cijfers komen */
+    verslagsoort: z.enum(['begroting', 'jaarrekening']),
+    toelichting: z.string(),
+    definitie: z.string(),
+    bronnen: z.array(woonlastenBron).min(1),
+    /** de eigen gemeente (CBS-code zonder GM) */
+    gemeente: z.string().regex(/^\d{4}$/),
+    /** deze gemeenten staan standaard in de lijst; de rest na "alle gemeenten" */
+    vergelijk_met: z.array(z.string().regex(/^\d{4}$/)),
+    /** welke gemeenten meedoen, in gewone taal (voor de tekst in de game) */
+    groep: z.string(),
+    themas: z
+      .array(
+        z
+          .object({
+            id: z.string().min(1),
+            naam: z.string(),
+            /** bij welke gebouwen de vergelijking staat */
+            gebouwen: z.array(z.string()).min(1),
+            taakvelden: z.array(taakveld).min(1),
+            /** waarom de vergelijking niet een-op-een is, in gewone taal */
+            let_op: z.string().optional(),
+          })
+          .strict(),
+      )
+      .min(1),
+    gemeenten: z
+      .array(
+        z
+          .object({
+            code: z.string().regex(/^\d{4}$/),
+            naam: z.string(),
+            inwoners: z.number().int().positive(),
+            /** lasten per thema, in duizenden euro's */
+            lasten_x1000: z.record(z.string(), z.number()),
+          })
+          .strict(),
+      )
+      .min(2),
+  })
+  .strict();
+export type Uitgaven = z.infer<typeof uitgavenSchema>;
 
 // ---------- spel/personas.json ----------
 

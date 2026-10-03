@@ -15,6 +15,7 @@ Alle bedragen, posten, teksten en parameters staan in deze map. De code kent gee
 | `spel/gebieden.json` | De zeven gebieden van de gemeente (Centrum, Noord, Oost, Zuid, West, Haren, Ten Boer) met hun CBS-buurten. |
 | `spel/gebouwen.json` | De 14 gebouwen, hun buurt, hun gebied en hun posten. |
 | `spel/personas.json` | De inwoners, hun buurt, hun gebied en waar ze om geven. |
+| `uitgaven-gemeenten-JJJJ.json` | Uitgaven per thema van de gemeenten met 100.000 inwoners of meer (CBS, Iv3), uit hun begroting of jaarrekening van dat jaar. Voor de vergelijking onderaan de gebouwen. Mag hooguit drie jaar ouder zijn dan de begroting; de game zegt er altijd bij uit welk jaar de cijfers zijn. Maken: `npm run uitgaven:ophalen`. |
 | `mappings/id-mapping-OUD-NIEUW.json` | Koppeling van ids tussen begrotingsjaren (vanaf de begroting 2027). |
 
 Alleen `.json` en `.geojson` worden online gezet. Deze documentatie niet.
