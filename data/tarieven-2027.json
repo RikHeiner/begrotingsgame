@@ -24,5 +24,14 @@
     "tarief": 133,
     "jaar": 2021,
     "bron": "Laatste tarief van de gemeente Groningen (2021), RTV Noord 6 juli 2021. Afgeschaft per 2022."
+  },
+  "toeristenbelasting": {
+    "belasting": "t2",
+    "jaar": 2026,
+    "per_overnachting": 4.65,
+    "kamperen_hostel": 2.5,
+    "haren_ten_boer": 1.85,
+    "bron": "Noordelijk Belastingkantoor, Belastingtarieven 2026 gemeente Groningen: logies-/toeristenbelasting per persoon per overnachting (hotel en andere accommodaties € 4,65; kampeerterrein, haven, hostel € 2,50; voormalige gemeenten Haren en Ten Boer € 1,85). Het tarief 2027 staat niet in het raadsvoorstel Belastingtarieven 2027.",
+    "bron_url": "https://noordelijkbelastingkantoor.nl/wp-content/uploads/2026/03/Belastingtarieven-2026-gemeente-Groningen.pdf"
   }
 }

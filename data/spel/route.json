@@ -1,5 +1,5 @@
 {
-  "toelichting": "De route bij nul: eerst de belasting, daarna de onderwerpen in de volgorde die VVD Groningen het belangrijkst vindt (besluit 3 oktober 2026). Op de kaart staan de nummers bij de gebouwen. Het standpunt van VVD Groningen (vvd) vult de fractie later in. Het Beleidshuis en het Veilinghuis horen niet bij de route.",
+  "toelichting": "De route bij nul: eerst de belasting, daarna de onderwerpen in de volgorde die VVD Groningen het belangrijkst vindt (besluit 3 oktober 2026). Op de kaart staan de nummers bij de gebouwen. Het standpunt van VVD Groningen (vvd) vult de fractie later in. Na de belasting komt het Beleidshuis (besluit fractie): daar kies je welk beleid blijft. Het Veilinghuis hoort niet bij de route.",
   "intro": {
     "kop": "De gemeente heeft geld nodig",
     "tekst": "Je begint bij nul: alleen wat de wet verplicht staat erin. Je hebt {vrij} per jaar te verdelen. Volg de nummers op de kaart: eerst de belasting, dan veiligheid, ondernemen en sport.",
@@ -14,6 +14,11 @@
       "gebouw": "loket",
       "thema": "Financiën",
       "vraag": "Hoeveel belasting vraag jij van inwoners en ondernemers?"
+    },
+    {
+      "gebouw": "beleid",
+      "thema": "Beleid",
+      "vraag": "Waar geeft de gemeente geen geld meer aan, en welk beleid houd je?"
     },
     {
       "gebouw": "politie",

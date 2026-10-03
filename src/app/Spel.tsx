@@ -175,7 +175,7 @@ export function Spel({ data }: { data: Data }) {
       <TussendoorAanbod data={data} />
       <Feedback data={data} />
       <p className="toast" role="status" aria-live="polite" data-testid="melding">
-        {melding && <span>🔒 {melding}</span>}
+        {melding && <span>{melding}</span>}
       </p>
       {terug && (
         <WelkomTerug

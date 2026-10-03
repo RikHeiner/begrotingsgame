@@ -144,6 +144,8 @@ export const actiekaartSchema = z
     investering: investeringSchema.optional(),
     ingroeipad: ingroeipad.optional(),
     gebouw: z.string().optional(),
+    /** kaarten met dezelfde groep sluiten elkaar uit (bijvoorbeeld 5, 10 of 15% minder ambtenaren) */
+    groep: z.string().optional(),
     /** zekerheid van het bedrag (standaard feit) */
     zekerheid: z.enum(['feit', 'aanname', 'te onderzoeken']).optional(),
     /**
@@ -687,6 +689,19 @@ export const tarievenSchema = z
     /** tarief als de hondenbelasting (weer) wordt ingevoerd met de actiekaart */
     hondenbelasting: z
       .object({ kaart: z.string(), tarief: euro, jaar: z.number().int(), bron: z.string() })
+      .strict()
+      .optional(),
+    /** toeristenbelasting: per toerist per nacht, niet per inwoner (het jaar staat erbij) */
+    toeristenbelasting: z
+      .object({
+        belasting: z.string(),
+        jaar: z.number().int(),
+        per_overnachting: euro,
+        kamperen_hostel: euro,
+        haren_ten_boer: euro,
+        bron: z.string(),
+        bron_url: z.string().url(),
+      })
       .strict()
       .optional(),
     kwijtschelding: z

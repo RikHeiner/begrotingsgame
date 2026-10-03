@@ -62,3 +62,36 @@ export function gestoptBijMinimum(data: Data, onderdelen: Record<string, number>
   }
   return uit.sort();
 }
+
+/**
+ * Een schuif bepaalt welk beleid er nog past. Gaat de schuif van een post zo ver omlaag dat er
+ * geen geld meer is voor een programma, dan stopt dat programma vanzelf; gaat hij weer omhoog,
+ * dan komt het terug. Wat de speler zelf stopzette, blijft zo lang mogelijk staan.
+ */
+export function volgSchuif(data: Data, keuzes: Keuzes, post: string): Keuzes {
+  const programmas = [...data.index.programmas.values()].filter(
+    (p) => p.post === post && p.structureel_of_incidenteel === 'S',
+  );
+  if (!programmas.length) return keuzes;
+  const ruimte = Math.max(0, -(keuzes.onderdelen[post] ?? 0)) + 0.01;
+  const nu = programmas.filter((p) => isGestopt(keuzes, p.id));
+  let som = nu.reduce((a, p) => a + programmaPct(data, p), 0);
+  while (som > ruimte && nu.length) {
+    const p = nu.pop();
+    if (p) som -= programmaPct(data, p);
+  }
+  for (const p of programmas) {
+    if (nu.includes(p)) continue;
+    const pct = programmaPct(data, p);
+    if (som + pct <= ruimte) {
+      nu.push(p);
+      som += pct;
+    }
+  }
+  const anders = (keuzes.gestopt ?? []).filter((id) => !programmas.some((p) => p.id === id));
+  const lijst = [...anders, ...nu.map((p) => p.id)].sort();
+  const uit: Keuzes = { ...keuzes };
+  if (lijst.length) uit.gestopt = lijst;
+  else delete uit.gestopt;
+  return uit;
+}

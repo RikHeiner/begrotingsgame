@@ -48,9 +48,7 @@ test('Beleidshuis: bij elke kaart staat of hij loopt, waarom, en wat een tik doe
   await expect(page.getByTestId('waarom-p_preventiefonds_jeugd')).toContainText(
     'staat bij nul stil',
   );
-  await expect(paneel).toContainText(
-    'Dit doet de gemeente nu nog niet; daarom staan de plannen uit.',
-  );
+  await expect(paneel).toContainText('Bovenaan de keuzes die VVD Groningen belangrijk vindt');
 });
 
 test('indienen: geen "Wat betekent het voor mij?" op het eindscherm', async ({ page }) => {
