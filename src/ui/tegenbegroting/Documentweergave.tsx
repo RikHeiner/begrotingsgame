@@ -30,14 +30,12 @@ function Kop1({ children, id }: { children: ReactNode; id?: string }) {
   );
 }
 
-/** Een tussenblad: een foto over de hele pagina, met de titel van het hoofdstuk in een pijl. */
+/** Een tussenblad, zoals in de tegenbegroting: een foto over de hele pagina, de titel groot in wit. */
 function Tussenblad({ titel, foto }: { titel: string; foto: string }) {
   return (
     <section className="doc-blad doc-tussenblad" aria-hidden="true">
       <img className="doc-tussenblad-foto" src={beeld(foto)} alt="" />
-      <span className="doc-tussenblad-pijl">
-        <span>{titel}</span>
-      </span>
+      <span className="doc-tussenblad-titel">{titel}</span>
     </section>
   );
 }
@@ -49,7 +47,7 @@ function Maatregelen({ groepen, leeg }: { groepen: ThemaGroep[]; leeg: string })
       {groepen.map((g) => (
         <section key={g.thema} className="doc-kopje">
           <h3 className="doc-kop2">{g.thema}</h3>
-          <p>{g.intro}</p>
+          <p className="doc-intro">{g.intro}</p>
           {g.regels.map((r) => (
             <p key={r.id} className="doc-punt">
               <span className="doc-pijl" aria-hidden="true">
@@ -76,7 +74,7 @@ function GeldTabel({ rijen, jaar, totaal }: { rijen: TabelRij[]; jaar: number; t
         <tr>
           <th scope="col">Omschrijving</th>
           <th scope="col">{jaar}</th>
-          <th scope="col">Structureel/incidenteel</th>
+          <th scope="col">Structureel/ incidenteel</th>
         </tr>
       </thead>
       <tbody>
@@ -222,29 +220,51 @@ export function Documentweergave({ data, resultaat }: { data: Data; resultaat: R
         {/* 2. Inhoudsopgave en wie het opstelde */}
         <section className="doc-blad">
           <Kop1>Inhoudsopgave</Kop1>
-          <ol className="doc-inhoud">
-            <li>{d.besparingen.titel}</li>
-            <li>{d.investeringen.titel}</li>
-            <li>{d.financieel.titel}</li>
-          </ol>
+          <ul className="doc-inhoud">
+            <li>{d.opgesteld_door}</li>
+            <li>
+              {d.besparingen.titel}
+              <ul>
+                {tb.besparingen.map((g) => (
+                  <li key={g.thema}>{g.thema}</li>
+                ))}
+              </ul>
+            </li>
+            <li>
+              {d.investeringen.titel}
+              <ul>
+                {tb.investeringen.map((g) => (
+                  <li key={g.thema}>{g.thema}</li>
+                ))}
+                {tb.ideeen && <li>Mijn eigen ideeën</li>}
+              </ul>
+            </li>
+            <li>
+              {d.financieel.titel}
+              <ul>
+                <li>Ombuigingen en opbrengsten (x1 miljoen)</li>
+                <li>Uitgaven (x1 miljoen)</li>
+              </ul>
+            </li>
+          </ul>
           <Kop1>{d.opgesteld_door}</Kop1>
           {tb.naam && <p className="doc-naam">{tb.naam}</p>}
           <p>{d.makers}</p>
         </section>
 
         {/* 3. Besparingen */}
-        <Tussenblad titel={d.besparingen.titel} foto="tussenblad-besparingen.jpg" />
+        <Tussenblad titel={d.besparingen.titel} foto="tussenblad-besparingen-staand.jpg" />
         <section className="doc-blad">
           <Kop1>{d.besparingen.titel}</Kop1>
-          <p>{d.besparingen.intro}</p>
+          <p className="doc-intro">{d.besparingen.intro}</p>
           <Maatregelen groepen={tb.besparingen} leeg="Geen besparingen." />
         </section>
 
         {/* 4. Investeringen */}
-        <Tussenblad titel={d.investeringen.titel} foto="tussenblad-investeringen.jpg" />
+        <Tussenblad titel={d.investeringen.titel} foto="tussenblad-investeringen-staand.jpg" />
         <section className="doc-blad">
           <Kop1>{d.investeringen.titel}</Kop1>
-          <p>{d.investeringen.intro}</p>
+          <p className="doc-intro">{d.investeringen.intro}</p>
           <Maatregelen groepen={tb.investeringen} leeg="Geen investeringen." />
           {tb.ideeen && (
             <section className="doc-kopje">
@@ -257,10 +277,10 @@ export function Documentweergave({ data, resultaat }: { data: Data; resultaat: R
         </section>
 
         {/* 5. Financieel overzicht */}
-        <Tussenblad titel={d.financieel.titel} foto="tussenblad-financieel.jpg" />
+        <Tussenblad titel={d.financieel.titel} foto="tussenblad-financieel-staand.jpg" />
         <section className="doc-blad">
           <Kop1>{d.financieel.titel}</Kop1>
-          <p>{d.financieel.intro}</p>
+          <p className="doc-intro">{d.financieel.intro}</p>
           {tb.inleiding.map((x) => (
             <p key={x}>{x}</p>
           ))}

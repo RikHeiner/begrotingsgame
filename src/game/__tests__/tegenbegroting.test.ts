@@ -126,7 +126,7 @@ describe('tegenbegroting van een speler', () => {
       'Financieel overzicht',
       'Ombuigingen en opbrengsten (x1 miljoen)',
       'Uitgaven (x1 miljoen)',
-      'Structureel/incidenteel',
+      'Structureel/ incidenteel',
       'Meerjarig',
       'Bronnen en uitleg',
       '▶',

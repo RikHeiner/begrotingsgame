@@ -1,61 +1,77 @@
-/* Goudkantoor: goudzoeken in de Groninger klei */
-.mg-goud-grond {
+/* Geldzoeker: goud graven in de Groninger klei, zoals Gold Miner */
+.mg-goudkantoor {
+  max-width: 34rem;
+  margin: 0 auto;
+}
+
+.mg-gz-hud {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border: 3px solid #8b5a2b;
+  border-bottom: 0;
+  border-radius: 0.8rem 0.8rem 0 0;
+  background: linear-gradient(#ffd84d, #f2b705);
+  color: #4a2c0a;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.mg-gz-label {
+  font-size: 0.85rem;
+  color: #6b4219;
+}
+
+.mg-gz-plus {
+  color: #0e6b45;
+}
+
+.mg-gz-min {
+  color: #b02a17;
+}
+
+.mg-gz-rechts {
+  text-align: right;
+}
+
+.mg-gz-mijnwerker {
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  background: #1233c4;
+  font-size: 1.3rem;
+}
+
+.mg-gz-level {
+  margin: 0;
+  padding: 0.3rem 0.8rem;
+  border-inline: 3px solid #8b5a2b;
+  background: #fff4cc;
+  color: #4a2c0a;
+}
+
+.mg-gz-veld {
   display: block;
   width: 100%;
-  max-width: 30rem;
-  margin: 0.5rem auto 0.75rem;
+  aspect-ratio: 4 / 3;
   border: 3px solid #8b5a2b;
-  border-radius: 0.8rem;
+  border-top: 0;
+  border-radius: 0 0 0.8rem 0.8rem;
+  touch-action: manipulation;
+  cursor: pointer;
 }
 
-.mg-goud-lucht {
-  fill: #bfe3f5;
-}
-
-.mg-goud-aarde {
-  fill: #7a5c3e;
-}
-
-.mg-goud-hok {
-  fill: #9c5a3c;
-  stroke: #15193a;
-  stroke-width: 0.6;
-}
-
-.mg-goud-klomp ellipse,
-.mg-goud-vast {
-  fill: #f2c94c;
-  stroke: #b8860b;
-  stroke-width: 0.8;
-}
-
-.mg-goud-glans {
-  fill: #fff6c8;
-}
-
-.mg-goud-steen {
-  fill: #8a93a6;
-  stroke: #4b5070;
-  stroke-width: 0.8;
-}
-
-.mg-goud-touw {
-  stroke: #15193a;
-  stroke-width: 0.9;
-}
-
-.mg-goud-haak path {
-  fill: none;
-  stroke: #15193a;
-  stroke-width: 1.4;
-  stroke-linecap: round;
-}
-
+.mg-gz-knoppen,
 .mg-goud-knoppen {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   justify-content: center;
+  margin-top: 0.6rem;
 }
 
 .mg-goud-graaf {
@@ -65,12 +81,74 @@
 }
 
 .mg-goud-status {
+  min-height: 3rem;
   margin-top: 0.5rem;
 }
 
+.mg-gz-melding {
+  margin: 0;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.5rem;
+  animation: mg-gz-in 0.25s ease-out;
+}
+
+.mg-gz-goud {
+  background: #fff4cc;
+  color: #4a2c0a;
+}
+
+.mg-gz-steen {
+  background: #eceef2;
+  color: #2b2f36;
+}
+
+.mg-gz-zak {
+  background: #ffe4d1;
+  color: #6b2a00;
+}
+
+@keyframes mg-gz-in {
+  from {
+    transform: translateY(-4px);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mg-gz-melding {
+    animation: none;
+  }
+}
+
+.mg-gz-kaart {
+  padding: 1rem;
+  border: 3px solid #8b5a2b;
+  border-radius: 0.8rem;
+  background: #fffaf0;
+  color: #2b1a08;
+}
+
+.mg-gz-hud + .mg-gz-kaart {
+  border-radius: 0 0 0.8rem 0.8rem;
+}
+
+.mg-gz-kaart h3 {
+  margin-top: 0;
+}
+
+.mg-gz-lijst {
+  max-height: 16rem;
+  overflow: auto;
+  padding-left: 1.2rem;
+}
+
+.mg-gz-lijst li {
+  margin-bottom: 0.4rem;
+}
+
 .mg-goud-vvd {
-  margin: 0.5rem 0;
-  padding: 0.5rem 0.75rem;
+  margin: 0.35rem 0;
+  padding: 0.4rem 0.7rem;
   border-left: 4px solid var(--blauw);
   background: color-mix(in srgb, var(--blauw) 8%, var(--paneel));
   font-style: italic;

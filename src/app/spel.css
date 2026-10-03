@@ -457,6 +457,21 @@
   gap: 0.5rem;
 }
 
+/* Op een telefoon staan de kaartknoppen rechtsboven: onderin staan de route en de minigames. */
+@media (max-width: 899px) {
+  .kaart-zoom {
+    top: 0.75rem;
+    bottom: auto;
+    gap: 0.35rem;
+  }
+
+  .kaart-zoom .knop-rond {
+    min-width: 40px;
+    min-height: 40px;
+    font-size: 1rem;
+  }
+}
+
 .knop-rond {
   min-width: 44px;
   min-height: 44px;
@@ -1738,7 +1753,8 @@
 .document h1 {
   margin: 0;
   color: var(--vvd-blauw);
-  font-size: clamp(2.2rem, 8vw, 3.6rem);
+  font-family: 'Trebuchet MS', Asap, system-ui, sans-serif;
+  font-size: clamp(2.6rem, 11vw, 4.8rem);
   font-weight: 700;
   line-height: 1.05;
 }
@@ -1829,42 +1845,52 @@
 
 .doc-voorblad-onder {
   margin-top: auto;
-  padding-top: 20px;
-  border-top: 6px solid var(--vvd-oranje);
+  padding-bottom: 6%;
+  text-align: center;
+}
+
+.doc-blad .doc-voorblad-onder p {
+  text-align: center;
 }
 
 .doc-soort {
   margin: 0;
-  color: var(--vvd-blauw);
-  font-size: clamp(1.3rem, 4.5vw, 1.8rem);
+  color: var(--vvd-oranje-tekst);
+  font-family: 'Trebuchet MS', Asap, system-ui, sans-serif;
+  font-size: clamp(1.3rem, 4.5vw, 1.9rem);
   font-weight: 700;
 }
 
 .doc-onder {
   margin: 0.2em 0 0;
-  color: var(--vvd-oranje-tekst);
-  font-weight: 700;
+  color: var(--vvd-blauw);
+  font-family: 'Trebuchet MS', Asap, system-ui, sans-serif;
+  font-size: clamp(1rem, 3.4vw, 1.4rem);
 }
 
 /* Inhoudsopgave */
-.doc-inhoud {
+.doc-inhoud,
+.doc-inhoud ul {
   margin: 0 0 1em;
   padding: 0;
   list-style: none;
-  counter-reset: hoofdstuk;
 }
 
-.doc-inhoud li {
-  counter-increment: hoofdstuk;
-  padding: 0.45em 0;
-  border-bottom: 1px solid var(--doc-lijn);
-  font-size: 1.1rem;
+.doc-inhoud > li {
+  margin-top: 0.6em;
+  padding-left: 0.8em;
+  font-family: 'Trebuchet MS', Asap, system-ui, sans-serif;
+  font-size: 1.3rem;
   font-weight: 700;
 }
 
-.doc-inhoud li::before {
-  content: counter(hoofdstuk) '  ';
-  color: var(--vvd-oranje-tekst);
+.doc-inhoud ul {
+  margin: 0.15em 0 0;
+}
+
+.doc-inhoud ul li {
+  padding-left: 1.2em;
+  font-size: 1.02rem;
 }
 
 .doc-naam {
@@ -1872,11 +1898,11 @@
   font-weight: 700;
 }
 
-/* Tussenblad: een foto over de hele pagina met de titel in een oranje pijl */
+/* Tussenblad: een foto over de hele pagina met de titel groot in wit (zoals de fractie) */
 .doc-tussenblad {
-  min-height: clamp(320px, 90vw, 1100px);
+  min-height: clamp(420px, 120vw, 1160px);
   padding: 0;
-  background: var(--vvd-blauw);
+  background: #1d2a55;
 }
 
 .doc-tussenblad-foto {
@@ -1887,26 +1913,18 @@
   object-fit: cover;
 }
 
-.doc-tussenblad-pijl {
+.doc-tussenblad-titel {
   position: absolute;
-  left: 8%;
-  bottom: 10%;
-  display: flex;
-  align-items: center;
-  width: min(70%, 460px);
-  aspect-ratio: 1 / 1;
-  padding: 0 18% 0 8%;
-  /* Iets donkerder dan VVD-oranje: witte tekst heeft dan genoeg contrast (3:1). */
-  background: #e85a00;
-  clip-path: polygon(0 0, 62% 0, 100% 50%, 62% 100%, 0 100%);
-  box-shadow: 14px 14px 0 var(--vvd-blauw);
-}
-
-.doc-tussenblad-pijl span {
+  top: 9%;
+  right: 6%;
+  left: 6%;
   color: #ffffff;
-  font-size: clamp(1.6rem, 6vw, 3rem);
+  font-family: 'Trebuchet MS', Asap, system-ui, sans-serif;
+  font-size: clamp(2.2rem, 10vw, 4.6rem);
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.05;
+  text-align: center;
+  text-shadow: 0 2px 18px rgb(0 0 0 / 0.45);
 }
 
 /* Maatregelen: ▶ Titel. Toelichting */
@@ -1948,8 +1966,8 @@
 .doc-tabel th,
 .doc-tabel td {
   overflow-wrap: anywhere;
-  padding: 6px 8px;
-  border-bottom: 1px solid var(--doc-lijn);
+  padding: 3px 6px;
+  border: 1px solid #000000;
   text-align: right;
   vertical-align: top;
 }
@@ -1959,21 +1977,25 @@
   text-align: left;
 }
 
-.doc-tabel td:nth-child(3),
-.doc-tabel th:nth-child(3) {
-  text-align: center;
-}
-
 .doc-tabel thead th {
-  background: var(--vvd-blauw);
+  /* Oranje kop met witte letters, zoals de tabellen van de fractie. Op het scherm iets donkerder
+     oranje (genoeg contrast); bij afdrukken het echte VVD-oranje. */
+  background: var(--vvd-oranje-tekst);
   color: #ffffff;
+  vertical-align: bottom;
 }
 
 .doc-tabel tfoot th,
 .doc-tabel tfoot td {
   font-weight: 700;
-  border-top: 2px solid var(--vvd-blauw);
-  background: #eef1fd;
+}
+
+.doc-intro {
+  font-weight: 700;
+}
+
+.doc-blad p {
+  text-align: justify;
 }
 
 .doc-tabel abbr {
@@ -2041,6 +2063,10 @@
 
   .doc-scroll {
     overflow: visible;
+  }
+
+  .doc-tabel thead th {
+    background: #ff6400;
   }
 
   /* Het totaal alleen onder de tabel, niet op elke pagina. */

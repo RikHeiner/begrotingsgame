@@ -1,32 +1,52 @@
 /**
- * Word-export (.docx) van de tegenbegroting, in de huisstijl en opbouw van de tegenbegroting van VVD
- * Groningen ('Het kan en moet anders'): voorblad met de pijlen, inhoudsopgave, tussenbladen met een
- * foto, Besparingen en Investeringen met kopjes en ▶-punten, en het financieel overzicht met twee
- * tabellen (x1 miljoen). Wordt in de browser pas geladen als de speler op de knop drukt; werkt ook in
- * Node zonder beelden (voor de tests).
+ * Word-export (.docx) van de tegenbegroting, precies in de huisstijl en opbouw van de tegenbegroting
+ * van VVD Groningen 2026 ('Het kan en moet anders'). De opmaakprofielen (Kop 1, Kop 2, Hoofdtekst,
+ * Inhopg 1 en 2) komen uit dat document zelf (tb-stijlen.xml), net als de paginamarges.
+ *
+ * Opbouw: voorblad met de pijl en de foto's; inhoudsopgave met paginanummers en 'Opgesteld door';
+ * tussenbladen met een foto over de hele pagina en de titel groot in wit; Besparingen en
+ * Investeringen met oranje kopjes, een vette inleiding en ▶-punten; het financieel overzicht met de
+ * oranje tabellen (x1 miljoen). Paginanummers rechtsonder, niet op het voorblad en de tussenbladen.
+ *
+ * Wordt in de browser pas geladen als de speler op de knop drukt; werkt ook in Node zonder beelden.
  */
 import {
   AlignmentType,
   BorderStyle,
+  Bookmark,
   Document,
+  Footer,
+  HorizontalPositionRelativeFrom,
   ImageRun,
-  PageBreak,
+  LeaderType,
+  PageNumber,
+  PageReference,
   Paragraph,
   ShadingType,
   Table,
   TableCell,
   TableRow,
+  TabStopType,
   TextRun,
+  TextWrappingType,
+  VerticalPositionRelativeFrom,
   WidthType,
+  type ISectionOptions,
 } from 'docx';
 import { mlnTabel, type TabelRij, type Tegenbegroting, type ThemaGroep } from './document';
+import { TB_STIJLEN as stijlen } from './tbStijlen';
 
 const BLAUW = '0A2CCA';
 const ORANJE = 'FF6400';
-const ORANJE_TEKST = 'C44D00';
-const INKT = '242424';
-const LETTER = 'Lucida Sans Unicode';
 const KOPLETTER = 'Trebuchet MS';
+
+/** A4 en de marges van de tegenbegroting 2026 (twips). */
+const PAGINA = { width: 11910, height: 16840 };
+const MARGE = { top: 1120, right: 940, bottom: 600, left: 680, footer: 414, header: 0 };
+/** A4 in beeldpunten (96 per inch), voor beelden over de hele pagina. */
+const A4_PX = { breedte: 794, hoogte: 1123 };
+/** Een centimeter in EMU (de eenheid van Word voor plaatsen). */
+const CM = 360000;
 
 /** De beelden van de huisstijl (public/huisstijl), als ze er zijn. */
 export type Beelden = {
@@ -42,86 +62,92 @@ export const BEELD_BESTANDEN = {
   pijl: 'pijl.png',
   voorblad: ['voorblad-straat.png', 'voorblad-sportcentrum.png', 'voorblad-martinitoren.png'],
   tussenbladen: {
-    besparingen: 'tussenblad-besparingen.jpg',
-    investeringen: 'tussenblad-investeringen.jpg',
-    financieel: 'tussenblad-financieel.jpg',
+    besparingen: 'tussenblad-besparingen-staand.jpg',
+    investeringen: 'tussenblad-investeringen-staand.jpg',
+    financieel: 'tussenblad-financieel-staand.jpg',
   },
 } as const;
 
-const run = (
-  tekst: string,
-  o: { vet?: boolean; kleur?: string; grootte?: number; letter?: string; cursief?: boolean } = {},
-) =>
-  new TextRun({
-    text: tekst,
-    bold: o.vet,
-    italics: o.cursief,
-    color: o.kleur ?? INKT,
-    size: o.grootte ?? 21,
-    font: o.letter ?? LETTER,
+type Kop = { tekst: string; niveau: 1 | 2; id: string };
+
+/** Houdt de koppen bij, voor de inhoudsopgave met paginanummers. */
+class Inhoud {
+  koppen: Kop[] = [];
+  private n = 0;
+  nieuw(tekst: string, niveau: 1 | 2): Kop {
+    const k = { tekst, niveau, id: `_Toc${100000 + ++this.n}` };
+    this.koppen.push(k);
+    return k;
+  }
+}
+
+const tekst = (
+  t: string,
+  o: { vet?: boolean; kleur?: string; grootte?: number; cursief?: boolean } = {},
+) => new TextRun({ text: t, bold: o.vet, italics: o.cursief, color: o.kleur, size: o.grootte });
+
+const zonderAuto = { beforeAutoSpacing: false, afterAutoSpacing: false };
+
+/** Platte tekst (Hoofdtekst: Lucida Sans Unicode 11, uitgevuld). */
+const alinea = (t: string, o: { vet?: boolean; klein?: boolean; cursief?: boolean } = {}) =>
+  new Paragraph({
+    style: 'Hoofdtekst',
+    spacing: { before: 0, after: 160, ...zonderAuto },
+    children: [tekst(t, { vet: o.vet, cursief: o.cursief, grootte: o.klein ? 18 : undefined })],
   });
 
-const p = (tekst: string, o: { klein?: boolean; cursief?: boolean; vet?: boolean } = {}) =>
-  new Paragraph({
-    spacing: { after: 160, line: 300 },
-    children: [
-      run(tekst, {
-        grootte: o.klein ? 17 : 21,
-        cursief: o.cursief,
-        vet: o.vet,
-        kleur: o.klein ? '4B5070' : INKT,
-      }),
-    ],
-  });
+const pijltje = (b?: Beelden) =>
+  b
+    ? [
+        new ImageRun({
+          type: 'png',
+          data: b.pijltje,
+          transformation: { width: 20, height: 23 },
+          altText: { name: 'pijltje', description: '', title: '' },
+        }),
+        new TextRun({ text: ' ' }),
+      ]
+    : [];
 
-const paginaEinde = () => new Paragraph({ children: [new PageBreak()] });
-
-/** Kop 1: het oranje-blauwe pijltje en de titel in VVD-blauw, groot. */
-const kop1 = (tekst: string, b?: Beelden) =>
-  new Paragraph({
-    spacing: { before: 240, after: 240 },
+/** Kop 1: het oranje-blauwe pijltje en de titel in VVD-blauw (40 pt), met een bladwijzer. */
+function kop1(kop: Kop, b?: Beelden): Paragraph {
+  return new Paragraph({
+    style: 'Kop1',
     keepNext: true,
-    children: [
-      ...(b
-        ? [
-            new ImageRun({
-              type: 'png',
-              data: b.pijltje,
-              transformation: { width: 26, height: 30 },
-              altText: { name: 'pijltje', description: '', title: '' },
-            }),
-            run('  ', { grootte: 60 }),
-          ]
-        : []),
-      run(tekst, { vet: true, kleur: BLAUW, grootte: 60, letter: KOPLETTER }),
-    ],
+    spacing: { before: 0, after: 200, ...zonderAuto },
+    children: [...pijltje(b), new Bookmark({ id: kop.id, children: [tekst(kop.tekst)] })],
   });
+}
 
-/** Kop 2: oranje. */
-const kop2 = (tekst: string) =>
-  new Paragraph({
-    spacing: { before: 280, after: 120 },
+/** Kop 2: oranje, Trebuchet MS 16 vet. */
+function kop2(inhoud: Inhoud, t: string): Paragraph {
+  const kop = inhoud.nieuw(t, 2);
+  return new Paragraph({
+    style: 'Kop2',
     keepNext: true,
-    children: [run(tekst, { vet: true, kleur: ORANJE_TEKST, grootte: 28, letter: KOPLETTER })],
+    spacing: { before: 240, after: 120, ...zonderAuto },
+    children: [new Bookmark({ id: kop.id, children: [tekst(t)] })],
   });
+}
 
-/** Een maatregel: ▶ Titel. Toelichting */
+/** Een maatregel zoals in de tegenbegroting: oranje ▶, tab, vette titel, dan de toelichting. */
 const punt = (titel: string, toelichting: string) =>
   new Paragraph({
-    spacing: { after: 140, line: 300 },
-    indent: { left: 360, hanging: 360 },
+    style: 'Hoofdtekst',
+    spacing: { before: 0, after: 200, ...zonderAuto },
     children: [
-      run('▶\t', { kleur: ORANJE }),
-      run(titel, { vet: true }),
-      run(toelichting ? ` ${toelichting}` : ''),
+      tekst('▶', { kleur: ORANJE }),
+      new TextRun({ children: ['\t'] }),
+      tekst(titel, { vet: true }),
+      ...(toelichting ? [tekst(` ${toelichting}`)] : []),
     ],
   });
 
-function maatregelen(groepen: ThemaGroep[], leeg: string): Paragraph[] {
-  if (!groepen.length) return [p(leeg)];
+function maatregelen(inhoud: Inhoud, groepen: ThemaGroep[], leeg: string): Paragraph[] {
+  if (!groepen.length) return [alinea(leeg)];
   return groepen.flatMap((g) => [
-    kop2(g.thema),
-    p(g.intro),
+    kop2(inhoud, g.thema),
+    alinea(g.intro, { vet: true }),
     ...g.regels.map((r) =>
       punt(
         `${r.zekerheid !== 'feit' ? '⚠︎ ' : ''}${r.naam}${r.wijziging ? ` (${r.wijziging})` : ''}.`,
@@ -131,68 +157,67 @@ function maatregelen(groepen: ThemaGroep[], leeg: string): Paragraph[] {
   ]);
 }
 
-const rand = { style: BorderStyle.SINGLE, size: 4, color: 'C9CEE6' };
-const geen = { style: BorderStyle.NONE, size: 0, color: 'FFFFFF' };
-const randen = { top: geen, bottom: rand, left: geen, right: geen };
+// Tabellen zoals in de tegenbegroting: oranje kop met witte letters, dunne zwarte lijnen.
+const lijn = { style: BorderStyle.SINGLE, size: 4, color: '000000' };
+const randen = { top: lijn, bottom: lijn, left: lijn, right: lijn };
 
 function cel(
-  tekst: string,
-  o: {
-    vet?: boolean;
-    uitlijning?: 'links' | 'rechts' | 'midden';
-    kop?: boolean;
-    breedte?: number;
-  } = {},
-) {
+  t: string,
+  o: { vet?: boolean; rechts?: boolean; kop?: boolean; breedte?: number } = {},
+): TableCell {
   return new TableCell({
     borders: randen,
     ...(o.breedte ? { width: { size: o.breedte, type: WidthType.PERCENTAGE } } : {}),
-    ...(o.kop ? { shading: { type: ShadingType.CLEAR, color: 'auto', fill: BLAUW } } : {}),
-    margins: { top: 60, bottom: 60, left: 100, right: 100 },
+    ...(o.kop ? { shading: { type: ShadingType.CLEAR, color: 'auto', fill: ORANJE } } : {}),
+    margins: { top: 20, bottom: 20, left: 70, right: 70 },
+    verticalAlign: 'bottom',
     children: [
       new Paragraph({
-        alignment:
-          o.uitlijning === 'rechts'
-            ? AlignmentType.RIGHT
-            : o.uitlijning === 'midden'
-              ? AlignmentType.CENTER
-              : AlignmentType.LEFT,
+        alignment: o.rechts ? AlignmentType.RIGHT : AlignmentType.LEFT,
         children: [
-          run(tekst, { vet: o.vet || o.kop, kleur: o.kop ? 'FFFFFF' : INKT, grootte: 19 }),
+          new TextRun({
+            text: t,
+            bold: o.vet || o.kop,
+            color: o.kop ? 'FFFFFF' : '000000',
+            size: 20,
+          }),
         ],
       }),
     ],
   });
 }
 
-/** De tabel van de fractie: Omschrijving | jaar | Structureel/incidenteel, met een totaal. */
+const kopRij = (eerste: string, jaar: number) =>
+  new TableRow({
+    tableHeader: true,
+    children: [
+      cel(eerste, { kop: true, breedte: 64 }),
+      cel(String(jaar), { kop: true, rechts: true, breedte: 12 }),
+      cel('Structureel/ incidenteel', { kop: true, breedte: 24 }),
+    ],
+  });
+
+/** Omschrijving | jaar | Structureel/incidenteel, met een totaal. */
 function geldTabel(rijen: TabelRij[], jaar: number, totaal: number): Table {
   return new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
     rows: [
-      new TableRow({
-        tableHeader: true,
-        children: [
-          cel('Omschrijving', { kop: true, breedte: 64 }),
-          cel(String(jaar), { kop: true, uitlijning: 'rechts', breedte: 14 }),
-          cel('Structureel/incidenteel', { kop: true, uitlijning: 'midden', breedte: 22 }),
-        ],
-      }),
+      kopRij('Omschrijving', jaar),
       ...rijen.map(
         (r) =>
           new TableRow({
             cantSplit: true,
             children: [
               cel(`${r.aanname ? '⚠︎ ' : ''}${r.omschrijving}`),
-              cel(mlnTabel(r.bedrag), { uitlijning: 'rechts' }),
-              cel(r.soort, { uitlijning: 'midden' }),
+              cel(mlnTabel(r.bedrag), { rechts: true }),
+              cel(r.soort, { rechts: true }),
             ],
           }),
       ),
       new TableRow({
         children: [
           cel('Totaal', { vet: true }),
-          cel(mlnTabel(totaal), { vet: true, uitlijning: 'rechts' }),
+          cel(mlnTabel(totaal), { vet: true, rechts: true }),
           cel(''),
         ],
       }),
@@ -200,178 +225,265 @@ function geldTabel(rijen: TabelRij[], jaar: number, totaal: number): Table {
   });
 }
 
-/** Een tussenblad: een foto (staand bijgesneden) en de titel in een oranje balk. */
-function tussenblad(titel: string, foto: Uint8Array | undefined): Paragraph[] {
-  return [
-    ...(foto
-      ? [
-          new Paragraph({
-            children: [
-              new ImageRun({
-                type: 'jpg',
-                data: foto,
-                transformation: { width: 600, height: 760 },
-                crop: { left: 22, right: 22, top: 0, bottom: 0 },
-                altText: { name: titel, description: '', title: '' },
-              }),
-            ],
+const geenVoettekst = () => ({ default: new Footer({ children: [new Paragraph({})] }) });
+const paginanummer = () => ({
+  default: new Footer({
+    children: [
+      new Paragraph({
+        style: 'Voettekst',
+        alignment: AlignmentType.RIGHT,
+        children: [new TextRun({ children: [PageNumber.CURRENT], size: 18 })],
+      }),
+    ],
+  }),
+});
+
+const marges = { page: { size: PAGINA, margin: MARGE } };
+
+/**
+ * Een tussenblad: een foto over de hele pagina (achter de tekst) en de titel groot in wit,
+ * zoals in de tegenbegroting 2026.
+ */
+function tussenblad(titel: string, foto: Uint8Array | undefined): ISectionOptions {
+  return {
+    properties: { page: { size: PAGINA, margin: { ...MARGE, top: 1700 } } },
+    footers: geenVoettekst(),
+    children: [
+      new Paragraph({
+        alignment: AlignmentType.CENTER,
+        children: [
+          ...(foto
+            ? [
+                new ImageRun({
+                  type: 'jpg',
+                  data: foto,
+                  transformation: { width: A4_PX.breedte, height: A4_PX.hoogte },
+                  altText: { name: titel, description: `Foto bij ${titel}`, title: titel },
+                  floating: {
+                    horizontalPosition: {
+                      relative: HorizontalPositionRelativeFrom.PAGE,
+                      offset: 0,
+                    },
+                    verticalPosition: { relative: VerticalPositionRelativeFrom.PAGE, offset: 0 },
+                    behindDocument: true,
+                    allowOverlap: true,
+                    wrap: { type: TextWrappingType.NONE },
+                  },
+                }),
+              ]
+            : []),
+          new TextRun({
+            text: titel,
+            bold: true,
+            color: foto ? 'FFFFFF' : BLAUW,
+            size: 116,
+            font: KOPLETTER,
           }),
-        ]
-      : []),
-    new Paragraph({
-      spacing: { before: 120 },
-      shading: { type: ShadingType.CLEAR, color: 'auto', fill: ORANJE },
-      children: [run(` ${titel}`, { vet: true, kleur: 'FFFFFF', grootte: 64, letter: KOPLETTER })],
-    }),
-    paginaEinde(),
-  ];
+        ],
+      }),
+    ],
+  };
+}
+
+/** Het voorblad: titel, ondertitel, de pijl met drie foto's, en voor wie en welk jaar. */
+function voorblad(tb: Tegenbegroting, b?: Beelden): ISectionOptions {
+  const d = tb.teksten;
+  // De pijl en de foto's in een rij die in elkaar grijpt, zoals in de tegenbegroting.
+  const strook = b
+    ? [b.pijl, ...b.voorblad].map(
+        (data, i) =>
+          new ImageRun({
+            type: 'png',
+            data,
+            transformation: { width: 172, height: 203 },
+            altText: { name: `voorblad ${i + 1}`, description: '', title: '' },
+            floating: {
+              horizontalPosition: {
+                relative: HorizontalPositionRelativeFrom.MARGIN,
+                offset: Math.round(i * 4.35 * CM),
+              },
+              verticalPosition: {
+                relative: VerticalPositionRelativeFrom.PAGE,
+                offset: Math.round(10.2 * CM),
+              },
+              allowOverlap: true,
+              wrap: { type: TextWrappingType.NONE },
+            },
+          }),
+      )
+    : [];
+  return {
+    properties: marges,
+    footers: geenVoettekst(),
+    children: [
+      new Paragraph({
+        spacing: { before: 400, after: 160, line: 1300, lineRule: 'exact', ...zonderAuto },
+        children: [
+          new TextRun({ text: tb.titel, bold: true, color: BLAUW, size: 120, font: KOPLETTER }),
+        ],
+      }),
+      new Paragraph({
+        style: 'Stijl1',
+        alignment: AlignmentType.BOTH,
+        spacing: { before: 0, after: 0, ...zonderAuto },
+        children: [tekst(d.ondertitel), ...strook],
+      }),
+      new Paragraph({
+        alignment: AlignmentType.CENTER,
+        spacing: { before: 7600, after: 80 },
+        children: [
+          new TextRun({
+            text: `${d.soort}${tb.naam ? ` ${tb.naam}` : ''}`,
+            bold: true,
+            color: ORANJE,
+            size: 40,
+            font: KOPLETTER,
+          }),
+        ],
+      }),
+      new Paragraph({
+        alignment: AlignmentType.CENTER,
+        children: [new TextRun({ text: tb.ondertitel, color: BLAUW, size: 32, font: KOPLETTER })],
+      }),
+    ],
+  };
+}
+
+/** De inhoudsopgave: Kop 1 en Kop 2 met puntjes en het paginanummer (Word vult die in). */
+function inhoudsopgave(inhoud: Inhoud): Paragraph[] {
+  return inhoud.koppen.map(
+    (k) =>
+      new Paragraph({
+        style: k.niveau === 1 ? 'Inhopg1' : 'Inhopg2',
+        tabStops: [{ type: TabStopType.RIGHT, position: 10280, leader: LeaderType.DOT }],
+        children: [
+          new TextRun({ text: k.tekst }),
+          new TextRun({ children: ['\t'] }),
+          new PageReference(k.id),
+        ],
+      }),
+  );
 }
 
 export function maakWord(tb: Tegenbegroting, b?: Beelden): Document {
   const d = tb.teksten;
   const f = tb.financieel;
   const t = f.totalen;
-  const kinderen = [
-    // 1. Voorblad
-    new Paragraph({
-      spacing: { before: 600, after: 200 },
-      children: [run(tb.titel, { vet: true, kleur: BLAUW, grootte: 72, letter: KOPLETTER })],
-    }),
-    new Paragraph({
-      spacing: { after: 480 },
-      children: [run(d.ondertitel, { vet: true, kleur: ORANJE_TEKST, grootte: 28 })],
-    }),
-    ...(b
-      ? [
-          new Paragraph({
-            spacing: { after: 720 },
-            children: [b.pijl, ...b.voorblad].map(
-              (data, i) =>
-                new ImageRun({
-                  type: 'png',
-                  data,
-                  transformation: { width: i === 0 ? 132 : 150, height: i === 0 ? 150 : 177 },
-                  altText: { name: `voorblad ${i + 1}`, description: '', title: '' },
-                }),
-            ),
-          }),
-        ]
+  const inhoud = new Inhoud();
+
+  // Eerst de inhoud, zodat de inhoudsopgave alle koppen kent.
+  const kopInhoud = inhoud.nieuw('Inhoudsopgave', 1);
+  const opgesteld = kop1(inhoud.nieuw(d.opgesteld_door, 1), b);
+  const besparingen = [
+    kop1(inhoud.nieuw(d.besparingen.titel, 1), b),
+    alinea(d.besparingen.intro, { vet: true }),
+    ...maatregelen(inhoud, tb.besparingen, 'Geen besparingen.'),
+  ];
+  const investeringen = [
+    kop1(inhoud.nieuw(d.investeringen.titel, 1), b),
+    alinea(d.investeringen.intro, { vet: true }),
+    ...maatregelen(inhoud, tb.investeringen, 'Geen investeringen.'),
+    ...(tb.ideeen
+      ? [kop2(inhoud, 'Mijn eigen ideeën'), ...tb.ideeen.split(/\n+/).map((x) => alinea(x))]
       : []),
-    new Paragraph({
-      spacing: { before: 1200 },
-      border: { top: { style: BorderStyle.SINGLE, size: 36, color: ORANJE, space: 12 } },
-      children: [
-        run(`${d.soort}${tb.naam ? ` ${tb.naam}` : ''}`, {
-          vet: true,
-          kleur: BLAUW,
-          grootte: 36,
-          letter: KOPLETTER,
-        }),
-      ],
-    }),
-    new Paragraph({ children: [run(tb.ondertitel, { vet: true, kleur: ORANJE_TEKST })] }),
-    paginaEinde(),
-    // 2. Inhoudsopgave en wie het opstelde
-    kop1('Inhoudsopgave', b),
-    ...[d.besparingen.titel, d.investeringen.titel, d.financieel.titel].map(
-      (x, i) =>
-        new Paragraph({
-          spacing: { after: 120 },
-          children: [run(`${i + 1}  `, { vet: true, kleur: ORANJE_TEKST }), run(x, { vet: true })],
-        }),
-    ),
-    kop1(d.opgesteld_door, b),
-    ...(tb.naam ? [p(tb.naam, { vet: true })] : []),
-    p(d.makers),
-    paginaEinde(),
-    // 3. Besparingen
-    ...tussenblad(d.besparingen.titel, b?.tussenbladen.besparingen),
-    kop1(d.besparingen.titel, b),
-    p(d.besparingen.intro),
-    ...maatregelen(tb.besparingen, 'Geen besparingen.'),
-    paginaEinde(),
-    // 4. Investeringen
-    ...tussenblad(d.investeringen.titel, b?.tussenbladen.investeringen),
-    kop1(d.investeringen.titel, b),
-    p(d.investeringen.intro),
-    ...maatregelen(tb.investeringen, 'Geen investeringen.'),
-    ...(tb.ideeen ? [kop2('Mijn eigen ideeën'), ...tb.ideeen.split(/\n+/).map((x) => p(x))] : []),
-    paginaEinde(),
-    // 5. Financieel overzicht
-    ...tussenblad(d.financieel.titel, b?.tussenbladen.financieel),
-    kop1(d.financieel.titel, b),
-    p(d.financieel.intro),
-    ...tb.inleiding.map((x) => p(x)),
-    kop2('Ombuigingen en opbrengsten (x1 miljoen)'),
+  ];
+  const financieel = [
+    kop1(inhoud.nieuw(d.financieel.titel, 1), b),
+    alinea(d.financieel.intro, { vet: true }),
+    ...tb.inleiding.map((x) => alinea(x)),
+    kop2(inhoud, 'Ombuigingen en opbrengsten (x1 miljoen)'),
     geldTabel(f.ombuigingen, f.jaar, t.ombuigingenS + t.ombuigingenI),
-    kop2('Uitgaven (x1 miljoen)'),
+    kop2(inhoud, 'Uitgaven (x1 miljoen)'),
     geldTabel(f.uitgaven, f.jaar, t.uitgavenS + t.uitgavenI),
-    kop2('Saldo (x1 miljoen)'),
+    kop2(inhoud, 'Saldo (x1 miljoen)'),
     new Table({
       width: { size: 100, type: WidthType.PERCENTAGE },
       rows: [
+        kopRij('Saldo', f.jaar),
         new TableRow({
           children: [
-            cel('Structureel (elk jaar)', { vet: true, breedte: 78 }),
-            cel(mlnTabel(t.saldoS), { vet: true, uitlijning: 'rechts', breedte: 22 }),
+            cel('Elk jaar'),
+            cel(mlnTabel(t.saldoS), { rechts: true }),
+            cel('S', { rechts: true }),
           ],
         }),
         new TableRow({
           children: [
-            cel('Incidenteel (eenmalig)', { vet: true }),
-            cel(mlnTabel(t.saldoI), { vet: true, uitlijning: 'rechts' }),
+            cel('Eenmalig'),
+            cel(mlnTabel(t.saldoI), { rechts: true }),
+            cel('I', { rechts: true }),
           ],
         }),
       ],
     }),
-    kop2('Meerjarig (x1 miljoen)'),
+    kop2(inhoud, 'Meerjarig (x1 miljoen)'),
     new Table({
       width: { size: 100, type: WidthType.PERCENTAGE },
       rows: [
         new TableRow({
           tableHeader: true,
           children: [
-            cel('Saldo', { kop: true, breedte: 32 }),
-            ...f.meerjarig.map((m) => cel(String(m.jaar), { kop: true, uitlijning: 'rechts' })),
+            cel('Saldo', { kop: true, breedte: 36 }),
+            ...f.meerjarig.map((m) => cel(String(m.jaar), { kop: true, rechts: true })),
           ],
         }),
         new TableRow({
           children: [
             cel('Structureel'),
-            ...f.meerjarig.map((m) => cel(mlnTabel(m.structureel), { uitlijning: 'rechts' })),
+            ...f.meerjarig.map((m) => cel(mlnTabel(m.structureel), { rechts: true })),
           ],
         }),
         new TableRow({
           children: [
             cel('Incidenteel'),
-            ...f.meerjarig.map((m) => cel(mlnTabel(m.incidenteel), { uitlijning: 'rechts' })),
+            ...f.meerjarig.map((m) => cel(mlnTabel(m.incidenteel), { rechts: true })),
           ],
         }),
       ],
     }),
     ...(tb.kettingeffecten.length
       ? [
-          kop2('Kettingeffecten'),
-          p('⚠︎ Deze bedragen zijn aannames of spelregels, geen getallen uit de begroting.', {
+          kop2(inhoud, 'Kettingeffecten'),
+          alinea('⚠︎ Deze bedragen zijn aannames of spelregels, geen getallen uit de begroting.', {
             klein: true,
           }),
           ...tb.kettingeffecten.map((r) => punt(`⚠︎ ${r.naam}.`, r.toelichting)),
         ]
       : []),
-    kop2('Bronnen en uitleg'),
-    p(tb.aanname, { klein: true }),
-    ...tb.bronnen.map((x) => p(x, { klein: true })),
+    kop2(inhoud, 'Bronnen en uitleg'),
+    alinea(tb.aanname, { klein: true }),
+    ...tb.bronnen.map((x) => alinea(x, { klein: true })),
   ];
+
+  const doorlopend = (kinderen: (Paragraph | Table)[]): ISectionOptions => ({
+    properties: marges,
+    footers: paginanummer(),
+    children: kinderen,
+  });
+
   return new Document({
     creator: 'Begrotingsgame van VVD Groningen',
     title: `${d.soort}: ${tb.titel}`,
     description: tb.ondertitel,
-    styles: { default: { document: { run: { font: LETTER, size: 21, color: INKT } } } },
+    externalStyles: stijlen,
+    // Word werkt bij het openen de paginanummers in de inhoudsopgave bij.
+    features: { updateFields: true },
     sections: [
-      {
-        properties: { page: { margin: { top: 1134, bottom: 1134, left: 1134, right: 1134 } } },
-        children: kinderen,
-      },
+      voorblad(tb, b),
+      doorlopend([
+        kop1(kopInhoud, b),
+        ...inhoudsopgave(inhoud),
+        new Paragraph({ spacing: { before: 400 } }),
+        opgesteld,
+        ...(tb.naam ? [alinea(tb.naam)] : []),
+        alinea(d.makers),
+      ]),
+      tussenblad(d.besparingen.titel, b?.tussenbladen.besparingen),
+      doorlopend(besparingen),
+      tussenblad(d.investeringen.titel, b?.tussenbladen.investeringen),
+      doorlopend(investeringen),
+      tussenblad(d.financieel.titel, b?.tussenbladen.financieel),
+      doorlopend(financieel),
     ],
   });
 }
