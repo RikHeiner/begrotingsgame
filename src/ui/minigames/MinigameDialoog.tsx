@@ -50,6 +50,7 @@ export function MinigameDialoog({ data }: { data: Data }) {
               data={data}
               onKlaar={(score, max) => {
                 setUitslag({ score, max, beste: bewaarBeste(m.id, score) });
+                useSpel.getState().markeerGespeeld(m.id);
                 setFase('klaar');
               }}
             />

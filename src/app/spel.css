@@ -2814,3 +2814,42 @@
   background: color-mix(in srgb, var(--oranje) 8%, var(--paneel));
   color: var(--inkt);
 }
+
+/* Linksonder op de kaart: speel een minigame (de route-kaart schuift erboven) */
+.minigame-knop {
+  position: absolute;
+  left: 0.75rem;
+  bottom: 0.75rem;
+  z-index: 9;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 48px;
+  padding: 0.4rem 0.9rem;
+  border: 2px solid #ffffff;
+  border-radius: 999px;
+  background: var(--oranje);
+  color: #15193a;
+  font: inherit;
+  font-weight: 800;
+  box-shadow: 0 4px 16px rgb(10 12 30 / 0.25);
+  cursor: pointer;
+}
+
+.minigame-knop-teller {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.spel-inhoud:has(.minigame-knop) .route-kaart:not(.klein) {
+  bottom: calc(0.75rem + 56px);
+}
+
+/* Al gespeeld: het label op de kaart wordt groen met een vinkje. */
+.kaart-minigame.gespeeld {
+  background: color-mix(in srgb, var(--positief) 75%, #ffffff);
+}
+
+.kaart-minigame.gespeeld::after {
+  border-top-color: color-mix(in srgb, var(--positief) 75%, #ffffff);
+}

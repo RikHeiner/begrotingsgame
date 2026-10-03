@@ -1,5 +1,5 @@
 /** De beste score per minigame, alleen in deze browser. */
-const OPSLAG = 'begrotingsgame:minigames';
+import { OPSLAG_MINIGAMES as OPSLAG } from '../../game/state/store';
 
 export function leesBeste(): Record<string, number> {
   try {

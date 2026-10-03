@@ -6,20 +6,19 @@ import { useMemo } from 'react';
 import type { Data } from '../../engine';
 import { useSpel } from '../../game/state/store';
 import { Dialoog } from '../algemeen/Dialoog';
-import { leesBeste } from './scores';
 
 export function TussendoorAanbod({ data }: { data: Data }) {
   const aan = useSpel((s) => s.tussendoor);
   const zet = useSpel((s) => s.zetTussendoor);
   const open = useSpel((s) => s.openMinigame);
   const routeStap = useSpel((s) => s.routeStap);
+  const gespeeld = useSpel((s) => s.gespeeld);
   const m = useMemo(() => {
     if (!aan) return undefined;
-    const gespeeld = leesBeste();
-    const nieuw = data.minigames.filter((x) => gespeeld[x.id] === undefined);
+    const nieuw = data.minigames.filter((x) => !gespeeld.includes(x.id));
     const lijst = nieuw.length ? nieuw : data.minigames;
     return lijst[Math.floor(routeStap / 3) % lijst.length];
-  }, [aan, data.minigames, routeStap]);
+  }, [aan, data.minigames, routeStap, gespeeld]);
   if (!aan || !m) return null;
   return (
     <Dialoog open titel="Even pauze?" onSluit={() => zet(false)}>

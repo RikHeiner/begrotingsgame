@@ -14,6 +14,7 @@ import { Lijstweergave } from '../ui/lijstweergave/Lijstweergave';
 import { GebouwPaneel } from '../ui/panelen/GebouwPaneel';
 import { MinigameDialoog } from '../ui/minigames/MinigameDialoog';
 import { TussendoorAanbod } from '../ui/minigames/TussendoorAanbod';
+import { MinigameKnop } from '../ui/minigames/MinigameKnop';
 import { RouteKaart } from '../ui/route/RouteKaart';
 import { Startscherm } from '../ui/start/Startscherm';
 import { WelkomTerug } from '../ui/start/WelkomTerug';
@@ -164,6 +165,9 @@ export function Spel({ data }: { data: Data }) {
           !gekozenGebouw &&
           !startscherm &&
           !terug && <RouteKaart data={data} resultaat={resultaat} />}
+        {weergave === 'kaart' && !gekozenGebouw && !startscherm && !terug && (
+          <MinigameKnop data={data} />
+        )}
       </main>
       <MinigameDialoog data={data} />
       <TussendoorAanbod data={data} />

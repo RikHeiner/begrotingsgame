@@ -67,6 +67,9 @@ type Spel = {
    * is, vanaf 0. Gelijk aan het aantal stappen als de route klaar is. Alleen bij nul.
    */
   routeStap: number;
+  /** minigames die de speler al speelde (in deze browser) */
+  gespeeld: string[];
+  markeerGespeeld(id: string): void;
   /** na een paar stappen van de route: tussendoor een minigame aanbieden */
   tussendoor: boolean;
   zetTussendoor(aan: boolean): void;
@@ -138,6 +141,17 @@ function schrijfOpslag(sleutel: string, waarde: string): void {
 
 export const OPSLAG_GELUID = 'begrotingsgame:geluid';
 export const OPSLAG_START = 'begrotingsgame:start';
+/** de beste score per minigame (zie ui/minigames/scores.ts) */
+export const OPSLAG_MINIGAMES = 'begrotingsgame:minigames';
+
+function leesGespeeld(): string[] {
+  try {
+    const ruw = JSON.parse(leesOpslag(OPSLAG_MINIGAMES) ?? '{}') as unknown;
+    return ruw && typeof ruw === 'object' && !Array.isArray(ruw) ? Object.keys(ruw) : [];
+  } catch {
+    return [];
+  }
+}
 
 /** Het gebouw waar een effect landt: het gebouw van de post, of het loket en het veilinghuis. */
 export function gebouwVanDoel(data: Data, doel: string): string | undefined {
@@ -220,6 +234,11 @@ export const useSpel = create<Spel>((set, get) => {
       set({ minigame: id, ...(id ? { gekozenGebouw: undefined } : {}) });
     },
     routeStap: 0,
+    gespeeld: leesGespeeld(),
+    markeerGespeeld(id) {
+      const lijst = get().gespeeld;
+      if (!lijst.includes(id)) set({ gespeeld: [...lijst, id] });
+    },
     tussendoor: false,
     zetTussendoor(aan) {
       set({ tussendoor: aan });
