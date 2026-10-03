@@ -10,7 +10,7 @@
 import type { Data } from '../../engine';
 import { formatMln } from '../../engine/format';
 import type { Gebouw, Minigame } from '../../engine/schema';
-import type { GebouwStand } from '../toestand';
+import type { GebouwStand, Toestand } from '../toestand';
 import {
   klem,
   naarKader,
@@ -131,7 +131,21 @@ type GetekendGebouw = {
   beeld: HTMLCanvasElement;
   bedrag: string;
   bedragKleur: number;
+  toestand?: Toestand;
+  /** het gebouw veranderde net: even op en neer, met sterretjes (beter) of stof (slechter) */
+  verandering?: { beter: boolean; begin: number };
+  /** wanneer het gebouw verschijnt bij het openingsshot */
+  verschijnt?: number;
 };
+
+/** Fietsers en een bus op de wegen: meer leven op straat. */
+type Voertuig = { soort: 'fiets' | 'bus'; weg: Weg; t: number; v: number; kleur: number };
+
+const VOLGORDE: Toestand[] = ['gesloten', 'versoberd', 'normaal', 'beter', 'bloeiend'];
+const VERANDER_MS = 1400;
+const VERSCHIJN_MS = 450;
+/** Het openingsshot speelt één keer per bezoek. */
+let introGezien = false;
 
 type Bezienswaardigheid = { minigame: Minigame; plek: Punt; beeld: HTMLCanvasElement };
 
@@ -191,6 +205,9 @@ export class GemeenteKaart {
   /** minigames op een gebouw (zonder eigen tekening): alleen hun naam */
   private namenBij: { minigame: Minigame; plek: Punt }[] = [];
   private wandelaars: Wandelaar[] = [];
+  private voertuigen: Voertuig[] = [];
+  /** tot wanneer er iets beweegt dat elk beeld opnieuw getekend moet worden */
+  private bewegingTot = 0;
   private lijnen: Lijn[] = [];
   private wijzers = new Map<number, { x: number; y: number }>();
   private sleep?: {
@@ -246,6 +263,7 @@ export class GemeenteKaart {
     element.appendChild(c);
     k.maakGebouwen();
     k.maakWandelaars();
+    if (!o.minderBeweging) k.maakVoertuigen();
     k.koppelInvoer(c);
     k.meet(element);
     k.pasAan(true);
@@ -323,6 +341,14 @@ export class GemeenteKaart {
     for (const t of this.gebouwen) {
       const stand = standen[t.gebouw.id];
       if (!stand) continue;
+      if (t.toestand && t.toestand !== stand.toestand && !this.o.minderBeweging) {
+        t.verandering = {
+          beter: VOLGORDE.indexOf(stand.toestand) > VOLGORDE.indexOf(t.toestand),
+          begin: performance.now(),
+        };
+        this.bewegingTot = Math.max(this.bewegingTot, performance.now() + VERANDER_MS);
+      }
+      t.toestand = stand.toestand;
       t.beeld = gebouwBeeld(t.gebouw, {
         toestand: stand.toestand,
         zwembadLeeg: t.gebouw.id === 'zwembad' && zwembadLeeg,
@@ -331,6 +357,149 @@ export class GemeenteKaart {
       t.bedragKleur = stand.bedrag >= 0 ? this.o.kleuren.positief : this.o.kleuren.negatief;
     }
     this.vies = true;
+  }
+
+  /** Sterretjes die opstijgen (beter) of grijze stofwolkjes (slechter) boven een gebouw. */
+  private tekenVerandering(t: GetekendGebouw, beter: boolean, f: number): void {
+    const ctx = this.ctx;
+    const G = GEBOUW_SCHAAL;
+    ctx.save();
+    ctx.globalAlpha = Math.max(0, 1 - f);
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = `${11 * G}px system-ui, sans-serif`;
+    for (let i = 0; i < 5; i++) {
+      const hoek = (i / 5) * Math.PI * 2 + f;
+      const r = (14 + 26 * f) * G;
+      const x = t.plek.x + Math.cos(hoek) * r;
+      const y = t.plek.y - (10 + 30 * f) * G + Math.sin(hoek) * r * 0.4;
+      ctx.fillText(beter ? '✨' : '💨', x, y);
+    }
+    ctx.restore();
+  }
+
+  /** Zes fietsers en een bus op de wegen naar de gebouwen. */
+  private maakVoertuigen(): void {
+    const wegen = this.o.geo.wegen;
+    if (!wegen.length) return;
+    const kleuren = [0xff6a00, 0x1233c4, 0xd2465e, 0x15875a, 0xf2b705, 0x7a3dc8];
+    for (let i = 0; i < 6; i++) {
+      const weg = wegen[(i * 5 + 2) % wegen.length] as Weg;
+      this.voertuigen.push({
+        soort: 'fiets',
+        weg,
+        t: (i * 0.29) % 1,
+        v: (0.06 + (i % 3) * 0.015) * (i % 2 ? 1 : -1),
+        kleur: kleuren[i] ?? 0xff6a00,
+      });
+    }
+    const busWeg = wegen.reduce((a, b) =>
+      Math.hypot(b.naar.x - b.van.x, b.naar.y - b.van.y) >
+      Math.hypot(a.naar.x - a.van.x, a.naar.y - a.van.y)
+        ? b
+        : a,
+    );
+    this.voertuigen.push({ soort: 'bus', weg: busWeg, t: 0.3, v: 0.035, kleur: 0x9bc31c });
+  }
+
+  private zetVoertuigen(ms: number): void {
+    for (const v of this.voertuigen) {
+      v.t += (v.v * ms) / 1000;
+      if (v.t > 0.97 || v.t < 0.03) {
+        v.v = -v.v;
+        v.t = Math.min(0.97, Math.max(0.03, v.t));
+      }
+    }
+  }
+
+  private tekenVoertuigen(): void {
+    const ctx = this.ctx;
+    for (const v of this.voertuigen) {
+      const p = opWeg(v.weg, v.t);
+      const q = opWeg(v.weg, Math.min(0.99, Math.max(0.01, v.t + (v.v > 0 ? 0.01 : -0.01))));
+      const richting = q.x >= p.x ? 1 : -1;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.scale(richting * INWONER_SCHAAL, INWONER_SCHAAL);
+      const t = new CanvasTekenaar(ctx);
+      if (v.soort === 'bus') {
+        // Een groene stadsbus met ramen.
+        t.roundRect(-11, -9, 22, 9, 2).fill(v.kleur).stroke({ width: 0.8, color: 0x15193a });
+        for (let i = 0; i < 4; i++) t.rect(-9 + i * 5, -7.5, 3.5, 3).fill(0xdff1fb);
+        t.circle(-6, 0.5, 1.8).circle(6, 0.5, 1.8).fill(0x15193a);
+      } else {
+        // Een fietser: twee wielen, een frame en iemand erop.
+        t.circle(-3.5, 0, 2.4).circle(3.5, 0, 2.4).stroke({ width: 0.9, color: 0x15193a });
+        t.moveTo(-3.5, 0).lineTo(0, -3).lineTo(3.5, 0).stroke({ width: 0.9, color: 0x15193a });
+        t.roundRect(-1.6, -8.5, 3.2, 5, 1.2).fill(v.kleur);
+        t.circle(0, -10, 1.7).fill(0xf2c29b);
+      }
+      ctx.restore();
+    }
+  }
+
+  /**
+   * Het openingsshot: de camera begint dicht bij het Stadhuis en vliegt uit naar de hele
+   * gemeente, terwijl de gebouwen een voor een uit de grond groeien. Eén keer per bezoek.
+   */
+  speelIntro(): void {
+    if (introGezien || this.o.minderBeweging) return;
+    introGezien = true;
+    const nu = performance.now();
+    const volgorde = [...this.gebouwen].sort(
+      (a, b) =>
+        Math.hypot(
+          a.plek.x - (this.o.geo.gebouwen.stadhuis?.x ?? 0),
+          a.plek.y - (this.o.geo.gebouwen.stadhuis?.y ?? 0),
+        ) -
+        Math.hypot(
+          b.plek.x - (this.o.geo.gebouwen.stadhuis?.x ?? 0),
+          b.plek.y - (this.o.geo.gebouwen.stadhuis?.y ?? 0),
+        ),
+    );
+    volgorde.forEach((t, i) => (t.verschijnt = nu + 250 + i * 110));
+    this.bewegingTot = nu + 250 + volgorde.length * 110 + VERSCHIJN_MS;
+    const p = this.o.geo.gebouwen.stadhuis;
+    if (p) {
+      const schaal = pas(this.wereldMaat(), this.scherm).schaal * 3;
+      this.zetCamera({
+        schaal,
+        x: this.scherm.breedte / 2 - p.x * schaal,
+        y: this.scherm.hoogte / 2 - p.y * schaal,
+      });
+      this.vlieg(pas(this.wereldMaat(), this.scherm), 2400);
+    }
+  }
+
+  /** Een foto van de hele gemeente zoals hij nu is (voor de deelafbeelding). */
+  foto(breedte = 1000): string | undefined {
+    const oud = this.camera;
+    const oudScherm = this.scherm;
+    const hoogte = Math.round((breedte * this.o.geo.hoogte) / this.o.geo.breedte);
+    const doek = document.createElement('canvas');
+    doek.width = breedte;
+    doek.height = hoogte;
+    const ctx = doek.getContext('2d');
+    if (!ctx) return undefined;
+    const echt = { canvas: this.canvas, ctx: this.ctx, dpr: this.dpr };
+    try {
+      this.canvas = doek;
+      this.ctx = ctx;
+      this.dpr = 1;
+      this.scherm = { breedte, hoogte };
+      this.camera = pas(this.wereldMaat(), this.scherm);
+      this.teken();
+      return doek.toDataURL('image/png');
+    } catch {
+      return undefined;
+    } finally {
+      this.canvas = echt.canvas;
+      this.ctx = echt.ctx;
+      this.dpr = echt.dpr;
+      this.scherm = oudScherm;
+      this.camera = oud;
+      this.vies = true;
+    }
   }
 
   private tekst(tekst: string, x: number, y: number, grootte: number, kleur: number): void {
@@ -384,13 +553,34 @@ export class GemeenteKaart {
         continue;
       }
       if (!t) continue;
+      // Openingsshot: het gebouw groeit uit de grond. Een verandering: even op en neer.
+      const nu = performance.now();
+      let schaal = 1;
+      if (t.verschijnt !== undefined) {
+        const f = (nu - t.verschijnt) / VERSCHIJN_MS;
+        if (f < 0) continue;
+        if (f < 1) {
+          const c1 = 1.70158;
+          schaal = 1 + (c1 + 1) * Math.pow(f - 1, 3) + c1 * Math.pow(f - 1, 2);
+        } else t.verschijnt = undefined;
+      }
+      const v = t.verandering;
+      const fv = v ? (nu - v.begin) / VERANDER_MS : 1;
+      if (v && fv < 1) schaal *= 1 + 0.12 * Math.sin(Math.PI * Math.min(1, fv * 2.2));
+      else t.verandering = undefined;
+      const voet = t.plek.y + (GEBOUW_H / 2) * G;
+      ctx.save();
+      ctx.translate(t.plek.x, voet);
+      ctx.scale(schaal, schaal);
       ctx.drawImage(
         t.beeld,
-        t.plek.x - k.links * G,
-        t.plek.y - k.boven * G,
+        -k.links * G,
+        -k.boven * G - (GEBOUW_H / 2) * G,
         (k.links + k.rechts) * G,
         (k.boven + k.onder) * G,
       );
+      ctx.restore();
+      if (v && fv < 1) this.tekenVerandering(t, v.beter, fv);
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.font = `${13 * G}px system-ui, sans-serif`;
@@ -429,6 +619,7 @@ export class GemeenteKaart {
       );
     }
 
+    this.tekenVoertuigen();
     for (const w of this.wandelaars) {
       ctx.save();
       ctx.translate(w.x, w.y);
@@ -654,7 +845,11 @@ export class GemeenteKaart {
     }
     const nu = performance.now();
     const wandelen = !this.o.minderBeweging && this.wandelaars.length > 0 && nu < this.actiefTot;
-    if (wandelen) this.zetWandelaars(Math.min(ms, 100));
+    if (wandelen) {
+      this.zetWandelaars(Math.min(ms, 100));
+      this.zetVoertuigen(Math.min(ms, 100));
+    }
+    if (nu < this.bewegingTot) this.vies = true;
     if (this.lijnen.length) {
       this.lijnen = this.lijnen.filter((l) => nu - l.begin < LIJN_MS);
       this.vies = true;

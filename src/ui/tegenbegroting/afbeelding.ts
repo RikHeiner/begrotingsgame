@@ -3,7 +3,17 @@
  * Getekend op een canvas met de eigen lettertypen; geen externe bibliotheek.
  */
 import { formatMln } from '../../engine';
+import { kaartFoto } from '../../game/kaartFoto';
 import type { Tegenbegroting } from '../../game/tegenbegroting/document';
+
+function laad(url: string): Promise<HTMLImageElement | undefined> {
+  return new Promise((klaar) => {
+    const img = new Image();
+    img.onload = () => klaar(img);
+    img.onerror = () => klaar(undefined);
+    img.src = url;
+  });
+}
 
 const B = 1080;
 const H = 1350;
@@ -72,15 +82,26 @@ export async function maakAfbeelding(
   ctx.font = '800 96px "Baloo 2", sans-serif';
   ctx.fillText(formatMln(s, { teken: true }), 72, 660);
 
+  // Jouw gemeente: een foto van de kaart zoals de speler hem achterliet
+  const foto = kaartFoto();
+  const beeld = foto ? await laad(foto) : undefined;
+  if (beeld) {
+    const bb = B - 144;
+    const bh = Math.min(330, (bb * beeld.height) / beeld.width);
+    const bx = 72 + (bb - (bh * beeld.width) / beeld.height) / 2;
+    ctx.drawImage(beeld, bx, 690, (bh * beeld.width) / beeld.height, bh);
+  }
+
   // Grootste keuzes
+  const kopY = beeld ? 1070 : 770;
   ctx.fillStyle = '#FF6A00';
   ctx.font = '800 48px "Baloo 2", sans-serif';
-  ctx.fillText('Mijn grootste keuzes', 72, 770);
+  ctx.fillText('Mijn grootste keuzes', 72, kopY);
   const keuzes = [...tb.besparingen, ...tb.investeringen]
     .flatMap((g) => g.regels)
     .sort((a, b) => Math.abs(b.bedrag) - Math.abs(a.bedrag))
-    .slice(0, 3);
-  y = 840;
+    .slice(0, beeld ? 1 : 3);
+  y = kopY + 70;
   ctx.font = '700 36px Asap, sans-serif';
   if (!keuzes.length) {
     ctx.fillStyle = '#15193A';

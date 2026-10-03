@@ -97,6 +97,195 @@
   cursor: grab;
 }
 
+/* Dag en nacht boven de kaart: avond als de begroting een tekort heeft. */
+.kaart-hemel,
+.kaart-schemer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.kaart-hemel {
+  background: linear-gradient(to bottom, #12204f 0%, #3a3f7a 45%, #6b5b8a 100%);
+  opacity: 0;
+  transition: opacity 1.6s ease;
+}
+
+.kaart-avond .kaart-hemel {
+  opacity: 1;
+}
+
+.kaart-schemer {
+  background: rgb(18 24 70 / 0.32);
+  mix-blend-mode: multiply;
+  opacity: 0;
+  transition: opacity 1.6s ease;
+}
+
+.kaart-avond .kaart-schemer {
+  opacity: 1;
+}
+
+.hemel-zon {
+  position: absolute;
+  top: 1.2rem;
+  right: 2rem;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    #ffe27a 0 45%,
+    rgb(255 226 122 / 0.35) 46% 70%,
+    transparent 71%
+  );
+  opacity: 1;
+  transition:
+    opacity 1.6s ease,
+    transform 1.6s ease;
+}
+
+.hemel-maan {
+  position: absolute;
+  top: 1.2rem;
+  right: 2.2rem;
+  font-size: 2.6rem;
+  opacity: 0;
+  transform: translateY(1rem);
+  transition:
+    opacity 1.6s ease,
+    transform 1.6s ease;
+}
+
+.kaart-dag .kaart-hemel {
+  opacity: 1;
+  background: none;
+}
+
+.kaart-avond .hemel-zon {
+  opacity: 0;
+  transform: translateY(2rem);
+}
+
+.kaart-avond .hemel-maan {
+  opacity: 1;
+  transform: none;
+}
+
+.kaart-avond .wolk {
+  background: rgb(160 170 210 / 0.35);
+  box-shadow:
+    2.2rem -1rem 0 0.3rem rgb(160 170 210 / 0.35),
+    4.5rem -0.4rem 0 0 rgb(160 170 210 / 0.3);
+}
+
+@media (max-width: 600px) {
+  .hemel-zon,
+  .hemel-maan {
+    top: 0.6rem;
+    right: auto;
+    left: 1rem;
+    transform: scale(0.75);
+  }
+}
+
+/* Eindscherm: jouw gemeente en vuurwerk als de begroting sluit */
+.eind-foto {
+  margin: 0.75rem 0;
+}
+
+.eind-foto img {
+  display: block;
+  width: 100%;
+  max-width: 34rem;
+  height: auto;
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--water-kleur) 15%, var(--achtergrond));
+}
+
+.vuurwerk {
+  position: fixed;
+  inset: 0 0 auto;
+  height: 60vh;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 5;
+}
+
+.pijl {
+  position: absolute;
+  bottom: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ffe27a;
+  box-shadow:
+    0 -24px 0 #ff6a00,
+    17px -17px 0 #ffffff,
+    24px 0 0 #1233c4,
+    17px 17px 0 #ff6a8a,
+    0 24px 0 #ffe27a,
+    -17px 17px 0 #4fd19a,
+    -24px 0 0 #ff6a00,
+    -17px -17px 0 #ffffff;
+  opacity: 0;
+  animation: pijl 2.4s ease-out 3;
+}
+
+.pijl.p0 {
+  left: 12%;
+  animation-delay: 0s;
+}
+.pijl.p1 {
+  left: 30%;
+  animation-delay: 0.5s;
+}
+.pijl.p2 {
+  left: 48%;
+  animation-delay: 0.2s;
+}
+.pijl.p3 {
+  left: 64%;
+  animation-delay: 0.8s;
+}
+.pijl.p4 {
+  left: 80%;
+  animation-delay: 0.35s;
+}
+.pijl.p5 {
+  left: 22%;
+  animation-delay: 1.2s;
+}
+.pijl.p6 {
+  left: 72%;
+  animation-delay: 1.5s;
+}
+
+@keyframes pijl {
+  0% {
+    transform: translateY(0) scale(0.3);
+    opacity: 1;
+  }
+  45% {
+    transform: translateY(-38vh) scale(0.3);
+    opacity: 1;
+  }
+  60% {
+    transform: translateY(-40vh) scale(2.4);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-36vh) scale(3.2);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vuurwerk {
+    display: none;
+  }
+}
+
 /* Wolkjes boven de kaart: alleen sfeer, de klikken gaan erdoorheen. */
 .kaart-wolken {
   position: absolute;
@@ -423,6 +612,18 @@
 }
 
 /* Minigames */
+.lijst-minigames {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.lijst-minigames .knop {
+  width: 100%;
+  text-align: left;
+}
+
 .minigame {
   min-height: 12rem;
 }

@@ -12,6 +12,7 @@ import type { BuurtGeo, KaartGeometrie } from '../../game/kaart/geometrie';
 import { doelVanVoorwaarde, type Doel } from '../../game/naarPost';
 import { maakLezer } from '../../game/reacties/context';
 import { compileer, kiesReactie } from '../../game/reacties/kies';
+import { zetKaartFoto } from '../../game/kaartFoto';
 import { routeNummer } from '../../game/route';
 import { useSpel } from '../../game/state/store';
 import { TOESTAND_NAAM, type GebouwStand } from '../../game/toestand';
@@ -99,10 +100,18 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
     })();
     return () => {
       weg = true;
+      // Een foto van jouw gemeente, voor het eindscherm en de deelafbeelding.
+      zetKaartFoto(kaart.current?.foto());
       kaart.current?.vernietig();
       kaart.current = undefined;
     };
   }, [data, kies, openMinigame, onFout]);
+
+  // Het openingsshot, zodra het startscherm dicht is (één keer per bezoek).
+  const startscherm = useSpel((s) => s.startscherm);
+  useEffect(() => {
+    if (klaar && !startscherm) kaart.current?.speelIntro();
+  }, [klaar, startscherm]);
 
   // De camera begeleidt de speler: naar het gebouw dat open is (boven het paneel op een telefoon,
   // links van het paneel op een groot scherm), en terug naar de hele gemeente als het dicht gaat.
@@ -204,9 +213,19 @@ export function KaartWeergave({ data, resultaat, standen, onFout }: Props) {
 
   const persona = (id: string) => data.personas.personas.find((p) => p.id === id)?.naam ?? id;
 
+  // Dag en nacht: houdt je begroting over, dan schijnt de zon; is er een tekort, dan wordt het
+  // avond boven de gemeente.
+  const minSaldo = Math.min(...data.jaren.map((j) => resultaat.perJaar[j]?.structureel ?? 0));
+  const lucht = minSaldo < -50_000 ? 'avond' : 'dag';
+
   return (
-    <div className="kaart" data-testid="kaart">
+    <div className={`kaart kaart-${lucht}`} data-testid="kaart" data-lucht={lucht}>
+      <div className="kaart-hemel" aria-hidden="true">
+        <span className="hemel-zon" />
+        <span className="hemel-maan">🌙</span>
+      </div>
       <div ref={houder} className="kaart-doek" />
+      <div className="kaart-schemer" aria-hidden="true" />
       {klaar && (
         // Wolkjes die langzaam over de gemeente drijven, met hun schaduw op de grond (sfeer).
         <div className="kaart-wolken" aria-hidden="true">

@@ -3,6 +3,7 @@
  * dezelfde schuiven en kaarten. Werkt met alleen het toetsenbord en met een schermlezer.
  */
 import { formatMln, type Data, type Resultaat } from '../../engine';
+import { useSpel } from '../../game/state/store';
 import { TOESTAND_NAAM, type GebouwStand } from '../../game/toestand';
 import { GebouwPosten } from '../panelen/GebouwPosten';
 
@@ -16,6 +17,7 @@ export function Lijstweergave({
   standen: Record<string, GebouwStand>;
 }) {
   const gebied = new Map(data.gebieden.gebieden.map((g) => [g.id, g.naam]));
+  const openMinigame = useSpel((s) => s.openMinigame);
   return (
     <section aria-labelledby="lijst-kop" className="lijst" data-testid="lijstweergave">
       <h2 id="lijst-kop">Alle gebouwen en posten</h2>
@@ -40,6 +42,16 @@ export function Lijstweergave({
           </details>
         );
       })}
+      <h3 className="lijst-minigames-kop">Minigames in bekende gebouwen</h3>
+      <ul className="lijst-minigames">
+        {data.minigames.map((m) => (
+          <li key={m.id}>
+            <button type="button" className="knop" onClick={() => openMinigame(m.id)}>
+              {m.icoon} {m.naam}: {m.spel}
+            </button>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

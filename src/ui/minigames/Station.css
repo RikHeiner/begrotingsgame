@@ -1,0 +1,72 @@
+/* Hoofdstation: Op tijd vertrekken */
+.mg-station-perron {
+  overflow: hidden;
+  padding: 0.5rem 0;
+  border-bottom: 4px double var(--gedempt);
+}
+
+.mg-station-trein {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.8rem;
+  border: 2px solid var(--blauw);
+  border-radius: 1.2rem 0.6rem 0.6rem 1.2rem;
+  background: color-mix(in srgb, var(--blauw) 8%, var(--paneel));
+  color: var(--inkt);
+  overflow-wrap: anywhere;
+  animation: mg-station-binnen 0.4s ease-out;
+}
+
+.mg-station-trein > span {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.mg-station-trein h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.mg-station-trein p {
+  margin: 0.15rem 0 0;
+}
+
+.mg-station-trein.weg-links,
+.mg-station-trein.weg-rechts {
+  transition: transform 0.6s ease-in;
+}
+
+.mg-station-trein.weg-links {
+  transform: translateX(-6%);
+}
+
+.mg-station-trein.weg-rechts {
+  transform: translateX(6%);
+}
+
+.mg-station-spoor {
+  min-height: 64px;
+}
+
+@keyframes mg-station-binnen {
+  from {
+    transform: translateX(40%);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mg-station-trein {
+    animation: none;
+  }
+  .mg-station-trein.weg-links,
+  .mg-station-trein.weg-rechts {
+    transition: none;
+    transform: none;
+  }
+}

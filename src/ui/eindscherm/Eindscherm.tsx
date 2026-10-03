@@ -16,6 +16,7 @@ import {
   vergelijkPerThema,
   type Maatregel,
 } from '../../game/score';
+import { kaartFoto } from '../../game/kaartFoto';
 import { useSpel } from '../../game/state/store';
 import { insturenMogelijk } from '../../inzending/opslag';
 import { VoorMijDialoog } from '../hud/VoorMijDialoog';
@@ -80,6 +81,7 @@ export function Eindscherm({ data, resultaat }: { data: Data; resultaat: Resulta
     [data, resultaat, tb],
   );
   const laatste = data.jaren.at(-1) ?? 0;
+  const foto = kaartFoto();
   const titel = resultaat.regels.sluitend
     ? data.teksten.eindscherm.ingediend
     : data.teksten.eindscherm.niet_sluitend;
@@ -107,6 +109,14 @@ export function Eindscherm({ data, resultaat }: { data: Data; resultaat: Resulta
 
   return (
     <main className="eindscherm" data-testid="eindscherm">
+      {resultaat.regels.sluitend && (
+        // Vuurwerk boven het Stadhuis als je begroting sluit (niet bij minder beweging).
+        <div className="vuurwerk" aria-hidden="true">
+          {Array.from({ length: 7 }, (_, i) => (
+            <span key={i} className={`pijl p${i}`} />
+          ))}
+        </div>
+      )}
       <header className="eind-kop">
         <h1 ref={kop} tabIndex={-1}>
           {titel}
@@ -118,6 +128,11 @@ export function Eindscherm({ data, resultaat }: { data: Data; resultaat: Resulta
             </span>
           ))}
         </p>
+        {foto && (
+          <figure className="eind-foto">
+            <img src={foto} alt="Jouw gemeente op de kaart, zoals je hem achterliet" />
+          </figure>
+        )}
         <ul className="ster-lijst">
           {st.map((s) => (
             <li key={s.id}>
