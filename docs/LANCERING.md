@@ -28,14 +28,13 @@ Wat nog moet gebeuren voordat de Begrotingsgame live gaat (fase 8). Wat al klaar
 
 ## 2. Teksten invullen
 
-In `privacy.html` en `toegankelijkheid.html` staan twee dingen in geel gemarkeerd die nog moeten
-worden ingevuld:
+In `privacy.html` en `toegankelijkheid.html` zijn het e-mailadres van de fractie
+(vvdgroningenstad@gmail.com) en de hosting (Netlify) ingevuld.
 
-- het **e-mailadres van de fractie** voor vragen over privacy en toegankelijkheid;
-- de **naam van de hosting** (en die van Supabase staat er al).
-
-Sluit met beide partijen een **verwerkersovereenkomst** af (bij Supabase via _Settings → Legal_,
-bij de meeste hosting in de voorwaarden).
+**Nog open:** er is nog geen **verwerkersovereenkomst** met Supabase en Netlify (stand oktober
+2026). Sluit die af voordat inzendingen met persoonsgegevens worden opgeslagen (bij Supabase via
+_Settings → Legal_, bij Netlify via hun standaard-DPA). Daarna kan in de privacyverklaring weer de
+zin terug dat die overeenkomsten er zijn.
 
 ## 3. Laatste controles
 
