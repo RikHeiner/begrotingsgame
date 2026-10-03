@@ -814,6 +814,54 @@ export const woonlastenSchema = z
   .strict();
 export type Woonlasten = z.infer<typeof woonlastenSchema>;
 
+// ---------- spel/gevolgen.json ----------
+
+const gevolgZinnen = z
+  .object({
+    icoon: z.string(),
+    meer: z.string(),
+    minder: z.string(),
+    gelijk: z.string(),
+    /** als "Veel …" ervoor niet goed loopt, de zin met "veel" zelf */
+    veel_meer: z.string().optional(),
+    veel_minder: z.string().optional(),
+  })
+  .strict();
+
+export const gevolgenSchema = z
+  .object({
+    toelichting: z.string(),
+    /** onder dit verschil (in procenten, beide kanten op) is het "gelijk" */
+    drempel_pct: z.number().nonnegative(),
+    /** vanaf dit verschil staat er "veel" voor */
+    veel_pct: z.number().positive(),
+    /** categorie per meter (als de post en het gebouw er geen hebben) */
+    meters: z.record(z.string(), z.string()),
+    /** categorie per gebouw */
+    gebouwen: z.record(z.string(), z.string()),
+    categorieen: z.record(z.string(), gevolgZinnen),
+    posten: z.record(
+      z.string(),
+      z
+        .object({
+          categorie: z.string().optional(),
+          /** een aantal dat de speler ziet, zoals het aantal boa's nu */
+          eenheid: z
+            .object({
+              naam: z.string(),
+              nu: z.number().nonnegative(),
+              zekerheid: z.enum(['feit', 'aanname']),
+              uitleg: z.string(),
+            })
+            .strict()
+            .optional(),
+        })
+        .strict(),
+    ),
+  })
+  .strict();
+export type Gevolgen = z.infer<typeof gevolgenSchema>;
+
 // ---------- spel/route.json ----------
 
 export const routeSchema = z

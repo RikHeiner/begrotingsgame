@@ -15,6 +15,7 @@ Alle bedragen, posten, teksten en parameters staan in deze map. De code kent gee
 | `spel/gebieden.json` | De zeven gebieden van de gemeente (Centrum, Noord, Oost, Zuid, West, Haren, Ten Boer) met hun CBS-buurten. |
 | `spel/gebouwen.json` | De 14 gebouwen, hun buurt, hun gebied en hun posten. |
 | `spel/personas.json` | De inwoners, hun buurt, hun gebied en waar ze om geven. |
+| `spel/gevolgen.json` | Wat de speler merkt van een keuze ten opzichte van nu: per categorie een zin voor meer, minder en gelijk, en per post eventueel een aantal (zoals boa's). |
 | `spel/route.json` | De route bij nul: de uitleg aan het begin, en de gebouwen in volgorde (eerst de belasting, dan de onderwerpen die VVD Groningen het belangrijkst vindt), met per stap een vraag en later het standpunt van VVD Groningen (`vvd`). |
 | `belastingen-nederland-JJJJ.json` | Wat gemeenten gemiddeld per inwoner aan belasting begroten (CBS 83614NED), voor het belastingloket bij nul. Mag hooguit drie jaar ouder zijn dan de begroting; de game zegt er het jaar bij. |
 | `uitgaven-gemeenten-JJJJ.json` | Uitgaven per thema van de gemeenten met 100.000 inwoners of meer (CBS, Iv3), uit hun begroting of jaarrekening van dat jaar. Voor de vergelijking onderaan de gebouwen. Mag hooguit drie jaar ouder zijn dan de begroting; de game zegt er altijd bij uit welk jaar de cijfers zijn. Maken: `npm run uitgaven:ophalen`. |

@@ -22,6 +22,8 @@ import {
   uitgavenSchema,
   type Uitgaven,
   routeSchema,
+  gevolgenSchema,
+  type Gevolgen,
   belastingenNederlandSchema,
   type Route,
   type BelastingenNederland,
@@ -76,6 +78,8 @@ export type Data = {
   belastingenNederland?: BelastingenNederland;
   /** de route langs de gebouwen bij nul: eerst de belasting, dan de rest in een vaste volgorde */
   route: Route;
+  /** wat de speler merkt van een keuze, ten opzichte van nu */
+  gevolgen: Gevolgen;
   vergelijking: { bestand: string; tegenbegroting: Tegenbegroting }[];
   /** Jaren van de meerjarenraming, bijvoorbeeld [2026, 2027, 2028, 2029]. */
   jaren: number[];
@@ -103,6 +107,7 @@ export const SPEL_BESTANDEN = {
   teksten: 'spel/teksten.json',
   personas: 'spel/personas.json',
   route: 'spel/route.json',
+  gevolgen: 'spel/gevolgen.json',
 } as const;
 
 export class DataFout extends Error {
@@ -138,6 +143,7 @@ export type RuweData = {
   teksten: unknown;
   personas: unknown;
   route: unknown;
+  gevolgen: unknown;
   tarieven?: { bestand: string; inhoud: unknown };
   parkeren?: { bestand: string; inhoud: unknown };
   woonlasten?: { bestand: string; inhoud: unknown };
@@ -291,6 +297,24 @@ export function maakData(ruw: RuweData): Data {
     }
     if (fout.length) throw new DataFout(SPEL_BESTANDEN.route, fout);
   }
+  const gevolgen = valideer(gevolgenSchema, ruw.gevolgen, SPEL_BESTANDEN.gevolgen);
+  {
+    const fout: string[] = [];
+    const cats = new Set(Object.keys(gevolgen.categorieen));
+    const check = (c: string | undefined, waar: string) => {
+      if (c !== undefined && !cats.has(c)) fout.push(`${waar}: onbekende categorie "${c}"`);
+    };
+    for (const [id, c] of Object.entries(gevolgen.gebouwen)) {
+      if (!gebouwen.some((g) => g.id === id)) fout.push(`onbekend gebouw "${id}"`);
+      check(c, id);
+    }
+    for (const [id, c] of Object.entries(gevolgen.meters)) check(c, `meter ${id}`);
+    for (const [id, p] of Object.entries(gevolgen.posten)) {
+      // Een post die dit jaar niet bestaat, mag: spel/ geldt voor meer begrotingsjaren.
+      check(p.categorie, id);
+    }
+    if (fout.length) throw new DataFout(SPEL_BESTANDEN.gevolgen, fout);
+  }
   const belastingenNederland = ruw.belastingenNederland
     ? valideer(
         belastingenNederlandSchema,
@@ -335,6 +359,7 @@ export function maakData(ruw: RuweData): Data {
     ...(uitgaven ? { uitgaven } : {}),
     ...(belastingenNederland ? { belastingenNederland } : {}),
     route,
+    gevolgen,
     vergelijking,
     jaren: [...config.meerjarenHorizon],
     index: maakIndex(begroting, dwarsverbanden, meters),

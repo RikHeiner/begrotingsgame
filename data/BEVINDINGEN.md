@@ -165,6 +165,8 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
 
 64. **De kaart als maquette (2,5D).** De kaart is gekanteld (`kanteling` 0,62 en `dikte` 16 in `spel/kaart.json`) en heeft een rand van aarde. De gebouwen zijn blokjes met een voorgevel, een zijgevel en een schuin dak, licht van links en een schaduw naar rechtsachter; het park is een plak gras met bomen met licht en schaduw. Wolkjes drijven over de kaart. De camera begeleidt de speler: wie een gebouw opent, vliegt er als een drone naartoe (boven het paneel op een telefoon, links ervan op een groot scherm), en bij sluiten terug naar de hele gemeente. Ingezoomd mag de kaart verder voorbij de rand schuiven, zodat ook gebouwen aan de rand goed in beeld komen. Met "minder beweging" (systeeminstelling) springt de camera meteen en zijn er geen wolkjes. De routenummers en de bedragen bij de gebouwen zijn kleiner; namen groeien minder hard mee met de zoom.
 
+65. **Wat merk je ervan, ten opzichte van nu? (besluit 3 oktober 2026)** Onder elke schuif staat nu een regel als "🛡️ Onveiliger dan nu", "🤝 Meer hulp dan nu" of "👛 Inwoners en ondernemers betalen minder dan nu"; vanaf 50% verschil met "veel" erbij (`spel/gevolgen.json`). "Nu" is de begroting van de gemeente als er niets verandert. Bij de boa's staat ook het aantal: nu ongeveer 49 en met jouw keuze. Dat aantal is een **schatting** (⚠︎): € 3,7 mln gedeeld door ongeveer € 75.000 per boa per jaar. Het echte aantal staat niet in de begroting; de fractie levert het aan. Andere aantallen (wijkagenten zijn van het Rijk; wel bijvoorbeeld zwembaden, buurthuizen, bibliotheekvestigingen) kunnen er op dezelfde manier bij.
+
 ## Besluiten (1 oktober 2026)
 
 | Punt | Besluit | Verwerkt |

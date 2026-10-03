@@ -1,0 +1,243 @@
+{
+  "toelichting": "Wat merk je van een keuze, ten opzichte van nu? 'Nu' is de begroting 2027 van de gemeente als er niets verandert. Per post een categorie (anders de belangrijkste meter van de post, anders die van het gebouw) met een zin voor meer, minder en gelijk. Vanaf 50% verschil staat er 'veel' voor. Met 'eenheid' ziet de speler ook een aantal, zoals boa's; 'aanname' krijgt ⚠︎. Besluit fractie 3 oktober 2026: bij veiligheid moet staan of het veiliger of onveiliger is dan nu, en bij de boa's het huidige aantal.",
+  "drempel_pct": 5,
+  "veel_pct": 50,
+  "meters": {
+    "veilig": "veilig",
+    "schoon": "schoon",
+    "zorg": "zorg",
+    "werk": "werk",
+    "sport_cultuur": "sport_cultuur",
+    "wonen": "wonen",
+    "dienstverlening": "dienstverlening",
+    "portemonnee": "belasting"
+  },
+  "gebouwen": {
+    "stadhuis": "organisatie",
+    "winkel": "ondernemen",
+    "parkeer": "bereikbaarheid",
+    "werk": "werk",
+    "zwembad": "sport_cultuur",
+    "buurt": "zorg",
+    "zorg": "zorg",
+    "politie": "veilig",
+    "theater": "sport_cultuur",
+    "school": "onderwijs",
+    "park": "schoon",
+    "bouw": "wonen",
+    "loket": "belasting"
+  },
+  "categorieen": {
+    "veilig": {
+      "icoon": "🛡️",
+      "meer": "Veiliger dan nu",
+      "minder": "Onveiliger dan nu",
+      "gelijk": "Even veilig als nu"
+    },
+    "schoon": {
+      "icoon": "🌳",
+      "meer": "Schoner en heler dan nu",
+      "minder": "Viezer en slechter onderhouden dan nu",
+      "gelijk": "Even schoon en heel als nu"
+    },
+    "zorg": {
+      "icoon": "🤝",
+      "meer": "Meer hulp dan nu",
+      "minder": "Minder hulp dan nu",
+      "gelijk": "Evenveel hulp als nu"
+    },
+    "werk": {
+      "icoon": "💼",
+      "meer": "Meer hulp bij werk en geld dan nu",
+      "minder": "Minder hulp bij werk en geld dan nu",
+      "gelijk": "Evenveel hulp bij werk en geld als nu"
+    },
+    "sport_cultuur": {
+      "icoon": "🎭",
+      "meer": "Meer te doen dan nu",
+      "minder": "Minder te doen dan nu",
+      "gelijk": "Evenveel te doen als nu"
+    },
+    "wonen": {
+      "icoon": "🏠",
+      "meer": "Meer gedaan voor wonen dan nu",
+      "minder": "Minder gedaan voor wonen dan nu",
+      "gelijk": "Evenveel gedaan voor wonen als nu"
+    },
+    "dienstverlening": {
+      "icoon": "🛂",
+      "meer": "Snellere en betere service dan nu",
+      "minder": "Langer wachten en minder service dan nu",
+      "gelijk": "Service zoals nu"
+    },
+    "organisatie": {
+      "icoon": "🏛️",
+      "meer": "Meer ambtenaren en ondersteuning dan nu",
+      "minder": "Minder ambtenaren en ondersteuning dan nu",
+      "gelijk": "Organisatie even groot als nu"
+    },
+    "ondernemen": {
+      "icoon": "🏪",
+      "meer": "Meer gedaan voor ondernemers dan nu",
+      "minder": "Minder gedaan voor ondernemers dan nu",
+      "gelijk": "Evenveel voor ondernemers als nu"
+    },
+    "bereikbaarheid": {
+      "icoon": "🚲",
+      "meer": "Meer gedaan aan verkeer dan nu",
+      "minder": "Minder gedaan aan verkeer dan nu",
+      "gelijk": "Evenveel aan verkeer als nu"
+    },
+    "klimaat": {
+      "icoon": "⚡",
+      "meer": "Meer gedaan aan energie en klimaat dan nu",
+      "minder": "Minder gedaan aan energie en klimaat dan nu",
+      "gelijk": "Evenveel aan energie en klimaat als nu"
+    },
+    "onderwijs": {
+      "icoon": "🎒",
+      "meer": "Meer voor scholen en leerlingen dan nu",
+      "minder": "Minder voor scholen en leerlingen dan nu",
+      "gelijk": "Evenveel voor scholen als nu"
+    },
+    "belasting": {
+      "icoon": "👛",
+      "meer": "Inwoners en ondernemers betalen meer dan nu",
+      "minder": "Inwoners en ondernemers betalen minder dan nu",
+      "gelijk": "Evenveel belasting als nu",
+      "veel_meer": "Inwoners en ondernemers betalen veel meer dan nu",
+      "veel_minder": "Inwoners en ondernemers betalen veel minder dan nu"
+    },
+    "vast": {
+      "icoon": "🔒",
+      "meer": "Vaste lasten: op straat merk je hier niets van",
+      "minder": "Vaste lasten: op straat merk je hier niets van",
+      "gelijk": "Vaste lasten: op straat merk je hier niets van"
+    }
+  },
+  "posten": {
+    "w11": {
+      "categorie": "klimaat"
+    },
+    "w12": {
+      "categorie": "klimaat"
+    },
+    "w6": {
+      "categorie": "klimaat"
+    },
+    "w7": {
+      "categorie": "klimaat"
+    },
+    "w2": {
+      "categorie": "wonen"
+    },
+    "w4": {
+      "categorie": "wonen"
+    },
+    "w8": {
+      "categorie": "wonen"
+    },
+    "o2": {
+      "categorie": "schoon"
+    },
+    "o3": {
+      "categorie": "schoon"
+    },
+    "o4": {
+      "categorie": "schoon"
+    },
+    "v8": {
+      "categorie": "schoon"
+    },
+    "o8": {
+      "categorie": "organisatie"
+    },
+    "g1": {
+      "categorie": "organisatie"
+    },
+    "g2": {
+      "categorie": "organisatie"
+    },
+    "g5": {
+      "categorie": "organisatie"
+    },
+    "g7": {
+      "categorie": "organisatie"
+    },
+    "h1": {
+      "categorie": "organisatie"
+    },
+    "m10": {
+      "categorie": "vast"
+    },
+    "e11": {
+      "categorie": "vast"
+    },
+    "m11": {
+      "categorie": "bereikbaarheid"
+    },
+    "m4": {
+      "categorie": "bereikbaarheid"
+    },
+    "m7": {
+      "categorie": "bereikbaarheid"
+    },
+    "m9": {
+      "categorie": "bereikbaarheid"
+    },
+    "v9": {
+      "categorie": "ondernemen"
+    },
+    "e10": {
+      "categorie": "ondernemen"
+    },
+    "e8": {
+      "categorie": "ondernemen"
+    },
+    "e9": {
+      "categorie": "ondernemen"
+    },
+    "e7": {
+      "categorie": "ondernemen"
+    },
+    "d5": {
+      "categorie": "onderwijs"
+    },
+    "d6": {
+      "categorie": "onderwijs"
+    },
+    "b1": {
+      "categorie": "dienstverlening"
+    },
+    "b2": {
+      "categorie": "dienstverlening"
+    },
+    "b3": {
+      "categorie": "dienstverlening"
+    },
+    "c4": {
+      "categorie": "sport_cultuur"
+    },
+    "c5": {
+      "categorie": "sport_cultuur"
+    },
+    "s7": {
+      "categorie": "werk"
+    },
+    "z10": {
+      "categorie": "zorg"
+    },
+    "z11": {
+      "categorie": "zorg"
+    },
+    "v2": {
+      "categorie": "veilig",
+      "eenheid": {
+        "naam": "boa's",
+        "nu": 49,
+        "zekerheid": "aanname",
+        "uitleg": "Schatting: € 3,7 mln gedeeld door ongeveer € 75.000 per boa per jaar (salaris, opleiding en uitrusting). Het echte aantal levert de fractie aan."
+      }
+    }
+  }
+}

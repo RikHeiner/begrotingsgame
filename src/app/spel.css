@@ -409,6 +409,28 @@
   background: color-mix(in srgb, var(--blauw) 20%, transparent);
 }
 
+/* Wat merk je ervan, ten opzichte van nu */
+.gevolg {
+  margin: 0.35rem 0 0.2rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 0.5rem;
+  border-left: 4px solid var(--gedempt);
+  background: color-mix(in srgb, var(--inkt) 5%, var(--paneel));
+  font-size: 0.92rem;
+}
+
+.gevolg abbr {
+  text-decoration: none;
+}
+
+.gevolg-meer {
+  border-left-color: var(--blauw);
+}
+
+.gevolg-minder {
+  border-left-color: var(--oranje);
+}
+
 /* Bij nul staat er een bedrag naast de schuif in plaats van een percentage. */
 .schuif.als-bedrag {
   grid-template-columns: 1fr auto;

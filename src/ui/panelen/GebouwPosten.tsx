@@ -13,6 +13,7 @@ import {
 import { PARKEER_PREFIX, parkeerPosten, type ParkeerPost } from '../../engine/parkeren';
 import type { Gebouw, Minimum, Programma } from '../../engine/schema';
 import { isGestopt, stilDoorMinimum } from '../../game/beleidshuis';
+import { gevolgVan } from '../../game/gevolg';
 import { huidigJaar, useSpel } from '../../game/state/store';
 import { Schuif } from './Schuif';
 
@@ -82,6 +83,36 @@ function Bedrag({ euro }: { euro: number }) {
     <span className={`bedrag ${euro > 0 ? 'positief' : 'negatief'}`}>
       {formatMln(euro, { teken: true })} per jaar
     </span>
+  );
+}
+
+/**
+ * Wat merk je ervan, ten opzichte van nu? Bijvoorbeeld "🛡️ Onveiliger dan nu", en bij de boa's
+ * het aantal nu en met jouw keuze.
+ */
+function GevolgRegel({ data, id, pct }: { data: Data; id: string; pct: number }) {
+  const g = gevolgVan(data, id, pct);
+  if (!g) return null;
+  return (
+    <p className={`gevolg gevolg-${g.richting}`} data-testid={`gevolg-${id}`}>
+      <span aria-hidden="true">{g.icoon}</span>{' '}
+      <strong>
+        <abbr title="Nu: de begroting van de gemeente als er niets verandert">{g.tekst}</abbr>
+      </strong>
+      {g.eenheid && (
+        <>
+          {' · '}
+          Nu {g.eenheid.aanname ? 'ongeveer ' : ''}
+          {g.eenheid.nu} {g.eenheid.naam}
+          {g.eenheid.aanname && <abbr title={g.eenheid.uitleg}> ⚠︎</abbr>}, met jouw keuze{' '}
+          {g.eenheid.aanname ? 'ongeveer ' : ''}
+          <strong>
+            {g.eenheid.straks} {g.eenheid.naam}
+          </strong>
+          .
+        </>
+      )}
+    </p>
   );
 }
 
@@ -377,6 +408,7 @@ export function GebouwPosten({
                 beschrijving={b.uitleg}
                 onChange={(v) => zetBelasting(b.id, v)}
               />
+              <GevolgRegel data={data} id={b.id} pct={k.belastingen[b.id] ?? 0} />
               {nul ? (
                 <GemiddeldeNederland
                   data={data}
@@ -491,6 +523,7 @@ export function GebouwPosten({
                 beschrijving={[tekst, minimum].filter(Boolean).join(' ') || undefined}
                 onChange={(v) => zetOnderdeel(id, v)}
               />
+              {!vergrendeld && <GevolgRegel data={data} id={id} pct={pct} />}
               {!nul && <Bedrag euro={directBedrag(resultaat, id, jaar)} />}
               <OokEffect data={data} resultaat={resultaat} id={id} />
             </li>
