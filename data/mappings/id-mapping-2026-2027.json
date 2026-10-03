@@ -42,7 +42,7 @@
       "oud": "e7",
       "nieuw": "e7",
       "oude_naam": "Strategisch bezit (panden en grond)",
-      "nieuwe_naam": "Strategisch bezit"
+      "nieuwe_naam": "Strategisch bezit en grondzaken (panden, kavels en grond)"
     },
     {
       "oud": "e8",
@@ -537,6 +537,102 @@
       "nieuw": "h1",
       "oude_naam": "Overhead (staf, ICT, huisvesting, HR)",
       "nieuwe_naam": "Overhead"
+    },
+    {
+      "oud": "k_vast",
+      "nieuw": null,
+      "vervallen": true,
+      "toelichting": "Uit de VVD-tegenbegroting 2026. Komt terug met de tegenbegroting 2027."
+    },
+    {
+      "oud": "k_warm",
+      "nieuw": null,
+      "vervallen": true,
+      "toelichting": "Uit de VVD-tegenbegroting 2026. Komt terug met de tegenbegroting 2027."
+    },
+    {
+      "oud": "k_zon",
+      "nieuw": null,
+      "vervallen": true,
+      "toelichting": "Uit de VVD-tegenbegroting 2026. Komt terug met de tegenbegroting 2027."
+    },
+    {
+      "oud": "k_wind",
+      "nieuw": null,
+      "vervallen": true,
+      "toelichting": "Uit de VVD-tegenbegroting 2026. Komt terug met de tegenbegroting 2027."
+    },
+    {
+      "oud": "k_laad",
+      "nieuw": null,
+      "vervallen": true,
+      "toelichting": "Uit de VVD-tegenbegroting 2026. Komt terug met de tegenbegroting 2027."
+    },
+    {
+      "oud": "k_eiw",
+      "nieuw": null,
+      "vervallen": true,
+      "toelichting": "Uit de VVD-tegenbegroting 2026. Komt terug met de tegenbegroting 2027."
+    },
+    {
+      "oud": "k_cas",
+      "nieuw": null,
+      "vervallen": true,
+      "toelichting": "Uit de VVD-tegenbegroting 2026. Komt terug met de tegenbegroting 2027."
+    },
+    {
+      "oud": "k_kwijt",
+      "nieuw": null,
+      "vervallen": true,
+      "toelichting": "Uit de VVD-tegenbegroting 2026. Komt terug met de tegenbegroting 2027."
+    },
+    {
+      "oud": "k_brug",
+      "nieuw": null,
+      "vervallen": true,
+      "toelichting": "Uit de VVD-tegenbegroting 2026. Komt terug met de tegenbegroting 2027."
+    },
+    {
+      "oud": "k_fc",
+      "nieuw": null,
+      "vervallen": true,
+      "toelichting": "Uit de VVD-tegenbegroting 2026. Komt terug met de tegenbegroting 2027."
+    },
+    {
+      "oud": "k_licht",
+      "nieuw": null,
+      "vervallen": true,
+      "toelichting": "Uit de VVD-tegenbegroting 2026. Komt terug met de tegenbegroting 2027."
+    },
+    {
+      "oud": "k_res",
+      "nieuw": null,
+      "vervallen": true,
+      "toelichting": "Uit de VVD-tegenbegroting 2026. Komt terug met de tegenbegroting 2027."
+    },
+    {
+      "oud": "k_smr",
+      "nieuw": null,
+      "vervallen": true,
+      "toelichting": "Uit de VVD-tegenbegroting 2026. Komt terug met de tegenbegroting 2027."
+    },
+    {
+      "oud": "k_bouw",
+      "nieuw": null,
+      "vervallen": true,
+      "toelichting": "Uit de VVD-tegenbegroting 2026. Komt terug met de tegenbegroting 2027."
+    },
+    {
+      "oud": "k_ai",
+      "nieuw": null,
+      "vervallen": true,
+      "toelichting": "Uit de VVD-tegenbegroting 2026. Komt terug met de tegenbegroting 2027."
+    },
+    {
+      "oud": "p_prullenbakken",
+      "nieuw": null,
+      "vervallen": true,
+      "toelichting": "Uit de VVD-tegenbegroting 2026. Komt terug met de tegenbegroting 2027."
     }
   ]
 }

@@ -355,8 +355,11 @@ export function controleer({ data, buurtcodes, mappings = [] }: ControleInvoer):
   for (const m of data.badges.badges) {
     try {
       for (const naam of namen(parseer(m.voorwaarde))) {
-        if (!toegestaan.has(naam))
-          fout('badges', `${m.id}: onbekende naam "${naam}" in de voorwaarde.`);
+        if (toegestaan.has(naam)) continue;
+        const id = naam.split('.', 2)[1];
+        if (id && vervallen.has(id))
+          waarschuw('badges', `${m.id}: "${naam}" is vervallen volgens de mapping.`);
+        else fout('badges', `${m.id}: onbekende naam "${naam}" in de voorwaarde.`);
       }
     } catch (e) {
       if (e instanceof ExpressieFout) fout('badges', `${m.id}: ${e.message}`);

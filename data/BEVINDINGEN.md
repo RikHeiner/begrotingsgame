@@ -185,7 +185,7 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
 | 50. WOZ nieuwe woning | Rekenen met de WOZ-waarde van nieuwbouw. | Punt 54: factor 1,32. |
 | 50. Inwoners per woning | 1,93 (het gemiddelde). | Zo gebleven. |
 | 23. Water | Echte waterlijnen uit PDOK. | Gedaan. |
-| Netlify | Eerst hier verbeteren, daarna met de hand uploaden. | Open. |
+| Netlify | Alleen publiceren als de fractie het vraagt. | `[netlify]` in het commitbericht; anders slaat Netlify de build over. |
 | Maximum op uitgaven | Geen plafond, tenzij het echt niet kan (zoals het maximum aantal wethouders). | Punt 56. |
 | Beginnen bij nul | Optie om bij de wettelijke taken te beginnen, met aan het eind het verschil met de begroting van het college. | Punt 57. |
 | Beleidshuis | Een gebouw met programma's en plannen die je stopzet of aanzet. | Punt 59. |
@@ -193,3 +193,7 @@ Fouten, inconsistenties en open vragen die bij het bouwen zijn gevonden. Er is g
 | Blije inwoners | Eerst weglaten; later misschien anders. | Punt 46. |
 | Bedragen | Naast het percentage ook een bedrag kunnen invullen. | Punt 48. |
 | Fase 7. Video | Geen persoonlijke video; de tegenbegroting blijft als Word, pdf en afbeelding. | `docs/VIDEO-ONTWERP.md` bewaard, niet gebouwd. |
+| Tegenbegroting | De VVD-kaarten van 2026 er voorlopig uit. | Komen terug met de tegenbegroting 2027. |
+| 2027: `e7` | Verhuurde kavels en Grondzaken (overig) erbij. | € 11,7 / 9,3 mln. |
+| 2027: `w12`, `c5` | Houden. | Zo gebleven. |
+| 2027: ongedocumenteerden | Apart als beleidskeuze. | In het Beleidshuis, € 5,6 mln incidenteel. |

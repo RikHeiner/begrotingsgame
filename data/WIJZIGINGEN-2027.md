@@ -6,7 +6,7 @@ Ingelezen op 2 en 3 oktober 2026 uit de ontwerpbegroting 2027 (boekwerk, p. 1-38
 
 - De game rekent nu met 2027 tot en met 2030 (`config.json`). De meerjarenraming sluit in 2029 (−7,8 mln) en 2030 (−10,1 mln) niet; dat telt, net als vorig jaar, niet mee in het saldo van de speler (punt 3 van de besluiten).
 - **Vervallen:** `o5` Autowerkplaats voor derden (opgegaan in `o4`, p. 62) en `k3` Recreatiegebieden en bewegen (het Meerschap Paterswolde valt nu onder 2.1, in `o1`; bewegen in de openbare ruimte onder `k2`, p. 61 en 129). Het programma "bewegende stad" in het Beleidshuis hangt nu aan `k2`.
-- **Nieuw** (voorstel, laat de fractie controleren):
+- **Nieuw:**
   - `w12` Klimaat- en energiebeleid (CDOKE), € 10,9 mln (p. 45), Nieuwbouw, ondergrens −100%.
   - `c5` Cultureel vastgoed (Martiniplaza, Forum, Oosterpoort), € 11,5 mln lasten en € 8,1 mln baten (p. 139), Schouwburg, ondergrens −25% (vaste lasten van de gebouwen, aanname).
 - `c3` heet nu "Cultuur- en evenementenbeleid": de gebouwen staan in `c5`, dus de ondergrens van `c3` (was −85% voor het Forum-gebouw) is nu −100%.
@@ -15,20 +15,21 @@ Ingelezen op 2 en 3 oktober 2026 uit de ontwerpbegroting 2027 (boekwerk, p. 1-38
 - `tarieven-2027.json` (raadsvoorstel Belastingtarieven 2027) en `parkeren-2027.json` (tarieven van 2026 geïndexeerd met 4,58%; de nieuwe uurtarieven per zone volgen uit de tarievenbijlage).
 - De vergelijking met de woonlasten van andere gemeenten blijft die van 2026 (COELO 2027 verschijnt pas in het voorjaar); de game noemt het jaartal.
 - Kettingeffecten: personeelskosten € 357,9 mln (3.681 fte, p. 355) in `org_frictie`, dat nu ook rekent (wie in één keer meer ambtenaren schrapt dan natuurlijk verloop toelaat, betaalt eenmalig frictiegeld). Algemene reserve € 86,5 mln en ratio 152% (p. 5) in `fin_reserves`. `kd_werkplaats` hangt nu aan `o4`.
-- De VVD-tegenbegroting is nog die van 2026; de vergelijking op het eindscherm is uit tot de tegenbegroting 2027 er is.
+- De kaarten uit de VVD-tegenbegroting 2026 (15 kaarten en het plan "minder prullenbakken") zijn er voorlopig uit, op verzoek van de fractie (3 oktober). Ze staan als vervallen in de id-mapping en komen terug met de tegenbegroting 2027. De vergelijking op het eindscherm is uit tot die er is.
+- **Beleidskeuze** in het Beleidshuis: "Stoppen met de opvang van ongedocumenteerden", € 5,6 mln incidenteel (p. 122, `k_ongedoc`).
+- `e7` heet nu "Strategisch bezit en grondzaken (panden, kavels en grond)" en omvat Strategisch bezit (4,7 / 4,3), Verhuurde kavels en niet in exploitatie genomen gronden (1,9 / 2,5) en Grondzaken overig (5,1 / 2,5): samen € 11,7 mln lasten en € 9,3 mln baten (besluit fractie, 3 oktober).
+- `w12` en `c5` blijven als nieuwe posten (besluit fractie, 3 oktober).
+- Netlify publiceert alleen als `[netlify]` in het commitbericht staat (`netlify.toml`).
 - Antwoord op een open vraag: de overhead van de bouwleges is € 3,563 mln op € 12,123 mln kosten; opbrengst € 16,492 mln, dekking 105% (paragraaf lokale heffingen, p. 276).
 
 ## Te controleren (`"controleren": true`)
 
-- `e7` Strategisch bezit: in 2027 alleen de regel "Strategisch bezit" (4,7 / 4,3). De regels "Verhuurde kavels en niet in exploitatie genomen gronden" (1,9 / 2,5) en "Grondzaken (overig)" (5,1 / 2,5) zaten in 2026 waarschijnlijk deels in deze post (9,8 / 5,9). Welke indeling wil de fractie?
 - `o4`, `o6`: samengevoegd of anders ingedeeld (zie boven; `o6` = Meerjarenprogramma Leefkwaliteit 3,2 + Bodembeheer 0,8).
 - `c2` Cultuurnota (29,0): alleen nog de cultuurnota-instellingen; andere beleidsinstrumenten staan nu bij `c3`.
 - `g2` Raad, griffie en rekenkamer (4,35): de rekenkamer staat in 2027 apart (0,25) en is meegeteld.
-- `w12` en `c5`: nieuwe posten (zie boven).
 
 ## Niet als post opgenomen
 
-- Opvang ongedocumenteerden (5,6 mln, incidenteel, p. 122): blijft de kaart `k_ongedoc` (bedrag van de VVD-tegenbegroting 2026, 3,5 mln). Bij de tegenbegroting 2027 opnieuw bekijken.
 - Procesregie onbegrepen gedrag (0,6 mln, p. 71), Erfpacht, Bovenwijkse infrastructuur, Leges Burgerzaken, ICT en de rijksgeldregels in 4.2 (Nij Begun, Blok B, NPG): overige posten, zoals in 2026.
 
 ## Bekende afwijkingen
@@ -58,15 +59,33 @@ Bronnen: Ontwerpbegroting 2026 gemeente Groningen (boekwerk, bijlage 2) en Ontwe
 - `w12` Klimaat- en energiebeleid (CDOKE) (onderdeel, lasten 10,900, baten 0,000)
 - `c5` Cultureel vastgoed (Martiniplaza, Forum, Oosterpoort) (onderdeel, lasten 11,500, baten 8,100)
 
-## Vervallen posten (1)
+## Vervallen posten (17)
 
 - `k3` Recreatiegebieden en bewegen (onderdeel)
+- `k_vast` Gemeentelijk vastgoed verkopen (actiekaart)
+- `k_warm` Minderheidsbelang WarmteStad verkopen (actiekaart)
+- `k_zon` Zonnepark Meerstad-Noord niet aanleggen (actiekaart)
+- `k_wind` Windpark Roodehaan stoppen (actiekaart)
+- `k_laad` Laadpalen aan de markt laten (actiekaart)
+- `k_eiw` Stoppen met de eiwittransitie (actiekaart)
+- `k_cas` Casinolocatie aan de markt laten (actiekaart)
+- `k_kwijt` Kwijtschelding gemeentelijke belastingen schrappen (actiekaart)
+- `k_brug` Bruggenfonds (actiekaart)
+- `k_fc` Trainingscomplex FC Groningen (actiekaart)
+- `k_licht` Betere straatverlichting (actiekaart)
+- `k_res` Reserves aanvullen (actiekaart)
+- `k_smr` Onderzoek kleine kerncentrale (SMR) (actiekaart)
+- `k_bouw` Sneller-bouwenfonds (actiekaart)
+- `k_ai` Investeren in AI (actiekaart)
+- `p_prullenbakken` Meer prullenbakken op straat (actiekaart)
 
-## Andere naam (3)
+## Andere naam (5)
 
+- `e7` Strategisch bezit (panden en grond) → `e7` Strategisch bezit en grondzaken (panden, kavels en grond)
 - `o4` Bedrijfsafval inzamelen → `o4` Zakelijke dienstverlening (bedrijfsafval, werkplaats)
 - `o5` Autowerkplaats voor derden → `o4` Zakelijke dienstverlening (bedrijfsafval, werkplaats)
 - `c3` Overal cultuur (o.a. Forum, broedplaatsen) → `c3` Cultuur- en evenementenbeleid (o.a. bibliotheek, media, evenementen)
+- `k_ongedoc` Stoppen met opvang ongedocumenteerden → `k_ongedoc` Stoppen met de opvang van ongedocumenteerden
 
 ## Grootste stijgers (lasten)
 
@@ -89,7 +108,6 @@ Bronnen: Ontwerpbegroting 2026 gemeente Groningen (boekwerk, bijlage 2) en Ontwe
 |---|---|---:|---:|---:|---:|
 | `w6` | Energiesubsidies | 12,000 | 4,300 | −7,700 | −64,2 |
 | `z6` | Gezondheid (GGD) | 18,800 | 12,000 | −6,800 | −36,2 |
-| `e7` | Strategisch bezit (panden en grond) | 9,800 | 4,700 | −5,100 | −52,0 |
 | `c3` | Cultuur- en evenementenbeleid (o.a. bibliotheek, media, evenementen) | 14,000 | 10,500 | −3,500 | −25,0 |
 | `g4` | Wijkvernieuwing (o.a. Selwerd, De Wijert, Beijum) | 8,150 | 6,150 | −2,000 | −24,5 |
 | `w8` | Omgevingsvergunningen | 10,500 | 9,000 | −1,500 | −14,3 |
@@ -97,12 +115,13 @@ Bronnen: Ontwerpbegroting 2026 gemeente Groningen (boekwerk, bijlage 2) en Ontwe
 | `e9` | Regio Groningen-Assen | 1,600 | 1,100 | −0,500 | −31,3 |
 | `o6` | Leefkwaliteit (groen en spelen in wijken) | 4,500 | 4,000 | −0,500 | −11,1 |
 | `k2` | Sportstimulering | 2,200 | 1,800 | −0,400 | −18,2 |
+| `w3` | Goed verhuurderschap | 1,250 | 0,900 | −0,350 | −28,0 |
 
-## Gewijzigde baten, opbrengsten en kaartbedragen (42)
+## Gewijzigde baten, opbrengsten en kaartbedragen (43)
 
 | Post | Naam | Oud | Nieuw | Verschil |
 |---|---|---:|---:|---:|
-| `e7` | Strategisch bezit (panden en grond) | 5,900 | 4,300 | −1,600 |
+| `e7` | Strategisch bezit en grondzaken (panden, kavels en grond) | 5,900 | 9,300 | +3,400 |
 | `e10` | Ambtenaren gebiedsontwikkeling | 0,000 | 0,100 | +0,100 |
 | `m2` | Parkeercontrole | 6,000 | 6,300 | +0,300 |
 | `w6` | Energiesubsidies | 11,700 | 3,300 | −8,400 |
@@ -144,6 +163,7 @@ Bronnen: Ontwerpbegroting 2026 gemeente Groningen (boekwerk, bijlage 2) en Ontwe
 | `t2` | Toeristenbelasting | 2,900 | 2,998 | +0,098 |
 | `t4` | Precariobelasting | 1,800 | 1,866 | +0,066 |
 | `t3` | Reclamebelasting | 0,700 | 0,980 | +0,280 |
+| `k_ongedoc` | Stoppen met de opvang van ongedocumenteerden | 3,500 | 5,600 | +2,100 |
 
 ## Alle gewijzigde lasten (77)
 
@@ -152,7 +172,7 @@ Bronnen: Ontwerpbegroting 2026 gemeente Groningen (boekwerk, bijlage 2) en Ontwe
 | `e2` | Ambtenaren economische zaken | 2,900 | 3,200 | +0,300 | +10,3 |
 | `e5` | Markten, havens en brugbediening | 2,500 | 2,800 | +0,300 | +12,0 |
 | `e6` | Bedrijventerreinen en winkelcentra | 1,545 | 1,550 | +0,005 | +0,3 |
-| `e7` | Strategisch bezit (panden en grond) | 9,800 | 4,700 | −5,100 | −52,0 |
+| `e7` | Strategisch bezit en grondzaken (panden, kavels en grond) | 9,800 | 11,700 | +1,900 | +19,4 |
 | `e8` | Suikerzijde (gebiedsontwikkeling) | 3,840 | 4,300 | +0,460 | +12,0 |
 | `e9` | Regio Groningen-Assen | 1,600 | 1,100 | −0,500 | −31,3 |
 | `e10` | Ambtenaren gebiedsontwikkeling | 6,800 | 7,100 | +0,300 | +4,4 |
@@ -226,4 +246,3 @@ Bronnen: Ontwerpbegroting 2026 gemeente Groningen (boekwerk, bijlage 2) en Ontwe
 | `b2` | Klantcontactcentrum | 3,800 | 4,100 | +0,300 | +7,9 |
 | `b3` | Uitvoering belastingen | 5,000 | 4,900 | −0,100 | −2,0 |
 | `h1` | Overhead (staf, ICT, huisvesting, HR) | 129,180 | 134,900 | +5,720 | +4,4 |
-

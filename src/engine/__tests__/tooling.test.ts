@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it } from 'vitest';
 import { controleer, heeftFouten } from '../controle';
 import type { Data } from '../laadData';
+import type { IdMapping } from '../schema';
 import { alsMarkdown, vergelijk } from '../verschil';
 import { alsGezamenlijkeKeuzes, narekenen } from '../vvd';
 import { actieveData, echteData, leesJson, metAangepasteBegroting } from './hulp';
@@ -9,7 +10,9 @@ import { actieveData, echteData, leesJson, metAangepasteBegroting } from './hulp
 let data: Data;
 let data2026: Data;
 let buurtcodes: string[];
+let mapping: IdMapping;
 beforeAll(async () => {
+  mapping = leesJson('mappings/id-mapping-2026-2027.json') as IdMapping;
   data = await actieveData();
   data2026 = await echteData();
   const geo = leesJson('gemeente-groningen-buurten.geojson') as {
@@ -19,14 +22,14 @@ beforeAll(async () => {
 });
 
 const fouten = (d: Data) =>
-  controleer({ data: d, buurtcodes })
+  controleer({ data: d, buurtcodes, mappings: [mapping] })
     .filter((b) => b.niveau === 'fout')
     .map((b) => b.tekst);
 
 describe('data-check', () => {
   it('de echte data heeft geen fouten', () => {
     expect(fouten(data)).toEqual([]);
-    expect(heeftFouten(controleer({ data, buurtcodes }))).toBe(false);
+    expect(heeftFouten(controleer({ data, buurtcodes, mappings: [mapping] }))).toBe(false);
   });
 
   it('meldt onderdelen die hoger zijn dan hun deelprogramma', () => {
@@ -85,6 +88,7 @@ describe('data-check', () => {
       data: kapot,
       buurtcodes,
       mappings: [
+        mapping,
         { van_jaar: 2025, naar_jaar: 2026, posten: [{ oud: 'x99', nieuw: null, vervallen: true }] },
       ],
     });

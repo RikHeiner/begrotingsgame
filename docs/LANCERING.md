@@ -24,6 +24,8 @@ Wat nog moet gebeuren voordat de Begrotingsgame live gaat (fase 8). Wat al klaar
    afbeelding (`og-afbeelding.png`) en de titel verschijnen. Is de kaart veranderd, maak de
    afbeelding dan opnieuw met `npm run build && npm run og`.
 
+**Alleen publiceren op verzoek.** `netlify.toml` laat Netlify een build overslaan, tenzij `[netlify]` in het laatste commitbericht staat. Vraag Claude dus om "zet het op Netlify": dan komt er een commit met `[netlify]` en bouwt Netlify de nieuwe versie.
+
 ## 2. Teksten invullen
 
 In `privacy.html` en `toegankelijkheid.html` staan twee dingen in geel gemarkeerd die nog moeten
