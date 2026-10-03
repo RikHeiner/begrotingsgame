@@ -84,3 +84,21 @@ test('Beleidshuis: het ambtenarenapparaat en 5% minder ambtenaren', async ({ pag
   await kaart.click();
   await expect(kaart).toHaveAttribute('aria-pressed', 'true');
 });
+
+test('elke schuif: wat de gemeente nu doet staat in het midden; lager dan het minimum kan niet', async ({
+  page,
+}) => {
+  await page.goto('/');
+  const paneel = await open(page, 'zorg');
+  const bw = paneel.getByRole('slider', { name: /Beschermd wonen/ });
+  // Het bereik is even groot naar links als naar rechts: 0% (nu) is het midden.
+  const min = Number(await bw.getAttribute('min'));
+  const max = Number(await bw.getAttribute('max'));
+  expect(min).toBe(-max);
+  // Het wettelijke minimum is -15%: verder naar links gaat niet.
+  await expect(bw).toHaveAttribute('aria-valuemin', '-15');
+  await bw.focus();
+  await page.keyboard.press('Home');
+  await expect(bw).toHaveValue('-15');
+  await expect(paneel.locator('[data-post="z2"] .schuif-nu')).toHaveText('nu');
+});

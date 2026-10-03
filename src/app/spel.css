@@ -646,6 +646,37 @@
   padding-bottom: 1.5rem;
 }
 
+/* Onder de schuif: wat niet kan (gearceerd) en waar de gemeente nu zit (midden). */
+.schuif-zones {
+  position: relative;
+  height: 1.1rem;
+  margin-top: -0.55rem;
+  pointer-events: none;
+}
+
+.schuif-dicht {
+  position: absolute;
+  top: 0;
+  height: 6px;
+  border-radius: 3px;
+  background: repeating-linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--inkt) 35%, transparent) 0 3px,
+    transparent 3px 6px
+  );
+}
+
+.schuif-nu {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  padding-top: 6px;
+  border-left: 2px solid var(--inkt);
+  font-size: 0.68rem;
+  line-height: 1;
+  color: var(--gedempt);
+}
+
 .schuif-college {
   position: absolute;
   bottom: 0;
