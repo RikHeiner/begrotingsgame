@@ -43,23 +43,30 @@ describe('Geldzoeker: het goud', () => {
     }
   });
 
-  it('goud uit de tegenbegroting 2026 staat met het jaar 2026 erbij, zonder dubbelingen', () => {
-    const tb = schatten(data).filter((s) => !s.vvd);
-    expect(tb.length).toBeGreaterThan(15);
-    expect(data.minigames.find((m) => m.goud)?.goud?.tegenbegroting?.url).toMatch(/^https:/);
-    for (const s of tb) {
-      expect(s.jaar).toBe(2026);
-      expect(s.bron).toContain('Tegenbegroting VVD Groningen 2026');
+  it('al het goud komt uit de begroting zelf: geen bedragen uit een tegenbegroting', () => {
+    const alles = schatten(data);
+    expect(alles.length).toBeGreaterThan(30);
+    for (const s of alles) {
+      expect(s.jaar).toBe(data.begroting.begrotingsjaar);
+      expect(s.bedragMln).toBeGreaterThan(0);
+      const bron =
+        data.begroting.actiekaarten.find((k) => k.id === s.id)?.bedrag_mln ??
+        data.index.programmas.get(s.id)?.bedrag_mln;
+      expect(s.bedragMln, s.id).toBe(bron);
     }
-    const namen = schatten(data).map((s) => s.naam.toLowerCase());
-    expect(namen.filter((n) => n.includes('niemeyer'))).toHaveLength(1);
-    expect(namen.filter((n) => n.includes('ongedocumenteerden'))).toHaveLength(1);
+    expect(JSON.stringify(data.minigames)).not.toMatch(/tegenbegroting/i);
+    const namen = alles.map((s) => s.naam.toLowerCase());
+    expect(new Set(namen).size).toBe(namen.length);
+    // van 5, 10 of 15% minder ambtenaren alleen de eerste
+    expect(namen.filter((n) => n.includes('minder ambtenaren'))).toHaveLength(1);
   });
 
   it('level 1 is eenmalig, level 2 elk jaar, level 3 de grootste', () => {
     const alles = schatten(data);
     expect(goudVoorLevel(alles, 1).every((s) => s.soort === 'I')).toBe(true);
     expect(goudVoorLevel(alles, 2).every((s) => s.soort === 'S')).toBe(true);
+    expect(goudVoorLevel(alles, 1).length).toBeGreaterThanOrEqual(8);
+    expect(goudVoorLevel(alles, 2).length).toBeGreaterThanOrEqual(8);
     const groot = goudVoorLevel(alles, 3);
     expect(groot.length).toBe(9);
     expect(groot[0]?.bedragMln).toBe(Math.max(...alles.map((s) => s.bedragMln)));

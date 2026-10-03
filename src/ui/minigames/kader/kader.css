@@ -1,0 +1,179 @@
+/*
+ * Het gedeelde kader van de minigames, in de stijl van de Geldzoeker: een balk met de stand
+ * (HUD), een speelveld met een dikke rand, en kaarten voor het begin en het eind. Elk spel kiest
+ * zijn eigen kleuren met de variabelen hieronder.
+ */
+.mg-kader {
+  --mg-rand: #8b5a2b;
+  --mg-hud-boven: #ffd84d;
+  --mg-hud-onder: #f2b705;
+  --mg-hud-tekst: #4a2c0a;
+  --mg-hud-label: #6b4219;
+  --mg-licht: #fff4cc;
+  --mg-kaart: #fffaf0;
+  --mg-kaart-tekst: #2b1a08;
+  --mg-goed: #0e6b45;
+  --mg-fout: #b02a17;
+  --mg-icoon: #1233c4;
+  max-width: 34rem;
+  margin: 0 auto;
+}
+
+.mg-hud {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border: 3px solid var(--mg-rand);
+  border-bottom: 0;
+  border-radius: 0.8rem 0.8rem 0 0;
+  background: linear-gradient(var(--mg-hud-boven), var(--mg-hud-onder));
+  color: var(--mg-hud-tekst);
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.mg-hud-label {
+  font-size: 0.85rem;
+  color: var(--mg-hud-label);
+}
+
+.mg-hud-rechts {
+  text-align: right;
+}
+
+.mg-hud-goed {
+  color: var(--mg-goed);
+}
+
+.mg-hud-fout {
+  color: var(--mg-fout);
+}
+
+.mg-hud-icoon {
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  background: var(--mg-icoon);
+  font-size: 1.3rem;
+}
+
+.mg-strook {
+  margin: 0;
+  padding: 0.3rem 0.8rem;
+  border-inline: 3px solid var(--mg-rand);
+  background: var(--mg-licht);
+  color: var(--mg-hud-tekst);
+}
+
+.mg-veld {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: 3px solid var(--mg-rand);
+  border-top: 0;
+  border-radius: 0 0 0.8rem 0.8rem;
+  touch-action: none;
+  cursor: pointer;
+  user-select: none;
+}
+
+.mg-veld-hoog {
+  aspect-ratio: 3 / 4;
+  max-height: 62vh;
+  margin: 0 auto;
+}
+
+.mg-knoppen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 0.6rem;
+}
+
+.mg-knoppen .knop,
+.mg-knoppen .knop-indienen {
+  min-height: 44px;
+}
+
+.mg-grote-knop {
+  min-width: 8rem;
+  min-height: 48px;
+  font-size: 1.1rem;
+}
+
+.mg-status {
+  min-height: 3rem;
+  margin-top: 0.5rem;
+}
+
+.mg-melding {
+  margin: 0;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.5rem;
+  background: var(--mg-licht);
+  color: var(--mg-kaart-tekst);
+  animation: mg-in 0.25s ease-out;
+}
+
+.mg-melding-goed {
+  background: #dcf5e8;
+  color: #0b4d32;
+}
+
+.mg-melding-fout {
+  background: #fde2dc;
+  color: #7a1b0e;
+}
+
+@keyframes mg-in {
+  from {
+    transform: translateY(-4px);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mg-melding {
+    animation: none;
+  }
+}
+
+.mg-kaart {
+  padding: 1rem;
+  border: 3px solid var(--mg-rand);
+  border-radius: 0.8rem;
+  background: var(--mg-kaart);
+  color: var(--mg-kaart-tekst);
+}
+
+.mg-hud + .mg-kaart {
+  border-radius: 0 0 0.8rem 0.8rem;
+}
+
+.mg-kaart h3 {
+  margin-top: 0;
+}
+
+.mg-kaart ul {
+  padding-left: 1.2rem;
+}
+
+.mg-lijst {
+  max-height: 16rem;
+  overflow: auto;
+  padding-left: 1.2rem;
+}
+
+.mg-lijst li {
+  margin-bottom: 0.4rem;
+}
+
+.mg-sterren {
+  font-size: 1.6rem;
+  letter-spacing: 0.2rem;
+}

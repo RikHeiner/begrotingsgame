@@ -26,7 +26,7 @@ test('Geldzoeker: uit het tekort graven, met levels; goud met bron en jaar', asy
     const status = spel.locator('div[role="status"]');
     if (((await status.textContent()) ?? '').includes('💰')) {
       goud = true;
-      await expect(status).toContainText(/begroting 2027|tegenbegroting VVD 2026/);
+      await expect(status).toContainText(/elk jaar|eenmalig/);
     }
     for (let i = 0; i < 3; i++) {
       const rechts = spel.getByRole('button', { name: /Richt rechts/ });
@@ -39,7 +39,8 @@ test('Geldzoeker: uit het tekort graven, met levels; goud met bron en jaar', asy
   await einde.getByRole('button', { name: /Stoppen|Bekijk/ }).click();
   const uitslag = spel.getByTestId('mg-goud-uitslag');
   await expect(uitslag).toContainText('levels');
-  await expect(uitslag).toContainText('Tegenbegroting VVD Groningen 2026');
+  await expect(uitslag).toContainText('de begroting 2027');
+  await expect(uitslag).not.toContainText(/tegenbegroting/i);
   await uitslag.getByRole('button', { name: 'Naar de uitslag' }).click();
   await expect(page.getByTestId('minigame-klaar')).toBeVisible();
 });

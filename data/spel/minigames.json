@@ -1,5 +1,242 @@
 {
   "toelichting": "Minigames over geld en de begroting, elk in een bekend gebouw van de gemeente Groningen. De plek is ongeveer de echte plek; de kaart schuift ze een stukje opzij als ze te dicht bij een ander gebouw staan. 'vorm' bepaalt de tekening op de kaart. De vragen en bedragen in de spellen komen uit de begroting zelf (data); waar een spel een aanname gebruikt, zegt het spel dat. Met 'bij' staat het spel op een plek van een gebouw van de begroting (de Martinitoren is de toren naast het Stadhuis); er komt dan geen eigen tekening bij.",
+  "toelichting_posten": "Posten met een naam die iedereen begrijpt, voor de minigames. 'soort' zegt of de taak moet van de wet (wet) of een eigen keuze van de gemeente is (keuze). Bij een wettelijke taak kiest de gemeente vaak nog wel hoeveel geld ze eraan uitgeeft. De bedragen komen uit de begroting.",
+  "posten": [
+    {
+      "post": "o1",
+      "naam": "Straten, groen en speeltuinen onderhouden",
+      "uitleg": "Wegen repareren, gras maaien, bomen snoeien en speeltoestellen veilig houden.",
+      "soort": "wet",
+      "wet": "Wegenwet"
+    },
+    {
+      "post": "o3",
+      "naam": "Afval ophalen bij huizen",
+      "uitleg": "De containers legen en het afval laten verwerken.",
+      "soort": "wet",
+      "wet": "Wet milieubeheer"
+    },
+    {
+      "post": "o2",
+      "naam": "Riolering",
+      "uitleg": "Afvalwater en regenwater afvoeren via de riolen.",
+      "soort": "wet",
+      "wet": "Omgevingswet"
+    },
+    {
+      "post": "v1",
+      "naam": "Brandweer en ambulance",
+      "uitleg": "Samen met de andere gemeenten in de provincie betaalt de gemeente de brandweer en de ambulancezorg.",
+      "soort": "wet",
+      "wet": "Wet veiligheidsregio's"
+    },
+    {
+      "post": "v2",
+      "naam": "Boa's op straat",
+      "uitleg": "Handhavers die letten op overlast, afval en fout gedrag op straat."
+    },
+    {
+      "post": "s1",
+      "naam": "Bijstandsuitkeringen",
+      "uitleg": "Geld om van te leven voor mensen zonder werk en zonder ander inkomen.",
+      "soort": "wet",
+      "wet": "Participatiewet"
+    },
+    {
+      "post": "s3",
+      "naam": "Begeleiding naar werk",
+      "uitleg": "Mensen met een uitkering helpen om een baan te vinden.",
+      "soort": "wet",
+      "wet": "Participatiewet"
+    },
+    {
+      "post": "s9",
+      "naam": "Hulp bij schulden",
+      "uitleg": "Mensen met schulden helpen om eruit te komen.",
+      "soort": "wet",
+      "wet": "Wet gemeentelijke schuldhulpverlening"
+    },
+    {
+      "post": "s10",
+      "naam": "Extra regelingen voor mensen met weinig geld",
+      "uitleg": "Bijvoorbeeld een bijdrage voor sport, school of een computer.",
+      "soort": "keuze"
+    },
+    {
+      "post": "s7",
+      "naam": "Inburgering",
+      "uitleg": "Nieuwkomers helpen met de taal en het werk in Nederland.",
+      "soort": "wet",
+      "wet": "Wet inburgering 2021"
+    },
+    {
+      "post": "z1",
+      "naam": "Jeugdzorg",
+      "uitleg": "Hulp voor kinderen en gezinnen met problemen, zoals therapie of een pleeggezin.",
+      "soort": "wet",
+      "wet": "Jeugdwet"
+    },
+    {
+      "post": "z2",
+      "naam": "Beschermd wonen",
+      "uitleg": "Een woonplek met begeleiding voor mensen met psychische problemen.",
+      "soort": "wet",
+      "wet": "Wet maatschappelijke ondersteuning (Wmo)"
+    },
+    {
+      "post": "z3",
+      "naam": "Huishoudelijke hulp en hulpmiddelen",
+      "uitleg": "Hulp in huis, een rolstoel of een traplift voor wie dat nodig heeft.",
+      "soort": "wet",
+      "wet": "Wet maatschappelijke ondersteuning (Wmo)"
+    },
+    {
+      "post": "z5",
+      "naam": "Opvang voor daklozen en vrouwen",
+      "uitleg": "Een veilige plek om te slapen voor wie geen huis heeft of thuis niet veilig is.",
+      "soort": "wet",
+      "wet": "Wet maatschappelijke ondersteuning (Wmo)"
+    },
+    {
+      "post": "z6",
+      "naam": "GGD",
+      "uitleg": "Inentingen voor kinderen, hulp bij een uitbraak van een ziekte en gezondheidsonderzoek.",
+      "soort": "wet",
+      "wet": "Wet publieke gezondheid"
+    },
+    {
+      "post": "z8",
+      "naam": "Buurthuizen en welzijnswerk",
+      "uitleg": "Plekken en activiteiten in de wijk om elkaar te ontmoeten."
+    },
+    {
+      "post": "d1",
+      "naam": "Schoolgebouwen",
+      "uitleg": "Nieuwe scholen bouwen en oude scholen opknappen.",
+      "soort": "wet",
+      "wet": "Wet op het primair onderwijs"
+    },
+    {
+      "post": "d5",
+      "naam": "Leerlingenvervoer",
+      "uitleg": "Taxi of bus naar school voor kinderen die niet zelf kunnen reizen.",
+      "soort": "wet",
+      "wet": "Wet op het primair onderwijs"
+    },
+    {
+      "post": "k1",
+      "naam": "Sporthallen, zwembaden en ijsbaan",
+      "uitleg": "De gebouwen waar je kunt sporten en zwemmen.",
+      "soort": "keuze"
+    },
+    {
+      "post": "k2",
+      "naam": "Sport stimuleren",
+      "uitleg": "Projecten om meer mensen te laten bewegen.",
+      "soort": "keuze"
+    },
+    {
+      "post": "c1",
+      "naam": "Stadsschouwburg en Oosterpoort",
+      "uitleg": "Het theater en de concertzaal van de gemeente.",
+      "soort": "keuze"
+    },
+    {
+      "post": "c2",
+      "naam": "Musea en culturele instellingen",
+      "uitleg": "Subsidie voor onder meer het Groninger Museum, het Forum en theatergroepen.",
+      "soort": "keuze"
+    },
+    {
+      "post": "c3",
+      "naam": "Evenementen en cultuurbeleid",
+      "uitleg": "Onder meer de bibliotheek, evenementen en lokale media.",
+      "soort": "keuze"
+    },
+    {
+      "post": "c4",
+      "naam": "Groninger Archieven",
+      "uitleg": "Het bewaren van oude documenten van de gemeente.",
+      "soort": "wet",
+      "wet": "Archiefwet"
+    },
+    {
+      "post": "b1",
+      "naam": "Paspoort en rijbewijs",
+      "uitleg": "Het loket waar je een paspoort, ID-kaart of rijbewijs aanvraagt.",
+      "soort": "wet",
+      "wet": "Paspoortwet"
+    },
+    {
+      "post": "g1",
+      "naam": "Burgemeester en wethouders",
+      "uitleg": "Het dagelijks bestuur van de gemeente.",
+      "soort": "wet",
+      "wet": "Gemeentewet"
+    },
+    {
+      "post": "g2",
+      "naam": "Gemeenteraad",
+      "uitleg": "De gekozen raad die beslist over de begroting.",
+      "soort": "wet",
+      "wet": "Gemeentewet"
+    },
+    {
+      "post": "g3",
+      "naam": "Wijkbudgetten",
+      "uitleg": "Geld dat bewoners zelf mogen verdelen in hun wijk.",
+      "soort": "keuze"
+    },
+    {
+      "post": "h1",
+      "naam": "Kantoor, computers en personeel van de gemeente",
+      "uitleg": "Zoals het stadhuis, ICT, de salarisadministratie en HR."
+    },
+    {
+      "post": "m2",
+      "naam": "Parkeercontrole",
+      "uitleg": "Controleren of mensen betaald hebben voor hun parkeerplek.",
+      "soort": "keuze"
+    },
+    {
+      "post": "m5",
+      "naam": "Fietsenstallingen in het centrum",
+      "uitleg": "Bewaakte stallingen waar je gratis je fiets kwijt kunt.",
+      "soort": "keuze"
+    },
+    {
+      "post": "e3",
+      "naam": "Citymarketing",
+      "uitleg": "Reclame voor Groningen, om bezoekers, studenten en bedrijven te trekken.",
+      "soort": "keuze"
+    },
+    {
+      "post": "w8",
+      "naam": "Bouwvergunningen",
+      "uitleg": "Aanvragen voor een verbouwing of nieuw huis beoordelen.",
+      "soort": "wet",
+      "wet": "Omgevingswet"
+    },
+    {
+      "post": "w12",
+      "naam": "Klimaat- en energiebeleid",
+      "uitleg": "Plannen om de gemeente CO₂-neutraal te maken.",
+      "soort": "keuze"
+    },
+    {
+      "post": "w2",
+      "naam": "Meer betaalbare woningen",
+      "uitleg": "Extra geld zodat er meer huizen komen die mensen kunnen betalen.",
+      "soort": "keuze"
+    },
+    {
+      "post": "v8",
+      "naam": "Omgevingsdienst",
+      "uitleg": "Toezicht op bedrijven: geluid, stank en veilige opslag.",
+      "soort": "wet",
+      "wet": "Omgevingswet"
+    }
+  ],
   "minigames": [
     {
       "id": "martinitoren",
@@ -124,19 +361,6 @@
       "leerdoel": "Een begroting in evenwicht: niet meer uitgeven dan er binnenkomt."
     },
     {
-      "id": "oosterpoort",
-      "naam": "De Oosterpoort",
-      "spel": "Wie betaalt de voorstelling?",
-      "vorm": "concertzaal",
-      "icoon": "🎻",
-      "positie": {
-        "lon": 6.58,
-        "lat": 53.214
-      },
-      "kort": "Raad welk deel bezoekers betalen en welk deel de gemeente.",
-      "leerdoel": "Hoe subsidie werkt: wie betaalt wat?"
-    },
-    {
       "id": "goudkantoor",
       "naam": "Goudkantoor",
       "spel": "Geldzoeker",
@@ -146,8 +370,8 @@
         "lon": 6.5669,
         "lat": 53.2183
       },
-      "kort": "Graaf goud op om uit het tekort te komen: uitgaven die VVD Groningen wil schrappen. Laat de kerntaken liggen, en let op de tijd.",
-      "leerdoel": "Welke uitgaven VVD Groningen liever niet doet, eenmalig en elk jaar, en hoe je zo een tekort wegwerkt.",
+      "kort": "Graaf goud op om uit het tekort te komen: plannen die je kunt schrappen en bezit dat je kunt verkopen. Laat de kerntaken liggen, en let op de tijd.",
+      "leerdoel": "Hoe je een tekort wegwerkt: met geld dat één keer vrijkomt, en met geld dat je elk jaar bespaart.",
       "goud": {
         "bron": "Verkiezingsprogramma VVD Groningen 2026-2030 (B1-versie)",
         "url": "https://www.vvd.nl/wp-content/uploads/sites/28/2026/02/Verkiezingsprogramma-VVD-Groningen-2026-2030-in-B1-1-1.pdf",
@@ -199,119 +423,7 @@
             "vvd": "Daarom investeren we in toegankelijke sportplekken (…).",
             "pagina": 44
           }
-        ],
-        "tegenbegroting": {
-          "bron": "Tegenbegroting VVD Groningen 2026: Het kan en moet anders",
-          "url": "https://gemeenteraad.groningen.nl/Vergaderingen/gemeenteraad/2025/12-november/15:00/A-01-Tegenbegroting-Het-kan-en-moet-anders-VVD/A-01-1-Bijlage-Tegenbegroting-Het-kan-en-moet-anders-VVD.pdf",
-          "jaar": 2026,
-          "posten": [
-            {
-              "naam": "Besparingen op het ambtenarenapparaat 5% (niet beheer openbare ruimte en veiligheid)",
-              "bedrag_mln": 16.4,
-              "soort": "S"
-            },
-            {
-              "naam": "Schrappen kwijtscheldingen gemeentelijke heffingen en belastingen",
-              "bedrag_mln": 4.2,
-              "soort": "S"
-            },
-            {
-              "naam": "Aanpak Oosterhamrikzone",
-              "bedrag_mln": 0.25,
-              "soort": "S"
-            },
-            {
-              "naam": "Diverse subsidies programma energie",
-              "bedrag_mln": 0.3,
-              "soort": "S"
-            },
-            {
-              "naam": "Besparing overhead 5%",
-              "bedrag_mln": 7.0,
-              "soort": "S"
-            },
-            {
-              "naam": "Taakstelling 20% individuele inkomenstoeslag",
-              "bedrag_mln": 0.84,
-              "soort": "S"
-            },
-            {
-              "naam": "Taakstelling cultuur 20%",
-              "bedrag_mln": 15.2,
-              "soort": "S"
-            },
-            {
-              "naam": "Taakstelling armoede en minimaregeling 20%",
-              "bedrag_mln": 2.4,
-              "soort": "S"
-            },
-            {
-              "naam": "Bijzondere bijstand 10%",
-              "bedrag_mln": 0.6,
-              "soort": "S"
-            },
-            {
-              "naam": "Schrappen Gemeentelijk Ontwikkelbedrijf",
-              "bedrag_mln": 0.15,
-              "soort": "S"
-            },
-            {
-              "naam": "Gefaseerd schrappen basisbanen in 4 jaar",
-              "bedrag_mln": 1.625,
-              "soort": "S"
-            },
-            {
-              "naam": "Minder wethouders in 2026",
-              "bedrag_mln": 0.2,
-              "soort": "S"
-            },
-            {
-              "naam": "Zakelijke werkplaats Stadsbeheer",
-              "bedrag_mln": 0.9,
-              "soort": "S"
-            },
-            {
-              "naam": "Meer reclamedragend straatmeubilair (ondergrondse fietsenstalling)",
-              "bedrag_mln": 0.2,
-              "soort": "S"
-            },
-            {
-              "naam": "Verkopen van minderheidsbelang WarmteStad",
-              "bedrag_mln": 4.9,
-              "soort": "I"
-            },
-            {
-              "naam": "Windmolens Roodehaan",
-              "bedrag_mln": 1.762,
-              "soort": "I"
-            },
-            {
-              "naam": "Tijdelijke invulling Casinolocatie aan de markt laten",
-              "bedrag_mln": 0.6,
-              "soort": "I"
-            },
-            {
-              "naam": "Verkoop gemeentelijk vastgoed zoals Vapiano-pand en Glaudé-panden",
-              "bedrag_mln": 2.0,
-              "soort": "I"
-            },
-            {
-              "naam": "Schrappen laadpalenbedrijf",
-              "bedrag_mln": 0.74,
-              "soort": "I"
-            },
-            {
-              "naam": "Stoppen aanleg Zonnepark Meerstad Noord",
-              "bedrag_mln": 4.0,
-              "soort": "I"
-            },
-            {
-              "naam": "Schrappen voedsel- en eiwittransitie landelijk gebied",
-              "bedrag_mln": 0.7,
-              "soort": "I"
-            }
-          ]
-        }
+        ]
       }
     }
   ]

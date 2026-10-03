@@ -141,9 +141,7 @@ export default function Goudkantoor({ data, onKlaar }: MinigameProps) {
         setKas((k) => k + s.bedragMln);
         setGevonden((g) => [...g, s]);
         setMelding({
-          tekst: `${s.naam}: ${metTeken(s.bedragMln)} (${s.soort === 'S' ? 'elk jaar' : 'eenmalig'}, ${
-            s.jaar === jaar ? `begroting ${s.jaar}` : `tegenbegroting VVD ${s.jaar}`
-          })`,
+          tekst: `${s.naam}: ${metTeken(s.bedragMln)} (${s.soort === 'S' ? 'elk jaar' : 'eenmalig'})`,
           soort: 'goud',
           tijd: nu,
         });
@@ -173,7 +171,7 @@ export default function Goudkantoor({ data, onKlaar }: MinigameProps) {
       }
       if (stil) setBeurten((b) => b - 1);
     },
-    [jaar, stil],
+    [stil],
   );
 
   const graaf = useCallback(() => {
@@ -318,8 +316,9 @@ export default function Goudkantoor({ data, onKlaar }: MinigameProps) {
           </p>
           <ul className="klein">
             <li>
-              💰 <strong>Goud</strong> zijn uitgaven die VVD Groningen wil schrappen: hoe groter,
-              hoe meer geld. Groot goud is wel zwaar om op te halen.
+              💰 <strong>Goud</strong> is geld dat de gemeente kan vrijmaken: plannen die je kunt
+              schrappen en bezit dat je kunt verkopen. Hoe groter, hoe meer geld, maar groot goud is
+              zwaar om op te halen.
             </li>
             <li>
               🪨 <strong>Stenen</strong> zijn kerntaken, zoals veiligheid en onderhoud. Daar
@@ -352,8 +351,7 @@ export default function Goudkantoor({ data, onKlaar }: MinigameProps) {
               : `Je haalde ${gehaald} van de ${LEVELS.length} levels`}
           </h3>
           <p>
-            Je groef <strong>{alleGevonden.length}</strong> uitgaven op die VVD Groningen wil
-            schrappen.
+            Je groef <strong>{alleGevonden.length}</strong> manieren op om geld vrij te maken.
           </p>
           <SchattenLijst lijst={alleGevonden} jaar={jaar} />
           <BronRegel data={data} />
@@ -380,7 +378,7 @@ export default function Goudkantoor({ data, onKlaar }: MinigameProps) {
               : `Level ${levelNr}: nog een tekort van ${mln(-kas)}`}
           </h3>
           <p className="klein">
-            {gevonden.length} van de {alleSchatten.length} uitgaven opgegraven.
+            {gevonden.length} van de {alleSchatten.length} klompen goud opgegraven.
           </p>
           <SchattenLijst lijst={gevonden} jaar={jaar} />
           <div className="mg-gz-knoppen">
@@ -517,9 +515,7 @@ function SchattenLijst({ lijst, jaar }: { lijst: Schat[]; jaar: number }) {
             {s.naam}: {mln(s.bedragMln)}
           </strong>{' '}
           <span className="klein">
-            ({s.soort === 'S' ? 'elk jaar' : 'eenmalig'}; bedrag uit de{' '}
-            {s.jaar === jaar ? `begroting ${s.jaar}` : `tegenbegroting van VVD Groningen ${s.jaar}`}
-            )
+            ({s.soort === 'S' ? 'elk jaar' : 'eenmalig'}; bedrag uit de begroting {jaar})
           </span>
           {s.vvd && (
             <blockquote className="mg-goud-vvd">
@@ -534,20 +530,14 @@ function SchattenLijst({ lijst, jaar }: { lijst: Schat[]; jaar: number }) {
 
 function BronRegel({ data }: Pick<MinigameProps, 'data'>) {
   const bron = data.minigames.find((m) => m.goud)?.goud;
-  const tb = bron?.tegenbegroting;
   return (
     <p className="klein">
-      Bronnen:{' '}
+      Bronnen: de begroting {data.begroting.begrotingsjaar} van de gemeente Groningen
       {bron && (
-        <a href={bron.url} target="_blank" rel="noopener noreferrer">
-          {bron.bron}
-        </a>
-      )}
-      {tb && (
         <>
-          {' en '}
-          <a href={tb.url} target="_blank" rel="noopener noreferrer">
-            {tb.bron}
+          {' en het '}
+          <a href={bron.url} target="_blank" rel="noopener noreferrer">
+            {bron.bron}
           </a>
         </>
       )}

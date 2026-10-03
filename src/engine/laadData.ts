@@ -25,6 +25,7 @@ import {
   gevolgenSchema,
   minigamesSchema,
   type Minigame,
+  type SpelPost,
   type Gevolgen,
   belastingenNederlandSchema,
   apparaatSchema,
@@ -88,6 +89,8 @@ export type Data = {
   gevolgen: Gevolgen;
   /** minigames over geld, in bekende gebouwen van de gemeente */
   minigames: Minigame[];
+  /** posten met een naam die iedereen begrijpt, voor de minigames */
+  spelPosten: SpelPost[];
   vergelijking: { bestand: string; tegenbegroting: Tegenbegroting }[];
   /** Jaren van de meerjarenraming, bijvoorbeeld [2026, 2027, 2028, 2029]. */
   jaren: number[];
@@ -326,7 +329,8 @@ export function maakData(ruw: RuweData): Data {
     }
     if (fout.length) throw new DataFout(SPEL_BESTANDEN.gevolgen, fout);
   }
-  const minigames = valideer(minigamesSchema, ruw.minigames, SPEL_BESTANDEN.minigames).minigames;
+  const mg = valideer(minigamesSchema, ruw.minigames, SPEL_BESTANDEN.minigames);
+  const minigames = mg.minigames;
   {
     const ids = new Set<string>();
     const fout: string[] = [];
@@ -393,6 +397,7 @@ export function maakData(ruw: RuweData): Data {
     route,
     gevolgen,
     minigames,
+    spelPosten: mg.posten,
     vergelijking,
     jaren: [...config.meerjarenHorizon],
     index: maakIndex(begroting, dwarsverbanden, meters),

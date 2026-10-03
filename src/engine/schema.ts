@@ -917,9 +917,27 @@ export const minigameVormen = [
   'goudkantoor',
 ] as const;
 
+/** Een post met een naam die iedereen begrijpt, voor de minigames. */
+export const spelPostSchema = z
+  .object({
+    /** id van het onderdeel in de begroting */
+    post: z.string(),
+    naam: z.string(),
+    /** wat het is, in één korte zin */
+    uitleg: z.string(),
+    /** moet van de wet, of een eigen keuze van de gemeente (leeg: niet eenduidig) */
+    soort: z.enum(['wet', 'keuze']).optional(),
+    /** de wet, bij soort "wet" */
+    wet: z.string().optional(),
+  })
+  .strict();
+export type SpelPost = z.infer<typeof spelPostSchema>;
+
 export const minigamesSchema = z
   .object({
     toelichting: z.string(),
+    toelichting_posten: z.string(),
+    posten: z.array(spelPostSchema).min(10),
     minigames: z
       .array(
         z
@@ -967,26 +985,6 @@ export const minigamesSchema = z
                       .strict(),
                   )
                   .min(1),
-                /** posten uit een eerdere tegenbegroting van VVD Groningen, met hun eigen jaar */
-                tegenbegroting: z
-                  .object({
-                    bron: z.string(),
-                    url: z.string().url(),
-                    jaar: z.number().int(),
-                    posten: z
-                      .array(
-                        z
-                          .object({
-                            naam: z.string(),
-                            bedrag_mln: z.number().positive(),
-                            soort: z.enum(['S', 'I']),
-                          })
-                          .strict(),
-                      )
-                      .min(1),
-                  })
-                  .strict()
-                  .optional(),
               })
               .strict()
               .optional(),

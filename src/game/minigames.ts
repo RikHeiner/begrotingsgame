@@ -63,3 +63,39 @@ export function parenVoorHogerLager(
   }
   return paren;
 }
+
+/** Een post met een begrijpelijke naam (spel/minigames.json), met het bedrag uit de begroting. */
+export type BekendePost = {
+  id: string;
+  naam: string;
+  uitleg: string;
+  /** moet van de wet, of een eigen keuze (leeg: niet eenduidig) */
+  soort?: 'wet' | 'keuze';
+  wet?: string;
+  /** uitgaven per jaar, in miljoenen */
+  bedragMln: number;
+  /** inkomsten die bij de post horen (zoals de afvalstoffenheffing), in miljoenen */
+  batenMln: number;
+  /** de naam in de begroting */
+  begrotingsnaam: string;
+};
+
+/** De posten met een naam die iedereen begrijpt, met de bedragen uit de begroting. */
+export function bekendePosten(data: Data): BekendePost[] {
+  return data.spelPosten.flatMap((p) => {
+    const o = data.index.onderdelen.get(p.post);
+    if (!o) return [];
+    return [
+      {
+        id: o.id,
+        naam: p.naam,
+        uitleg: p.uitleg,
+        ...(p.soort ? { soort: p.soort } : {}),
+        ...(p.wet ? { wet: p.wet } : {}),
+        bedragMln: o.lasten_mln,
+        batenMln: o.gekoppelde_baten_mln,
+        begrotingsnaam: o.naam,
+      },
+    ];
+  });
+}
