@@ -1,102 +1,159 @@
-/* Oostersluis: sluiswachter */
-.mg-sluis {
-  display: grid;
-  grid-template-columns: 7rem 1fr;
-  gap: 1rem;
-  align-items: start;
+/* Oostersluis: de sluiswachter, in de stijl van de Geldzoeker (kleuren van water en baksteen) */
+.mg-sluis2 {
+  --mg-rand: #1d4a6b;
+  --mg-hud-boven: #bfe6ff;
+  --mg-hud-onder: #7cc4ef;
+  --mg-hud-tekst: #0d2a40;
+  --mg-hud-label: #24506f;
+  --mg-licht: #e6f5ff;
+  --mg-kaart: #f5fbff;
+  --mg-kaart-tekst: #0d2233;
+  --mg-goed: #0b6a3f;
+  --mg-fout: #b02a17;
+  --mg-icoon: #b4563c;
 }
 
-.mg-sluis-tekst p,
-.mg-sluis-tekst h3 {
+.mg-sluis2 .mg-hud-icoon {
+  color: #fff;
+}
+
+/* Het veld zelf doet niets met tikken: scrollen over het veld moet gewoon kunnen. */
+.mg-sluis2-veld {
+  touch-action: pan-y;
+  cursor: default;
+  background: #9ccdf2;
+}
+
+.mg-sluis2-acties {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+}
+
+.mg-sluis2-door,
+.mg-sluis2-acties > .knop:not(.mg-sluis2-actie) {
+  grid-column: 1 / -1;
+}
+
+.mg-sluis2-actie {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  min-height: 3.6rem;
+  padding: 0.3rem 0.3rem;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.mg-sluis2-actie > span:first-child {
+  font-size: 1.25rem;
+}
+
+.mg-sluis2-actie strong,
+.mg-sluis2-actie small {
+  display: block;
+}
+
+.mg-sluis2-actie small {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--gedempt);
+}
+
+.mg-sluis2-actie:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.mg-sluis2-aan {
+  background: color-mix(in srgb, var(--blauw) 14%, var(--paneel));
+}
+
+@media (max-width: 30rem) {
+  .mg-sluis2-acties {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.mg-sluis2-paneel {
+  margin-top: 0.5rem;
+  padding: 0.6rem;
+  border: 3px solid var(--mg-rand);
+  border-radius: 0.8rem;
+  background: var(--mg-kaart);
+  color: var(--mg-kaart-tekst);
+}
+
+.mg-sluis2-paneel p {
+  margin: 0 0 0.4rem;
+}
+
+.mg-sluis2-posten {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 0.35rem;
+  max-height: 15rem;
+  overflow: auto;
   margin: 0 0 0.5rem;
+  padding: 0;
+  list-style: none;
 }
 
-.mg-sluis-beeld {
+.mg-sluis2-post {
   display: grid;
-  grid-template-columns: 0.6rem 1fr 0.6rem;
-  height: 16rem;
+  grid-template-columns: 1fr auto;
+  gap: 0.1rem 0.5rem;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.35rem 0.55rem;
+  border: 2px solid #9cc3dd;
+  border-radius: 0.6rem;
+  background: #fff;
+  color: #0d2233;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
 }
 
-.mg-sluis-deur {
-  background: repeating-linear-gradient(to bottom, #7a5a3a 0 0.9rem, #5e4329 0.9rem 1.1rem);
-  border-radius: 0.2rem;
+.mg-sluis2-post:hover:not(:disabled),
+.mg-sluis2-post:focus-visible {
+  border-color: var(--mg-rand);
+  background: #eef8ff;
 }
 
-.mg-sluis-kolk {
-  position: relative;
-  overflow: hidden;
-  background: color-mix(in srgb, var(--gedempt) 18%, var(--paneel));
-  border-bottom: 0.4rem solid #8a8f9c;
+.mg-sluis2-post:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
-.mg-sluis-band {
-  position: absolute;
-  left: 0;
-  right: 0;
-  border-top: 2px dashed var(--positief);
-  border-bottom: 2px dashed var(--positief);
-  background: color-mix(in srgb, var(--positief) 14%, transparent);
-  z-index: 1;
-}
-
-.mg-sluis-nul {
-  position: absolute;
-  left: 0;
-  right: 0;
-  border-top: 1px solid var(--gedempt);
-  z-index: 1;
-}
-
-.mg-sluis-water {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: color-mix(in srgb, var(--water-kleur) 75%, var(--paneel));
-  transition: height 0.6s ease;
-}
-
-.mg-sluis-water.gevaar {
-  background: color-mix(in srgb, var(--negatief) 45%, var(--water-kleur));
-}
-
-.mg-sluis-boot {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -80%);
-  font-size: 1.6rem;
-  z-index: 2;
-}
-
-.mg-sluis-peil {
-  font-size: 1.15rem;
-}
-
-.mg-sluis-ok {
-  color: var(--positief);
+.mg-sluis2-post-naam {
   font-weight: 700;
 }
 
-.mg-sluis-mis {
-  color: var(--negatief);
-  font-weight: 700;
+.mg-sluis2-post-bedrag {
+  font-weight: 800;
+  color: var(--mg-goed);
+  white-space: nowrap;
 }
 
-@media (max-width: 480px) {
-  .mg-sluis {
-    grid-template-columns: 1fr;
-  }
-
-  .mg-sluis-beeld {
-    width: 8rem;
-    height: 10rem;
-    justify-self: center;
-  }
+.mg-sluis2-post-uitleg {
+  grid-column: 1 / -1;
+  font-size: 0.8rem;
+  color: #3d5466;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .mg-sluis-water {
-    transition: none;
-  }
+.mg-sluis2-wet {
+  border-style: dashed;
+  background: #f6f3ef;
+}
+
+.mg-sluis2-inkolk {
+  margin: 0.3rem 0 0;
+}
+
+.mg-sluis2 h4 {
+  margin: 0.8rem 0 0.3rem;
 }
