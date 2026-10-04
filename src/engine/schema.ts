@@ -917,6 +917,31 @@ export const minigameVormen = [
   'goudkantoor',
 ] as const;
 
+// ---------- spel/ergernissen.json ----------
+
+/** Ergernissen van VVD Groningen over het college, met de bron (voor "Groninger erger je niet"). */
+export const ergernissenSchema = z
+  .object({
+    toelichting: z.string(),
+    ergernissen: z.array(
+      z
+        .object({
+          onderwerp: z.string(),
+          ergernis: z.string(),
+          /** letterlijk citaat uit het artikel */
+          vvd: z.string().optional(),
+          wie: z.string().optional(),
+          bron: z.string(),
+          titel: z.string(),
+          url: z.string().url(),
+          datum: z.string().regex(/^\d{4}-\d{2}(-\d{2})?$/),
+        })
+        .strict(),
+    ),
+  })
+  .strict();
+export type Ergernis = z.infer<typeof ergernissenSchema>['ergernissen'][number];
+
 /** Een post met een naam die iedereen begrijpt, voor de minigames. */
 export const spelPostSchema = z
   .object({

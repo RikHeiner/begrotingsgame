@@ -1,0 +1,115 @@
+/* Groninger erger je niet: een spelbord van hout, blauw (VVD) tegen rood (college) */
+.mg-erger {
+  --mg-rand: #7a5a2a;
+  --mg-hud-boven: #ffffff;
+  --mg-hud-onder: #e4e9ff;
+  --mg-hud-tekst: #0a1f7a;
+  --mg-hud-label: #34407a;
+  --mg-licht: #fff4dc;
+  --mg-icoon: #f28c00;
+  position: relative;
+}
+
+.mg-erger-bord {
+  aspect-ratio: 1 / 1;
+}
+
+.mg-erger-vvd {
+  color: #1233c4;
+}
+
+.mg-erger-college {
+  color: #d62f2f;
+}
+
+.mg-erger-vakje {
+  display: inline-grid;
+  place-items: center;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  background: #f28c00;
+  color: #fff;
+  font-weight: 900;
+}
+
+/* De ergerniskaart: over het bord heen */
+.mg-erger-kaart-achter {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  padding: 0.75rem;
+  background: rgb(20 20 40 / 45%);
+  border-radius: 0.8rem;
+}
+
+.mg-erger-kaart {
+  width: min(100%, 26rem);
+  max-height: 100%;
+  overflow: auto;
+  padding: 1rem;
+  border: 4px solid #f28c00;
+  border-radius: 1rem;
+  background: #fffaf0;
+  color: #2b1a08;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 35%);
+  animation: mg-erger-in 0.3s ease-out;
+}
+
+.mg-erger-kaart h4 {
+  margin: 0.2rem 0 0.4rem;
+  font-size: 1.2rem;
+}
+
+.mg-erger-kaart-kop {
+  margin: 0;
+  color: #b35f00;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.85rem;
+}
+
+.mg-erger-citaat {
+  margin: 0.5rem 0;
+  padding: 0.4rem 0.7rem;
+  border-left: 4px solid #1233c4;
+  background: #eef1ff;
+  font-style: italic;
+}
+
+.mg-erger-citaat footer {
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  font-style: normal;
+  color: #4a4f6a;
+}
+
+.mg-erger-effect {
+  padding: 0.35rem 0.6rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
+}
+
+.mg-erger-effect.mg-erger-vvd {
+  background: #e4e9ff;
+}
+
+.mg-erger-effect.mg-erger-college {
+  background: #ffe1dc;
+}
+
+@keyframes mg-erger-in {
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mg-erger-kaart {
+    animation: none;
+  }
+}

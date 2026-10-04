@@ -24,6 +24,8 @@ import {
   routeSchema,
   gevolgenSchema,
   minigamesSchema,
+  ergernissenSchema,
+  type Ergernis,
   type Minigame,
   type SpelPost,
   type Gevolgen,
@@ -91,6 +93,8 @@ export type Data = {
   minigames: Minigame[];
   /** posten met een naam die iedereen begrijpt, voor de minigames */
   spelPosten: SpelPost[];
+  /** ergernissen van VVD Groningen over het college (voor "Groninger erger je niet") */
+  ergernissen: Ergernis[];
   /** keuze van de fractie: welke plannen onnodig zijn (weg), met minder kunnen, of niet onnodig */
   onnodig: { weg: string[]; minder: string[]; niet: string[] };
   vergelijking: { bestand: string; tegenbegroting: Tegenbegroting }[];
@@ -122,6 +126,7 @@ export const SPEL_BESTANDEN = {
   route: 'spel/route.json',
   gevolgen: 'spel/gevolgen.json',
   minigames: 'spel/minigames.json',
+  ergernissen: 'spel/ergernissen.json',
 } as const;
 
 export class DataFout extends Error {
@@ -159,6 +164,7 @@ export type RuweData = {
   route: unknown;
   gevolgen: unknown;
   minigames: unknown;
+  ergernissen: unknown;
   tarieven?: { bestand: string; inhoud: unknown };
   parkeren?: { bestand: string; inhoud: unknown };
   woonlasten?: { bestand: string; inhoud: unknown };
@@ -400,6 +406,8 @@ export function maakData(ruw: RuweData): Data {
     gevolgen,
     minigames,
     spelPosten: mg.posten,
+    ergernissen: valideer(ergernissenSchema, ruw.ergernissen, SPEL_BESTANDEN.ergernissen)
+      .ergernissen,
     onnodig: mg.onnodig,
     vergelijking,
     jaren: [...config.meerjarenHorizon],
