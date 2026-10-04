@@ -40,7 +40,7 @@ test('eerste bezoek: uitleg van VVD Groningen, dan bij nul beginnen; daarna niet
   await expect(page.getByTestId('nul-melding')).toContainText('per jaar te verdelen');
   await expect(page.getByTestId('route-minigames')).toContainText('10 minigames');
   // Boven elk bekend gebouw met een minigame een oranje label (op een telefoon alleen het icoon).
-  await expect(page.locator('.kaart-minigame')).toHaveCount(11);
+  await expect(page.locator('.kaart-minigame')).toHaveCount(10);
   if (!testInfo.project.name.startsWith('mobiel'))
     await expect(page.locator('.kaart-minigame').first()).toContainText('Speel');
   await expect(page.getByTestId('saldo')).toContainText('+');
