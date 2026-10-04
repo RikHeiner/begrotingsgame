@@ -78,6 +78,33 @@ const nlMln = (euro: number) =>
     maximumFractionDigits: 1,
   });
 
+/** Een bedrag in miljoenen (zoals in de begroting) als "€ 12,3 mln". */
+const mlnTekst = (mln: number) =>
+  `€ ${Math.abs(mln).toLocaleString('nl-NL', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} mln`;
+
+/**
+ * Wat een maatregel oplevert of kost, in woorden: "Levert € 5,2 mln per jaar op." of "Kost eenmalig
+ * € 2,0 mln." Groeit het bedrag nog, dan ook het bedrag in het laatste jaar.
+ */
+export function geldZin(perJaar: number[], soort: 'S' | 'I', jaren: number[]): string {
+  const eerste = perJaar[0] ?? 0;
+  const laatste = perJaar.at(-1) ?? 0;
+  const groot = Math.abs(laatste) > Math.abs(eerste) + 0.05e6 ? laatste : eerste;
+  if (Math.abs(groot) < 0.05e6) return '';
+  const bedrag = `€ ${nlMln(groot)} mln`;
+  const zin =
+    groot > 0
+      ? soort === 'S'
+        ? `Levert ${bedrag} per jaar op.`
+        : `Levert eenmalig ${bedrag} op.`
+      : soort === 'S'
+        ? `Kost ${bedrag} per jaar.`
+        : `Kost eenmalig ${bedrag}.`;
+  if (groot === laatste && Math.abs(laatste - eerste) > 0.05e6)
+    return `${zin.slice(0, -1)} vanaf ${jaren.at(-1)} (in ${jaren[0]}: € ${nlMln(eerste)} mln).`;
+  return zin;
+}
+
 /** Maakt de tegenbegroting uit het resultaat van de rekenmotor en de velden van de speler. */
 export function maakTegenbegroting(data: Data, r: Resultaat, meta: Meta): Tegenbegroting {
   const k = r.keuzes;
@@ -120,13 +147,28 @@ export function maakTegenbegroting(data: Data, r: Resultaat, meta: Meta): Tegenb
     let info = { naam: id, toelichting: '', wijziging: '' };
     if (o) {
       const pct = k.onderdelen[id] ?? 0;
+      const uitleg = data.spelPosten.find((x) => x.post === id)?.uitleg;
       info = {
         naam: o.naam,
         wijziging: formatPct(pct),
-        toelichting: (pct < 0 ? o.tekst_bezuinigen : o.tekst_investeren) ?? '',
+        toelichting: [
+          uitleg ? `Wat is het? ${uitleg}` : '',
+          `Nu ${mlnTekst(o.lasten_mln)} per jaar (begroting ${data.begroting.begrotingsjaar}); dat wordt ${mlnTekst(o.lasten_mln * (1 + pct / 100))}.`,
+          o.gekoppelde_baten_mln > 0 && pct !== 0
+            ? `Er horen ook ${mlnTekst(o.gekoppelde_baten_mln)} inkomsten bij die meeveranderen.`
+            : '',
+          (pct < 0 ? o.tekst_bezuinigen : o.tekst_investeren) ?? '',
+        ]
+          .filter(Boolean)
+          .join(' '),
       };
     } else if (b) {
-      info = { naam: b.naam, wijziging: formatPct(k.belastingen[id] ?? 0), toelichting: b.uitleg };
+      const pct = k.belastingen[id] ?? 0;
+      info = {
+        naam: b.naam,
+        wijziging: formatPct(pct),
+        toelichting: `${b.uitleg} Opbrengst nu ${mlnTekst(b.opbrengst_mln)} per jaar (begroting ${data.begroting.begrotingsjaar}); dat wordt ${mlnTekst(b.opbrengst_mln * (1 + pct / 100))}.`,
+      };
     } else if (parkeerPost) {
       const pct = k.parkeren?.[parkeerPost.id] ?? 0;
       info = {
@@ -169,6 +211,11 @@ export function maakTegenbegroting(data: Data, r: Resultaat, meta: Meta): Tegenb
         toelichting:
           `${v?.mechanisme ?? ''} In ${jaren.at(-1)}: ${laatste >= 0 ? '+' : '−'} € ${nlMln(laatste)} mln.`.trim(),
       };
+    }
+    // Bij elke maatregel wat hij oplevert of kost (kettingeffecten noemen dat zelf al)
+    if (!item.ketting) {
+      const geld = geldZin(item.perJaar, item.soort, jaren);
+      if (geld) info = { ...info, toelichting: `${geld} ${info.toelichting}`.trim() };
     }
     regels.push({
       id,
