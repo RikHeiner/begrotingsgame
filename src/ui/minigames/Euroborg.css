@@ -1,137 +1,128 @@
-/* Euroborg: penalty's in het groen-wit van FC Groningen */
-.mg-euroborg {
-  --eb-groen: #00843d;
-  --eb-gras: #1f8a3a;
-  --eb-gras-licht: #2a9a46;
+/* Euroborg: penalty's in een groen-wit stadion. Het kader komt uit kader/kader.css. */
+.mg-eb {
+  --mg-rand: #0a4f27;
+  --mg-hud-boven: #1fa257;
+  --mg-hud-onder: #0c7239;
+  --mg-hud-tekst: #ffffff;
+  --mg-hud-label: #d3f5df;
+  --mg-licht: #eaf8ef;
+  --mg-kaart: #f5fdf8;
+  --mg-kaart-tekst: #0c2918;
+  --mg-goed: #c8ffd9;
+  --mg-fout: #ffd2c7;
+  --mg-icoon: #ffffff;
 }
 
-.mg-eb-veld {
-  position: relative;
-  height: 9.5rem;
-  margin: 0.5rem 0 0.75rem;
-  overflow: hidden;
-  border: 3px solid var(--eb-groen);
-  border-radius: 0.8rem;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--eb-gras) 0 2.5rem,
-    var(--eb-gras-licht) 2.5rem 5rem
-  );
+.mg-eb .mg-hud {
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
 }
 
-.mg-eb-doel {
-  position: absolute;
-  top: 0.6rem;
-  left: 50%;
-  width: min(14rem, 70%);
-  height: 4.2rem;
-  transform: translateX(-50%);
-  border: 4px solid #fff;
-  border-bottom: none;
-  background:
-    repeating-linear-gradient(0deg, transparent 0 7px, rgb(255 255 255 / 0.35) 7px 8px),
-    repeating-linear-gradient(90deg, transparent 0 7px, rgb(255 255 255 / 0.35) 7px 8px);
+.mg-eb .mg-hud-icoon {
+  box-shadow:
+    inset 0 0 0 3px #0c7239,
+    0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-.mg-eb-keeper {
-  position: absolute;
-  bottom: 0.2rem;
-  left: 50%;
-  font-size: 1.8rem;
-  transform: translateX(-50%);
+.mg-eb-post {
+  padding-block: 0.4rem;
+  color: var(--mg-kaart-tekst);
+  background: linear-gradient(#f3fbf6, #e3f4ea);
 }
 
-.mg-eb-bal {
-  position: absolute;
-  bottom: 0.8rem;
-  left: 50%;
-  font-size: 1.6rem;
-  transform: translateX(-50%);
+.mg-eb-post p {
+  margin: 0;
 }
 
-.mg-eb-bord {
-  position: absolute;
-  right: 0.5rem;
-  bottom: 0.5rem;
-  padding: 0.15rem 0.5rem;
-  border-radius: 0.4rem;
-  background: #fff;
-  color: var(--eb-groen);
-  font-weight: 800;
-  letter-spacing: 0.05em;
+.mg-eb-kop {
+  color: #2d6a45;
+  font-weight: 600;
 }
 
-/* Het schot: de bal vliegt naar de linker- of rechterhoek. */
-.mg-eb-veld.geschoten .mg-eb-bal {
-  animation: mg-eb-schot-links 0.9s ease-out forwards;
-}
-.mg-eb-veld.geschoten.rechts .mg-eb-bal {
-  animation-name: mg-eb-schot-rechts;
-}
-/* Gehouden: de keeper duikt naar de bal. Erin: de keeper duikt de verkeerde kant op. */
-.mg-eb-veld.gehouden.links .mg-eb-keeper,
-.mg-eb-veld.erin.rechts .mg-eb-keeper {
-  animation: mg-eb-duik-links 0.7s ease-out 0.2s forwards;
-}
-.mg-eb-veld.gehouden.rechts .mg-eb-keeper,
-.mg-eb-veld.erin.links .mg-eb-keeper {
-  animation: mg-eb-duik-rechts 0.7s ease-out 0.2s forwards;
-}
-.mg-eb-veld.gehouden .mg-eb-bal {
-  animation-duration: 0.7s;
+.mg-eb-naam {
+  font-size: 1.05rem;
+  line-height: 1.3;
 }
 
-@keyframes mg-eb-schot-links {
-  to {
-    bottom: 6rem;
-    left: calc(50% - min(5rem, 22%));
-    transform: translateX(-50%) scale(0.7) rotate(-540deg);
-  }
-}
-@keyframes mg-eb-schot-rechts {
-  to {
-    bottom: 6rem;
-    left: calc(50% + min(5rem, 22%));
-    transform: translateX(-50%) scale(0.7) rotate(540deg);
-  }
-}
-@keyframes mg-eb-duik-links {
-  to {
-    left: calc(50% - min(5rem, 22%));
-    transform: translateX(-50%) rotate(-60deg);
-  }
-}
-@keyframes mg-eb-duik-rechts {
-  to {
-    left: calc(50% + min(5rem, 22%));
-    transform: translateX(-50%) rotate(60deg);
-  }
-}
-
-.mg-euroborg .mg-keuze {
-  min-height: 64px;
-}
-
-.mg-euroborg .mg-keuze:not(:disabled):hover,
-.mg-euroborg .mg-keuze:focus-visible {
-  border-color: var(--eb-groen);
+.mg-eb-bedrag {
+  white-space: nowrap;
+  font-size: 0.9rem;
+  color: #0c5a2d;
 }
 
 .mg-eb-uitleg {
-  padding: 0.6rem 0.8rem;
-  border-left: 5px solid var(--eb-groen);
-  border-radius: 0.5rem;
-  background: color-mix(in srgb, var(--eb-groen) 10%, var(--paneel));
+  color: #234231;
 }
 
-.mg-eb-uitleg p {
-  margin: 0 0 0.5rem;
+.mg-eb-soort {
+  display: inline-block;
+  margin-top: 0.3rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .mg-eb-veld.geschoten .mg-eb-bal,
-  .mg-eb-veld.geschoten .mg-eb-keeper {
-    animation-duration: 0.01ms !important;
-    animation-delay: 0s !important;
+.mg-eb-soort-wet {
+  background: #fde2dc;
+  color: #7a1b0e;
+}
+
+.mg-eb-soort-keuze {
+  background: #d8f3e2;
+  color: #0b4d2a;
+}
+
+.mg-eb-veld {
+  background: #0c1f14;
+}
+
+.mg-eb-kant {
+  min-width: 6.2rem;
+  min-height: 48px;
+  font-size: 1.05rem;
+}
+
+.mg-eb-hint {
+  margin: 0.3rem 0 0;
+  color: inherit;
+  opacity: 0.85;
+}
+
+.mg-eb-les {
+  margin: 0.6rem 0;
+  padding: 0.5rem 0.7rem;
+  border-left: 4px solid #12924a;
+  border-radius: 0 0.4rem 0.4rem 0;
+  background: #e2f5ea;
+}
+
+.mg-eb-lijst {
+  max-height: 20rem;
+}
+
+.mg-eb-lijst li {
+  line-height: 1.35;
+}
+
+.mg-eb-soort-wet-tekst {
+  color: #8a1f10;
+  font-weight: 600;
+}
+
+.mg-eb-soort-keuze-tekst {
+  color: #0b5e2e;
+  font-weight: 600;
+}
+
+@media (max-width: 420px) {
+  .mg-eb .mg-grote-knop {
+    min-width: 0;
+    flex: 1 1 8rem;
+  }
+
+  .mg-eb-kant {
+    min-width: 0;
+    flex: 1 1 0;
+    padding-inline: 0.3rem;
   }
 }
