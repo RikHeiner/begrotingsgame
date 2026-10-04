@@ -107,3 +107,25 @@ test('document in de opbouw van de tegenbegroting van VVD Groningen', async ({ p
   await expect(doc.getByRole('heading', { name: 'Uitgaven (x1 miljoen)' })).toBeVisible();
   await expect(doc.locator('th', { hasText: 'Structureel/ incidenteel' }).first()).toBeVisible();
 });
+
+test('Opslaan als PDF: geen foto’s in het document, daarna komen ze terug', async ({ page }) => {
+  await page.addInitScript(() => {
+    // Printen nadoen: tel hoeveel foto's er in het document staan op het moment van printen.
+    window.print = () => {
+      (window as unknown as { fotos: number }).fotos = document.querySelectorAll(
+        '[data-testid="document"] img',
+      ).length;
+      window.dispatchEvent(new Event('afterprint'));
+    };
+  });
+  await page.goto('/');
+  await page.getByTestId('indienen').click();
+  await page.getByTestId('maak-tegenbegroting').click();
+  const doc = page.getByTestId('document');
+  await expect(doc.locator('img').first()).toBeAttached();
+  await page.getByRole('button', { name: 'Opslaan als PDF' }).click();
+  await expect
+    .poll(() => page.evaluate(() => (window as unknown as { fotos?: number }).fotos))
+    .toBe(0);
+  await expect(doc.locator('img').first()).toBeAttached();
+});
