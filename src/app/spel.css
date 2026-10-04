@@ -2006,23 +2006,20 @@
     box-decoration-break: clone;
   }
 
-  /* Niet precies A4 hoog: Safari (iPhone, iPad, Mac) houdt bij afdrukken zijn eigen marges aan,
-     en ook bij Letter-papier moet een fotoblad op één pagina passen. */
-  .doc-voorblad,
-  .doc-tussenblad {
-    height: 250mm;
-    break-before: page;
+  /* In de pdf geen foto's: die vallen in sommige browsers over twee pagina's. De tussenbladen met
+     een foto vallen weg (elk hoofdstuk heeft zijn eigen kop) en het voorblad is alleen tekst. In
+     het Word-bestand staan de foto's wel. */
+  .doc-tussenblad,
+  .doc-pijlen,
+  .document img {
+    display: none !important;
+  }
+
+  .doc-voorblad {
     min-height: 0;
-    overflow: hidden;
-    break-inside: avoid;
-  }
-
-  .doc-tussenblad {
-    padding: 0;
-  }
-
-  .doc-pijlen {
-    height: 95mm;
+    height: auto;
+    padding-top: 60mm;
+    break-after: page;
   }
 
   .doc-scroll {

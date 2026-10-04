@@ -373,7 +373,8 @@ export function maakWord(tb: Tegenbegroting, b?: Beelden): Document {
 
   // Eerst de inhoud, zodat de inhoudsopgave alle koppen kent.
   const kopInhoud = inhoud.nieuw('Inhoudsopgave', 1);
-  const opgesteld = kop1(inhoud.nieuw(d.opgesteld_door, 1), b);
+  // 'Opgesteld door' staat op dezelfde pagina als de inhoudsopgave: niet nog eens in de lijst.
+  const opgesteld = kop1({ tekst: d.opgesteld_door, niveau: 1, id: '_Toc099999' }, b);
   const besparingen = [
     kop1(inhoud.nieuw(d.besparingen.titel, 1), b),
     alinea(d.besparingen.intro, { vet: true }),

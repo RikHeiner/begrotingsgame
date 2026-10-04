@@ -184,12 +184,15 @@ function GemiddeldeNederland({
   opbrengstMln,
   max,
   onZet,
+  metNu,
 }: {
   data: Data;
   id: string;
   opbrengstMln: number;
   max: number;
   onZet?: (pct: number) => void;
+  /** ook tonen wat de gemeente Groningen nu per inwoner ophaalt (met deze opbrengst) */
+  metNu?: boolean;
 }) {
   const nl = data.belastingenNederland;
   const g = nl?.belastingen[id];
@@ -205,6 +208,13 @@ function GemiddeldeNederland({
           <>
             <br />
             In {nl.grootteklasse}: € {g.grootteklasse.toLocaleString('nl-NL')} per inwoner.
+          </>
+        )}
+        {metNu && (
+          <>
+            <br />
+            Gemeente Groningen in {data.begroting.begrotingsjaar}: €{' '}
+            {Math.round((opbrengstMln * 1e6) / nl.inwoners).toLocaleString('nl-NL')} per inwoner.
           </>
         )}
       </p>
@@ -483,14 +493,6 @@ export function GebouwPosten({
                     ? ` Gemiddeld nu ${formatPct(k.belastingen[b.id] ?? 0)}.`
                     : ''}
                 </p>
-                {nul && (
-                  <GemiddeldeNederland
-                    data={data}
-                    id={b.id}
-                    opbrengstMln={b.opbrengst_mln}
-                    max={0}
-                  />
-                )}
               </li>
             );
           }
@@ -534,11 +536,12 @@ export function GebouwPosten({
                   Haren en Ten Boer). Tarief {toerist.jaar}.
                 </p>
               )}
-              {toerist ? null : nul ? (
+              {nul || toerist ? (
                 <GemiddeldeNederland
                   data={data}
                   id={b.id}
                   opbrengstMln={b.opbrengst_mln}
+                  metNu={!!toerist}
                   max={Number.isFinite(g.max) ? g.max : 1000}
                   onZet={(v) => zetBelasting(b.id, v)}
                 />

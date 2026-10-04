@@ -221,7 +221,6 @@ export function Documentweergave({ data, resultaat }: { data: Data; resultaat: R
         <section className="doc-blad">
           <Kop1>Inhoudsopgave</Kop1>
           <ul className="doc-inhoud">
-            <li>{d.opgesteld_door}</li>
             <li>
               {d.besparingen.titel}
               <ul>
