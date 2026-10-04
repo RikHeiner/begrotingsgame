@@ -1,7 +1,7 @@
 /**
  * Hoofdstation: "Ontwijk de onnodige uitgaven". Je fietst vanaf het Hoofdstation over een rood
- * fietspad met drie stroken naar de Grote Markt. Van boven komen rode borden: uitgaven die de
- * gemeente kan schrappen (plannen uit het Beleidshuis). Ontwijk ze, pak munten en geldzakken, en
+ * fietspad met drie stroken naar de Grote Markt. Van boven komen borden met plannen uit het
+ * Beleidshuis: rood is volgens VVD Groningen onnodig, oranje kan met minder geld. Ontwijk ze, pak munten en geldzakken, en
  * pak een groen bord (een kerntaak) voor een extra leven. Het gaat steeds sneller: rustig, druk en spits.
  *
  * Bij minder beweging beweegt er niets vanzelf: je kiest per beurt links, blijven of rechts, en
@@ -312,15 +312,19 @@ export default function Station({ data, onKlaar }: MinigameProps) {
         >
           <p>
             Je fietst vanaf het <strong>Hoofdstation</strong> naar de <strong>Grote Markt</strong>.
-            Onderweg staan rode borden: plannen uit de begroting {jaar} die de gemeente{' '}
-            <strong>kan schrappen</strong>. Ontwijk ze! Bij een paar staat een zin uit het
-            verkiezingsprogramma: die vindt VVD Groningen niet nodig.
+            Onderweg staan borden met plannen uit de begroting {jaar}. Rood is{' '}
+            <strong>volgens VVD Groningen onnodig</strong>, oranje kan volgens VVD Groningen{' '}
+            <strong>met minder geld</strong>. Ontwijk ze!
           </p>
           <ul className="klein mg-race-uitleg">
             <li>
               <span className="mg-race-teken mg-race-teken-rood" aria-hidden="true" />{' '}
-              <strong>Rood bord:</strong> een uitgave die de gemeente kan schrappen. Raak je er een,
-              dan verlies je een leven. Je hebt er {LEVENS}.
+              <strong>Rood bord:</strong> een onnodige uitgave. Raak je er een, dan verlies je een
+              leven. Je hebt er {LEVENS}.
+            </li>
+            <li>
+              <span className="mg-race-teken mg-race-teken-oranje" aria-hidden="true" />{' '}
+              <strong>Oranje bord:</strong> dit kan met minder geld. Ook dat bord ontwijk je.
             </li>
             <li>
               <span aria-hidden="true">🪙</span> <strong>Munt</strong> ({PUNTEN.munt} punten) en{' '}
@@ -400,7 +404,7 @@ export default function Station({ data, onKlaar }: MinigameProps) {
         <strong>
           Fase {ritFase + 1}: {faseInfo.naam}.
         </strong>{' '}
-        {faseInfo.uitleg} Ontwijk de rode borden.
+        {faseInfo.uitleg} Ontwijk de rode en oranje borden.
       </p>
       <canvas
         ref={doek}
@@ -558,9 +562,16 @@ function Uitslag({
         </span>
       </p>
       <p>
-        Je ontweek <strong>{ontweken.length}</strong> uitgaven die de gemeente kan schrappen. Doet
-        ze die niet, dan scheelt dat <strong>{mln(b.elkJaar)} elk jaar</strong> en{' '}
+        Je ontweek <strong>{ontweken.filter((u) => !u.minder).length}</strong> onnodige uitgaven.
+        Doet de gemeente die niet, dan scheelt dat <strong>{mln(b.elkJaar)} elk jaar</strong> en{' '}
         <strong>{mln(b.eenmalig)} eenmalig</strong>.
+        {ontweken.some((u) => u.minder) && (
+          <>
+            {' '}
+            En {ontweken.filter((u) => u.minder).length} plannen kunnen met minder geld. Hoeveel
+            minder, kies je zelf in het Beleidshuis.
+          </>
+        )}
       </p>
       {stand.geraakt.length > 0 && (
         <>
@@ -586,10 +597,10 @@ function Uitslag({
         doen.
       </p>
       <p className="klein">
-        Alle bedragen komen uit de begroting {jaar} van de gemeente Groningen. Het zijn plannen die
-        je in het Beleidshuis kunt schrappen. Alleen bij een citaat zegt VVD Groningen in het
-        verkiezingsprogramma dat het niet nodig is. Elk jaar en eenmalig tellen we apart: die kun je
-        niet zomaar optellen. ⚠︎ Of het geld meteen vrij komt, hangt af van afspraken die al lopen.
+        Alle bedragen komen uit de begroting {jaar} van de gemeente Groningen. Welke plannen onnodig
+        zijn en welke met minder geld kunnen, koos de fractie van VVD Groningen. Elk jaar en
+        eenmalig tellen we apart: die kun je niet zomaar optellen. ⚠︎ Of het geld meteen vrij komt,
+        hangt af van afspraken die al lopen.
         {bron && (
           <>
             {' '}
@@ -622,7 +633,12 @@ function UitgavenLijst({ lijst, testid }: { lijst: Uitgave[]; testid: string }) 
               <footer>Verkiezingsprogramma VVD Groningen 2026-2030, p. {u.pagina}</footer>
             </blockquote>
           ) : (
-            <span className="klein"> Een plan dat de gemeente kan schrappen.</span>
+            <span className="klein">
+              {' '}
+              {u.minder
+                ? 'Kan volgens VVD Groningen met minder geld.'
+                : 'Volgens VVD Groningen onnodig.'}
+            </span>
           )}
         </li>
       ))}
@@ -1255,8 +1271,9 @@ function bordBeeld(
   kop: string,
   naam: string,
   onder: [string, string],
-  groen: boolean,
+  toon: 'rood' | 'oranje' | 'groen',
 ): HTMLCanvasElement {
+  const groen = toon === 'groen';
   const oud = bordBeelden.get(sleutel);
   if (oud) return oud;
   const c = document.createElement('canvas');
@@ -1271,8 +1288,8 @@ function bordBeeld(
   ctx.scale(r, r);
   const x = 6;
   const y = 4;
-  const kleur = groen ? '#15875a' : '#d63a24';
-  const donker = groen ? '#0b5e3c' : '#9e2414';
+  const kleur = groen ? '#15875a' : toon === 'oranje' ? '#e07000' : '#d63a24';
+  const donker = groen ? '#0b5e3c' : toon === 'oranje' ? '#9a4a00' : '#9e2414';
   // schaduw op de grond
   ctx.fillStyle = 'rgba(0,0,0,0.28)';
   ctx.beginPath();
@@ -1289,7 +1306,7 @@ function bordBeeld(
   rondRechthoek(ctx, x, y, BORD_B, BORD_H - 8, 6);
   const vlak = ctx.createLinearGradient(0, y, 0, y + BORD_H);
   vlak.addColorStop(0, groen ? '#1f9d6b' : '#ffffff');
-  vlak.addColorStop(1, groen ? '#127a51' : '#fde9e4');
+  vlak.addColorStop(1, groen ? '#127a51' : toon === 'oranje' ? '#fff0dc' : '#fde9e4');
   ctx.fillStyle = vlak;
   ctx.fill();
   ctx.shadowColor = 'transparent';
@@ -1613,7 +1630,13 @@ function teken(canvas: HTMLCanvasElement | null, b: Beeld): void {
         if (gepakt) ctx.globalAlpha = 0.4;
         tekenBord(
           ctx,
-          bordBeeld(`u:${u.id}`, 'ONNODIG', u.naam, [bedrag(u.bedragMln), hoeVaak(u)], false),
+          bordBeeld(
+            `u:${u.id}`,
+            u.minder ? 'KAN MINDER' : 'ONNODIG',
+            u.naam,
+            [bedrag(u.bedragMln), hoeVaak(u)],
+            u.minder ? 'oranje' : 'rood',
+          ),
           x,
           y,
         );
@@ -1622,7 +1645,7 @@ function teken(canvas: HTMLCanvasElement | null, b: Beeld): void {
         const k = v.kern;
         tekenBord(
           ctx,
-          bordBeeld(`k:${k.id}`, 'KERNTAAK', k.naam, ['+1 leven ♥', 'moet van de wet'], true),
+          bordBeeld(`k:${k.id}`, 'KERNTAAK', k.naam, ['+1 leven ♥', 'moet van de wet'], 'groen'),
           x,
           y,
         );

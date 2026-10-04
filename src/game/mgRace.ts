@@ -1,7 +1,7 @@
 /**
  * Hoofdstation, "Ontwijk de onnodige uitgaven": je fietst vanaf het Hoofdstation over een
- * fietspad met drie stroken naar de Grote Markt. Van boven komen borden met uitgaven die de
- * gemeente kan schrappen: plannen uit het Beleidshuis. Ontwijk ze. Pak munten en geldzakken voor punten, en kerntaken (wat de gemeente van de wet moet
+ * fietspad met drie stroken naar de Grote Markt. Van boven komen borden met plannen uit het
+ * Beleidshuis die volgens VVD Groningen onnodig zijn of met minder geld kunnen. Ontwijk ze. Pak munten en geldzakken voor punten, en kerntaken (wat de gemeente van de wet moet
  * doen) voor een extra leven.
  *
  * De rit is een rij van rijen: elke rij heeft drie vakken (links, midden, rechts). In het snelle
@@ -123,6 +123,8 @@ export type Uitgave = {
   /** een zin uit het verkiezingsprogramma van VVD Groningen, als die er is */
   vvd?: string;
   pagina?: number;
+  /** niet onnodig, maar het kan met minder geld (keuze van de fractie) */
+  minder?: boolean;
 };
 
 export type Kerntaak = {
@@ -175,8 +177,9 @@ export function korteNaam(keuze: string): string | undefined {
 
 /**
  * De onnodige uitgaven: de plannen uit het Beleidshuis (programma's en kaarten met een id die met
- * p_ begint) en de plannen uit de Geldzoeker met een zin uit het verkiezingsprogramma. Met de
- * bedragen uit de begroting van het actieve jaar. Plannen met een zin uit het programma eerst.
+ * p_ begint) en de plannen uit de Geldzoeker met een zin uit het verkiezingsprogramma. Alleen wat
+ * de fractie onnodig vindt (`data.onnodig.weg`) of wat met minder kan (`data.onnodig.minder`). Met
+ * de bedragen uit de begroting van het actieve jaar. Plannen met een zin uit het programma eerst.
  */
 export function uitgaven(data: Data): Uitgave[] {
   const jaar = data.begroting.begrotingsjaar;
@@ -193,6 +196,8 @@ export function uitgaven(data: Data): Uitgave[] {
   ) => {
     const naam = korteNaam(keuze);
     if (!naam || !(bedragMln > 0)) return;
+    const minder = data.onnodig.minder.includes(id);
+    if (!minder && !data.onnodig.weg.includes(id)) return;
     if (uit.some((u) => u.id === id || u.naam.toLowerCase() === naam.toLowerCase())) return;
     const c = citaten.get(id);
     uit.push({
@@ -204,6 +209,7 @@ export function uitgaven(data: Data): Uitgave[] {
       soort,
       jaar,
       ...(c ? { vvd: c.vvd, pagina: c.pagina } : {}),
+      ...(minder ? { minder } : {}),
     });
   };
   for (const k of data.begroting.actiekaarten)
@@ -450,15 +456,16 @@ export function passeer(
 }
 
 /**
- * Wat de gemeente niet uitgeeft aan de uitgaven die je ontweek (en niet raakte): elk jaar en
- * eenmalig apart, want die kun je niet zomaar optellen.
+ * Wat de gemeente niet uitgeeft aan de onnodige uitgaven die je ontweek (en niet raakte): elk jaar
+ * en eenmalig apart, want die kun je niet zomaar optellen. Wat met minder kan, telt niet mee.
  */
 export function bespaard(stand: Stand): { elkJaar: number; eenmalig: number } {
   const geraakt = new Set(stand.geraakt.map((u) => u.id));
   let elkJaar = 0;
   let eenmalig = 0;
   for (const u of stand.ontweken) {
-    if (geraakt.has(u.id)) continue;
+    // wat met minder kan: hoeveel minder kies je zelf in het Beleidshuis
+    if (geraakt.has(u.id) || u.minder) continue;
     if (u.soort === 'S') elkJaar += u.bedragMln;
     else eenmalig += u.bedragMln;
   }
@@ -474,7 +481,7 @@ export function beschrijfRij(rij: Rij | undefined): string {
       const k = kant[b];
       if (!v) return `${k} vrij`;
       if (v.soort === 'uitgave')
-        return `${k} een uitgave die de gemeente kan schrappen: ${v.uitgave.naam}`;
+        return `${k} ${v.uitgave.minder ? 'een plan dat met minder kan' : 'een onnodige uitgave'}: ${v.uitgave.naam}`;
       if (v.soort === 'munt') return `${k} een munt`;
       if (v.soort === 'zak') return `${k} een geldzak`;
       return `${k} een kerntaak: ${v.kern.naam}`;

@@ -103,6 +103,8 @@ export function schatten(data: Data): Schat[] {
   const uit: Schat[] = [];
   const voegToe = (id: string, naam: string, bedragMln: number, s: 'S' | 'I' | string) => {
     if (!(bedragMln > 0) || uit.some((x) => x.id === id || x.naam === naam)) return;
+    // wat de fractie niet onnodig vindt, is geen goud
+    if (data.onnodig.niet.includes(id)) return;
     const citaat = vvd.get(id);
     uit.push({
       id,

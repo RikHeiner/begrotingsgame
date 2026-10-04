@@ -133,11 +133,12 @@ export function Spel({ data }: { data: Data }) {
     );
   }
 
+  // Een gebouw is open op de kaart: op een telefoon gaat de balk bovenin bijna weg (alleen het
+  // saldo blijft, op één regel), zodat je meer kaart ziet en het scherm rustiger is.
+  const gebouwOpen = !!gekozenGebouw && weergave === 'kaart';
   return (
-    <div className="spel">
-      <h1 className={`spel-titel${gekozenGebouw && weergave === 'kaart' ? ' verborgen' : ''}`}>
-        {data.teksten.titel}
-      </h1>
+    <div className={`spel${gebouwOpen ? ' gebouw-open' : ''}`}>
+      <h1 className={`spel-titel${gebouwOpen ? ' verborgen' : ''}`}>{data.teksten.titel}</h1>
       <Hud data={data} resultaat={resultaat} />
       {kaartFout && (
         <p className="melding-blok" role="alert">

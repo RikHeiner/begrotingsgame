@@ -64,7 +64,16 @@ describe('Race: de uitgaven', () => {
 
   it('alle bedragen komen uit de begroting van het actieve jaar, niet uit een tegenbegroting', () => {
     const lijst = uitgaven(data);
-    expect(lijst.length).toBeGreaterThan(30);
+    // precies de keuze van de fractie: onnodig of kan met minder, niets anders
+    expect(lijst.map((u) => u.id).sort()).toEqual(
+      [...data.onnodig.weg, ...data.onnodig.minder].sort(),
+    );
+    expect(
+      lijst
+        .filter((u) => u.minder)
+        .map((u) => u.id)
+        .sort(),
+    ).toEqual([...data.onnodig.minder].sort());
     for (const u of lijst) {
       expect(u.jaar).toBe(data.begroting.begrotingsjaar);
       expect(u.bedragMln).toBeGreaterThan(0);
@@ -225,7 +234,7 @@ describe('Race: spelen', () => {
       { soort: 'munt' },
     ]);
     expect(beschrijfRij(r)).toBe(
-      'links een uitgave die de gemeente kan schrappen: Campus Camera, midden vrij, rechts een munt',
+      'links een onnodige uitgave: Campus Camera, midden vrij, rechts een munt',
     );
     expect(rijCode(r)).toBe('U.M');
     expect(rijCode(undefined)).toBe('...');

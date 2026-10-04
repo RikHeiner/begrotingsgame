@@ -55,6 +55,12 @@ describe('Geldzoeker: het goud', () => {
       expect(s.bedragMln, s.id).toBe(bron);
     }
     expect(JSON.stringify(data.minigames)).not.toMatch(/tegenbegroting/i);
+    // wat de fractie niet onnodig vindt, is geen goud
+    for (const id of data.onnodig.niet)
+      expect(
+        alles.some((s) => s.id === id),
+        id,
+      ).toBe(false);
     const namen = alles.map((s) => s.naam.toLowerCase());
     expect(new Set(namen).size).toBe(namen.length);
     // van 5, 10 of 15% minder ambtenaren alleen de eerste

@@ -938,6 +938,15 @@ export const minigamesSchema = z
     toelichting: z.string(),
     toelichting_posten: z.string(),
     posten: z.array(spelPostSchema).min(10),
+    toelichting_onnodig: z.string(),
+    /** keuze van de fractie: welke plannen onnodig zijn, met minder kunnen, of niet onnodig zijn */
+    onnodig: z
+      .object({
+        weg: z.array(z.string()),
+        minder: z.array(z.string()),
+        niet: z.array(z.string()),
+      })
+      .strict(),
     minigames: z
       .array(
         z

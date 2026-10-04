@@ -160,3 +160,20 @@
   font-style: normal;
   color: var(--gedempt);
 }
+
+/* Op een laag scherm een kleiner veld, zodat de knop Graaf! in beeld blijft. */
+@media (max-height: 900px) {
+  .mg-gz-veld {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 40dvh;
+    margin-inline: auto;
+  }
+}
+
+@media (max-height: 760px) {
+  .mg-gz-veld {
+    max-height: 30dvh;
+  }
+}

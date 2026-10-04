@@ -91,6 +91,8 @@ export type Data = {
   minigames: Minigame[];
   /** posten met een naam die iedereen begrijpt, voor de minigames */
   spelPosten: SpelPost[];
+  /** keuze van de fractie: welke plannen onnodig zijn (weg), met minder kunnen, of niet onnodig */
+  onnodig: { weg: string[]; minder: string[]; niet: string[] };
   vergelijking: { bestand: string; tegenbegroting: Tegenbegroting }[];
   /** Jaren van de meerjarenraming, bijvoorbeeld [2026, 2027, 2028, 2029]. */
   jaren: number[];
@@ -398,6 +400,7 @@ export function maakData(ruw: RuweData): Data {
     gevolgen,
     minigames,
     spelPosten: mg.posten,
+    onnodig: mg.onnodig,
     vergelijking,
     jaren: [...config.meerjarenHorizon],
     index: maakIndex(begroting, dwarsverbanden, meters),

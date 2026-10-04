@@ -237,6 +237,55 @@
       "wet": "Omgevingswet"
     }
   ],
+  "toelichting_onnodig": "Gekozen door VVD Groningen (fractie, oktober 2026): welke plannen uit het Beleidshuis onnodig zijn (weg), welke met minder geld kunnen (minder), en welke niet onnodig zijn (niet). Het ontwijkspel toont alleen 'weg' en 'minder'; de Geldzoeker laat 'niet' weg.",
+  "onnodig": {
+    "weg": [
+      "k_ongedoc",
+      "p_diversiteit_organisatie",
+      "p_wegenfundering_warmtestad",
+      "p_energiebedrijf",
+      "p_niemeyer",
+      "p_internationale_solidariteit",
+      "p_campus_camera",
+      "p_emissieloos_wagenpark",
+      "p_sia_warmtenet",
+      "p_sia_ontwikkelbedrijf",
+      "p_vitamine_g",
+      "p_stadspark",
+      "p_groninger_museum",
+      "p_schuldhulp_doelgroepen"
+    ],
+    "minder": [
+      "p_positief_opgroeien",
+      "p_preventie_scholen",
+      "p_fietsparkeeroverlast",
+      "p_preventiefonds_jeugd",
+      "p_werkprogramma",
+      "p_route_arbeid_plus"
+    ],
+    "niet": [
+      "p_young_professionals",
+      "p_ombudsman",
+      "p_fonds_ondernemend",
+      "p_mobiliteitsfonds",
+      "p_bag_kamers",
+      "p_gele_loper",
+      "p_veilig_uitgaan",
+      "p_woonoverlast",
+      "p_pandenbrigade",
+      "p_plankosten_muziekcentrum",
+      "p_sia_museum_a",
+      "p_foutparkeren",
+      "p_herwinnen_groen",
+      "p_jeugdboas",
+      "p_jeugdgroepen",
+      "p_cameratoezicht",
+      "p_ondermijning_regio",
+      "p_bewegende_stad",
+      "p_woonzorg_daklozen",
+      "p_verlengde_schooldag"
+    ]
+  },
   "minigames": [
     {
       "id": "martinitoren",
