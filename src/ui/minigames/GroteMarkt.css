@@ -1,83 +1,114 @@
-/* Grote Markt: Marktkoopman */
-.mg-markt-balk {
+/* Grote Markt: Begrotingstetris, in een marktkraam op de Grote Markt */
+.mg-tetris {
+  --mg-rand: #7a4a24;
+  --mg-hud-boven: #ffe08a;
+  --mg-hud-onder: #f4b942;
+  --mg-hud-tekst: #3d2208;
+  --mg-hud-label: #6b4219;
+  --mg-licht: #fff3dc;
+  --mg-kaart: #fffaf0;
+  --mg-kaart-tekst: #2b1a08;
+  --mg-icoon: #d6362b;
+  --mg-wet: #2a4ee0;
+  --mg-keuze: #ff7d1a;
+  /* het veld is hoog: zo past alles op het scherm */
+  max-width: max(18rem, min(30rem, calc((100vh - 26rem) * 0.77)));
+}
+
+.mg-tetris-veld {
+  aspect-ratio: 400 / 520;
+  background: #bfe2fa;
+}
+
+.mg-tetris-nu {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 0.25rem 1rem;
-  margin: 0.5rem 0 0.25rem;
+  gap: 0.55rem;
+  align-items: flex-start;
+  min-height: 4.6rem;
+  font-size: 0.95rem;
+  line-height: 1.3;
 }
 
-.mg-markt-balk p {
-  margin: 0;
+.mg-tetris-bedrag {
+  font-weight: 700;
+  white-space: nowrap;
 }
 
-.mg-markt-tijd {
-  font-variant-numeric: tabular-nums;
+.mg-tetris-soort {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
 }
 
-.mg-markt-tijd.bijna {
-  color: var(--negatief);
+.mg-tetris-soort-wet {
+  color: #132c9e;
 }
 
-.mg-markt-meter {
-  height: 0.6rem;
-  border-radius: 1rem;
-  background:
-    linear-gradient(var(--oranje), var(--oranje)) no-repeat left / var(--vol, 0%) 100%,
-    color-mix(in srgb, var(--gedempt) 25%, var(--paneel));
-  transition: background-size 0.3s ease;
+.mg-tetris-soort-keuze {
+  color: #8a3300;
 }
 
-.mg-markt-kramen {
+.mg-tetris-uitleg {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--mg-hud-label);
+}
+
+.mg-tetris-krat {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 0.3rem;
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.35),
+    inset 0 0 0 4px rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-weight: 800;
+  vertical-align: middle;
+}
+
+.mg-tetris-krat-wet {
+  background: linear-gradient(135deg, #8aa4ff, #3d60f2 45%, #1d3cc0);
+}
+
+.mg-tetris-krat-keuze {
+  background: linear-gradient(135deg, #ffc27a, #ff7d1a 45%, #d45200);
+}
+
+.mg-tetris-pad {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
-  gap: 0.5rem;
-  margin: 0.75rem 0;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+}
+
+.mg-tetris-pad .knop {
+  min-width: 44px;
+  min-height: 52px;
   padding: 0;
-  list-style: none;
-}
-
-.mg-markt-kramen li {
-  display: flex;
-}
-
-.mg-markt-kraam {
-  flex: 1;
-  min-height: 44px;
-  padding: 0.6rem;
-  /* luifel van een marktkraam */
-  border-top: 6px solid var(--oranje);
-  overflow-wrap: anywhere;
-}
-
-.mg-markt-kraam:disabled {
-  opacity: 0.55;
-  border-style: dashed;
-  border-top-style: solid;
-}
-
-.mg-markt-waar {
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   line-height: 1;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
-.mg-markt-melding {
-  margin: 0.25rem 0;
+.mg-tetris .mg-knoppen {
+  margin-top: 0.45rem;
 }
 
-.mg-markt-lijst {
-  margin: 0.25rem 0 0.75rem;
-  padding-left: 1.2rem;
+.mg-tetris-schrap {
+  flex: 1 1 10rem;
+  touch-action: manipulation;
 }
 
-@media (max-width: 400px) {
-  .mg-markt-kramen {
-    grid-template-columns: 1fr 1fr;
-  }
+.mg-tetris-bespaard {
+  margin: 0.3rem 0 0;
+  color: var(--mg-goed);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .mg-markt-meter {
-    transition: none;
-  }
+.mg-tetris .mg-kaart h4 {
+  margin: 0.9rem 0 0.3rem;
 }
