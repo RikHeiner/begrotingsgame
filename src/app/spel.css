@@ -1061,6 +1061,32 @@
   }
 }
 
+/* Een gebouw is open (telefoon en tablet): alleen het saldo blijft, op één smalle regel. */
+@media (max-width: 899px) {
+  .spel.gebouw-open .hud {
+    padding: 0.15rem 0.75rem;
+    gap: 0;
+  }
+
+  .spel.gebouw-open .hud-onder,
+  .spel.gebouw-open .hud-blij,
+  .spel.gebouw-open .hud-waarom,
+  .spel.gebouw-open .geldpotje {
+    display: none;
+  }
+
+  .spel.gebouw-open .hud-getal {
+    grid-auto-flow: column;
+    align-items: baseline;
+    gap: 0.35rem;
+    min-height: 36px;
+  }
+
+  .spel.gebouw-open .hud-getal strong {
+    font-size: 1rem;
+  }
+}
+
 .knop-indienen,
 .knop {
   min-height: 44px;
