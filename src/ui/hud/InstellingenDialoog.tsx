@@ -25,6 +25,8 @@ export function InstellingenDialoog({
   const zetStartscherm = useSpel((s) => s.zetStartscherm);
   const begin = useSpel((s) => s.begin);
   const beginpunt = useSpel((s) => s.beginpunt);
+  const modus = useSpel((s) => s.modus);
+  const zetModus = useSpel((s) => s.zetModus);
   const k = resultaat.keuzes;
   const [reserve, setReserve] = useState({
     structureel: (k.reserve?.structureel ?? 0) / 1e6,
@@ -46,6 +48,20 @@ export function InstellingenDialoog({
           Uitleg van de game
         </button>
       </p>
+      <fieldset className="veldgroep">
+        <legend>Hoe speel je?</legend>
+        {(
+          [
+            ['snel', 'Snel spelen: weinig tekst en knoppen'],
+            ['uitgebreid', 'Uitgebreid: met alle cijfers en uitleg'],
+          ] as const
+        ).map(([m, tekst]) => (
+          <label key={m} className="keuze">
+            <input type="radio" name="modus" checked={modus === m} onChange={() => zetModus(m)} />{' '}
+            {tekst}
+          </label>
+        ))}
+      </fieldset>
       <fieldset className="veldgroep">
         <legend>Opnieuw beginnen</legend>
         <p className="klein">

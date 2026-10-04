@@ -23,6 +23,8 @@ import { beginKeuzes, type Beginpunt } from '../nulbasis';
 import { gebouwStanden, type GebouwStand } from '../toestand';
 
 export type Weergave = 'kaart' | 'lijst';
+/** snel spelen of uitgebreid */
+export type Modus = 'snel' | 'uitgebreid';
 export type Fase = 'spelen' | 'eindscherm' | 'document';
 
 export type Lijn = { van: string; naar: string; positief: boolean };
@@ -89,6 +91,12 @@ type Spel = {
   startscherm: false | 'eerste' | 'uitleg';
   zetStartscherm(open: false | 'eerste' | 'uitleg'): void;
   geluid: boolean;
+  /**
+   * Snel spelen (minder knoppen, cijfers en tekst; uitleg ingeklapt) of uitgebreid (alles zoals het
+   * altijd was). De speler kiest op het startscherm; bewaard in deze browser.
+   */
+  modus: Modus;
+  zetModus(m: Modus): void;
   /** titel, naam en eigen idee voor de tegenbegroting */
   meta: Meta;
   /** de keuzes (als JSON) die al zijn ingestuurd, om dubbel insturen te voorkomen */
@@ -141,6 +149,7 @@ function schrijfOpslag(sleutel: string, waarde: string): void {
 
 export const OPSLAG_GELUID = 'begrotingsgame:geluid';
 export const OPSLAG_START = 'begrotingsgame:start';
+export const OPSLAG_MODUS = 'begrotingsgame:modus';
 /** de beste score per minigame (zie ui/minigames/scores.ts) */
 export const OPSLAG_MINIGAMES = 'begrotingsgame:minigames';
 
@@ -271,6 +280,11 @@ export const useSpel = create<Spel>((set, get) => {
       set({ startscherm: open });
     },
     geluid: leesOpslag(OPSLAG_GELUID) === 'aan',
+    modus: leesOpslag(OPSLAG_MODUS) === 'uitgebreid' ? 'uitgebreid' : 'snel',
+    zetModus(m) {
+      schrijfOpslag(OPSLAG_MODUS, m);
+      set({ modus: m });
+    },
     meta: { titel: '', naam: '', idee: '' },
     ooitGekozen: false,
     zetMeta(m) {

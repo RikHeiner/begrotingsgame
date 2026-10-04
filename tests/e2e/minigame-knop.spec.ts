@@ -1,4 +1,4 @@
-/** Linksonder "Speel een minigame", en zien welke minigames je al speelde. */
+/** Linksboven de minigameknop, en zien welke minigames je al speelde. */
 import { expect, test } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
@@ -13,8 +13,8 @@ test('de knop kiest een minigame die je nog niet speelde', async ({ page }, test
   await page.goto('/');
   await expect(page.locator('.kaart-gebouw')).toHaveCount(15);
   const knop = page.getByTestId('minigame-knop');
-  await expect(knop).toContainText('Speel een minigame');
-  await expect(knop).toContainText('1 van 10 gespeeld');
+  await expect(knop).toHaveAccessibleName('Speel een minigame (1 van 10 gespeeld)');
+  await expect(knop).toContainText('1/10');
   // Al gespeeld: een vinkje op de kaart.
   const museum = page.locator('[data-minigame="museum"]');
   await expect(museum).toHaveClass(/gespeeld/);

@@ -9,7 +9,7 @@ test('waarschuwing op het startscherm, bij een minigame en op het eindscherm', a
   await expect(page.getByTestId('startscherm').getByTestId('fout-melden')).toContainText(
     'geen rechten ontlenen',
   );
-  await page.getByTestId('begin').click();
+  await page.getByTestId('begin-uitgebreid').click();
   await page.locator('[data-minigame="museum"]').focus();
   await page.keyboard.press('Enter');
   await expect(page.getByTestId('fout-melden')).toContainText('Zie je een fout?');

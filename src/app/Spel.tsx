@@ -38,6 +38,7 @@ export function Spel({ data }: { data: Data }) {
   const begin = useSpel((s) => s.begin);
   const beginpunt = useSpel((s) => s.beginpunt);
   const gekozenGebouw = useSpel((s) => s.gekozenGebouw);
+  const modus = useSpel((s) => s.modus);
   const basis = useSpel((s) => s.basis);
   const routeStap = useSpel((s) => s.routeStap);
   const [kaartFout, setKaartFout] = useState<string>();
@@ -137,7 +138,7 @@ export function Spel({ data }: { data: Data }) {
   // saldo blijft, op één regel), zodat je meer kaart ziet en het scherm rustiger is.
   const gebouwOpen = !!gekozenGebouw && weergave === 'kaart';
   return (
-    <div className={`spel${gebouwOpen ? ' gebouw-open' : ''}`}>
+    <div className={`spel${gebouwOpen ? ' gebouw-open' : ''}${modus === 'snel' ? ' snel' : ''}`}>
       <h1 className={`spel-titel${gebouwOpen ? ' verborgen' : ''}`}>{data.teksten.titel}</h1>
       <Hud data={data} resultaat={resultaat} />
       {kaartFout && (
