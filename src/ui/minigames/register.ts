@@ -16,4 +16,6 @@ export const MINIGAMES: Record<string, LazyExoticComponent<ComponentType<Minigam
   academie: lazy(() => import('./Academie')),
   sluis: lazy(() => import('./Sluis')),
   goudkantoor: lazy(() => import('./Goudkantoor')),
+  // nog niet op de kaart: eerst testen (staat niet in spel/minigames.json)
+  ergerjeniet: lazy(() => import('./ErgerJeNiet')),
 };
