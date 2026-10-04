@@ -2563,6 +2563,26 @@
    "zekerheid": "aanname"
   },
   {
+   "id": "k_tegenprestatie",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": 1.648,
+   "naam": "Verplichte tegenprestatie in de bijstand",
+   "uitleg": "Iedereen in de bijstand die het kan, moet iets doen: solliciteren of een tegenprestatie leveren, zoals vrijwilligerswerk in het buurthuis. Een groep mensen gaat dan aan het werk of stopt met de uitkering. Dat scheelt bijstand. Het kost wel geld voor begeleiding en controle, en het effect komt pas na een jaar. Hoe groot het effect is, is onzeker.",
+   "meter_effect_punten": {
+    "w": 3,
+    "z": -1
+   },
+   "bron": "Verkiezingsprogramma VVD Groningen 2026-2030, p. 38 ('Iedereen moet iets doen: solliciteren of een tegenprestatie leveren'). Bedrag: aanname, met de parameters van het dwarsverband 'Strengere tegenprestatie'. In 2025 waren er 9.010 bijstandsuitkeringen (ontwerpbegroting 2027, p. 86); de bijstand kost € 205,1 mln (p. 90), dus ca. € 22.764 per uitkering per jaar. Aanname: de helft moet een tegenprestatie doen (4.505 mensen; € 1.000 begeleiding en controle per persoon = € 4,5 mln) en 3% van de uitkeringen stopt (270 uitkeringen = € 6,2 mln minder bijstand). Netto € 1,65 mln per jaar. Het rijksbudget voor de bijstand (BUIG) verandert daardoor niet, dus de gemeente houdt het verschil. Stoppen er minder mensen met de bijstand, dan kost het geld.",
+   "ingroeipad": [
+    0,
+    0.5,
+    1
+   ],
+   "gebouw": "beleid",
+   "zekerheid": "aanname"
+  },
+  {
    "id": "k_smr_onderzoek",
    "soort": "uitgave",
    "structureel_of_incidenteel": "I",

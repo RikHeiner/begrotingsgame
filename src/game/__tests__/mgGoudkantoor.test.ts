@@ -34,7 +34,7 @@ const vast = (zaad = 1) => {
 describe('Geldzoeker: het goud', () => {
   it('goud uit het programma heeft de bedragen van de begroting en een zin uit het programma', () => {
     const uitProgramma = schatten(data).filter((s) => s.vvd);
-    expect(uitProgramma.length).toBe(5);
+    expect(uitProgramma.length).toBe(6);
     for (const s of uitProgramma) {
       const k = data.begroting.actiekaarten.find((x) => x.id === s.id);
       expect(s.bedragMln).toBe(k?.bedrag_mln);
