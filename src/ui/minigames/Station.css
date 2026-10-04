@@ -1,72 +1,89 @@
-/* Hoofdstation: Op tijd vertrekken */
-.mg-station-perron {
-  overflow: hidden;
-  padding: 0.5rem 0;
-  border-bottom: 4px double var(--gedempt);
+/* Hoofdstation: Ontwijk de onnodige uitgaven. Fietsen over het rode fietspad naar de Grote Markt. */
+.mg-kader.mg-race {
+  --mg-rand: #1d3f73;
+  --mg-hud-boven: #e6f1ff;
+  --mg-hud-onder: #b9d6f7;
+  --mg-hud-tekst: #0f2547;
+  --mg-hud-label: #33507a;
+  --mg-licht: #eaf3ff;
+  --mg-kaart: #f7fbff;
+  --mg-kaart-tekst: #0f2547;
+  --mg-icoon: #ff7a00;
+  /* staand speelveld: zo breed dat het in beeld past */
+  max-width: min(34rem, calc(58vh * 0.75 + 6px));
 }
 
-.mg-station-trein {
+/* de kaarten mogen breder zijn dan het speelveld */
+.mg-kader.mg-race:has(> .mg-kaart:only-child) {
+  max-width: 34rem;
+}
+
+.mg-race-veld {
+  aspect-ratio: 3 / 4;
+  background: #b04d40;
+}
+
+.mg-race-knoppen {
+  flex-wrap: nowrap;
+}
+
+.mg-race-knoppen .mg-grote-knop {
+  min-width: 0;
+  flex: 1 1 0;
+  max-width: 9rem;
+}
+
+.mg-race-pijl {
+  font-size: 1.4rem;
+}
+
+.mg-race-leeg {
+  opacity: 0.3;
+}
+
+.mg-race-uitleg li {
+  margin-bottom: 0.35rem;
+}
+
+.mg-race-teken {
+  display: inline-block;
+  width: 1.1em;
+  height: 0.8em;
+  border-radius: 0.2em;
+  vertical-align: -0.05em;
+}
+
+.mg-race-teken-rood {
+  border: 2px solid #d63a24;
+  background: linear-gradient(#d63a24 0 35%, #fff 35%);
+}
+
+.mg-race-teken-groen {
+  border: 2px solid #0b5e3c;
+  background: linear-gradient(#0b5e3c 0 35%, #1f9d6b 35%);
+}
+
+.mg-race-telling {
   display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.6rem 0.8rem;
-  border: 2px solid var(--blauw);
-  border-radius: 1.2rem 0.6rem 0.6rem 1.2rem;
-  background: color-mix(in srgb, var(--blauw) 8%, var(--paneel));
-  color: var(--inkt);
-  overflow-wrap: anywhere;
-  animation: mg-station-binnen 0.4s ease-out;
+  flex-wrap: wrap;
+  gap: 0.3rem 1rem;
 }
 
-.mg-station-trein > span {
-  font-size: 2rem;
-  line-height: 1;
+.mg-race-vvd {
+  margin: 0.35rem 0;
+  padding: 0.4rem 0.7rem;
+  border-left: 4px solid #1233c4;
+  background: #eef2ff;
+  font-style: italic;
 }
 
-.mg-station-trein h3 {
-  margin: 0;
-  font-size: 1.05rem;
+.mg-race-vvd footer {
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  font-style: normal;
+  color: #475569;
 }
 
-.mg-station-trein p {
-  margin: 0.15rem 0 0;
-}
-
-.mg-station-trein.weg-links,
-.mg-station-trein.weg-rechts {
-  transition: transform 0.6s ease-in;
-}
-
-.mg-station-trein.weg-links {
-  transform: translateX(-6%);
-}
-
-.mg-station-trein.weg-rechts {
-  transform: translateX(6%);
-}
-
-.mg-station-spoor {
-  min-height: 64px;
-}
-
-@keyframes mg-station-binnen {
-  from {
-    transform: translateX(40%);
-    opacity: 0;
-  }
-  to {
-    transform: none;
-    opacity: 1;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .mg-station-trein {
-    animation: none;
-  }
-  .mg-station-trein.weg-links,
-  .mg-station-trein.weg-rechts {
-    transition: none;
-    transform: none;
-  }
+.mg-race .mg-kaart h4 {
+  margin: 0.8rem 0 0.3rem;
 }
