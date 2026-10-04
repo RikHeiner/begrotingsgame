@@ -34,36 +34,6 @@ export function schud<T>(lijst: readonly T[], kans: () => number = Math.random):
   return uit;
 }
 
-/**
- * Paren van posten voor "hoger of lager": steeds twee posten die duidelijk verschillen (de ene
- * minstens `verschil` keer zo groot), zodat er een goed antwoord is.
- */
-export function parenVoorHogerLager(
-  data: Data,
-  aantal: number,
-  kans: () => number = Math.random,
-  verschil = 1.3,
-): [Onderdeel, Onderdeel][] {
-  const posten = schud(vraagPosten(data), kans);
-  const paren: [Onderdeel, Onderdeel][] = [];
-  const gebruikt = new Set<string>();
-  for (const a of posten) {
-    if (paren.length >= aantal) break;
-    if (gebruikt.has(a.id)) continue;
-    const b = posten.find(
-      (x) =>
-        !gebruikt.has(x.id) &&
-        x.id !== a.id &&
-        Math.max(x.lasten_mln, a.lasten_mln) / Math.min(x.lasten_mln, a.lasten_mln) >= verschil,
-    );
-    if (!b) continue;
-    gebruikt.add(a.id);
-    gebruikt.add(b.id);
-    paren.push([a, b]);
-  }
-  return paren;
-}
-
 /** Een post met een begrijpelijke naam (spel/minigames.json), met het bedrag uit de begroting. */
 export type BekendePost = {
   id: string;
