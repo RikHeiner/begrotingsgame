@@ -701,6 +701,16 @@ export const tarievenSchema = z
         haren_ten_boer: euro,
         bron: z.string(),
         bron_url: z.string().url(),
+        /** gemiddeld tarief in Nederland, per persoon per nacht (met het jaar en de bron) */
+        gemiddeld_nederland: z
+          .object({
+            per_overnachting: euro,
+            jaar: z.number().int(),
+            bron: z.string(),
+            bron_url: z.string().url(),
+          })
+          .strict()
+          .optional(),
       })
       .strict()
       .optional(),

@@ -536,7 +536,48 @@ export function GebouwPosten({
                   Haren en Ten Boer). Tarief {toerist.jaar}.
                 </p>
               )}
-              {nul || toerist ? (
+              {toerist?.gemiddeld_nederland ? (
+                <div className="gemiddelde-nl" data-testid="gemiddelde-toerist">
+                  <p>
+                    <strong>
+                      Gemiddeld in Nederland: €{' '}
+                      {toerist.gemiddeld_nederland.per_overnachting.toLocaleString('nl-NL', {
+                        minimumFractionDigits: 2,
+                      })}{' '}
+                      per persoon per nacht
+                    </strong>{' '}
+                    <span className="uitgaven-jaar">{toerist.gemiddeld_nederland.jaar}</span>
+                  </p>
+                  <p className="klein">
+                    Gemiddelde van alle gemeenten in {toerist.gemiddeld_nederland.jaar}.{' '}
+                    <a
+                      href={toerist.gemiddeld_nederland.bron_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Bron
+                    </a>
+                    .
+                  </p>
+                  <button
+                    type="button"
+                    className="knop"
+                    onClick={() =>
+                      zetBelasting(
+                        b.id,
+                        Math.round(
+                          ((toerist.gemiddeld_nederland?.per_overnachting ?? 0) /
+                            toerist.per_overnachting -
+                            1) *
+                            10000,
+                        ) / 100,
+                      )
+                    }
+                  >
+                    Zet op het gemiddelde van Nederland
+                  </button>
+                </div>
+              ) : nul || toerist ? (
                 <GemiddeldeNederland
                   data={data}
                   id={b.id}
