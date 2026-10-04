@@ -574,7 +574,11 @@ export function GebouwPosten({
                       )
                     }
                   >
-                    Zet op het gemiddelde van Nederland
+                    Zet op het gemiddelde van Nederland (€{' '}
+                    {toerist.gemiddeld_nederland.per_overnachting.toLocaleString('nl-NL', {
+                      minimumFractionDigits: 2,
+                    })}{' '}
+                    per nacht)
                   </button>
                 </div>
               ) : nul || toerist ? (
