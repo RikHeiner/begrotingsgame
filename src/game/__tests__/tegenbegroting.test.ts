@@ -209,4 +209,3 @@ describe('tegenbegroting: bij elke maatregel bedragen en een toelichting', () =>
     expect(t1?.toelichting).toContain('Opbrengst nu €');
   });
 });
-
