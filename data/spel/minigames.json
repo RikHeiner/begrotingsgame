@@ -272,28 +272,28 @@
     {
       "id": "station",
       "naam": "Hoofdstation",
-      "spel": "Op tijd vertrekken",
+      "spel": "Ontwijk de onnodige uitgaven",
       "vorm": "station",
       "icoon": "🚉",
       "positie": {
         "lon": 6.564,
         "lat": 53.2105
       },
-      "kort": "Zet elke trein op het goede spoor: eenmalig of elk jaar?",
-      "leerdoel": "Het verschil tussen eenmalig geld en geld dat elk jaar terugkomt."
+      "kort": "Fiets van het station naar de Grote Markt en ontwijk de uitgaven die volgens VVD Groningen niet nodig zijn.",
+      "leerdoel": "Veel kleine uitgaven samen worden miljoenen: wat de gemeente niet doet, hoeft ze niet te betalen. Kerntaken moet ze wel blijven doen."
     },
     {
       "id": "forum",
       "naam": "Forum",
-      "spel": "Schatten op het dakterras",
+      "spel": "Geldtoren op het dakterras",
       "vorm": "forum",
       "icoon": "🏢",
       "positie": {
         "lon": 6.5722,
         "lat": 53.2196
       },
-      "kort": "Raad hoeveel de gemeente ergens aan uitgeeft. Hoe dichterbij, hoe meer punten.",
-      "leerdoel": "Gevoel krijgen voor miljoenen: wat is veel en wat is weinig?"
+      "kort": "Bouw een stapel geld zo hoog als jij denkt dat de gemeente ergens aan uitgeeft, en zie hoe hoog de echte stapel is.",
+      "leerdoel": "Gevoel krijgen voor miljoenen: wat is veel en wat is weinig, en wat kost een post elke inwoner per jaar?"
     },
     {
       "id": "euroborg",
@@ -305,8 +305,8 @@
         "lon": 6.5928,
         "lat": 53.2063
       },
-      "kort": "Schiet bezuinigingen in het doel. De keeper is de wet.",
-      "leerdoel": "Wat de wet verplicht, kun je niet zomaar schrappen."
+      "kort": "Schrappen of laten staan? Schiet op het doel: eigen keuzes kun je eruit schieten, maar wat moet van de wet houdt de keeper altijd tegen.",
+      "leerdoel": "Wat moet van de wet, kun je niet zomaar schrappen. De gemeente kan wel kiezen hoeveel ze eraan uitgeeft. Eigen keuzes kan de gemeente wél schrappen."
     },
     {
       "id": "noorderplantsoen",
