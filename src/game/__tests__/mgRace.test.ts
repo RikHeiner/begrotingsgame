@@ -225,7 +225,7 @@ describe('Race: spelen', () => {
       { soort: 'munt' },
     ]);
     expect(beschrijfRij(r)).toBe(
-      'links een onnodige uitgave: Campus Camera, midden vrij, rechts een munt',
+      'links een uitgave die de gemeente kan schrappen: Campus Camera, midden vrij, rechts een munt',
     );
     expect(rijCode(r)).toBe('U.M');
     expect(rijCode(undefined)).toBe('...');

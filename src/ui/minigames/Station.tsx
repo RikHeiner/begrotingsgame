@@ -1,8 +1,8 @@
 /**
  * Hoofdstation: "Ontwijk de onnodige uitgaven". Je fietst vanaf het Hoofdstation over een rood
- * fietspad met drie stroken naar de Grote Markt. Van boven komen rode borden: uitgaven die volgens
- * VVD Groningen niet nodig zijn. Ontwijk ze, pak munten en geldzakken, en pak een groen bord (een
- * kerntaak) voor een extra leven. Het gaat steeds sneller: rustig, druk en spits.
+ * fietspad met drie stroken naar de Grote Markt. Van boven komen rode borden: uitgaven die de
+ * gemeente kan schrappen (plannen uit het Beleidshuis). Ontwijk ze, pak munten en geldzakken, en
+ * pak een groen bord (een kerntaak) voor een extra leven. Het gaat steeds sneller: rustig, druk en spits.
  *
  * Bij minder beweging beweegt er niets vanzelf: je kiest per beurt links, blijven of rechts, en
  * dan schuift alles één rij op. De logica staat in game/mgRace.ts.
@@ -312,14 +312,15 @@ export default function Station({ data, onKlaar }: MinigameProps) {
         >
           <p>
             Je fietst vanaf het <strong>Hoofdstation</strong> naar de <strong>Grote Markt</strong>.
-            Onderweg staan rode borden: uitgaven uit de begroting {jaar} die{' '}
-            <strong>volgens VVD Groningen niet nodig</strong> zijn. Ontwijk ze!
+            Onderweg staan rode borden: plannen uit de begroting {jaar} die de gemeente{' '}
+            <strong>kan schrappen</strong>. Ontwijk ze! Bij een paar staat een zin uit het
+            verkiezingsprogramma: die vindt VVD Groningen niet nodig.
           </p>
           <ul className="klein mg-race-uitleg">
             <li>
               <span className="mg-race-teken mg-race-teken-rood" aria-hidden="true" />{' '}
-              <strong>Rood bord:</strong> een onnodige uitgave. Raak je er een, dan verlies je een
-              leven. Je hebt er {LEVENS}.
+              <strong>Rood bord:</strong> een uitgave die de gemeente kan schrappen. Raak je er een,
+              dan verlies je een leven. Je hebt er {LEVENS}.
             </li>
             <li>
               <span aria-hidden="true">🪙</span> <strong>Munt</strong> ({PUNTEN.munt} punten) en{' '}
@@ -557,8 +558,8 @@ function Uitslag({
         </span>
       </p>
       <p>
-        Je ontweek <strong>{ontweken.length}</strong> onnodige uitgaven. Doet de gemeente die niet,
-        dan scheelt dat <strong>{mln(b.elkJaar)} elk jaar</strong> en{' '}
+        Je ontweek <strong>{ontweken.length}</strong> uitgaven die de gemeente kan schrappen. Doet
+        ze die niet, dan scheelt dat <strong>{mln(b.elkJaar)} elk jaar</strong> en{' '}
         <strong>{mln(b.eenmalig)} eenmalig</strong>.
       </p>
       {stand.geraakt.length > 0 && (
@@ -585,10 +586,10 @@ function Uitslag({
         doen.
       </p>
       <p className="klein">
-        Alle bedragen komen uit de begroting {jaar} van de gemeente Groningen. Volgens VVD Groningen
-        zijn deze uitgaven niet nodig; je kunt ze schrappen in het Beleidshuis. Elk jaar en eenmalig
-        tellen we apart: die kun je niet zomaar optellen. ⚠︎ Of het geld meteen vrij komt, hangt af
-        van afspraken die al lopen.
+        Alle bedragen komen uit de begroting {jaar} van de gemeente Groningen. Het zijn plannen die
+        je in het Beleidshuis kunt schrappen. Alleen bij een citaat zegt VVD Groningen in het
+        verkiezingsprogramma dat het niet nodig is. Elk jaar en eenmalig tellen we apart: die kun je
+        niet zomaar optellen. ⚠︎ Of het geld meteen vrij komt, hangt af van afspraken die al lopen.
         {bron && (
           <>
             {' '}
@@ -615,10 +616,13 @@ function UitgavenLijst({ lijst, testid }: { lijst: Uitgave[]; testid: string }) 
           <span className="klein">
             ({hoeVaak(u)}, begroting {u.jaar}). {u.uitleg}
           </span>
-          {u.vvd && (
+          {u.vvd ? (
             <blockquote className="mg-race-vvd">
-              “{u.vvd}”<footer>Verkiezingsprogramma VVD Groningen 2026-2030, p. {u.pagina}</footer>
+              <strong>Volgens VVD Groningen niet nodig:</strong> “{u.vvd}”
+              <footer>Verkiezingsprogramma VVD Groningen 2026-2030, p. {u.pagina}</footer>
             </blockquote>
+          ) : (
+            <span className="klein"> Een plan dat de gemeente kan schrappen.</span>
           )}
         </li>
       ))}

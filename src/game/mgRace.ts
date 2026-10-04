@@ -1,8 +1,7 @@
 /**
  * Hoofdstation, "Ontwijk de onnodige uitgaven": je fietst vanaf het Hoofdstation over een
- * fietspad met drie stroken naar de Grote Markt. Van boven komen borden met uitgaven die volgens
- * VVD Groningen niet nodig zijn: plannen uit de begroting die je in het Beleidshuis kunt schrappen.
- * Ontwijk ze. Pak munten en geldzakken voor punten, en kerntaken (wat de gemeente van de wet moet
+ * fietspad met drie stroken naar de Grote Markt. Van boven komen borden met uitgaven die de
+ * gemeente kan schrappen: plannen uit het Beleidshuis. Ontwijk ze. Pak munten en geldzakken voor punten, en kerntaken (wat de gemeente van de wet moet
  * doen) voor een extra leven.
  *
  * De rit is een rij van rijen: elke rij heeft drie vakken (links, midden, rechts). In het snelle
@@ -474,7 +473,8 @@ export function beschrijfRij(rij: Rij | undefined): string {
     .map((v, b) => {
       const k = kant[b];
       if (!v) return `${k} vrij`;
-      if (v.soort === 'uitgave') return `${k} een onnodige uitgave: ${v.uitgave.naam}`;
+      if (v.soort === 'uitgave')
+        return `${k} een uitgave die de gemeente kan schrappen: ${v.uitgave.naam}`;
       if (v.soort === 'munt') return `${k} een munt`;
       if (v.soort === 'zak') return `${k} een geldzak`;
       return `${k} een kerntaak: ${v.kern.naam}`;
