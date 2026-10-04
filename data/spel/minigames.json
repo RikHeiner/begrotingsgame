@@ -324,15 +324,15 @@
     {
       "id": "museum",
       "naam": "Groninger Museum",
-      "spel": "Moet of mag?",
+      "spel": "Moet het of mag het?",
       "vorm": "museum",
       "icoon": "🖼️",
       "positie": {
         "lon": 6.5672,
         "lat": 53.2128
       },
-      "kort": "Is het verplicht van de wet, een eigen keuze, of levert het geld op?",
-      "leerdoel": "Welke taken moeten van de wet, en welke kiest de gemeente zelf?"
+      "kort": "Veeg elk kunstwerk naar de goede zaal: moet de gemeente dit doen van de wet, of kiest ze het zelf?",
+      "leerdoel": "Welke taken moeten van de wet en welke kiest de gemeente zelf? En ook bij een taak die moet, kiest de gemeente hoeveel geld ze eraan uitgeeft."
     },
     {
       "id": "academie",
