@@ -9,7 +9,7 @@ test('Station: fietsen naar de Grote Markt en de onnodige uitgaven ontwijken', a
   await page.keyboard.press('Enter');
   await page.getByTestId('minigame-start').click();
   const spel = page.getByTestId('minigame-station');
-  await expect(spel.getByTestId('mg-race-start')).toContainText('kan schrappen');
+  await expect(spel.getByTestId('mg-race-start')).toContainText('volgens VVD Groningen onnodig');
   await spel.getByRole('button', { name: 'Start de rit' }).click();
 
   const stand = spel.getByTestId('mg-race-stand');

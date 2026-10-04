@@ -195,3 +195,13 @@
     max-height: 50dvh;
   }
 }
+
+@media (max-height: 760px) {
+  .mg-veld {
+    max-height: 30dvh;
+  }
+
+  .mg-veld.mg-veld-hoog {
+    max-height: 52dvh;
+  }
+}

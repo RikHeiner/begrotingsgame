@@ -171,3 +171,9 @@
     margin-inline: auto;
   }
 }
+
+@media (max-height: 760px) {
+  .mg-gz-veld {
+    max-height: 30dvh;
+  }
+}
