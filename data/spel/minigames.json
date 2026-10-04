@@ -337,15 +337,15 @@
     {
       "id": "academie",
       "naam": "Academiegebouw",
-      "spel": "Rondkomen als student",
+      "spel": "Rondkomen met z'n tweeën",
       "vorm": "academie",
       "icoon": "🎓",
       "positie": {
         "lon": 6.5625,
         "lat": 53.2192
       },
-      "kort": "Verdeel een maand studentenbudget. Ook de gemeente stuurt een rekening.",
-      "leerdoel": "Wat gemeentelijke heffingen betekenen voor je eigen portemonnee."
+      "kort": "Kom een maand rond met z'n tweeën in een huurhuis: kies slim, spaar iets en betaal ook de afvalstoffenheffing van de gemeente.",
+      "leerdoel": "Wat de afvalstoffenheffing voor een huishouden van twee kost, welk deel van je uitgaven naar de gemeente gaat, en dat de heffing de kosten van het afval ophalen betaalt."
     },
     {
       "id": "sluis",
