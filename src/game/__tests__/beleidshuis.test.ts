@@ -114,6 +114,22 @@ describe('Beleidshuis: keuzes (begroting 2027)', () => {
       'k_apparaat_15',
       'k_minder_bouwregels',
     ]);
+    expect(ids[4]).toBe('k_tegenprestatie');
+  });
+
+  it('verplichte tegenprestatie: minder bijstand min de kosten van begeleiding, pas na een jaar', () => {
+    const k = data.begroting.actiekaarten.find((x) => x.id === 'k_tegenprestatie');
+    const s1 = data.index.onderdelen.get('s1')?.lasten_mln ?? 0;
+    // 3% van 9.010 uitkeringen stopt; de helft (4.505) krijgt € 1.000 begeleiding
+    const netto = 9010 * 0.03 * (s1 / 9010) - 4505 * 0.001;
+    expect(k?.bedrag_mln).toBeCloseTo(netto, 2);
+    expect(k?.zekerheid).toBe('aanname');
+    expect(k?.ingroeipad?.[0]).toBe(0);
+    const r = bereken(data, keuzes({ kaarten: ['k_tegenprestatie'] }));
+    const nul = bereken(data, keuzes({}));
+    const s = (x: typeof r, j: number) => x.perJaar[data.jaren[j] ?? 0]?.structureel ?? 0;
+    expect(s(r, 0) - s(nul, 0)).toBeCloseTo(0, 0);
+    expect(s(r, 2) - s(nul, 2)).toBeCloseTo(netto * 1e6, -3);
   });
 
   it('klimaatdoel later: minder geld voor klimaat- en energiebeleid', () => {
