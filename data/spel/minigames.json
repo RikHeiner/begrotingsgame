@@ -7,7 +7,7 @@
       "naam": "Straten, groen en speeltuinen onderhouden",
       "uitleg": "Wegen repareren, gras maaien, bomen snoeien en speeltoestellen veilig houden.",
       "soort": "wet",
-      "wet": "Wegenwet"
+      "wet": "Wegenwet en Warenwetbesluit attractie- en speeltoestellen"
     },
     {
       "post": "o3",
@@ -311,15 +311,15 @@
     {
       "id": "noorderplantsoen",
       "naam": "Noorderplantsoen",
-      "spel": "Gaten en lantaarns",
+      "spel": "Parkploeg",
       "vorm": "plantsoen",
       "icoon": "🌳",
       "positie": {
         "lon": 6.5585,
         "lat": 53.225
       },
-      "kort": "Repareer snel wat kapot gaat. Wat je laat liggen, wordt duurder.",
-      "leerdoel": "Uitstellen kost later vaak meer geld."
+      "kort": "Er gaat steeds iets kapot in het park. Tik erop en de werkbus repareert het, voordat het erger en duurder wordt.",
+      "leerdoel": "Onderhoud uitstellen kost later meer: het wordt erger, en soms gebeurt er een ongeluk. De gemeente moet wegen, groen en speeltuinen veilig houden."
     },
     {
       "id": "museum",
