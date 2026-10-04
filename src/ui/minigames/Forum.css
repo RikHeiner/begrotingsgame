@@ -1,44 +1,109 @@
-/* Forum: Schatten op het dakterras */
-.mg-forum h3 {
+/* Forum: "Geldtoren op het dakterras". Kleuren: blauw glas en een gouden balk. */
+.mg-fo {
+  --mg-rand: #15193a;
+  --mg-hud-boven: #ffe27a;
+  --mg-hud-onder: #f2b705;
+  --mg-hud-tekst: #15193a;
+  --mg-hud-label: #3d3f5c;
+  --mg-licht: #eaf3fb;
+  --mg-kaart: #f7fbff;
+  --mg-kaart-tekst: #15193a;
+  --mg-icoon: #1233c4;
+}
+
+.mg-fo-vraag h3 {
+  margin: 0.15rem 0 0.2rem;
+  font-size: 1.1rem;
+  line-height: 1.3;
   overflow-wrap: anywhere;
 }
 
-.mg-forum-gok {
+.mg-fo-vraag p {
+  margin: 0 0 0.2rem;
+}
+
+.mg-fo-vraag p span {
+  display: table;
+}
+
+.mg-fo-level {
+  color: var(--mg-hud-label);
+}
+
+.mg-fo-naam {
+  color: #1233c4;
+}
+
+.mg-fo-soort {
+  display: inline-block;
+  margin-top: 0.15rem;
+  padding: 0 0.45rem;
+  border-radius: 0.6rem;
+  background: #fff;
+  border: 1px solid #b9c8dc;
+}
+
+.mg-fo-veld {
+  aspect-ratio: 10 / 9;
+  cursor: ns-resize;
+}
+
+.mg-fo-gok {
   display: grid;
-  gap: 0.35rem;
-  margin: 0.75rem 0;
+  gap: 0.2rem;
+  margin-top: 0.5rem;
 }
 
-.mg-forum-gok label {
+.mg-fo-gok label {
   font-weight: 700;
+  text-align: center;
 }
 
-.mg-forum-gok output {
-  color: var(--blauw);
+.mg-fo-gok output {
+  color: #1233c4;
+  font-size: 1.15rem;
   font-variant-numeric: tabular-nums;
 }
 
-.mg-forum-gok input[type='range'] {
+.mg-fo-schuifrij {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mg-fo-schuifrij input[type='range'] {
   width: 100%;
   min-height: 44px;
   margin: 0;
-  accent-color: var(--oranje);
+  accent-color: #1233c4;
   cursor: pointer;
 }
 
-.mg-forum-gok input[type='range']:disabled {
-  cursor: default;
+.mg-fo-klein {
+  min-width: 44px;
+  padding: 0;
+  font-size: 1.3rem;
 }
 
-.mg-forum-gok p {
-  margin: 0;
+.mg-fo-ster {
+  color: #c98a00;
+  letter-spacing: 0.08rem;
+  white-space: nowrap;
 }
 
-.mg-forum-schaal {
-  display: flex;
-  justify-content: space-between;
+.mg-fo-hulp {
+  margin: 0.4rem 0 0;
+  padding: 0.3rem 0.6rem;
+  border-left: 4px solid #ffb000;
+  background: #fff8e1;
+  color: #4a2c0a;
 }
 
-.mg-forum .mg-uitslag p {
-  margin: 0.25rem 0;
+.mg-fo-overzicht {
+  max-height: 20rem;
+}
+
+.mg-fo .mg-kaart h4 {
+  margin: 0.8rem 0 0.3rem;
 }
