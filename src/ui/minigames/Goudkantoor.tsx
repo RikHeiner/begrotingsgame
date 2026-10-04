@@ -482,7 +482,7 @@ export default function Goudkantoor({ data, onKlaar }: MinigameProps) {
             onClick={() => setPauze((p) => !p)}
             aria-pressed={pauze}
           >
-            {pauze ? '▶ Verder' : '⏸ Pauze'}
+            {pauze ? '▶ Verder' : 'Pauze'}
           </button>
         )}
       </div>

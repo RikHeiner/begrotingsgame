@@ -107,7 +107,7 @@ export function Meldingen({ melding, children }: { melding?: Melding; children?:
 export function PauzeKnop({ pauze, onWissel }: { pauze: boolean; onWissel: () => void }) {
   return (
     <button type="button" className="knop" onClick={onWissel} aria-pressed={pauze}>
-      {pauze ? '▶ Verder' : '⏸ Pauze'}
+      {pauze ? '▶ Verder' : 'Pauze'}
     </button>
   );
 }

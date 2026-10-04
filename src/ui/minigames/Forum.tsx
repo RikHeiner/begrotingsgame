@@ -596,7 +596,7 @@ export default function Forum({ data, onKlaar }: MinigameProps) {
             {eenheidTekst}. Kijk naar de stippellijn.
           </p>
         )}
-        {fase === 'vraag' && pauze && <p className="klein">⏸ Pauze. De tijd staat stil.</p>}
+        {fase === 'vraag' && pauze && <p className="klein">Pauze. De tijd staat stil.</p>}
       </Meldingen>
     </div>
   );

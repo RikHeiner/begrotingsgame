@@ -1691,6 +1691,6 @@ function teken(canvas: HTMLCanvasElement | null, b: Beeld): void {
   if (b.pauze) {
     ctx.fillStyle = 'rgba(15,37,71,0.35)';
     ctx.fillRect(0, 0, BREEDTE, HOOGTE);
-    groot('⏸ Pauze', 1, 28);
+    groot('Pauze', 1, 28);
   }
 }
