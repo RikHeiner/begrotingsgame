@@ -15,7 +15,9 @@ test('toeristenbelasting: gemiddeld tarief per nacht in Nederland, en erop zette
   await expect(gem).toContainText('€ 2,79 per persoon per nacht');
   await expect(gem).toContainText('2026');
   await expect(paneel).not.toContainText('€ 88 per inwoner');
-  await gem.getByRole('button', { name: 'Zet op het gemiddelde van Nederland' }).click();
+  await gem
+    .getByRole('button', { name: /Zet op het gemiddelde van Nederland \(€ 2,79 per nacht\)/ })
+    .click();
   const schuif = paneel.getByRole('slider', { name: /Toeristenbelasting/ });
   await expect(paneel.locator(`output[for="${await schuif.getAttribute('id')}"]`)).toHaveText(
     '€ 2,79 per nacht',
