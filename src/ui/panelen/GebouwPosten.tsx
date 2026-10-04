@@ -438,8 +438,8 @@ function Programmas({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
                         {p.zekerheid !== 'feit' ? '⚠︎ ' : ''}
                         {p.programma ?? p.naam}
                       </strong>
-                      {p.wat && <span>{p.wat}</span>}
-                      <span className="klein">
+                      {p.wat && <span className="actiekaart-uitleg">{p.wat}</span>}
+                      <span className="klein actiekaart-uitleg">
                         <em>Zonder dit programma:</em> {p.uitleg}
                       </span>
                       <span className="actiekaart-waarom" data-testid={`waarom-${p.id}`}>
@@ -641,7 +641,7 @@ export function GebouwPosten({
                   {kaart.zekerheid && kaart.zekerheid !== 'feit' ? '⚠︎ ' : ''}
                   {kaart.naam}
                 </strong>
-                <span>{kaart.uitleg}</span>
+                <span className="actiekaart-uitleg">{kaart.uitleg}</span>
                 {kaart.verkoop ? (
                   <VerkoopBedragen data={data} kaart={kaart} />
                 ) : (

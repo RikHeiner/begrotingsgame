@@ -34,7 +34,12 @@ export default defineConfig({
       origins: [
         {
           origin: `http://localhost:${POORT}`,
-          localStorage: [{ name: 'begrotingsgame:start', value: 'gezien' }],
+          // De meeste tests kijken naar alle cijfers en uitleg: uitgebreid spelen. De tests van
+          // snel spelen zetten dat zelf om (tests/e2e/snel.spec.ts).
+          localStorage: [
+            { name: 'begrotingsgame:start', value: 'gezien' },
+            { name: 'begrotingsgame:modus', value: 'uitgebreid' },
+          ],
         },
       ],
     },

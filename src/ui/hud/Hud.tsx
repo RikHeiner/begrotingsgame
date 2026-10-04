@@ -19,6 +19,9 @@ export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
   const weergave = useSpel((s) => s.weergave);
   const zetWeergave = useSpel((s) => s.zetWeergave);
   const indienen = useSpel((s) => s.indienen);
+  const snel = useSpel((s) => s.modus === 'snel');
+  // Bij snel spelen zitten kaart/lijst, instellingen, opslaan en inwoners achter één menuknop.
+  const [menu, setMenu] = useState(false);
   const jaar = data.jaren[0] ?? data.config.actiefJaar;
   const s = resultaat.perJaar[jaar]?.structureel ?? 0;
   const i = resultaat.perJaar[jaar]?.incidenteel ?? 0;
@@ -50,6 +53,28 @@ export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
           <strong className={klasse(i)}>{formatMln(i, { teken: true })}</strong>
           <span className="hud-waarom">Waarom?</span>
         </button>
+        {snel && (
+          <>
+            <button
+              type="button"
+              className="knop-rond hud-menu-knop"
+              aria-label="Menu"
+              aria-expanded={menu}
+              aria-controls="hud-menu"
+              onClick={() => setMenu((m) => !m)}
+            >
+              {menu ? '✕' : '☰'}
+            </button>
+            <button
+              type="button"
+              className="knop-indienen hud-indienen-snel"
+              data-testid="indienen"
+              onClick={indienen}
+            >
+              Indienen
+            </button>
+          </>
+        )}
         <button
           type="button"
           className="hud-getal hud-blij"
@@ -63,7 +88,23 @@ export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
           <span className="hud-label hud-inwoners-tekst">Inwoners</span>
         </button>
       </div>
-      <div className="hud-rij hud-onder">
+      <div
+        id="hud-menu"
+        className={`hud-rij hud-onder${snel ? ' hud-menu' : ''}`}
+        hidden={snel && !menu}
+      >
+        {snel && (
+          <button
+            type="button"
+            className="knop"
+            onClick={() => {
+              setMenu(false);
+              setOpen('inwoners');
+            }}
+          >
+            👥 Inwoners
+          </button>
+        )}
         <div className="wissel" role="group" aria-label="Weergave">
           <button
             type="button"
@@ -99,9 +140,11 @@ export function Hud({ data, resultaat }: { data: Data; resultaat: Resultaat }) {
         >
           💾<span className="wissel-tekst"> Opslaan</span>
         </button>
-        <button type="button" className="knop-indienen" data-testid="indienen" onClick={indienen}>
-          Indienen
-        </button>
+        {!snel && (
+          <button type="button" className="knop-indienen" data-testid="indienen" onClick={indienen}>
+            Indienen
+          </button>
+        )}
       </div>
       <WaaromDialoog
         open={open === 'waarom'}

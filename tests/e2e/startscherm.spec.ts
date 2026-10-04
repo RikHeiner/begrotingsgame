@@ -11,8 +11,12 @@ import { collegeLink } from './hulp';
 // Zonder opgeslagen gegevens, zoals bij een eerste bezoek.
 test.use({ storageState: { cookies: [], origins: [] } });
 
+// Deze tests kijken naar alle cijfers en uitleg: uitgebreid spelen (snel spelen: snel.spec.ts).
 const zonderTutorial = (page: Page) =>
-  page.addInitScript(() => localStorage.setItem('begrotingsgame:tutorial', 'klaar'));
+  page.addInitScript(() => {
+    localStorage.setItem('begrotingsgame:tutorial', 'klaar');
+    localStorage.setItem('begrotingsgame:modus', 'uitgebreid');
+  });
 
 test('eerste bezoek: uitleg van VVD Groningen, dan bij nul beginnen; daarna niet meer', async ({
   page,
@@ -24,8 +28,9 @@ test('eerste bezoek: uitleg van VVD Groningen, dan bij nul beginnen; daarna niet
   await expect(start.getByTestId('afzender')).toHaveText('Een spel van VVD Groningen');
   await expect(start).toContainText('€ 1.586 miljoen');
   await expect(start).toContainText('Meer geld nodig? Verhoog de belasting!');
-  // Er is maar één beginpunt: bij nul.
-  await expect(page.getByTestId('begin')).toHaveText('Begin bij nul');
+  // Er is maar één beginpunt: bij nul. Je kiest wel of je snel of uitgebreid speelt.
+  await expect(page.getByTestId('begin')).toContainText('Snel spelen');
+  await expect(page.getByTestId('begin-uitgebreid')).toContainText('Uitgebreid');
   await expect(page.getByTestId('begin-college')).toHaveCount(0);
   await page.screenshot({ path: testInfo.outputPath('startscherm.png'), fullPage: true });
   const axe = await new AxeBuilder({ page })
@@ -33,7 +38,7 @@ test('eerste bezoek: uitleg van VVD Groningen, dan bij nul beginnen; daarna niet
     .analyze();
   expect(axe.violations.map((v) => v.id)).toEqual([]);
 
-  await page.getByTestId('begin').click();
+  await page.getByTestId('begin-uitgebreid').click();
   await expect(page.getByTestId('startscherm')).toHaveCount(0);
   const route = page.getByTestId('route');
   await expect(route).toContainText('De gemeente heeft geld nodig');
@@ -67,7 +72,7 @@ test('de route: eerst de belasting met het gemiddelde van Nederland, dan veiligh
 }, testInfo) => {
   await zonderTutorial(page);
   await page.goto('/');
-  await page.getByTestId('begin').click();
+  await page.getByTestId('begin-uitgebreid').click();
   await expect(page.locator('.kaart-gebouw')).toHaveCount(15);
   // De nummers op de kaart: het belastingloket is 1 en is aan de beurt.
   await expect(page.locator('.route-nummer.huidig')).toHaveText('1');
@@ -154,7 +159,7 @@ test('beginnen bij nul: op het eindscherm het verschil met het college', async (
 }, testInfo) => {
   await zonderTutorial(page);
   await page.goto('/');
-  await page.getByTestId('begin').click();
+  await page.getByTestId('begin-uitgebreid').click();
   await expect(page.getByTestId('saldo')).toContainText('+');
   await page.getByTestId('indienen').click();
   const v = page.getByTestId('college-vergelijking');

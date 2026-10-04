@@ -43,6 +43,7 @@ test.describe('bij nul', () => {
           localStorage: [
             { name: 'begrotingsgame:start', value: 'gezien' },
             { name: 'begrotingsgame:tutorial', value: 'klaar' },
+            { name: 'begrotingsgame:modus', value: 'uitgebreid' },
           ],
         },
       ],

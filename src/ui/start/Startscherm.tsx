@@ -8,6 +8,7 @@
 import { useEffect, useRef } from 'react';
 import type { Data } from '../../engine';
 import type { Beginpunt } from '../../game/nulbasis';
+import { useSpel } from '../../game/state/store';
 import { FoutMelden } from '../algemeen/FoutMelden';
 
 const vul = (tekst: string, waarden: Record<string, string>) =>
@@ -27,6 +28,7 @@ export function Startscherm({
   onBegin: (beginpunt: Beginpunt) => void;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
+  const zetModus = useSpel((s) => s.zetModus);
   useEffect(() => {
     const d = ref.current;
     if (d && !d.open) d.showModal();
@@ -64,23 +66,6 @@ export function Startscherm({
           {t.kop}
         </h2>
         <p className="start-intro">{vul(t.intro, waarden)}</p>
-        <ul className="start-vragen">
-          {t.vragen.map((v) => (
-            <li key={v.kop}>
-              <span className="start-icoon" aria-hidden="true">
-                {v.icoon}
-              </span>
-              <h3>{v.kop}</h3>
-              <p>{v.tekst}</p>
-            </li>
-          ))}
-        </ul>
-        <h3 className="start-hoe-kop">{t.hoe_kop}</h3>
-        <ol className="start-hoe">
-          {t.hoe.map((h) => (
-            <li key={h}>{h}</li>
-          ))}
-        </ol>
         {alleenUitleg ? (
           <button
             type="button"
@@ -92,17 +77,55 @@ export function Startscherm({
           </button>
         ) : (
           <>
-            <button
-              type="button"
-              className="knop-indienen start-knop"
-              data-testid="begin"
-              onClick={() => onBegin('nul')}
-            >
-              {t.knop}
-            </button>
-            <p className="klein start-keuze-uitleg">{t.keuze_uitleg}</p>
+            <div className="start-modus" role="group" aria-label="Hoe wil je spelen?">
+              <button
+                type="button"
+                className="knop-indienen start-knop"
+                data-testid="begin"
+                onClick={() => {
+                  zetModus('snel');
+                  onBegin('nul');
+                }}
+              >
+                ⚡ Snel spelen
+                <span className="start-modus-uitleg">Weinig tekst en knoppen</span>
+              </button>
+              <button
+                type="button"
+                className="knop start-knop"
+                data-testid="begin-uitgebreid"
+                onClick={() => {
+                  zetModus('uitgebreid');
+                  onBegin('nul');
+                }}
+              >
+                🔍 Uitgebreid
+                <span className="start-modus-uitleg">Met alle cijfers en uitleg</span>
+              </button>
+            </div>
           </>
         )}
+        <details className="start-meer" open={alleenUitleg}>
+          <summary>Hoe werkt het?</summary>
+          <ul className="start-vragen">
+            {t.vragen.map((v) => (
+              <li key={v.kop}>
+                <span className="start-icoon" aria-hidden="true">
+                  {v.icoon}
+                </span>
+                <h3>{v.kop}</h3>
+                <p>{v.tekst}</p>
+              </li>
+            ))}
+          </ul>
+          <h3 className="start-hoe-kop">{t.hoe_kop}</h3>
+          <ol className="start-hoe">
+            {t.hoe.map((h) => (
+              <li key={h}>{h}</li>
+            ))}
+          </ol>
+          {!alleenUitleg && <p className="klein start-keuze-uitleg">{t.keuze_uitleg}</p>}
+        </details>
         <p className="klein start-noot">{vul(t.noot, waarden)}</p>
         <FoutMelden data={data} />
       </div>

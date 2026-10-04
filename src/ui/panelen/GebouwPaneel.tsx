@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { formatMln, type Data, type Resultaat } from '../../engine';
 import { TOESTAND_NAAM, type GebouwStand } from '../../game/toestand';
 import { useSpel } from '../../game/state/store';
@@ -20,6 +20,9 @@ export function GebouwPaneel({
   const focus = useSpel((s) => s.focus);
   const nul = useSpel((s) => s.beginpunt === 'nul');
   const volgendeStap = useSpel((s) => s.volgendeStap);
+  const snel = useSpel((s) => s.modus === 'snel');
+  // Bij snel spelen is de uitleg ingeklapt; per gebouw open je hem met één knop.
+  const [uitleg, setUitleg] = useState(false);
   const kop = useRef<HTMLHeadingElement>(null);
   const paneel = useRef<HTMLElement>(null);
   const gebouw = data.gebouwen.find((g) => g.id === gekozen);
@@ -37,9 +40,11 @@ export function GebouwPaneel({
       kop.current?.focus();
       return;
     }
+    // (bij snel spelen is het bedragvak ingeklapt: dan de schuif)
+    const vak = regel.querySelector<HTMLElement>('.schuif-bedrag input');
     const doel =
-      regel.querySelector<HTMLElement>('.schuif-bedrag input') ??
-      regel.querySelector<HTMLElement>('input, button');
+      (vak && vak.offsetParent !== null ? vak : null) ??
+      regel.querySelector<HTMLElement>('input[type="range"], input, button');
     regel.classList.remove('gekozen-post');
     void regel.offsetWidth;
     regel.classList.add('gekozen-post');
@@ -59,13 +64,19 @@ export function GebouwPaneel({
 
   if (!gebouw) return null;
   const stand = standen[gebouw.id];
+  const snelZonderUitleg = snel && !uitleg;
   // Bij nul: welke stap van de route dit gebouw is, en wat de volgende is.
   const stapNr = nul ? data.route.stappen.findIndex((s) => s.gebouw === gebouw.id) : -1;
   const stap = data.route.stappen[stapNr];
   const volgende = data.route.stappen[stapNr + 1];
   const volgendGebouw = volgende && data.gebouwen.find((g) => g.id === volgende.gebouw);
   return (
-    <section ref={paneel} className="paneel" aria-labelledby="paneel-kop" data-testid="paneel">
+    <section
+      ref={paneel}
+      className={`paneel${snelZonderUitleg ? ' zonder-uitleg' : ''}`}
+      aria-labelledby="paneel-kop"
+      data-testid="paneel"
+    >
       {stap && (
         <p className="route-stap paneel-stap">
           Stap {stapNr + 1} van {data.route.stappen.length} · {stap.thema}
@@ -105,6 +116,16 @@ export function GebouwPaneel({
         <p className="route-vvd">
           <strong>VVD Groningen vindt:</strong> {stap.vvd}
         </p>
+      )}
+      {snel && (
+        <button
+          type="button"
+          className="link-knop paneel-uitleg-knop"
+          aria-expanded={uitleg}
+          onClick={() => setUitleg((u) => !u)}
+        >
+          {uitleg ? 'Minder uitleg ▴' : 'Meer uitleg en cijfers ▾'}
+        </button>
       )}
       <GebouwPosten gebouw={gebouw} data={data} resultaat={resultaat} />
       {data.uitgaven && (
