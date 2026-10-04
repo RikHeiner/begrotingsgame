@@ -148,7 +148,14 @@ export function normaliseer(data: Data, keuzes: Keuzes): { keuzes: Keuzes; corre
       correcties.push(`Onbekende actiekaart "${id}" is overgeslagen.`);
       continue;
     }
-    if (!kaarten.includes(id)) kaarten.push(id);
+    if (kaarten.includes(id)) continue;
+    // Uit een groep telt alleen de laatst gekozen kaart.
+    const groep = data.index.kaarten.get(id)?.groep;
+    if (groep) {
+      const eerder = kaarten.findIndex((x) => data.index.kaarten.get(x)?.groep === groep);
+      if (eerder >= 0) kaarten.splice(eerder, 1);
+    }
+    kaarten.push(id);
   }
   kaarten.sort();
 

@@ -8,7 +8,7 @@
  */
 import { EIGEN_PREFIX, formatPct, parkeerPostVan, type Data, type Resultaat } from '../../engine';
 import type { Zekerheid } from '../../engine/schema';
-import { personaZinnen, themaVan } from '../score';
+import { personaZinnen, THEMA_BELASTINGEN, themaVan } from '../score';
 import type { Meta } from '../state/store';
 
 export type Regel = {
@@ -213,6 +213,31 @@ export function maakTegenbegroting(data: Data, r: Resultaat, meta: Meta): Tegenb
   );
   const kettingeffecten = regels.filter((x) => x.kettingeffect).sort(opBedrag);
 
+  // De inleidingen volgen de richting van de keuzes: komt het geld vooral uit hogere lasten, of
+  // gaan de lasten juist niet omlaag, dan past de inleiding zich aan.
+  const lasten = (lijst: Regel[]) =>
+    lijst.filter((x) => x.thema === THEMA_BELASTINGEN).reduce((a, x) => a + Math.abs(teken(x)), 0);
+  const totaal = (lijst: Regel[]) => lijst.reduce((a, x) => a + Math.abs(teken(x)), 0);
+  const plus = maatregelen.filter((x) => teken(x) > 0);
+  const min = maatregelen.filter((x) => teken(x) < 0);
+  const teksten: DocumentTeksten = {
+    ...doc,
+    besparingen: {
+      ...doc.besparingen,
+      intro:
+        doc.besparingen.intro_anders && totaal(plus) > 0 && lasten(plus) >= totaal(plus) / 2
+          ? doc.besparingen.intro_anders
+          : doc.besparingen.intro,
+    },
+    investeringen: {
+      ...doc.investeringen,
+      intro:
+        doc.investeringen.intro_anders && lasten(min) === 0
+          ? doc.investeringen.intro_anders
+          : doc.investeringen.intro,
+    },
+  };
+
   // Financieel overzicht: eerste jaar, alle regels die in dat jaar iets doen
   const rij = (x: Regel): TabelRij => ({
     omschrijving:
@@ -265,7 +290,7 @@ export function maakTegenbegroting(data: Data, r: Resultaat, meta: Meta): Tegenb
 
   const titel = meta.titel.trim() || STANDAARD_TITEL;
   return {
-    teksten: doc,
+    teksten,
     titel,
     naam: meta.naam.trim(),
     begrotingsjaar: data.begroting.begrotingsjaar,

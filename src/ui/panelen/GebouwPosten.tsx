@@ -495,6 +495,15 @@ export function GebouwPosten({
             );
           }
           const g = grensBelasting(b);
+          // Toeristenbelasting betalen toeristen, per nacht: niet per inwoner tonen.
+          const toerist =
+            data.tarieven?.toeristenbelasting?.belasting === b.id
+              ? data.tarieven.toeristenbelasting
+              : undefined;
+          const perNacht = (x: number) =>
+            toerist
+              ? `€ ${((toerist.per_overnachting * x) / b.opbrengst_mln).toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} per nacht`
+              : mlnTekst(x);
           return (
             <li key={b.id} data-post={b.id}>
               <Schuif
@@ -505,12 +514,27 @@ export function GebouwPosten({
                 waarde={k.belastingen[b.id] ?? 0}
                 bedrag={{ basis: b.opbrengst_mln, eenheid: 'mln', soort: 'Opbrengst' }}
                 collegeKnop={!nul}
-                {...(nul ? { toonBedrag: (x: number) => perInwonerTekst(data, x) } : {})}
+                {...(toerist
+                  ? { toonBedrag: perNacht }
+                  : nul
+                    ? { toonBedrag: (x: number) => perInwonerTekst(data, x) }
+                    : {})}
                 beschrijving={b.uitleg}
                 onChange={(v) => zetBelasting(b.id, v)}
               />
               <GevolgRegel data={data} id={b.id} pct={k.belastingen[b.id] ?? 0} />
-              {nul ? (
+              {toerist && (
+                <p className="klein" data-testid="toerist-tarief">
+                  Nu €{' '}
+                  {toerist.per_overnachting.toLocaleString('nl-NL', { minimumFractionDigits: 2 })}{' '}
+                  per persoon per nacht in een hotel (€{' '}
+                  {toerist.kamperen_hostel.toLocaleString('nl-NL', { minimumFractionDigits: 2 })} op
+                  een camping of in een hostel, €{' '}
+                  {toerist.haren_ten_boer.toLocaleString('nl-NL', { minimumFractionDigits: 2 })} in
+                  Haren en Ten Boer). Tarief {toerist.jaar}.
+                </p>
+              )}
+              {toerist ? null : nul ? (
                 <GemiddeldeNederland
                   data={data}
                   id={b.id}
@@ -609,18 +633,19 @@ export function GebouwPosten({
       );
     return (
       <>
-        <Programmas data={data} resultaat={resultaat} />
         <Apparaat data={data} />
         {kaarten.length > 0 && (
           <section aria-labelledby={`${gebouw.id}-plannen`}>
-            <h3 id={`${gebouw.id}-plannen`}>Nieuwe plannen</h3>
+            <h3 id={`${gebouw.id}-plannen`}>Keuzes</h3>
             <p className="klein beleid-legenda">
-              Dit doet de gemeente nu nog niet; daarom staan de plannen uit. Zet een plan aan als je
-              het wilt uitvoeren.
+              Bovenaan de keuzes die VVD Groningen belangrijk vindt: minder ambtenaren en minder
+              regels. Alles staat uit; zet aan wat je wilt doen. Van de ambtenaren kies je één: 5,
+              10 of 15%.
             </p>
             {lijst}
           </section>
         )}
+        <Programmas data={data} resultaat={resultaat} />
         <EigenVoorstellen plek="beleid" resultaat={resultaat} />
       </>
     );

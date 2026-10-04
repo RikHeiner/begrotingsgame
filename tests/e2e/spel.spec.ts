@@ -7,19 +7,12 @@ const zonderTutorial = (page: Page) =>
   page.addInitScript(() => localStorage.setItem('begrotingsgame:tutorial', 'klaar'));
 
 async function tikOpGebouw(page: Page, id: string) {
+  // Tikken op de kaart zelf staat in kaart.spec.ts; hier gaat het om het paneel. Met het
+  // toetsenbord is dat betrouwbaar, ook als de kaart nog beweegt.
   await expect(page.locator('.kaart-gebouw')).toHaveCount(15);
-  // Wacht tot de kaart stilstaat (na het sluiten van een paneel zoomt hij uit).
-  const knop = page.locator(`[data-gebouw="${id}"]`);
-  let vak = await knop.boundingBox();
-  for (let i = 0; i < 20; i++) {
-    await page.waitForTimeout(150);
-    const nu = await knop.boundingBox();
-    const stil = vak && nu && Math.abs(nu.x - vak.x) < 1 && Math.abs(nu.y - vak.y) < 1;
-    vak = nu;
-    if (stil) break;
-  }
-  if (!vak) throw new Error(id);
-  await page.mouse.click(vak.x + vak.width / 2, vak.y + vak.height / 2);
+  await page.locator(`[data-gebouw="${id}"]`).focus();
+  await page.keyboard.press('Enter');
+  await expect(page.getByTestId('paneel')).toBeVisible();
 }
 
 async function schuif(page: Page, label: RegExp, stappen: number) {
@@ -145,7 +138,7 @@ test('indienen: het eindscherm, zonder missies en zonder meters', async ({ page 
   await expect(eind.getByRole('img', { name: /van de 3 sterren/ })).toBeVisible();
   await expect(eind).not.toContainText('Meters');
   await expect(eind).toContainText('Saldo per jaar');
-  await expect(eind).toContainText('Wat merken de inwoners?');
+  await expect(eind).not.toContainText('Wat merken de inwoners?');
   await expect(eind).toContainText('Jouw begroting naast die van het college');
   await page.screenshot({ path: testInfo.outputPath('eindscherm.png'), fullPage: true });
   await eind.getByRole('button', { name: 'Terug naar de gemeente' }).click();

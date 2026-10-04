@@ -169,3 +169,26 @@ describe('tegenbegroting van een speler', () => {
     expect(bestandsnaam('Één café', 'png')).toBe('een-cafe.png');
   });
 });
+
+describe('tegenbegroting: de tekst volgt de richting van de keuzes', () => {
+  it('hogere lasten staan onder een eigen kopje, met een passende inleiding', () => {
+    const r = bereken(data, keuzes({ belastingen: { t1: 10 } }));
+    const doc = maakTegenbegroting(data, r, meta);
+    expect(doc.besparingen.map((g) => g.thema)).toEqual([
+      'Hogere lasten voor inwoners en ondernemers',
+    ]);
+    expect(doc.teksten.besparingen.intro).toContain('hogere gemeentelijke lasten');
+    expect(doc.investeringen).toHaveLength(0);
+    expect(doc.teksten.investeringen.intro).not.toContain('Lagere lasten');
+  });
+
+  it('lagere lasten: de gewone inleidingen', () => {
+    const r = bereken(data, keuzes({ belastingen: { t1: -5 }, onderdelen: { h1: -10 } }));
+    const doc = maakTegenbegroting(data, r, meta);
+    expect(doc.teksten.besparingen.intro).toContain('slankere en doelmatigere gemeente');
+    expect(doc.teksten.investeringen.intro).toContain('Lagere lasten');
+    expect(doc.investeringen.map((g) => g.thema)).toContain(
+      'Lagere lasten voor inwoners en ondernemers',
+    );
+  });
+});

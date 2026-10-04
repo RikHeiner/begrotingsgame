@@ -17,7 +17,7 @@ import {
   type Resultaat,
 } from '../../engine';
 import type { Scenario } from '../../engine/schema';
-import { wisselProgramma } from '../beleidshuis';
+import { volgSchuif, wisselProgramma } from '../beleidshuis';
 import type { Doel } from '../naarPost';
 import { beginKeuzes, type Beginpunt } from '../nulbasis';
 import { gebouwStanden, type GebouwStand } from '../toestand';
@@ -300,7 +300,9 @@ export const useSpel = create<Spel>((set, get) => {
       const m = magWijzigen(data, keuzes, nieuw);
       if (!m.ok) {
         set({
-          melding: m.reden ?? 'Dit kan niet.',
+          melding: (m.reden ?? 'Dit kan niet.').startsWith('🔒')
+            ? (m.reden ?? '')
+            : `🔒 ${m.reden ?? 'Dit kan niet.'}`,
           actie: {
             teller: ++teller,
             ...(gebouw ? { gebouw } : {}),
@@ -333,10 +335,27 @@ export const useSpel = create<Spel>((set, get) => {
     },
     zetOnderdeel(id, pct) {
       const { keuzes: k, data } = get();
-      return get().probeer(
-        { ...k, onderdelen: { ...k.onderdelen, [id]: pct } },
-        data?.index.onderdelen.get(id)?.gebouw,
-      );
+      const nieuw: Keuzes = { ...k, onderdelen: { ...k.onderdelen, [id]: pct } };
+      // Het beleid in het Beleidshuis volgt de schuif: te weinig geld, dan stopt een programma.
+      const gevolgd = data ? volgSchuif(data, nieuw, id) : nieuw;
+      const gelukt = get().probeer(gevolgd, data?.index.onderdelen.get(id)?.gebouw);
+      if (gelukt && data) {
+        const voor = new Set(k.gestopt ?? []);
+        const na = new Set(gevolgd.gestopt ?? []);
+        const naam = (x: string) => data.index.programmas.get(x)?.programma ?? x;
+        const stopt = [...na].filter((x) => !voor.has(x)).map(naam);
+        const terug = [...voor].filter((x) => !na.has(x)).map(naam);
+        if (stopt.length || terug.length)
+          set({
+            melding: [
+              stopt.length ? `📋 In het Beleidshuis stopt: ${stopt.join(', ')}.` : '',
+              terug.length ? `📋 Weer aan: ${terug.join(', ')}.` : '',
+            ]
+              .filter(Boolean)
+              .join(' '),
+          });
+      }
+      return gelukt;
     },
     zetBelasting(id, pct) {
       const { keuzes: k, data } = get();
@@ -354,9 +373,11 @@ export const useSpel = create<Spel>((set, get) => {
     },
     wisselKaart(id) {
       const { keuzes: k, data } = get();
+      // Een kaart uit een groep (5, 10 of 15% minder ambtenaren) vervangt de andere uit die groep.
+      const groep = data?.index.kaarten.get(id)?.groep;
       const kaarten = k.kaarten.includes(id)
         ? k.kaarten.filter((x) => x !== id)
-        : [...k.kaarten, id];
+        : [...k.kaarten.filter((x) => !groep || data?.index.kaarten.get(x)?.groep !== groep), id];
       return get().probeer(
         { ...k, kaarten },
         data?.index.kaarten.get(id)?.gebouw ??
@@ -376,7 +397,7 @@ export const useSpel = create<Spel>((set, get) => {
       if (!data) return false;
       const lijst = k.eigen ?? [];
       if (lijst.length >= EIGEN.max) {
-        set({ melding: `Je kunt hooguit ${EIGEN.max} eigen voorstellen maken.` });
+        set({ melding: `🔒 Je kunt hooguit ${EIGEN.max} eigen voorstellen maken.` });
         return false;
       }
       const id = `e${Date.now().toString(36)}`;

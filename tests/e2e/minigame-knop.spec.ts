@@ -14,7 +14,7 @@ test('de knop kiest een minigame die je nog niet speelde', async ({ page }, test
   await expect(page.locator('.kaart-gebouw')).toHaveCount(15);
   const knop = page.getByTestId('minigame-knop');
   await expect(knop).toContainText('Speel een minigame');
-  await expect(knop).toContainText('1 van 11 gespeeld');
+  await expect(knop).toContainText('1 van 10 gespeeld');
   // Al gespeeld: een vinkje op de kaart.
   const museum = page.locator('[data-minigame="museum"]');
   await expect(museum).toHaveClass(/gespeeld/);

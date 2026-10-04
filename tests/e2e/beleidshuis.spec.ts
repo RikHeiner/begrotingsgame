@@ -24,7 +24,7 @@ test('met de begroting van het college: een programma stopzetten scheelt geld', 
   await groen.click();
   await expect(groen).toHaveAttribute('aria-pressed', 'false');
   await expect(page.getByTestId('saldo')).toContainText('+ € 0,5 mln');
-  await expect(lijst.getByText('Nieuwe plannen')).toBeVisible();
+  await expect(lijst.getByRole('heading', { name: 'Keuzes' })).toBeVisible();
   await page.screenshot({ path: testInfo.outputPath('beleidshuis.png'), fullPage: true });
   const axe = await new AxeBuilder({ page })
     .include('[data-testid="lijstweergave"]')

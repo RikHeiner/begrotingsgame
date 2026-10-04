@@ -1,0 +1,234 @@
+/* Martinitoren, "Beklim d'Olle Grieze": baksteen, zandsteen en de koperen koepel */
+.mt-spel {
+  --mg-rand: #7a3820;
+  --mg-hud-boven: #f6e7c4;
+  --mg-hud-onder: #e3c78a;
+  --mg-hud-tekst: #3b1d0e;
+  --mg-hud-label: #6b3a1f;
+  --mg-licht: #fbf3e0;
+  --mg-kaart: #fffaf0;
+  --mg-kaart-tekst: #2b1a08;
+  --mg-icoon: #2b6b5a;
+}
+
+.mt-vraag {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.mt-tijdbalk {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #2fa36b, #ffd84d 60%, #e8590c);
+  transition: width 1s linear;
+}
+
+.mt-tijdbalk-stil {
+  transition: none;
+}
+
+.mt-veld {
+  touch-action: pan-y;
+  cursor: default;
+}
+
+.mt-keuzes {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: stretch;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+}
+
+.mt-of {
+  align-self: center;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: #7a3820;
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.mt-keuze {
+  position: relative;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  min-height: 44px;
+  padding: 0.6rem 0.65rem 0.65rem;
+  border: 3px solid #c9a46a;
+  border-radius: 0.8rem;
+  background: linear-gradient(#fffdf6, #f7ecd4);
+  color: #2b1a08;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 3px 0 #b08950;
+  transition:
+    transform 0.12s ease-out,
+    box-shadow 0.12s ease-out,
+    border-color 0.12s;
+}
+
+.mt-keuze:hover:not([aria-disabled='true']) {
+  border-color: #7a3820;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 #b08950;
+}
+
+.mt-keuze:active:not([aria-disabled='true']) {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #b08950;
+}
+
+.mt-keuze:focus-visible {
+  outline: 3px solid #1233c4;
+  outline-offset: 2px;
+}
+
+.mt-keuze[aria-disabled='true'] {
+  cursor: default;
+}
+
+.mt-toets {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.45rem;
+  font-size: 0.75rem;
+  color: #9a7b55;
+}
+
+.mt-naam {
+  padding-right: 1rem;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  font-size: 1.02rem;
+  line-height: 1.2;
+}
+
+.mt-uitleg {
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  font-size: 0.82rem;
+  line-height: 1.3;
+  color: #5a4632;
+}
+
+.mt-bedrag {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  width: 100%;
+  margin-top: 0.3rem;
+  padding-top: 0.35rem;
+  border-top: 1px dashed rgba(122, 56, 32, 0.35);
+}
+
+.mt-mln {
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.mt-pi {
+  font-size: 0.82rem;
+}
+
+.mt-soort {
+  align-self: flex-start;
+  padding: 0.05rem 0.45rem;
+  border-radius: 1rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.mt-soort-wet {
+  background: #e3e8ff;
+  color: #1d2a7a;
+}
+
+.mt-soort-keuze {
+  background: #fff0d1;
+  color: #6b3a00;
+}
+
+.mt-juist {
+  border-color: #0e6b45;
+  background: linear-gradient(#f0fbf5, #d8f2e4);
+  box-shadow: 0 3px 0 #0e6b45;
+}
+
+.mt-juist .mt-mln {
+  color: #0e6b45;
+}
+
+.mt-mis {
+  border-color: #b02a17;
+  background: linear-gradient(#fff6f3, #fbe1da);
+  box-shadow: 0 3px 0 #b02a17;
+}
+
+.mt-anders {
+  opacity: 0.85;
+}
+
+.mt-hint {
+  margin: 0;
+  color: var(--gedempt);
+}
+
+.mt-kop {
+  margin: 0.8rem 0 0.3rem;
+}
+
+.mt-paren li {
+  line-height: 1.35;
+}
+
+@media (max-width: 30rem) {
+  .mt-keuzes {
+    gap: 0.25rem;
+  }
+
+  .mt-keuze {
+    padding: 0.5rem 0.45rem 0.55rem;
+  }
+
+  .mt-naam {
+    font-size: 0.95rem;
+  }
+
+  .mt-uitleg,
+  .mt-pi {
+    font-size: 0.76rem;
+  }
+
+  .mt-mln {
+    font-size: 1.05rem;
+  }
+
+  .mt-of {
+    width: 1.6rem;
+    height: 1.6rem;
+    font-size: 0.75rem;
+  }
+
+  .mt-toets {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mt-keuze,
+  .mt-tijdbalk {
+    transition: none;
+  }
+}

@@ -495,13 +495,13 @@
   position: absolute;
   top: 0;
   left: 0;
-  max-width: 13rem;
-  padding: 0.45rem 0.65rem;
-  border-radius: 0.9rem;
+  max-width: 10.5rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.75rem;
   background: var(--paneel);
   color: var(--inkt);
-  font-size: 0.85rem;
-  line-height: 1.3;
+  font-size: 0.75rem;
+  line-height: 1.25;
   box-shadow: 0 4px 14px rgb(0 0 0 / 0.18);
   pointer-events: none;
   animation: ballon-in 0.25s ease-out;
@@ -512,7 +512,7 @@
   border: 2px solid var(--blauw);
   text-align: left;
   font: inherit;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   cursor: pointer;
 }
 
@@ -523,8 +523,8 @@
 
 .ballon-naar {
   display: block;
-  margin-top: 0.2rem;
-  font-size: 0.75rem;
+  margin-top: 0.15rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: var(--blauw);
   text-decoration: underline;
@@ -549,7 +549,7 @@
 
 .ballon strong {
   display: block;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--blauw);
 }
 
@@ -743,81 +743,6 @@
 
 .minigame-score {
   font-size: 1.3rem;
-}
-
-/* Gedeelde stijl voor de minigames */
-.mg-keuzes {
-  display: grid;
-  gap: 0.6rem;
-  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-  margin: 0.75rem 0;
-}
-
-.mg-keuze {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  min-height: 64px;
-  padding: 0.75rem;
-  border: 2px solid var(--blauw);
-  border-radius: 0.8rem;
-  background: var(--paneel);
-  color: var(--inkt);
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-}
-
-.mg-keuze.goed {
-  border-color: var(--positief);
-  background: color-mix(in srgb, var(--positief) 14%, var(--paneel));
-}
-
-.mg-keuze.fout {
-  border-color: var(--negatief);
-  background: color-mix(in srgb, var(--negatief) 12%, var(--paneel));
-}
-
-.mg-keuze:disabled {
-  cursor: default;
-}
-
-.mg-uitslag {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-}
-
-/* Martinitoren */
-.mg-toren {
-  display: grid;
-  grid-template-columns: 4.5rem 1fr;
-  gap: 1rem;
-  align-items: stretch;
-}
-
-.mg-toren-beeld {
-  display: flex;
-  justify-content: center;
-}
-
-.mg-toren-schacht {
-  position: relative;
-  width: 2.6rem;
-  min-height: 16rem;
-  border-radius: 0.4rem 0.4rem 0 0;
-  background: repeating-linear-gradient(to top, #c89b6d 0 1.4rem, #b98b5e 1.4rem 1.6rem);
-  clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 100%);
-}
-
-.mg-toren-klimmer {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 50%);
-  font-size: 1.6rem;
-  transition: bottom 0.6s ease;
 }
 
 /* Wat merk je ervan, ten opzichte van nu */
@@ -1045,6 +970,16 @@
   margin: 0;
   padding: 0.4rem 1rem 0;
   font-size: clamp(1rem, 4vw, 1.4rem);
+}
+
+/* Een gebouw is open: de titel is er nog voor schermlezers, maar maakt ruimte voor de kaart. */
+.spel-titel.verborgen {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .hud {
@@ -2045,9 +1980,12 @@
     box-decoration-break: clone;
   }
 
+  /* Niet precies A4 hoog: Safari (iPhone, iPad, Mac) houdt bij afdrukken zijn eigen marges aan,
+     en ook bij Letter-papier moet een fotoblad op één pagina passen. */
   .doc-voorblad,
   .doc-tussenblad {
-    height: 297mm;
+    height: 250mm;
+    break-before: page;
     min-height: 0;
     overflow: hidden;
     break-inside: avoid;

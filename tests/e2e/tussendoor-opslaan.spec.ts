@@ -18,7 +18,7 @@ test('na drie stappen van de route: tussendoor een minigame', async ({ page }) =
   const paneel = page.getByTestId('paneel');
   for (const stap of [2, 3]) {
     await paneel.getByTestId('volgende-stap').click();
-    await expect(paneel).toContainText(`Stap ${stap} van 13`);
+    await expect(paneel).toContainText(`Stap ${stap} van 14`);
     await expect(page.getByTestId('tussendoor')).toHaveCount(0);
   }
   await paneel.getByTestId('volgende-stap').click();

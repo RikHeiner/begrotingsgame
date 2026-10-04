@@ -1,9 +1,10 @@
 /**
  * De gemeentekaart in 3D (three.js): de gemeente als een plak aarde met buurten, water en wegen,
  * daarop echte gebouwen met licht en schaduw, huizen en bomen, en inwoners die rondlopen.
- * Slepen schuift, knijpen of scrollen zoomt, twee vingers draaien de kaart; met de muis draai en
- * kantel je met de rechterknop. De interface (knoppen, tekstballonnen) zit in React erboven; de
- * kaart vertelt via `onZicht` waar alles op het scherm staat.
+ * Slepen schuift, knijpen of scrollen zoomt; met de muis kantel je met de rechterknop. De kaart
+ * draait niet: het noorden blijft boven, zodat je je makkelijk oriënteert. De interface (knoppen,
+ * tekstballonnen) zit in React erboven; de kaart vertelt via `onZicht` waar alles op het scherm
+ * staat.
  *
  * Er wordt alleen getekend als er iets verandert. Inwoners lopen en de molen draait een halve
  * minuut na de laatste actie van de speler (batterij).
@@ -159,7 +160,7 @@ export class GemeenteKaart3D {
     begin: number;
     bewogen: boolean;
     knop: number;
-    draaien: boolean;
+    kantelen: boolean;
   };
   private laatsteTik = 0;
   private vies = true;
@@ -581,33 +582,19 @@ export class GemeenteKaart3D {
     this.vies = true;
   }
 
-  /**
-   * Het overzicht: de hele gemeente zo groot mogelijk in het vrije deel van het scherm. Op een
-   * smal, hoog scherm (een telefoon) draait de kaart een stukje, zodat hij beter past.
-   */
+  /** Het overzicht: de hele gemeente zo groot mogelijk in het vrije deel van het scherm. */
   private overzichtStand(): Stand {
-    const hoog =
-      this.scherm.hoogte - this.vak.boven - this.vak.onder >
-      (this.scherm.breedte - this.vak.links - this.vak.rechts) * 1.1;
-    const draaien = hoog ? [0, -0.35, -0.7, -1.05, 0.35, 0.7] : [0];
-    let beste: { stand: Stand; score: number } | undefined;
-    for (const draai of draaien) {
-      // De gebouwen steken boven de kaart uit: houd daar wat ruimte voor.
-      const s = pasIn(
-        this.camera,
-        this.scherm,
-        { kanteling: KANTELING, draai },
-        this.kader,
-        this.vak,
-        0.98,
-        30,
-        this.omtrek,
-      );
-      // met het noorden boven heeft een beetje voorrang
-      const score = s.afstand * (draai === 0 ? 0.92 : 1);
-      if (!beste || score < beste.score) beste = { stand: s, score };
-    }
-    return beste?.stand ?? this.stand;
+    // De gebouwen steken boven de kaart uit: houd daar wat ruimte voor.
+    return pasIn(
+      this.camera,
+      this.scherm,
+      { kanteling: KANTELING, draai: 0 },
+      this.kader,
+      this.vak,
+      0.98,
+      30,
+      this.omtrek,
+    );
   }
 
   private zetStand(s: Stand): void {
@@ -753,12 +740,6 @@ export class GemeenteKaart3D {
     this.naarOverzicht(true);
   }
 
-  /** Draait de kaart een achtste slag (of terug naar het noorden boven). */
-  draai(hoek: number): void {
-    this.inOverzicht = false;
-    this.vlieg({ ...this.stand, draai: hoek === 0 ? 0 : this.stand.draai + hoek }, 600);
-  }
-
   /** Wisselt tussen schuin kijken en (bijna) van boven. */
   kantel(): void {
     this.inOverzicht = false;
@@ -895,8 +876,8 @@ export class GemeenteKaart3D {
       canvas.setPointerCapture(e.pointerId);
       this.wijzers.set(e.pointerId, pos(e));
       this.animatie = undefined;
-      const draaien = e.pointerType === 'mouse' && (e.button === 2 || e.shiftKey || e.ctrlKey);
-      this.begin(this.wijzers.size === 1, e.button, draaien);
+      const kantelen = e.pointerType === 'mouse' && (e.button === 2 || e.shiftKey || e.ctrlKey);
+      this.begin(this.wijzers.size === 1, e.button, kantelen);
     };
     const beweeg = (e: PointerEvent) => {
       if (!this.wijzers.has(e.pointerId) || !this.gebaar) return;
@@ -908,12 +889,10 @@ export class GemeenteKaart3D {
         const [a0, b0] = g.punten as [Punt, Punt];
         const factor =
           Math.hypot(a.x - b.x, a.y - b.y) / Math.max(1, Math.hypot(a0.x - b0.x, a0.y - b0.y));
-        const hoek = Math.atan2(b.y - a.y, b.x - a.x) - Math.atan2(b0.y - a0.y, b0.x - a0.x);
         const midden = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
         let s: Stand = {
           ...g.stand,
           afstand: g.stand.afstand / factor,
-          draai: g.stand.draai - hoek,
         };
         if (g.grond) s = richtOp(this.camera, this.scherm, s, g.grond, midden.x, midden.y);
         this.inOverzicht = false;
@@ -927,10 +906,9 @@ export class GemeenteKaart3D {
         if (Math.hypot(dx, dy) > 6) g.bewogen = true;
         if (!g.bewogen) return;
         this.inOverzicht = false;
-        if (g.draaien) {
+        if (g.kantelen) {
           this.zetStand({
             ...g.stand,
-            draai: g.stand.draai - dx * 0.006,
             kanteling: g.stand.kanteling - dy * 0.004,
           });
           return;
@@ -983,7 +961,7 @@ export class GemeenteKaart3D {
   }
 
   /** Begint (opnieuw) een gebaar vanaf de vingers die nu op het scherm staan. */
-  private begin(nieuweTik: boolean, knop: number, draaien: boolean): void {
+  private begin(nieuweTik: boolean, knop: number, kantelen: boolean): void {
     const punten = [...this.wijzers.values()];
     const [a, b] = punten as [Punt | undefined, Punt | undefined];
     if (!a) {
@@ -999,7 +977,7 @@ export class GemeenteKaart3D {
       begin: performance.now(),
       bewogen: !nieuweTik || punten.length > 1,
       knop,
-      draaien,
+      kantelen,
     };
   }
 

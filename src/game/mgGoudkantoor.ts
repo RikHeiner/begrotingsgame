@@ -3,10 +3,10 @@
  * zakken. Elk level begint met een tekort; graaf genoeg goud op om in de plus te komen voordat de
  * tijd op is.
  *
- * Het goud zijn uitgaven die VVD Groningen wil schrappen: uit het verkiezingsprogramma (met de
- * bedragen uit de begroting 2027) en uit de tegenbegroting van VVD Groningen 2026 (met de bedragen
- * van 2026, en dat staat er ook bij). De stenen zijn kerntaken: daar bezuinigt de VVD niet op. Ze
- * zijn zwaar en leveren niets op. Een zak met een vraagteken geeft extra tijd of een sterkere
+ * Het goud is geld dat de gemeente kan vrijmaken: plannen uit de begroting die je kunt schrappen
+ * (het Beleidshuis) en bezit dat je kunt verkopen (het Veilinghuis), met de bedragen uit de
+ * begroting. Staat het in het verkiezingsprogramma van VVD Groningen, dan staat die zin erbij. De
+ * stenen zijn kerntaken: daar bezuinigt de VVD niet op. Ze zijn zwaar en leveren niets op. Een zak met een vraagteken geeft extra tijd of een sterkere
  * grijper (een spelelement, geen geld).
  */
 import type { Data } from '../engine';
@@ -87,35 +87,43 @@ export const LEVELS = [
   },
 ] as const;
 
-/** Al het goud: programma (bedragen begroting 2027) en tegenbegroting VVD 2026 (bedragen 2026). */
+/** Zo groot mag een klomp zijn in de eerste twee levels (de grootste komen in level 3). */
+const GROOT_MLN = 20;
+
+/**
+ * Al het goud, met de bedragen uit de begroting: plannen die je kunt schrappen en bezit dat je kunt
+ * verkopen. Van kaarten die elkaar uitsluiten (zoals 5, 10 of 15% minder ambtenaren) alleen de
+ * eerste.
+ */
 export function schatten(data: Data): Schat[] {
   const mg = data.minigames.find((m) => m.goud);
-  const uitProgramma: Schat[] = (mg?.goud?.schatten ?? []).flatMap((s) => {
-    const k = data.begroting.actiekaarten.find((x) => x.id === s.kaart);
-    if (!k || k.bedrag_mln <= 0) return [];
-    return [
-      {
-        id: k.id,
-        naam: k.naam,
-        bedragMln: k.bedrag_mln,
-        jaar: data.begroting.begrotingsjaar,
-        bron: mg?.goud?.bron ?? 'Verkiezingsprogramma VVD Groningen',
-        vvd: s.vvd,
-        pagina: s.pagina,
-        soort: k.structureel_of_incidenteel === 'S' ? 'S' : 'I',
-      },
-    ];
-  });
-  const tb = mg?.goud?.tegenbegroting;
-  const uitTegenbegroting: Schat[] = (tb?.posten ?? []).map((p, i) => ({
-    id: `tb${i}`,
-    naam: p.naam,
-    bedragMln: p.bedrag_mln,
-    jaar: tb?.jaar ?? 2026,
-    bron: tb?.bron ?? 'Tegenbegroting VVD Groningen',
-    soort: p.soort,
-  }));
-  return [...uitProgramma, ...uitTegenbegroting];
+  const vvd = new Map((mg?.goud?.schatten ?? []).map((s) => [s.kaart, s]));
+  const jaar = data.begroting.begrotingsjaar;
+  const groepen = new Set<string>();
+  const uit: Schat[] = [];
+  const voegToe = (id: string, naam: string, bedragMln: number, s: 'S' | 'I' | string) => {
+    if (!(bedragMln > 0) || uit.some((x) => x.id === id || x.naam === naam)) return;
+    const citaat = vvd.get(id);
+    uit.push({
+      id,
+      naam,
+      bedragMln,
+      jaar,
+      bron: `Begroting ${jaar}`,
+      ...(citaat ? { vvd: citaat.vvd, pagina: citaat.pagina } : {}),
+      soort: s === 'S' ? 'S' : 'I',
+    });
+  };
+  for (const k of data.begroting.actiekaarten) {
+    if (k.groep) {
+      if (groepen.has(k.groep)) continue;
+      groepen.add(k.groep);
+    }
+    voegToe(k.id, k.naam, k.bedrag_mln, k.structureel_of_incidenteel);
+  }
+  for (const p of data.index.programmas.values())
+    voegToe(p.id, p.naam, p.bedrag_mln, p.structureel_of_incidenteel);
+  return uit;
 }
 
 /** De kerntaken (stenen), met de bedragen uit de begroting. */
@@ -132,10 +140,14 @@ export function stenen(data: Data): Steen[] {
 /** Hoe groot een klomp is: groter bij meer geld (logaritmisch). */
 export const straal = (mln: number): number => Math.min(27, 7 + 9 * Math.log10(1 + mln * 5));
 
+/** Zoveel klompen passen in het veld. */
+const ZOVEEL = 12;
+
 /** Het goud van een level: eenmalig, elk jaar, of de grootste van allemaal. */
 export function goudVoorLevel(alles: Schat[], nr: number): Schat[] {
-  if (nr === 1) return alles.filter((s) => s.soort === 'I');
-  if (nr === 2) return alles.filter((s) => s.soort === 'S');
+  const klein = alles.filter((s) => s.bedragMln <= GROOT_MLN);
+  if (nr === 1) return klein.filter((s) => s.soort === 'I').slice(0, ZOVEEL);
+  if (nr === 2) return klein.filter((s) => s.soort === 'S').slice(0, ZOVEEL);
   return [...alles].sort((a, b) => b.bedragMln - a.bedragMln).slice(0, 9);
 }
 

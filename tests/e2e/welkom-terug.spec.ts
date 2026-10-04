@@ -14,7 +14,7 @@ async function zetOzbOpGemiddelde(page: Page) {
     .getByRole('button', { name: /Zet op het gemiddelde van Nederland/ })
     .click();
   await paneel.getByTestId('volgende-stap').click();
-  await expect(paneel).toContainText('Stap 2 van 13');
+  await expect(paneel).toContainText('Stap 2 van 14');
   await paneel.getByRole('button', { name: 'Paneel sluiten' }).click();
   // Even wachten tot de begroting is onthouden.
   await page.waitForTimeout(600);
@@ -26,11 +26,11 @@ test('terugkomen: verder gaan met je eigen begroting', async ({ page }) => {
   await page.goto('/');
   const welkom = page.getByRole('dialog', { name: 'Welkom terug!' });
   await expect(welkom).toBeVisible();
-  await expect(welkom).toContainText('stap 2 van 13');
+  await expect(welkom).toContainText('stap 2 van 14');
   await welkom.getByRole('button', { name: 'Ga verder met je begroting' }).click();
   await expect(welkom).toHaveCount(0);
   await expect(page.getByTestId('saldo')).toHaveText(saldo);
-  await expect(page.getByTestId('route')).toContainText('Stap 2 van 13');
+  await expect(page.getByTestId('route')).toContainText('Stap 2 van 14');
 });
 
 test('terugkomen: opnieuw beginnen bij nul', async ({ page }) => {

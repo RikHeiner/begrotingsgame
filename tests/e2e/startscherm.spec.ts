@@ -38,9 +38,9 @@ test('eerste bezoek: uitleg van VVD Groningen, dan bij nul beginnen; daarna niet
   const route = page.getByTestId('route');
   await expect(route).toContainText('De gemeente heeft geld nodig');
   await expect(page.getByTestId('nul-melding')).toContainText('per jaar te verdelen');
-  await expect(page.getByTestId('route-minigames')).toContainText('11 minigames');
+  await expect(page.getByTestId('route-minigames')).toContainText('10 minigames');
   // Boven elk bekend gebouw met een minigame een oranje label (op een telefoon alleen het icoon).
-  await expect(page.locator('.kaart-minigame')).toHaveCount(11);
+  await expect(page.locator('.kaart-minigame')).toHaveCount(10);
   if (!testInfo.project.name.startsWith('mobiel'))
     await expect(page.locator('.kaart-minigame').first()).toContainText('Speel');
   await expect(page.getByTestId('saldo')).toContainText('+');
@@ -76,7 +76,7 @@ test('de route: eerst de belasting met het gemiddelde van Nederland, dan veiligh
 
   await page.getByTestId('route').getByRole('button', { name: 'Naar het belastingloket' }).click();
   const paneel = page.getByTestId('paneel');
-  await expect(paneel).toContainText('Stap 1 van 13 · Financiën');
+  await expect(paneel).toContainText('Stap 1 van 14 · Financiën');
   const ozb = paneel.getByRole('slider', { name: /Onroerendezaakbelasting/ });
   // Bij nul geen bedrag van het college en geen percentage, wel het bedrag per inwoner.
   await expect(paneel.locator(`output[for="${await ozb.getAttribute('id')}"]`)).toHaveText(
@@ -101,7 +101,11 @@ test('de route: eerst de belasting met het gemiddelde van Nederland, dan veiligh
   await page.screenshot({ path: testInfo.outputPath('route-belasting.png'), fullPage: true });
 
   await paneel.getByTestId('volgende-stap').click();
-  await expect(paneel).toContainText('Stap 2 van 13 · Veiligheid');
+  // Na de belasting het Beleidshuis: welk beleid blijft er?
+  await expect(paneel).toContainText('Stap 2 van 14 · Beleid');
+  await expect(paneel.getByRole('heading', { level: 2 })).toContainText('Beleidshuis');
+  await paneel.getByTestId('volgende-stap').click();
+  await expect(paneel).toContainText('Stap 3 van 14 · Veiligheid');
   await expect(paneel.getByRole('heading', { level: 2 })).toContainText("Politie en boa's");
   // Ook bij de posten bedragen in plaats van percentages.
   const boas = paneel.getByRole('slider', { name: /Boa's/ });
@@ -115,8 +119,9 @@ test('de route: eerst de belasting met het gemiddelde van Nederland, dan veiligh
   await expect(gevolg).toContainText("met jouw keuze ongeveer 10 boa's");
   await paneel.getByRole('button', { name: 'Paneel sluiten' }).click();
   await expect(page.locator('[data-route="1"]')).toHaveText('✓');
-  await expect(page.locator('.route-nummer.huidig')).toHaveText('2');
-  await expect(page.getByTestId('route')).toContainText('Stap 2 van 13');
+  await expect(page.locator('[data-route="2"]')).toHaveText('✓');
+  await expect(page.locator('.route-nummer.huidig')).toHaveText('3');
+  await expect(page.getByTestId('route')).toContainText('Stap 3 van 14');
 });
 
 test('een gedeelde link opent direct de begroting', async ({ page }) => {

@@ -144,6 +144,8 @@ export const actiekaartSchema = z
     investering: investeringSchema.optional(),
     ingroeipad: ingroeipad.optional(),
     gebouw: z.string().optional(),
+    /** kaarten met dezelfde groep sluiten elkaar uit (bijvoorbeeld 5, 10 of 15% minder ambtenaren) */
+    groep: z.string().optional(),
     /** zekerheid van het bedrag (standaard feit) */
     zekerheid: z.enum(['feit', 'aanname', 'te onderzoeken']).optional(),
     /**
@@ -578,6 +580,11 @@ const documentHoofdstuk = z
   .object({
     titel: z.string(),
     intro: z.string(),
+    /**
+     * een andere inleiding als de keuzes de andere kant op gaan: bij Besparingen als die vooral uit
+     * hogere lasten komen, bij Investeringen als de lasten niet omlaag gaan
+     */
+    intro_anders: z.string().optional(),
     /** kopjes in de volgorde van het document; het laatste krijgt de thema's die nergens staan */
     kopjes: z
       .array(
@@ -682,6 +689,19 @@ export const tarievenSchema = z
     /** tarief als de hondenbelasting (weer) wordt ingevoerd met de actiekaart */
     hondenbelasting: z
       .object({ kaart: z.string(), tarief: euro, jaar: z.number().int(), bron: z.string() })
+      .strict()
+      .optional(),
+    /** toeristenbelasting: per toerist per nacht, niet per inwoner (het jaar staat erbij) */
+    toeristenbelasting: z
+      .object({
+        belasting: z.string(),
+        jaar: z.number().int(),
+        per_overnachting: euro,
+        kamperen_hostel: euro,
+        haren_ten_boer: euro,
+        bron: z.string(),
+        bron_url: z.string().url(),
+      })
       .strict()
       .optional(),
     kwijtschelding: z
@@ -897,9 +917,27 @@ export const minigameVormen = [
   'goudkantoor',
 ] as const;
 
+/** Een post met een naam die iedereen begrijpt, voor de minigames. */
+export const spelPostSchema = z
+  .object({
+    /** id van het onderdeel in de begroting */
+    post: z.string(),
+    naam: z.string(),
+    /** wat het is, in één korte zin */
+    uitleg: z.string(),
+    /** moet van de wet, of een eigen keuze van de gemeente (leeg: niet eenduidig) */
+    soort: z.enum(['wet', 'keuze']).optional(),
+    /** de wet, bij soort "wet" */
+    wet: z.string().optional(),
+  })
+  .strict();
+export type SpelPost = z.infer<typeof spelPostSchema>;
+
 export const minigamesSchema = z
   .object({
     toelichting: z.string(),
+    toelichting_posten: z.string(),
+    posten: z.array(spelPostSchema).min(10),
     minigames: z
       .array(
         z
@@ -947,26 +985,6 @@ export const minigamesSchema = z
                       .strict(),
                   )
                   .min(1),
-                /** posten uit een eerdere tegenbegroting van VVD Groningen, met hun eigen jaar */
-                tegenbegroting: z
-                  .object({
-                    bron: z.string(),
-                    url: z.string().url(),
-                    jaar: z.number().int(),
-                    posten: z
-                      .array(
-                        z
-                          .object({
-                            naam: z.string(),
-                            bedrag_mln: z.number().positive(),
-                            soort: z.enum(['S', 'I']),
-                          })
-                          .strict(),
-                      )
-                      .min(1),
-                  })
-                  .strict()
-                  .optional(),
               })
               .strict()
               .optional(),

@@ -135,7 +135,9 @@ export function Spel({ data }: { data: Data }) {
 
   return (
     <div className="spel">
-      <h1 className="spel-titel">{data.teksten.titel}</h1>
+      <h1 className={`spel-titel${gekozenGebouw && weergave === 'kaart' ? ' verborgen' : ''}`}>
+        {data.teksten.titel}
+      </h1>
       <Hud data={data} resultaat={resultaat} />
       {kaartFout && (
         <p className="melding-blok" role="alert">
@@ -173,7 +175,7 @@ export function Spel({ data }: { data: Data }) {
       <TussendoorAanbod data={data} />
       <Feedback data={data} />
       <p className="toast" role="status" aria-live="polite" data-testid="melding">
-        {melding && <span>🔒 {melding}</span>}
+        {melding && <span>{melding}</span>}
       </p>
       {terug && (
         <WelkomTerug

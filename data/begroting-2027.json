@@ -2489,6 +2489,152 @@
  ],
  "actiekaarten": [
   {
+   "id": "k_apparaat_5",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": 17.897,
+   "naam": "5% minder ambtenaren in de hele organisatie",
+   "uitleg": "De gemeente krimpt de hele ambtelijke organisatie met 5%, vooral door vertrekkende mensen niet te vervangen (natuurlijk verloop). Dat gaat geleidelijk: de helft in het eerste jaar, de rest daarna. Dit komt bovenop wat je met de schuiven doet.",
+   "meter_effect_punten": {
+    "d": -2
+   },
+   "bron": "Ontwerpbegroting 2027, Personeelskosten p. 355: loonsom ambtelijk personeel in dienst 357.948 (x 1.000 euro), 3.681 fte. 5% daarvan is 17,9 mln. Ingroei via natuurlijk verloop: aanname.",
+   "ingroeipad": [
+    0.5,
+    1
+   ],
+   "gebouw": "beleid",
+   "zekerheid": "aanname",
+   "groep": "apparaat"
+  },
+  {
+   "id": "k_apparaat_10",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": 35.795,
+   "naam": "10% minder ambtenaren in de hele organisatie",
+   "uitleg": "De gemeente krimpt de ambtelijke organisatie met 10%, vooral door vertrekkende mensen niet te vervangen. Dat duurt langer: ongeveer drie jaar. Dit komt bovenop wat je met de schuiven doet.",
+   "meter_effect_punten": {
+    "d": -4
+   },
+   "bron": "Ontwerpbegroting 2027, Personeelskosten p. 355: loonsom ambtelijk personeel in dienst 357.948 (x 1.000 euro), 3.681 fte. 10% daarvan is 35,8 mln. Ingroei via natuurlijk verloop: aanname.",
+   "ingroeipad": [
+    0.35,
+    0.7,
+    1
+   ],
+   "gebouw": "beleid",
+   "zekerheid": "aanname",
+   "groep": "apparaat"
+  },
+  {
+   "id": "k_apparaat_15",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": 53.692,
+   "naam": "15% minder ambtenaren in de hele organisatie",
+   "uitleg": "De gemeente krimpt de ambtelijke organisatie met 15%. Alleen met natuurlijk verloop lukt dat niet binnen vier jaar; er zijn ook andere maatregelen nodig, zoals taken afstoten. Dit komt bovenop wat je met de schuiven doet.",
+   "meter_effect_punten": {
+    "d": -6
+   },
+   "bron": "Ontwerpbegroting 2027, Personeelskosten p. 355: loonsom ambtelijk personeel in dienst 357.948 (x 1.000 euro), 3.681 fte. 15% daarvan is 53,7 mln. Ingroei over vier jaar: aanname.",
+   "ingroeipad": [
+    0.25,
+    0.5,
+    0.75,
+    1
+   ],
+   "gebouw": "beleid",
+   "zekerheid": "aanname",
+   "groep": "apparaat"
+  },
+  {
+   "id": "k_minder_bouwregels",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "S",
+   "bedrag_mln": 0.49,
+   "naam": "Minder bouwregels: welstandsvrij bouwen",
+   "uitleg": "De welstandscommissie krijgt minder macht. Er komt één welstandsnota met zo min mogelijk regels, en nieuwe wijken worden vaker welstandsvrij. Dan zijn er ook minder ambtenaren voor wonen nodig: dat scheelt geld. En het versnelt de bouw, dus komen er meer woningen die OZB betalen.",
+   "meter_effect_punten": {
+    "h": 2
+   },
+   "bron": "Verkiezingsprogramma VVD Groningen 2026-2030, p. 16 ('De welstandscommissie krijgt minder macht (...) Dat versnelt de bouw'). Bedrag: aanname, 10% van de ambtenaren wonen (w4, € 4,9 mln in de ontwerpbegroting 2027). Het aantal extra woningen is ook een aanname (dwarsverband wg_woningbouw).",
+   "gebouw": "beleid",
+   "zekerheid": "aanname"
+  },
+  {
+   "id": "k_smr_onderzoek",
+   "soort": "uitgave",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": -0.5,
+   "naam": "Onderzoek naar een kleine kerncentrale (SMR)",
+   "uitleg": "De gemeente laat onderzoeken of een kleine kerncentrale (SMR) in of bij Groningen kan bijdragen aan schone en betaalbare stroom. Het onderzoek kost geld; een centrale bouwen doet de gemeente niet zelf.",
+   "meter_effect_punten": {},
+   "bron": "Niet in de begroting 2027. Bedrag: 'Kosten onderzoek SMR 0,5 (I)' uit de tegenbegroting van VVD Groningen 2026. Een aanname voor 2027.",
+   "gebouw": "beleid",
+   "zekerheid": "aanname"
+  },
+  {
+   "id": "k_sterk_hoogkerk",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 0.45,
+   "naam": "Geen geld meer voor de burgerbegroting Sterk Hoogkerk",
+   "uitleg": "In Hoogkerk bepalen bewoners zelf waar een deel van het geld naartoe gaat (de burgerbegroting 'Sterk Hoogkerk'). De gemeente stopt hiermee. De begroting trekt er van 2027 tot en met 2030 elk jaar 450 duizend euro voor uit; in de game telt het als eenmalig, net als in de begroting.",
+   "meter_effect_punten": {},
+   "bron": "Ontwerpbegroting 2027, intensiveringen p. 299 (90. Sterk Hoogkerk, 4.2, I, −450 per jaar 2027-2030) en toelichting p. 317.",
+   "gebouw": "beleid",
+   "zekerheid": "feit"
+  },
+  {
+   "id": "k_dierenarts",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 0.05,
+   "naam": "Geen gemeentegeld voor dierenartskosten",
+   "uitleg": "De gemeente geeft een subsidie zodat mensen met een laag inkomen de dierenarts kunnen betalen als hun huisdier acute hulp nodig heeft. Daar stopt de gemeente mee. De begroting trekt er van 2027 tot en met 2030 elk jaar 50 duizend euro voor uit.",
+   "meter_effect_punten": {},
+   "bron": "Ontwerpbegroting 2027, intensiveringen p. 298 (47. Dierenartskosten, 3.1, I, −50 per jaar 2027-2030) en toelichting p. 309.",
+   "gebouw": "beleid",
+   "zekerheid": "feit"
+  },
+  {
+   "id": "k_armoede_mondzorg",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 1.04,
+   "naam": "Geen extra actieprogramma armoede (met de vergoeding voor de tandarts)",
+   "uitleg": "De gemeente verlengt het extra actieprogramma armoede niet. Daar zit ook de vergoeding van tandartskosten (mondzorg) voor mensen met een laag inkomen in. De vaste armoederegelingen blijven. In 2027 scheelt dit 1,04 mln, daarna 1,34 mln per jaar.",
+   "meter_effect_punten": {},
+   "bron": "Ontwerpbegroting 2027, intensiveringen p. 298 (45. Actieprogramma armoede (incl. mondzorg), 3.1, I: −1.040 in 2027, −1.344 in 2028-2030), toelichting p. 309; mondzorg p. 81.",
+   "gebouw": "beleid",
+   "zekerheid": "feit"
+  },
+  {
+   "id": "k_bosfonds",
+   "soort": "opbrengst",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": 0.2,
+   "naam": "Geen nieuw bosfonds",
+   "uitleg": "De gemeente wil een bosfonds oprichten voor nieuwe bossen, zoals het Meerbos. Daar ziet de gemeente van af. De bomen die er al staan (ruim 123.000) blijven gewoon onderhouden worden. De begroting trekt er van 2027 tot en met 2030 elk jaar 200 duizend euro voor uit.",
+   "meter_effect_punten": {},
+   "bron": "Ontwerpbegroting 2027, intensiveringen p. 297 (29. Bosfonds, 2.1, I, −200 per jaar 2027-2030), toelichting p. 305; aantal bomen p. 220 (123.336 stuks).",
+   "gebouw": "beleid",
+   "zekerheid": "feit"
+  },
+  {
+   "id": "k_meer_bomen",
+   "soort": "uitgave",
+   "structureel_of_incidenteel": "I",
+   "bedrag_mln": -0.3,
+   "naam": "Extra bomen planten in de wijken",
+   "uitleg": "De gemeente plant extra bomen in straten en wijken, bovenop het Groenplan. Met 300 duizend euro zijn dat er ongeveer 300 tot 600, afhankelijk van de plek en de grootte.",
+   "meter_effect_punten": {},
+   "bron": "Bedrag: gelijk aan het Groenplan in de begroting 2027 (p. 297, 28. Groenplan, 2.1, I, −300 in 2027 en 2028). Het aantal bomen is een aanname (500 tot 1.000 euro per straatboom, met planten en eerste onderhoud).",
+   "gebouw": "beleid",
+   "zekerheid": "aanname"
+  },
+  {
    "id": "k_ongedoc",
    "soort": "opbrengst",
    "structureel_of_incidenteel": "I",
@@ -2501,21 +2647,6 @@
    "bron": "Ontwerpbegroting 2027, deelprogramma 3.3, regel 'Opvang ongedocumenteerden' 5.600 (incidenteel), p. 122",
    "gebouw": "beleid",
    "zekerheid": "feit"
-  },
-  {
-   "id": "k_hond",
-   "soort": "opbrengst",
-   "structureel_of_incidenteel": "S",
-   "bedrag_mln": 1.015,
-   "naam": "Hondenbelasting weer invoeren",
-   "uitleg": "Groningen schafte de hondenbelasting per 2022 af. Weer invoeren levert ongeveer € 1 mln per jaar op (€ 133 per hond), vanaf 2027: eerst moet er een nieuwe verordening komen.",
-   "meter_effect_punten": {},
-   "bron": "Opbrengst 2021 (€ 1,015 mln) en tarief (€ 133 per hond): RTV Noord, 6 juli 2021, en de raadsbrief over de afschaffing. Bedrag van 2021, niet geïndexeerd; het aantal honden kan veranderd zijn.",
-   "ingroeipad": [
-    0,
-    1
-   ],
-   "zekerheid": "aanname"
   },
   {
    "id": "p_young_professionals",
@@ -2743,35 +2874,18 @@
    "gebouw": "beleid"
   },
   {
-   "id": "k_minder_bouwregels",
+   "id": "k_hond",
    "soort": "opbrengst",
    "structureel_of_incidenteel": "S",
-   "bedrag_mln": 0.49,
-   "naam": "Minder bouwregels: welstandsvrij bouwen",
-   "uitleg": "De welstandscommissie krijgt minder macht. Er komt één welstandsnota met zo min mogelijk regels, en nieuwe wijken worden vaker welstandsvrij. Dan zijn er ook minder ambtenaren voor wonen nodig: dat scheelt geld. En het versnelt de bouw, dus komen er meer woningen die OZB betalen.",
-   "meter_effect_punten": {
-    "h": 2
-   },
-   "bron": "Verkiezingsprogramma VVD Groningen 2026-2030, p. 16 ('De welstandscommissie krijgt minder macht (...) Dat versnelt de bouw'). Bedrag: aanname, 10% van de ambtenaren wonen (w4, € 4,9 mln in de ontwerpbegroting 2027). Het aantal extra woningen is ook een aanname (dwarsverband wg_woningbouw).",
-   "gebouw": "beleid",
-   "zekerheid": "aanname"
-  },
-  {
-   "id": "k_apparaat_5",
-   "soort": "opbrengst",
-   "structureel_of_incidenteel": "S",
-   "bedrag_mln": 17.897,
-   "naam": "5% minder ambtenaren in de hele organisatie",
-   "uitleg": "De gemeente krimpt de hele ambtelijke organisatie met 5%, vooral door vertrekkende mensen niet te vervangen (natuurlijk verloop). Dat gaat geleidelijk: de helft in het eerste jaar, de rest daarna. Dit komt bovenop wat je met de schuiven doet.",
-   "meter_effect_punten": {
-    "d": -2
-   },
-   "bron": "Ontwerpbegroting 2027, Personeelskosten p. 355: loonsom ambtelijk personeel in dienst 357.948 (x 1.000 euro), 3.681 fte. 5% daarvan is 17,9 mln. Ingroei via natuurlijk verloop: aanname.",
+   "bedrag_mln": 1.015,
+   "naam": "Hondenbelasting weer invoeren",
+   "uitleg": "Groningen schafte de hondenbelasting per 2022 af. Weer invoeren levert ongeveer € 1 mln per jaar op (€ 133 per hond), vanaf 2027: eerst moet er een nieuwe verordening komen.",
+   "meter_effect_punten": {},
+   "bron": "Opbrengst 2021 (€ 1,015 mln) en tarief (€ 133 per hond): RTV Noord, 6 juli 2021, en de raadsbrief over de afschaffing. Bedrag van 2021, niet geïndexeerd; het aantal honden kan veranderd zijn.",
    "ingroeipad": [
-    0.5,
+    0,
     1
    ],
-   "gebouw": "beleid",
    "zekerheid": "aanname"
   },
   {
@@ -2912,6 +3026,32 @@
   }
  ],
  "beleidsprogrammas": [
+  {
+   "id": "p_co2_2040",
+   "naam": "CO₂-neutraal in 2040 in plaats van 2035",
+   "uitleg": "De gemeente doet er vijf jaar langer over om CO₂-neutraal te worden. Hetzelfde werk wordt over meer jaren verdeeld, dus per jaar is er minder geld en minder personeel voor nodig.",
+   "programma": "Klimaatdoel: CO₂-neutraal in 2035",
+   "wat": "De gemeente wil in 2035 CO₂-neutraal zijn: alle energie komt dan uit duurzame bronnen (besluit uit 2011).",
+   "post": "w12",
+   "bedrag_mln": 4.192,
+   "structureel_of_incidenteel": "S",
+   "bron": "Ontwerpbegroting 2027: CO₂-neutraal in 2035 p. 212; klimaat- en energiebeleid (CDOKE) 10.900 p. 45.",
+   "zekerheid": "aanname",
+   "berekening": "Aanname: het werk dat nog moet gebeuren wordt over meer jaren verdeeld. Tot 2035 zijn dat 8 jaar (2027-2034), tot 2040 13 jaar (2027-2039). Per jaar is dan 8/13 nodig: 10,9 × (1 − 8/13) = 4,19 mln minder per jaar."
+  },
+  {
+   "id": "p_co2_2050",
+   "naam": "CO₂-neutraal pas in 2050",
+   "uitleg": "Bovenop 2040: de gemeente schuift het doel door naar 2050, het jaar waarin heel Nederland klimaatneutraal moet zijn. Dan is er per jaar nog minder geld en personeel voor nodig.",
+   "programma": "Klimaatdoel: niet later dan 2040",
+   "wat": "Zonder deze keuze blijft het doel 2035 of 2040.",
+   "post": "w12",
+   "bedrag_mln": 2.92,
+   "structureel_of_incidenteel": "S",
+   "bron": "Ontwerpbegroting 2027: CO₂-neutraal in 2035 p. 212; CDOKE 10.900 p. 45. Klimaatwet: Nederland klimaatneutraal in 2050.",
+   "zekerheid": "aanname",
+   "berekening": "Aanname: verdelen over 2027-2049 (23 jaar) in plaats van 2027-2034 (8): 10,9 × (1 − 8/23) = 7,11 mln per jaar in totaal; daarvan 4,19 bij 2040, dus 2,92 mln extra."
+  },
   {
    "id": "p_sia_museum_a",
    "naam": "Museum aan de A niet bouwen",
