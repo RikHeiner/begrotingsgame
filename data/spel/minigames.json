@@ -259,15 +259,15 @@
     {
       "id": "grotemarkt",
       "naam": "Grote Markt",
-      "spel": "Marktkoopman",
+      "spel": "Begrotingstetris",
       "vorm": "markt",
       "icoon": "🧺",
       "positie": {
         "lon": 6.5655,
         "lat": 53.2176
       },
-      "kort": "Vul je kraam met uitgaven, maar blijf binnen het budget.",
-      "leerdoel": "Je kunt niet alles kopen: kiezen binnen een vast budget."
+      "kort": "Leg de uitgaven van de gemeente netjes neer en maak rijen vol; schrap wat een eigen keuze is.",
+      "leerdoel": "Een groot deel van de begroting moet van de wet. Bezuinigen kan alleen op de eigen keuzes van de gemeente."
     },
     {
       "id": "station",
