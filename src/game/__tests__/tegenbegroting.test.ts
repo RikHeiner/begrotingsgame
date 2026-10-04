@@ -192,3 +192,21 @@ describe('tegenbegroting: de tekst volgt de richting van de keuzes', () => {
     );
   });
 });
+
+describe('tegenbegroting: bij elke maatregel bedragen en een toelichting', () => {
+  it('een post: wat het oplevert, wat het is, nu en straks', () => {
+    const r = bereken(data, keuzes({ onderdelen: { h1: -10 }, belastingen: { t1: -5 } }));
+    const doc = maakTegenbegroting(data, r, meta);
+    const alle = [...doc.besparingen, ...doc.investeringen].flatMap((g) => g.regels);
+    const h1 = alle.find((x) => x.id === 'h1');
+    const o = data.index.onderdelen.get('h1');
+    expect(h1?.toelichting).toMatch(/^Levert € [\d,]+ mln per jaar op\./);
+    expect(h1?.toelichting).toContain(
+      `Nu € ${o?.lasten_mln.toLocaleString('nl-NL', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} mln per jaar`,
+    );
+    const t1 = alle.find((x) => x.id === 't1');
+    expect(t1?.toelichting).toMatch(/^Kost € [\d,]+ mln per jaar\./);
+    expect(t1?.toelichting).toContain('Opbrengst nu €');
+  });
+});
+
