@@ -67,7 +67,6 @@ export const keuzes: Keuzes = {
   kaarten: [
     'k_apparaat_15',
     'p_energiebedrijf',
-    'p_wegenfundering_warmtestad',
     'p_diversiteit_organisatie',
     'k_minder_bouwregels',
     'p_emissieloos_wagenpark',
