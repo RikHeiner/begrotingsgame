@@ -1,6 +1,6 @@
 # Controle tegenbegroting 2027 VVD Groningen (v1 → v2)
 
-Peildatum: 31 oktober 2026. Bron van waarheid voor de cijfers: het rekenmodel van de Begrotingsgame (`src/engine`, data `data/begroting-2027.json`, scenario _midden_).
+Peildatum: 31 oktober 2026. Dit rapport is intern (niet voor indiening). Bron van waarheid voor de cijfers: het rekenmodel van de Begrotingsgame (`src/engine`, data `data/begroting-2027.json`, scenario _midden_).
 
 ## 0. Vooraf: wat ik wel en niet had
 
@@ -27,7 +27,7 @@ Het bestand `controle/keuzes.ts` bevat de exacte invoer.
 - **Schuiven van Rik (uit v1):**
   - Ombuigingen: g7 −40, g5 −30, e9 −25, e7 −35, g1 −24, o4 −100, z10 −85, z8 −25, z9 −45, g4 −30, s12 −75, s11 −25, z6 −20, z11 −16,7, c5 −25, m9 −100, w7 −40, w6 −55, d6 −100, m11 −40, m4 −55, o8 −15, w4 −25, m2 −20
   - Investeringen: v3 +10, e8 +10, e10 +5, e3 +15, b1 +5, v5 +10, b2 +5, o6 +5, v4 +10, w10 +5, w1 +5, k2 +5, e6 +5
-  - Belastingen: toeristenbelasting −10, precario −60,7, reclame −100
+  - Belastingen: toeristenbelasting −10, precario −20 (was −60,7, aangepast op verzoek van de fractie), reclame −100
 - **Kaarten:** p_energiebedrijf, p_diversiteit_organisatie, k_minder_bouwregels, p_emissieloos_wagenpark, p_campus_camera, p_internationale_solidariteit, k_dierenarts, k_tegenprestatie, k_ongedoc, p_niemeyer, k_smr_onderzoek
 - **Programma's stopgezet:** p_preventiefonds_jeugd, p_werkprogramma, p_route_arbeid_plus (zie a.2)
 - **Grenzen:** de game hoefde niets te corrigeren; alle keuzes vallen binnen de grenzen.
@@ -41,13 +41,13 @@ Het bestand `controle/keuzes.ts` bevat de exacte invoer.
 |                                   | Mijn model (v1) |      Game (v2) |    Verschil |
 | --------------------------------- | --------------: | -------------: | ----------: |
 | Ombuigingen en opbrengsten 2027   |         130,617 |        138,212 |      +7,595 |
-| Uitgaven 2027 (excl. storting)    |          79,142 |        114,244 |     +35,102 |
-| **Saldo 2027 = storting reserve** |      **51,475** |     **23,968** | **−27,507** |
-| waarvan structureel / incidenteel |  51,128 / 0,347 | 23,201 / 0,767 |             |
-| Saldo 2028                        |          65,083 |         59,762 |      −5,321 |
-| Saldo 2029                        |          79,039 |         74,255 |      −4,784 |
-| Saldo 2030                        |          92,995 |         87,502 |      −5,493 |
-| Cumulatief 2027-2030              |         288,592 |        245,488 |     −43,104 |
+| Uitgaven 2027 (excl. storting)    |          79,142 |        113,485 |     +34,343 |
+| **Saldo 2027 = storting reserve** |      **51,475** |     **24,728** | **−26,747** |
+| waarvan structureel / incidenteel |  51,128 / 0,347 | 23,960 / 0,767 |             |
+| Saldo 2028                        |          65,083 |         60,521 |      −4,562 |
+| Saldo 2029                        |          79,039 |         75,015 |      −4,024 |
+| Saldo 2030                        |          92,995 |         88,262 |      −4,733 |
+| Cumulatief 2027-2030              |         288,592 |        248,526 |     −40,066 |
 
 De game-saldo's per jaar (S/I) komen tot op de duizend euro overeen met `bereken()`; het script controleert dat (assert).
 
@@ -65,7 +65,7 @@ De game-saldo's per jaar (S/I) komen tot op de duizend euro overeen met `bereken
 | Bijzondere bijstand 25%                                                                                                  |                                                 1,35 |                                                           1,36 | Basis netto 5,44 (v1: 5,4).                                                                                                                                                        |
 | Uitvoering mobiliteitsvisie 55%                                                                                          |                                                 0,88 |                                                          0,858 | Basis 1,56 (v1: 1,6).                                                                                                                                                              |
 | Oosterhamrikzone 100%                                                                                                    |                                                  0,3 |                                                           0,25 | Basis 0,25 (v1: 0,3).                                                                                                                                                              |
-| Precariobelasting −60,7%                                                                                                 |                                                1,153 |                                                          1,133 | Opbrengst 1,866 volgens Ontwerpbegroting 2027 (v1: 1,9).                                                                                                                           |
+| Precariobelasting                                                                                                        |                                       1,153 (−60,7%) |                                                   0,373 (−20%) | Percentage op verzoek van de fractie gewijzigd naar −20%; opbrengst 1,866 volgens Ontwerpbegroting 2027 (p. 5 en 275).                                                             |
 | Reclamebelasting −100%                                                                                                   |                                                  1,0 |                                                           0,98 | Opbrengst 0,98.                                                                                                                                                                    |
 | Citymarketing 15%                                                                                                        |                                                0,345 |                                                          0,338 | Basis 2,25 (v1: 2,3).                                                                                                                                                              |
 | OZB, kortparkeren, garages, vergunningen, toeristenbelasting, extra geld wonen, bedrijventerreinen, opvang vluchtelingen | 27,88 / 4,72 / 1,76 / 0,78 / 0,3 / 0,09 / 0,08 / 0,2 | 27,888 / 4,727 / 1,755 / 0,778 / 0,300 / 0,089 / 0,078 / 0,200 | Alleen afronding.                                                                                                                                                                  |
@@ -174,39 +174,40 @@ Alle bronnen staan als echte Word-voetnoot in v2, in Lucida Sans Unicode, 8 pt. 
    - Kettingeffecten staan als aparte regels ("Kettingeffect: …"). Regels die pas later iets doen, staan er met 0,0 en "(vanaf 2028)".
    - De drie programma's zijn verplaatst naar Ombuigingen (I).
    - De vergunningsposten van parkeren zijn tot één regel opgeteld, zoals in v1.
-   - Sluitpost "Verbeteren financiële positie van de gemeente" = 23,968 (I).
+   - Sluitpost "Verbeteren financiële positie van de gemeente" = 24,728 (I).
    - Totaal beide tabellen: 138,212.
-2. **Meerjarentabel:** opnieuw berekend. De regel "waarvan kettingeffecten" is toegevoegd; die zit al in de regels erboven. Saldo 23,968 / 59,762 / 74,255 / 87,502, cumulatief 245,488.
-3. **Bronregel** onder de inleiding van Financieel overzicht (Ontwerpbegroting 2027 + Begrotingsgame, scenario midden, stand 31-10-2026).
+2. **Meerjarentabel:** opnieuw berekend. De regel "waarvan kettingeffecten" is toegevoegd; die zit al in de regels erboven. Saldo 24,728 / 60,521 / 75,015 / 88,262, cumulatief 248,526.
+3. **Bronregel** onder de inleiding van Financieel overzicht: "Ontwerpbegroting 2027 gemeente Groningen; berekeningen VVD Groningen". Alle verwijzingen naar de Begrotingsgame, het rekenmodel en het scenario zijn uit het document gehaald, zodat het als voorstel van de fractie kan worden ingediend.
 4. **"Uitgangspunten meerjarenbegroting":** herschreven. De oude tekst ("geen rekening met afbouwtermijnen of kettingeffecten", "lineair") klopte niet meer.
 
 **Teksten met bedragen of kettingeffecten**
 
-0. **Wegenfundering WarmteStad geschrapt** (na overleg met de fractie): de post komt uit de begroting 2026 en heeft al plaatsgevonden. De alinea en de tabelregel zijn eruit, de kaart is uit de invoer gehaald. Het saldo 2027 daalt met 0,45 mln (incidenteel); 2028-2030 veranderen niet.
+0. **Precariobelasting −20%** (was −60,7%, op verzoek van de fractie): titel, tekst en tabel aangepast; kost 0,373 mln per jaar in plaats van 1,133. Het saldo stijgt daardoor met 0,76 mln per jaar.
+1. **Wegenfundering WarmteStad geschrapt** (na overleg met de fractie): de post komt uit de begroting 2026 en heeft al plaatsgevonden. De alinea en de tabelregel zijn eruit, de kaart is uit de invoer gehaald. Het saldo 2027 daalt met 0,45 mln (incidenteel); 2028-2030 veranderen niet.
 
-1. **Ambtenarenapparaat 15%:** "in de hele organisatie" en eenmalig 10,9 mln frictiekosten toegevoegd.
-2. **Samenwerkingsverbanden / Regio Groningen-Assen:** de besparing op de Regio telt pas vanaf 2029 (gemeenschappelijke regeling).
-3. **Zakelijke dienstverlening 100%:** "kost op papier 1,2 miljoen" vervangen door het game-beeld: 1,2 mln gemiste inkomsten + 2,0 mln doorlopende vaste kosten, vanaf 2028 1,0 mln overhead vrij; per saldo 3,2 mln in 2027 en 2,2 mln per jaar daarna. _Feitelijke correctie; de keuze blijft staan._
-4. **Energiebedrijf:** de zin "waardoor de overheadkosten zullen dalen" (niet doorgerekend) is vervangen door "scheelt in 2027 eenmalig 0,2 miljoen euro".
-5. **Diversiteit:** de dubbele titel ("diversiteit en diversiteit en inclusie") en de herhaalde zinnen zijn opgeschoond; 0,2 mln eenmalig genoemd.
-6. **Wijk en welzijn:** subsidies netjes opzeggen (25% in 2027) en de gevolgen van minder preventie voor jeugdzorg en Wmo genoemd.
-7. **Verplichte tegenprestatie:** "vanaf 2030 1,6 miljoen" gecorrigeerd naar 0 in 2027, 0,8 in 2028 en 1,6 vanaf 2029.
-8. **Wmo 15%:** juridische nuance toegevoegd (maatwerkvoorziening, reële prijs art. 2.6.6 Wmo: de besparing moet uit indicaties komen, niet uit lagere tarieven). Ook: door de contracten levert het in 2027 niets op, vanaf 2028 10,3 mln.
-9. **Overige taakstellingen:** de GGD-besparing telt pas vanaf 2029 (gemeenschappelijke regeling).
-10. **Ongedocumenteerden:** "het vorige kabinet … met ingang van 2025" met bron; 5,6 mln eenmalig en 1,1 mln restkosten per jaar.
-11. **Cultuur 40%:** de Forum-zin is vervangen (zie b.6) en de afbouw van subsidies genoemd.
-12. **Stadsschouwburg:** "dat is in het bedrag verwerkt" toegevoegd (klopt met de game: de baten bewegen mee).
-13. **CDOKE:** de energiesubsidies-zin is aangepast (zie b.11).
-14. **Parkeercontrole 20%:** "per saldo minder oplevert dan het lijkt" is vervangen door "per saldo kost dit ongeveer 0,4 miljoen euro per jaar". _Feitelijke correctie: de post kost netto geld. Overweeg politiek of je deze keuze wilt handhaven._
-15. **Betaald parkeren:** nieuwe openingszin met bron (b.3) en "ongeveer 1,7 mln van de gemiste opbrengst komt terug" (game).
-16. **Toeristenbelasting:** "betaald door hotelgasten" vervangen door "door bezoekers die in Groningen overnachten" (de heffing geldt voor alle overnachtingen).
-17. **Jeugdzorg 10%:** de juridische formulering is gecorrigeerd (b.12) en het preventie-effect genoemd: vanaf 2028 meer jeugdzorg, tot 4,3 mln.
-18. **Preventiefonds jeugd, werkprogramma en Route Arbeid+:** de oude alinea's ("De VVD richt een preventiefonds op", "trekken we eenmalig geld uit voor een werkprogramma") zijn verwijderd. Er is een nieuwe bullet onder "Werken moet lonen": "Stoppen met extra programma's in het sociaal domein" (samen 5,9 mln eenmalig; de huidige deelnemers van Route Arbeid+ houden hun begeleiding).
+2. **Ambtenarenapparaat 15%:** "in de hele organisatie" en eenmalig 10,9 mln frictiekosten toegevoegd.
+3. **Samenwerkingsverbanden / Regio Groningen-Assen:** de besparing op de Regio telt pas vanaf 2029 (gemeenschappelijke regeling).
+4. **Zakelijke dienstverlening 100%:** "kost op papier 1,2 miljoen" vervangen door het game-beeld: 1,2 mln gemiste inkomsten + 2,0 mln doorlopende vaste kosten, vanaf 2028 1,0 mln overhead vrij; per saldo 3,2 mln in 2027 en 2,2 mln per jaar daarna. _Feitelijke correctie; de keuze blijft staan._
+5. **Energiebedrijf:** de zin "waardoor de overheadkosten zullen dalen" (niet doorgerekend) is vervangen door "scheelt in 2027 eenmalig 0,2 miljoen euro".
+6. **Diversiteit:** de dubbele titel ("diversiteit en diversiteit en inclusie") en de herhaalde zinnen zijn opgeschoond; 0,2 mln eenmalig genoemd.
+7. **Wijk en welzijn:** subsidies netjes opzeggen (25% in 2027) en de gevolgen van minder preventie voor jeugdzorg en Wmo genoemd.
+8. **Verplichte tegenprestatie:** "vanaf 2030 1,6 miljoen" gecorrigeerd naar 0 in 2027, 0,8 in 2028 en 1,6 vanaf 2029.
+9. **Wmo 15%:** juridische nuance toegevoegd (maatwerkvoorziening, reële prijs art. 2.6.6 Wmo: de besparing moet uit indicaties komen, niet uit lagere tarieven). Ook: door de contracten levert het in 2027 niets op, vanaf 2028 10,3 mln.
+10. **Overige taakstellingen:** de GGD-besparing telt pas vanaf 2029 (gemeenschappelijke regeling).
+11. **Ongedocumenteerden:** "het vorige kabinet … met ingang van 2025" met bron; 5,6 mln eenmalig en 1,1 mln restkosten per jaar.
+12. **Cultuur 40%:** de Forum-zin is vervangen (zie b.6) en de afbouw van subsidies genoemd.
+13. **Stadsschouwburg:** "dat is in het bedrag verwerkt" toegevoegd (klopt met de game: de baten bewegen mee).
+14. **CDOKE:** de energiesubsidies-zin is aangepast (zie b.11).
+15. **Parkeercontrole 20%:** "per saldo minder oplevert dan het lijkt" is vervangen door "per saldo kost dit ongeveer 0,4 miljoen euro per jaar". _Feitelijke correctie: de post kost netto geld. Overweeg politiek of je deze keuze wilt handhaven._
+16. **Betaald parkeren:** nieuwe openingszin met bron (b.3) en "ongeveer 1,7 mln van de gemiste opbrengst komt terug" (game).
+17. **Toeristenbelasting:** "betaald door hotelgasten" vervangen door "door bezoekers die in Groningen overnachten" (de heffing geldt voor alle overnachtingen).
+18. **Jeugdzorg 10%:** de juridische formulering is gecorrigeerd (b.12) en het preventie-effect genoemd: vanaf 2028 meer jeugdzorg, tot 4,3 mln.
+19. **Preventiefonds jeugd, werkprogramma en Route Arbeid+:** de oude alinea's ("De VVD richt een preventiefonds op", "trekken we eenmalig geld uit voor een werkprogramma") zijn verwijderd. Er is een nieuwe bullet onder "Werken moet lonen": "Stoppen met extra programma's in het sociaal domein" (samen 5,9 mln eenmalig; de huidige deelnemers van Route Arbeid+ houden hun begeleiding).
 
 > **Dit draait een politieke keuze om.** v1 zei "investeren in preventie". Het game-model kent deze posten alleen als _stopzetten_. Ik heb de tekst geschreven volgens wat de posten in de game zijn, zoals je vroeg, met de zin "De VVD kiest ervoor het geld voor jeugd en werk in de vaste budgetten te steken". Wil de fractie wél extra preventie, dan moeten deze drie kaarten uit de invoer. Het saldo 2027 daalt dan met 5,9 mln (dekking is er genoeg) en de tekst kan terug naar v1. **[CONTROLEREN]**
 
 23. **Intensieve coaching:** 2,4 mln per jaar en de besparing op bijstand (tot 1,6 mln vanaf 2029) genoemd; de werkprogramma-zin is eruit.
-24. **Verbeteren financiële positie:** 24,0 mln in 2027 en een structureel overschot tot 87,5 mln in 2030.
+24. **Verbeteren financiële positie:** 24,7 mln in 2027 en een structureel overschot tot 88,3 mln in 2030.
 
 **Schrijfwijze en taal**
 
@@ -234,19 +235,77 @@ Alle bronnen staan als echte Word-voetnoot in v2, in Lucida Sans Unicode, 8 pt. 
 
 ---
 
-## (d) Open punten voor jou [CONTROLEREN]
+## (d) Controle tegen de Ontwerpbegroting 2027 en alle twijfels [CONTROLEREN]
 
-1. Energiebedrijf (0,201), Niemeyer (0,25) en de drie programma's komen ook uit de begroting 2026, net als WarmteStad. Moeten die er ook uit?
-1. Rik.pdf, de 2026-docx en de xlsx aanleveren, zodat ik de reconstructie van Riks invoer en de layout kan nakijken.
-1. Fractienamen: Jasper/Teun (docx en pdf's) of Cassandra/Lisa (opdracht)?
-1. Preventiefonds, werkprogramma en Route Arbeid+: stopzetten (v2) of investeren (v1)? Zie c.22.
-1. Programmabedragen in de game die uit de begroting 2026 komen (a.3): nalopen tegen de Ontwerpbegroting 2027.
-1. Inkomenstoeslag: de zin is gelezen als "termijn verlengen van 2 naar 3 jaar". Klopt dat? Controleer ook de cellen met [CONTROLEREN] in de tabel en het Groningse bedrag (eigen omrekening).
-1. Alle voetnoot-URL's één keer openen. Ze konden in deze sessie niet worden geopend; vooral ANP (parkeren), OOG (Forum) en NOS (LVV).
-1. LVV: heeft het kabinet-Jetten de financiering hersteld? Zo ja, dan moet de alinea anders.
-1. Parkeercontrole −20% kost netto 0,4 mln. Handhaven?
-1. Ambtenaren 15% zonder uitzondering voor openbare ruimte en veiligheid: bewust?
-1. In Word: druk op F9 in de inhoudsopgave. De paginanummers zijn bepaald met de LibreOffice-weergave (zonder Aptos Narrow en Lucida Sans Unicode); in Word kan het een pagina schuiven.
+**Hoe gecontroleerd.** Het boekwerk van de Ontwerpbegroting 2027 zelf kon ik in deze sessie niet openen: het staat niet in de repo en de gemeentelijke sites zijn vanuit deze omgeving niet bereikbaar. Ik heb elke post daarom gecontroleerd tegen `data/begroting-2027.json`. Dat bestand is op 2 en 3 oktober 2026 uit het boekwerk overgenomen en door een tweede lezer nagerekend, en vermeldt per post de pagina. Leg de bedragen met paginanummer hieronder bij twijfel even naast het boekwerk.
+
+### d.1 Klopt met de begroting 2027 (bedrag en pagina in het boekwerk)
+
+Alle procentuele posten komen uit de tabellen "Waar gaat het geld voornamelijk naar toe" van het boekwerk 2027:
+
+- **Bedrijfsvoering en algemeen:** overhead 134,9 (p. 156), college 2,4 (p. 151), concernposten 5,9 (p. 151), samenwerkingsverbanden 2,1 (p. 151), wijkvernieuwing 6,15 (p. 151), burgerzaken 5,9 en KCC 4,1 (p. 147).
+- **Sociaal domein:** WIJ 46,3 (p. 121), GGD 12,0 (p. 121), jeugd 127,7 en Wmo 70,8 (p. 120), welzijnsinstellingen 8,7 en sociale samenhang 7,6 (p. 122), diversiteit en inclusie 1,4 en opvang vluchtelingen 1,2 (p. 123).
+- **Werk en inkomen:** participatie en re-integratie 23,8 (p. 89), basisbanen 9,4/2,7 (p. 90), armoede- en minimaregelingen 15,5/1,6, bijzondere bijstand 5,9/0,46 en individuele inkomenstoeslag 4,2 (p. 91).
+- **Cultuur en sport:** cultuurnota 29,0, SPOT 28,9/18,2, cultuur- en evenementenbeleid 10,5/0,5 en cultureel vastgoed 11,5/8,1 (p. 139); sportaccommodaties 39,4/12,1 en sportstimulering 1,8 (p. 129); natuur- en duurzaamheidseducatie 1,4 (p. 101).
+- **Ruimte, wonen en energie:** CDOKE 10,9, energiesubsidies 4,3/3,3, intensiveringsmiddelen energie 2,3 en toezicht en handhaving bouwen 2,0 (p. 45); personele inzet wonen 4,9 en intensiveringsmiddelen wonen 1,775 (p. 44).
+- **Economie en mobiliteit:** regio Groningen-Assen 1,1, strategisch bezit (samen 11,7/9,3), Suikerzijde 4,3, stadsontwikkeling 7,1/0,1, economische activiteiten 2,25 en ruimtelijke economie 1,55 (p. 23); personele inzet mobiliteit 3,3, mobiliteitsvisie 1,56, Oosterhamrikzone 0,25 en parkeerhandhaving 7,3/6,3 (p. 35).
+- **Openbare ruimte en veiligheid:** onderhoud openbare ruimte 72,4/2,1 en zakelijke dienstverlening 9,9/11,1 (p. 61-62); leefkwaliteit 3,2 + bodembeheer 0,8 (p. 62), geo en data 1,8 (p. 63); toezicht en handhaving 3,7 en OOV 5,7 (p. 72), jeugd en veiligheid 4,3/1,5 en ondermijning 1,4 (p. 71).
+- **Belastingen:** OZB 139,441, toeristenbelasting 2,998, precario 1,866 en reclame 0,98 (p. 5 en 275).
+- **Losse posten:** loonsom 357,9 mln, 3.681 fte (p. 355; 15% = 53,7); opvang ongedocumenteerden 5,6 incidenteel (p. 122); dierenartskosten 0,05 (p. 298).
+- **Bedragen in de lopende tekst:** WIJ circa 46 mln, inkomenstoeslag 4,2 mln, energiesubsidies 3,3 van 4,3 mln, de inkomsten van de zakelijke dienstverlening hoger dan de kosten, en de gestegen overhead (129,2 in 2026 → 134,9 in 2027, +4,4%). Deze kloppen met de begroting.
+
+### d.2 Twijfels: bedrag komt niet uit de begroting 2027
+
+| #   | Post                                               | In het document             | Twijfel                                                                                                                                                                                              | Voorstel                                                                                                                             |
+| --- | -------------------------------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| 1   | **Stoppen met het preventiefonds jeugd**           | 4,509 eenmalig              | Het bedrag komt uit de begroting 2026, waarin 2026 het **laatste jaar** van het fonds was. In 2027 bestaat het fonds waarschijnlijk niet meer; dan levert stoppen niets op.                          | Nakijken in het boekwerk 2027 (intensiveringen voorgaande jaren). Staat het er niet in: schrappen. Het saldo 2027 daalt dan met 4,5. |
+| 2   | **Stoppen met het werkprogramma bijstand**         | 1,05 eenmalig               | Komt uit de begroting 2026; volgens die begroting is het in 2027 **0,85**.                                                                                                                           | Bedrag in het boekwerk 2027 nakijken (waarschijnlijk 0,85) of schrappen.                                                             |
+| 3   | **Route Arbeid+ niet uitbreiden**                  | 0,35 eenmalig               | Komt uit de begroting 2026; volgens die bron ook 0,35 in 2027.                                                                                                                                       | Bevestigen in het boekwerk 2027.                                                                                                     |
+| 4   | **Organisatiekosten Energiebedrijf**               | 0,201 eenmalig              | Intensivering uit 2026 (alleen 2026), net als WarmteStad.                                                                                                                                            | Waarschijnlijk schrappen, tenzij het in 2027 opnieuw in de begroting staat.                                                          |
+| 5   | **Schrappen cultuurprogramma Niemeyer**            | 0,25 eenmalig               | Intensivering uit 2026 (eenmalig).                                                                                                                                                                   | Nakijken; waarschijnlijk schrappen.                                                                                                  |
+| 6   | **Stoppen met het plan van aanpak diversiteit**    | 0,205 eenmalig              | Intensivering uit 2026.                                                                                                                                                                              | Nakijken; waarschijnlijk schrappen. De 85% op diversiteit en inclusie (p. 123) blijft staan.                                         |
+| 7   | **Elektrisch maken gemeenteauto's uitstellen**     | 0,172 per jaar              | Komt uit de begroting 2026 (2026: 0,172). Volgens die begroting is het in 2027 **0,565** en vanaf 2028 **0,858**.                                                                                    | Bedrag in het boekwerk 2027 nakijken. Mogelijk levert dit meer op dan nu staat.                                                      |
+| 8   | **Geen geld voor Campus Camera**                   | 0,1 per jaar                | Begroting 2026 (loopt 2026-2029, dus ook 2027).                                                                                                                                                      | Waarschijnlijk juist; bevestigen.                                                                                                    |
+| 9   | **Internationale solidariteit**                    | 0,05 per jaar               | Amendement bij de begroting 2026.                                                                                                                                                                    | Nakijken of het in 2027 nog structureel in de begroting staat.                                                                       |
+| 10  | **Dierenartskosten**                               | 0,05 eenmalig (alleen 2027) | Het boekwerk 2027 (p. 298) noemt −50 per jaar in **2027 tot en met 2030**.                                                                                                                           | Mogelijk 0,05 per jaar in plaats van eenmalig. Dat verbetert 2028-2030 met 0,05.                                                     |
+| 11  | **Parkeren (kortparkeren, garages, vergunningen)** | 4,727 / 1,755 / 0,778       | De parkeerbelasting (27,5) staat in het boekwerk (p. 5 en 275). De verdeling over vergunningen en garages komt uit de tarieven van 2026, geïndexeerd met 4,58%; de garageopbrengst is een afgeleide. | Tarieven en aantallen nakijken in het raadsvoorstel Belastingtarieven 2027.                                                          |
+
+### d.3 Twijfels: eigen inschattingen (staan niet in de begroting)
+
+Dit zijn geen begrotingscijfers maar inschattingen van de fractie. Dat is gebruikelijk in een tegenbegroting, maar in het debat moet je ze als schatting kunnen verdedigen.
+
+- **15% minder ambtenaren:** 25/50/75/100% ingroei en 10,9 mln frictiekosten.
+- **Verplichte tegenprestatie:** 1,6 mln, gebaseerd op het verkiezingsprogramma.
+- **Minder bouwregels:** 0,49 mln (10% van de ambtenaren wonen).
+- **Onderzoek SMR:** 0,5 mln (bedrag uit de tegenbegroting 2026).
+- **Alle kettingeffecten:** subsidieafbouw, Wmo-contracten, gemeenschappelijke regelingen, preventie → jeugdzorg/Wmo, bedrijfsafval, parkeren, re-integratie, gemeentefonds en toeristenbelasting. De zakelijke dienstverlening is daar het duidelijkste voorbeeld van: 2,0 mln doorlopende kosten en 1,0 mln vrijvallende overhead zijn aannames.
+
+### d.4 Twijfels: inhoud en dubbeltellingen
+
+- **Mogelijke dubbeltelling ambtenaren.** "15% minder ambtenaren" rekent over de hele loonsom (357,9 mln). Tegelijk gaan er procenten af van posten die zelf grotendeels personeel zijn:
+  - overhead −20% (26,3);
+  - personele inzet mobiliteit −40%;
+  - personele inzet wonen −25%;
+  - CDOKE −60% (capaciteit);
+  - minder bouwregels (zelf ook "minder ambtenaren wonen").
+
+  Een deel van dezelfde ambtenaren wordt zo twee keer bezuinigd. In het debat is dit het eerste waar het college op zal wijzen. Het is ook de grootste financiële twijfel: orde van grootte enkele tot meer dan tien miljoen. Overweeg de 15% te formuleren als "bovenop de genoemde taakstellingen" en dat te onderbouwen, of de 15% te verlagen.
+
+- **Ambtenaren 15% zonder uitzondering voor openbare ruimte en veiligheid**, naast +20% onderhoud en +10% boa's. In 2026 waren die onderdelen uitgezonderd.
+- **Oosterhamrikzone:** het boekwerk noemt "SIF-middelen voor projecten – Oosterhamrikzone" (0,25). Of dit geld voor planvorming is en of de busbaan daarmee niet wordt verlegd, staat niet vast.
+- **Niemeyer:** de bewering dat Niemeyer "volledig door de markt georganiseerd zou worden" is niet nagekeken.
+- **Minder wethouders:** in de tekst gaan we ervan uit dat vertrekkende wethouders afzien van wachtgeld. Dat is een wettelijk recht (Appa) en afzien is hun eigen keuze.
+- **Parkeercontrole −20%:** kost netto 0,4 mln per jaar. Handhaven?
+- **Preventiefonds, werkprogramma en Route Arbeid+:** de tekst zegt nu dat de VVD hiermee stopt. v1 zei het omgekeerde. Zie ook d.2, punt 1 tot en met 3.
+
+### d.5 Overige open punten
+
+1. **Fractienamen:** Jasper/Teun (docx en pdf's) of Cassandra/Lisa (opdracht)?
+2. **Rik.pdf, de 2026-docx en je xlsx:** Riks invoer is afgeleid uit v1 en niet nagekeken tegen zijn eigen bestand. Stuur ze mee, dan controleer ik dat alsnog.
+3. **Inkomenstoeslag:** is de zin terecht gelezen als "termijn verlengen van 2 naar 3 jaar"? Controleer ook de tabelcellen met [CONTROLEREN] en het Groningse bedrag (eigen omrekening).
+4. **Voetnoot-URL's:** open ze één keer zelf (ANP, OOG, NOS, Rijksoverheid, wetten.overheid.nl).
+5. **LVV:** heeft het kabinet-Jetten de financiering hersteld?
+6. **Inhoudsopgave:** druk in Word op F9 in de inhoudsopgave.
 
 ---
 

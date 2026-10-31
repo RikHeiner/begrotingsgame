@@ -62,7 +62,7 @@ export const rik: Record<string, number> = {
 };
 export const keuzes: Keuzes = {
   onderdelen: { ...rik, ...fractielijn },
-  belastingen: { t1: -20, t2: -10, t4: -60.7, t3: -100 },
+  belastingen: { t1: -20, t2: -10, t4: -20, t3: -100 },
   parkeren,
   kaarten: [
     'k_apparaat_15',
