@@ -109,7 +109,7 @@ De game-saldo's per jaar (S/I) komen tot op de duizend euro overeen met `bereken
 - **Niet doorgerekend.** Deze kettingeffecten staan in de game op "nog niet doorgerekend" en zitten dus niet in de cijfers:
   - Basisbanen: mensen die terugvallen in de bijstand (wia_basisbanen).
   - Armoedeval (wia_armoedeval).
-  - Wachtgeld wethouders (org_wethouders): het college zit er tot 2030, dus minder wethouders in 2027 vraagt dat er wethouders tussentijds vertrekken, met wachtgeld.
+  - Wachtgeld wethouders (org_wethouders): het college zit er tot 2030, dus minder wethouders in 2027 vraagt dat er wethouders tussentijds vertrekken, met wachtgeld. **Fractiekeuze (toegevoegd na overleg):** de tekst gaat ervan uit dat vertrekkende wethouders direct een nieuwe baan hebben en afzien van wachtgeld, zodat de besparing van 0,576 mln al in 2027 volledig telt. Dat is ook hoe de game rekent. Let op: dit is een aanname. Wachtgeld is een wettelijk recht van de wethouder (Appa); inkomsten uit een nieuwe baan worden er wel op gekort, maar afzien is een eigen keuze van de wethouder zelf. Vinden ze niet direct werk, dan kost dit geld.
 
 ---
 
@@ -223,7 +223,7 @@ Alle bronnen staan als echte Word-voetnoot in v2, in Lucida Sans Unicode, 8 pt. 
 
 - **15% minder ambtenaren voor de hele organisatie** naast +20% onderhoud en +10% boa's. In 2026 waren beheer openbare ruimte en veiligheid uitgezonderd. De game rekent de 15% over de hele loonsom (357,9 mln), dus ook over de mensen die het extra onderhoud en de boa-inzet moeten uitvoeren. Dat is inhoudelijk wrijving: overweeg de uitzondering van 2026 terug te brengen. Daarvoor bestaat in de game geen kaart; het zou een andere kaart of schuif vragen.
 - **"Plaatsen meer prullenbakken en zorgen voor betere straatverlichting"** (intro Veilig en leefbaar): daarvoor is geen eigen post in de game (or_zwerfafval wacht op een nieuwe post). Lees het als onderdeel van +20% onderhoud.
-- **Minder wethouders 24%:** wachtgeld en verkiezingsmoment zijn niet doorgerekend (zie a.3).
+- **Minder wethouders 24%:** op verzoek van de fractie aangevuld met de aanname dat vertrekkende wethouders direct een nieuwe baan hebben en afzien van wachtgeld, zodat de besparing al in 2027 volledig ingaat (alinea en Uitgangspunten meerjarenbegroting). Bedragen ongewijzigd. Zie a.3 voor het risico.
 - **Basisbanen:** "middelen inzetten voor re-integratie". In werkelijkheid gaat 6,7 mln naar het saldo en 2,4 mln extra naar begeleiding naar werk. Mensen die terugvallen in de bijstand zijn niet doorgerekend.
 - **Niemeyer:** "zou volledig door de markt georganiseerd worden" is een bewering over de gemeentelijke plannen zonder onafhankelijke bron. **[CONTROLEREN]**
 - **SMR:** "goedkope duurzame stroom". "Duurzaam" is bij kernenergie omstreden; "CO2-arm" is onbetwist. Een politieke formulering, dus niet aangepast.
