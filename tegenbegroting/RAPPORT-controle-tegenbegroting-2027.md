@@ -10,11 +10,11 @@ Op verzoek van de fractie is in deze ronde het volgende verwerkt. De tabellen in
 
 |                     |   2027 |   2028 |   2029 |   2030 |
 | ------------------- | -----: | -----: | -----: | -----: |
-| Saldo               | 11,436 | 42,133 | 48,402 | 53,410 |
-| waarvan structureel | 13,489 | 42,133 | 48,402 | 53,410 |
+| Saldo               | 11,786 | 42,483 | 48,752 | 53,760 |
+| waarvan structureel | 13,839 | 42,483 | 48,752 | 53,760 |
 | waarvan incidenteel | −2,053 |      0 |      0 |      0 |
 
-De storting in de reserve ("Verbeteren financiële positie") is 11,436 in 2027.
+De storting in de reserve ("Verbeteren financiële positie") is 11,786 in 2027.
 
 - **Incidenteel saldo 2027 negatief:** de eenmalige uitgaven (frictiekosten 8,4 en SMR 0,5) zijn hoger dan de eenmalige opbrengsten (6,85). Het tekort van 2,1 wordt gedekt uit het structurele overschot.
 - **Begrotingsregels:** dat mag. Het omgekeerde, incidenteel geld voor structurele uitgaven, mag niet.
@@ -32,9 +32,9 @@ De storting in de reserve ("Verbeteren financiële positie") is 11,436 in 2027.
    - Frictiekosten: 8,403 in plaats van 10,948. Ze ontstaan doordat de overheadbesparing al in 2027 binnenkomt, sneller dan natuurlijk verloop.
    - De tekst zegt nu niet meer dat de frictie uit de 15% voortkomt.
    - **Effect:** het saldo daalt structureel met ongeveer 35 mln in 2030. Dat is de dubbeltelling die eruit is.
-   - **Blijft staan:** ambtenaren gebiedsontwikkeling +5% (een investering, geen dubbele besparing). Inhoudelijk wringt dat met de vacaturestop; zie open punten.
+   - **Geschrapt (fractiebesluit):** ambtenaren gebiedsontwikkeling +5% (0,35 per jaar), omdat die niet past bij de vacaturestop. De tabelregel is eruit en de alinea "Wonen, bouwen en economie" is aangepast.
 3. **Wachtgeldaanname bij minder wethouders:** blijft staan in de alinea en in de uitgangspunten.
-4. **Fractienamen:** Rik Heiner, Cassandra Hensen, Lisa, Fokke Veenstra. **Van Lisa is de achternaam niet bekend**; nu staat er alleen "Lisa". Cassandra Hensen komt uit de projectdata (citaat in OOG). [CONTROLEREN]
+4. **Fractienamen:** Rik Heiner, Cassandra Hensen, Lisa Middelbos, Fokke Veenstra.
 5. **Twijfels uit d.2 en d.4 verwerkt:**
    - **Geschrapt:**
      - preventiefonds jeugd (liep tot en met 2026);
@@ -51,9 +51,7 @@ De storting in de reserve ("Verbeteren financiële positie") is 11,436 in 2027.
 
 **Wat nog openstaat**
 
-- **Achternaam van Lisa.**
 - **Bron vacaturestop Amsterdam:** de reorganisatie van 2.500 voltijdbanen staat bij AT5 en NH Nieuws. De "vacature- en inhuurstop (sinds 1 juli, vanaf schaal 10)" kwam ik alleen tegen in minder gezaghebbende bronnen (NieuwRechts, Headliner) en in een ouder Binnenlands Bestuur-bericht zonder jaartal. Open het AT5-artikel en kijk of de vacaturestop daarin staat; anders de zin aanpassen naar "die gemeente schrapt 2.500 voltijdbanen". [CONTROLEREN]
-- **Ambtenaren gebiedsontwikkeling +5%** naast een vacaturestop. Bewust laten staan?
 - **Het boekwerk 2027 zelf:** bedragen die uit de begroting 2026 komen (werkprogramma 0,85, wagenpark 0,565/0,858, Route Arbeid+, Campus Camera, internationale solidariteit) blijven het beste nagekeken in het boekwerk.
 
 ## 0. Vooraf: wat ik wel en niet had
@@ -95,13 +93,13 @@ Het bestand `controle/keuzes.ts` bevat de exacte invoer.
 |                                   | Mijn model (v1) |       Game (v2) |    Verschil |
 | --------------------------------- | --------------: | --------------: | ----------: |
 | Ombuigingen en opbrengsten 2027   |         130,617 |         121,795 |      −8,822 |
-| Uitgaven 2027 (excl. storting)    |          79,142 |         110,359 |     +31,217 |
-| **Saldo 2027 = storting reserve** |      **51,475** |      **11,436** | **−40,039** |
-| waarvan structureel / incidenteel |  51,128 / 0,347 | 13,489 / −2,053 |             |
-| Saldo 2028                        |          65,083 |          42,133 |     −22,950 |
-| Saldo 2029                        |          79,039 |          48,402 |     −30,637 |
-| Saldo 2030                        |          92,995 |          53,410 |     −39,585 |
-| Cumulatief 2027-2030              |         288,592 |         155,382 |    −133,210 |
+| Uitgaven 2027 (excl. storting)    |          79,142 |         110,009 |     +30,867 |
+| **Saldo 2027 = storting reserve** |      **51,475** |      **11,786** | **−39,689** |
+| waarvan structureel / incidenteel |  51,128 / 0,347 | 13,839 / −2,053 |             |
+| Saldo 2028                        |          65,083 |          42,483 |     −22,600 |
+| Saldo 2029                        |          79,039 |          48,752 |     −30,287 |
+| Saldo 2030                        |          92,995 |          53,760 |     −39,235 |
+| Cumulatief 2027-2030              |         288,592 |         156,782 |    −131,810 |
 
 De game-saldo's per jaar (S/I) komen tot op de duizend euro overeen met `bereken()`; het script controleert dat (assert).
 
@@ -354,7 +352,7 @@ Dit zijn geen begrotingscijfers maar inschattingen van de fractie. Dat is gebrui
 
 ### d.5 Overige open punten
 
-1. **Fractienamen:** verwerkt (Rik Heiner, Cassandra Hensen, Lisa, Fokke Veenstra); achternaam Lisa ontbreekt nog.
+1. **Fractienamen:** verwerkt (Rik Heiner, Cassandra Hensen, Lisa Middelbos, Fokke Veenstra).
 2. **Rik.pdf, de 2026-docx en je xlsx:** Riks invoer is afgeleid uit v1 en niet nagekeken tegen zijn eigen bestand. Stuur ze mee, dan controleer ik dat alsnog.
 3. **Inkomenstoeslag:** is de zin terecht gelezen als "termijn verlengen van 2 naar 3 jaar"? Controleer ook de tabelcellen met [CONTROLEREN] en het Groningse bedrag (eigen omrekening).
 4. **Voetnoot-URL's:** open ze één keer zelf (ANP, OOG, NOS, Rijksoverheid, wetten.overheid.nl).

@@ -102,7 +102,6 @@ export const rik: Record<string, number> = {
   o8: -15,
   v3: 10,
   e8: 10,
-  e10: 5,
   e3: 15,
   b1: 5,
   v5: 10,
