@@ -56,25 +56,30 @@ De storting in de reserve ("Verbeteren financiële positie") is 11,786 in 2027.
 
 ## Tabel ambtenaren per inwoner (nieuw, op verzoek van de fractie)
 
-Onder de alinea "Besparingen op het ambtenarenapparaat 15% en een vacaturestop" staat een tabel in de huisstijl (oranje kopregel) met de formatie in fte per 1.000 inwoners:
+Onder de alinea "Besparingen op het ambtenarenapparaat 15% en een vacaturestop" staat een tabel in de huisstijl met de formatie in fte per 1.000 inwoners. Op verzoek van de fractie zijn ook steden opgenomen waar de VVD groot is (Breda, Apeldoorn, Haarlemmermeer).
 
-| Gemeente                 | Fte per 1.000 inwoners | Jaar | Soort cijfer | Bron                                                           |
-| ------------------------ | ---------------------: | ---- | ------------ | -------------------------------------------------------------- |
-| Groningen                |                   14,7 | 2025 | gerealiseerd | Ontwerpbegroting 2027 Groningen, wettelijke indicatoren p. 283 |
-| Groningen (doel college) |                   13,1 | 2027 | begroot      | idem                                                           |
-| Utrecht                  |                   15,1 | 2025 | gerealiseerd | Begroting 2027 Utrecht, overzicht verplichte BBV-indicatoren   |
-| Eindhoven                |                    9,8 | 2026 | begroot      | Begroting 2026 Eindhoven, samenvatting BBV-indicatoren         |
-| Nijmegen                 |                    9,0 | 2025 | gerealiseerd | Stadsbegroting 2027 Nijmegen, indicatoren basisset BBV         |
-| Zwolle                   |                    7,5 | 2026 | begroot      | Begroting 2026 Zwolle, paragraaf bedrijfsvoering               |
-| Groningen na 15% minder  |                   12,5 | 2030 | voorstel VVD | 14,7 × 0,85                                                    |
+| Gemeente                 | Fte per 1.000 inw. | Jaar | Soort        | Bron                                                                                                                                                                                                                                                  |
+| ------------------------ | -----------------: | ---- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Groningen                |               14,7 | 2025 | gerealiseerd | Ontwerpbegroting 2027 Groningen, wettelijke indicatoren p. 283                                                                                                                                                                                        |
+| Groningen (doel college) |               13,1 | 2027 | begroot      | idem                                                                                                                                                                                                                                                  |
+| Utrecht                  |               15,1 | 2025 | gerealiseerd | Begroting 2027 Utrecht, verplichte BBV-indicatoren (https://utrecht.begroting-2027.nl/p84156/overzicht-verplichte-bbv-indicatoren)                                                                                                                    |
+| Breda                    |               11,9 | 2024 | gerealiseerd | Begroting 2026 Breda, programma Organisatie en financiën: formatie 10,77 (2022), 11,0 (2023), 11,92 (2024) (https://breda.begrotingsapp.nl/begroting-2026/programma/organisatie-en-financin-van-breda)                                                |
+| Eindhoven                |                9,8 | 2026 | begroot      | Begroting 2026 Eindhoven (https://eindhoven.begroting-2026.nl/p22621/samenvatting)                                                                                                                                                                    |
+| Nijmegen                 |                9,0 | 2025 | gerealiseerd | Stadsbegroting 2027 Nijmegen (https://nijmegen.begroting-2027.nl/p64126/indicatoren)                                                                                                                                                                  |
+| Apeldoorn                |                8,5 | 2024 | gerealiseerd | **Secundair:** vergelijkingstabel in de programmabegroting 2025 van Haarlemmermeer (overzicht overhead). [CONTROLEREN] in de jaarstukken 2024 van Apeldoorn                                                                                           |
+| Zwolle                   |                7,5 | 2026 | begroot      | Begroting 2026 Zwolle (https://zwolle.begroting-2026.nl/p50787/indicatoren)                                                                                                                                                                           |
+| Haarlemmermeer           |                7,5 | 2024 | gerealiseerd | Jaarstukken 2024 / programmabegroting 2025 Haarlemmermeer, overzicht overhead (https://programmabegroting.haarlemmermeer.nl/2025/programma-s/overzicht-overhead). Haarlemmermeer noemt zichzelf een "regiegemeente", met weinig taken in eigen beheer |
+| Groningen na 15% minder  |               12,5 | 2030 | voorstel VVD | 14,7 × 0,85                                                                                                                                                                                                                                           |
 
-- **In de tekst toegevoegd:** "Groningen heeft met 14,7 fte per 1.000 inwoners fors meer ambtenaren dan Nijmegen, Eindhoven en Zwolle; alleen Utrecht zit hoger. Met 15% minder komt Groningen uit op ongeveer 12,5 fte per 1.000 inwoners."
-- **Indicator:** dit is de verplichte BBV-indicator met een landelijke definitie (VNG: formatie volgens het vastgestelde formatieplan, in fte per 1.000 inwoners). Elke gemeente publiceert hem zelf in haar begroting. Voor Groningen is de eigen begroting dus de bron; dezelfde cijfers staan op waarstaatjegemeente.nl, maar die site kon ik vanuit deze sessie niet openen.
+- **In de tekst:** "Groningen heeft met 14,7 fte per 1.000 inwoners fors meer ambtenaren dan Breda, Eindhoven, Nijmegen, Apeldoorn, Zwolle en Haarlemmermeer; alleen Utrecht zit hoger. Met 15% minder komt Groningen uit op ongeveer 12,5."
+- **Niet gevonden:** Amersfoort, 's-Hertogenbosch, Leeuwarden, Amstelveen, Zoetermeer, Tilburg, Enschede en Maastricht. Het cijfer staat niet in de stukken die via zoeken vindbaar waren, en de begrotingssites zelf waren vanuit deze sessie niet te openen. Via waarstaatjegemeente.nl zijn ze in één keer op te halen; dan kan ook alles naar hetzelfde jaar.
+- **Bijvangst, niet gebruikt:** Haarlem 8,7 en Zaanstad 7,3, uit dezelfde vergelijkingstabel van Haarlemmermeer, jaartal onzeker.
+- **Indicator:** dit is de verplichte BBV-indicator met een landelijke definitie: de formatie volgens het vastgestelde formatieplan op 1 januari, in fte per 1.000 inwoners. Elke gemeente publiceert hem in haar eigen begroting; voor Groningen is de eigen begroting dus de bron.
 - **Twijfels [CONTROLEREN]:**
-  - **Jaren lopen uiteen:** 2025 gerealiseerd voor Groningen, Utrecht en Nijmegen; 2026 begroot voor Eindhoven en Zwolle. Het beste is één jaar voor alle steden via waarstaatjegemeente.nl (dashboard BBV, indicator formatie).
-  - **Ontbrekende steden:** Tilburg, Enschede, Leeuwarden en Maastricht staan er niet in; hun cijfers zijn nog niet gevonden. Vooral Leeuwarden (noordelijke stad) zou de vergelijking sterker maken.
-  - **Groningen 2025 (14,7) en 2027 (13,1):** de daling komt uit de begroting van Groningen zelf. Of die door een andere definitie komt of door echte krimp, staat er niet bij. In de tekst gebruik ik 14,7 (gerealiseerd); de 13,1 staat als "doel college" in de tabel.
-  - **Utrecht en Amsterdam:** in de vergelijking is Groningen niet de hoogste. Utrecht zit hoger, en Amsterdam (niet in de tabel) heeft als G4-stad doorgaans ook meer ambtenaren per inwoner. De tekst zegt daarom niet dat Groningen de meeste ambtenaren heeft.
+  - **Jaren lopen uiteen:** 2024 tot en met 2026, gerealiseerd en begroot door elkaar.
+  - **Apeldoorn** komt uit een secundaire bron.
+  - **Groningen 2025 → 2027:** de daling van 14,7 naar 13,1 komt uit de begroting van Groningen zelf. Of dat een andere definitie is of echte krimp, staat er niet bij.
+  - **Vergelijkbaarheid:** gemeenten die veel uitbesteden (regiegemeenten, zoals Haarlemmermeer) of taken in een gemeenschappelijke regeling hebben ondergebracht, scoren lager zonder dat ze minder doen. Groningen voert bijvoorbeeld de sociale werkvoorziening en de belastingen deels zelf uit. In een debat kan dat als tegenargument komen.
 
 ## Controle tegen het raadsvoorstel Belastingtarieven 2027 en laatste tekstwijzigingen
 
