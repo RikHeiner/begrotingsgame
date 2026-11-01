@@ -54,6 +54,33 @@ De storting in de reserve ("Verbeteren financiële positie") is 11,786 in 2027.
 - **Bron vacaturestop Amsterdam:** de voetnoot noemt nu als eerste bron Het Parool, "Gemeente Amsterdam nam sinds vacaturestop tientallen ambtenaren aan" (https://www.parool.nl/amsterdam/gemeente-amsterdam-nam-sinds-vacaturestop-tientallen-ambtenaren-aan~bea34535/), aangeleverd door de fractie via de mediarubriek van de Rekenkamer Amsterdam. Daarnaast AT5 en NH Nieuws (2.500 voltijdbanen). Het artikel zelf kon in deze sessie niet worden geopend; vul de exacte publicatiedatum in (nu "2026"). Let op: het artikel meldt dat Amsterdam ondanks de stop tientallen ambtenaren aannam. Overweeg in de tekst "een strikte vacaturestop".
 - **Het boekwerk 2027 zelf:** bedragen die uit de begroting 2026 komen (werkprogramma 0,85, wagenpark 0,565/0,858, Route Arbeid+, Campus Camera, internationale solidariteit) blijven het beste nagekeken in het boekwerk.
 
+## Controle tegen het raadsvoorstel Belastingtarieven 2027 en laatste tekstwijzigingen
+
+**Raadsvoorstel Belastingtarieven 2027** (gemeente Groningen, registratienummer 274695-2026, 1 oktober 2026, aangeleverd door de fractie)
+
+- **Wat het voorstel bevestigt:**
+  - Parkeervergunningen worden met 4,58% geïndexeerd. Dat is precies de indexatie die de tegenbegroting voor de vergunningstarieven gebruikt; de vergunningsbedragen kloppen dus met het tariefvoorstel.
+  - Precario- en reclametarieven worden met 4,58% geïndexeerd.
+  - OZB-tarief woningen: 0,1501% (2026: 0,1473%).
+- **Nieuw in de tekst, met voetnoot naar het raadsvoorstel:**
+  - **OZB:** het college verhoogt de OZB met 4,58% en daarbovenop 5%. De woonlasten voor huiseigenaren (OZB, afvalstoffen- en rioolheffing) stijgen met 9,57%.
+  - **Parkeren:** het college wil de kortparkeertarieven in de binnenstad, Binnenstad-Oost, de Hortusbuurt en het Stationsgebied in 2027 met 20% verhogen ten opzichte van 2026. De VVD-verlaging van 20% draait dat dus terug.
+  - **Reclamebelasting:** het college stelt de tweede stap zelf uit, stelt ondernemers met 2 m² of minder vrij, en een evaluatie is er nog niet.
+- **Wat het voorstel niet oplost:**
+  - Het voorstel bevat geen opbrengsten per parkeerpost ("de financiële effecten zijn verwerkt in de ontwerpbegroting").
+  - De twijfel uit de Iv3-controle blijft: wordt de garage-opbrengst (8,8 in de tegenbegroting) te laag ingeschat ten opzichte van de 16,9 mln parkeerbaten op Iv3-taakveld 2.2? Dat de vergunningen in de parkeerbelasting (27,5) zitten, past bij de wettelijke systematiek; vergunningen zijn een vorm van parkeerbelasting.
+  - Voor zekerheid: de tabel opbrengsten parkeren uit de paragraaf lokale heffingen van de begroting 2027. [CONTROLEREN]
+- **Bronkeuze:** het raadsvoorstel is een document van de gemeente zelf. Het is gebruikt als bron voor wat het college voorstelt (eigen tarieven), niet voor een vergelijking met andere gemeenten.
+
+**Vacaturestop: veiligheid en uitvoering uitgezonderd** (op verzoek van de fractie)
+
+- Nieuwe tekst: "Veiligheid en uitvoering vallen daarbuiten: boa's en handhaving, en de mensen die het werk voor inwoners doen, zoals onderhoud van de openbare ruimte, afvalinzameling en dienstverlening aan het loket, worden wel vervangen."
+- Bedragen ongewijzigd.
+- **Haalbaarheid [CONTROLEREN]:** met een ruime uitzondering voor uitvoering komt de rest van de 15% (20,9 in 2030) vooral uit beleids-, project- en stafafdelingen buiten de overhead. Hoe groot die groep is, staat niet in Iv3; Iv3 deelt in naar taakveld, niet naar beleid of uitvoering. Als die groep kleiner is dan ongeveer 200 mln loonsom, is 20,9 in vier jaar meer dan natuurlijk verloop oplevert en moet het afstoten van taken het verschil maken. De tekst noemt dat afstoten al.
+- Het uitzonderen van afvalinzameling past ook bij Iv3-punt 5: besparingen op afval gaan naar de heffing, niet naar het saldo.
+
+**Technische noot:** bij eerdere tussenversies kan het verstuurde docx de laatste tekstwijziging hebben gemist (onder meer de Parool-bron). Een afgebroken bouwstap pakte het bestand dan niet opnieuw in. De huidige versie is volledig opnieuw gebouwd en gecontroleerd: fractienamen, vacaturestop met uitzondering, Parool-bron, raadsvoorstel-voetnoten, precario 20% en saldo 11,786 zitten er allemaal in.
+
 ## Controle tegen het Iv3-bronbestand 2027 (IV3_Econ.Cat.2027_Concept.xlsx)
 
 Het bestand is de Iv3-staat van de primitieve begroting 2027, per taakveld en economische categorie (totaal lasten en baten € 1.613,9 mln). Ik heb de tegenbegroting er op drie manieren tegen gelegd: belastingen exact, personeel per taakveld, en per post of het bedrag binnen het taakveld past. Een Iv3-taakveld is breder dan de posten in de tegenbegroting; die komen uit de tabellen "Waar gaat het geld voornamelijk naar toe". Een één-op-één-gelijkheid is daarom alleen bij de belastingen te verwachten.
