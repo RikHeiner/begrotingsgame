@@ -10,11 +10,11 @@ Op verzoek van de fractie is in deze ronde het volgende verwerkt. De tabellen in
 
 |                     |   2027 |   2028 |   2029 |   2030 |
 | ------------------- | -----: | -----: | -----: | -----: |
-| Saldo               | 11,786 | 42,483 | 48,752 | 53,760 |
-| waarvan structureel | 13,839 | 42,483 | 48,752 | 53,760 |
+| Saldo               | 11,381 | 42,083 | 48,356 | 53,369 |
+| waarvan structureel | 13,434 | 42,083 | 48,356 | 53,369 |
 | waarvan incidenteel | −2,053 |      0 |      0 |      0 |
 
-De storting in de reserve ("Verbeteren financiële positie") is 11,786 in 2027.
+De storting in de reserve ("Verbeteren financiële positie") is 11,381 in 2027.
 
 - **Incidenteel saldo 2027 negatief:** de eenmalige uitgaven (frictiekosten 8,4 en SMR 0,5) zijn hoger dan de eenmalige opbrengsten (6,85). Het tekort van 2,1 wordt gedekt uit het structurele overschot.
 - **Begrotingsregels:** dat mag. Het omgekeerde, incidenteel geld voor structurele uitgaven, mag niet.
@@ -53,6 +53,23 @@ De storting in de reserve ("Verbeteren financiële positie") is 11,786 in 2027.
 
 - **Bron vacaturestop Amsterdam:** de voetnoot noemt nu als eerste bron Het Parool, "Gemeente Amsterdam nam sinds vacaturestop tientallen ambtenaren aan" (https://www.parool.nl/amsterdam/gemeente-amsterdam-nam-sinds-vacaturestop-tientallen-ambtenaren-aan~bea34535/), aangeleverd door de fractie via de mediarubriek van de Rekenkamer Amsterdam. Daarnaast AT5 en NH Nieuws (2.500 voltijdbanen). Het artikel zelf kon in deze sessie niet worden geopend; vul de exacte publicatiedatum in (nu "2026"). Let op: het artikel meldt dat Amsterdam ondanks de stop tientallen ambtenaren aannam. Overweeg in de tekst "een strikte vacaturestop".
 - **Het boekwerk 2027 zelf:** bedragen die uit de begroting 2026 komen (werkprogramma 0,85, wagenpark 0,565/0,858, Route Arbeid+, Campus Camera, internationale solidariteit) blijven het beste nagekeken in het boekwerk.
+
+## Dekkend cameratoezicht binnenstad en stationsgebied (nieuw, op verzoek van de fractie)
+
+- **Nieuwe alinea** onder "Investeren in een veilige en leefbare gemeente", na "Openbare orde en veiligheid 10%": "Dekkend cameratoezicht in de binnenstad en rond het station". De alinea bevat:
+  - verwijzing naar de tijdelijke camera's in het Gele Loper-gebied (RTV Noord, 2025);
+  - verwijzing naar de VVD-motie bij de Nachtvisie (OOG, februari 2026; verworpen met 8 tegen 34);
+  - de bevoegdheid van de burgemeester (art. 151c Gemeentewet).
+- **Kosten**, twee regels in de tabel Uitgaven (S):
+  - kapitaallasten 0,214 (2027), aflopend naar 0,200 (2030): een investering van 0,95 mln (50 × € 19.000), afgeschreven in 5 jaar, met 2,5% rente;
+  - uitkijken en onderhoud 0,192 per jaar: 50 × (€ 3.000 + € 833).
+  - Samen ongeveer 0,4 mln per jaar. Saldo 2027: 11,381; 2030: 53,369.
+- **Bron eenheidsprijzen:** raadsbrief "Uitbreiding cameratoezicht" van de gemeente Nijmegen (https://nijmegen.bestuurlijkeinformatie.nl/Document/View/c15d46d3-d182-4987-96a0-2639f4fa6560). Andere indicaties: aanschaf € 10.000 tot € 25.000 per camera (Westland, ouder); Druten: € 35.000 per jaar voor live uitkijken door de regionale toezichtcentrale.
+- **Twijfels [CONTROLEREN]:**
+  - **Het aantal van 50 camera's (35 binnenstad, 15 station) is een aanname.** Hoeveel camera's er nu hangen en hoeveel nodig zijn voor "dekkend", staat niet in de begroting. Bij 100 camera's verdubbelen de kosten (ongeveer 0,8 mln per jaar).
+  - **Uitkijken:** € 3.000 per camera per jaar geldt in Nijmegen. Als het live uitkijken in Groningen bij de politie of een eigen meldkamer duurder is, of als er 24/7 moet worden uitgekeken, kunnen de kosten hoger uitvallen.
+  - **Gele Loper:** de tijdelijke regeling liep vanaf 13 februari 2025 minimaal een jaar. Of die is verlengd en hoe die nu wordt betaald, is niet nagegaan. De tekst zegt alleen dat die camera's onderdeel worden van een vast netwerk.
+  - **Huidig budget:** het bestaande cameratoezicht (0,4 mln binnen "Toezicht en handhaving") en het extra budget voor openbare orde en veiligheid (+10%) blijven daarnaast staan.
 
 ## Tabel ambtenaren per inwoner (nieuw, op verzoek van de fractie)
 
@@ -106,7 +123,7 @@ Onder de alinea "Besparingen op het ambtenarenapparaat 15% en een vacaturestop" 
 - **Haalbaarheid [CONTROLEREN]:** met een ruime uitzondering voor uitvoering komt de rest van de 15% (20,9 in 2030) vooral uit beleids-, project- en stafafdelingen buiten de overhead. Hoe groot die groep is, staat niet in Iv3; Iv3 deelt in naar taakveld, niet naar beleid of uitvoering. Als die groep kleiner is dan ongeveer 200 mln loonsom, is 20,9 in vier jaar meer dan natuurlijk verloop oplevert en moet het afstoten van taken het verschil maken. De tekst noemt dat afstoten al.
 - Het uitzonderen van afvalinzameling past ook bij Iv3-punt 5: besparingen op afval gaan naar de heffing, niet naar het saldo.
 
-**Technische noot:** bij eerdere tussenversies kan het verstuurde docx de laatste tekstwijziging hebben gemist (onder meer de Parool-bron). Een afgebroken bouwstap pakte het bestand dan niet opnieuw in. De huidige versie is volledig opnieuw gebouwd en gecontroleerd: fractienamen, vacaturestop met uitzondering, Parool-bron, raadsvoorstel-voetnoten, precario 20% en saldo 11,786 zitten er allemaal in.
+**Technische noot:** bij eerdere tussenversies kan het verstuurde docx de laatste tekstwijziging hebben gemist (onder meer de Parool-bron). Een afgebroken bouwstap pakte het bestand dan niet opnieuw in. De huidige versie is volledig opnieuw gebouwd en gecontroleerd: fractienamen, vacaturestop met uitzondering, Parool-bron, raadsvoorstel-voetnoten, precario 20% en saldo 11,381 zitten er allemaal in.
 
 ## Controle tegen het Iv3-bronbestand 2027 (IV3_Econ.Cat.2027_Concept.xlsx)
 
@@ -195,13 +212,13 @@ Het bestand `controle/keuzes.ts` bevat de exacte invoer.
 |                                   | Mijn model (v1) |       Game (v2) |    Verschil |
 | --------------------------------- | --------------: | --------------: | ----------: |
 | Ombuigingen en opbrengsten 2027   |         130,617 |         121,795 |      −8,822 |
-| Uitgaven 2027 (excl. storting)    |          79,142 |         110,009 |     +30,867 |
-| **Saldo 2027 = storting reserve** |      **51,475** |      **11,786** | **−39,689** |
-| waarvan structureel / incidenteel |  51,128 / 0,347 | 13,839 / −2,053 |             |
-| Saldo 2028                        |          65,083 |          42,483 |     −22,600 |
-| Saldo 2029                        |          79,039 |          48,752 |     −30,287 |
-| Saldo 2030                        |          92,995 |          53,760 |     −39,235 |
-| Cumulatief 2027-2030              |         288,592 |         156,782 |    −131,810 |
+| Uitgaven 2027 (excl. storting)    |          79,142 |         110,414 |     +31,272 |
+| **Saldo 2027 = storting reserve** |      **51,475** |      **11,381** | **−40,094** |
+| waarvan structureel / incidenteel |  51,128 / 0,347 | 13,434 / −2,053 |             |
+| Saldo 2028                        |          65,083 |          42,083 |     −23,000 |
+| Saldo 2029                        |          79,039 |          48,356 |     −30,683 |
+| Saldo 2030                        |          92,995 |          53,369 |     −39,626 |
+| Cumulatief 2027-2030              |         288,592 |         155,189 |    −133,403 |
 
 De game-saldo's per jaar (S/I) komen tot op de duizend euro overeen met `bereken()`; het script controleert dat (assert).
 

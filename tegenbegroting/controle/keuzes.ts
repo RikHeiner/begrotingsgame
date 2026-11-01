@@ -57,6 +57,35 @@ export const EXTRA: Actiekaart[] = [
     'Begroting 2026, intensivering 37: 0,85 in 2027',
   ),
 ];
+// Dekkend cameratoezicht binnenstad (35) en stationsgebied (15) = 50 extra camera's (aanname).
+// Eenheidsprijzen Nijmegen (raadsbrief Uitbreiding cameratoezicht): 10.000 camera + 9.000 bekabeling; 3.000 uitkijken
+// per camera per jaar; onderhoud 15.000 per jaar voor 18 camera's (ca. 833 per camera).
+const CAMERAS = 50;
+EXTRA.push(
+  {
+    ...kaart(
+      'tb_camera_invest',
+      'Dekkend cameratoezicht binnenstad en stationsgebied: aanschaf en aanleg',
+      'uitgave',
+      'S',
+      0,
+      "Nijmegen: 19.000 per camera; 50 camera's; afschrijving 5 jaar",
+    ),
+    investering: {
+      bedrag_mln: (CAMERAS * 19000) / 1e6,
+      levensduur_jaar: 5,
+      eenmalige_bijdrage: false,
+    },
+  } as Actiekaart,
+  kaart(
+    'tb_camera_exploitatie',
+    'Dekkend cameratoezicht binnenstad en stationsgebied: uitkijken en onderhoud',
+    'uitgave',
+    'S',
+    -(CAMERAS * (3000 + 15000 / 18)) / 1e6,
+    'Nijmegen: 3.000 uitkijken + 833 onderhoud per camera per jaar',
+  ),
+);
 export const data = metExtraKaarten(basis, EXTRA);
 const parkeren: Record<string, number> = {};
 for (const p of parkeerPosten(data)) parkeren[p.id] = -20;
@@ -127,6 +156,8 @@ export const keuzes: Keuzes = {
     'k_tegenprestatie',
     'k_ongedoc',
     'k_smr_onderzoek',
+    'tb_camera_invest',
+    'tb_camera_exploitatie',
   ],
   gestopt: ['p_route_arbeid_plus'],
   scenario: 'midden',
