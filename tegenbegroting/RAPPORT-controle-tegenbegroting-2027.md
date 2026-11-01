@@ -51,7 +51,7 @@ De storting in de reserve ("Verbeteren financiële positie") is 11,786 in 2027.
 
 **Wat nog openstaat**
 
-- **Bron vacaturestop Amsterdam:** de reorganisatie van 2.500 voltijdbanen staat bij AT5 en NH Nieuws. De "vacature- en inhuurstop (sinds 1 juli, vanaf schaal 10)" kwam ik alleen tegen in minder gezaghebbende bronnen (NieuwRechts, Headliner) en in een ouder Binnenlands Bestuur-bericht zonder jaartal. Open het AT5-artikel en kijk of de vacaturestop daarin staat; anders de zin aanpassen naar "die gemeente schrapt 2.500 voltijdbanen". [CONTROLEREN]
+- **Bron vacaturestop Amsterdam:** aangevuld met de link van de fractie: Rekenkamer Metropool Amsterdam, rubriek In de media, "Gemeente Amsterdam nam sinds vacaturestop tientallen ambtenaren aan" (https://www.rekenkamer.amsterdam.nl/in-de-media/gemeente-amsterdam-nam-sinds-vacaturestop-tientallen-ambtenaren-aan/). Die staat nu als eerste bron in de voetnoot. De titel bevestigt dat Amsterdam een vacaturestop heeft. De pagina zelf kon niet worden geopend (domein geblokkeerd in deze sessie), dus de datum en het oorspronkelijke medium zijn niet nagekeken. [CONTROLEREN: datum en medium]. Let op: het artikel meldt ook dat Amsterdam ondanks de stop tientallen ambtenaren aannam. Dat kan in het debat terugkomen; overweeg in de tekst een strikte vacaturestop te noemen.
 - **Het boekwerk 2027 zelf:** bedragen die uit de begroting 2026 komen (werkprogramma 0,85, wagenpark 0,565/0,858, Route Arbeid+, Campus Camera, internationale solidariteit) blijven het beste nagekeken in het boekwerk.
 
 ## 0. Vooraf: wat ik wel en niet had
