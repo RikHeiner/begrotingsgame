@@ -54,6 +54,28 @@ De storting in de reserve ("Verbeteren financiële positie") is 11,786 in 2027.
 - **Bron vacaturestop Amsterdam:** de voetnoot noemt nu als eerste bron Het Parool, "Gemeente Amsterdam nam sinds vacaturestop tientallen ambtenaren aan" (https://www.parool.nl/amsterdam/gemeente-amsterdam-nam-sinds-vacaturestop-tientallen-ambtenaren-aan~bea34535/), aangeleverd door de fractie via de mediarubriek van de Rekenkamer Amsterdam. Daarnaast AT5 en NH Nieuws (2.500 voltijdbanen). Het artikel zelf kon in deze sessie niet worden geopend; vul de exacte publicatiedatum in (nu "2026"). Let op: het artikel meldt dat Amsterdam ondanks de stop tientallen ambtenaren aannam. Overweeg in de tekst "een strikte vacaturestop".
 - **Het boekwerk 2027 zelf:** bedragen die uit de begroting 2026 komen (werkprogramma 0,85, wagenpark 0,565/0,858, Route Arbeid+, Campus Camera, internationale solidariteit) blijven het beste nagekeken in het boekwerk.
 
+## Tabel ambtenaren per inwoner (nieuw, op verzoek van de fractie)
+
+Onder de alinea "Besparingen op het ambtenarenapparaat 15% en een vacaturestop" staat een tabel in de huisstijl (oranje kopregel) met de formatie in fte per 1.000 inwoners:
+
+| Gemeente                 | Fte per 1.000 inwoners | Jaar | Soort cijfer | Bron                                                           |
+| ------------------------ | ---------------------: | ---- | ------------ | -------------------------------------------------------------- |
+| Groningen                |                   14,7 | 2025 | gerealiseerd | Ontwerpbegroting 2027 Groningen, wettelijke indicatoren p. 283 |
+| Groningen (doel college) |                   13,1 | 2027 | begroot      | idem                                                           |
+| Utrecht                  |                   15,1 | 2025 | gerealiseerd | Begroting 2027 Utrecht, overzicht verplichte BBV-indicatoren   |
+| Eindhoven                |                    9,8 | 2026 | begroot      | Begroting 2026 Eindhoven, samenvatting BBV-indicatoren         |
+| Nijmegen                 |                    9,0 | 2025 | gerealiseerd | Stadsbegroting 2027 Nijmegen, indicatoren basisset BBV         |
+| Zwolle                   |                    7,5 | 2026 | begroot      | Begroting 2026 Zwolle, paragraaf bedrijfsvoering               |
+| Groningen na 15% minder  |                   12,5 | 2030 | voorstel VVD | 14,7 × 0,85                                                    |
+
+- **In de tekst toegevoegd:** "Groningen heeft met 14,7 fte per 1.000 inwoners fors meer ambtenaren dan Nijmegen, Eindhoven en Zwolle; alleen Utrecht zit hoger. Met 15% minder komt Groningen uit op ongeveer 12,5 fte per 1.000 inwoners."
+- **Indicator:** dit is de verplichte BBV-indicator met een landelijke definitie (VNG: formatie volgens het vastgestelde formatieplan, in fte per 1.000 inwoners). Elke gemeente publiceert hem zelf in haar begroting. Voor Groningen is de eigen begroting dus de bron; dezelfde cijfers staan op waarstaatjegemeente.nl, maar die site kon ik vanuit deze sessie niet openen.
+- **Twijfels [CONTROLEREN]:**
+  - **Jaren lopen uiteen:** 2025 gerealiseerd voor Groningen, Utrecht en Nijmegen; 2026 begroot voor Eindhoven en Zwolle. Het beste is één jaar voor alle steden via waarstaatjegemeente.nl (dashboard BBV, indicator formatie).
+  - **Ontbrekende steden:** Tilburg, Enschede, Leeuwarden en Maastricht staan er niet in; hun cijfers zijn nog niet gevonden. Vooral Leeuwarden (noordelijke stad) zou de vergelijking sterker maken.
+  - **Groningen 2025 (14,7) en 2027 (13,1):** de daling komt uit de begroting van Groningen zelf. Of die door een andere definitie komt of door echte krimp, staat er niet bij. In de tekst gebruik ik 14,7 (gerealiseerd); de 13,1 staat als "doel college" in de tabel.
+  - **Utrecht en Amsterdam:** in de vergelijking is Groningen niet de hoogste. Utrecht zit hoger, en Amsterdam (niet in de tabel) heeft als G4-stad doorgaans ook meer ambtenaren per inwoner. De tekst zegt daarom niet dat Groningen de meeste ambtenaren heeft.
+
 ## Controle tegen het raadsvoorstel Belastingtarieven 2027 en laatste tekstwijzigingen
 
 **Raadsvoorstel Belastingtarieven 2027** (gemeente Groningen, registratienummer 274695-2026, 1 oktober 2026, aangeleverd door de fractie)
