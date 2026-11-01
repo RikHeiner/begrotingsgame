@@ -51,8 +51,56 @@ De storting in de reserve ("Verbeteren financiële positie") is 11,786 in 2027.
 
 **Wat nog openstaat**
 
-- **Bron vacaturestop Amsterdam:** aangevuld met de link van de fractie: Rekenkamer Metropool Amsterdam, rubriek In de media, "Gemeente Amsterdam nam sinds vacaturestop tientallen ambtenaren aan" (https://www.rekenkamer.amsterdam.nl/in-de-media/gemeente-amsterdam-nam-sinds-vacaturestop-tientallen-ambtenaren-aan/). Die staat nu als eerste bron in de voetnoot. De titel bevestigt dat Amsterdam een vacaturestop heeft. De pagina zelf kon niet worden geopend (domein geblokkeerd in deze sessie), dus de datum en het oorspronkelijke medium zijn niet nagekeken. [CONTROLEREN: datum en medium]. Let op: het artikel meldt ook dat Amsterdam ondanks de stop tientallen ambtenaren aannam. Dat kan in het debat terugkomen; overweeg in de tekst een strikte vacaturestop te noemen.
+- **Bron vacaturestop Amsterdam:** de voetnoot noemt nu als eerste bron Het Parool, "Gemeente Amsterdam nam sinds vacaturestop tientallen ambtenaren aan" (https://www.parool.nl/amsterdam/gemeente-amsterdam-nam-sinds-vacaturestop-tientallen-ambtenaren-aan~bea34535/), aangeleverd door de fractie via de mediarubriek van de Rekenkamer Amsterdam. Daarnaast AT5 en NH Nieuws (2.500 voltijdbanen). Het artikel zelf kon in deze sessie niet worden geopend; vul de exacte publicatiedatum in (nu "2026"). Let op: het artikel meldt dat Amsterdam ondanks de stop tientallen ambtenaren aannam. Overweeg in de tekst "een strikte vacaturestop".
 - **Het boekwerk 2027 zelf:** bedragen die uit de begroting 2026 komen (werkprogramma 0,85, wagenpark 0,565/0,858, Route Arbeid+, Campus Camera, internationale solidariteit) blijven het beste nagekeken in het boekwerk.
+
+## Controle tegen het Iv3-bronbestand 2027 (IV3_Econ.Cat.2027_Concept.xlsx)
+
+Het bestand is de Iv3-staat van de primitieve begroting 2027, per taakveld en economische categorie (totaal lasten en baten € 1.613,9 mln). Ik heb de tegenbegroting er op drie manieren tegen gelegd: belastingen exact, personeel per taakveld, en per post of het bedrag binnen het taakveld past. Een Iv3-taakveld is breder dan de posten in de tegenbegroting; die komen uit de tabellen "Waar gaat het geld voornamelijk naar toe". Een één-op-één-gelijkheid is daarom alleen bij de belastingen te verwachten.
+
+**Klopt (x € 1 mln)**
+
+| Onderdeel                                                                                     | Tegenbegroting |                                                                          Iv3 2027 |
+| --------------------------------------------------------------------------------------------- | -------------: | --------------------------------------------------------------------------------: |
+| OZB woningen + niet-woningen (0.61 + 0.62)                                                    |        139,441 |                                                         70,759 + 68,682 = 139,441 |
+| Parkeerbelasting (0.63, leges)                                                                |         27,524 |                                                                            27,524 |
+| Toeristenbelasting (3.4, belastingen)                                                         |          2,998 |                                                                             3,000 |
+| Reclamebelasting + roerende zaakbelasting (0.64, belastingen)                                 |   0,98 + 0,155 |                                                                             1,135 |
+| Gemeentefonds (0.7)                                                                           |        868,652 |                                                                           868,652 |
+| Loonsom ambtenaren (p. 355)                                                                   |          357,9 |          365,6 salarissen; incl. 6,0 bestuur (wethouders, raad) is dat consistent |
+| GGD is een gemeenschappelijke regeling (kettingeffect "pas na 2 jaar")                        |           12,0 | 7.1: 11,1 van 12,8 is een bijdrage aan een gemeenschappelijke regeling. Bevestigd |
+| Regio Groningen-Assen als gemeenschappelijke regeling                                         |            1,1 |                              8.1: bijdrage gemeenschappelijke regeling 1,06. Past |
+| College en raad (0.1 Bestuur)                                                                 |     2,4 + 4,35 |                                                                       10,26. Past |
+| WIJ (6.23 Integraal)                                                                          |           46,3 |                                                                        62,3. Past |
+| Jeugd (6.22, 6.75x, 6.76x, 6.792, 6.82x, 6.92)                                                |          127,7 |                                                                       131,4. Past |
+| Wmo (6.21, 6.60, 6.71x, 6.791, 6.91)                                                          |           70,8 |                                                                        79,2. Past |
+| Inkomensregelingen (6.3): bijstand, armoede, bijzondere bijstand, inkomenstoeslag, schuldhulp |        ca. 242 |                                                                       249,1. Past |
+| Arbeidsparticipatie (6.5): begeleiding naar werk, basisbanen, Werk in Zicht, afspraakbanen    |           48,4 |                                                                        52,8. Past |
+| Overhead (0.4)                                                                                |    134,9 / 3,4 |                  136,5 / 3,36. Kleine afwijking in de lasten (1,6), zie hieronder |
+
+**Twijfels uit de Iv3-controle [CONTROLEREN]**
+
+1. **Parkeren: de basis kan te laag zijn.**
+   - Iv3 boekt naast de parkeerbelasting (0.63, 27,5) nog 16,9 mln parkeerbaten op taakveld 2.2 Parkeren: 11,7 leges, 3,0 huren en 2,2 overig.
+   - De tegenbegroting rekent met 27,5 (parkeerbelasting, waarvan 3,9 vergunningen) plus 8,8 garages = 36,3.
+   - Als de vergunningen bij de 11,7 leges op 2.2 horen en niet in de 27,5 zitten, zijn kortparkeren en de vergunningen samen groter. Dan kost "parkeren 20% goedkoper" meer dan de 7,3 mln in de tabel, in het uiterste geval ongeveer 9 mln (+1,8 mln per jaar).
+   - Nodig: de verdeling van de parkeeropbrengsten uit het raadsvoorstel Belastingtarieven 2027 of de paragraaf lokale heffingen.
+2. **Precariobelasting: 1,866 tegenover 1,643.** Iv3 boekt op 0.64 "pachten" 1,643, de kerngegevens noemen 1,866. Mogelijk staat een deel (terrassen of bouw) op een ander taakveld. Effect op de verlaging van 20%: 0,373 tegenover 0,329, dus klein.
+3. **Overhead in de 15% minder ambtenaren: we tellen te voorzichtig.**
+   - Van de overhead (136,5) is 82,9 salaris en 2,1 inhuur, samen ongeveer 62% personeel.
+   - In het document telt de volledige overheadbesparing (26,3) mee voor de 15%. Ook het deel dat ICT, huisvesting en andere kosten betreft (ongeveer 10 mln) telt nu als "minder ambtenaren".
+   - Telt alleen het personeelsdeel (ongeveer 16,3) mee, dan wordt de rest van de 15% (vacaturestop) ongeveer 30,9 in plaats van 20,9. Het saldo wordt dan vanaf 2030 ongeveer 10 mln per jaar hoger, zonder dubbeltelling.
+   - Voor CDOKE (6,5) is het personeelsdeel niet uit Iv3 af te leiden.
+   - **Beslispunt:** zo laten (voorzichtig) of het personeelsdeel van de overhead gebruiken?
+4. **De vacaturestop is haalbaar.**
+   - Na aftrek van de overhead (82,9) en de uitgezonderde groepen blijft er ruim 200 mln loonsom over om de rest van de 15% (20,9 in 2030) uit te halen. Dat is ongeveer 9 tot 10% in vier jaar, binnen wat natuurlijk verloop (4 tot 7% per jaar) oplevert.
+   - Uitgezonderd zijn boa's en openbare orde (1.2: 8,2 salaris), openbaar groen (5.7: 19,2) en een deel van verkeer en vervoer (2.1: 21,1).
+5. **Afval en riolering.**
+   - De vacaturestop raakt ook afval (7.3: 17,4 salaris) en riolering (7.2: 5,1).
+   - Die worden volledig uit de heffingen betaald. Minder personeel daar verlaagt de afvalstoffen- en rioolheffing (goed voor inwoners), maar verbetert het saldo van de begroting niet.
+   - Overweeg in de tekst te zeggen dat besparingen daar naar lagere heffingen gaan, of die groepen buiten de rekensom te houden. Financieel valt dit binnen de ruimte van punt 4.
+6. **Cultuur.** De posten c1, c2, c3 en c5 (samen 79,9) zijn iets groter dan de Iv3-taakvelden 5.3 tot en met 5.6 (78,5). Waarschijnlijk staat cultureel vastgoed deels op 0.3 of 5.7. Geen gevolg voor de bedragen.
+7. **Externe inhuur.** Iv3 2027 boekt 25,0 mln ingeleend personeel, de projectdata 14,0 (p. 355). Mogelijk een ander begrip (inhuur ten laste van projecten). Een inhuurstop, zoals in Amsterdam, zou extra kunnen opleveren, maar dat staat niet in de cijfers.
 
 ## 0. Vooraf: wat ik wel en niet had
 
