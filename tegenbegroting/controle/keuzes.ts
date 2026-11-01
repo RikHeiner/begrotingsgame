@@ -1,7 +1,63 @@
 import type { Keuzes } from '../../src/engine/types';
+import type { Actiekaart } from '../../src/engine/schema';
 import { laadDataNode } from '../../scripts/lees';
+import { metExtraKaarten } from '../../src/engine/laadData';
 import { parkeerPosten } from '../../src/engine/parkeren';
-export const data = laadDataNode();
+
+const basis = laadDataNode();
+const kaart = (
+  id: string,
+  naam: string,
+  soort: 'opbrengst' | 'uitgave',
+  si: 'S' | 'I',
+  bedrag: number,
+  bron: string,
+  ingroeipad?: number[],
+): Actiekaart => ({
+  id,
+  naam,
+  soort,
+  structureel_of_incidenteel: si,
+  bedrag_mln: bedrag,
+  uitleg: '',
+  meter_effect_punten: {},
+  bron,
+  ...(ingroeipad ? { ingroeipad } : {}),
+});
+// 15% minder ambtenaren (53,692 = 15% van de loonsom 357,948, boekwerk p. 355). De besparingen op de overhead
+// (h1 −20% = 26,3) en op CDOKE (w12 −60% = 6,54) tellen mee voor die 15%; de rest komt uit de vacaturestop.
+const REST_APPARAAT = 53.692 - 26.3 - 6.54;
+export const EXTRA: Actiekaart[] = [
+  kaart(
+    'tb_apparaat_rest',
+    'Vacaturestop en afstoten van taken (rest van de 15%)',
+    'opbrengst',
+    'S',
+    REST_APPARAAT,
+    '15% van de loonsom (p. 355) min overhead en CDOKE',
+    [0.25, 0.5, 0.75, 1],
+  ),
+  // Begroting 2026, intensivering emissieloos wagenpark: 2027 −565, 2028 e.v. −858 (duizend euro)
+  kaart(
+    'tb_wagenpark',
+    "Elektrisch maken van gemeenteauto's uitstellen",
+    'opbrengst',
+    'S',
+    0.858,
+    'Begroting 2026, intensivering 9: 2027 0,565; 2028-2029 0,858',
+    [0.565 / 0.858, 1],
+  ),
+  // Werkprogramma: volgens de begroting 2026 in 2027 0,85 (niet 1,05)
+  kaart(
+    'tb_werkprogramma',
+    'Stoppen met het werkprogramma bijstand',
+    'opbrengst',
+    'I',
+    0.85,
+    'Begroting 2026, intensivering 37: 0,85 in 2027',
+  ),
+];
+export const data = metExtraKaarten(basis, EXTRA);
 const parkeren: Record<string, number> = {};
 for (const p of parkeerPosten(data)) parkeren[p.id] = -20;
 export const fractielijn: Record<string, number> = {
@@ -21,6 +77,7 @@ export const fractielijn: Record<string, number> = {
   v2: 10,
   k1: 5,
 };
+// Overgenomen van Rik; zonder m11 en w4 (dubbel met de 15%) en zonder parkeercontrole (kost netto geld).
 export const rik: Record<string, number> = {
   g7: -40,
   g5: -30,
@@ -41,11 +98,8 @@ export const rik: Record<string, number> = {
   w7: -40,
   w6: -55,
   d6: -100,
-  m11: -40,
   m4: -55,
   o8: -15,
-  w4: -25,
-  m2: -20,
   v3: 10,
   e8: 10,
   e10: 5,
@@ -65,19 +119,16 @@ export const keuzes: Keuzes = {
   belastingen: { t1: -20, t2: -10, t4: -20, t3: -100 },
   parkeren,
   kaarten: [
-    'k_apparaat_15',
-    'p_energiebedrijf',
-    'p_diversiteit_organisatie',
-    'k_minder_bouwregels',
-    'p_emissieloos_wagenpark',
+    'tb_apparaat_rest',
+    'tb_wagenpark',
+    'tb_werkprogramma',
     'p_campus_camera',
     'p_internationale_solidariteit',
     'k_dierenarts',
     'k_tegenprestatie',
     'k_ongedoc',
-    'p_niemeyer',
     'k_smr_onderzoek',
   ],
-  gestopt: ['p_preventiefonds_jeugd', 'p_werkprogramma', 'p_route_arbeid_plus'],
+  gestopt: ['p_route_arbeid_plus'],
   scenario: 'midden',
 };

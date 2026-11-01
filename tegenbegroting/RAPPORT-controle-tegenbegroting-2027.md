@@ -2,6 +2,60 @@
 
 Peildatum: 31 oktober 2026. Dit rapport is intern (niet voor indiening). Bron van waarheid voor de cijfers: het rekenmodel van de Begrotingsgame (`src/engine`, data `data/begroting-2027.json`, scenario _midden_).
 
+## Stand na de laatste verwerkingsronde (1 november 2026)
+
+Op verzoek van de fractie is in deze ronde het volgende verwerkt. De tabellen in (a) tonen de eindstand; de rest van het rapport beschrijft ook de eerdere tussenstappen.
+
+**Eindcijfers (x € 1 mln)**
+
+|                     |   2027 |   2028 |   2029 |   2030 |
+| ------------------- | -----: | -----: | -----: | -----: |
+| Saldo               | 11,436 | 42,133 | 48,402 | 53,410 |
+| waarvan structureel | 13,489 | 42,133 | 48,402 | 53,410 |
+| waarvan incidenteel | −2,053 |      0 |      0 |      0 |
+
+De storting in de reserve ("Verbeteren financiële positie") is 11,436 in 2027.
+
+- **Incidenteel saldo 2027 negatief:** de eenmalige uitgaven (frictiekosten 8,4 en SMR 0,5) zijn hoger dan de eenmalige opbrengsten (6,85). Het tekort van 2,1 wordt gedekt uit het structurele overschot.
+- **Begrotingsregels:** dat mag. Het omgekeerde, incidenteel geld voor structurele uitgaven, mag niet.
+
+**Wijzigingen**
+
+1. **Vacaturestop (nieuw).**
+   - De ambtenarenalinea heet nu "Besparingen op het ambtenarenapparaat 15% en een vacaturestop".
+   - Inhoud: verwijzing naar Amsterdam (vacature- en inhuurstop, 2.500 voltijdbanen) met voetnoot naar AT5 en NH Nieuws; een vacaturestop voor Groningen; uitzondering voor boa's en de mensen die de openbare ruimte onderhouden.
+   - De uitzondering lost ook de eerdere twijfel op dat 15% minder ambtenaren zou wringen met +20% onderhoud en +10% boa's.
+2. **Dubbeltellingen ambtenaren eruit.**
+   - Het totaal blijft 15% van de loonsom = 53,692 (boekwerk p. 355).
+   - Overhead −20% (26,3) en CDOKE −60% (6,54) tellen nu _mee_ voor die 15%. Daarom is de regel "vacaturestop en afstoten van taken" nog 53,692 − 26,3 − 6,54 = **20,852** (25/50/75/100%: 5,213 · 10,426 · 15,639 · 20,852).
+   - Geschrapt omdat ze dubbel waren: ambtenaren mobiliteit −40% (1,32), ambtenaren wonen −25% (1,225) en het bedrag bij minder bouwregels (0,49). Welstandsvrij bouwen blijft als beleid in de tekst, zonder bedrag.
+   - Frictiekosten: 8,403 in plaats van 10,948. Ze ontstaan doordat de overheadbesparing al in 2027 binnenkomt, sneller dan natuurlijk verloop.
+   - De tekst zegt nu niet meer dat de frictie uit de 15% voortkomt.
+   - **Effect:** het saldo daalt structureel met ongeveer 35 mln in 2030. Dat is de dubbeltelling die eruit is.
+   - **Blijft staan:** ambtenaren gebiedsontwikkeling +5% (een investering, geen dubbele besparing). Inhoudelijk wringt dat met de vacaturestop; zie open punten.
+3. **Wachtgeldaanname bij minder wethouders:** blijft staan in de alinea en in de uitgangspunten.
+4. **Fractienamen:** Rik Heiner, Cassandra Hensen, Lisa, Fokke Veenstra. **Van Lisa is de achternaam niet bekend**; nu staat er alleen "Lisa". Cassandra Hensen komt uit de projectdata (citaat in OOG). [CONTROLEREN]
+5. **Twijfels uit d.2 en d.4 verwerkt:**
+   - **Geschrapt:**
+     - preventiefonds jeugd (liep tot en met 2026);
+     - Energiebedrijf, Niemeyer en het plan van aanpak diversiteit (intensiveringen uit 2026); de alinea's over Energiebedrijf en Niemeyer zijn eruit, en de diversiteitsalinea heet nu "Diversiteit en inclusie 85%";
+     - parkeercontrole −20%, omdat die netto geld kostte; alinea en tabelregel eruit.
+   - **Aangepast:**
+     - werkprogramma naar 0,85 (bedrag 2027); de bullet heet nu "Stoppen met extra programma's voor werk" (werkprogramma 0,85 + Route Arbeid+ 0,35 = 1,2 eenmalig);
+     - elektrische gemeenteauto's uitstellen naar 0,565 in 2027 en 0,858 vanaf 2028 (bedragen 2027 en verder uit de begroting 2026);
+     - Oosterhamrikzone: de tekst sluit nu aan op wat in het boekwerk staat ("0,25 mln uit het stedelijk investeringsfonds voor projecten"); de bewering over de busbaan is eruit.
+   - **Ongewijzigd en conservatief gelaten:**
+     - dierenartskosten: alleen 0,05 in 2027 meegeteld, terwijl het boekwerk 0,05 per jaar tot en met 2030 noemt; dat levert eventueel 0,05 per jaar extra op;
+     - Route Arbeid+ (0,35), Campus Camera en internationale solidariteit: niet aangepast, maar nog niet bevestigd in het boekwerk 2027;
+     - parkeertarieven (verdeling over vergunningen en garages): niet te controleren zonder het raadsvoorstel Belastingtarieven 2027.
+
+**Wat nog openstaat**
+
+- **Achternaam van Lisa.**
+- **Bron vacaturestop Amsterdam:** de reorganisatie van 2.500 voltijdbanen staat bij AT5 en NH Nieuws. De "vacature- en inhuurstop (sinds 1 juli, vanaf schaal 10)" kwam ik alleen tegen in minder gezaghebbende bronnen (NieuwRechts, Headliner) en in een ouder Binnenlands Bestuur-bericht zonder jaartal. Open het AT5-artikel en kijk of de vacaturestop daarin staat; anders de zin aanpassen naar "die gemeente schrapt 2.500 voltijdbanen". [CONTROLEREN]
+- **Ambtenaren gebiedsontwikkeling +5%** naast een vacaturestop. Bewust laten staan?
+- **Het boekwerk 2027 zelf:** bedragen die uit de begroting 2026 komen (werkprogramma 0,85, wagenpark 0,565/0,858, Route Arbeid+, Campus Camera, internationale solidariteit) blijven het beste nagekeken in het boekwerk.
+
 ## 0. Vooraf: wat ik wel en niet had
 
 - **Aangeleverd was alleen** `Tegenbegroting_VVD_Groningen_2027.docx`. De map `tegenbegroting/` met het 2026-docx, de xlsx en Rik.pdf/Fokke.pdf/Jasper.pdf/Teun.pdf **ontbrak**. Gevolgen:
@@ -38,16 +92,16 @@ Het bestand `controle/keuzes.ts` bevat de exacte invoer.
 
 ### a.1 Totalen
 
-|                                   | Mijn model (v1) |      Game (v2) |    Verschil |
-| --------------------------------- | --------------: | -------------: | ----------: |
-| Ombuigingen en opbrengsten 2027   |         130,617 |        138,212 |      +7,595 |
-| Uitgaven 2027 (excl. storting)    |          79,142 |        113,485 |     +34,343 |
-| **Saldo 2027 = storting reserve** |      **51,475** |     **24,728** | **−26,747** |
-| waarvan structureel / incidenteel |  51,128 / 0,347 | 23,960 / 0,767 |             |
-| Saldo 2028                        |          65,083 |         60,521 |      −4,562 |
-| Saldo 2029                        |          79,039 |         75,015 |      −4,024 |
-| Saldo 2030                        |          92,995 |         88,262 |      −4,733 |
-| Cumulatief 2027-2030              |         288,592 |        248,526 |     −40,066 |
+|                                   | Mijn model (v1) |       Game (v2) |    Verschil |
+| --------------------------------- | --------------: | --------------: | ----------: |
+| Ombuigingen en opbrengsten 2027   |         130,617 |         121,795 |      −8,822 |
+| Uitgaven 2027 (excl. storting)    |          79,142 |         110,359 |     +31,217 |
+| **Saldo 2027 = storting reserve** |      **51,475** |      **11,436** | **−40,039** |
+| waarvan structureel / incidenteel |  51,128 / 0,347 | 13,489 / −2,053 |             |
+| Saldo 2028                        |          65,083 |          42,133 |     −22,950 |
+| Saldo 2029                        |          79,039 |          48,402 |     −30,637 |
+| Saldo 2030                        |          92,995 |          53,410 |     −39,585 |
+| Cumulatief 2027-2030              |         288,592 |         155,382 |    −133,210 |
 
 De game-saldo's per jaar (S/I) komen tot op de duizend euro overeen met `bereken()`; het script controleert dat (assert).
 
@@ -254,7 +308,7 @@ Alle procentuele posten komen uit de tabellen "Waar gaat het geld voornamelijk n
 - **Losse posten:** loonsom 357,9 mln, 3.681 fte (p. 355; 15% = 53,7); opvang ongedocumenteerden 5,6 incidenteel (p. 122); dierenartskosten 0,05 (p. 298).
 - **Bedragen in de lopende tekst:** WIJ circa 46 mln, inkomenstoeslag 4,2 mln, energiesubsidies 3,3 van 4,3 mln, de inkomsten van de zakelijke dienstverlening hoger dan de kosten, en de gestegen overhead (129,2 in 2026 → 134,9 in 2027, +4,4%). Deze kloppen met de begroting.
 
-### d.2 Twijfels: bedrag komt niet uit de begroting 2027
+### d.2 Twijfels: bedrag komt niet uit de begroting 2027 (verwerkt op 1 november, zie bovenaan)
 
 | #   | Post                                               | In het document             | Twijfel                                                                                                                                                                                              | Voorstel                                                                                                                             |
 | --- | -------------------------------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
@@ -280,7 +334,7 @@ Dit zijn geen begrotingscijfers maar inschattingen van de fractie. Dat is gebrui
 - **Onderzoek SMR:** 0,5 mln (bedrag uit de tegenbegroting 2026).
 - **Alle kettingeffecten:** subsidieafbouw, Wmo-contracten, gemeenschappelijke regelingen, preventie → jeugdzorg/Wmo, bedrijfsafval, parkeren, re-integratie, gemeentefonds en toeristenbelasting. De zakelijke dienstverlening is daar het duidelijkste voorbeeld van: 2,0 mln doorlopende kosten en 1,0 mln vrijvallende overhead zijn aannames.
 
-### d.4 Twijfels: inhoud en dubbeltellingen
+### d.4 Twijfels: inhoud en dubbeltellingen (dubbeltelling en uitzondering openbare ruimte/veiligheid verwerkt op 1 november)
 
 - **Mogelijke dubbeltelling ambtenaren.** "15% minder ambtenaren" rekent over de hele loonsom (357,9 mln). Tegelijk gaan er procenten af van posten die zelf grotendeels personeel zijn:
   - overhead −20% (26,3);
@@ -300,7 +354,7 @@ Dit zijn geen begrotingscijfers maar inschattingen van de fractie. Dat is gebrui
 
 ### d.5 Overige open punten
 
-1. **Fractienamen:** Jasper/Teun (docx en pdf's) of Cassandra/Lisa (opdracht)?
+1. **Fractienamen:** verwerkt (Rik Heiner, Cassandra Hensen, Lisa, Fokke Veenstra); achternaam Lisa ontbreekt nog.
 2. **Rik.pdf, de 2026-docx en je xlsx:** Riks invoer is afgeleid uit v1 en niet nagekeken tegen zijn eigen bestand. Stuur ze mee, dan controleer ik dat alsnog.
 3. **Inkomenstoeslag:** is de zin terecht gelezen als "termijn verlengen van 2 naar 3 jaar"? Controleer ook de tabelcellen met [CONTROLEREN] en het Groningse bedrag (eigen omrekening).
 4. **Voetnoot-URL's:** open ze één keer zelf (ANP, OOG, NOS, Rijksoverheid, wetten.overheid.nl).
