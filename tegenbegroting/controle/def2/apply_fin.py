@@ -23,6 +23,8 @@ def apply_fin(d):
     if ONTTREKKING > 0:
         d.insert_row_after(0, 'Verkoop Glaudé- en Vapianopanden (eenmalig)', 'Geen gemeentegeld voor dierenartskosten',
                            ['Onttrekking algemene reserve (eenmalig, dekking frictiekosten)', fmt(ONTTREKKING), 'I'])
+    # Energiebedrijf: incidentele post uit de begroting 2026 (budgetneutraal), niet in de begroting 2027
+    d.delete_row(0, 'Stoppen met het Energiebedrijf Groningen (eenmalig)')
     totaal = oS[0] + oI_tab[0] + ONTTREKKING
     d.set_row(0, 'Totaal', [None, fmt(totaal), None])
     # controle: bestaande regels moeten gelijk zijn aan de doorrekening
@@ -107,6 +109,10 @@ def apply_fin(d):
 
     # --- lopende tekst ---
     R = d.replace
+    from decimal import Decimal as _D, ROUND_HALF_UP as _H
+    e = lambda x: str(_D(str(x)).quantize(_D('0.1'), rounding=_H)).replace('.', ',')
+    R('Ook stopt de gemeente met de subsidie voor dierenartskosten (0,05 miljoen euro in 2027) en met het Energiebedrijf Groningen: de organisatiekosten van 0,2 miljoen euro in 2027 vervallen.',
+      'Ook stopt de gemeente met de subsidie voor dierenartskosten (0,05 miljoen euro in 2027).')
     R('Verkoop tegen de boekwaarde (77,5 miljoen euro, ontwerpbegroting 2027 p. 247) levert eenmalig ongeveer 38 miljoen euro op. Dat geld storten we in de reserves.',
       'Verkoop tegen de boekwaarde (77,5 miljoen euro, ontwerpbegroting 2027 p. 247) levert eenmalig ongeveer 38 miljoen euro op. '
       'Daarmee lossen we leningen af. Omdat de verkoop tegen de boekwaarde gebeurt, is het geen winst, maar het verbetert wel de '
@@ -129,12 +135,12 @@ def apply_fin(d):
     R('De VVD stelt voor om 12,5% extra budget beschikbaar te stellen', 'De VVD stelt voor om 10% extra budget (7,0 miljoen euro per jaar) beschikbaar te stellen')
     R('Het saldo dat na alle keuzes in 2027 overblijft, 39,1 miljoen euro inclusief de eenmalige opbrengst van de verkoop van WarmteStad, storten we hiervoor. Ook in de jaren daarna storten we het overschot in de reserves; dat is 42,1 miljoen euro in 2030. Over 2027–2030 groeien de reserves zo met 140,8 miljoen euro.',
       'Met de opbrengst van de verkoop van 49% van WarmteStad, ongeveer 38 miljoen euro, lossen we in 2027 leningen af. '
-      'Daarnaast storten we het overschot dat na alle keuzes overblijft in de reserves: 5,3 miljoen euro in 2027, oplopend tot '
-      '45,6 miljoen euro in 2030. Over 2027–2030 groeien de reserves zo met 112,4 miljoen euro.')
+      f'Daarnaast storten we het overschot dat na alle keuzes overblijft in de reserves: {e(sal[0])} miljoen euro in 2027, oplopend tot '
+      f'{e(sal[3])} miljoen euro in 2030. Over 2027–2030 groeien de reserves zo met {e(cum[3])} miljoen euro.')
     R('In 2027 is het overschot 39,1 miljoen euro, inclusief de eenmalige opbrengst van de verkoop van WarmteStad. Ook structureel houden we elk jaar geld over: 1,4 miljoen euro in 2027, oplopend tot 42,1 miljoen euro in 2030. Over 2027–2030 samen groeien de reserves zo met 140,8 miljoen euro.',
       'In 2027 lossen we met de opbrengst van de verkoop van WarmteStad ongeveer 38 miljoen euro aan leningen af. Ook houden we '
-      'dat jaar 5,3 miljoen euro over, waarvan 3,9 miljoen euro structureel. Daarna loopt het overschot op tot 45,6 miljoen euro '
-      'in 2030. Over 2027–2030 samen groeien de reserves zo met 112,4 miljoen euro.')
+      f'dat jaar {e(sal[0])} miljoen euro over, waarvan {e(salS[0])} miljoen euro structureel. Daarna loopt het overschot op tot {e(sal[3])} miljoen euro '
+      f'in 2030. Over 2027–2030 samen groeien de reserves zo met {e(cum[3])} miljoen euro.')
     R('Bron: Ontwerpbegroting 2027 gemeente Groningen; berekeningen VVD Groningen, inclusief kettingeffecten. S = structureel, I = incidenteel (eenmalig). Bedragen x 1 miljoen euro.',
       'Bron: Ontwerpbegroting 2027 gemeente Groningen; berekeningen VVD Groningen, inclusief kettingeffecten. S = structureel, '
       'I = incidenteel (eenmalig). Bedragen x 1 miljoen euro. Het saldo in de meerjarenbegroting is vóór storting in of '

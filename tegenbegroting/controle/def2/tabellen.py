@@ -45,7 +45,6 @@ O = [
  ('Kettingeffect: meer jeugdpreventie, minder jeugdzorg (vanaf 2028)', 'zp_preventie_jeugd', 'S'),
  ('Stoppen met opvang ongedocumenteerden', 'k_ongedoc', 'I'),
  ('Geen gemeentegeld voor dierenartskosten', 'k_dierenarts', 'I'),
- ('Stoppen met het Energiebedrijf Groningen (eenmalig)', 'p_energiebedrijf', 'I'),
 ]
 U = [
  ('Verlaging OZB 10% ten opzichte van 2026', 't1', 'S'),

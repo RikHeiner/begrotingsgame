@@ -10,12 +10,12 @@ Gecontroleerd: `20261111_Tegenbegroting_2027_VVD_Groningen_DEF_1.docx` (aangelev
 
 |                                                | 2027        | 2028   | 2029   | 2030    |
 | ---------------------------------------------- | ----------: | -----: | -----: | ------: |
-| Totaal ombuigingen en opbrengsten              | 124,222     | 93,532 | 104,567| 114,255 |
+| Totaal ombuigingen en opbrengsten              | 124,021     | 93,532 | 104,567| 114,255 |
 | Totaal uitgaven (excl. storting reserve)       | 118,970     | 68,145 | 68,414 | 68,615  |
-| Saldo (= storting in de algemene reserve)      | 5,252       | 25,387 | 36,153 | 45,640  |
+| Saldo (= storting in de algemene reserve)      | 5,051       | 25,387 | 36,153 | 45,640  |
 | waarvan structureel                            | 3,901       | 25,387 | 36,153 | 45,640  |
-| waarvan incidenteel                            | 1,351       | 0      | 0      | 0       |
-| Cumulatief saldo                               | 5,252       | 30,639 | 66,792 | 112,432 |
+| waarvan incidenteel                            | 1,150       | 0      | 0      | 0       |
+| Cumulatief saldo                               | 5,051       | 30,438 | 66,591 | 112,231 |
 
 Ter vergelijking DEF_1: saldo 39,148 · 26,891 · 32,653 · 42,135; cumulatief 140,827. Het verschil komt vooral doordat de opbrengst van WarmteStad (37,975) nu naar aflossing gaat en niet naar de reserve.
 
@@ -46,10 +46,16 @@ Alle tabellen zijn onafhankelijk nagerekend (`verify.py`): elke regel volgt uit 
    - Minder gemeentefonds door minder bijstand: −0,205, −0,479 en −0,684.
    - Cultuur en toeristenbelasting: −0,15 vanaf 2028.
 7. **Teksten aangepast aan de nieuwe cijfers.**
-   - "Verbeteren financiële positie" en "We geven minder geld uit dan er binnenkomt": aflossing 38, overschot 5,3 (waarvan 3,9 structureel) oplopend tot 45,6, en cumulatief 112,4.
+   - "Verbeteren financiële positie" en "We geven minder geld uit dan er binnenkomt": aflossing 38, overschot 5,1 (waarvan 3,9 structureel) oplopend tot 45,6, en cumulatief 112,2.
    - De bronregel zegt nu dat het saldo vóór storting is, en heeft een afrondingsnoot.
-8. **Voorbladen.** 01 Besparingen heeft nu € 124,2 miljoen (was € 122,4) en 04 Financieel overzicht € 112,4 miljoen (was € 140,8). 02 (10% minder OZB) en 03 (111%) zijn ongewijzigd en kloppen.
+8. **Voorbladen.** 01 Besparingen heeft nu € 124,0 miljoen (was € 122,4) en 04 Financieel overzicht € 112,2 miljoen (was € 140,8). 02 (10% minder OZB) en 03 (111%) zijn ongewijzigd en kloppen.
 9. **Opmaak meerjarentabel.** Vier cellen stonden in een afwijkend lettertype (Arial Unicode MS, groter). Ze zijn gelijkgetrokken. Ook bedragen zijn in één notatie gezet ("8,70" werd "8,7"), en "−0,0" is "0,0" geworden.
+
+10. **Energiebedrijf geschrapt (0,201 eenmalig).**
+    - "Stoppen met het Energiebedrijf Groningen" was een eenmalige intensivering uit de begroting 2026 (nr. 7, alleen 2026), gedekt binnen het programma energie en dus budgetneutraal.
+    - In de begroting 2027 staat de post niet. De fractie had hem op 1 november al geschrapt, maar in DEF_1 stond hij weer.
+    - Tabelregel en zinsdeel zijn eruit. Het effect is −0,201 in 2027.
+    - Gevonden door de onafhankelijke financiële controle (agent).
 
 **Opgeschoond**
 
@@ -97,7 +103,7 @@ Alle tabellen zijn onafhankelijk nagerekend (`verify.py`): elke regel volgt uit 
 5. **"WarmteStad … onlangs nog eens 36,5 miljoen euro eigen vermogen in heeft gestoken"**: dit was een voorstel en besluit in oktober 2026. Controleer of de storting al heeft plaatsgevonden.
 6. **Frictiekosten 2,5 ("globale schatting")** tegen 8,4 in het rekenmodel.
    - Een journalist of het college kan dit narekenen.
-   - Het saldo 2027 blijft positief zolang de frictie onder 7,75 blijft (5,252 + 2,5).
+   - Het saldo 2027 blijft positief zolang de frictie onder 7,55 blijft (5,051 + 2,5).
 7. **Milieustraten** ("nu alleen overdag open, op zaterdag tot 16.00 uur"): geen onafhankelijke bron gevonden. Controleer de huidige openingstijden.
 8. **Parkeergarages −10%**: de opbrengstderving (1,998) gaat uit van de verdeling van de parkeeropbrengsten uit de game-data. De garages zijn niet apart in het raadsvoorstel Belastingtarieven 2027 te controleren.
 9. **"Voldoet aan alle gestelde eisen"**: een sterke bewering. Het saldo is elk jaar positief en het structurele saldo is elk jaar positief. Het toezicht door de provincie toetst echter de college-begroting, niet een tegenbegroting.
@@ -109,6 +115,25 @@ Alle tabellen zijn onafhankelijk nagerekend (`verify.py`): elke regel volgt uit 
     - Beide zijn ongewijzigd gelaten.
 13. **Precariobelasting staat in DEF_1 op 10%.** Eerder had de fractie 20% genoemd. Ongewijzigd gelaten, omdat dit de keuze in de aangeleverde versie is.
 14. `Tegenbegroting_fractie_gezamenlijk_v2.xlsx` hoort bij een oudere versie (1 november) en sluit niet aan op DEF_2. Niet meesturen naar de pers.
+15. **Wethouders (0,6):** twee van de acht wethouders is ongeveer 21% van de post "college", want de burgemeester valt er ook onder. Dat is 0,51, niet 0,6.
+    - Wachtgeld (Appa): je kunt er niet echt van afzien, maar inkomsten uit een nieuwe baan worden verrekend. "Wij gaan ervan uit" blijft dus een aanname (op verzoek van de fractie).
+16. **Collegebezuiniging "10%, oplopend tot 21,75 miljoen euro"** is intern niet consistent: 10% van de loonsom (357,9) is 35,8.
+    - Advies: "van 10%" weglaten of nakijken in het boekwerk.
+17. **Afbouw subsidies:** de regel "in 2027 een kwart" is alleen op cultuur toegepast. Dat volgt het rekenmodel.
+    - Ook bij diversiteit (1,19), duurzaamheidseducatie (1,4) en energiesubsidies (0,55) gaat het grotendeels om subsidies.
+    - Wie dezelfde regel toepast, komt op maximaal 2,36 minder in 2027.
+18. **Basisbanen (6,7):** een deel van de deelnemers valt mogelijk terug in de bijstand. Het rekenmodel noemt dit, maar kan het niet in euro's uitdrukken (ca. 1 mln per 100 deelnemers).
+19. **Enexis:** als de 50 mln de volledige stille reserve is en Groningen daar 72,5% van meetelt, is het verschil 11,25 en niet 15,5. De ratio wordt dan ca. 114% in plaats van 111%.
+    - De tekst gaat ervan uit dat 50 mln al de meegetelde waarde is.
+    - Het boekwerk p. 193–197 geeft uitsluitsel. 111% is de voorzichtige uitkomst.
+20. **Overhead werkplaats (0,99 vanaf 2028):** een aanname uit het rekenmodel: 10% overheadvrijval over de lasten van 9,9 mln (o4, werkplaats en bedrijfsafval). De parameter staat in de data als "te onderzoeken".
+21. **Stapeling:** wie frictie 8,4 en de subsidie-afbouw van punt 17 tegelijk toepast, komt in 2027 op ongeveer −3,2.
+    - Dat is incidenteel; het structurele saldo blijft positief.
+    - Een incidenteel tekort mag volgens de begrotingsregels uit de algemene reserve worden gedekt.
+    - Toch staat er "sluitend". Dit is het grootste rekenrisico.
+
+Het volledige rapport van de onafhankelijke financiële controle (op DEF_1) staat in `controle/def2/financieel-controle-DEF_1.md`. De meeste punten daaruit zijn in DEF_2 verwerkt: WarmteStad, de kapotte cel, de 140,8, ongedocumenteerden 2028, de onbenoemde posten in de meerjarentabel en het Energiebedrijf.
+
 
 ## Stand na de laatste verwerkingsronde (1 november 2026)
 

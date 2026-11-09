@@ -40,7 +40,7 @@ export const keuzes = (variant: 'document' | 'model' | 'regels'): Keuzes => ({
   belastingen: { t1: (-25.154 / 139.441) * 100, t2: -10, t4: -(1 - 0.9 / 1.0458) * 100, t3: -100 },
   parkeren,
   kaarten: ['d_apparaat_rest', 'd_camera_invest', 'd_camera_expl', 'd_sport', 'd_fc', 'd_milieustraten', 'd_veegkosten',
-    'p_campus_camera', 'k_ongedoc', 'k_dierenarts', 'p_energiebedrijf',
+    'p_campus_camera', 'k_ongedoc', 'k_dierenarts',
     ...(variant === 'regels' ? ['k_verkoop_warmtestad', 'k_tegenprestatie'] : ['d_ongedoc_2028']),
     ...(variant === 'document' ? ['d_warmtestad_geboekt'] : variant === 'model' ? ['k_verkoop_warmtestad'] : [])],
   scenario: 'midden',
