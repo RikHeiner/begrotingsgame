@@ -1,6 +1,114 @@
-# Controle tegenbegroting 2027 VVD Groningen (v1 → v2)
+# Controle tegenbegroting 2027 VVD Groningen (v1 → v2 → DEF_2)
 
 Peildatum: 31 oktober 2026. Dit rapport is intern (niet voor indiening). Bron van waarheid voor de cijfers: het rekenmodel van de Begrotingsgame (`src/engine`, data `data/begroting-2027.json`, scenario _midden_).
+
+## Eindcontrole definitieve versie (DEF_1 → DEF_2, 9 november 2026)
+
+Gecontroleerd: `20261111_Tegenbegroting_2027_VVD_Groningen_DEF_1.docx` (aangeleverd door de fractie). Resultaat: `20261111_Tegenbegroting_2027_VVD_Groningen_DEF_2.docx` en `.pdf`. Het origineel is ongewijzigd bewaard.
+
+**Eindcijfers DEF_2 (x € 1 mln)**
+
+|                                                | 2027        | 2028   | 2029   | 2030    |
+| ---------------------------------------------- | ----------: | -----: | -----: | ------: |
+| Totaal ombuigingen en opbrengsten              | 124,222     | 93,532 | 104,567| 114,255 |
+| Totaal uitgaven (excl. storting reserve)       | 118,970     | 68,145 | 68,414 | 68,615  |
+| Saldo (= storting in de algemene reserve)      | 5,252       | 25,387 | 36,153 | 45,640  |
+| waarvan structureel                            | 3,901       | 25,387 | 36,153 | 45,640  |
+| waarvan incidenteel                            | 1,351       | 0      | 0      | 0       |
+| Cumulatief saldo                               | 5,252       | 30,639 | 66,792 | 112,432 |
+
+Ter vergelijking DEF_1: saldo 39,148 · 26,891 · 32,653 · 42,135; cumulatief 140,827. Het verschil komt vooral doordat de opbrengst van WarmteStad (37,975) nu naar aflossing gaat en niet naar de reserve.
+
+Alle tabellen zijn onafhankelijk nagerekend (`verify.py`): elke regel volgt uit de doorrekening met het rekenmodel. Elke kolom telt op, en ombuigingen = uitgaven + storting. Totalen zijn sommen van afgeronde regels.
+
+**Financiële wijzigingen (met besluit van de fractie)**
+
+1. **Kapotte cel hersteld.** In de meerjarentabel stond bij "waarvan structureel 2027" de waarde "−0,331,427".
+   - Oorzaak: mijn eigen eerdere bewerking. De oude tekst zat in een verborgen Google-suggestieblok en is niet vervangen.
+   - In een eerder antwoord heb ik bovendien ten onrechte gezegd dat de cel leeg was.
+   - Nu staat er 3,901, de nieuwe uitkomst.
+2. **WarmteStad volgens de begrotingsregels (BBV).**
+   - Verkoop tegen boekwaarde levert geen winst op in de exploitatie.
+   - De opbrengst (37,975, eenmalig) blijft zichtbaar bij de ombuigingen. Bij de uitgaven staat dezelfde 37,975 als "Verbeteren financiële positie: aflossing lening met opbrengst WarmteStad". Per saldo is het effect nul.
+   - Wel nieuw: lagere rentelasten van 0,949 per jaar vanaf 2028 (2,5% over de afgeloste schuld).
+3. **Onderhoud openbare ruimte 10%** (was 12,5%): 7,03 per jaar. In de tekst staat "(7,0 miljoen euro per jaar)".
+4. **Frictiekosten minder ambtenaren: 2,5 eenmalig, "globale schatting".**
+   - Dit is een fractiebesluit; DEF_1 had 4,105.
+   - Let op: het rekenmodel komt op 8,403. Het verschil van 5,9 is een bewuste politieke keuze en een risico (zie open punten).
+5. **Ongedocumenteerden.** De besparing van 5,0 in 2028 is geschrapt: het geld staat in de begroting alleen voor 2026 en 2027.
+   - Nieuw is het kettingeffect "restkosten" van 1,12 per jaar voor nachtopvang en noodhulp.
+   - De tekst is daarop aangepast.
+6. **Kettingeffecten uit het model nu zichtbaar als regels.** Ze waren al in de berekening verwerkt maar stonden niet in de tabel.
+   - Lager parkeertarief trekt meer bezoekers: +1,836.
+   - Tegenprestatie bijstand: 0,824 in 2028 en 1,648 vanaf 2029, met een zin in de tekst.
+   - Overhead werkplaats valt vrij: 0,99 vanaf 2028.
+   - Jeugdpreventie: 0,042 en 0,084.
+   - Minder gemeentefonds door minder bijstand: −0,205, −0,479 en −0,684.
+   - Cultuur en toeristenbelasting: −0,15 vanaf 2028.
+7. **Teksten aangepast aan de nieuwe cijfers.**
+   - "Verbeteren financiële positie" en "We geven minder geld uit dan er binnenkomt": aflossing 38, overschot 5,3 (waarvan 3,9 structureel) oplopend tot 45,6, en cumulatief 112,4.
+   - De bronregel zegt nu dat het saldo vóór storting is, en heeft een afrondingsnoot.
+8. **Voorbladen.** 01 Besparingen heeft nu € 124,2 miljoen (was € 122,4) en 04 Financieel overzicht € 112,4 miljoen (was € 140,8). 02 (10% minder OZB) en 03 (111%) zijn ongewijzigd en kloppen.
+9. **Opmaak meerjarentabel.** Vier cellen stonden in een afwijkend lettertype (Arial Unicode MS, groter). Ze zijn gelijkgetrokken. Ook bedragen zijn in één notatie gezet ("8,70" werd "8,7"), en "−0,0" is "0,0" geworden.
+
+**Opgeschoond**
+
+- Alle Google-metadata is verwijderd: customXML met suggestie-ID's en auteursnaam is verwijderd, en de verborgen suggestieblokken (sdt) zijn uitgepakt.
+- Er stonden geen opmerkingen (comments) in het document. Ook zijn er geen bijgehouden wijzigingen, geen verborgen of witte tekst en geen markeringen. De auteur in de eigenschappen is "VVD Groningen".
+- Inhoudsopgave: 9/9/10/10 voor het blok Investeringen (stond op 10/10/11/11). Alle nummers zijn gecontroleerd op de PDF-weergave.
+
+**Taal (56 tekstcorrecties)** — volledige lijst in `controle/def2/zeker_eigen.json` en `zeker_agent.json`.
+
+- **Spelling:** Tegelijktijd → Tegelijkertijd, Warmtestad → WarmteStad, binnen komt → binnenkomt, tegoed → ten goede, ontwerp-begroting → ontwerpbegroting, beschikbaar → beschikbare, en "Gemeente." → "gemeente." in de kop.
+- **Uitdrukkingen:** "gierend uit de klauwen laten groeien" → "uit de klauwen gelopen", "op de pof te leven van morgen" → "op de pof te leven", "blind tekortkomingen blijft bijstorten" → "tekorten blind blijft aanvullen".
+- **Grammatica en komma's:** onder meer bij "wat", "waardoor" en "dalen"; "iemand die werkt en iemand die niet werkt"; de woordvolgorde in "alsnog miljoenen euro's"; heel mooie; re-integratie- en opleidingstrajecten; boa's en handhavers; vervuld in plaats van opgevuld.
+- **Notatie:** "EUR … miljoen" → "… miljoen euro" (4×); dubbele en voorloopspaties verwijderd.
+- **Inhoudelijk kleine correcties:**
+  - "In de meeste grote gemeenten is dat drie jaar, zoals in Amsterdam en Den Haag" (Rotterdam hanteert 1 jaar, zie b.8).
+  - "Wij nemen deze waarde voor 50% mee" en "reële ratio weerstandsvermogen".
+  - De inleiding van "Investeren in de toekomst": "investeren in innovaties om de dienstverlening slimmer te maken" → "investeren in een snellere en betere dienstverlening aan inwoners". Er staat geen begrotingsregel voor innovaties in de tegenbegroting, wel 5% extra voor KCC en burgerzaken.
+
+**Nagerekend en akkoord**
+
+- Risico's: 25% van het midden van de bandbreedte (34–139 → 86,5) = 21,6, plus 25% van 43,5 = 10,9. Samen 32,5.
+- Enexis: 50 mln = 72,5% van ca. 69 mln. Tegen 50% is dat 34,5, dus 15,5 minder.
+- Ratio 152% → 111% is consistent met deze twee aanpassingen.
+- Toeristenbelasting: 4,65 × 0,9 = 4,19.
+- OZB: 12,8 + 12,4 = 25,2 (tabel 25,154).
+- Ambtenaren: 20% van de loonsom 357,9 = 71,6.
+- Cultuur: in 2027 een kwart (2,9), het kettingeffect is 8,7.
+- Veegkosten: ca. 16 euro per huishouden.
+- Begroting sluitend: het college heeft 0 · 0 · −7,8 · −10,1 (boekwerk p. 353). Met de VVD-keuzes is het saldo elk jaar positief.
+- Parkeren "sinds 2020 verdubbeld": ANP, 20-10-2026 (zie b.3).
+
+**Open punten [CONTROLEREN] — vóór indienen en persbericht bekijken**
+
+1. **Forum** ("krijgt 10,9 miljoen euro subsidie per jaar en draaide in 2025 voor het eerst positief"): niet bevestigd.
+   - Het jaarverslag 2024 van Forum noemt al een positief operationeel resultaat in 2024, maar na de onderhoudsreservering een negatief saldo.
+   - De gemeente verlengde de aanloopperiode tot en met 2026 (OOG, mei 2025).
+   - Bronnen: Forum, jaarverslag 2024 (https://static.forum.nl/cache/jaarverslag-2024.21999/jaarverslag-2024.pdf); OOG, mei 2025 (https://www.oogtv.nl/2025/05/forum-groningen-krijgt-extra-jaar-voor-stabiele-exploitatie-geld-naar-onderhoud-en-upgrade-bieb/).
+   - Een jaarverslag 2025 is niet gevonden, en het bedrag van 10,9 staat niet in de begrotingsdata.
+   - Advies: "voor het eerst" schrappen of de bron (jaarverslag Forum 2025) erbij zoeken.
+2. **"Het college boekt zelf al een formatiereductie van 10% in, oplopend tot 21,75 miljoen euro in 2030"**: niet terug te vinden in de begrotingsdata die ik heb. Laat de paginaverwijzing in het boekwerk nakijken.
+3. **"Nog niet ingevulde bezuiniging op de jeugdzorg, oplopend tot 17,5 miljoen euro in 2030"**: niet terug te vinden.
+   - Raadsstukken noemen een opgave Hervormingsagenda van 15,5 mln vanaf 2027 en een besparingsopgave van 10,8 mln.
+   - Laat de paginaverwijzing nakijken.
+4. **Enexis: "andere gemeenten nemen hun aandelen voor minder of helemaal niet mee"**: geen onafhankelijke bron gevonden. Advies: een concreet voorbeeld noemen of de zin schrappen.
+5. **"WarmteStad … onlangs nog eens 36,5 miljoen euro eigen vermogen in heeft gestoken"**: dit was een voorstel en besluit in oktober 2026. Controleer of de storting al heeft plaatsgevonden.
+6. **Frictiekosten 2,5 ("globale schatting")** tegen 8,4 in het rekenmodel.
+   - Een journalist of het college kan dit narekenen.
+   - Het saldo 2027 blijft positief zolang de frictie onder 7,75 blijft (5,252 + 2,5).
+7. **Milieustraten** ("nu alleen overdag open, op zaterdag tot 16.00 uur"): geen onafhankelijke bron gevonden. Controleer de huidige openingstijden.
+8. **Parkeergarages −10%**: de opbrengstderving (1,998) gaat uit van de verdeling van de parkeeropbrengsten uit de game-data. De garages zijn niet apart in het raadsvoorstel Belastingtarieven 2027 te controleren.
+9. **"Voldoet aan alle gestelde eisen"**: een sterke bewering. Het saldo is elk jaar positief en het structurele saldo is elk jaar positief. Het toezicht door de provincie toetst echter de college-begroting, niet een tegenbegroting.
+10. **"Kettingeffect: subsidies afbouwen kost tijd" (8,7) staat als S** maar geldt alleen in 2027. Daardoor is het structurele saldo 2027 (3,9) conservatief.
+11. **Restkosten ongedocumenteerden (1,12) staan ook in 2028–2030**, terwijl de gemeente daar zelf geen geld meer voor heeft. Dit is conservatief: de tegenbegroting rekent hier mogelijk te veel kosten.
+12. **Inhoudsopgave (optioneel):**
+    - "Een slanke en efficiënte gemeente" is korter dan de kop ("… met focus op haar kerntaken").
+    - "Realistisch begroten" staat niet in de inhoudsopgave.
+    - Beide zijn ongewijzigd gelaten.
+13. **Precariobelasting staat in DEF_1 op 10%.** Eerder had de fractie 20% genoemd. Ongewijzigd gelaten, omdat dit de keuze in de aangeleverde versie is.
+14. `Tegenbegroting_fractie_gezamenlijk_v2.xlsx` hoort bij een oudere versie (1 november) en sluit niet aan op DEF_2. Niet meesturen naar de pers.
 
 ## Stand na de laatste verwerkingsronde (1 november 2026)
 

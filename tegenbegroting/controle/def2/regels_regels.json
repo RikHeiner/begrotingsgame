@@ -1,0 +1,782 @@
+[
+ {
+  "id": "h1",
+  "naam": "Overhead (staf, ICT, huisvesting, HR)",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   26.3,
+   26.3,
+   26.3,
+   26.3
+  ]
+ },
+ {
+  "id": "d_apparaat_rest",
+  "naam": "Ambtenarenapparaat 20%: vacaturestop (rest)",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   9.6874,
+   19.3748,
+   29.0622,
+   38.7496
+  ]
+ },
+ {
+  "id": "k_ongedoc",
+  "naam": "Stoppen met de opvang van ongedocumenteerden",
+  "soort": "I",
+  "ketting": false,
+  "perJaar": [
+   5.6,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "id": "g7",
+  "naam": "Concernposten",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   2.36,
+   2.36,
+   2.36,
+   2.36
+  ]
+ },
+ {
+  "id": "e7",
+  "naam": "Strategisch bezit en grondzaken (panden, kavels en grond)",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   0.84,
+   0.84,
+   0.84,
+   0.84
+  ]
+ },
+ {
+  "id": "g1",
+  "naam": "College van burgemeester en wethouders",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   0.6,
+   0.6,
+   0.6,
+   0.6
+  ]
+ },
+ {
+  "id": "p_energiebedrijf",
+  "naam": "Stoppen met het Energiebedrijf Groningen",
+  "soort": "I",
+  "ketting": false,
+  "perJaar": [
+   0.201,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "id": "p_campus_camera",
+  "naam": "Geen geld voor Campus Camera",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   0.1,
+   0.1,
+   0.1,
+   0.1
+  ]
+ },
+ {
+  "id": "k_dierenarts",
+  "naam": "Geen gemeentegeld voor dierenartskosten",
+  "soort": "I",
+  "ketting": false,
+  "perJaar": [
+   0.05,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "id": "k_verkoop_warmtestad",
+  "naam": "Minderheidsbelang WarmteStad verkopen (49%)",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   0,
+   0.9494,
+   0.9494,
+   0.9494
+  ]
+ },
+ {
+  "id": "k_tegenprestatie",
+  "naam": "Verplichte tegenprestatie in de bijstand",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   0,
+   0.824,
+   1.648,
+   1.648
+  ]
+ },
+ {
+  "id": "s6",
+  "naam": "Basisbanen",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   6.7,
+   6.7,
+   6.7,
+   6.7
+  ]
+ },
+ {
+  "id": "s10",
+  "naam": "Armoede- en minimaregelingen",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   4.17,
+   4.17,
+   4.17,
+   4.17
+  ]
+ },
+ {
+  "id": "s11",
+  "naam": "Bijzondere bijstand",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   1.36,
+   1.36,
+   1.36,
+   1.36
+  ]
+ },
+ {
+  "id": "s12",
+  "naam": "Individuele inkomenstoeslag",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   1.26,
+   1.26,
+   1.26,
+   1.26
+  ]
+ },
+ {
+  "id": "z10",
+  "naam": "Diversiteit en inclusie",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   1.19,
+   1.19,
+   1.19,
+   1.19
+  ]
+ },
+ {
+  "id": "m3",
+  "naam": "Extra geld mobiliteit",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   1.3925,
+   1.3925,
+   1.3925,
+   1.3925
+  ]
+ },
+ {
+  "id": "m4",
+  "naam": "Uitvoering mobiliteitsvisie",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   0.858,
+   0.858,
+   0.858,
+   0.858
+  ]
+ },
+ {
+  "id": "m9",
+  "naam": "Oosterhamrikzone",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   0.25,
+   0.25,
+   0.25,
+   0.25
+  ]
+ },
+ {
+  "id": "c2",
+  "naam": "Culturele instellingen en subsidies",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   11.6,
+   11.6,
+   11.6,
+   11.6
+  ]
+ },
+ {
+  "id": "w12",
+  "naam": "Klimaat- en energiebeleid (CDOKE)",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   6.54,
+   6.54,
+   6.54,
+   6.54
+  ]
+ },
+ {
+  "id": "d6",
+  "naam": "Natuur- en duurzaamheidseducatie",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   1.4,
+   1.4,
+   1.4,
+   1.4
+  ]
+ },
+ {
+  "id": "w7",
+  "naam": "Extra geld energietransitie",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   0.92,
+   0.92,
+   0.92,
+   0.92
+  ]
+ },
+ {
+  "id": "w6",
+  "naam": "Energiesubsidies",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   0.55,
+   0.55,
+   0.55,
+   0.55
+  ]
+ },
+ {
+  "id": "t1",
+  "naam": "Onroerendezaakbelasting (OZB)",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -25.154,
+   -25.154,
+   -25.154,
+   -25.154
+  ]
+ },
+ {
+  "id": "t5:kortparkeren",
+  "naam": "Kortparkeren (uurtarief) en overige parkeerbelasting",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -5.255,
+   -5.255,
+   -5.255,
+   -5.255
+  ]
+ },
+ {
+  "id": "t5:garages",
+  "naam": "Parkeergarages",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -1.998,
+   -1.998,
+   -1.998,
+   -1.998
+  ]
+ },
+ {
+  "id": "t3",
+  "naam": "Reclamebelasting",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -0.98,
+   -0.98,
+   -0.98,
+   -0.98
+  ]
+ },
+ {
+  "id": "t2",
+  "naam": "Toeristenbelasting",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -0.2998,
+   -0.2998,
+   -0.2998,
+   -0.2998
+  ]
+ },
+ {
+  "id": "t4",
+  "naam": "Precariobelasting",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -0.2601,
+   -0.2601,
+   -0.2601,
+   -0.2601
+  ]
+ },
+ {
+  "id": "t5:bewoners_1:tweede",
+  "naam": "Bewonersvergunning (tweede zone)",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -0.1826,
+   -0.1826,
+   -0.1826,
+   -0.1826
+  ]
+ },
+ {
+  "id": "t5:bewoners_1:derde_tm_vijfde",
+  "naam": "Bewonersvergunning (derde tot en met vijfde zone)",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -0.1602,
+   -0.1602,
+   -0.1602,
+   -0.1602
+  ]
+ },
+ {
+  "id": "t5:bezoekers",
+  "naam": "Bezoekersvergunning",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -0.0897,
+   -0.0897,
+   -0.0897,
+   -0.0897
+  ]
+ },
+ {
+  "id": "t5:bewoners_1:binnenstad",
+  "naam": "Bewonersvergunning (binnenstad)",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -0.044,
+   -0.044,
+   -0.044,
+   -0.044
+  ]
+ },
+ {
+  "id": "t5:bedrijven",
+  "naam": "Bedrijfsvergunning",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -0.0436,
+   -0.0436,
+   -0.0436,
+   -0.0436
+  ]
+ },
+ {
+  "id": "t5:bewoners_2:tweede",
+  "naam": "Tweede bewonersvergunning (tweede zone)",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -0.02,
+   -0.02,
+   -0.02,
+   -0.02
+  ]
+ },
+ {
+  "id": "t5:maatschappelijk",
+  "naam": "Maatschappelijke parkeervergunning",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -0.0011,
+   -0.0011,
+   -0.0011,
+   -0.0011
+  ]
+ },
+ {
+  "id": "t5:mantelzorg",
+  "naam": "Mantelzorgvergunning",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -0.0009,
+   -0.0009,
+   -0.0009,
+   -0.0009
+  ]
+ },
+ {
+  "id": "z1",
+  "naam": "Jeugdzorg",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -12.59,
+   -12.59,
+   -12.59,
+   -12.59
+  ]
+ },
+ {
+  "id": "o1",
+  "naam": "Onderhoud straten, groen en speeltuinen",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -7.03,
+   -7.03,
+   -7.03,
+   -7.03
+  ]
+ },
+ {
+  "id": "o4",
+  "naam": "Zakelijke dienstverlening (bedrijfsafval, werkplaats)",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -1.2,
+   -1.2,
+   -1.2,
+   -1.2
+  ]
+ },
+ {
+  "id": "v3",
+  "naam": "Openbare orde en veiligheid",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -0.57,
+   -0.57,
+   -0.57,
+   -0.57
+  ]
+ },
+ {
+  "id": "v2",
+  "naam": "Boa's en toezicht op straat",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -0.37,
+   -0.37,
+   -0.37,
+   -0.37
+  ]
+ },
+ {
+  "id": "v5",
+  "naam": "Jeugd en veiligheid",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -0.28,
+   -0.28,
+   -0.28,
+   -0.28
+  ]
+ },
+ {
+  "id": "o6",
+  "naam": "Leefkwaliteit (groen en spelen in wijken)",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -0.16,
+   -0.16,
+   -0.16,
+   -0.16
+  ]
+ },
+ {
+  "id": "v4",
+  "naam": "Ondermijning (drugs en criminele geldstromen)",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -0.14,
+   -0.14,
+   -0.14,
+   -0.14
+  ]
+ },
+ {
+  "id": "s3",
+  "naam": "Begeleiding naar werk",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -2.38,
+   -2.38,
+   -2.38,
+   -2.38
+  ]
+ },
+ {
+  "id": "b1",
+  "naam": "Burgerzaken (paspoort, rijbewijs)",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -0.295,
+   -0.295,
+   -0.295,
+   -0.295
+  ]
+ },
+ {
+  "id": "b2",
+  "naam": "Klantcontactcentrum",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -0.205,
+   -0.205,
+   -0.205,
+   -0.205
+  ]
+ },
+ {
+  "id": "d_veegkosten",
+  "naam": "Geen extra doorberekening veegkosten",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -2.08,
+   -2.08,
+   -2.08,
+   -2.08
+  ]
+ },
+ {
+  "id": "d_fc",
+  "naam": "Trainingscomplex FC Groningen",
+  "soort": "I",
+  "ketting": false,
+  "perJaar": [
+   -2,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "id": "d_sport",
+  "naam": "Versnellen Masterplan Sportvoorzieningen",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -2,
+   -2,
+   -2,
+   -2
+  ]
+ },
+ {
+  "id": "d_milieustraten",
+  "naam": "Ruimere openingstijden milieustraten",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -0.5,
+   -0.5,
+   -0.5,
+   -0.5
+  ]
+ },
+ {
+  "id": "d_camera_invest",
+  "naam": "Camera kapitaallasten",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -0.2137,
+   -0.209,
+   -0.2042,
+   -0.1995
+  ]
+ },
+ {
+  "id": "d_camera_expl",
+  "naam": "Camera uitkijken en onderhoud",
+  "soort": "S",
+  "ketting": false,
+  "perJaar": [
+   -0.1917,
+   -0.1917,
+   -0.1917,
+   -0.1917
+  ]
+ },
+ {
+  "id": "jur_subsidies",
+  "naam": "Subsidies afbouwen kost tijd",
+  "soort": "S",
+  "ketting": true,
+  "perJaar": [
+   -8.7,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "id": "org_frictie",
+  "naam": "Minder ambtenaren: natuurlijk verloop en frictiekosten",
+  "soort": "I",
+  "ketting": true,
+  "perJaar": [
+   -8.4026,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "id": "kd_bedrijfsafval",
+  "naam": "Bedrijfsafval: commerciële inkomsten",
+  "soort": "S",
+  "ketting": true,
+  "perJaar": [
+   -1.98,
+   -1.98,
+   -1.98,
+   -1.98
+  ]
+ },
+ {
+  "id": "ec_parkeren_elasticiteit",
+  "naam": "Parkeertarief, bezoekers en binnenstad",
+  "soort": "S",
+  "ketting": true,
+  "perJaar": [
+   1.8364,
+   1.8364,
+   1.8364,
+   1.8364
+  ]
+ },
+ {
+  "id": "zp_ongedocumenteerden",
+  "naam": "Stoppen opvang ongedocumenteerden",
+  "soort": "S",
+  "ketting": true,
+  "perJaar": [
+   -1.12,
+   -1.12,
+   -1.12,
+   -1.12
+  ]
+ },
+ {
+  "id": "wia_reintegratie",
+  "naam": "Meer begeleiding naar werk betekent minder bijstand",
+  "soort": "S",
+  "ketting": true,
+  "perJaar": [
+   0.4819,
+   1.1245,
+   1.6065,
+   1.6065
+  ]
+ },
+ {
+  "id": "ec_toerisme_cultuur",
+  "naam": "Cultuur, evenementen, toeristenbelasting en citymarketing",
+  "soort": "S",
+  "ketting": true,
+  "perJaar": [
+   0,
+   -0.1499,
+   -0.1499,
+   -0.1499
+  ]
+ },
+ {
+  "id": "rijk_verdeelmodel",
+  "naam": "Gemeentefonds reageert op het aantal inwoners, woningen en bijstandshuishoudens",
+  "soort": "S",
+  "ketting": true,
+  "perJaar": [
+   0,
+   -0.2051,
+   -0.4785,
+   -0.6835
+  ]
+ },
+ {
+  "id": "zp_preventie_jeugd",
+  "naam": "Preventie en jeugdzorg",
+  "soort": "S",
+  "ketting": true,
+  "perJaar": [
+   0,
+   0.042,
+   0.084,
+   0.084
+  ]
+ },
+ {
+  "id": "kd_werkplaats",
+  "naam": "Zakelijke dienstverlening Stadsbeheer (o.a. werkplaats voor derden)",
+  "soort": "S",
+  "ketting": true,
+  "perJaar": [
+   0,
+   0.99,
+   0.99,
+   0.99
+  ]
+ }
+]

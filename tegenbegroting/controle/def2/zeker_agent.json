@@ -1,0 +1,207 @@
+[
+ {
+  "oud": "Kortom, het vorige college heeft het ambtenarenapparaat gierend uit de klauwen laten groeien, daar moeten we nu in snoeien.",
+  "nieuw": "Kortom, onder het vorige college is het ambtenarenapparaat uit de klauwen gelopen. Daarin moeten we nu snoeien.",
+  "waarom": "gemengde uitdrukking en komma-splitsing"
+ },
+ {
+  "oud": "Door minder panden en kavels aan te houden dalen de kosten",
+  "nieuw": "Door minder panden en kavels aan te houden, dalen de kosten",
+  "waarom": "komma tussen bijzin en hoofdzin"
+ },
+ {
+  "oud": "WarmteStad is sinds 2025 volledig van de gemeente en zij heeft onlangs 36,5 miljoen euro eigen vermogen geïnvesteerd.",
+  "nieuw": "WarmteStad is sinds 2025 volledig van de gemeente, die er onlangs nog eens 36,5 miljoen euro eigen vermogen in heeft gestoken.",
+  "waarom": "verwijzing 'zij' onduidelijk"
+ },
+ {
+  "oud": "De VVD is zich bewust dat dit voorstel geld kost",
+  "nieuw": "De VVD is zich ervan bewust dat dit voorstel geld kost",
+  "waarom": "zich ervan bewust zijn dat"
+ },
+ {
+  "oud": "wordt de armoedeval door de gemeente groter gemaakt wat het onaantrekkelijker maakt om te werken.",
+  "nieuw": "wordt de armoedeval door de gemeente groter gemaakt, wat het onaantrekkelijker maakt om te werken.",
+  "waarom": "komma voor 'wat'"
+ },
+ {
+  "oud": "Mocht iemand liever een andere baan willen dan kan iemand tijdens het uitvoeren van deze baan op zoek gaan naar een nieuwe baan.",
+  "nieuw": "Wie liever ander werk wil, kan vanuit die baan verder zoeken.",
+  "waarom": "kromme zin met drie keer 'baan'"
+ },
+ {
+  "oud": "terwijl het nauwelijks bijdraagt aan structurele verbetering van inkomenssituaties",
+  "nieuw": "terwijl de regeling nauwelijks bijdraagt aan structurele verbetering van inkomenssituaties",
+  "waarom": "verwijzing 'het' onduidelijk"
+ },
+ {
+  "oud": "Hierdoor worden mensen gestimuleerd zich in te zetten voor de maatschappij, dit maakt de uiteindelijke stap naar een baan kleiner.",
+  "nieuw": "Hierdoor worden mensen gestimuleerd zich in te zetten voor de maatschappij; dat maakt de stap naar een baan kleiner.",
+  "waarom": "komma-splitsing"
+ },
+ {
+  "oud": "meer mensen aan het werk waardoor er minder geld nodig is",
+  "nieuw": "meer mensen aan het werk, waardoor er minder geld nodig is",
+  "waarom": "komma voor 'waardoor'"
+ },
+ {
+  "oud": "waarbij de voorkeur uitgaat naar het vooral meer binnenhalen van gelden.",
+  "nieuw": "waarbij de voorkeur uitgaat naar meer eigen inkomsten.",
+  "waarom": "omslachtige formulering"
+ },
+ {
+  "oud": "We gaan verbeteringen aan de infrastructuur zoals het aanpassen van de weg combineren met onderhoud aan de weg.",
+  "nieuw": "We combineren verbeteringen aan de infrastructuur, zoals het aanpassen van een weg, met onderhoud aan die weg.",
+  "waarom": "zinsbouw en komma's"
+ },
+ {
+  "oud": "Ook wil de VVD eerst alleen 30 kilometer per uur waar het echt nodig is, zoals bij scholen.",
+  "nieuw": "Ook wil de VVD een maximumsnelheid van 30 kilometer per uur alleen waar dat echt nodig is, zoals bij scholen.",
+  "waarom": "onvolledige zin"
+ },
+ {
+  "oud": "De VVD draait die extra doorberekening terug. De lastenverzwaring van 2,08 miljoen euro wordt zo door de VVD teruggedraaid.",
+  "nieuw": "De VVD draait die extra doorberekening terug; zo vervalt een lastenverzwaring van 2,08 miljoen euro.",
+  "waarom": "dubbele zin"
+ },
+ {
+  "oud": "We investeren in innovaties om de gemeentelijke dienstverlening slimmer te maken en onderzoeken realistische energieoplossingen.",
+  "nieuw": "We investeren in een snellere en betere dienstverlening aan inwoners en onderzoeken realistische energieoplossingen.",
+  "waarom": "geen begrotingsregel voor innovaties; wel 5% extra voor klantcontactcentrum en burgerzaken"
+ },
+ {
+  "oud": "zodat bewoners niet onnodig lang hoeven te wachten",
+  "nieuw": "zodat inwoners niet onnodig lang hoeven te wachten",
+  "waarom": "consistent 'inwoners'"
+ },
+ {
+  "oud": "door vandaag op de pof te leven van morgen.",
+  "nieuw": "door vandaag op de pof te leven.",
+  "waarom": "uitdrukking"
+ },
+ {
+  "oud": "Omdat de uitgaven structureel lager zijn dan de inkomsten is de begroting in balans",
+  "nieuw": "Omdat de uitgaven structureel lager zijn dan de inkomsten, is de begroting in balans",
+  "waarom": "komma tussen bijzin en hoofdzin"
+ },
+ {
+  "oud": "naar de uitgaven en efficiëntie te vergroten",
+  "nieuw": "naar de uitgaven en de efficiëntie te vergroten",
+  "waarom": "lidwoord: efficiëntie hoort niet bij 'kijken naar'",
+  "aantal": 1
+ },
+ {
+  "oud": "nu er minder ambtenaren zijn en minder ondersteuning op communicatie en beleid",
+  "nieuw": "nu er minder ambtenaren zijn, en minder ondersteuning bij communicatie en beleid",
+  "waarom": "komma en voorzetsel",
+  "aantal": 1
+ },
+ {
+  "oud": "worden niet meer opgevuld",
+  "nieuw": "worden niet meer vervuld",
+  "waarom": "vacatures worden vervuld",
+  "aantal": 1
+ },
+ {
+  "oud": "boa’s en handhaving, en de mensen",
+  "nieuw": "boa’s en handhavers, en de mensen",
+  "waarom": "personen worden vervangen, geen activiteit",
+  "aantal": 1
+ },
+ {
+  "oud": "Op deze manier geven zij zelf ook het goede voorbeeld.",
+  "nieuw": "Zo geven de wethouders zelf ook het goede voorbeeld.",
+  "waarom": "verwijzing 'zij' (het college is enkelvoud)",
+  "aantal": 1
+ },
+ {
+  "oud": "Dit is geen gemeentelijke kerntaak en oneerlijke concurrentie",
+  "nieuw": "Dit is geen gemeentelijke kerntaak en bovendien oneerlijke concurrentie",
+  "waarom": "'geen' sloeg ook op 'oneerlijke concurrentie'",
+  "aantal": 1
+ },
+ {
+  "oud": "iemand die wel werkt en niet werkt",
+  "nieuw": "iemand die werkt en iemand die niet werkt",
+  "waarom": "onvolledige vergelijking",
+  "aantal": 2
+ },
+ {
+  "oud": "tal van minimaregelingen waardoor",
+  "nieuw": "tal van minimaregelingen, waardoor",
+  "waarom": "komma voor uitbreidende bijzin",
+  "aantal": 1
+ },
+ {
+  "oud": "effectieve re-integratie en opleidingstrajecten",
+  "nieuw": "effectieve re-integratie- en opleidingstrajecten",
+  "waarom": "weglatingsstreepje",
+  "aantal": 1
+ },
+ {
+  "oud": "om de toekenning strikter te hanteren",
+  "nieuw": "om de toekenningscriteria strikter te hanteren",
+  "waarom": "je hanteert criteria, geen toekenning",
+  "aantal": 1
+ },
+ {
+  "oud": "miljoenen euro’s uitgeven aan alsnog de opvang",
+  "nieuw": "alsnog miljoenen euro’s uitgeven aan de opvang",
+  "waarom": "woordvolgorde",
+  "aantal": 1
+ },
+ {
+  "oud": "subsidies hele mooie dingen",
+  "nieuw": "subsidies heel mooie dingen",
+  "waarom": "heel (bijwoord) wordt niet verbogen",
+  "aantal": 1
+ },
+ {
+  "oud": " Voor de VVD is het verlagen van de lasten",
+  "nieuw": "Voor de VVD is het verlagen van de lasten",
+  "waarom": "spatie aan het begin van de alinea",
+  "aantal": 1
+ },
+ {
+  "oud": "zijn de fundamenten van een prettige gemeente, de kerntaak van de overheid.",
+  "nieuw": "zijn kerntaken van de overheid en de fundamenten van een prettige gemeente.",
+  "waarom": "bijstelling bij twee onderwerpen",
+  "aantal": 1
+ },
+ {
+  "oud": "graffiti en verkeersovertreders.",
+  "nieuw": "graffiti en verkeersovertredingen.",
+  "waarom": "overlast is geen persoon",
+  "aantal": 1
+ },
+ {
+  "oud": "moet de gemeente hier niet alleen voor opdraaien",
+  "nieuw": "moet de gemeente hier niet in haar eentje voor opdraaien",
+  "waarom": "dubbelzinnig 'niet alleen'",
+  "aantal": 1
+ },
+ {
+  "oud": "De financiële positie van de gemeente staat er niet goed voor.",
+  "nieuw": "De gemeente staat er financieel niet goed voor.",
+  "waarom": "twee uitdrukkingen door elkaar",
+  "aantal": 1
+ },
+ {
+  "oud": "zodat onze financiële positie en weerbaarheid zal verbeteren",
+  "nieuw": "zodat onze financiële positie en onze weerbaarheid verbeteren",
+  "waarom": "congruentie",
+  "aantal": 1
+ },
+ {
+  "oud": "Ook andere gemeenten nemen deze aandelen Enexis niet voor 72,5% mee zoals Groningen dat doet, maar voor minder of zelfs helemaal niet.",
+  "nieuw": "Andere gemeenten nemen hun Enexis-aandelen niet, zoals Groningen, voor 72,5% mee, maar voor minder of zelfs helemaal niet.",
+  "waarom": "zinsbouw; bewering zelf blijft [CONTROLEREN]",
+  "aantal": 1
+ },
+ {
+  "oud": "weerstandsvermogen fors.  De VVD",
+  "nieuw": "weerstandsvermogen fors. De VVD",
+  "waarom": "dubbele spatie",
+  "aantal": 1
+ }
+]

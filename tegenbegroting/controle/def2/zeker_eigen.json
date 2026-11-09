@@ -1,0 +1,21 @@
+[
+ {"oud": "Tegelijktijd profiteert", "nieuw": "Tegelijkertijd profiteert", "waarom": "spelfout"},
+ {"oud": "Dit dwingt Warmtestad om", "nieuw": "Dit dwingt WarmteStad om", "waarom": "schrijfwijze naam"},
+ {"oud": "blind tekortkomingen blijft bijstorten", "nieuw": "tekorten blind blijft aanvullen", "waarom": "woordkeus: tekortkomingen = gebreken"},
+ {"oud": "De concernposten is een vage post met veel geld.", "nieuw": "De post concernposten is een vage post met veel geld.", "waarom": "congruentie"},
+ {"oud": "geld gereserveerd voor onze tegenbegroting", "nieuw": "geld gereserveerd in onze tegenbegroting", "waarom": "voorzetsel"},
+ {"oud": "Gemeenten bepalen zelf na hoeveel jaar een laag inkomen als langdurig geldt, gemiddeld is dit in Nederland 3 jaar (Amsterdam, Den Haag, Rotterdam).", "nieuw": "Gemeenten bepalen zelf na hoeveel jaar een laag inkomen als langdurig geldt. In de meeste grote gemeenten is dat drie jaar, zoals in Amsterdam en Den Haag.", "waarom": "feitelijk onjuist: Rotterdam hanteert 1 jaar; 'gemiddeld in Nederland' is niet onderbouwd"},
+ {"oud": " Een financieel gezonde Gemeente.", "nieuw": " Een financieel gezonde gemeente.", "waarom": "hoofdletter, gelijk aan inhoudsopgave en voorblad"},
+ {"oud": "We geven minder geld uit dan er binnen komt.", "nieuw": "We geven minder geld uit dan er binnenkomt.", "waarom": "aaneenschrijving"},
+ {"oud": "Het overschot komt tegoed aan de algemene reserves", "nieuw": "Het overschot komt ten goede aan de algemene reserve", "waarom": "spelfout (ten goede) en de algemene reserve is enkelvoud"},
+ {"oud": "In de huidige ontwerp-begroting", "nieuw": "In de huidige ontwerpbegroting", "waarom": "aaneenschrijving"},
+ {"oud": "Een groot deel van het reserve waarmee", "nieuw": "Een groot deel van de weerstandscapaciteit waarmee", "waarom": "lidwoord en begrip: Enexis-aandelen tellen mee in de weerstandscapaciteit"},
+ {"oud": "daalt het beschikbaar weerstandsvermogen", "nieuw": "daalt het beschikbare weerstandsvermogen", "waarom": "buigings-e"},
+ {"oud": "met een reëel weerstandsvermogen ratio van 111%", "nieuw": "met een reële ratio weerstandsvermogen van 111%", "waarom": "woordvolgorde/samenstelling"},
+ {"oud": "toekomstbestendig te maken neemt de VVD", "nieuw": "toekomstbestendig te maken, neemt de VVD", "waarom": "komma tussen bijzin en hoofdzin"},
+ {"oud": "het afgelopen college", "nieuw": "het vorige college", "waarom": "duidelijker: sinds juni 2026 zit er een nieuw college"},
+ {"oud": "deze risico’s worden voor 25% meegenomen. (bandbreedte EUR 34 - 139 miljoen).", "nieuw": "deze risico’s worden voor 25% meegenomen (bandbreedte 34 tot 139 miljoen euro).", "waarom": "interpunctie en notatie euro gelijk aan rest van het document"},
+ {"oud": "risico Gemeentefonds van EUR 43,5 miljoen", "nieuw": "risico Gemeentefonds van 43,5 miljoen euro", "waarom": "notatie"},
+ {"oud": "nemen de totale risico’s met EUR 32,5 miljoen toe", "nieuw": "nemen de totale risico’s met 32,5 miljoen euro toe", "waarom": "notatie"},
+ {"oud": "weerstandsvermogen met EUR 15,5 miljoen", "nieuw": "weerstandsvermogen met 15,5 miljoen euro", "waarom": "notatie"}
+]
