@@ -194,8 +194,8 @@
  },
  {
   "oud": "Ook andere gemeenten nemen deze aandelen Enexis niet voor 72,5% mee zoals Groningen dat doet, maar voor minder of zelfs helemaal niet.",
-  "nieuw": "Andere gemeenten nemen hun Enexis-aandelen niet, zoals Groningen, voor 72,5% mee, maar voor minder of zelfs helemaal niet.",
-  "waarom": "zinsbouw; bewering zelf blijft [CONTROLEREN]",
+  "nieuw": "Groningen telt deze aandelen nu voor 72,5% mee.",
+  "waarom": "bewering over andere gemeenten geschrapt (geen bron); fractiebesluit 9-11",
   "aantal": 1
  },
  {
@@ -203,5 +203,20 @@
   "nieuw": "weerstandsvermogen fors. De VVD",
   "waarom": "dubbele spatie",
   "aantal": 1
+ },
+ {
+  "oud": "Het Forum krijgt 10,9 miljoen euro subsidie per jaar en draaide in 2025 voor het eerst positief: tijd dat het verder op eigen benen staat.",
+  "nieuw": "Het Forum krijgt 10,9 miljoen euro subsidie per jaar: tijd dat het verder op eigen benen staat.",
+  "waarom": "'voor het eerst positief in 2025' niet bevestigd; fractiebesluit 9-11"
+ },
+ {
+  "oud": "Het college boekt zelf al een formatiereductie van 10% in, oplopend tot 21,75 miljoen euro in 2030.",
+  "nieuw": "Het college boekt zelf al een formatiereductie in, oplopend tot 21,75 miljoen euro in 2030.",
+  "waarom": "'10%' rijmt niet met 21,75 (10% van de loonsom is 35,8); fractiebesluit 9-11"
+ },
+ {
+  "oud": "is de begroting in balans, voldoet aan alle gestelde eisen en op termijn zal het weerstandsvermogen verder groeien.",
+  "nieuw": "is de begroting in balans en groeit het weerstandsvermogen op termijn verder.",
+  "waarom": "'voldoet aan alle gestelde eisen' te stellig; fractiebesluit 9-11"
  }
 ]

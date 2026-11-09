@@ -63,7 +63,7 @@ Alle tabellen zijn onafhankelijk nagerekend (`verify.py`): elke regel volgt uit 
 - Er stonden geen opmerkingen (comments) in het document. Ook zijn er geen bijgehouden wijzigingen, geen verborgen of witte tekst en geen markeringen. De auteur in de eigenschappen is "VVD Groningen".
 - Inhoudsopgave: 9/9/10/10 voor het blok Investeringen (stond op 10/10/11/11). Alle nummers zijn gecontroleerd op de PDF-weergave.
 
-**Taal (56 tekstcorrecties)** — volledige lijst in `controle/def2/zeker_eigen.json` en `zeker_agent.json`.
+**Taal en tekst (59 correcties)** — volledige lijst in `controle/def2/zeker_eigen.json` en `zeker_agent.json`.
 
 - **Spelling:** Tegelijktijd → Tegelijkertijd, Warmtestad → WarmteStad, binnen komt → binnenkomt, tegoed → ten goede, ontwerp-begroting → ontwerpbegroting, beschikbaar → beschikbare, en "Gemeente." → "gemeente." in de kop.
 - **Uitdrukkingen:** "gierend uit de klauwen laten groeien" → "uit de klauwen gelopen", "op de pof te leven van morgen" → "op de pof te leven", "blind tekortkomingen blijft bijstorten" → "tekorten blind blijft aanvullen".
@@ -89,7 +89,7 @@ Alle tabellen zijn onafhankelijk nagerekend (`verify.py`): elke regel volgt uit 
 
 **Open punten [CONTROLEREN] — vóór indienen en persbericht bekijken**
 
-1. **Forum** ("krijgt 10,9 miljoen euro subsidie per jaar en draaide in 2025 voor het eerst positief"): niet bevestigd.
+1. **Forum** ("krijgt 10,9 miljoen euro subsidie per jaar en draaide in 2025 voor het eerst positief"): niet bevestigd. **Verwerkt (9-11, fractiebesluit):** "en draaide in 2025 voor het eerst positief" is geschrapt. De 10,9 staat niet in de begrotingsdata en blijft [CONTROLEREN].
    - Het jaarverslag 2024 van Forum noemt al een positief operationeel resultaat in 2024, maar na de onderhoudsreservering een negatief saldo.
    - De gemeente verlengde de aanloopperiode tot en met 2026 (OOG, mei 2025).
    - Bronnen: Forum, jaarverslag 2024 (https://static.forum.nl/cache/jaarverslag-2024.21999/jaarverslag-2024.pdf); OOG, mei 2025 (https://www.oogtv.nl/2025/05/forum-groningen-krijgt-extra-jaar-voor-stabiele-exploitatie-geld-naar-onderhoud-en-upgrade-bieb/).
@@ -99,14 +99,14 @@ Alle tabellen zijn onafhankelijk nagerekend (`verify.py`): elke regel volgt uit 
 3. **"Nog niet ingevulde bezuiniging op de jeugdzorg, oplopend tot 17,5 miljoen euro in 2030"**: niet terug te vinden.
    - Raadsstukken noemen een opgave Hervormingsagenda van 15,5 mln vanaf 2027 en een besparingsopgave van 10,8 mln.
    - Laat de paginaverwijzing nakijken.
-4. **Enexis: "andere gemeenten nemen hun aandelen voor minder of helemaal niet mee"**: geen onafhankelijke bron gevonden. Advies: een concreet voorbeeld noemen of de zin schrappen.
+4. **Enexis: "andere gemeenten nemen hun aandelen voor minder of helemaal niet mee"**: geen onafhankelijke bron gevonden. **Verwerkt (9-11):** de zin is vervangen door "Groningen telt deze aandelen nu voor 72,5% mee."
 5. **"WarmteStad … onlangs nog eens 36,5 miljoen euro eigen vermogen in heeft gestoken"**: dit was een voorstel en besluit in oktober 2026. Controleer of de storting al heeft plaatsgevonden.
 6. **Frictiekosten 2,5 ("globale schatting")** tegen 8,4 in het rekenmodel.
    - Een journalist of het college kan dit narekenen.
    - Het saldo 2027 blijft positief zolang de frictie onder 7,55 blijft (5,051 + 2,5).
 7. **Milieustraten** ("nu alleen overdag open, op zaterdag tot 16.00 uur"): geen onafhankelijke bron gevonden. Controleer de huidige openingstijden.
 8. **Parkeergarages −10%**: de opbrengstderving (1,998) gaat uit van de verdeling van de parkeeropbrengsten uit de game-data. De garages zijn niet apart in het raadsvoorstel Belastingtarieven 2027 te controleren.
-9. **"Voldoet aan alle gestelde eisen"**: een sterke bewering. Het saldo is elk jaar positief en het structurele saldo is elk jaar positief. Het toezicht door de provincie toetst echter de college-begroting, niet een tegenbegroting.
+9. **"Voldoet aan alle gestelde eisen"**: **verwerkt (9-11):** geschrapt. De zin luidt nu: "…is de begroting in balans en groeit het weerstandsvermogen op termijn verder." Oorspronkelijke toelichting: een sterke bewering. Het saldo is elk jaar positief en het structurele saldo is elk jaar positief. Het toezicht door de provincie toetst echter de college-begroting, niet een tegenbegroting.
 10. **"Kettingeffect: subsidies afbouwen kost tijd" (8,7) staat als S** maar geldt alleen in 2027. Daardoor is het structurele saldo 2027 (3,9) conservatief.
 11. **Restkosten ongedocumenteerden (1,12) staan ook in 2028–2030**, terwijl de gemeente daar zelf geen geld meer voor heeft. Dit is conservatief: de tegenbegroting rekent hier mogelijk te veel kosten.
 12. **Inhoudsopgave (optioneel):**
@@ -115,10 +115,10 @@ Alle tabellen zijn onafhankelijk nagerekend (`verify.py`): elke regel volgt uit 
     - Beide zijn ongewijzigd gelaten.
 13. **Precariobelasting staat in DEF_1 op 10%.** Eerder had de fractie 20% genoemd. Ongewijzigd gelaten, omdat dit de keuze in de aangeleverde versie is.
 14. `Tegenbegroting_fractie_gezamenlijk_v2.xlsx` hoort bij een oudere versie (1 november) en sluit niet aan op DEF_2. Niet meesturen naar de pers.
-15. **Wethouders (0,6):** twee van de acht wethouders is ongeveer 21% van de post "college", want de burgemeester valt er ook onder. Dat is 0,51, niet 0,6.
+15. **Wethouders (0,6), fractiebesluit 9-11: 0,6 blijft staan.** twee van de acht wethouders is ongeveer 21% van de post "college", want de burgemeester valt er ook onder. Dat is 0,51, niet 0,6.
     - Wachtgeld (Appa): je kunt er niet echt van afzien, maar inkomsten uit een nieuwe baan worden verrekend. "Wij gaan ervan uit" blijft dus een aanname (op verzoek van de fractie).
 16. **Collegebezuiniging "10%, oplopend tot 21,75 miljoen euro"** is intern niet consistent: 10% van de loonsom (357,9) is 35,8.
-    - Advies: "van 10%" weglaten of nakijken in het boekwerk.
+    - **Verwerkt (9-11):** "van 10%" is weggelaten. Het bedrag van 21,75 blijft [CONTROLEREN] (zie punt 2).
 17. **Afbouw subsidies:** de regel "in 2027 een kwart" is alleen op cultuur toegepast. Dat volgt het rekenmodel.
     - Ook bij diversiteit (1,19), duurzaamheidseducatie (1,4) en energiesubsidies (0,55) gaat het grotendeels om subsidies.
     - Wie dezelfde regel toepast, komt op maximaal 2,36 minder in 2027.
