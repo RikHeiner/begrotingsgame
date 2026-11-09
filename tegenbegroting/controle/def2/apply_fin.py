@@ -107,6 +107,34 @@ def apply_fin(d):
                     r.insert(0, copy.deepcopy(ref))
                     d.log.append(('opmaak meerjarentabel gelijkgetrokken', ''.join(t.text or '' for t in r.iter(_W + 't')), 1))
 
+    # --- toelichting onder de meerjarentabel: waarom de kettingeffecten per jaar verschillen ---
+    import copy as _cp
+    from decimal import Decimal as _D2, ROUND_HALF_UP as _H2
+    e1 = lambda x: str(_D2(str(abs(x))).quantize(_D2('0.1'), rounding=_H2)).replace('.', ',')
+    werk = val['Kettingeffect: meer begeleiding naar werk, minder bijstand']['vals']
+    gf = val['Kettingeffect: minder gemeentefonds door minder bijstand (vanaf 2028)']['vals']
+    subs = val['Kettingeffect: subsidies afbouwen kost tijd']['vals']
+    fr = val['Frictiekosten minder ambtenaren (eenmalig, globale schatting)']['vals']
+    assert werk[2] == werk[3] and werk[1] < werk[2] and gf[1] < gf[2] < gf[3]
+    noot = (f'Toelichting kettingeffecten: in 2027 drukken de geleidelijke afbouw van subsidies ({e1(subs[0])} miljoen euro) en de '
+            f'eenmalige frictiekosten ({e1(fr[0])} miljoen euro) op het saldo. Daarna lopen de effecten per jaar iets uiteen, omdat ze '
+            f'ingroeien. Doordat meer mensen aan het werk gaan, dalen de uitgaven aan bijstand; die besparing loopt op tot {e1(werk[2])} miljoen euro in 2029. '
+            f'De bijdrage uit het gemeentefonds daalt een jaar later mee: met {e1(gf[1])}, {e1(gf[2])} en {e1(gf[3])} miljoen euro in 2028, 2029 en 2030. '
+            f'Daardoor valt 2029 tijdelijk iets gunstiger uit dan 2028 en 2030.')
+    bron = [p for p in d.paragraphs() if para_text(p).startswith('Bron: Ontwerpbegroting')][0]
+    np_ = _cp.deepcopy(bron)
+    for el in np_.iter():
+        for a in list(el.attrib):
+            if a.endswith('}paraId') or a.endswith('}textId'):
+                del el.attrib[a]
+    ts = list(np_.iter(W + 't'))
+    ts[0].text = noot
+    ts[0].set('{http://www.w3.org/XML/1998/namespace}space', 'preserve')
+    for t in ts[1:]:
+        t.text = ''
+    list(d.root.iter(W + 'tbl'))[2].addnext(np_)
+    d.log.append(('toelichting kettingeffecten onder meerjarentabel', noot, 1))
+
     # --- lopende tekst ---
     R = d.replace
     from decimal import Decimal as _D, ROUND_HALF_UP as _H

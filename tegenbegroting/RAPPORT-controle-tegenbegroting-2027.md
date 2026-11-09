@@ -57,6 +57,12 @@ Alle tabellen zijn onafhankelijk nagerekend (`verify.py`): elke regel volgt uit 
     - Tabelregel en zinsdeel zijn eruit. Het effect is −0,201 in 2027.
     - Gevonden door de onafhankelijke financiële controle (agent).
 
+11. **Toelichting kettingeffecten onder de meerjarentabel (9-11, op verzoek van de fractie).**
+    - De regel "waarvan kettingeffecten en frictiekosten" (−11,982 · 0,538 · 0,788 · 0,583) heeft nu een toelichting.
+    - 2027 is negatief door de afbouw van subsidies (8,7) en de frictiekosten (2,5).
+    - Dat 2029 hoger uitkomt dan 2028 en 2030, komt doordat de besparing op de bijstand in 2029 haar eindniveau haalt (1,607). De lagere bijdrage uit het gemeentefonds volgt een jaar later (0,205 · 0,479 · 0,684, telkens 42,6% van de besparing van het jaar ervoor).
+    - Geen rekenfout: de cijfers zijn ongewijzigd.
+
 **Opgeschoond**
 
 - Alle Google-metadata is verwijderd: customXML met suggestie-ID's en auteursnaam is verwijderd, en de verborgen suggestieblokken (sdt) zijn uitgepakt.
